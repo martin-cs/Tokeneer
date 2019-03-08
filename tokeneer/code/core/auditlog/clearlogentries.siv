@@ -1,0 +1,330 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:09  SIMPLIFIED 05-SEP-2011, 15:38:46
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure AuditLog.ClearLogEntries
+
+
+
+
+For path(s) from start to assertion of line 1685:
+
+procedure_clearlogentries_1.
+*** true .          /* all conclusions proved */
+
+
+For path(s) from assertion of line 1691 to assertion of line 1685:
+
+procedure_clearlogentries_2.
+H1:    element(logfilesstatus, [element(fld_list(usedlogfiles), [fld_head(
+          usedlogfiles)])]) = archived .
+H2:    for_all(i___1 : integer, 1 <= i___1 and i___1 <= 50 -> 0 <= element(
+          user, [i___1]) and element(user, [i___1]) <= 255) .
+H3:    alarmtypes__alarming <= auditalarm .
+H4:    auditalarm <= alarmtypes__silent .
+H5:    (fld_length(usedlogfiles) - 1) * 1024 + element(logfileentries, [
+          currentlogfile]) <= 17408 .
+H6:    for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> free <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= used)
+           .
+H7:    for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> 0 <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 1024)
+           .
+H8:    currentlogfile >= 1 .
+H9:    currentlogfile <= 17 .
+H10:   fld_length(usedlogfiles) <= 17 .
+H11:   fld_lasti(usedlogfiles) >= 1 .
+H12:   fld_lasti(usedlogfiles) <= 17 .
+H13:   fld_head(usedlogfiles) >= 1 .
+H14:   fld_head(usedlogfiles) <= 17 .
+H15:   for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> 1 <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= 17) .
+H16:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 1024 + element(
+          logfileentries~, [currentlogfile~]) .
+H17:   element(fld_list(usedlogfiles), [fld_head(usedlogfiles)]) >= 1 .
+H18:   element(fld_list(usedlogfiles), [fld_head(usedlogfiles)]) <= 17 .
+H19:   for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> free <= element(
+          logfilesstatus__1, [i___1]) and element(logfilesstatus__1, [i___1]) 
+          <= used) .
+H20:   for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> 0 <= element(
+          logfileentries__1, [i___1]) and element(logfileentries__1, [i___1]) 
+          <= 1024) .
+H21:   nextlistindex(fld_head(usedlogfiles)) >= 1 .
+H22:   nextlistindex(fld_head(usedlogfiles)) <= 17 .
+H23:   (fld_length(usedlogfiles) - 1) * 1024 + element(logfileentries, [
+          currentlogfile]) >= 1024 .
+H24:   fld_length(usedlogfiles) > 2 .
+H25:   integer__size >= 0 .
+H26:   character__size >= 0 .
+H27:   positive__size >= 0 .
+H28:   audittypes__elementt__size >= 0 .
+H29:   audittypes__severityt__size >= 0 .
+H30:   audittypes__usertexti__size >= 0 .
+H31:   alarmtypes__statust__size >= 0 .
+H32:   logfilecountt__size >= 0 .
+H33:   logfilecountt__base__first <= logfilecountt__base__last .
+H34:   logfileindext__size >= 0 .
+H35:   logfileindext__base__first <= logfileindext__base__last .
+H36:   filestatust__size >= 0 .
+H37:   logfilelistt__size >= 0 .
+H38:   logentrycountt__size >= 0 .
+H39:   logentrycountt__base__first <= logentrycountt__base__last .
+H40:   fileentrycountt__size >= 0 .
+H41:   fileentrycountt__base__first <= fileentrycountt__base__last .
+H42:   logfilecountt__base__first <= 0 .
+H43:   logfilecountt__base__last >= 17 .
+H44:   logfileindext__base__first <= 1 .
+H45:   logfileindext__base__last >= 17 .
+H46:   logentrycountt__base__first <= 0 .
+H47:   logentrycountt__base__last >= 17408 .
+H48:   fileentrycountt__base__first <= 0 .
+H49:   fileentrycountt__base__last >= 1024 .
+       ->
+C1:    element(logfileentries, [currentlogfile]) - element(logfileentries__1, [
+          currentlogfile]) = 0 .
+
+
+For path(s) from assertion of line 1685 to run-time check associated with 
+          statement of line 1689:
+
+procedure_clearlogentries_3.
+*** true .          /* all conclusions proved */
+
+
+For path(s) from assertion of line 1685 to assertion of line 1691:
+
+procedure_clearlogentries_4.
+*** true .          /* all conclusions proved */
+
+
+For path(s) from assertion of line 1691 to run-time check associated with 
+          statement of line 1699:
+
+procedure_clearlogentries_5.
+*** true .          /* all conclusions proved */
+
+
+For path(s) from assertion of line 1691 to run-time check associated with 
+          statement of line 1701:
+
+procedure_clearlogentries_6.
+*** true .          /* all conclusions proved */
+
+
+For path(s) from assertion of line 1691 to run-time check associated with 
+          statement of line 1702:
+
+procedure_clearlogentries_7.
+*** true .          /* all conclusions proved */
+
+
+For path(s) from assertion of line 1691 to run-time check associated with 
+          statement of line 1702:
+
+procedure_clearlogentries_8.
+*** true .          /* all conclusions proved */
+
+
+For path(s) from assertion of line 1691 to run-time check associated with 
+          statement of line 1704:
+
+procedure_clearlogentries_9.
+*** true .          /* all conclusions proved */
+
+
+For path(s) from start to assertion of line 1708:
+
+procedure_clearlogentries_10.
+*** true .          /* all conclusions proved */
+
+
+For path(s) from assertion of line 1685 to assertion of line 1708:
+
+procedure_clearlogentries_11.
+*** true .          /* all conclusions proved */
+
+
+For path(s) from assertion of line 1691 to assertion of line 1708:
+
+procedure_clearlogentries_12.
+H1:    fld_length(usedlogfiles) > 1 .
+H2:    element(logfilesstatus, [element(fld_list(usedlogfiles), [fld_head(
+          usedlogfiles)])]) = archived .
+H3:    for_all(i___1 : integer, 1 <= i___1 and i___1 <= 50 -> 0 <= element(
+          user, [i___1]) and element(user, [i___1]) <= 255) .
+H4:    alarmtypes__alarming <= auditalarm .
+H5:    auditalarm <= alarmtypes__silent .
+H6:    (fld_length(usedlogfiles) - 1) * 1024 + element(logfileentries, [
+          currentlogfile]) <= 17408 .
+H7:    for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> free <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= used)
+           .
+H8:    for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> 0 <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 1024)
+           .
+H9:    currentlogfile >= 1 .
+H10:   currentlogfile <= 17 .
+H11:   fld_lasti(usedlogfiles) >= 1 .
+H12:   fld_lasti(usedlogfiles) <= 17 .
+H13:   fld_head(usedlogfiles) >= 1 .
+H14:   fld_head(usedlogfiles) <= 17 .
+H15:   for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> 1 <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= 17) .
+H16:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 1024 + element(
+          logfileentries~, [currentlogfile~]) .
+H17:   element(fld_list(usedlogfiles), [fld_head(usedlogfiles)]) >= 1 .
+H18:   element(fld_list(usedlogfiles), [fld_head(usedlogfiles)]) <= 17 .
+H19:   for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> free <= element(
+          logfilesstatus__1, [i___1]) and element(logfilesstatus__1, [i___1]) 
+          <= used) .
+H20:   for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> 0 <= element(
+          logfileentries__1, [i___1]) and element(logfileentries__1, [i___1]) 
+          <= 1024) .
+H21:   nextlistindex(fld_head(usedlogfiles)) >= 1 .
+H22:   nextlistindex(fld_head(usedlogfiles)) <= 17 .
+H23:   (fld_length(usedlogfiles) - 1) * 1024 + element(logfileentries, [
+          currentlogfile]) >= 1024 .
+H24:   fld_length(usedlogfiles) <= 2 .
+H25:   integer__size >= 0 .
+H26:   character__size >= 0 .
+H27:   positive__size >= 0 .
+H28:   audittypes__elementt__size >= 0 .
+H29:   audittypes__severityt__size >= 0 .
+H30:   audittypes__usertexti__size >= 0 .
+H31:   alarmtypes__statust__size >= 0 .
+H32:   logfilecountt__size >= 0 .
+H33:   logfilecountt__base__first <= logfilecountt__base__last .
+H34:   logfileindext__size >= 0 .
+H35:   logfileindext__base__first <= logfileindext__base__last .
+H36:   filestatust__size >= 0 .
+H37:   logfilelistt__size >= 0 .
+H38:   logentrycountt__size >= 0 .
+H39:   logentrycountt__base__first <= logentrycountt__base__last .
+H40:   fileentrycountt__size >= 0 .
+H41:   fileentrycountt__base__first <= fileentrycountt__base__last .
+H42:   logfilecountt__base__first <= 0 .
+H43:   logfilecountt__base__last >= 17 .
+H44:   logfileindext__base__first <= 1 .
+H45:   logfileindext__base__last >= 17 .
+H46:   logentrycountt__base__first <= 0 .
+H47:   logentrycountt__base__last >= 17408 .
+H48:   fileentrycountt__base__first <= 0 .
+H49:   fileentrycountt__base__last >= 1024 .
+       ->
+C1:    element(logfileentries, [currentlogfile]) - element(logfileentries__1, [
+          currentlogfile]) = 0 .
+
+
+For path(s) from assertion of line 1708 to run-time check associated with 
+          statement of line 1711:
+
+procedure_clearlogentries_13.
+*** true .          /* all conclusions proved */
+
+
+For path(s) from assertion of line 1708 to run-time check associated with 
+          statement of line 1713:
+
+procedure_clearlogentries_14.
+*** true .          /* all conclusions proved */
+
+
+For path(s) from assertion of line 1708 to precondition check associated with 
+          statement of line 1720:
+
+procedure_clearlogentries_15.
+*** true .          /* all conclusions proved */
+
+
+For path(s) from assertion of line 1708 to precondition check associated with 
+          statement of line 1728:
+
+procedure_clearlogentries_16.
+*** true .          /* all conclusions proved */
+
+
+procedure_clearlogentries_17.
+*** true .          /* all conclusions proved */
+
+
+For path(s) from assertion of line 1708 to finish:
+
+procedure_clearlogentries_18.
+*** true .          /* all conclusions proved */
+
+
+procedure_clearlogentries_19.
+*** true .          /* all conclusions proved */
+
+
+For checks of refinement integrity: 
+
+procedure_clearlogentries_20.
+H1:    for_all(i___1 : integer, 1 <= i___1 and i___1 <= 50 -> 0 <= element(
+          user, [i___1]) and element(user, [i___1]) <= 255) .
+H2:    alarmtypes__alarming <= fld_auditalarm(state) .
+H3:    fld_auditalarm(state) <= alarmtypes__silent .
+H4:    fld_numberlogentries(state) >= 0 .
+H5:    fld_numberlogentries(state) <= 17408 .
+H6:    for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> free <= element(
+          fld_logfilesstatus(state), [i___1]) and element(fld_logfilesstatus(
+          state), [i___1]) <= used) .
+H7:    for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> 0 <= element(
+          fld_logfileentries(state), [i___1]) and element(fld_logfileentries(
+          state), [i___1]) <= 1024) .
+H8:    fld_currentlogfile(state) >= 1 .
+H9:    fld_currentlogfile(state) <= 17 .
+H10:   fld_length(fld_usedlogfiles(state)) >= 0 .
+H11:   fld_length(fld_usedlogfiles(state)) <= 17 .
+H12:   fld_lasti(fld_usedlogfiles(state)) >= 1 .
+H13:   fld_lasti(fld_usedlogfiles(state)) <= 17 .
+H14:   fld_head(fld_usedlogfiles(state)) >= 1 .
+H15:   fld_head(fld_usedlogfiles(state)) <= 17 .
+H16:   for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> 1 <= element(
+          fld_list(fld_usedlogfiles(state)), [i___1]) and element(fld_list(
+          fld_usedlogfiles(state)), [i___1]) <= 17) .
+H17:   integer__size >= 0 .
+H18:   character__size >= 0 .
+H19:   positive__size >= 0 .
+H20:   audittypes__elementt__size >= 0 .
+H21:   audittypes__severityt__size >= 0 .
+H22:   audittypes__usertexti__size >= 0 .
+H23:   alarmtypes__statust__size >= 0 .
+H24:   logfilecountt__size >= 0 .
+H25:   logfilecountt__base__first <= logfilecountt__base__last .
+H26:   logfileindext__size >= 0 .
+H27:   logfileindext__base__first <= logfileindext__base__last .
+H28:   filestatust__size >= 0 .
+H29:   logfilelistt__size >= 0 .
+H30:   logentrycountt__size >= 0 .
+H31:   logentrycountt__base__first <= logentrycountt__base__last .
+H32:   fileentrycountt__size >= 0 .
+H33:   fileentrycountt__base__first <= fileentrycountt__base__last .
+H34:   logfilecountt__base__first <= 0 .
+H35:   logfilecountt__base__last >= 17 .
+H36:   logfileindext__base__first <= 1 .
+H37:   logfileindext__base__last >= 17 .
+H38:   logentrycountt__base__first <= 0 .
+H39:   logentrycountt__base__last >= 17408 .
+H40:   fileentrycountt__base__first <= 0 .
+H41:   fileentrycountt__base__last >= 1024 .
+       ->
+C1:    fld_numberlogentries(state) = (fld_length(fld_usedlogfiles(state)) - 1) 
+          * 1024 + element(fld_logfileentries(state), [fld_currentlogfile(state)
+          ]) .
+
+
+procedure_clearlogentries_21.
+*** true .          /* all conclusions proved */
+
+

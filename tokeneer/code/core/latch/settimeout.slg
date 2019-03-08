@@ -1,0 +1,74 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:10  SIMPLIFIED 05-SEP-2011, 15:41:34
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure Latch.SetTimeout
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/latch/latch.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_settimeout_1.  @@@@@@@@@@
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  true
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_settimeout_2.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_settimeout_3.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  currentlatch = fld_currentlatch(state~)
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H2 (true-hypothesis).
+-S-  Eliminated hypothesis H3.
+     This was achieved by replacing all occurrences of latchtimeout by:
+          fld_latchtimeout(state).
+<S>  New H6:  fld_latchtimeout(state) = time
+-S-  Eliminated hypothesis H4.
+     This was achieved by replacing all occurrences of currentlatch by:
+          fld_currentlatch(state~).
+<S>  New H5:  fld_currentlatch(state~) = fld_currentlatch(state)
+-S-  Eliminated hypothesis H6.
+     This was achieved by replacing all occurrences of time by:
+          fld_latchtimeout(state).
+<S>  New C1:  prf_latchtimeout(state) = fld_latchtimeout(state)
+     +++  New H7:  t__size >= 0
+***  Proved C1:  prf_latchtimeout(state) = fld_latchtimeout(state)
+     This was achieved by applying the rewrite rule latch_user(1)
+     [from rulefile latch.rlu] to rewrite this conclusion to:
+<S>  C1:  fld_latchtimeout(state) = fld_latchtimeout(state)
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  By simple reasoning, proved: fld_latchtimeout(state) = 
+          fld_latchtimeout(state)
+***  PROVED VC.
+
+VCN  3: Summary of user rule application.
+FIL  latch.rlu
+RUL     latch_user(1)
+CON        1
+
+
+OVR  Overall summary of VCs using user rules.
+FIL  latch.rlu
+RUL     latch_user(1)
+VCS        3
+

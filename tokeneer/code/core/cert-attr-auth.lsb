@@ -1,0 +1,281 @@
+           *******************************************************
+                            Listing of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:14.86
+
+Line
+   1  ------------------------------------------------------------------
+   2  -- Tokeneer ID Station Core Software
+   3  --
+   4  -- Copyright (2003) United States Government, as represented
+   5  -- by the Director, National Security Agency. All rights reserved.
+   6  --
+   7  -- This material was originally developed by Praxis High Integrity
+   8  -- Systems Ltd. under contract to the National Security Agency.
+   9  --
+  10  -- Modifications to proof annotations by Phil Thornley, April 2009
+  11  ------------------------------------------------------------------
+  12  
+  13  ------------------------------------------------------------------
+  14  -- AuthCert
+  15  --
+  16  -- Implementation Notes:
+  17  --     None
+  18  --
+  19  ------------------------------------------------------------------
+  20  with CertProcessing,
+  21       BasicTypes,
+  22       KeyStore;
+  23  
+  24  use type BasicTypes.Unsigned32T;
+  25  
+  26  package body Cert.Attr.Auth is
+  27  
+  28  
+  29     ------------------------------------------------------------------
+  30     -- TheRole
+  31     --
+  32     -- Implementation Notes:
+  33     --     None
+  34     ------------------------------------------------------------------
+  35  
+  36     function TheRole (Contents : ContentsT) return PrivTypes.PrivilegeT
+  37     is
+  38     begin
+  39        return Contents.Role;
+  40     end TheRole;
+
++++        Flow analysis of subprogram TheRole performed: 
+           no errors found.
+
+  41  
+  42  
+  43     ------------------------------------------------------------------
+  44     -- TheClearance
+  45     --
+  46     -- Implementation Notes:
+  47     --     None
+  48     ------------------------------------------------------------------
+  49  
+  50     function TheClearance (Contents : ContentsT) return PrivTypes.ClearanceT
+  51     is
+  52     begin
+  53        return Contents.Clearance;
+  54     end TheClearance;
+
++++        Flow analysis of subprogram TheClearance 
+           performed: no errors found.
+
+  55  
+  56  
+  57  
+  58     ------------------------------------------------------------------
+  59     -- Extract
+  60     --
+  61     -- Implementation Notes:
+  62     --    None.
+  63     ------------------------------------------------------------------
+  64     procedure Extract (RawCert  : in     CertTypes.RawCertificateT;
+  65                        Contents :    out ContentsT;
+  66                        Success  :    out Boolean)
+  67     is
+  68        LocalContents : CertProcessing.AuthCertDataT;
+  69        Extracted,
+  70        NotBeforeOk,
+  71        NotAfterOk    : Boolean;
+  72     begin
+  73        CertProcessing.ExtractAuthCertData(RawAuthCert    => RawCert,
+  74                                           AuthCert       => LocalContents,
+  75                                           ExtractSuccess => Extracted);
+  76  
+  77        Contents.ID.Issuer       := LocalContents.Issuer;
+  78        Contents.ID.SerialNumber
+  79          := CertTypes.SerialNumberT(LocalContents.SerialNumber);
+  80        Contents.Mechanism       := LocalContents.SigAlgID;
+  81        Contents.BaseCertID      := LocalContents.Holder;
+  82        Contents.Role            := LocalContents.Privilege.Role;
+  83        Contents.Clearance.Class := LocalContents.Privilege.Class;
+  84  
+  85        -- NotBefore and NotAfter are read as unsigned 32 bit words -
+  86        -- convert to Clock.TimeT
+  87        Clock.ConstructTime(
+  88                 Year    => LocalContents.AttCertValidity.NotBefore.Year,
+  89                 Month   => LocalContents.AttCertValidity.NotBefore.Month,
+  90                 Day     => LocalContents.AttCertValidity.NotBefore.Day,
+  91                 Hour    => LocalContents.AttCertValidity.NotBefore.Hour,
+  92                 Min     => LocalContents.AttCertValidity.NotBefore.Minute,
+  93                 TheTime => Contents.NotBefore,
+  94                 Success => NotBeforeOK);
+  95  
+  96        Clock.ConstructTime(
+  97                 Year    => LocalContents.AttCertValidity.NotAfter.Year,
+  98                 Month   => LocalContents.AttCertValidity.NotAfter.Month,
+  99                 Day     => LocalContents.AttCertValidity.NotAfter.Day,
+ 100                 Hour    => LocalContents.AttCertValidity.NotAfter.Hour,
+ 101                 Min     => LocalContents.AttCertValidity.NotAfter.Minute,
+ 102                 TheTime => Contents.NotAfter,
+ 103                 Success => NotAfterOK);
+ 104  
+ 105        Success := Extracted and NotBeforeOK and NotAfterOK;
+ 106     end Extract;
+
++++        Flow analysis of subprogram Extract performed: 
+           no errors found.
+
+ 107  
+ 108     ------------------------------------------------------------------
+ 109     -- Construct
+ 110     --
+ 111     -- Implementation Notes:
+ 112     --    None.
+ 113     ------------------------------------------------------------------
+ 114     procedure Construct (Contents : in     ContentsT;
+ 115                          RawCert  :    out CertTypes.RawCertificateT)
+ 116     is
+ 117        LocalContents : CertProcessing.AuthCertDataT;
+ 118  
+ 119        ------------------------------------------------------------------
+ 120        -- ConvertTISTime
+ 121        --
+ 122        -- Description:
+ 123        --    Converts a TIS time value into a raw time value
+ 124        --
+ 125        -- Implementation Notes:
+ 126        --    Uses Clock.SplitTime
+ 127        ------------------------------------------------------------------
+ 128        procedure ConvertTISTime(Time : in     Clock.TimeT;
+ 129                                 Raw  :    out CertProcessing.TimeT)
+ 130        --# derives Raw from Time;
+ 131        is
+ 132           TheYear   : Clock.YearsT;
+ 133           TheMonth  : Clock.MonthsT;
+ 134           TheDay    : Clock.DaysT;
+ 135           TheHour   : Clock.HoursT;
+ 136           TheMinute : Clock.MinutesT;
+ 137        begin
+ 138           Clock.SplitTime(TheTime => Time,
+ 139                           Year    => TheYear,
+ 140                           Month   => TheMonth,
+ 141                           Day     => TheDay,
+ 142                           Hour    => TheHour,
+ 143                           Min     => TheMinute);
+ 144           Raw := CertProcessing.TimeT'(
+ 145                     Year   => BasicTypes.Unsigned32T(TheYear),
+ 146                     Month  => BasicTypes.Unsigned32T(TheMonth),
+ 147                     Day    => BasicTypes.Unsigned32T(TheDay),
+ 148                     Hour   => BasicTypes.Unsigned32T(TheHour),
+ 149                     Minute => BasicTypes.Unsigned32T(TheMinute));
+ 150        end ConvertTISTime;
+
++++        Flow analysis of subprogram ConvertTISTime 
+           performed: no errors found.
+
+ 151  
+ 152     begin
+ 153        LocalContents.Issuer          := Contents.ID.Issuer;
+ 154        LocalContents.SerialNumber
+ 155          := BasicTypes.Unsigned32T(Contents.ID.SerialNumber);
+ 156        LocalContents.SigAlgID        := Contents.Mechanism;
+ 157        LocalContents.Holder          := Contents.BaseCertID;
+ 158        LocalContents.Privilege.Role  := Contents.Role;
+ 159        LocalContents.Privilege.Class := Contents.Clearance.Class;
+ 160  
+ 161        ConvertTISTime(Contents.NotBefore,
+ 162                       LocalContents.AttCertValidity.NotBefore);
+ 163        ConvertTISTime(Contents.NotAfter,
+ 164                       LocalContents.AttCertValidity.NotAfter);
+ 165  
+ 166        CertProcessing.ConstructAuthCert(
+ 167                          AuthCert            => LocalContents,
+ 168                          UnsignedRawAuthCert => RawCert);
+ 169     end Construct;
+
++++        Flow analysis of subprogram Construct performed: 
+           no errors found.
+
+ 170  
+ 171  
+ 172     ------------------------------------------------------------------
+ 173     -- SetContents
+ 174     --
+ 175     -- Implementation Notes:
+ 176     --     None
+ 177     ------------------------------------------------------------------
+ 178     procedure SetContents
+ 179       (ID         : in     CertTypes.IDT;
+ 180        NotBefore  : in     Clock.TimeT;
+ 181        NotAfter   : in     Clock.TimeT;
+ 182        Mechanism  : in     CryptoTypes.AlgorithmT;
+ 183        BaseCertID : in     CertTypes.IDT;
+ 184        Role       : in     PrivTypes.PrivilegeT;
+ 185        Clearance  : in     PrivTypes.ClearanceT;
+ 186        Contents   :    out ContentsT)
+ 187     is
+ 188     begin
+ 189        Contents.ID         := ID;
+ 190        Contents.NotBefore  := NotBefore;
+ 191        Contents.NotAfter   := NotAfter;
+ 192        Contents.Mechanism  := Mechanism;
+ 193        Contents.BaseCertID := BaseCertID;
+ 194        Contents.Role       := Role;
+ 195        Contents.Clearance  := Clearance;
+ 196     end SetContents;
+
++++        Flow analysis of subprogram SetContents 
+           performed: no errors found.
+
+ 197  
+ 198  
+ 199     ------------------------------------------------------------------
+ 200     -- IsOK
+ 201     --
+ 202     -- Implementation Notes:
+ 203     --     None
+ 204     ------------------------------------------------------------------
+ 205     procedure IsOK (RawCert    : in     CertTypes.RawCertificateT;
+ 206                     Contents   : in     ContentsT;
+ 207                     IsVerified :    out Boolean)
+ 208     is
+ 209     begin
+ 210  
+ 211        Cert.IsOK (RawCert => RawCert,
+ 212                   Contents => Cert.ContentsT(Contents),
+ 213                   IsVerified => IsVerified);
+ 214  
+ 215        IsVerified := IsVerified
+ 216                      and KeyStore.IssuerIsThisTIS(Contents.ID.Issuer);
+ 217  
+ 218     end IsOK;
+
++++        Flow analysis of subprogram IsOK performed: no 
+           errors found.
+
+ 219  
+ 220  
+ 221     ------------------------------------------------------------------
+ 222     -- Clear
+ 223     --
+ 224     -- Implementation Notes:
+ 225     --     None
+ 226     ------------------------------------------------------------------
+ 227     procedure Clear (Contents :    out ContentsT)
+ 228     is
+ 229        --# for NullContents declare Rule;
+ 230     begin
+ 231        Contents := NullContents;
+ 232     end Clear;
+
++++        Flow analysis of subprogram Clear performed: no 
+           errors found.
+
+ 233  
+ 234  end Cert.Attr.Auth;
+No summarized warnings
+
+
+
+--End of file--------------------------------------------------

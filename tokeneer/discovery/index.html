@@ -1,0 +1,187 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"> <head>
+    <title>Tokeneer Discovery</title>
+	<style type="text/css" media="screen">
+		@import "styles.css";
+	</style>
+	
+</head>
+<body>
+
+<div class="head">
+	<h1>Tokeneer Discovery - A SPARK Tutorial</h1>
+</div>
+
+<div class="sidebar">
+	<ul class="lesson_menu"> 
+	    <li><a id="intro" href="index.html"><strong>Introduction</strong></a>
+	    <li><a id="lesson_contracts" href="lesson_contracts.html"><strong>Contracts</strong>What is Special About SPARK Contracts?</a>
+	    <li><a id="lesson_intro" href="lesson_intro.html"><strong>Preamble</strong>Getting Started</a>
+	    <li><a id="lesson1" href="lesson1.html"><strong>Lesson 1</strong> Dealing with Improper Initialization</a>
+	    <li><a id="lesson2" href="lesson2.html"><strong>Lesson 2</strong> Identifying Ineffective Statements</a>
+	    <li><a id="lesson3" href="lesson3.html"><strong>Lesson 3</strong> Validating Input</a>
+	    <li><a id="lesson4" href="lesson4.html"><strong>Lesson 4</strong> SPARK Contracts</a>
+	    <li><a id="lesson5" href="lesson5.html"><strong>Lesson 5</strong> Dealing with Overflow Errors</a>
+	    <li><a id="lesson6" href="lesson6.html"><strong>Lesson 6</strong> Ensuring Secure Information Flow</a>
+	    <li><a id="lesson_summary" href="lesson_summary.html"><strong>Summary and Finding More Information</strong></a>
+	    <li><a id="install" href="installation.html">Installing SPARK and GPS</a>
+	    <li><a id="start_gps" href="start_gps.html">Starting GPS</a>
+	    <li><a id="examiner" href="spark_examine.html">Running the Examiner</a>
+	    <li><a id="analyse" href="spark_analyse.html">Analyse Tokeneer</a>
+    </ul> 
+
+</div>
+
+<div id="content">	
+    
+    <p>
+	    This tutorial provides an introduction to the
+	    <a href="http://www.adacore.com/home/products/sparkpro/">SPARK
+	    programming language and Toolset</a> for engineering
+	    high-assurance software using the source code from the <a
+	    href="http://www.adacore.com/home/products/sparkpro/tokeneer/">Tokeneer
+	    Project</a>.  It contains a series of lessons that demonstrates
+	    key features of the language and Toolset, illustrating why SPARK
+	    is superior to other standard imperative languages for building
+	    high-assurance software. SPARK also <em>prevents</em> the
+	    occurrence of a number of the <cite><a
+	    href="http://www.sans.org/top25-programming-errors/">
+            top twenty-five most dangerous programming errors</a></cite>.
+	    </p>
+	
+	<h3>SPARK in a Nutshell</h3>
+	        
+	    <p>
+	    SPARK is a <em>programming language, </em>a <em>set of source code
+	    analysis (static verification) tools, </em>and a <em>design
+	    method</em> for developing high-assurance software.
+	    </p>    
+	
+	    <p>
+	    The SPARK language is a strict subset of Ada augmented with a
+	    system of contracts (also known as <em>annotations</em>).  The
+	    subset removes all ambiguities and undefined behaviour from the
+	    Ada language.  The presence of contracts differentiates SPARK from
+	    other standard imperative programming languages such as C and C++.
+	    </p>
+	
+	    <p>
+	    For compilation, all SPARK programs can be compiled by
+	    <em>any</em> standard Ada compiler.
+	    </p>
+	    
+	    <p>
+	    The static analysis capabilities of the SPARK Toolset are
+	    comprehensive. Key characteristics of the SPARK language and
+	    Toolset are listed below.
+	
+	    <dl>
+	      <dt><strong>Sound</strong>
+	      <dd>The analysis will tell you that the code is correct
+	        <em>only if</em> it really is - that is, no false
+	        negatives. Put another way, for large classes of programming
+	        errors, the SPARK Toolset can assert &quot;there are
+	        <em>no</em> bugs&quot;, rather than the somewhat more flimsy
+	        &quot;I can&#8217;t find any more bugs&quot; offered by weaker
+	        languages and tools.
+	
+	      <dt><strong>Low false alarm
+	      rate</strong>
+	      <dd>SPARK raises very few false alarms, especially compared to
+	        static analysis tools for other programming languages, owing
+	        to the inherent simplicity and precision of SPARK.
+	
+	      <dt><strong>Depth</strong>
+	      <dd>SPARK analysis can verify complex and subtle properties of
+	        your code, such as application-specific safety and security
+	        properties - not just a predefined list of common errors.
+	
+	      <dt><strong>Fast</strong> 
+	      <dd>The Toolset can be used interactively during development -
+	        it&#8217;s designed to be faster and more thorough than compiling
+	        and testing.
+	
+	      <dt><strong>Modular</strong>
+	      <dd>Developers have the flexibility to run the analysis during
+	        development with incomplete programs. There&#8217;s no need to
+	        analyse &quot;the whole program&quot; to get useful results.
+	    </dl>
+	
+	    </p>    
+	
+	    <p>
+	    The analysis tools can detect and mitigate against dangerous
+	    programming errors such as <a
+	    href="http://cwe.mitre.org/data/definitions/20.html">
+	    improper input validation</a>,
+	    <a href="http://cwe.mitre.org/data/definitions/190.html">
+            integer overflow or wraparound</a>, 
+	    <a href="http://cwe.mitre.org/data/definitions/119.html">
+            buffer overflow errors</a>, 
+	    <a href="http://cwe.mitre.org/data/definitions/665.html">
+            improper initialization</a>, 
+	    <a href="http://cwe.mitre.org/data/definitions/129.html">
+            improper validation of array index</a>, and 
+            <a href="http://cwe.mitre.org/data/definitions/209.html">
+            information leak</a>
+	    (follow the provided links to find the <a
+	    href="http://cwe.mitre.org/">CWE</a>/<a
+	    href="http://www.sans.org/">SANS</a> 
+            experts&#8217;
+	    descriptions of the errors and coping strategies). Examples of how
+	    SPARK tackles each of these problems are included later in this
+	    tutorial.
+	    </p>    
+	    
+	    <p>
+	    SPARK is best suited for embedded systems in sectors that rely on
+	    integrity of software systems including aerospace, security,
+	    banking, defence, rail, nuclear, transport and utilities where the
+	    cost of any failure ranges from loss of customer confidence to
+	    loss of life or national security. Projects using SPARK have also
+	    met or exceeded all relevant standards and guidance for
+	    high-assurance software at the highest integrity levels.
+	    </p>    
+	    
+	    <p>
+	    This tutorial provides a tour of SPARK and contains a series of
+	    lessons for you to trial the language and the tools.  The lessons
+	    demonstrate key features of the SPARK language and how the SPARK
+	    Toolset can verify that a SPARK program is free from certain
+	    classes of errors.
+	    </p>    
+	
+	<h3>Tokeneer in a Nutshell</h3>
+	
+	    <p>
+	    <a
+	    href="http://www.adacore.com/home/products/sparkpro/tokeneer/">Tokeneer</a>
+	    was a successful research project carried out by
+	    <a href="http://www.altran-praxis.com">
+            Altran Praxis</a> and funded by the <a
+	    href="http://www.nsa.gov/">National Security Agency (NSA)</a> to
+	    develop part of an existing secure system (the Tokeneer System) to
+	    investigate SPARK&#8217;s capabilities to develop high quality and low
+	    defect software.  Verification using the SPARK Toolset was
+	    undertaken at every stage of the development process to guard
+	    against errors being introduced.
+	    </p>    
+	    
+	    <p>
+	    This development and research work has now been made available
+	    by the NSA to the software development and security communities.
+	    </p>    
+	
+	<h3>What is Special About SPARK Contracts?</h3>
+	
+	    <p>
+	    Contracts are at the heart of SPARK program design. It is highly
+	    recommended to read the section <a
+	    href="lesson_contracts.html"> What is
+	    Special About SPARK Contracts?</a> before doing the lessons in
+	    this tutorial.
+	    </p></div>
+
+
+</body>
+</html>

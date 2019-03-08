@@ -1,0 +1,176 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:08.74*/
+
+                       /*procedure AuditLog.TruncateLog*/
+
+
+rule_family truncatelog_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+truncatelog_rules(1): maxlogfileentries may_be_replaced_by 1024.
+truncatelog_rules(2): integer__size >= 0 may_be_deduced.
+truncatelog_rules(3): integer__first may_be_replaced_by -2147483648.
+truncatelog_rules(4): integer__last may_be_replaced_by 2147483647.
+truncatelog_rules(5): integer__base__first may_be_replaced_by -2147483648.
+truncatelog_rules(6): integer__base__last may_be_replaced_by 2147483647.
+truncatelog_rules(7): character__size >= 0 may_be_deduced.
+truncatelog_rules(8): character__first may_be_replaced_by 0.
+truncatelog_rules(9): character__last may_be_replaced_by 255.
+truncatelog_rules(10): character__base__first may_be_replaced_by 0.
+truncatelog_rules(11): character__base__last may_be_replaced_by 255.
+truncatelog_rules(12): positive__size >= 0 may_be_deduced.
+truncatelog_rules(13): positive__first may_be_replaced_by 1.
+truncatelog_rules(14): positive__last may_be_replaced_by 2147483647.
+truncatelog_rules(15): positive__base__first may_be_replaced_by -2147483648.
+truncatelog_rules(16): positive__base__last may_be_replaced_by 2147483647.
+truncatelog_rules(17): audittypes__descriptioni__size >= 0 may_be_deduced.
+truncatelog_rules(18): audittypes__descriptioni__first may_be_replaced_by 1.
+truncatelog_rules(19): audittypes__descriptioni__last may_be_replaced_by 150.
+truncatelog_rules(20): audittypes__descriptioni__base__first may_be_replaced_by -2147483648.
+truncatelog_rules(21): audittypes__descriptioni__base__last may_be_replaced_by 2147483647.
+truncatelog_rules(22): alarmtypes__statust__size >= 0 may_be_deduced.
+truncatelog_rules(23): alarmtypes__statust__first may_be_replaced_by alarmtypes__alarming.
+truncatelog_rules(24): alarmtypes__statust__last may_be_replaced_by alarmtypes__silent.
+truncatelog_rules(25): alarmtypes__statust__base__first may_be_replaced_by alarmtypes__alarming.
+truncatelog_rules(26): alarmtypes__statust__base__last may_be_replaced_by alarmtypes__silent.
+truncatelog_rules(27): alarmtypes__statust__pos(
+     alarmtypes__statust__first) may_be_replaced_by 0.
+truncatelog_rules(28): alarmtypes__statust__pos(
+     alarmtypes__alarming) may_be_replaced_by 0.
+truncatelog_rules(29): alarmtypes__statust__val(0) may_be_replaced_by 
+     alarmtypes__alarming.
+truncatelog_rules(30): alarmtypes__statust__pos(
+     alarmtypes__silent) may_be_replaced_by 1.
+truncatelog_rules(31): alarmtypes__statust__val(1) may_be_replaced_by 
+     alarmtypes__silent.
+truncatelog_rules(32): alarmtypes__statust__pos(
+     alarmtypes__statust__last) may_be_replaced_by 1.
+truncatelog_rules(33): alarmtypes__statust__pos(succ(X)) may_be_replaced_by 
+     alarmtypes__statust__pos(X) + 1
+     if [X <=alarmtypes__silent, X <> alarmtypes__silent].
+truncatelog_rules(34): alarmtypes__statust__pos(pred(X)) may_be_replaced_by 
+     alarmtypes__statust__pos(X) - 1
+     if [X >=alarmtypes__alarming, X <> alarmtypes__alarming].
+truncatelog_rules(35): alarmtypes__statust__pos(X) >= 0 may_be_deduced_from
+     [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+truncatelog_rules(36): alarmtypes__statust__pos(X) <= 1 may_be_deduced_from
+     [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+truncatelog_rules(37): alarmtypes__statust__val(X) >= 
+     alarmtypes__alarming may_be_deduced_from
+     [0 <= X, X <= 1].
+truncatelog_rules(38): alarmtypes__statust__val(X) <= 
+     alarmtypes__silent may_be_deduced_from
+     [0 <= X, X <= 1].
+truncatelog_rules(39): succ(alarmtypes__statust__val(X)) may_be_replaced_by 
+     alarmtypes__statust__val(X+1)
+     if [0 <= X, X < 1].
+truncatelog_rules(40): pred(alarmtypes__statust__val(X)) may_be_replaced_by 
+     alarmtypes__statust__val(X-1)
+     if [0 < X, X <= 1].
+truncatelog_rules(41): alarmtypes__statust__pos(
+     alarmtypes__statust__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+truncatelog_rules(42): alarmtypes__statust__val(
+     alarmtypes__statust__pos(X)) may_be_replaced_by X
+     if [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+truncatelog_rules(43): alarmtypes__statust__pos(X) <= 
+     alarmtypes__statust__pos(Y) & X <= Y are_interchangeable 
+     if [alarmtypes__alarming <= X, X <= alarmtypes__silent, 
+     alarmtypes__alarming <= Y, Y <= alarmtypes__silent].
+truncatelog_rules(44): alarmtypes__statust__val(X) <= 
+     alarmtypes__statust__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].
+truncatelog_rules(45): logfilecountt__size >= 0 may_be_deduced.
+truncatelog_rules(46): logfilecountt__first may_be_replaced_by 0.
+truncatelog_rules(47): logfilecountt__last may_be_replaced_by 17.
+truncatelog_rules(48): logfilecountt__base__first <= 
+     logfilecountt__base__last may_be_deduced.
+truncatelog_rules(49): logfilecountt__base__first <= 
+     logfilecountt__first may_be_deduced.
+truncatelog_rules(50): logfilecountt__base__last >= logfilecountt__last may_be_deduced.
+truncatelog_rules(51): logfileindext__size >= 0 may_be_deduced.
+truncatelog_rules(52): logfileindext__first may_be_replaced_by 1.
+truncatelog_rules(53): logfileindext__last may_be_replaced_by 17.
+truncatelog_rules(54): logfileindext__base__first <= 
+     logfileindext__base__last may_be_deduced.
+truncatelog_rules(55): logfileindext__base__first <= 
+     logfileindext__first may_be_deduced.
+truncatelog_rules(56): logfileindext__base__last >= logfileindext__last may_be_deduced.
+truncatelog_rules(57): filestatust__size >= 0 may_be_deduced.
+truncatelog_rules(58): filestatust__first may_be_replaced_by free.
+truncatelog_rules(59): filestatust__last may_be_replaced_by used.
+truncatelog_rules(60): filestatust__base__first may_be_replaced_by free.
+truncatelog_rules(61): filestatust__base__last may_be_replaced_by used.
+truncatelog_rules(62): filestatust__pos(filestatust__first) may_be_replaced_by 0.
+truncatelog_rules(63): filestatust__pos(free) may_be_replaced_by 0.
+truncatelog_rules(64): filestatust__val(0) may_be_replaced_by 
+     free.
+truncatelog_rules(65): filestatust__pos(archived) may_be_replaced_by 1.
+truncatelog_rules(66): filestatust__val(1) may_be_replaced_by 
+     archived.
+truncatelog_rules(67): filestatust__pos(used) may_be_replaced_by 2.
+truncatelog_rules(68): filestatust__val(2) may_be_replaced_by 
+     used.
+truncatelog_rules(69): filestatust__pos(filestatust__last) may_be_replaced_by 2.
+truncatelog_rules(70): filestatust__pos(succ(X)) may_be_replaced_by 
+     filestatust__pos(X) + 1
+     if [X <=used, X <> used].
+truncatelog_rules(71): filestatust__pos(pred(X)) may_be_replaced_by 
+     filestatust__pos(X) - 1
+     if [X >=free, X <> free].
+truncatelog_rules(72): filestatust__pos(X) >= 0 may_be_deduced_from
+     [free <= X, X <= used].
+truncatelog_rules(73): filestatust__pos(X) <= 2 may_be_deduced_from
+     [free <= X, X <= used].
+truncatelog_rules(74): filestatust__val(X) >= free may_be_deduced_from
+     [0 <= X, X <= 2].
+truncatelog_rules(75): filestatust__val(X) <= used may_be_deduced_from
+     [0 <= X, X <= 2].
+truncatelog_rules(76): succ(filestatust__val(X)) may_be_replaced_by 
+     filestatust__val(X+1)
+     if [0 <= X, X < 2].
+truncatelog_rules(77): pred(filestatust__val(X)) may_be_replaced_by 
+     filestatust__val(X-1)
+     if [0 < X, X <= 2].
+truncatelog_rules(78): filestatust__pos(filestatust__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 2].
+truncatelog_rules(79): filestatust__val(filestatust__pos(X)) may_be_replaced_by X
+     if [free <= X, X <= used].
+truncatelog_rules(80): filestatust__pos(X) <= filestatust__pos(Y) & X <= Y are_interchangeable 
+     if [free <= X, X <= used, free <= Y, Y <= used].
+truncatelog_rules(81): filestatust__val(X) <= filestatust__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 2, 0 <= Y, Y <= 2].
+truncatelog_rules(82): logfilelistt__size >= 0 may_be_deduced.
+truncatelog_rules(83): A = B may_be_deduced_from
+     [goal(checktype(A,logfilelistt)),
+      goal(checktype(B,logfilelistt)),
+      fld_list(A) = fld_list(B),
+      fld_head(A) = fld_head(B),
+      fld_lasti(A) = fld_lasti(B),
+      fld_length(A) = fld_length(B)].
+truncatelog_rules(84): logentrycountt__size >= 0 may_be_deduced.
+truncatelog_rules(85): logentrycountt__first may_be_replaced_by 0.
+truncatelog_rules(86): logentrycountt__last may_be_replaced_by 17408.
+truncatelog_rules(87): logentrycountt__base__first <= 
+     logentrycountt__base__last may_be_deduced.
+truncatelog_rules(88): logentrycountt__base__first <= 
+     logentrycountt__first may_be_deduced.
+truncatelog_rules(89): logentrycountt__base__last >= 
+     logentrycountt__last may_be_deduced.
+truncatelog_rules(90): fileentrycountt__size >= 0 may_be_deduced.
+truncatelog_rules(91): fileentrycountt__first may_be_replaced_by 0.
+truncatelog_rules(92): fileentrycountt__last may_be_replaced_by 1024.
+truncatelog_rules(93): fileentrycountt__base__first <= 
+     fileentrycountt__base__last may_be_deduced.
+truncatelog_rules(94): fileentrycountt__base__first <= 
+     fileentrycountt__first may_be_deduced.
+truncatelog_rules(95): fileentrycountt__base__last >= 
+     fileentrycountt__last may_be_deduced.

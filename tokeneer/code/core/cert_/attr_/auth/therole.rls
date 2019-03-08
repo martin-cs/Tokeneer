@@ -1,0 +1,302 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:14.16*/
+
+                           /*function Auth.TheRole*/
+
+
+rule_family therole_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+therole_rules(1): integer__size >= 0 may_be_deduced.
+therole_rules(2): integer__first may_be_replaced_by -2147483648.
+therole_rules(3): integer__last may_be_replaced_by 2147483647.
+therole_rules(4): integer__base__first may_be_replaced_by -2147483648.
+therole_rules(5): integer__base__last may_be_replaced_by 2147483647.
+therole_rules(6): character__size >= 0 may_be_deduced.
+therole_rules(7): character__first may_be_replaced_by 0.
+therole_rules(8): character__last may_be_replaced_by 255.
+therole_rules(9): character__base__first may_be_replaced_by 0.
+therole_rules(10): character__base__last may_be_replaced_by 255.
+therole_rules(11): positive__size >= 0 may_be_deduced.
+therole_rules(12): positive__first may_be_replaced_by 1.
+therole_rules(13): positive__last may_be_replaced_by 2147483647.
+therole_rules(14): positive__base__first may_be_replaced_by -2147483648.
+therole_rules(15): positive__base__last may_be_replaced_by 2147483647.
+therole_rules(16): privtypes__privileget__size >= 0 may_be_deduced.
+therole_rules(17): privtypes__privileget__first may_be_replaced_by privtypes__useronly.
+therole_rules(18): privtypes__privileget__last may_be_replaced_by privtypes__securityofficer.
+therole_rules(19): privtypes__privileget__base__first may_be_replaced_by privtypes__useronly.
+therole_rules(20): privtypes__privileget__base__last may_be_replaced_by privtypes__securityofficer.
+therole_rules(21): privtypes__privileget__pos(
+     privtypes__privileget__first) may_be_replaced_by 0.
+therole_rules(22): privtypes__privileget__pos(privtypes__useronly) may_be_replaced_by 0.
+therole_rules(23): privtypes__privileget__val(0) may_be_replaced_by 
+     privtypes__useronly.
+therole_rules(24): privtypes__privileget__pos(privtypes__guard) may_be_replaced_by 1.
+therole_rules(25): privtypes__privileget__val(1) may_be_replaced_by 
+     privtypes__guard.
+therole_rules(26): privtypes__privileget__pos(
+     privtypes__auditmanager) may_be_replaced_by 2.
+therole_rules(27): privtypes__privileget__val(2) may_be_replaced_by 
+     privtypes__auditmanager.
+therole_rules(28): privtypes__privileget__pos(
+     privtypes__securityofficer) may_be_replaced_by 3.
+therole_rules(29): privtypes__privileget__val(3) may_be_replaced_by 
+     privtypes__securityofficer.
+therole_rules(30): privtypes__privileget__pos(
+     privtypes__privileget__last) may_be_replaced_by 3.
+therole_rules(31): privtypes__privileget__pos(succ(X)) may_be_replaced_by 
+     privtypes__privileget__pos(X) + 1
+     if [X <=privtypes__securityofficer, X <> 
+     privtypes__securityofficer].
+therole_rules(32): privtypes__privileget__pos(pred(X)) may_be_replaced_by 
+     privtypes__privileget__pos(X) - 1
+     if [X >=privtypes__useronly, X <> privtypes__useronly].
+therole_rules(33): privtypes__privileget__pos(X) >= 0 may_be_deduced_from
+     [privtypes__useronly <= X, X <= privtypes__securityofficer].
+therole_rules(34): privtypes__privileget__pos(X) <= 3 may_be_deduced_from
+     [privtypes__useronly <= X, X <= privtypes__securityofficer].
+therole_rules(35): privtypes__privileget__val(X) >= 
+     privtypes__useronly may_be_deduced_from
+     [0 <= X, X <= 3].
+therole_rules(36): privtypes__privileget__val(X) <= 
+     privtypes__securityofficer may_be_deduced_from
+     [0 <= X, X <= 3].
+therole_rules(37): succ(privtypes__privileget__val(X)) may_be_replaced_by 
+     privtypes__privileget__val(X+1)
+     if [0 <= X, X < 3].
+therole_rules(38): pred(privtypes__privileget__val(X)) may_be_replaced_by 
+     privtypes__privileget__val(X-1)
+     if [0 < X, X <= 3].
+therole_rules(39): privtypes__privileget__pos(
+     privtypes__privileget__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 3].
+therole_rules(40): privtypes__privileget__val(
+     privtypes__privileget__pos(X)) may_be_replaced_by X
+     if [privtypes__useronly <= X, X <= 
+     privtypes__securityofficer].
+therole_rules(41): privtypes__privileget__pos(X) <= 
+     privtypes__privileget__pos(Y) & X <= Y are_interchangeable 
+     if [privtypes__useronly <= X, X <= 
+     privtypes__securityofficer, privtypes__useronly <= Y, Y <= 
+     privtypes__securityofficer].
+therole_rules(42): privtypes__privileget__val(X) <= 
+     privtypes__privileget__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 3, 0 <= Y, Y <= 3].
+therole_rules(43): privtypes__classt__size >= 0 may_be_deduced.
+therole_rules(44): privtypes__classt__first may_be_replaced_by privtypes__unmarked.
+therole_rules(45): privtypes__classt__last may_be_replaced_by privtypes__topsecret.
+therole_rules(46): privtypes__classt__base__first may_be_replaced_by privtypes__unmarked.
+therole_rules(47): privtypes__classt__base__last may_be_replaced_by privtypes__topsecret.
+therole_rules(48): privtypes__classt__pos(privtypes__classt__first) may_be_replaced_by 0.
+therole_rules(49): privtypes__classt__pos(privtypes__unmarked) may_be_replaced_by 0.
+therole_rules(50): privtypes__classt__val(0) may_be_replaced_by 
+     privtypes__unmarked.
+therole_rules(51): privtypes__classt__pos(privtypes__unclassified) may_be_replaced_by 1.
+therole_rules(52): privtypes__classt__val(1) may_be_replaced_by 
+     privtypes__unclassified.
+therole_rules(53): privtypes__classt__pos(privtypes__restricted) may_be_replaced_by 2.
+therole_rules(54): privtypes__classt__val(2) may_be_replaced_by 
+     privtypes__restricted.
+therole_rules(55): privtypes__classt__pos(privtypes__confidential) may_be_replaced_by 3.
+therole_rules(56): privtypes__classt__val(3) may_be_replaced_by 
+     privtypes__confidential.
+therole_rules(57): privtypes__classt__pos(privtypes__secret) may_be_replaced_by 4.
+therole_rules(58): privtypes__classt__val(4) may_be_replaced_by 
+     privtypes__secret.
+therole_rules(59): privtypes__classt__pos(privtypes__topsecret) may_be_replaced_by 5.
+therole_rules(60): privtypes__classt__val(5) may_be_replaced_by 
+     privtypes__topsecret.
+therole_rules(61): privtypes__classt__pos(privtypes__classt__last) may_be_replaced_by 5.
+therole_rules(62): privtypes__classt__pos(succ(X)) may_be_replaced_by 
+     privtypes__classt__pos(X) + 1
+     if [X <=privtypes__topsecret, X <> privtypes__topsecret].
+therole_rules(63): privtypes__classt__pos(pred(X)) may_be_replaced_by 
+     privtypes__classt__pos(X) - 1
+     if [X >=privtypes__unmarked, X <> privtypes__unmarked].
+therole_rules(64): privtypes__classt__pos(X) >= 0 may_be_deduced_from
+     [privtypes__unmarked <= X, X <= privtypes__topsecret].
+therole_rules(65): privtypes__classt__pos(X) <= 5 may_be_deduced_from
+     [privtypes__unmarked <= X, X <= privtypes__topsecret].
+therole_rules(66): privtypes__classt__val(X) >= 
+     privtypes__unmarked may_be_deduced_from
+     [0 <= X, X <= 5].
+therole_rules(67): privtypes__classt__val(X) <= 
+     privtypes__topsecret may_be_deduced_from
+     [0 <= X, X <= 5].
+therole_rules(68): succ(privtypes__classt__val(X)) may_be_replaced_by 
+     privtypes__classt__val(X+1)
+     if [0 <= X, X < 5].
+therole_rules(69): pred(privtypes__classt__val(X)) may_be_replaced_by 
+     privtypes__classt__val(X-1)
+     if [0 < X, X <= 5].
+therole_rules(70): privtypes__classt__pos(privtypes__classt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 5].
+therole_rules(71): privtypes__classt__val(privtypes__classt__pos(X)) may_be_replaced_by X
+     if [privtypes__unmarked <= X, X <= privtypes__topsecret].
+therole_rules(72): privtypes__classt__pos(X) <= privtypes__classt__pos(Y) & X <= Y are_interchangeable 
+     if [privtypes__unmarked <= X, X <= privtypes__topsecret, 
+     privtypes__unmarked <= Y, Y <= privtypes__topsecret].
+therole_rules(73): privtypes__classt__val(X) <= privtypes__classt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 5, 0 <= Y, Y <= 5].
+therole_rules(74): privtypes__clearancet__size >= 0 may_be_deduced.
+therole_rules(75): A = B may_be_deduced_from
+     [goal(checktype(A,privtypes__clearancet)),
+      goal(checktype(B,privtypes__clearancet)),
+      fld_class(A) = fld_class(B)].
+therole_rules(76): cryptotypes__namecountt__size >= 0 may_be_deduced.
+therole_rules(77): cryptotypes__namecountt__first may_be_replaced_by 0.
+therole_rules(78): cryptotypes__namecountt__last may_be_replaced_by 40.
+therole_rules(79): cryptotypes__namecountt__base__first may_be_replaced_by -2147483648.
+therole_rules(80): cryptotypes__namecountt__base__last may_be_replaced_by 2147483647.
+therole_rules(81): cryptotypes__namei__size >= 0 may_be_deduced.
+therole_rules(82): cryptotypes__namei__first may_be_replaced_by 1.
+therole_rules(83): cryptotypes__namei__last may_be_replaced_by 40.
+therole_rules(84): cryptotypes__namei__base__first may_be_replaced_by -2147483648.
+therole_rules(85): cryptotypes__namei__base__last may_be_replaced_by 2147483647.
+therole_rules(86): cryptotypes__issueridt__size >= 0 may_be_deduced.
+therole_rules(87): cryptotypes__issueridt__first may_be_replaced_by 0.
+therole_rules(88): cryptotypes__issueridt__last may_be_replaced_by 4294967295.
+therole_rules(89): cryptotypes__issueridt__base__first <= 
+     cryptotypes__issueridt__base__last may_be_deduced.
+therole_rules(90): cryptotypes__issueridt__base__first <= 
+     cryptotypes__issueridt__first may_be_deduced.
+therole_rules(91): cryptotypes__issueridt__base__last >= 
+     cryptotypes__issueridt__last may_be_deduced.
+therole_rules(92): cryptotypes__issuert__size >= 0 may_be_deduced.
+therole_rules(93): A = B may_be_deduced_from
+     [goal(checktype(A,cryptotypes__issuert)),
+      goal(checktype(B,cryptotypes__issuert)),
+      fld_id(A) = fld_id(B),
+      fld_namelength(A) = fld_namelength(B),
+      fld_name(A) = fld_name(B)].
+therole_rules(94): cryptotypes__algorithmt__size >= 0 may_be_deduced.
+therole_rules(95): cryptotypes__algorithmt__first may_be_replaced_by cryptotypes__rsa.
+therole_rules(96): cryptotypes__algorithmt__last may_be_replaced_by cryptotypes__ripemd160_rsa.
+therole_rules(97): cryptotypes__algorithmt__base__first may_be_replaced_by cryptotypes__rsa.
+therole_rules(98): cryptotypes__algorithmt__base__last may_be_replaced_by cryptotypes__ripemd160_rsa.
+therole_rules(99): cryptotypes__algorithmt__pos(
+     cryptotypes__algorithmt__first) may_be_replaced_by 0.
+therole_rules(100): cryptotypes__algorithmt__pos(cryptotypes__rsa) may_be_replaced_by 0.
+therole_rules(101): cryptotypes__algorithmt__val(0) may_be_replaced_by 
+     cryptotypes__rsa.
+therole_rules(102): cryptotypes__algorithmt__pos(cryptotypes__md2) may_be_replaced_by 1.
+therole_rules(103): cryptotypes__algorithmt__val(1) may_be_replaced_by 
+     cryptotypes__md2.
+therole_rules(104): cryptotypes__algorithmt__pos(cryptotypes__md5) may_be_replaced_by 2.
+therole_rules(105): cryptotypes__algorithmt__val(2) may_be_replaced_by 
+     cryptotypes__md5.
+therole_rules(106): cryptotypes__algorithmt__pos(
+     cryptotypes__sha_1) may_be_replaced_by 3.
+therole_rules(107): cryptotypes__algorithmt__val(3) may_be_replaced_by 
+     cryptotypes__sha_1.
+therole_rules(108): cryptotypes__algorithmt__pos(
+     cryptotypes__ripemd128) may_be_replaced_by 4.
+therole_rules(109): cryptotypes__algorithmt__val(4) may_be_replaced_by 
+     cryptotypes__ripemd128.
+therole_rules(110): cryptotypes__algorithmt__pos(
+     cryptotypes__ripemd160) may_be_replaced_by 5.
+therole_rules(111): cryptotypes__algorithmt__val(5) may_be_replaced_by 
+     cryptotypes__ripemd160.
+therole_rules(112): cryptotypes__algorithmt__pos(
+     cryptotypes__md2_rsa) may_be_replaced_by 6.
+therole_rules(113): cryptotypes__algorithmt__val(6) may_be_replaced_by 
+     cryptotypes__md2_rsa.
+therole_rules(114): cryptotypes__algorithmt__pos(
+     cryptotypes__md5_rsa) may_be_replaced_by 7.
+therole_rules(115): cryptotypes__algorithmt__val(7) may_be_replaced_by 
+     cryptotypes__md5_rsa.
+therole_rules(116): cryptotypes__algorithmt__pos(
+     cryptotypes__sha1_rsa) may_be_replaced_by 8.
+therole_rules(117): cryptotypes__algorithmt__val(8) may_be_replaced_by 
+     cryptotypes__sha1_rsa.
+therole_rules(118): cryptotypes__algorithmt__pos(
+     cryptotypes__ripemd128_rsa) may_be_replaced_by 9.
+therole_rules(119): cryptotypes__algorithmt__val(9) may_be_replaced_by 
+     cryptotypes__ripemd128_rsa.
+therole_rules(120): cryptotypes__algorithmt__pos(
+     cryptotypes__ripemd160_rsa) may_be_replaced_by 10.
+therole_rules(121): cryptotypes__algorithmt__val(10) may_be_replaced_by 
+     cryptotypes__ripemd160_rsa.
+therole_rules(122): cryptotypes__algorithmt__pos(
+     cryptotypes__algorithmt__last) may_be_replaced_by 10.
+therole_rules(123): cryptotypes__algorithmt__pos(succ(X)) may_be_replaced_by 
+     cryptotypes__algorithmt__pos(X) + 1
+     if [X <=cryptotypes__ripemd160_rsa, X <> 
+     cryptotypes__ripemd160_rsa].
+therole_rules(124): cryptotypes__algorithmt__pos(pred(X)) may_be_replaced_by 
+     cryptotypes__algorithmt__pos(X) - 1
+     if [X >=cryptotypes__rsa, X <> cryptotypes__rsa].
+therole_rules(125): cryptotypes__algorithmt__pos(X) >= 0 may_be_deduced_from
+     [cryptotypes__rsa <= X, X <= cryptotypes__ripemd160_rsa].
+therole_rules(126): cryptotypes__algorithmt__pos(X) <= 10 may_be_deduced_from
+     [cryptotypes__rsa <= X, X <= cryptotypes__ripemd160_rsa].
+therole_rules(127): cryptotypes__algorithmt__val(X) >= 
+     cryptotypes__rsa may_be_deduced_from
+     [0 <= X, X <= 10].
+therole_rules(128): cryptotypes__algorithmt__val(X) <= 
+     cryptotypes__ripemd160_rsa may_be_deduced_from
+     [0 <= X, X <= 10].
+therole_rules(129): succ(cryptotypes__algorithmt__val(X)) may_be_replaced_by 
+     cryptotypes__algorithmt__val(X+1)
+     if [0 <= X, X < 10].
+therole_rules(130): pred(cryptotypes__algorithmt__val(X)) may_be_replaced_by 
+     cryptotypes__algorithmt__val(X-1)
+     if [0 < X, X <= 10].
+therole_rules(131): cryptotypes__algorithmt__pos(
+     cryptotypes__algorithmt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 10].
+therole_rules(132): cryptotypes__algorithmt__val(
+     cryptotypes__algorithmt__pos(X)) may_be_replaced_by X
+     if [cryptotypes__rsa <= X, X <= cryptotypes__ripemd160_rsa].
+therole_rules(133): cryptotypes__algorithmt__pos(X) <= 
+     cryptotypes__algorithmt__pos(Y) & X <= Y are_interchangeable 
+     if [cryptotypes__rsa <= X, X <= cryptotypes__ripemd160_rsa, 
+     cryptotypes__rsa <= Y, Y <= cryptotypes__ripemd160_rsa].
+therole_rules(134): cryptotypes__algorithmt__val(X) <= 
+     cryptotypes__algorithmt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 10, 0 <= Y, Y <= 10].
+therole_rules(135): certtypes__serialnumbert__size >= 0 may_be_deduced.
+therole_rules(136): certtypes__serialnumbert__first may_be_replaced_by 0.
+therole_rules(137): certtypes__serialnumbert__last may_be_replaced_by 4294967295.
+therole_rules(138): certtypes__serialnumbert__base__first <= 
+     certtypes__serialnumbert__base__last may_be_deduced.
+therole_rules(139): certtypes__serialnumbert__base__first <= 
+     certtypes__serialnumbert__first may_be_deduced.
+therole_rules(140): certtypes__serialnumbert__base__last >= 
+     certtypes__serialnumbert__last may_be_deduced.
+therole_rules(141): certtypes__idt__size >= 0 may_be_deduced.
+therole_rules(142): A = B may_be_deduced_from
+     [goal(checktype(A,certtypes__idt)),
+      goal(checktype(B,certtypes__idt)),
+      fld_issuer(A) = fld_issuer(B),
+      fld_serialnumber(A) = fld_serialnumber(B)].
+therole_rules(143): cert__contentst__size >= 0 may_be_deduced.
+therole_rules(144): A = B may_be_deduced_from
+     [goal(checktype(A,cert__contentst)),
+      goal(checktype(B,cert__contentst)),
+      fld_id(A) = fld_id(B),
+      fld_notbefore(A) = fld_notbefore(B),
+      fld_notafter(A) = fld_notafter(B),
+      fld_mechanism(A) = fld_mechanism(B)].
+therole_rules(145): cert__attr__contentst__size >= 0 may_be_deduced.
+therole_rules(146): A = B may_be_deduced_from
+     [goal(checktype(A,cert__attr__contentst)),
+      goal(checktype(B,cert__attr__contentst)),
+      fld_inherit(A) = fld_inherit(B),
+      fld_basecertid(A) = fld_basecertid(B)].
+therole_rules(147): contentst__size >= 0 may_be_deduced.
+therole_rules(148): A = B may_be_deduced_from
+     [goal(checktype(A,contentst)),
+      goal(checktype(B,contentst)),
+      fld_inherit(A) = fld_inherit(B),
+      fld_role(A) = fld_role(B),
+      fld_clearance(A) = fld_clearance(B)].

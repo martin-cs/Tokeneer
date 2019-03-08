@@ -1,0 +1,617 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:26  SIMPLIFIED 05-SEP-2011, 15:40:43
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure Enclave.ShutdownOp
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/enclave/enclave.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_shutdownop_1.  @@@@@@@@@@
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  statust__first <= status
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  door__t__first <= door__thecurrentdoor(door__state)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  screen__msgtextt__first <= screen__clear
+-S-  Applied substitution rule shutdownop_rules(296).
+     This was achieved by replacing all occurrences of screen__msgtextt__first 
+          by:
+          screen__clear.
+<S>  New C1:  true
+-S-  Applied substitution rule shutdownop_rules(297).
+     This was achieved by replacing all occurrences of screen__msgtextt__last 
+          by:
+          screen__insertconfigdata.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_shutdownop_2.  @@@@@@@@@@
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  statust__first <= status
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  door__t__first <= door__thecurrentdoor(door__state)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  screen__msgtextt__first <= screen__clear
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  display__msgt__first <= display__blank
+-S-  Applied substitution rule shutdownop_rules(261).
+     This was achieved by replacing all occurrences of display__msgt__first by:
+          display__blank.
+<S>  New C1:  true
+-S-  Applied substitution rule shutdownop_rules(262).
+     This was achieved by replacing all occurrences of display__msgt__last by:
+          display__doorunlocked.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_shutdownop_3.  @@@@@@@@@@
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  statust__first <= status
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  door__t__first <= door__thecurrentdoor(door__state)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  screen__msgtextt__first <= screen__clear
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  display__msgt__first <= display__blank
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  statust__first <= shutdown
+***  Proved C1:  statust__first <= shutdown
+     using hypotheses H1 & H8.
+-S-  Applied substitution rule shutdownop_rules(346).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H9:  status <= shutdown
+<S>  New C2:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_shutdownop_4.  @@@@@@@@@@
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  statust__first <= status
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  door__t__first <= door__thecurrentdoor(door__state)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  screen__msgtextt__first <= screen__clear
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  display__msgt__first <= display__blank
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  statust__first <= shutdown
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(admintoken__extractuser(admintoken__state), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state), [i___1]) <= 
+          character__last)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__shutdown
+-S-  Applied substitution rule shutdownop_rules(124).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule shutdownop_rules(125).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule shutdownop_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule shutdownop_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_shutdownop_5.  @@@@@@@@@@
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  statust__first <= status
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  door__t__first <= door__thecurrentdoor(door__state)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  screen__msgtextt__first <= screen__clear
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  display__msgt__first <= display__blank
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  statust__first <= shutdown
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(admintoken__extractuser(admintoken__state), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state), [i___1]) <= 
+          character__last)
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified H26 on reading formula in, to give:
+     %%%  H26:  audittypes__elementt__first <= audittypes__shutdown
+%%%  Simplified H30 on reading formula in, to give:
+     %%%  H30:  not (privtypes__adminprivileget__first <= 
+          admintoken__theauthcertrole(admintoken__state__7) and 
+          admintoken__theauthcertrole(admintoken__state__7) <= 
+          privtypes__adminprivileget__last)
+>>>  Restructured hypothesis H30 into:
+     >>>  H30:  admintoken__theauthcertrole(admintoken__state__7) < 
+          privtypes__adminprivileget__first or privtypes__adminprivileget__last 
+          < admintoken__theauthcertrole(admintoken__state__7)
+-S-  Applied substitution rule shutdownop_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H23:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> 0 <= element(
+          admintoken__extractuser(admintoken__state), [i___1]) and element(
+          admintoken__extractuser(admintoken__state), [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule shutdownop_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H23:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> 0 <= element(
+          admintoken__extractuser(admintoken__state), [i___1]) and element(
+          admintoken__extractuser(admintoken__state), [i___1]) <= 255)
+-S-  Applied substitution rule shutdownop_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New H26:  true
+-S-  Applied substitution rule shutdownop_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New H27:  true
+-S-  Applied substitution rule shutdownop_rules(124).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New H24:  true
+-S-  Applied substitution rule shutdownop_rules(125).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New H25:  true
+-S-  Applied substitution rule shutdownop_rules(149).
+     This was achieved by replacing all occurrences of 
+          audittypes__usertexti__first by:
+          1.
+<S>  New H23:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__usertexti__last -> 0 <= element(admintoken__extractuser(
+          admintoken__state), [i___1]) and element(admintoken__extractuser(
+          admintoken__state), [i___1]) <= 255)
+-S-  Applied substitution rule shutdownop_rules(150).
+     This was achieved by replacing all occurrences of 
+          audittypes__usertexti__last by:
+          50.
+<S>  New H23:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 50 -> 0 <= 
+          element(admintoken__extractuser(admintoken__state), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state), [i___1]) <= 255)
+-S-  Applied substitution rule shutdownop_rules(204).
+     This was achieved by replacing all occurrences of 
+          privtypes__adminprivileget__first by:
+          privtypes__guard.
+<S>  New H30:  admintoken__theauthcertrole(admintoken__state__7) < 
+          privtypes__guard or privtypes__adminprivileget__last < 
+          admintoken__theauthcertrole(admintoken__state__7)
+-S-  Applied substitution rule shutdownop_rules(205).
+     This was achieved by replacing all occurrences of 
+          privtypes__adminprivileget__last by:
+          privtypes__securityofficer.
+<S>  New H30:  admintoken__theauthcertrole(admintoken__state__7) < 
+          privtypes__guard or privtypes__securityofficer < 
+          admintoken__theauthcertrole(admintoken__state__7)
+-S-  Applied substitution rule shutdownop_rules(209).
+     This was achieved by replacing all occurrences of door__t__first by:
+          door__open.
+<S>  New H10:  door__open <= door__thecurrentdoor(door__state)
+-S-  Applied substitution rule shutdownop_rules(210).
+     This was achieved by replacing all occurrences of door__t__last by:
+          door__closed.
+<S>  New H11:  door__thecurrentdoor(door__state) <= door__closed
+-S-  Applied substitution rule shutdownop_rules(261).
+     This was achieved by replacing all occurrences of display__msgt__first by:
+          display__blank.
+<S>  New H15:  true
+-S-  Applied substitution rule shutdownop_rules(262).
+     This was achieved by replacing all occurrences of display__msgt__last by:
+          display__doorunlocked.
+<S>  New H16:  true
+-S-  Applied substitution rule shutdownop_rules(296).
+     This was achieved by replacing all occurrences of screen__msgtextt__first 
+          by:
+          screen__clear.
+<S>  New H13:  true
+-S-  Applied substitution rule shutdownop_rules(297).
+     This was achieved by replacing all occurrences of screen__msgtextt__last 
+          by:
+          screen__insertconfigdata.
+<S>  New H14:  true
+-S-  Applied substitution rule shutdownop_rules(345).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H8:  notenrolled <= status
+<S>  New H17:  true
+-S-  Applied substitution rule shutdownop_rules(346).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H9:  status <= shutdown
+<S>  New H18:  true
+---  Eliminated hypothesis H26 (true-hypothesis).
+---  Eliminated hypothesis H27 (true-hypothesis).
+---  Eliminated hypothesis H24 (true-hypothesis).
+---  Eliminated hypothesis H25 (true-hypothesis).
+---  Eliminated hypothesis H15 (true-hypothesis).
+---  Eliminated hypothesis H16 (true-hypothesis).
+---  Eliminated hypothesis H13 (true-hypothesis).
+---  Eliminated hypothesis H14 (true-hypothesis).
+---  Eliminated hypothesis H17 (true-hypothesis).
+---  Eliminated hypothesis H18 (true-hypothesis).
+-S-  Eliminated hypothesis H1.
+     This was achieved by replacing all occurrences of status by:
+          waitingstartadminop.
+<S>  New H8:  true
+<S>  New H9:  true
+---  Eliminated hypothesis H8 (true-hypothesis).
+---  Eliminated hypothesis H9 (true-hypothesis).
+     +++  New H31:  integer__size >= 0
+     +++  New H32:  character__size >= 0
+     +++  New H33:  positive__size >= 0
+     +++  New H34:  audittypes__elementt__size >= 0
+     +++  New H35:  audittypes__severityt__size >= 0
+     +++  New H36:  audittypes__usertexti__size >= 0
+     +++  New H37:  alarmtypes__statust__size >= 0
+     +++  New H38:  privtypes__privileget__size >= 0
+     +++  New H39:  privtypes__adminprivileget__size >= 0
+     +++  New H40:  door__t__size >= 0
+     +++  New H41:  admin__opandnullt__size >= 0
+     +++  New H42:  display__msgt__size >= 0
+     +++  New H43:  screen__msgtextt__size >= 0
+     +++  New H44:  statust__size >= 0
+***  Proved C1:  admin__prf_rolepresent(theadmin__4) <> privtypes__guard
+     This was achieved by applying the inference rule enclave_user(2)
+     [from rulefile enclave.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H21, proved: not admin__ispresent(theadmin__4)
+***  PROVED VC.
+
+VCN  5: Summary of user rule application.
+FIL  enclave.rlu
+RUL     enclave_user(2)
+CON        1
+
+
+@@@@@@@@@@  VC: procedure_shutdownop_6.  @@@@@@@@@@
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  statust__first <= status
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  door__t__first <= door__thecurrentdoor(door__state)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  screen__msgtextt__first <= screen__closedoor
+-S-  Applied substitution rule shutdownop_rules(296).
+     This was achieved by replacing all occurrences of screen__msgtextt__first 
+          by:
+          screen__clear.
+<S>  New C1:  true
+-S-  Applied substitution rule shutdownop_rules(297).
+     This was achieved by replacing all occurrences of screen__msgtextt__last 
+          by:
+          screen__insertconfigdata.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_shutdownop_7.  @@@@@@@@@@
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  statust__first <= status
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  door__t__first <= door__thecurrentdoor(door__state)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  screen__msgtextt__first <= screen__clear
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  display__msgt__first <= display__blank
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  statust__first <= shutdown
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(admintoken__extractuser(admintoken__state), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state), [i___1]) <= 
+          character__last)
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified H26 on reading formula in, to give:
+     %%%  H26:  audittypes__elementt__first <= audittypes__shutdown
+%%%  Simplified H30 on reading formula in, to give:
+     %%%  H30:  not (privtypes__adminprivileget__first <= 
+          admintoken__theauthcertrole(admintoken__state__7) and 
+          admintoken__theauthcertrole(admintoken__state__7) <= 
+          privtypes__adminprivileget__last)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  true
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  true
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  admin__prf_rolepresent(theadmin__4) = privtypes__useronly and (
+          latch__islocked(latch__state__3) and not admin__isdoingop(theadmin__4)
+          )
+%%%  Simplified C4 on reading formula in, to give:
+     %%%  C4:  not (admin__isdoingop(theadmin__4) and admin__thecurrentop(
+          theadmin__4) = admin__shutdownop)
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C4:  not (admin__isdoingop(theadmin__4) and admin__thecurrentop(
+          theadmin__4) = admin__shutdownop)
+     using hypothesis H22.
+***  Proved C5:  latch__islocked(latch__state__3) and (door__thecurrentdoor(
+          door__state__3) = door__open and clock__greaterthanorequal(
+          clock__thecurrenttime(clock__currenttime), door__prf_alarmtimeout(
+          door__state__3))) <-> door__thedooralarm(door__state__3) = 
+          alarmtypes__alarming
+     using hypothesis H19.
+***  Proved C6:  admin__prf_rolepresent(theadmin__4) = privtypes__guard -> 
+          admintoken__prf_isgood(admintoken__state__7) and (
+          admintoken__prf_authcertvalid(admintoken__state__7) and 
+          admintoken__theauthcertrole(admintoken__state__7) = privtypes__guard)
+     using hypothesis H31.
+***  Proved C7:  not latch__islocked(latch__state__3) and latch__islocked(
+          latch__state) -> admintoken__prf_isgood(admintoken__state__7) and (
+          admintoken__prf_authcertvalid(admintoken__state__7) and 
+          admintoken__theauthcertrole(admintoken__state__7) = privtypes__guard)
+     using hypothesis H20.
+***  Proved C8:  admin__isdoingop(theadmin__4) and admin__thecurrentop(
+          theadmin__4) = admin__overridelock -> admin__prf_rolepresent(
+          theadmin__4) = privtypes__guard
+     using hypothesis H22.
+***  Proved C9:  admin__prf_rolepresent(theadmin__4) = privtypes__guard -> 
+          admin__isdoingop(theadmin__4) and admin__thecurrentop(theadmin__4) = 
+          admin__overridelock or not admin__isdoingop(theadmin__4)
+     using hypothesis H22.
+>>>  Restructured hypothesis H30 into:
+     >>>  H30:  admintoken__theauthcertrole(admintoken__state__7) < 
+          privtypes__adminprivileget__first or privtypes__adminprivileget__last 
+          < admintoken__theauthcertrole(admintoken__state__7)
+>>>  Conclusion C3 has now been split into two, giving:
+     >>>  C3:  admin__prf_rolepresent(theadmin__4) = privtypes__useronly
+     >>>  C10:  latch__islocked(latch__state__3) and not admin__isdoingop(
+          theadmin__4)
+>>>  Conclusion C10 has now been split into two, giving:
+     >>>  C10:  latch__islocked(latch__state__3)
+     >>>  C11:  not admin__isdoingop(theadmin__4)
+-S-  Applied substitution rule shutdownop_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H23:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> 0 <= element(
+          admintoken__extractuser(admintoken__state), [i___1]) and element(
+          admintoken__extractuser(admintoken__state), [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule shutdownop_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H23:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> 0 <= element(
+          admintoken__extractuser(admintoken__state), [i___1]) and element(
+          admintoken__extractuser(admintoken__state), [i___1]) <= 255)
+-S-  Applied substitution rule shutdownop_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New H26:  true
+-S-  Applied substitution rule shutdownop_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New H27:  true
+-S-  Applied substitution rule shutdownop_rules(124).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New H24:  true
+-S-  Applied substitution rule shutdownop_rules(125).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New H25:  true
+-S-  Applied substitution rule shutdownop_rules(149).
+     This was achieved by replacing all occurrences of 
+          audittypes__usertexti__first by:
+          1.
+<S>  New H23:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__usertexti__last -> 0 <= element(admintoken__extractuser(
+          admintoken__state), [i___1]) and element(admintoken__extractuser(
+          admintoken__state), [i___1]) <= 255)
+-S-  Applied substitution rule shutdownop_rules(150).
+     This was achieved by replacing all occurrences of 
+          audittypes__usertexti__last by:
+          50.
+<S>  New H23:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 50 -> 0 <= 
+          element(admintoken__extractuser(admintoken__state), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state), [i___1]) <= 255)
+-S-  Applied substitution rule shutdownop_rules(204).
+     This was achieved by replacing all occurrences of 
+          privtypes__adminprivileget__first by:
+          privtypes__guard.
+<S>  New H30:  admintoken__theauthcertrole(admintoken__state__7) < 
+          privtypes__guard or privtypes__adminprivileget__last < 
+          admintoken__theauthcertrole(admintoken__state__7)
+-S-  Applied substitution rule shutdownop_rules(205).
+     This was achieved by replacing all occurrences of 
+          privtypes__adminprivileget__last by:
+          privtypes__securityofficer.
+<S>  New H30:  admintoken__theauthcertrole(admintoken__state__7) < 
+          privtypes__guard or privtypes__securityofficer < 
+          admintoken__theauthcertrole(admintoken__state__7)
+-S-  Applied substitution rule shutdownop_rules(209).
+     This was achieved by replacing all occurrences of door__t__first by:
+          door__open.
+<S>  New H10:  door__open <= door__thecurrentdoor(door__state)
+-S-  Applied substitution rule shutdownop_rules(210).
+     This was achieved by replacing all occurrences of door__t__last by:
+          door__closed.
+<S>  New H11:  door__thecurrentdoor(door__state) <= door__closed
+-S-  Applied substitution rule shutdownop_rules(261).
+     This was achieved by replacing all occurrences of display__msgt__first by:
+          display__blank.
+<S>  New H15:  true
+-S-  Applied substitution rule shutdownop_rules(262).
+     This was achieved by replacing all occurrences of display__msgt__last by:
+          display__doorunlocked.
+<S>  New H16:  true
+-S-  Applied substitution rule shutdownop_rules(296).
+     This was achieved by replacing all occurrences of screen__msgtextt__first 
+          by:
+          screen__clear.
+<S>  New H13:  true
+-S-  Applied substitution rule shutdownop_rules(297).
+     This was achieved by replacing all occurrences of screen__msgtextt__last 
+          by:
+          screen__insertconfigdata.
+<S>  New H14:  true
+-S-  Applied substitution rule shutdownop_rules(345).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H8:  notenrolled <= status
+<S>  New H17:  true
+-S-  Applied substitution rule shutdownop_rules(346).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H9:  status <= shutdown
+<S>  New H18:  true
+***  Proved C10:  latch__islocked(latch__state__3)
+     using hypothesis H20.
+***  Proved C11:  not admin__isdoingop(theadmin__4)
+     using hypothesis H22.
+---  Eliminated hypothesis H26 (true-hypothesis).
+---  Eliminated hypothesis H27 (true-hypothesis).
+---  Eliminated hypothesis H24 (true-hypothesis).
+---  Eliminated hypothesis H25 (true-hypothesis).
+---  Eliminated hypothesis H15 (true-hypothesis).
+---  Eliminated hypothesis H16 (true-hypothesis).
+---  Eliminated hypothesis H13 (true-hypothesis).
+---  Eliminated hypothesis H14 (true-hypothesis).
+---  Eliminated hypothesis H17 (true-hypothesis).
+---  Eliminated hypothesis H18 (true-hypothesis).
+-S-  Eliminated hypothesis H1.
+     This was achieved by replacing all occurrences of status by:
+          waitingstartadminop.
+<S>  New H8:  true
+<S>  New H9:  true
+---  Eliminated hypothesis H8 (true-hypothesis).
+---  Eliminated hypothesis H9 (true-hypothesis).
+     +++  New H32:  integer__size >= 0
+     +++  New H33:  character__size >= 0
+     +++  New H34:  positive__size >= 0
+     +++  New H35:  audittypes__elementt__size >= 0
+     +++  New H36:  audittypes__severityt__size >= 0
+     +++  New H37:  audittypes__usertexti__size >= 0
+     +++  New H38:  alarmtypes__statust__size >= 0
+     +++  New H39:  privtypes__privileget__size >= 0
+     +++  New H40:  privtypes__adminprivileget__size >= 0
+     +++  New H41:  door__t__size >= 0
+     +++  New H42:  admin__opandnullt__size >= 0
+     +++  New H43:  display__msgt__size >= 0
+     +++  New H44:  screen__msgtextt__size >= 0
+     +++  New H45:  statust__size >= 0
+***  Proved C3:  admin__prf_rolepresent(theadmin__4) = privtypes__useronly
+     This was achieved by applying the inference rule enclave_user(1)
+     [from rulefile enclave.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H21, proved: not admin__ispresent(theadmin__4)
+***  PROVED VC.
+
+VCN  7: Summary of user rule application.
+FIL  enclave.rlu
+RUL     enclave_user(1)
+CON        3
+
+
+@@@@@@@@@@  VC: procedure_shutdownop_8.  @@@@@@@@@@
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  statust__first <= status
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  door__t__first <= door__thecurrentdoor(door__state)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  screen__msgtextt__first <= screen__closedoor
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  status = waitingstartadminop -> admin__ispresent(theadmin) and 
+          admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__shutdownop
+%%%  Simplified C7 on reading formula in, to give:
+     %%%  C7:  true
+***  Proved C1:  status = shutdown or status = waitingstartadminop
+     using hypothesis H1.
+***  Proved C2:  status = waitingstartadminop -> admin__ispresent(theadmin) and 
+          admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__shutdownop
+     using hypotheses H2, H3 & H4.
+***  Proved C3:  status = shutdown -> admin__prf_rolepresent(theadmin) = 
+          privtypes__useronly and (latch__islocked(latch__state) and not 
+          admin__isdoingop(theadmin))
+     using hypothesis H1.
+***  Proved C4:  admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__shutdownop -> status = waitingstartadminop
+     using hypothesis H1.
+***  Proved C5:  latch__islocked(latch__state) and (door__thecurrentdoor(
+          door__state) = door__open and clock__greaterthanorequal(
+          clock__thecurrenttime(clock__currenttime), door__prf_alarmtimeout(
+          door__state))) <-> door__thedooralarm(door__state) = 
+          alarmtypes__alarming
+     using hypothesis H5.
+***  Proved C6:  admin__prf_rolepresent(theadmin) = privtypes__guard -> 
+          admintoken__prf_isgood(admintoken__state) and (
+          admintoken__prf_authcertvalid(admintoken__state) and 
+          admintoken__theauthcertrole(admintoken__state) = privtypes__guard)
+     using hypothesis H6.
+***  Proved C7:  true
+***  Proved C8:  admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__overridelock -> admin__prf_rolepresent(theadmin) = 
+          privtypes__guard
+     using hypothesis H4.
+***  Proved C9:  admin__prf_rolepresent(theadmin) = privtypes__guard -> 
+          admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__overridelock or not admin__isdoingop(theadmin)
+     using hypothesis H7.
+***  PROVED VC.
+
+
+OVR  Overall summary of VCs using user rules.
+FIL  enclave.rlu
+RUL     enclave_user(2)
+VCS        5
+RUL     enclave_user(1)
+VCS        7
+

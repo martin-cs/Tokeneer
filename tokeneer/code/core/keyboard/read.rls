@@ -1,0 +1,88 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:16.24*/
+
+                          /*procedure Keyboard.Read*/
+
+
+rule_family read_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+read_rules(1): integer__size >= 0 may_be_deduced.
+read_rules(2): integer__first may_be_replaced_by -2147483648.
+read_rules(3): integer__last may_be_replaced_by 2147483647.
+read_rules(4): integer__base__first may_be_replaced_by -2147483648.
+read_rules(5): integer__base__last may_be_replaced_by 2147483647.
+read_rules(6): character__size >= 0 may_be_deduced.
+read_rules(7): character__first may_be_replaced_by 0.
+read_rules(8): character__last may_be_replaced_by 255.
+read_rules(9): character__base__first may_be_replaced_by 0.
+read_rules(10): character__base__last may_be_replaced_by 255.
+read_rules(11): positive__size >= 0 may_be_deduced.
+read_rules(12): positive__first may_be_replaced_by 1.
+read_rules(13): positive__last may_be_replaced_by 2147483647.
+read_rules(14): positive__base__first may_be_replaced_by -2147483648.
+read_rules(15): positive__base__last may_be_replaced_by 2147483647.
+read_rules(16): basictypes__presencet__size >= 0 may_be_deduced.
+read_rules(17): basictypes__presencet__first may_be_replaced_by basictypes__present.
+read_rules(18): basictypes__presencet__last may_be_replaced_by basictypes__absent.
+read_rules(19): basictypes__presencet__base__first may_be_replaced_by basictypes__present.
+read_rules(20): basictypes__presencet__base__last may_be_replaced_by basictypes__absent.
+read_rules(21): basictypes__presencet__pos(basictypes__presencet__first) may_be_replaced_by 0.
+read_rules(22): basictypes__presencet__pos(basictypes__present) may_be_replaced_by 0.
+read_rules(23): basictypes__presencet__val(0) may_be_replaced_by 
+     basictypes__present.
+read_rules(24): basictypes__presencet__pos(basictypes__absent) may_be_replaced_by 1.
+read_rules(25): basictypes__presencet__val(1) may_be_replaced_by 
+     basictypes__absent.
+read_rules(26): basictypes__presencet__pos(basictypes__presencet__last) may_be_replaced_by 1.
+read_rules(27): basictypes__presencet__pos(succ(X)) may_be_replaced_by 
+     basictypes__presencet__pos(X) + 1
+     if [X <=basictypes__absent, X <> basictypes__absent].
+read_rules(28): basictypes__presencet__pos(pred(X)) may_be_replaced_by 
+     basictypes__presencet__pos(X) - 1
+     if [X >=basictypes__present, X <> basictypes__present].
+read_rules(29): basictypes__presencet__pos(X) >= 0 may_be_deduced_from
+     [basictypes__present <= X, X <= basictypes__absent].
+read_rules(30): basictypes__presencet__pos(X) <= 1 may_be_deduced_from
+     [basictypes__present <= X, X <= basictypes__absent].
+read_rules(31): basictypes__presencet__val(X) >= 
+     basictypes__present may_be_deduced_from
+     [0 <= X, X <= 1].
+read_rules(32): basictypes__presencet__val(X) <= 
+     basictypes__absent may_be_deduced_from
+     [0 <= X, X <= 1].
+read_rules(33): succ(basictypes__presencet__val(X)) may_be_replaced_by 
+     basictypes__presencet__val(X+1)
+     if [0 <= X, X < 1].
+read_rules(34): pred(basictypes__presencet__val(X)) may_be_replaced_by 
+     basictypes__presencet__val(X-1)
+     if [0 < X, X <= 1].
+read_rules(35): basictypes__presencet__pos(basictypes__presencet__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+read_rules(36): basictypes__presencet__val(basictypes__presencet__pos(X)) may_be_replaced_by X
+     if [basictypes__present <= X, X <= basictypes__absent].
+read_rules(37): basictypes__presencet__pos(X) <= 
+     basictypes__presencet__pos(Y) & X <= Y are_interchangeable 
+     if [basictypes__present <= X, X <= basictypes__absent, 
+     basictypes__present <= Y, Y <= basictypes__absent].
+read_rules(38): basictypes__presencet__val(X) <= 
+     basictypes__presencet__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].
+read_rules(39): datalengtht__size >= 0 may_be_deduced.
+read_rules(40): datalengtht__first may_be_replaced_by 0.
+read_rules(41): datalengtht__last may_be_replaced_by 78.
+read_rules(42): datalengtht__base__first may_be_replaced_by -2147483648.
+read_rules(43): datalengtht__base__last may_be_replaced_by 2147483647.
+read_rules(44): datai__size >= 0 may_be_deduced.
+read_rules(45): datai__first may_be_replaced_by 1.
+read_rules(46): datai__last may_be_replaced_by 78.
+read_rules(47): datai__base__first may_be_replaced_by -2147483648.
+read_rules(48): datai__base__last may_be_replaced_by 2147483647.

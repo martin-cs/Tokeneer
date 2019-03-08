@@ -1,0 +1,1019 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:25.97
+
+                    procedure Enclave.ValidateAdminToken
+
+
+
+
+For path(s) from start to check associated with statement of line 544:
+
+procedure_validateadmintoken_1.
+H1:    not (admin__ispresent(theadmin)) .
+H2:    not (admin__isdoingop(theadmin)) .
+H3:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H4:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H6:    true .
+H7:    not (admintoken__ispresent(admintoken__state)) .
+H8:    status__1 = enclavequiescent .
+H9:    status__1 >= statust__first .
+H10:   status__1 <= statust__last .
+        ->
+C1:    admin__prf_rolepresent(theadmin) <> privtypes__guard .
+ 
+
+For path(s) from start to run-time check associated with statement of line 552:
+
+procedure_validateadmintoken_2.
+H1:    not (admin__ispresent(theadmin)) .
+H2:    not (admin__isdoingop(theadmin)) .
+H3:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H4:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H6:    true .
+H7:    not (not (admintoken__ispresent(admintoken__state))) .
+H8:    tokenok__2 <-> (admintoken__prf_isgood(admintoken__state__2) and (
+           admintoken__prf_authcertvalid(admintoken__state__2) and ((
+           admintoken__theauthcertrole(admintoken__state__2) >= 
+           privtypes__adminprivileget__first) and (
+           admintoken__theauthcertrole(admintoken__state__2) <= 
+           privtypes__adminprivileget__last)))) .
+H9:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__2, [
+           i___1]) >= character__first) and (element(description__2, [
+           i___1]) <= character__last))) .
+H10:   true .
+H11:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) <= character__last))) .
+        ->
+C1:    audittypes__information >= audittypes__severityt__first .
+C2:    audittypes__information <= audittypes__severityt__last .
+C3:    audittypes__admintokenpresent >= audittypes__elementt__first .
+C4:    audittypes__admintokenpresent <= audittypes__elementt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 562:
+
+procedure_validateadmintoken_3.
+H1:    not (admin__ispresent(theadmin)) .
+H2:    not (admin__isdoingop(theadmin)) .
+H3:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H4:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H6:    true .
+H7:    not (not (admintoken__ispresent(admintoken__state))) .
+H8:    tokenok__2 <-> (admintoken__prf_isgood(admintoken__state__2) and (
+           admintoken__prf_authcertvalid(admintoken__state__2) and ((
+           admintoken__theauthcertrole(admintoken__state__2) >= 
+           privtypes__adminprivileget__first) and (
+           admintoken__theauthcertrole(admintoken__state__2) <= 
+           privtypes__adminprivileget__last)))) .
+H9:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__2, [
+           i___1]) >= character__first) and (element(description__2, [
+           i___1]) <= character__last))) .
+H10:   true .
+H11:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) <= character__last))) .
+H12:   audittypes__information >= audittypes__severityt__first .
+H13:   audittypes__information <= audittypes__severityt__last .
+H14:   audittypes__admintokenpresent >= audittypes__elementt__first .
+H15:   audittypes__admintokenpresent <= audittypes__elementt__last .
+H16:   true .
+H17:   tokenok__2 .
+H18:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) <= character__last))) .
+        ->
+C1:    audittypes__information >= audittypes__severityt__first .
+C2:    audittypes__information <= audittypes__severityt__last .
+C3:    audittypes__admintokenvalid >= audittypes__elementt__first .
+C4:    audittypes__admintokenvalid <= audittypes__elementt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 569:
+
+procedure_validateadmintoken_4.
+H1:    not (admin__ispresent(theadmin)) .
+H2:    not (admin__isdoingop(theadmin)) .
+H3:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H4:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H6:    true .
+H7:    not (not (admintoken__ispresent(admintoken__state))) .
+H8:    tokenok__2 <-> (admintoken__prf_isgood(admintoken__state__2) and (
+           admintoken__prf_authcertvalid(admintoken__state__2) and ((
+           admintoken__theauthcertrole(admintoken__state__2) >= 
+           privtypes__adminprivileget__first) and (
+           admintoken__theauthcertrole(admintoken__state__2) <= 
+           privtypes__adminprivileget__last)))) .
+H9:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__2, [
+           i___1]) >= character__first) and (element(description__2, [
+           i___1]) <= character__last))) .
+H10:   true .
+H11:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) <= character__last))) .
+H12:   audittypes__information >= audittypes__severityt__first .
+H13:   audittypes__information <= audittypes__severityt__last .
+H14:   audittypes__admintokenpresent >= audittypes__elementt__first .
+H15:   audittypes__admintokenpresent <= audittypes__elementt__last .
+H16:   true .
+H17:   tokenok__2 .
+H18:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) <= character__last))) .
+H19:   audittypes__information >= audittypes__severityt__first .
+H20:   audittypes__information <= audittypes__severityt__last .
+H21:   audittypes__admintokenvalid >= audittypes__elementt__first .
+H22:   audittypes__admintokenvalid <= audittypes__elementt__last .
+        ->
+C1:    screen__requestadminop >= screen__msgtextt__first .
+C2:    screen__requestadminop <= screen__msgtextt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 570:
+
+procedure_validateadmintoken_5.
+H1:    not (admin__ispresent(theadmin)) .
+H2:    not (admin__isdoingop(theadmin)) .
+H3:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H4:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H6:    true .
+H7:    not (not (admintoken__ispresent(admintoken__state))) .
+H8:    tokenok__2 <-> (admintoken__prf_isgood(admintoken__state__2) and (
+           admintoken__prf_authcertvalid(admintoken__state__2) and ((
+           admintoken__theauthcertrole(admintoken__state__2) >= 
+           privtypes__adminprivileget__first) and (
+           admintoken__theauthcertrole(admintoken__state__2) <= 
+           privtypes__adminprivileget__last)))) .
+H9:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__2, [
+           i___1]) >= character__first) and (element(description__2, [
+           i___1]) <= character__last))) .
+H10:   true .
+H11:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) <= character__last))) .
+H12:   audittypes__information >= audittypes__severityt__first .
+H13:   audittypes__information <= audittypes__severityt__last .
+H14:   audittypes__admintokenpresent >= audittypes__elementt__first .
+H15:   audittypes__admintokenpresent <= audittypes__elementt__last .
+H16:   true .
+H17:   tokenok__2 .
+H18:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) <= character__last))) .
+H19:   audittypes__information >= audittypes__severityt__first .
+H20:   audittypes__information <= audittypes__severityt__last .
+H21:   audittypes__admintokenvalid >= audittypes__elementt__first .
+H22:   audittypes__admintokenvalid <= audittypes__elementt__last .
+H23:   screen__requestadminop >= screen__msgtextt__first .
+H24:   screen__requestadminop <= screen__msgtextt__last .
+        ->
+C1:    enclavequiescent >= statust__first .
+C2:    enclavequiescent <= statust__last .
+ 
+
+For path(s) from start to precondition check associated with statement of line 572:
+
+procedure_validateadmintoken_6.
+H1:    not (admin__ispresent(theadmin)) .
+H2:    not (admin__isdoingop(theadmin)) .
+H3:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H4:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H6:    true .
+H7:    not (not (admintoken__ispresent(admintoken__state))) .
+H8:    tokenok__2 <-> (admintoken__prf_isgood(admintoken__state__2) and (
+           admintoken__prf_authcertvalid(admintoken__state__2) and ((
+           admintoken__theauthcertrole(admintoken__state__2) >= 
+           privtypes__adminprivileget__first) and (
+           admintoken__theauthcertrole(admintoken__state__2) <= 
+           privtypes__adminprivileget__last)))) .
+H9:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__2, [
+           i___1]) >= character__first) and (element(description__2, [
+           i___1]) <= character__last))) .
+H10:   true .
+H11:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) <= character__last))) .
+H12:   audittypes__information >= audittypes__severityt__first .
+H13:   audittypes__information <= audittypes__severityt__last .
+H14:   audittypes__admintokenpresent >= audittypes__elementt__first .
+H15:   audittypes__admintokenpresent <= audittypes__elementt__last .
+H16:   true .
+H17:   tokenok__2 .
+H18:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) <= character__last))) .
+H19:   audittypes__information >= audittypes__severityt__first .
+H20:   audittypes__information <= audittypes__severityt__last .
+H21:   audittypes__admintokenvalid >= audittypes__elementt__first .
+H22:   audittypes__admintokenvalid <= audittypes__elementt__last .
+H23:   screen__requestadminop >= screen__msgtextt__first .
+H24:   screen__requestadminop <= screen__msgtextt__last .
+H25:   enclavequiescent >= statust__first .
+H26:   enclavequiescent <= statust__last .
+        ->
+C1:    admintoken__prf_isgood(admintoken__state__2) .
+C2:    admintoken__prf_authcertvalid(admintoken__state__2) .
+C3:    admintoken__theauthcertrole(admintoken__state__2) >= 
+           privtypes__adminprivileget__first .
+C4:    admintoken__theauthcertrole(admintoken__state__2) <= 
+           privtypes__adminprivileget__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 572:
+
+procedure_validateadmintoken_7.
+H1:    not (admin__ispresent(theadmin)) .
+H2:    not (admin__isdoingop(theadmin)) .
+H3:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H4:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H6:    true .
+H7:    not (not (admintoken__ispresent(admintoken__state))) .
+H8:    tokenok__2 <-> (admintoken__prf_isgood(admintoken__state__2) and (
+           admintoken__prf_authcertvalid(admintoken__state__2) and ((
+           admintoken__theauthcertrole(admintoken__state__2) >= 
+           privtypes__adminprivileget__first) and (
+           admintoken__theauthcertrole(admintoken__state__2) <= 
+           privtypes__adminprivileget__last)))) .
+H9:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__2, [
+           i___1]) >= character__first) and (element(description__2, [
+           i___1]) <= character__last))) .
+H10:   true .
+H11:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) <= character__last))) .
+H12:   audittypes__information >= audittypes__severityt__first .
+H13:   audittypes__information <= audittypes__severityt__last .
+H14:   audittypes__admintokenpresent >= audittypes__elementt__first .
+H15:   audittypes__admintokenpresent <= audittypes__elementt__last .
+H16:   true .
+H17:   tokenok__2 .
+H18:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) <= character__last))) .
+H19:   audittypes__information >= audittypes__severityt__first .
+H20:   audittypes__information <= audittypes__severityt__last .
+H21:   audittypes__admintokenvalid >= audittypes__elementt__first .
+H22:   audittypes__admintokenvalid <= audittypes__elementt__last .
+H23:   screen__requestadminop >= screen__msgtextt__first .
+H24:   screen__requestadminop <= screen__msgtextt__last .
+H25:   enclavequiescent >= statust__first .
+H26:   enclavequiescent <= statust__last .
+H27:   admintoken__prf_isgood(admintoken__state__2) .
+H28:   admintoken__prf_authcertvalid(admintoken__state__2) .
+H29:   admintoken__theauthcertrole(admintoken__state__2) >= 
+           privtypes__adminprivileget__first .
+H30:   admintoken__theauthcertrole(admintoken__state__2) <= 
+           privtypes__adminprivileget__last .
+H31:   admintoken__getrole(admintoken__state__2) >= 
+           privtypes__adminprivileget__first .
+H32:   admintoken__getrole(admintoken__state__2) <= 
+           privtypes__adminprivileget__last .
+        ->
+C1:    admintoken__getrole(admintoken__state__2) >= 
+           privtypes__adminprivileget__first .
+C2:    admintoken__getrole(admintoken__state__2) <= 
+           privtypes__adminprivileget__last .
+ 
+
+For path(s) from start to check associated with statement of line 575:
+
+procedure_validateadmintoken_8.
+H1:    not (admin__ispresent(theadmin)) .
+H2:    not (admin__isdoingop(theadmin)) .
+H3:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H4:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H6:    true .
+H7:    not (not (admintoken__ispresent(admintoken__state))) .
+H8:    tokenok__2 <-> (admintoken__prf_isgood(admintoken__state__2) and (
+           admintoken__prf_authcertvalid(admintoken__state__2) and ((
+           admintoken__theauthcertrole(admintoken__state__2) >= 
+           privtypes__adminprivileget__first) and (
+           admintoken__theauthcertrole(admintoken__state__2) <= 
+           privtypes__adminprivileget__last)))) .
+H9:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__2, [
+           i___1]) >= character__first) and (element(description__2, [
+           i___1]) <= character__last))) .
+H10:   true .
+H11:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) <= character__last))) .
+H12:   audittypes__information >= audittypes__severityt__first .
+H13:   audittypes__information <= audittypes__severityt__last .
+H14:   audittypes__admintokenpresent >= audittypes__elementt__first .
+H15:   audittypes__admintokenpresent <= audittypes__elementt__last .
+H16:   true .
+H17:   tokenok__2 .
+H18:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) <= character__last))) .
+H19:   audittypes__information >= audittypes__severityt__first .
+H20:   audittypes__information <= audittypes__severityt__last .
+H21:   audittypes__admintokenvalid >= audittypes__elementt__first .
+H22:   audittypes__admintokenvalid <= audittypes__elementt__last .
+H23:   screen__requestadminop >= screen__msgtextt__first .
+H24:   screen__requestadminop <= screen__msgtextt__last .
+H25:   enclavequiescent >= statust__first .
+H26:   enclavequiescent <= statust__last .
+H27:   admintoken__prf_isgood(admintoken__state__2) .
+H28:   admintoken__prf_authcertvalid(admintoken__state__2) .
+H29:   admintoken__theauthcertrole(admintoken__state__2) >= 
+           privtypes__adminprivileget__first .
+H30:   admintoken__theauthcertrole(admintoken__state__2) <= 
+           privtypes__adminprivileget__last .
+H31:   admintoken__getrole(admintoken__state__2) >= 
+           privtypes__adminprivileget__first .
+H32:   admintoken__getrole(admintoken__state__2) <= 
+           privtypes__adminprivileget__last .
+H33:   admintoken__getrole(admintoken__state__2) >= 
+           privtypes__adminprivileget__first .
+H34:   admintoken__getrole(admintoken__state__2) <= 
+           privtypes__adminprivileget__last .
+H35:   (admintoken__getrole(admintoken__state__2) = 
+           privtypes__guard) <-> (admin__prf_rolepresent(theadmin__6) = 
+           privtypes__guard) .
+H36:   not (admin__isdoingop(theadmin__6)) .
+H37:   admin__ispresent(theadmin__6) .
+        ->
+C1:    (admintoken__getrole(admintoken__state__2) = 
+           privtypes__guard) -> (admintoken__theauthcertrole(
+           admintoken__state__2) = privtypes__guard) .
+ 
+
+For path(s) from start to run-time check associated with statement of line 582:
+
+procedure_validateadmintoken_9.
+H1:    not (admin__ispresent(theadmin)) .
+H2:    not (admin__isdoingop(theadmin)) .
+H3:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H4:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H6:    true .
+H7:    not (not (admintoken__ispresent(admintoken__state))) .
+H8:    tokenok__2 <-> (admintoken__prf_isgood(admintoken__state__2) and (
+           admintoken__prf_authcertvalid(admintoken__state__2) and ((
+           admintoken__theauthcertrole(admintoken__state__2) >= 
+           privtypes__adminprivileget__first) and (
+           admintoken__theauthcertrole(admintoken__state__2) <= 
+           privtypes__adminprivileget__last)))) .
+H9:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__2, [
+           i___1]) >= character__first) and (element(description__2, [
+           i___1]) <= character__last))) .
+H10:   true .
+H11:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) <= character__last))) .
+H12:   audittypes__information >= audittypes__severityt__first .
+H13:   audittypes__information <= audittypes__severityt__last .
+H14:   audittypes__admintokenpresent >= audittypes__elementt__first .
+H15:   audittypes__admintokenpresent <= audittypes__elementt__last .
+H16:   true .
+H17:   not tokenok__2 .
+H18:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) <= character__last))) .
+H19:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__2, [
+           i___1]) >= character__first) and (element(description__2, [
+           i___1]) <= character__last))) .
+        ->
+C1:    audittypes__warning >= audittypes__severityt__first .
+C2:    audittypes__warning <= audittypes__severityt__last .
+C3:    audittypes__admintokeninvalid >= audittypes__elementt__first .
+C4:    audittypes__admintokeninvalid <= audittypes__elementt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 589:
+
+procedure_validateadmintoken_10.
+H1:    not (admin__ispresent(theadmin)) .
+H2:    not (admin__isdoingop(theadmin)) .
+H3:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H4:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H6:    true .
+H7:    not (not (admintoken__ispresent(admintoken__state))) .
+H8:    tokenok__2 <-> (admintoken__prf_isgood(admintoken__state__2) and (
+           admintoken__prf_authcertvalid(admintoken__state__2) and ((
+           admintoken__theauthcertrole(admintoken__state__2) >= 
+           privtypes__adminprivileget__first) and (
+           admintoken__theauthcertrole(admintoken__state__2) <= 
+           privtypes__adminprivileget__last)))) .
+H9:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__2, [
+           i___1]) >= character__first) and (element(description__2, [
+           i___1]) <= character__last))) .
+H10:   true .
+H11:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) <= character__last))) .
+H12:   audittypes__information >= audittypes__severityt__first .
+H13:   audittypes__information <= audittypes__severityt__last .
+H14:   audittypes__admintokenpresent >= audittypes__elementt__first .
+H15:   audittypes__admintokenpresent <= audittypes__elementt__last .
+H16:   true .
+H17:   not tokenok__2 .
+H18:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) <= character__last))) .
+H19:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__2, [
+           i___1]) >= character__first) and (element(description__2, [
+           i___1]) <= character__last))) .
+H20:   audittypes__warning >= audittypes__severityt__first .
+H21:   audittypes__warning <= audittypes__severityt__last .
+H22:   audittypes__admintokeninvalid >= audittypes__elementt__first .
+H23:   audittypes__admintokeninvalid <= audittypes__elementt__last .
+        ->
+C1:    screen__removeadmintoken >= screen__msgtextt__first .
+C2:    screen__removeadmintoken <= screen__msgtextt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 590:
+
+procedure_validateadmintoken_11.
+H1:    not (admin__ispresent(theadmin)) .
+H2:    not (admin__isdoingop(theadmin)) .
+H3:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H4:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H6:    true .
+H7:    not (not (admintoken__ispresent(admintoken__state))) .
+H8:    tokenok__2 <-> (admintoken__prf_isgood(admintoken__state__2) and (
+           admintoken__prf_authcertvalid(admintoken__state__2) and ((
+           admintoken__theauthcertrole(admintoken__state__2) >= 
+           privtypes__adminprivileget__first) and (
+           admintoken__theauthcertrole(admintoken__state__2) <= 
+           privtypes__adminprivileget__last)))) .
+H9:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__2, [
+           i___1]) >= character__first) and (element(description__2, [
+           i___1]) <= character__last))) .
+H10:   true .
+H11:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) <= character__last))) .
+H12:   audittypes__information >= audittypes__severityt__first .
+H13:   audittypes__information <= audittypes__severityt__last .
+H14:   audittypes__admintokenpresent >= audittypes__elementt__first .
+H15:   audittypes__admintokenpresent <= audittypes__elementt__last .
+H16:   true .
+H17:   not tokenok__2 .
+H18:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) <= character__last))) .
+H19:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__2, [
+           i___1]) >= character__first) and (element(description__2, [
+           i___1]) <= character__last))) .
+H20:   audittypes__warning >= audittypes__severityt__first .
+H21:   audittypes__warning <= audittypes__severityt__last .
+H22:   audittypes__admintokeninvalid >= audittypes__elementt__first .
+H23:   audittypes__admintokeninvalid <= audittypes__elementt__last .
+H24:   screen__removeadmintoken >= screen__msgtextt__first .
+H25:   screen__removeadmintoken <= screen__msgtextt__last .
+        ->
+C1:    waitingremoveadmintokenfail >= statust__first .
+C2:    waitingremoveadmintokenfail <= statust__last .
+ 
+
+For path(s) from start to check associated with statement of line 593:
+
+procedure_validateadmintoken_12.
+H1:    not (admin__ispresent(theadmin)) .
+H2:    not (admin__isdoingop(theadmin)) .
+H3:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H4:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H6:    true .
+H7:    not (not (admintoken__ispresent(admintoken__state))) .
+H8:    tokenok__2 <-> (admintoken__prf_isgood(admintoken__state__2) and (
+           admintoken__prf_authcertvalid(admintoken__state__2) and ((
+           admintoken__theauthcertrole(admintoken__state__2) >= 
+           privtypes__adminprivileget__first) and (
+           admintoken__theauthcertrole(admintoken__state__2) <= 
+           privtypes__adminprivileget__last)))) .
+H9:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__2, [
+           i___1]) >= character__first) and (element(description__2, [
+           i___1]) <= character__last))) .
+H10:   true .
+H11:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) <= character__last))) .
+H12:   audittypes__information >= audittypes__severityt__first .
+H13:   audittypes__information <= audittypes__severityt__last .
+H14:   audittypes__admintokenpresent >= audittypes__elementt__first .
+H15:   audittypes__admintokenpresent <= audittypes__elementt__last .
+H16:   true .
+H17:   not tokenok__2 .
+H18:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) <= character__last))) .
+H19:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__2, [
+           i___1]) >= character__first) and (element(description__2, [
+           i___1]) <= character__last))) .
+H20:   audittypes__warning >= audittypes__severityt__first .
+H21:   audittypes__warning <= audittypes__severityt__last .
+H22:   audittypes__admintokeninvalid >= audittypes__elementt__first .
+H23:   audittypes__admintokeninvalid <= audittypes__elementt__last .
+H24:   screen__removeadmintoken >= screen__msgtextt__first .
+H25:   screen__removeadmintoken <= screen__msgtextt__last .
+H26:   waitingremoveadmintokenfail >= statust__first .
+H27:   waitingremoveadmintokenfail <= statust__last .
+        ->
+C1:    admin__prf_rolepresent(theadmin) <> privtypes__guard .
+ 
+
+For path(s) from start to finish:
+
+procedure_validateadmintoken_13.
+H1:    not (admin__ispresent(theadmin)) .
+H2:    not (admin__isdoingop(theadmin)) .
+H3:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H4:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H6:    true .
+H7:    not (admintoken__ispresent(admintoken__state)) .
+H8:    status__1 = enclavequiescent .
+H9:    status__1 >= statust__first .
+H10:   status__1 <= statust__last .
+H11:   admin__prf_rolepresent(theadmin) <> privtypes__guard .
+        ->
+C1:    (status__1 = enclavequiescent) or (status__1 = 
+           waitingremoveadmintokenfail) .
+C2:    (status__1 = waitingremoveadmintokenfail) -> (not (
+           admin__ispresent(theadmin))) .
+C3:    not (admin__isdoingop(theadmin)) .
+C4:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state__1) and (
+           admintoken__prf_authcertvalid(admintoken__state__1) and (
+           admintoken__theauthcertrole(admintoken__state__1) = 
+           privtypes__guard))) .
+C5:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+C6:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+ 
+
+procedure_validateadmintoken_14.
+H1:    not (admin__ispresent(theadmin)) .
+H2:    not (admin__isdoingop(theadmin)) .
+H3:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H4:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H6:    true .
+H7:    not (not (admintoken__ispresent(admintoken__state))) .
+H8:    tokenok__2 <-> (admintoken__prf_isgood(admintoken__state__2) and (
+           admintoken__prf_authcertvalid(admintoken__state__2) and ((
+           admintoken__theauthcertrole(admintoken__state__2) >= 
+           privtypes__adminprivileget__first) and (
+           admintoken__theauthcertrole(admintoken__state__2) <= 
+           privtypes__adminprivileget__last)))) .
+H9:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__2, [
+           i___1]) >= character__first) and (element(description__2, [
+           i___1]) <= character__last))) .
+H10:   true .
+H11:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) <= character__last))) .
+H12:   audittypes__information >= audittypes__severityt__first .
+H13:   audittypes__information <= audittypes__severityt__last .
+H14:   audittypes__admintokenpresent >= audittypes__elementt__first .
+H15:   audittypes__admintokenpresent <= audittypes__elementt__last .
+H16:   true .
+H17:   tokenok__2 .
+H18:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) <= character__last))) .
+H19:   audittypes__information >= audittypes__severityt__first .
+H20:   audittypes__information <= audittypes__severityt__last .
+H21:   audittypes__admintokenvalid >= audittypes__elementt__first .
+H22:   audittypes__admintokenvalid <= audittypes__elementt__last .
+H23:   screen__requestadminop >= screen__msgtextt__first .
+H24:   screen__requestadminop <= screen__msgtextt__last .
+H25:   enclavequiescent >= statust__first .
+H26:   enclavequiescent <= statust__last .
+H27:   admintoken__prf_isgood(admintoken__state__2) .
+H28:   admintoken__prf_authcertvalid(admintoken__state__2) .
+H29:   admintoken__theauthcertrole(admintoken__state__2) >= 
+           privtypes__adminprivileget__first .
+H30:   admintoken__theauthcertrole(admintoken__state__2) <= 
+           privtypes__adminprivileget__last .
+H31:   admintoken__getrole(admintoken__state__2) >= 
+           privtypes__adminprivileget__first .
+H32:   admintoken__getrole(admintoken__state__2) <= 
+           privtypes__adminprivileget__last .
+H33:   admintoken__getrole(admintoken__state__2) >= 
+           privtypes__adminprivileget__first .
+H34:   admintoken__getrole(admintoken__state__2) <= 
+           privtypes__adminprivileget__last .
+H35:   (admintoken__getrole(admintoken__state__2) = 
+           privtypes__guard) <-> (admin__prf_rolepresent(theadmin__6) = 
+           privtypes__guard) .
+H36:   not (admin__isdoingop(theadmin__6)) .
+H37:   admin__ispresent(theadmin__6) .
+H38:   (admintoken__getrole(admintoken__state__2) = 
+           privtypes__guard) -> (admintoken__theauthcertrole(
+           admintoken__state__2) = privtypes__guard) .
+        ->
+C1:    (enclavequiescent = enclavequiescent) or (
+           enclavequiescent = waitingremoveadmintokenfail) .
+C2:    (enclavequiescent = waitingremoveadmintokenfail) -> (not (
+           admin__ispresent(theadmin__6))) .
+C3:    not (admin__isdoingop(theadmin__6)) .
+C4:    (admin__prf_rolepresent(theadmin__6) = 
+           privtypes__guard) -> (admintoken__prf_isgood(
+           admintoken__state__2) and (
+           admintoken__prf_authcertvalid(admintoken__state__2) and (
+           admintoken__theauthcertrole(admintoken__state__2) = 
+           privtypes__guard))) .
+C5:    (admin__isdoingop(theadmin__6) and (
+           admin__thecurrentop(theadmin__6) = 
+           admin__overridelock)) -> (admin__prf_rolepresent(theadmin__6) = 
+           privtypes__guard) .
+C6:    (admin__prf_rolepresent(theadmin__6) = 
+           privtypes__guard) -> ((admin__isdoingop(theadmin__6) and (
+           admin__thecurrentop(theadmin__6) = 
+           admin__overridelock)) or (not (admin__isdoingop(theadmin__6)))) .
+ 
+
+procedure_validateadmintoken_15.
+H1:    not (admin__ispresent(theadmin)) .
+H2:    not (admin__isdoingop(theadmin)) .
+H3:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H4:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H6:    true .
+H7:    not (not (admintoken__ispresent(admintoken__state))) .
+H8:    tokenok__2 <-> (admintoken__prf_isgood(admintoken__state__2) and (
+           admintoken__prf_authcertvalid(admintoken__state__2) and ((
+           admintoken__theauthcertrole(admintoken__state__2) >= 
+           privtypes__adminprivileget__first) and (
+           admintoken__theauthcertrole(admintoken__state__2) <= 
+           privtypes__adminprivileget__last)))) .
+H9:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__2, [
+           i___1]) >= character__first) and (element(description__2, [
+           i___1]) <= character__last))) .
+H10:   true .
+H11:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) <= character__last))) .
+H12:   audittypes__information >= audittypes__severityt__first .
+H13:   audittypes__information <= audittypes__severityt__last .
+H14:   audittypes__admintokenpresent >= audittypes__elementt__first .
+H15:   audittypes__admintokenpresent <= audittypes__elementt__last .
+H16:   true .
+H17:   not tokenok__2 .
+H18:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state__2), [
+           i___1]) <= character__last))) .
+H19:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__2, [
+           i___1]) >= character__first) and (element(description__2, [
+           i___1]) <= character__last))) .
+H20:   audittypes__warning >= audittypes__severityt__first .
+H21:   audittypes__warning <= audittypes__severityt__last .
+H22:   audittypes__admintokeninvalid >= audittypes__elementt__first .
+H23:   audittypes__admintokeninvalid <= audittypes__elementt__last .
+H24:   screen__removeadmintoken >= screen__msgtextt__first .
+H25:   screen__removeadmintoken <= screen__msgtextt__last .
+H26:   waitingremoveadmintokenfail >= statust__first .
+H27:   waitingremoveadmintokenfail <= statust__last .
+H28:   admin__prf_rolepresent(theadmin) <> privtypes__guard .
+        ->
+C1:    (waitingremoveadmintokenfail = enclavequiescent) or (
+           waitingremoveadmintokenfail = 
+           waitingremoveadmintokenfail) .
+C2:    (waitingremoveadmintokenfail = 
+           waitingremoveadmintokenfail) -> (not (
+           admin__ispresent(theadmin))) .
+C3:    not (admin__isdoingop(theadmin)) .
+C4:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state__2) and (
+           admintoken__prf_authcertvalid(admintoken__state__2) and (
+           admintoken__theauthcertrole(admintoken__state__2) = 
+           privtypes__guard))) .
+C5:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+C6:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+ 
+

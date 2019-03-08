@@ -1,0 +1,166 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:27.74*/
+
+                          /*procedure Poll.Activity*/
+
+
+rule_family activity_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+activity_rules(1): alarmtypes__statust__size >= 0 may_be_deduced.
+activity_rules(2): alarmtypes__statust__first may_be_replaced_by alarmtypes__alarming.
+activity_rules(3): alarmtypes__statust__last may_be_replaced_by alarmtypes__silent.
+activity_rules(4): alarmtypes__statust__base__first may_be_replaced_by alarmtypes__alarming.
+activity_rules(5): alarmtypes__statust__base__last may_be_replaced_by alarmtypes__silent.
+activity_rules(6): alarmtypes__statust__pos(alarmtypes__statust__first) may_be_replaced_by 0.
+activity_rules(7): alarmtypes__statust__pos(alarmtypes__alarming) may_be_replaced_by 0.
+activity_rules(8): alarmtypes__statust__val(0) may_be_replaced_by 
+     alarmtypes__alarming.
+activity_rules(9): alarmtypes__statust__pos(alarmtypes__silent) may_be_replaced_by 1.
+activity_rules(10): alarmtypes__statust__val(1) may_be_replaced_by 
+     alarmtypes__silent.
+activity_rules(11): alarmtypes__statust__pos(alarmtypes__statust__last) may_be_replaced_by 1.
+activity_rules(12): alarmtypes__statust__pos(succ(X)) may_be_replaced_by 
+     alarmtypes__statust__pos(X) + 1
+     if [X <=alarmtypes__silent, X <> alarmtypes__silent].
+activity_rules(13): alarmtypes__statust__pos(pred(X)) may_be_replaced_by 
+     alarmtypes__statust__pos(X) - 1
+     if [X >=alarmtypes__alarming, X <> alarmtypes__alarming].
+activity_rules(14): alarmtypes__statust__pos(X) >= 0 may_be_deduced_from
+     [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+activity_rules(15): alarmtypes__statust__pos(X) <= 1 may_be_deduced_from
+     [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+activity_rules(16): alarmtypes__statust__val(X) >= 
+     alarmtypes__alarming may_be_deduced_from
+     [0 <= X, X <= 1].
+activity_rules(17): alarmtypes__statust__val(X) <= 
+     alarmtypes__silent may_be_deduced_from
+     [0 <= X, X <= 1].
+activity_rules(18): succ(alarmtypes__statust__val(X)) may_be_replaced_by 
+     alarmtypes__statust__val(X+1)
+     if [0 <= X, X < 1].
+activity_rules(19): pred(alarmtypes__statust__val(X)) may_be_replaced_by 
+     alarmtypes__statust__val(X-1)
+     if [0 < X, X <= 1].
+activity_rules(20): alarmtypes__statust__pos(alarmtypes__statust__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+activity_rules(21): alarmtypes__statust__val(alarmtypes__statust__pos(X)) may_be_replaced_by X
+     if [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+activity_rules(22): alarmtypes__statust__pos(X) <= 
+     alarmtypes__statust__pos(Y) & X <= Y are_interchangeable 
+     if [alarmtypes__alarming <= X, X <= alarmtypes__silent, 
+     alarmtypes__alarming <= Y, Y <= alarmtypes__silent].
+activity_rules(23): alarmtypes__statust__val(X) <= 
+     alarmtypes__statust__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].
+activity_rules(24): privtypes__privileget__size >= 0 may_be_deduced.
+activity_rules(25): privtypes__privileget__first may_be_replaced_by privtypes__useronly.
+activity_rules(26): privtypes__privileget__last may_be_replaced_by privtypes__securityofficer.
+activity_rules(27): privtypes__privileget__base__first may_be_replaced_by privtypes__useronly.
+activity_rules(28): privtypes__privileget__base__last may_be_replaced_by privtypes__securityofficer.
+activity_rules(29): privtypes__privileget__pos(
+     privtypes__privileget__first) may_be_replaced_by 0.
+activity_rules(30): privtypes__privileget__pos(
+     privtypes__useronly) may_be_replaced_by 0.
+activity_rules(31): privtypes__privileget__val(0) may_be_replaced_by 
+     privtypes__useronly.
+activity_rules(32): privtypes__privileget__pos(privtypes__guard) may_be_replaced_by 1.
+activity_rules(33): privtypes__privileget__val(1) may_be_replaced_by 
+     privtypes__guard.
+activity_rules(34): privtypes__privileget__pos(
+     privtypes__auditmanager) may_be_replaced_by 2.
+activity_rules(35): privtypes__privileget__val(2) may_be_replaced_by 
+     privtypes__auditmanager.
+activity_rules(36): privtypes__privileget__pos(
+     privtypes__securityofficer) may_be_replaced_by 3.
+activity_rules(37): privtypes__privileget__val(3) may_be_replaced_by 
+     privtypes__securityofficer.
+activity_rules(38): privtypes__privileget__pos(
+     privtypes__privileget__last) may_be_replaced_by 3.
+activity_rules(39): privtypes__privileget__pos(succ(X)) may_be_replaced_by 
+     privtypes__privileget__pos(X) + 1
+     if [X <=privtypes__securityofficer, X <> 
+     privtypes__securityofficer].
+activity_rules(40): privtypes__privileget__pos(pred(X)) may_be_replaced_by 
+     privtypes__privileget__pos(X) - 1
+     if [X >=privtypes__useronly, X <> privtypes__useronly].
+activity_rules(41): privtypes__privileget__pos(X) >= 0 may_be_deduced_from
+     [privtypes__useronly <= X, X <= privtypes__securityofficer].
+activity_rules(42): privtypes__privileget__pos(X) <= 3 may_be_deduced_from
+     [privtypes__useronly <= X, X <= privtypes__securityofficer].
+activity_rules(43): privtypes__privileget__val(X) >= 
+     privtypes__useronly may_be_deduced_from
+     [0 <= X, X <= 3].
+activity_rules(44): privtypes__privileget__val(X) <= 
+     privtypes__securityofficer may_be_deduced_from
+     [0 <= X, X <= 3].
+activity_rules(45): succ(privtypes__privileget__val(X)) may_be_replaced_by 
+     privtypes__privileget__val(X+1)
+     if [0 <= X, X < 3].
+activity_rules(46): pred(privtypes__privileget__val(X)) may_be_replaced_by 
+     privtypes__privileget__val(X-1)
+     if [0 < X, X <= 3].
+activity_rules(47): privtypes__privileget__pos(
+     privtypes__privileget__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 3].
+activity_rules(48): privtypes__privileget__val(
+     privtypes__privileget__pos(X)) may_be_replaced_by X
+     if [privtypes__useronly <= X, X <= 
+     privtypes__securityofficer].
+activity_rules(49): privtypes__privileget__pos(X) <= 
+     privtypes__privileget__pos(Y) & X <= Y are_interchangeable 
+     if [privtypes__useronly <= X, X <= 
+     privtypes__securityofficer, privtypes__useronly <= Y, Y <= 
+     privtypes__securityofficer].
+activity_rules(50): privtypes__privileget__val(X) <= 
+     privtypes__privileget__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 3, 0 <= Y, Y <= 3].
+activity_rules(51): door__t__size >= 0 may_be_deduced.
+activity_rules(52): door__t__first may_be_replaced_by door__open.
+activity_rules(53): door__t__last may_be_replaced_by door__closed.
+activity_rules(54): door__t__base__first may_be_replaced_by door__open.
+activity_rules(55): door__t__base__last may_be_replaced_by door__closed.
+activity_rules(56): door__t__pos(door__t__first) may_be_replaced_by 0.
+activity_rules(57): door__t__pos(door__open) may_be_replaced_by 0.
+activity_rules(58): door__t__val(0) may_be_replaced_by door__open.
+activity_rules(59): door__t__pos(door__closed) may_be_replaced_by 1.
+activity_rules(60): door__t__val(1) may_be_replaced_by 
+     door__closed.
+activity_rules(61): door__t__pos(door__t__last) may_be_replaced_by 1.
+activity_rules(62): door__t__pos(succ(X)) may_be_replaced_by 
+     door__t__pos(X) + 1
+     if [X <=door__closed, X <> door__closed].
+activity_rules(63): door__t__pos(pred(X)) may_be_replaced_by 
+     door__t__pos(X) - 1
+     if [X >=door__open, X <> door__open].
+activity_rules(64): door__t__pos(X) >= 0 may_be_deduced_from
+     [door__open <= X, X <= door__closed].
+activity_rules(65): door__t__pos(X) <= 1 may_be_deduced_from
+     [door__open <= X, X <= door__closed].
+activity_rules(66): door__t__val(X) >= door__open may_be_deduced_from
+     [0 <= X, X <= 1].
+activity_rules(67): door__t__val(X) <= door__closed may_be_deduced_from
+     [0 <= X, X <= 1].
+activity_rules(68): succ(door__t__val(X)) may_be_replaced_by 
+     door__t__val(X+1)
+     if [0 <= X, X < 1].
+activity_rules(69): pred(door__t__val(X)) may_be_replaced_by 
+     door__t__val(X-1)
+     if [0 < X, X <= 1].
+activity_rules(70): door__t__pos(door__t__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+activity_rules(71): door__t__val(door__t__pos(X)) may_be_replaced_by X
+     if [door__open <= X, X <= door__closed].
+activity_rules(72): door__t__pos(X) <= door__t__pos(Y) & X <= Y are_interchangeable 
+     if [door__open <= X, X <= door__closed, door__open <= Y, Y <= 
+     door__closed].
+activity_rules(73): door__t__val(X) <= door__t__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].

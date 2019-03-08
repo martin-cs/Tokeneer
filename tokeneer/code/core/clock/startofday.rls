@@ -1,0 +1,49 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:07.67*/
+
+                         /*function Clock.StartOfDay*/
+
+
+rule_family startofday_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+startofday_rules(1): timet__size >= 0 may_be_deduced.
+startofday_rules(2): A = B may_be_deduced_from
+     [goal(checktype(A,timet)),
+      goal(checktype(B,timet)),
+      fld_year(A) = fld_year(B),
+      fld_month(A) = fld_month(B),
+      fld_day(A) = fld_day(B),
+      fld_millisec(A) = fld_millisec(B)].
+startofday_rules(3): yearst__size >= 0 may_be_deduced.
+startofday_rules(4): yearst__first may_be_replaced_by 1901.
+startofday_rules(5): yearst__last may_be_replaced_by 2099.
+startofday_rules(6): yearst__base__first <= yearst__base__last may_be_deduced.
+startofday_rules(7): yearst__base__first <= yearst__first may_be_deduced.
+startofday_rules(8): yearst__base__last >= yearst__last may_be_deduced.
+startofday_rules(9): monthst__size >= 0 may_be_deduced.
+startofday_rules(10): monthst__first may_be_replaced_by 1.
+startofday_rules(11): monthst__last may_be_replaced_by 12.
+startofday_rules(12): monthst__base__first <= monthst__base__last may_be_deduced.
+startofday_rules(13): monthst__base__first <= monthst__first may_be_deduced.
+startofday_rules(14): monthst__base__last >= monthst__last may_be_deduced.
+startofday_rules(15): dayst__size >= 0 may_be_deduced.
+startofday_rules(16): dayst__first may_be_replaced_by 1.
+startofday_rules(17): dayst__last may_be_replaced_by 31.
+startofday_rules(18): dayst__base__first <= dayst__base__last may_be_deduced.
+startofday_rules(19): dayst__base__first <= dayst__first may_be_deduced.
+startofday_rules(20): dayst__base__last >= dayst__last may_be_deduced.
+startofday_rules(21): millisecst__size >= 0 may_be_deduced.
+startofday_rules(22): millisecst__first may_be_replaced_by 0.
+startofday_rules(23): millisecst__last may_be_replaced_by 86399999.
+startofday_rules(24): millisecst__base__first <= millisecst__base__last may_be_deduced.
+startofday_rules(25): millisecst__base__first <= millisecst__first may_be_deduced.
+startofday_rules(26): millisecst__base__last >= millisecst__last may_be_deduced.

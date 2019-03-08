@@ -1,0 +1,249 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:20.67}
+
+                      {procedure UserToken.AddAuthCert}
+
+
+title procedure addauthcert;
+
+  function round__(real) : integer;
+  type character = integer;
+  type basictypes__unsigned32t = integer;
+  type basictypes__presencet = (basictypes__present, 
+     basictypes__absent);
+  type audittypes__elementt = (audittypes__startunenrolledtis, 
+     audittypes__startenrolledtis, audittypes__enrolmentcomplete, 
+     audittypes__enrolmentfailed, audittypes__displaychanged, 
+     audittypes__screenchanged, audittypes__doorclosed, 
+     audittypes__dooropened, audittypes__latchlocked, 
+     audittypes__latchunlocked, audittypes__alarmraised, 
+     audittypes__alarmsilenced, audittypes__truncatelog, 
+     audittypes__auditalarmraised, audittypes__auditalarmsilenced, 
+     audittypes__usertokenremoved, audittypes__usertokenpresent, 
+     audittypes__usertokeninvalid, audittypes__authcertvalid, 
+     audittypes__authcertinvalid, audittypes__fingerdetected, 
+     audittypes__fingertimeout, audittypes__fingermatched, 
+     audittypes__fingernotmatched, audittypes__authcertwritten, 
+     audittypes__authcertwritefailed, audittypes__entrypermitted, 
+     audittypes__entrytimeout, audittypes__entrydenied, 
+     audittypes__admintokenpresent, audittypes__admintokenvalid, 
+     audittypes__admintokeninvalid, audittypes__admintokenexpired, 
+     audittypes__admintokenremoved, audittypes__invalidoprequest, 
+     audittypes__operationstart, audittypes__archivelog, 
+     audittypes__archivecomplete, audittypes__archivecheckfailed, 
+     audittypes__updatedconfigdata, audittypes__invalidconfigdata, 
+     audittypes__shutdown, audittypes__overridelock, 
+     audittypes__systemfault);
+  type audittypes__severityt = (audittypes__information, 
+     audittypes__warning, audittypes__critical);
+  type privtypes__privileget = (privtypes__useronly, 
+     privtypes__guard, privtypes__auditmanager, 
+     privtypes__securityofficer);
+  type privtypes__classt = (privtypes__unmarked, 
+     privtypes__unclassified, privtypes__restricted, 
+     privtypes__confidential, privtypes__secret, 
+     privtypes__topsecret);
+  type cryptotypes__issueridt = integer;
+  type cryptotypes__algorithmt = (cryptotypes__rsa, 
+     cryptotypes__md2, cryptotypes__md5, cryptotypes__sha_1, 
+     cryptotypes__ripemd128, cryptotypes__ripemd160, 
+     cryptotypes__md2_rsa, cryptotypes__md5_rsa, 
+     cryptotypes__sha1_rsa, cryptotypes__ripemd128_rsa, 
+     cryptotypes__ripemd160_rsa);
+  type configdata__state__type = pending;
+  type certtypes__serialnumbert = integer;
+  type keystore__state__type = pending;
+  type cert__contentst = pending;
+  type certificatestore__state__type = pending;
+  type tokentypes__tryt = (tokentypes__notoken, 
+     tokentypes__badtoken, tokentypes__goodtoken);
+  type usertoken__interface__state__type = pending;
+  type certificatestatus = (bad, notverified, notcurrent, 
+     validcert);
+  type string = array [integer] of character;
+  const null__string : string = pending;
+  type privtypes__clearancet = record
+        class : privtypes__classt
+     end;
+  type cert__attr__contentst = record
+        inherit : cert__contentst
+     end;
+  type cert__id__contentst = record
+        inherit : cert__contentst
+     end;
+  type cryptotypes__issuert = record
+        id : integer;
+        namelength : integer;
+        name : string
+     end;
+  type cert__attr__auth__contentst = record
+        inherit : cert__attr__contentst
+     end;
+  type cert__attr__ianda__contentst = record
+        inherit : cert__attr__contentst
+     end;
+  type cert__attr__priv__contentst = record
+        inherit : cert__attr__contentst
+     end;
+  type valididcertt = record
+        valid : boolean;
+        idstatus : certificatestatus;
+        contents : cert__id__contentst
+     end;
+  type certtypes__idt = record
+        issuer : cryptotypes__issuert;
+        serialnumber : integer
+     end;
+  type validprivcertt = record
+        valid : boolean;
+        contents : cert__attr__priv__contentst
+     end;
+  type validauthcertt = record
+        valid : boolean;
+        contents : cert__attr__auth__contentst
+     end;
+  type validiandacertt = record
+        valid : boolean;
+        contents : cert__attr__ianda__contentst
+     end;
+  type state__type = record
+        usertoken__interface__state : 
+     usertoken__interface__state__type;
+        privcert : validprivcertt;
+        authcert : validauthcertt;
+        iandacert : validiandacertt;
+        idcert : valididcertt;
+        tokenid : integer;
+        tokentry : tokentypes__tryt;
+        tokenpresence : basictypes__presencet
+     end;
+  const certificatestatus__base__first : certificatestatus = pending; 
+  const certificatestatus__base__last : certificatestatus = pending; 
+  const tokentypes__tryt__base__first : tokentypes__tryt = pending; 
+  const tokentypes__tryt__base__last : tokentypes__tryt = pending; 
+  const certtypes__serialnumbert__base__first : integer = pending; 
+  const certtypes__serialnumbert__base__last : integer = pending; 
+  const cryptotypes__algorithmt__base__first : 
+     cryptotypes__algorithmt = pending; 
+  const cryptotypes__algorithmt__base__last : 
+     cryptotypes__algorithmt = pending; 
+  const cryptotypes__issueridt__base__first : integer = pending; 
+  const cryptotypes__issueridt__base__last : integer = pending; 
+  const cryptotypes__namei__base__first : integer = pending; 
+  const cryptotypes__namei__base__last : integer = pending; 
+  const cryptotypes__namecountt__base__first : integer = pending; 
+  const cryptotypes__namecountt__base__last : integer = pending; 
+  const privtypes__classt__base__first : privtypes__classt = pending; 
+  const privtypes__classt__base__last : privtypes__classt = pending; 
+  const privtypes__privileget__base__first : 
+     privtypes__privileget = pending; 
+  const privtypes__privileget__base__last : privtypes__privileget = pending; 
+  const audittypes__severityt__base__first : 
+     audittypes__severityt = pending; 
+  const audittypes__severityt__base__last : audittypes__severityt = pending; 
+  const audittypes__elementt__base__first : audittypes__elementt = pending; 
+  const audittypes__elementt__base__last : audittypes__elementt = pending; 
+  const basictypes__presencet__base__first : 
+     basictypes__presencet = pending; 
+  const basictypes__presencet__base__last : basictypes__presencet = pending; 
+  const basictypes__unsigned32t__base__first : integer = pending; 
+  const basictypes__unsigned32t__base__last : integer = pending; 
+  const positive__base__first : integer = pending; 
+  const positive__base__last : integer = pending; 
+  const character__base__first : character = pending; 
+  const character__base__last : character = pending; 
+  const integer__base__first : integer = pending; 
+  const integer__base__last : integer = pending; 
+  const validiandacertt__size : integer = pending; 
+  const validauthcertt__size : integer = pending; 
+  const validprivcertt__size : integer = pending; 
+  const valididcertt__size : integer = pending; 
+  const certificatestatus__first : certificatestatus = pending; 
+  const certificatestatus__last : certificatestatus = pending; 
+  const certificatestatus__size : integer = pending; 
+  const tokentypes__tryt__first : tokentypes__tryt = pending; 
+  const tokentypes__tryt__last : tokentypes__tryt = pending; 
+  const tokentypes__tryt__size : integer = pending; 
+  const certtypes__idt__size : integer = pending; 
+  const certtypes__serialnumbert__first : integer = pending; 
+  const certtypes__serialnumbert__last : integer = pending; 
+  const certtypes__serialnumbert__size : integer = pending; 
+  const cryptotypes__algorithmt__first : cryptotypes__algorithmt = pending; 
+  const cryptotypes__algorithmt__last : cryptotypes__algorithmt = pending; 
+  const cryptotypes__algorithmt__size : integer = pending; 
+  const cryptotypes__issuert__size : integer = pending; 
+  const cryptotypes__issueridt__first : integer = pending; 
+  const cryptotypes__issueridt__last : integer = pending; 
+  const cryptotypes__issueridt__size : integer = pending; 
+  const cryptotypes__namei__first : integer = pending; 
+  const cryptotypes__namei__last : integer = pending; 
+  const cryptotypes__namei__size : integer = pending; 
+  const cryptotypes__namecountt__first : integer = pending; 
+  const cryptotypes__namecountt__last : integer = pending; 
+  const cryptotypes__namecountt__size : integer = pending; 
+  const privtypes__clearancet__size : integer = pending; 
+  const privtypes__classt__first : privtypes__classt = pending; 
+  const privtypes__classt__last : privtypes__classt = pending; 
+  const privtypes__classt__size : integer = pending; 
+  const privtypes__privileget__first : privtypes__privileget = pending; 
+  const privtypes__privileget__last : privtypes__privileget = pending; 
+  const privtypes__privileget__size : integer = pending; 
+  const audittypes__severityt__first : audittypes__severityt = pending; 
+  const audittypes__severityt__last : audittypes__severityt = pending; 
+  const audittypes__severityt__size : integer = pending; 
+  const audittypes__elementt__first : audittypes__elementt = pending; 
+  const audittypes__elementt__last : audittypes__elementt = pending; 
+  const audittypes__elementt__size : integer = pending; 
+  const basictypes__presencet__first : basictypes__presencet = pending; 
+  const basictypes__presencet__last : basictypes__presencet = pending; 
+  const basictypes__presencet__size : integer = pending; 
+  const basictypes__unsigned32t__first : integer = pending; 
+  const basictypes__unsigned32t__last : integer = pending; 
+  const basictypes__unsigned32t__size : integer = pending; 
+  const positive__first : integer = pending; 
+  const positive__last : integer = pending; 
+  const positive__size : integer = pending; 
+  const character__first : character = pending; 
+  const character__last : character = pending; 
+  const character__size : integer = pending; 
+  const integer__first : integer = pending; 
+  const integer__last : integer = pending; 
+  const integer__size : integer = pending; 
+  var configdata__state : configdata__state__type;
+  var keystore__state : keystore__state__type;
+  var certificatestore__state : certificatestore__state__type;
+  var state : state__type;
+  var usertoken__interface__state : 
+     usertoken__interface__state__type;
+  var tokenpresence : basictypes__presencet;
+  var tokentry : tokentypes__tryt;
+  var tokenid : integer;
+  var idcert : valididcertt;
+  var iandacert : validiandacertt;
+  var authcert : validauthcertt;
+  var privcert : validprivcertt;
+  var id : certtypes__idt;
+  var clearance : privtypes__clearancet;
+  function configdata__authperiodisempty(configdata__state__type) : boolean;
+  function configdata__theenclaveclearance(
+     configdata__state__type) : privtypes__classt;
+  function keystore__privatekeypresent(keystore__state__type) : boolean;
+  function keystore__thistis(keystore__state__type) : 
+     cryptotypes__issuert;
+  function cert__theid(cert__contentst) : certtypes__idt;
+  function cert__attr__priv__therole(cert__attr__priv__contentst) : 
+     privtypes__privileget;
+  function cert__attr__priv__theclearance(
+     cert__attr__priv__contentst) : privtypes__clearancet;
+  function certificatestore__serialnumberhasoverflowed(
+     certificatestore__state__type) : boolean;
+  function certificatestore__serialnumber(
+     certificatestore__state__type) : integer;
+
+end;

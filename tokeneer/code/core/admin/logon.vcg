@@ -1,0 +1,58 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:16.60
+
+                           procedure Admin.Logon
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 171:
+
+procedure_logon_1.
+H1:    true .
+H2:    role >= privtypes__adminprivileget__first .
+H3:    role <= privtypes__adminprivileget__last .
+        ->
+C1:    role >= privtypes__privileget__first .
+C2:    role <= privtypes__privileget__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 172:
+
+procedure_logon_2.
+H1:    true .
+H2:    role >= privtypes__adminprivileget__first .
+H3:    role <= privtypes__adminprivileget__last .
+H4:    role >= privtypes__privileget__first .
+H5:    role <= privtypes__privileget__last .
+        ->
+C1:    nullop >= opandnullt__first .
+C2:    nullop <= opandnullt__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_logon_3.
+H1:    true .
+H2:    role >= privtypes__adminprivileget__first .
+H3:    role <= privtypes__adminprivileget__last .
+H4:    role >= privtypes__privileget__first .
+H5:    role <= privtypes__privileget__last .
+H6:    nullop >= opandnullt__first .
+H7:    nullop <= opandnullt__last .
+        ->
+C1:    (role = privtypes__guard) <-> (prf_rolepresent(upf_currentop(
+           upf_rolepresent(theadmin, role), nullop)) = 
+           privtypes__guard) .
+C2:    not (isdoingop(upf_currentop(upf_rolepresent(
+           theadmin, role), nullop))) .
+C3:    ispresent(upf_currentop(upf_rolepresent(theadmin, 
+           role), nullop)) .
+ 
+

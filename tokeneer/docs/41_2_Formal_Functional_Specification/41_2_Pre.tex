@@ -1,0 +1,580 @@
+%============================================================================
+\chapter{Justification of Preconditions}
+\label{sec:Pre}
+%============================================================================
+
+%---------------------------------------------------------------------------
+\section{Properties}
+%---------------------------------------------------------------------------
+We claim the following important properties of the whole system:
+
+There is an initial state:
+
+\begin{Zpobtrace}{FS.TIS.State.InitPOB}
+\begin{theorem}
+\thrm \exists InitIDStation @ true
+\end{theorem}
+\end{Zpobtrace}
+
+If there is no state that satisfies the system state invariants then
+other proof obligations become vacously trivial. It is therefore
+important to demonstrate that an initial state exists.
+
+The start-up operation is total.
+
+\begin{Zpobtrace}{FS.TIS.StartUp.PreTotal}
+\begin{theorem}
+IDStation \thrm \pre TISStartUp
+\end{theorem}
+\end{Zpobtrace}
+
+The processing operation is available whenever the system is not in a
+$shutdown$ state.
+
+\begin{Zpobtrace}{FS.TIS.Processing.PreExp}
+The processing is not total, however we can show that it's precondition
+is no weaker than $enclaveStatus \neq shutdown$. The internal state
+$shutdown$ represents the system once it is not running so we would
+expect no processing to occur under this circumstance. 
+
+\begin{theorem}
+        IDStation; RealWorld | 
+\\ \t1 \lnot (enclaveStatus = shutdown \land status = quiescent) \thrm \pre TISProcessing
+\end{theorem}
+\end{Zpobtrace}
+
+The polling operation is available on the assumption that the tokens
+are not changed in the reader so fast that TIS misses observing the
+absence of the first token before detecting the presence of the 
+second token.
+\label{sec:PollPre}
+
+We need to know that while TIS is making use of a validated token the
+token does not change without TIS noticing it has been removed. This
+can be expressed formally as follows:
+
+\begin{schema}{WorldChangesSlowly}
+RealWorld
+\\ IDStation
+\where
+status \in \{ gotFinger, waitingFinger, waitingUpdateToken,
+waitingEntry \} \implies
+\\ \t1
+(userToken = 
+currentUserToken 
+\lor userToken = noT)
+\also
+rolePresent \neq \Nil \implies
+(adminToken = 
+currentAdminToken 
+\lor adminToken = noT)
+\end{schema}
+
+\begin{Zpobtrace}{FS.TIS.Poll.PreExp}
+Polling is not total, it relies on changes to the tokens in the token
+reader occurring sufficiently slowly that the absence of a token is
+observered before the presence of a second token is observed.
+\begin{theorem}
+WorldChangesSlowly \thrm \pre TISPoll
+\end{theorem}
+\end{Zpobtrace}
+
+The update and early update operations are total.
+
+\begin{Zpobtrace}{FS.TIS.EarlyUpdate.PreTotal}
+\begin{theorem}
+IDStation; RealWorld \thrm \pre TISEarlyUpdate
+\end{theorem}
+\end{Zpobtrace}
+
+\begin{Zpobtrace}{FS.TIS.Update.PreTotal}
+\begin{theorem}
+IDStation; RealWorld \thrm \pre TISUpdate
+\end{theorem}
+\end{Zpobtrace}
+
+
+%---------------------------------------------------------------------------
+\section{Justifications}
+%---------------------------------------------------------------------------
+
+%.....................................................
+\subsection{Justification of FS.TIS.State.InitPOB}
+%.....................................................
+
+\begin{Zpobtrace}{FS.TIS.State.InitPOB}
+\begin{theorem}
+\thrm \exists InitIDStation @ true
+\end{theorem}
+\end{Zpobtrace}
+
+To demonstrate this it is sufficient to show that the state invariants
+hold with the constraints on the initial values. We also need to
+ensure that each value is in type, however by simple inspection we can
+deduce this to be the case.
+
+For all state components that are left free by the initial state
+schema it is sufficient to ensure that the types are non-empty. This
+is the case in all places.
+
+We need to consider the invariants on each of the schemas that are
+used to build $IDStation$ as well as the invariants on the overall
+$IDStation$.
+
+The invariants on $DoorLatchAlarm$ completely define $currentLatch$
+and $currentAlarm$, the values given in $InitDoorLatchAlarm$ result in
+$currentLatch = locked$ and $currentAlarm = silenced$.
+
+The invariants on $Admin$ completely define $availableOps$, the values
+given in $InitAdmin$ result in $availableOps = \emptyset$. The
+remaining constraint is only applicable when $currentAdminOp \neq
+\Nil$ so is true by false implication.
+
+The invariants on $Config$ can be satisfied by the following arbitrary
+choice of variable bindings. 
+\[
+\langle minPreservedLogSize \bind 10, alarmThresholdSize \bind 5 \rangle
+\]
+
+Considering the constraints on the $IDStation$ in turn we note that:
+\begin{itemize}
+\item
+As $status = quiescent$ first constraint is true by false
+implication.
+\item
+As $rolePresent = \Nil$ the second constraint is true by false
+implication.
+\item
+As $enclaveStatus = notEnrolled$ the third and sixth constraints are true by false
+implication.
+\item
+As $enclaveStatus = notEnrolled$ and $currentAdminOp = \Nil$ the forth
+constraint reduces to $false \iff false$, which is true.
+\item
+As $currentAdminOp' = \Nil$ the fifth constraint is true by false implication.
+\item
+the final constraints define the screen elements $screenStats$ and
+$screenConfig$. As $displayStats$ and $displayConfigData$ are total
+functions, we can deduce that these constraints hold.
+\end{itemize}
+
+We therefore deduce that an initial state exists.
+
+%.....................................................
+\subsection{Justification of FS.TIS.StartUp.PreTotal}
+%.....................................................
+
+\begin{Zpobtrace}{FS.TIS.StartUp.PreTotal}
+\begin{theorem}
+IDStation \thrm \pre TISStartUp
+\end{theorem}
+\end{Zpobtrace}
+
+To demonstrate this we need to show that for any initial values held
+by $IDStation$ there is a binding to the variables in $IDStation'$
+that preserves the state invariant.
+
+We first note that, from properties of $\pre$ and disjunctions and the
+definition of $TISStartUp$  
+\[
+\pre TISStartUp \equiv \pre StartEnrolledStation \lor \pre
+StartNonEnrolledStation
+\]
+so we can reduce the problem to considering the preconditions of each
+of these schemas and ensuring that their disjunction is total.
+
+In a formal proof we would need to ensure that each schema preserves
+all system and subsystem state invariants. Care has been taken in
+writing this specification to ensure that operations are sufficiently
+simple that the preservation of state invariants is easy to check.
+
+We claim that 
+\[
+\pre StartEnrolledStation \equiv [~ IDStation | ownName \neq \Nil ~] 
+\also
+\pre StartNonEnrolledStation \equiv [~ IDStation | ownName = \Nil ~]
+\]
+
+The required result follows. 
+
+We consider $\pre StartEnrolledStation$ here by way of an example of the
+type of arguments that are required to deduce the preconditions of an
+operation schema.
+
+We need to determine the conditions on the initial state that
+guarantee that a final state exists and this final state satisfies all
+the state invariants of $IDStation'$
+
+We note that the state components $UserToken$, $AdminToken$, $Finger$,
+$Floppy$, $Keyboard$, $Config$ and $KeyStore$ are defined as not
+changing. We therefore need not consider invariants that only refer to
+these state components.
+
+The invariants on $DoorLatchAlarm$ completely define $currentLatch$
+and $currentAlarm$, the values given in $InitDoorLatchAlarm'$ result in
+$currentLatch = locked$ and $currentAlarm = silenced$.
+
+We note that the precondition on $AddElementsToLog$ is a requirement
+that the $newElements$ are no older than the elements already in the
+log. Without loss of generality we can assume the element
+$startUnenrolledTISElement$ satisifies this property so $newElements =
+\{ startUnenrolledTISElements \}$ is a possible solution. Hence the new
+$auditLog'$ is defined by $AddElementsToLog$.
+
+Considering the constraints on the $IDStation$ in turn we note that:
+\begin{itemize}
+\item
+As $status' = quiescent$ first constraint is true by false
+implication.
+\item
+As $rolePresent' = \Nil$ the second constraint is true by false
+implication.
+\item
+As $enclaveStatus' = enclaveQuiescent$  we need to note that $ownName
+\neq \Nil$ and $KeyStore$ is unchanged to deduce the the third
+constraint holds.
+\item
+As $enclaveStatus' = enclaveQuiescent$ and $currentAdminOp' = \Nil$ the forth
+constraint reduces to $false \iff false$.
+\item
+As $currentAdminOp' = \Nil$ the fifth constraint is true by false implication.
+\item
+As $enclaveStatus' = enclaveQuiescent$ the sixth constraint is true by false
+implication.
+\item
+the final constraints define the screen elements $screenStats'$ and
+$screenConfig'$. As $displayStats$ and $displayConfigData$ are total
+functions so we can deduce that these constraints hold.
+\end{itemize}
+
+So the only constraint is the explicit contraint on the before state
+of the $StartEnrolledStation$, namely $ownName \neq \Nil$. Giving the
+result.
+\[
+\pre StartEnrolledStation \equiv [~ IDStation | ownName \neq \Nil ~] 
+\]
+
+%.....................................................
+\subsection{Justification of FS.TIS.Processing.PreExp}
+%.....................................................
+
+\begin{Zpobtrace}{FS.TIS.Processing.PreExp}
+The processing operation is not total, however we can show that it's precondition
+is no weaker than $enclaveStatus \neq shutdown$. The internal state
+$shutdown$ represents the system once it is not running so we would
+expect processing not to occur under this circumstance. 
+
+\begin{theorem}
+        IDStation; RealWorld | 
+\\ \t1 \lnot (enclaveStatus = shutdown \land status = quiescent) \thrm \pre TISProcessing
+\end{theorem}
+\end{Zpobtrace}
+
+To prove this we rely heavily on the following property:
+
+For any schemas $S$ and $T$, $\pre$ distributes through disjunction
+\begin{argue}
+\pre(S \lor T) \equiv (\pre S) \lor (\pre T)
+\end{argue}
+
+Expanding the definition of $TISProcessing$.
+
+\begin{argue}
+\pre TISProcessing
+\\  \t1 \equiv 
+ \pre ((TISEnrolOp \lor TISUserEntryOp \lor TISAdminLogon 
+\\ \t4                  \lor TISStartAdminOp \lor  TISAdminOp \lor
+TISAdminLogout \lor TISIdle) \land LogChange) 
+\end{argue}
+
+We should at this point distribute the $LogChange$ through the
+disjunction and consider the precondition of $TISEnrolOp \land
+LogChange$ etc. However it transpires that $LogChange$ does not add
+any constraints to the preconditions of each of these operations, it
+only modifies the AuditLog and all operations on the audit log are
+sufficiently free to allow these modifications in all circumstances.
+
+So we consider the preconditions of each of the components of the
+operations. We decompose $TISUserEntryOp$ (which is constructed as a
+disjunction) and consider the
+preconditions of each of the components:
+
+\begin{argue}
+        \pre TISReadUserToken \equiv 
+\\      \t2 [~IDStation; RealWorld |
+    status = quiescent \land userTokenPresence = present 
+\\ \t3          \land enclaveStatus \in 
+                \{ enclaveQuiescent, waitingRemoveAdminTokenFail \} ~]
+\also
+        \pre TISValidateUserToken \equiv 
+%\\      \t2
+ [~IDStation; RealWorld | status = gotUserToken  ~]
+\also
+        \pre TISReadFinger \equiv 
+%\\      \t2 
+[~IDStation; RealWorld | status = waitingFinger  ~]
+\also
+        \pre TISValidateFinger \equiv 
+%\\      \t2 
+[~IDStation; RealWorld | status = gotFinger  ~]
+\also
+        \pre TISWriteUserToken \equiv 
+%\\      \t2 
+[~IDStation; RealWorld | status = waitingUpdateToken  ~]
+\also
+        \pre TISValidateEntry \equiv 
+%\\      \t2 
+[~IDStation; RealWorld | status = waitingEntry  ~]
+\also
+        \pre TISUnlockDoor \equiv 
+%\\      \t2 
+[~IDStation; RealWorld | status = waitingRemoveTokenSuccess  ~]
+\also
+        \pre TISCompleteFailedAccess \equiv 
+%\\      \t2 
+[~IDStation; RealWorld | status = waitingRemoveTokenFail  ~]
+\end{argue}
+
+We decompose $TISAdminOp$ and consider the preconditions of each of
+the components.
+
+\begin{argue}
+        \pre TISStartArchiveLog \equiv 
+\\      \t2 [~IDStation; RealWorld | enclaveStatus =
+waitingStartAdminOp 
+\\      \t3 \land currentAdminOp \neq \Nil \land currentAdminOp = archiveLog ~]
+\also
+        \pre TISFinishArchiveLog \equiv 
+\\      \t2 [~IDStation; RealWorld | enclaveStatus =
+waitingFinishAdminOp 
+\\      \t3 \land currentAdminOp \neq \Nil \land currentAdminOp = archiveLog ~]
+\also
+        \pre TISStartUpdateConfigData \equiv 
+\\      \t2 [~IDStation; RealWorld | enclaveStatus =
+waitingStartAdminOp 
+\\      \t3 \land currentAdminOp \neq \Nil \land currentAdminOp = updateConfigData ~]
+\also
+        \pre TISFinishUpdateConfigData \equiv 
+\\      \t2 [~IDStation; RealWorld | enclaveStatus =
+waitingFinishAdminOp 
+\\      \t3 \land currentAdminOp \neq \Nil \land currentAdminOp = updateConfigData ~]
+\also
+        \pre TISShutdownOp \equiv 
+\\      \t2 [~IDStation; RealWorld | enclaveStatus =
+waitingStartAdminOp 
+\\      \t3 \land currentAdminOp \neq \Nil \land currentAdminOp = shutdownOp ~]
+\also
+        \pre TISOverrideDoorLockOp \equiv 
+\\      \t2 [~IDStation; RealWorld | enclaveStatus =
+waitingStartAdminOp 
+\\      \t3 \land currentAdminOp \neq \Nil \land currentAdminOp = overrideLock ~]
+\also
+\end{argue}
+From these and the $IDStation$ invariants:
+\[
+        enclaveStatus \in \{~ waitingStartAdminOp, waitingFinishAdminOp ~\} \iff currentAdminOp \neq \Nil
+\also
+       (currentAdminOp \neq \Nil \land \The currentAdminOp \in \{~
+shutdownOp, overrideLock ~\}) 
+\\ \t2          \implies enclaveStatus = waitingStartAdminOp
+
+\]
+we can deduce
+\begin{argue}
+        \pre TISAdminOp \equiv 
+\\      \t2 [~IDStation; RealWorld |
+ enclaveStatus \in \{~
+waitingStartAdminOp, waitingFinishAdminOp ~\} ~]
+\end{argue}
+
+We decompose $TISEnrol$ and consider the preconditions of each of
+the components.
+
+\begin{argue}
+        \pre ReadEnrolmentData \equiv 
+         [~IDStation; RealWorld | enclaveStatus = notEnrolled  ~]
+\also
+        \pre ValidateEnrolmentData \equiv 
+         [~IDStation; RealWorld | enclaveStatus = waitingEnrol  ~]
+\also
+        \pre CompleteFailedEnrolment \equiv 
+         [~IDStation; RealWorld | enclaveStatus = waitingEndEnrol  ~]
+\end{argue}
+
+We decompose $TISAdminLogon$ and consider the preconditions of each of
+the components.
+
+\begin{argue}
+        \pre TISReadAdminToken \equiv 
+\\      \t2 [~IDStation; RealWorld |
+\\      \t3      enclaveStatus = enclaveQuiescent \land adminTokenPresence = present 
+\\ \t3          \land status \in \{ quiescent, waitingRemoveTokenFail \} ~]
+\also
+        \pre TISValidateAdminToken \equiv 
+         [~IDStation; RealWorld | enclaveStatus = gotAdminToken  ~]
+\also
+        \pre TISCompleteFailedAdminLogon \equiv 
+\\      \t2 [~IDStation; RealWorld | enclaveStatus = waitingRemoveAdminTokenFail  ~]
+\end{argue}
+We decompose $TISAdminLogout$ and consider the preconditions of each of
+the components.
+\begin{argue}
+        \pre TokenRemovedAdminLogout \equiv 
+\\      \t2 [~IDStation; RealWorld | rolePresent \neq \Nil
+\\      \t3     \land enclaveStatus = enclaveQuiescent \land adminTokenPresence = abscent 
+         ~]
+\also
+        \pre AdminTokenTimeout \equiv 
+\\      \t2 [~IDStation; RealWorld | rolePresent \neq \Nil
+\\      \t3     \land enclaveStatus = enclaveQuiescent \land
+adminTokenPresence = present \land \lnot AdminTokenOK 
+         ~]
+\also
+        \pre TISCompleteTimeoutAdminLogout \equiv 
+\\      \t2 [~IDStation; RealWorld |  enclaveStatus = waitingRemoveAdminTokenFail  ~]
+\end{argue}
+
+
+The remaining operations are $TISStartAdminOp$, $TISAdminLogout$ and
+$TISIdle$:
+\begin{argue}
+        \pre TISStartAdminOp \equiv 
+\\      \t2 [~IDStation; RealWorld | rolePresent \neq \Nil
+\\      \t3      \land enclaveStatus = enclaveQuiescent \land adminTokenPresence = present 
+\\ \t3          \land status \in \{ quiescent, waitingRemoveTokenFail \} ~]
+\also
+        \pre TISIdle \equiv 
+\\      \t2 [~IDStation; RealWorld |  rolePresent = \Nil
+\\      \t3     \land enclaveStatus = enclaveQuiescent \land
+adminTokenPresence = absent 
+\\ \t3          \land status = quiescent, \land userTokenPresence =
+absent ~]
+\end{argue}
+
+By considering properties of conjunction and disjunction we can deduce
+\begin{argue}
+\pre (TISStartAdminOp \lor TISAdminLogout \lor TISIdle 
+ \\ \t4         \lor TISReadUserToken \lor TISReadAdminToken) 
+\\ \t1 \equiv
+ [~ IDStation; RealWorld | 
+\\      \t3 (status = quiescent \land enclaveStatus = enclaveQuiescent ) 
+\\      \t3 \lor (status = waitingRemoveTokenFail \land enclaveStatus =
+enclaveQuiescent 
+\\ \t4 \land adminTokenPresence = present ) 
+\\      \t3 \lor (status = quiescent \land enclaveStatus =
+waitingRemoveAdminTokenFail 
+\\ \t4 \land userTokenPresence = present ) 
+\\      \t3 \lor (enclaveStatus = enclaveQuiescent \land rolePresent
+\neq \Nil 
+\\ \t4  \land adminTokenPresence = absent)
+\\      \t3 \lor (enclaveStatus = enclaveQueiscent \land rolePresent
+\neq \Nil 
+\\ \t4  \land adminTokenPresence = present \land \lnot AdminTokenOK ~]    
+\end{argue}
+
+By considering the coverage of the values of $status$ and
+$enclaveStatus$ we can deduce
+\begin{argue}
+ \pre (TISEnrolOp \lor TISUserEntryOp \lor TISAdminLogon 
+\\ \t3                  \lor TISStartAdminOp \lor  TISAdminOp \lor
+TISAdminLogout \lor TISIdle) 
+\\ \t1  \equiv [~ IDStation; RealWorld | 
+\\      \t4 (status = quiescent \land enclaveStatus = enclaveQuiescent ) 
+\\      \t4 \lor (status \neq quiescent) 
+\\      \t4 \lor (enclaveStatus \neq enclaveQuiescent \land enclaveStatus \neq
+shutdown) ~]
+\end{argue}
+rearranging this gives:
+\begin{argue}
+ \pre (TISEnrolOp \lor TISUserEntryOp \lor TISAdminLogon 
+\\ \t3                  \lor TISStartAdminOp \lor  TISAdminOp \lor
+TISAdminLogout \lor TISIdle 
+\\ \t1 \equiv [~ IDStation; RealWorld |  status \neq quiescent  \lor  enclaveStatus \neq
+shutdown ~]
+\end{argue}
+
+We have already argued that $LogChange$ does not effect the
+precondition, and hence the required result follows.
+
+%.....................................................
+\subsection{Justification of FS.TIS.Poll.PreExp}
+%.....................................................
+
+\begin{Zpobtrace}{FS.TIS.Poll.PreExp}
+Polling is not total, it relies on changes to the tokens in the token
+reader occurring sufficiently slowly that the absence of a token is
+observered before the presence of a second token is observed.
+\begin{theorem}
+WorldChangesSlowly \thrm \pre TISPoll
+\end{theorem}
+\end{Zpobtrace}
+
+To demonstrate this we notice that there are no constraints on the initial
+state in the $TISPoll$ schema. 
+It is thus sufficient to check that all system invariants are
+maintained. 
+The only invariants that need be checked are those that
+involve entities that change. There are two of these:
+
+Firstly
+\[ 
+	status \in \{~ gotFinger, waitingFinger, waitingUpdateToken, waitingEntry~\} \implies
+\\ \t1		 (( \exists ValidToken @ 
+			goodT(\theta ValidToken) = currentUserToken' )
+\\ \t2  \lor ( \exists TokenWithValidAuth @ 
+			goodT(\theta TokenWithValidAuth) = currentUserToken'))
+\]
+This holds under the assumptions of $WorldChangesSlowly$ since by the
+definition of $PollUserToken$ we can deduce $currentUserToken' =
+currentUserToken$ under these conditions.
+
+The second invariant
+\[
+        rolePresent \neq \Nil \implies       
+\\ \t1		 ( \exists TokenWithValidAuth @ 
+			goodT(\theta TokenWithValidAuth) =
+			currentAdminToken' )
+\]
+Again, this holds under the assumptions of $WorldChangesSlowly$ since
+by the definition of $PollAdminToken$ we can deduce
+$currentAdminToken' = currentAdminToken$ under these conditions. 
+
+
+%.....................................................
+\subsection{Justification of FS.TIS.EarlyUpdate.PreTotal}
+%.....................................................
+
+\begin{Zpobtrace}{FS.TIS.EarlyUpdate.PreTotal}
+\begin{theorem}
+IDStation; RealWorld \thrm \pre TISEarlyUpdate
+\end{theorem}
+\end{Zpobtrace}
+
+To demonstrate this we notice that there are no constraints on the initial
+state in the $TISEarlyUpdate$ schema. 
+It is thus sufficient to check that all system invariants are
+maintained. 
+The only invariants that need be checked are those that
+involve entities that change, as there are no invariants involving
+state changed by this operation we can deduce that the operation is total.
+
+
+%.....................................................
+\subsection{Justification of FS.TIS.Update.PreTotal}
+%.....................................................
+
+\begin{Zpobtrace}{FS.TIS.Update.PreTotal}
+\begin{theorem}
+IDStation; RealWorld \thrm \pre TISUpdate
+\end{theorem}
+\end{Zpobtrace}
+
+To demonstrate this we notice that there are no constraints on the initial
+state in the $TISUpdate$ schema. 
+It is thus sufficient to check that all system invariants are
+maintained. 
+The only invariants that need be checked are those that
+involve entities that change, as there are no invariants involving
+state changed by this operation we can deduce that the operation is total.
+
+

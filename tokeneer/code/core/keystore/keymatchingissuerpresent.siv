@@ -1,0 +1,64 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:12  SIMPLIFIED 05-SEP-2011, 15:41:24
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure KeyStore.KeyMatchingIssuerPresent
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 615:
+
+procedure_keymatchingissuerpresent_1.
+*** true .          /* all conclusions proved */
+
+
+For path(s) from start to finish:
+
+procedure_keymatchingissuerpresent_2.
+*** true .          /* all conclusions proved */
+
+
+For checks of refinement integrity: 
+
+procedure_keymatchingissuerpresent_3.
+*** true .          /* all conclusions proved */
+
+
+procedure_keymatchingissuerpresent_4.
+H1:    fld_keystore__interface__store(store~) = fld_keystore__interface__store(
+          store) .
+H2:    for_all(i___1 : integer, 1 <= i___1 and i___1 <= 40 -> 0 <= element(
+          fld_name(issuer), [i___1]) and element(fld_name(issuer), [i___1]) <= 
+          255) .
+H3:    fld_namelength(issuer) >= 0 .
+H4:    fld_namelength(issuer) <= 40 .
+H5:    fld_id(issuer) >= 0 .
+H6:    fld_id(issuer) <= 4294967295 .
+H7:    integer__size >= 0 .
+H8:    character__size >= 0 .
+H9:    positive__size >= 0 .
+H10:   basictypes__unsigned32t__base__first <= 
+          basictypes__unsigned32t__base__last .
+H11:   cryptotypes__namecountt__size >= 0 .
+H12:   cryptotypes__namei__size >= 0 .
+H13:   cryptotypes__issueridt__size >= 0 .
+H14:   cryptotypes__issueridt__base__first <= 
+          cryptotypes__issueridt__base__last .
+H15:   cryptotypes__issuert__size >= 0 .
+H16:   basictypes__unsigned32t__base__first <= 0 .
+H17:   basictypes__unsigned32t__base__last >= 4294967295 .
+H18:   cryptotypes__issueridt__base__first <= 0 .
+H19:   cryptotypes__issueridt__base__last >= 4294967295 .
+       ->
+C1:    ispresent <-> prf_issuerkeynotnull(issuer, store) .
+
+

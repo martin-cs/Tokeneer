@@ -1,0 +1,68 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:30.62*/
+
+                     /*procedure ConfigData.GetAuthPeriod*/
+
+
+rule_family getauthperio_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+getauthperio_rules(1): clock__durationt__size >= 0 may_be_deduced.
+getauthperio_rules(2): clock__durationt__first may_be_replaced_by 0.
+getauthperio_rules(3): clock__durationt__last may_be_replaced_by 864000.
+getauthperio_rules(4): clock__durationt__base__first <= 
+     clock__durationt__base__last may_be_deduced.
+getauthperio_rules(5): clock__durationt__base__first <= 
+     clock__durationt__first may_be_deduced.
+getauthperio_rules(6): clock__durationt__base__last >= 
+     clock__durationt__last may_be_deduced.
+getauthperio_rules(7): accesspolicyt__size >= 0 may_be_deduced.
+getauthperio_rules(8): accesspolicyt__first may_be_replaced_by workinghours.
+getauthperio_rules(9): accesspolicyt__last may_be_replaced_by allhours.
+getauthperio_rules(10): accesspolicyt__base__first may_be_replaced_by workinghours.
+getauthperio_rules(11): accesspolicyt__base__last may_be_replaced_by allhours.
+getauthperio_rules(12): accesspolicyt__pos(accesspolicyt__first) may_be_replaced_by 0.
+getauthperio_rules(13): accesspolicyt__pos(workinghours) may_be_replaced_by 0.
+getauthperio_rules(14): accesspolicyt__val(0) may_be_replaced_by 
+     workinghours.
+getauthperio_rules(15): accesspolicyt__pos(allhours) may_be_replaced_by 1.
+getauthperio_rules(16): accesspolicyt__val(1) may_be_replaced_by 
+     allhours.
+getauthperio_rules(17): accesspolicyt__pos(accesspolicyt__last) may_be_replaced_by 1.
+getauthperio_rules(18): accesspolicyt__pos(succ(X)) may_be_replaced_by 
+     accesspolicyt__pos(X) + 1
+     if [X <=allhours, X <> allhours].
+getauthperio_rules(19): accesspolicyt__pos(pred(X)) may_be_replaced_by 
+     accesspolicyt__pos(X) - 1
+     if [X >=workinghours, X <> workinghours].
+getauthperio_rules(20): accesspolicyt__pos(X) >= 0 may_be_deduced_from
+     [workinghours <= X, X <= allhours].
+getauthperio_rules(21): accesspolicyt__pos(X) <= 1 may_be_deduced_from
+     [workinghours <= X, X <= allhours].
+getauthperio_rules(22): accesspolicyt__val(X) >= workinghours may_be_deduced_from
+     [0 <= X, X <= 1].
+getauthperio_rules(23): accesspolicyt__val(X) <= allhours may_be_deduced_from
+     [0 <= X, X <= 1].
+getauthperio_rules(24): succ(accesspolicyt__val(X)) may_be_replaced_by 
+     accesspolicyt__val(X+1)
+     if [0 <= X, X < 1].
+getauthperio_rules(25): pred(accesspolicyt__val(X)) may_be_replaced_by 
+     accesspolicyt__val(X-1)
+     if [0 < X, X <= 1].
+getauthperio_rules(26): accesspolicyt__pos(accesspolicyt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+getauthperio_rules(27): accesspolicyt__val(accesspolicyt__pos(X)) may_be_replaced_by X
+     if [workinghours <= X, X <= allhours].
+getauthperio_rules(28): accesspolicyt__pos(X) <= accesspolicyt__pos(Y) & X <= Y are_interchangeable 
+     if [workinghours <= X, X <= allhours, workinghours <= Y, Y <= 
+     allhours].
+getauthperio_rules(29): accesspolicyt__val(X) <= accesspolicyt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].

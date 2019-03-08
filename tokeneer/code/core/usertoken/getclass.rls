@@ -1,0 +1,97 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:20.93*/
+
+                        /*function UserToken.GetClass*/
+
+
+rule_family getclass_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+getclass_rules(1): privtypes__classt__size >= 0 may_be_deduced.
+getclass_rules(2): privtypes__classt__first may_be_replaced_by privtypes__unmarked.
+getclass_rules(3): privtypes__classt__last may_be_replaced_by privtypes__topsecret.
+getclass_rules(4): privtypes__classt__base__first may_be_replaced_by privtypes__unmarked.
+getclass_rules(5): privtypes__classt__base__last may_be_replaced_by privtypes__topsecret.
+getclass_rules(6): privtypes__classt__pos(privtypes__classt__first) may_be_replaced_by 0.
+getclass_rules(7): privtypes__classt__pos(privtypes__unmarked) may_be_replaced_by 0.
+getclass_rules(8): privtypes__classt__val(0) may_be_replaced_by 
+     privtypes__unmarked.
+getclass_rules(9): privtypes__classt__pos(privtypes__unclassified) may_be_replaced_by 1.
+getclass_rules(10): privtypes__classt__val(1) may_be_replaced_by 
+     privtypes__unclassified.
+getclass_rules(11): privtypes__classt__pos(privtypes__restricted) may_be_replaced_by 2.
+getclass_rules(12): privtypes__classt__val(2) may_be_replaced_by 
+     privtypes__restricted.
+getclass_rules(13): privtypes__classt__pos(
+     privtypes__confidential) may_be_replaced_by 3.
+getclass_rules(14): privtypes__classt__val(3) may_be_replaced_by 
+     privtypes__confidential.
+getclass_rules(15): privtypes__classt__pos(privtypes__secret) may_be_replaced_by 4.
+getclass_rules(16): privtypes__classt__val(4) may_be_replaced_by 
+     privtypes__secret.
+getclass_rules(17): privtypes__classt__pos(privtypes__topsecret) may_be_replaced_by 5.
+getclass_rules(18): privtypes__classt__val(5) may_be_replaced_by 
+     privtypes__topsecret.
+getclass_rules(19): privtypes__classt__pos(privtypes__classt__last) may_be_replaced_by 5.
+getclass_rules(20): privtypes__classt__pos(succ(X)) may_be_replaced_by 
+     privtypes__classt__pos(X) + 1
+     if [X <=privtypes__topsecret, X <> privtypes__topsecret].
+getclass_rules(21): privtypes__classt__pos(pred(X)) may_be_replaced_by 
+     privtypes__classt__pos(X) - 1
+     if [X >=privtypes__unmarked, X <> privtypes__unmarked].
+getclass_rules(22): privtypes__classt__pos(X) >= 0 may_be_deduced_from
+     [privtypes__unmarked <= X, X <= privtypes__topsecret].
+getclass_rules(23): privtypes__classt__pos(X) <= 5 may_be_deduced_from
+     [privtypes__unmarked <= X, X <= privtypes__topsecret].
+getclass_rules(24): privtypes__classt__val(X) >= 
+     privtypes__unmarked may_be_deduced_from
+     [0 <= X, X <= 5].
+getclass_rules(25): privtypes__classt__val(X) <= 
+     privtypes__topsecret may_be_deduced_from
+     [0 <= X, X <= 5].
+getclass_rules(26): succ(privtypes__classt__val(X)) may_be_replaced_by 
+     privtypes__classt__val(X+1)
+     if [0 <= X, X < 5].
+getclass_rules(27): pred(privtypes__classt__val(X)) may_be_replaced_by 
+     privtypes__classt__val(X-1)
+     if [0 < X, X <= 5].
+getclass_rules(28): privtypes__classt__pos(privtypes__classt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 5].
+getclass_rules(29): privtypes__classt__val(privtypes__classt__pos(X)) may_be_replaced_by X
+     if [privtypes__unmarked <= X, X <= privtypes__topsecret].
+getclass_rules(30): privtypes__classt__pos(X) <= 
+     privtypes__classt__pos(Y) & X <= Y are_interchangeable 
+     if [privtypes__unmarked <= X, X <= privtypes__topsecret, 
+     privtypes__unmarked <= Y, Y <= privtypes__topsecret].
+getclass_rules(31): privtypes__classt__val(X) <= 
+     privtypes__classt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 5, 0 <= Y, Y <= 5].
+getclass_rules(32): privtypes__clearancet__size >= 0 may_be_deduced.
+getclass_rules(33): A = B may_be_deduced_from
+     [goal(checktype(A,privtypes__clearancet)),
+      goal(checktype(B,privtypes__clearancet)),
+      fld_class(A) = fld_class(B)].
+getclass_rules(34): cert__attr__contentst__size >= 0 may_be_deduced.
+getclass_rules(35): A = B may_be_deduced_from
+     [goal(checktype(A,cert__attr__contentst)),
+      goal(checktype(B,cert__attr__contentst)),
+      fld_inherit(A) = fld_inherit(B)].
+getclass_rules(36): cert__attr__auth__contentst__size >= 0 may_be_deduced.
+getclass_rules(37): A = B may_be_deduced_from
+     [goal(checktype(A,cert__attr__auth__contentst)),
+      goal(checktype(B,cert__attr__auth__contentst)),
+      fld_inherit(A) = fld_inherit(B)].
+getclass_rules(38): validauthcertt__size >= 0 may_be_deduced.
+getclass_rules(39): A = B may_be_deduced_from
+     [goal(checktype(A,validauthcertt)),
+      goal(checktype(B,validauthcertt)),
+      fld_valid(A) = fld_valid(B),
+      fld_contents(A) = fld_contents(B)].

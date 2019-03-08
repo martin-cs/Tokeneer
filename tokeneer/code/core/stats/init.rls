@@ -1,0 +1,23 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:18.15*/
+
+                            /*procedure Stats.Init*/
+
+
+rule_family init_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+init_rules(1): statscount__size >= 0 may_be_deduced.
+init_rules(2): statscount__first may_be_replaced_by 0.
+init_rules(3): statscount__last may_be_replaced_by 2147483647.
+init_rules(4): statscount__base__first <= statscount__base__last may_be_deduced.
+init_rules(5): statscount__base__first <= statscount__first may_be_deduced.
+init_rules(6): statscount__base__last >= statscount__last may_be_deduced.

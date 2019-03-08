@@ -1,0 +1,2220 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:07  SIMPLIFIED 05-SEP-2011, 15:39:27
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+function Clock.PrintTime
+
+
+
+
+
+
+@@@@@@@@@@  VC: function_printtime_1.  @@@@@@@@@@
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  true
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  fld_millisec(thetime) >= millisecst__first
+     using hypothesis H2.
+***  Proved C4:  fld_millisec(thetime) <= millisecst__last
+     using hypothesis H3.
+***  Proved C5:  fld_day(thetime) >= dayst__first
+     using hypothesis H4.
+***  Proved C6:  fld_day(thetime) <= dayst__last
+     using hypothesis H5.
+***  Proved C7:  fld_month(thetime) >= monthst__first
+     using hypothesis H6.
+***  Proved C8:  fld_month(thetime) <= monthst__last
+     using hypothesis H7.
+***  Proved C9:  fld_year(thetime) >= yearst__first
+     using hypothesis H8.
+***  Proved C10:  fld_year(thetime) <= yearst__last
+     using hypothesis H9.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_printtime_2.  @@@@@@@@@@
+%%%  Simplified H1 on reading formula in, to give:
+     %%%  H1:  true
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  true
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          timetexti__last -> character__first <= element(localtext, [i___1]) 
+          and element(localtext, [i___1]) <= character__last)
+-S-  Applied substitution rule printtime_rules(6).
+     This was achieved by replacing all occurrences of lastyearindex by:
+          4.
+<S>  New C1:  4 >= positive__first
+<S>  New C2:  4 <= positive__last
+<S>  New C7:  timetexti__last >= 4
+-S-  Applied substitution rule printtime_rules(34).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New C3:  firstyearindex >= 1
+<S>  New C1:  true
+-S-  Applied substitution rule printtime_rules(35).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New C4:  firstyearindex <= 2147483647
+<S>  New C2:  true
+-S-  Applied substitution rule printtime_rules(5).
+     This was achieved by replacing all occurrences of firstyearindex by:
+          1.
+<S>  New C8:  timetexti__first <= 1
+<S>  New C3:  true
+<S>  New C4:  true
+-S-  Applied substitution rule printtime_rules(29).
+     This was achieved by replacing all occurrences of natural__first by:
+          0.
+<S>  New C5:  fld_year(thetime) >= 0
+<S>  New C9:  fld_year(thetime) >= 0
+-S-  Applied substitution rule printtime_rules(30).
+     This was achieved by replacing all occurrences of natural__last by:
+          2147483647.
+<S>  New C6:  fld_year(thetime) <= 2147483647
+<S>  New C10:  fld_year(thetime) <= 2147483647
+-S-  Applied substitution rule printtime_rules(60).
+     This was achieved by replacing all occurrences of timetexti__last by:
+          21.
+<S>  New H11:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          21 -> character__first <= element(localtext, [i___1]) and element(
+          localtext, [i___1]) <= character__last)
+<S>  New C7:  true
+-S-  Applied substitution rule printtime_rules(59).
+     This was achieved by replacing all occurrences of timetexti__first by:
+          1.
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 
+          character__first <= element(localtext, [i___1]) and element(
+          localtext, [i___1]) <= character__last)
+<S>  New C8:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  Proved C7:  true
+***  Proved C8:  true
+-S-  Applied substitution rule printtime_rules(24).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext, [i___1]) and element(localtext, [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule printtime_rules(25).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext, [i___1]) and element(localtext, [i___1]) <= 255)
+-S-  Applied substitution rule printtime_rules(41).
+     This was achieved by replacing all occurrences of yearst__first by:
+          1901.
+<S>  New H9:  fld_year(thetime) >= 1901
+-S-  Applied substitution rule printtime_rules(42).
+     This was achieved by replacing all occurrences of yearst__last by:
+          2099.
+<S>  New H10:  fld_year(thetime) <= 2099
+-S-  Applied substitution rule printtime_rules(47).
+     This was achieved by replacing all occurrences of monthst__first by:
+          1.
+<S>  New H7:  fld_month(thetime) >= 1
+-S-  Applied substitution rule printtime_rules(48).
+     This was achieved by replacing all occurrences of monthst__last by:
+          12.
+<S>  New H8:  fld_month(thetime) <= 12
+-S-  Applied substitution rule printtime_rules(53).
+     This was achieved by replacing all occurrences of dayst__first by:
+          1.
+<S>  New H5:  fld_day(thetime) >= 1
+-S-  Applied substitution rule printtime_rules(54).
+     This was achieved by replacing all occurrences of dayst__last by:
+          31.
+<S>  New H6:  fld_day(thetime) <= 31
+-S-  Applied substitution rule printtime_rules(64).
+     This was achieved by replacing all occurrences of millisecst__first by:
+          0.
+<S>  New H3:  fld_millisec(thetime) >= 0
+-S-  Applied substitution rule printtime_rules(65).
+     This was achieved by replacing all occurrences of millisecst__last by:
+          86399999.
+<S>  New H4:  fld_millisec(thetime) <= 86399999
+***  Proved C5:  fld_year(thetime) >= 0
+     using hypothesis H9.
+***  Proved C9:  fld_year(thetime) >= 0
+     using hypothesis H9.
+***  Proved C6:  fld_year(thetime) <= 2147483647
+     using hypothesis H10.
+***  Proved C10:  fld_year(thetime) <= 2147483647
+     using hypothesis H10.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_printtime_3.  @@@@@@@@@@
+%%%  Simplified H1 on reading formula in, to give:
+     %%%  H1:  true
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  true
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          timetexti__last -> character__first <= element(localtext, [i___1]) 
+          and element(localtext, [i___1]) <= character__last)
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as 
+          H17).
+%%%  Simplified H22 on reading formula in, to give:
+     %%%  H22:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          timetexti__last -> character__first <= element(localtext__1, [i___1]) 
+          and element(localtext__1, [i___1]) <= character__last)
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as 
+          H22).
+-S-  Applied substitution rule printtime_rules(8).
+     This was achieved by replacing all occurrences of lastmonthindex by:
+          7.
+<S>  New C1:  7 >= positive__first
+<S>  New C2:  7 <= positive__last
+<S>  New C7:  timetexti__last >= 7
+-S-  Applied substitution rule printtime_rules(34).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New H12:  lastyearindex >= 1
+<S>  New H14:  firstyearindex >= 1
+<S>  New C3:  firstmonthindex >= 1
+<S>  New C1:  true
+-S-  Applied substitution rule printtime_rules(35).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New H13:  lastyearindex <= 2147483647
+<S>  New H15:  firstyearindex <= 2147483647
+<S>  New C4:  firstmonthindex <= 2147483647
+<S>  New C2:  true
+-S-  Applied substitution rule printtime_rules(7).
+     This was achieved by replacing all occurrences of firstmonthindex by:
+          6.
+<S>  New C8:  timetexti__first <= 6
+<S>  New C3:  true
+<S>  New C4:  true
+-S-  Applied substitution rule printtime_rules(29).
+     This was achieved by replacing all occurrences of natural__first by:
+          0.
+<S>  New H16:  fld_year(thetime) >= 0
+<S>  New C5:  fld_month(thetime) >= 0
+<S>  New C9:  fld_month(thetime) >= 0
+-S-  Applied substitution rule printtime_rules(30).
+     This was achieved by replacing all occurrences of natural__last by:
+          2147483647.
+<S>  New H17:  fld_year(thetime) <= 2147483647
+<S>  New C6:  fld_month(thetime) <= 2147483647
+<S>  New C10:  fld_month(thetime) <= 2147483647
+-S-  Applied substitution rule printtime_rules(60).
+     This was achieved by replacing all occurrences of timetexti__last by:
+          21.
+<S>  New H11:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          21 -> character__first <= element(localtext, [i___1]) and element(
+          localtext, [i___1]) <= character__last)
+<S>  New H18:  21 >= lastyearindex
+<S>  New H22:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          21 -> character__first <= element(localtext__1, [i___1]) and element(
+          localtext__1, [i___1]) <= character__last)
+<S>  New C7:  true
+-S-  Applied substitution rule printtime_rules(59).
+     This was achieved by replacing all occurrences of timetexti__first by:
+          1.
+<S>  New H19:  1 <= firstyearindex
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 
+          character__first <= element(localtext, [i___1]) and element(
+          localtext, [i___1]) <= character__last)
+<S>  New H22:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 
+          character__first <= element(localtext__1, [i___1]) and element(
+          localtext__1, [i___1]) <= character__last)
+<S>  New C8:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  Proved C7:  true
+***  Proved C8:  true
+-S-  Applied substitution rule printtime_rules(5).
+     This was achieved by replacing all occurrences of firstyearindex by:
+          1.
+<S>  New H14:  true
+<S>  New H15:  true
+<S>  New H19:  true
+-S-  Applied substitution rule printtime_rules(6).
+     This was achieved by replacing all occurrences of lastyearindex by:
+          4.
+<S>  New H12:  true
+<S>  New H13:  true
+<S>  New H18:  true
+-S-  Applied substitution rule printtime_rules(24).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext, [i___1]) and element(localtext, [i___1]) <= 
+          character__last)
+<S>  New H22:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__1, [i___1]) and element(localtext__1, [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule printtime_rules(25).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext, [i___1]) and element(localtext, [i___1]) <= 255)
+<S>  New H22:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__1, [i___1]) and element(localtext__1, [i___1]) <= 
+          255)
+-S-  Applied substitution rule printtime_rules(41).
+     This was achieved by replacing all occurrences of yearst__first by:
+          1901.
+<S>  New H9:  fld_year(thetime) >= 1901
+-S-  Applied substitution rule printtime_rules(42).
+     This was achieved by replacing all occurrences of yearst__last by:
+          2099.
+<S>  New H10:  fld_year(thetime) <= 2099
+-S-  Applied substitution rule printtime_rules(47).
+     This was achieved by replacing all occurrences of monthst__first by:
+          1.
+<S>  New H7:  fld_month(thetime) >= 1
+-S-  Applied substitution rule printtime_rules(48).
+     This was achieved by replacing all occurrences of monthst__last by:
+          12.
+<S>  New H8:  fld_month(thetime) <= 12
+-S-  Applied substitution rule printtime_rules(53).
+     This was achieved by replacing all occurrences of dayst__first by:
+          1.
+<S>  New H5:  fld_day(thetime) >= 1
+-S-  Applied substitution rule printtime_rules(54).
+     This was achieved by replacing all occurrences of dayst__last by:
+          31.
+<S>  New H6:  fld_day(thetime) <= 31
+-S-  Applied substitution rule printtime_rules(64).
+     This was achieved by replacing all occurrences of millisecst__first by:
+          0.
+<S>  New H3:  fld_millisec(thetime) >= 0
+-S-  Applied substitution rule printtime_rules(65).
+     This was achieved by replacing all occurrences of millisecst__last by:
+          86399999.
+<S>  New H4:  fld_millisec(thetime) <= 86399999
+***  Proved C5:  fld_month(thetime) >= 0
+     using hypothesis H7.
+***  Proved C9:  fld_month(thetime) >= 0
+     using hypothesis H7.
+***  Proved C6:  fld_month(thetime) <= 2147483647
+     using hypothesis H8.
+***  Proved C10:  fld_month(thetime) <= 2147483647
+     using hypothesis H8.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_printtime_4.  @@@@@@@@@@
+%%%  Simplified H1 on reading formula in, to give:
+     %%%  H1:  true
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  true
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          timetexti__last -> character__first <= element(localtext, [i___1]) 
+          and element(localtext, [i___1]) <= character__last)
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as 
+          H17).
+%%%  Simplified H22 on reading formula in, to give:
+     %%%  H22:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          timetexti__last -> character__first <= element(localtext__1, [i___1]) 
+          and element(localtext__1, [i___1]) <= character__last)
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as 
+          H29).
+%%%  Simplified H34 on reading formula in, to give:
+     %%%  H34:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          timetexti__last -> character__first <= element(localtext__2, [i___1]) 
+          and element(localtext__2, [i___1]) <= character__last)
+---  Hypothesis H35 has been replaced by "true".  (It is already present, as 
+          H34).
+-S-  Applied substitution rule printtime_rules(10).
+     This was achieved by replacing all occurrences of lastdayindex by:
+          10.
+<S>  New C1:  10 >= positive__first
+<S>  New C2:  10 <= positive__last
+<S>  New C7:  timetexti__last >= 10
+-S-  Applied substitution rule printtime_rules(34).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New H12:  lastyearindex >= 1
+<S>  New H14:  firstyearindex >= 1
+<S>  New H24:  lastmonthindex >= 1
+<S>  New H26:  firstmonthindex >= 1
+<S>  New C3:  firstdayindex >= 1
+<S>  New C1:  true
+-S-  Applied substitution rule printtime_rules(35).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New H13:  lastyearindex <= 2147483647
+<S>  New H15:  firstyearindex <= 2147483647
+<S>  New H25:  lastmonthindex <= 2147483647
+<S>  New H27:  firstmonthindex <= 2147483647
+<S>  New C4:  firstdayindex <= 2147483647
+<S>  New C2:  true
+-S-  Applied substitution rule printtime_rules(9).
+     This was achieved by replacing all occurrences of firstdayindex by:
+          9.
+<S>  New C8:  timetexti__first <= 9
+<S>  New C3:  true
+<S>  New C4:  true
+-S-  Applied substitution rule printtime_rules(29).
+     This was achieved by replacing all occurrences of natural__first by:
+          0.
+<S>  New H16:  fld_year(thetime) >= 0
+<S>  New H28:  fld_month(thetime) >= 0
+<S>  New C5:  fld_day(thetime) >= 0
+<S>  New C9:  fld_day(thetime) >= 0
+-S-  Applied substitution rule printtime_rules(30).
+     This was achieved by replacing all occurrences of natural__last by:
+          2147483647.
+<S>  New H17:  fld_year(thetime) <= 2147483647
+<S>  New H29:  fld_month(thetime) <= 2147483647
+<S>  New C6:  fld_day(thetime) <= 2147483647
+<S>  New C10:  fld_day(thetime) <= 2147483647
+-S-  Applied substitution rule printtime_rules(60).
+     This was achieved by replacing all occurrences of timetexti__last by:
+          21.
+<S>  New H11:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          21 -> character__first <= element(localtext, [i___1]) and element(
+          localtext, [i___1]) <= character__last)
+<S>  New H18:  21 >= lastyearindex
+<S>  New H22:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          21 -> character__first <= element(localtext__1, [i___1]) and element(
+          localtext__1, [i___1]) <= character__last)
+<S>  New H30:  21 >= lastmonthindex
+<S>  New H34:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          21 -> character__first <= element(localtext__2, [i___1]) and element(
+          localtext__2, [i___1]) <= character__last)
+<S>  New C7:  true
+-S-  Applied substitution rule printtime_rules(59).
+     This was achieved by replacing all occurrences of timetexti__first by:
+          1.
+<S>  New H19:  1 <= firstyearindex
+<S>  New H31:  1 <= firstmonthindex
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 
+          character__first <= element(localtext, [i___1]) and element(
+          localtext, [i___1]) <= character__last)
+<S>  New H22:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 
+          character__first <= element(localtext__1, [i___1]) and element(
+          localtext__1, [i___1]) <= character__last)
+<S>  New H34:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 
+          character__first <= element(localtext__2, [i___1]) and element(
+          localtext__2, [i___1]) <= character__last)
+<S>  New C8:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  Proved C7:  true
+***  Proved C8:  true
+-S-  Applied substitution rule printtime_rules(5).
+     This was achieved by replacing all occurrences of firstyearindex by:
+          1.
+<S>  New H14:  true
+<S>  New H15:  true
+<S>  New H19:  true
+-S-  Applied substitution rule printtime_rules(6).
+     This was achieved by replacing all occurrences of lastyearindex by:
+          4.
+<S>  New H12:  true
+<S>  New H13:  true
+<S>  New H18:  true
+-S-  Applied substitution rule printtime_rules(7).
+     This was achieved by replacing all occurrences of firstmonthindex by:
+          6.
+<S>  New H26:  true
+<S>  New H27:  true
+<S>  New H31:  true
+-S-  Applied substitution rule printtime_rules(8).
+     This was achieved by replacing all occurrences of lastmonthindex by:
+          7.
+<S>  New H24:  true
+<S>  New H25:  true
+<S>  New H30:  true
+-S-  Applied substitution rule printtime_rules(24).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext, [i___1]) and element(localtext, [i___1]) <= 
+          character__last)
+<S>  New H22:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__1, [i___1]) and element(localtext__1, [i___1]) <= 
+          character__last)
+<S>  New H34:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__2, [i___1]) and element(localtext__2, [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule printtime_rules(25).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext, [i___1]) and element(localtext, [i___1]) <= 255)
+<S>  New H22:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__1, [i___1]) and element(localtext__1, [i___1]) <= 
+          255)
+<S>  New H34:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__2, [i___1]) and element(localtext__2, [i___1]) <= 
+          255)
+-S-  Applied substitution rule printtime_rules(41).
+     This was achieved by replacing all occurrences of yearst__first by:
+          1901.
+<S>  New H9:  fld_year(thetime) >= 1901
+-S-  Applied substitution rule printtime_rules(42).
+     This was achieved by replacing all occurrences of yearst__last by:
+          2099.
+<S>  New H10:  fld_year(thetime) <= 2099
+-S-  Applied substitution rule printtime_rules(47).
+     This was achieved by replacing all occurrences of monthst__first by:
+          1.
+<S>  New H7:  fld_month(thetime) >= 1
+-S-  Applied substitution rule printtime_rules(48).
+     This was achieved by replacing all occurrences of monthst__last by:
+          12.
+<S>  New H8:  fld_month(thetime) <= 12
+-S-  Applied substitution rule printtime_rules(53).
+     This was achieved by replacing all occurrences of dayst__first by:
+          1.
+<S>  New H5:  fld_day(thetime) >= 1
+-S-  Applied substitution rule printtime_rules(54).
+     This was achieved by replacing all occurrences of dayst__last by:
+          31.
+<S>  New H6:  fld_day(thetime) <= 31
+-S-  Applied substitution rule printtime_rules(64).
+     This was achieved by replacing all occurrences of millisecst__first by:
+          0.
+<S>  New H3:  fld_millisec(thetime) >= 0
+-S-  Applied substitution rule printtime_rules(65).
+     This was achieved by replacing all occurrences of millisecst__last by:
+          86399999.
+<S>  New H4:  fld_millisec(thetime) <= 86399999
+***  Proved C5:  fld_day(thetime) >= 0
+     using hypothesis H5.
+***  Proved C9:  fld_day(thetime) >= 0
+     using hypothesis H5.
+***  Proved C6:  fld_day(thetime) <= 2147483647
+     using hypothesis H6.
+***  Proved C10:  fld_day(thetime) <= 2147483647
+     using hypothesis H6.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_printtime_5.  @@@@@@@@@@
+%%%  Simplified H1 on reading formula in, to give:
+     %%%  H1:  true
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  true
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          timetexti__last -> character__first <= element(localtext, [i___1]) 
+          and element(localtext, [i___1]) <= character__last)
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as 
+          H17).
+%%%  Simplified H22 on reading formula in, to give:
+     %%%  H22:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          timetexti__last -> character__first <= element(localtext__1, [i___1]) 
+          and element(localtext__1, [i___1]) <= character__last)
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as 
+          H29).
+%%%  Simplified H34 on reading formula in, to give:
+     %%%  H34:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          timetexti__last -> character__first <= element(localtext__2, [i___1]) 
+          and element(localtext__2, [i___1]) <= character__last)
+---  Hypothesis H35 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H44 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H45 has been replaced by "true".  (It is already present, as 
+          H41).
+%%%  Simplified H46 on reading formula in, to give:
+     %%%  H46:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          timetexti__last -> character__first <= element(localtext__3, [i___1]) 
+          and element(localtext__3, [i___1]) <= character__last)
+---  Hypothesis H47 has been replaced by "true".  (It is already present, as 
+          H46).
+-S-  Applied substitution rule printtime_rules(12).
+     This was achieved by replacing all occurrences of lasthourindex by:
+          13.
+<S>  New C1:  13 >= positive__first
+<S>  New C2:  13 <= positive__last
+<S>  New C7:  timetexti__last >= 13
+-S-  Applied substitution rule printtime_rules(34).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New H12:  lastyearindex >= 1
+<S>  New H14:  firstyearindex >= 1
+<S>  New H24:  lastmonthindex >= 1
+<S>  New H26:  firstmonthindex >= 1
+<S>  New H36:  lastdayindex >= 1
+<S>  New H38:  firstdayindex >= 1
+<S>  New C3:  firsthourindex >= 1
+<S>  New C1:  true
+-S-  Applied substitution rule printtime_rules(35).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New H13:  lastyearindex <= 2147483647
+<S>  New H15:  firstyearindex <= 2147483647
+<S>  New H25:  lastmonthindex <= 2147483647
+<S>  New H27:  firstmonthindex <= 2147483647
+<S>  New H37:  lastdayindex <= 2147483647
+<S>  New H39:  firstdayindex <= 2147483647
+<S>  New C4:  firsthourindex <= 2147483647
+<S>  New C2:  true
+-S-  Applied substitution rule printtime_rules(11).
+     This was achieved by replacing all occurrences of firsthourindex by:
+          12.
+<S>  New C8:  timetexti__first <= 12
+<S>  New C3:  true
+<S>  New C4:  true
+-S-  Applied substitution rule printtime_rules(29).
+     This was achieved by replacing all occurrences of natural__first by:
+          0.
+<S>  New H16:  fld_year(thetime) >= 0
+<S>  New H28:  fld_month(thetime) >= 0
+<S>  New H40:  fld_day(thetime) >= 0
+<S>  New C5:  fld_millisec(thetime) div millisecsinhr >= 0
+<S>  New C9:  fld_millisec(thetime) div millisecsinhr >= 0
+-S-  Applied substitution rule printtime_rules(30).
+     This was achieved by replacing all occurrences of natural__last by:
+          2147483647.
+<S>  New H17:  fld_year(thetime) <= 2147483647
+<S>  New H29:  fld_month(thetime) <= 2147483647
+<S>  New H41:  fld_day(thetime) <= 2147483647
+<S>  New C6:  fld_millisec(thetime) div millisecsinhr <= 2147483647
+<S>  New C10:  fld_millisec(thetime) div millisecsinhr <= 2147483647
+-S-  Applied substitution rule printtime_rules(60).
+     This was achieved by replacing all occurrences of timetexti__last by:
+          21.
+<S>  New H11:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          21 -> character__first <= element(localtext, [i___1]) and element(
+          localtext, [i___1]) <= character__last)
+<S>  New H18:  21 >= lastyearindex
+<S>  New H22:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          21 -> character__first <= element(localtext__1, [i___1]) and element(
+          localtext__1, [i___1]) <= character__last)
+<S>  New H30:  21 >= lastmonthindex
+<S>  New H34:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          21 -> character__first <= element(localtext__2, [i___1]) and element(
+          localtext__2, [i___1]) <= character__last)
+<S>  New H42:  21 >= lastdayindex
+<S>  New H46:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          21 -> character__first <= element(localtext__3, [i___1]) and element(
+          localtext__3, [i___1]) <= character__last)
+<S>  New C7:  true
+-S-  Applied substitution rule printtime_rules(59).
+     This was achieved by replacing all occurrences of timetexti__first by:
+          1.
+<S>  New H19:  1 <= firstyearindex
+<S>  New H31:  1 <= firstmonthindex
+<S>  New H43:  1 <= firstdayindex
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 
+          character__first <= element(localtext, [i___1]) and element(
+          localtext, [i___1]) <= character__last)
+<S>  New H22:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 
+          character__first <= element(localtext__1, [i___1]) and element(
+          localtext__1, [i___1]) <= character__last)
+<S>  New H34:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 
+          character__first <= element(localtext__2, [i___1]) and element(
+          localtext__2, [i___1]) <= character__last)
+<S>  New H46:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 
+          character__first <= element(localtext__3, [i___1]) and element(
+          localtext__3, [i___1]) <= character__last)
+<S>  New C8:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  Proved C7:  true
+***  Proved C8:  true
+-S-  Applied substitution rule printtime_rules(4).
+     This was achieved by replacing all occurrences of millisecsinhr by:
+          3600000.
+<S>  New C11:  fld_millisec(thetime) div 3600000 >= millisecst__base__first
+<S>  New C12:  fld_millisec(thetime) div 3600000 <= millisecst__base__last
+<S>  New C13:  true
+<S>  New C5:  fld_millisec(thetime) div 3600000 >= 0
+<S>  New C9:  fld_millisec(thetime) div 3600000 >= 0
+<S>  New C6:  fld_millisec(thetime) div 3600000 <= 2147483647
+<S>  New C10:  fld_millisec(thetime) div 3600000 <= 2147483647
+-S-  Applied substitution rule printtime_rules(5).
+     This was achieved by replacing all occurrences of firstyearindex by:
+          1.
+<S>  New H14:  true
+<S>  New H15:  true
+<S>  New H19:  true
+-S-  Applied substitution rule printtime_rules(6).
+     This was achieved by replacing all occurrences of lastyearindex by:
+          4.
+<S>  New H12:  true
+<S>  New H13:  true
+<S>  New H18:  true
+-S-  Applied substitution rule printtime_rules(7).
+     This was achieved by replacing all occurrences of firstmonthindex by:
+          6.
+<S>  New H26:  true
+<S>  New H27:  true
+<S>  New H31:  true
+-S-  Applied substitution rule printtime_rules(8).
+     This was achieved by replacing all occurrences of lastmonthindex by:
+          7.
+<S>  New H24:  true
+<S>  New H25:  true
+<S>  New H30:  true
+-S-  Applied substitution rule printtime_rules(9).
+     This was achieved by replacing all occurrences of firstdayindex by:
+          9.
+<S>  New H38:  true
+<S>  New H39:  true
+<S>  New H43:  true
+-S-  Applied substitution rule printtime_rules(10).
+     This was achieved by replacing all occurrences of lastdayindex by:
+          10.
+<S>  New H36:  true
+<S>  New H37:  true
+<S>  New H42:  true
+-S-  Applied substitution rule printtime_rules(24).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext, [i___1]) and element(localtext, [i___1]) <= 
+          character__last)
+<S>  New H22:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__1, [i___1]) and element(localtext__1, [i___1]) <= 
+          character__last)
+<S>  New H34:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__2, [i___1]) and element(localtext__2, [i___1]) <= 
+          character__last)
+<S>  New H46:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__3, [i___1]) and element(localtext__3, [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule printtime_rules(25).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext, [i___1]) and element(localtext, [i___1]) <= 255)
+<S>  New H22:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__1, [i___1]) and element(localtext__1, [i___1]) <= 
+          255)
+<S>  New H34:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__2, [i___1]) and element(localtext__2, [i___1]) <= 
+          255)
+<S>  New H46:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__3, [i___1]) and element(localtext__3, [i___1]) <= 
+          255)
+-S-  Applied substitution rule printtime_rules(41).
+     This was achieved by replacing all occurrences of yearst__first by:
+          1901.
+<S>  New H9:  fld_year(thetime) >= 1901
+-S-  Applied substitution rule printtime_rules(42).
+     This was achieved by replacing all occurrences of yearst__last by:
+          2099.
+<S>  New H10:  fld_year(thetime) <= 2099
+-S-  Applied substitution rule printtime_rules(47).
+     This was achieved by replacing all occurrences of monthst__first by:
+          1.
+<S>  New H7:  fld_month(thetime) >= 1
+-S-  Applied substitution rule printtime_rules(48).
+     This was achieved by replacing all occurrences of monthst__last by:
+          12.
+<S>  New H8:  fld_month(thetime) <= 12
+-S-  Applied substitution rule printtime_rules(53).
+     This was achieved by replacing all occurrences of dayst__first by:
+          1.
+<S>  New H5:  fld_day(thetime) >= 1
+-S-  Applied substitution rule printtime_rules(54).
+     This was achieved by replacing all occurrences of dayst__last by:
+          31.
+<S>  New H6:  fld_day(thetime) <= 31
+-S-  Applied substitution rule printtime_rules(64).
+     This was achieved by replacing all occurrences of millisecst__first by:
+          0.
+<S>  New H3:  fld_millisec(thetime) >= 0
+-S-  Applied substitution rule printtime_rules(65).
+     This was achieved by replacing all occurrences of millisecst__last by:
+          86399999.
+<S>  New H4:  fld_millisec(thetime) <= 86399999
+***  Proved C13:  true
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H2 (true-hypothesis).
+---  Eliminated hypothesis H20 (true-hypothesis).
+---  Eliminated hypothesis H21 (true-hypothesis).
+---  Eliminated hypothesis H23 (true-hypothesis).
+---  Eliminated hypothesis H32 (true-hypothesis).
+---  Eliminated hypothesis H33 (true-hypothesis).
+---  Eliminated hypothesis H35 (true-hypothesis).
+---  Eliminated hypothesis H44 (true-hypothesis).
+---  Eliminated hypothesis H45 (true-hypothesis).
+---  Eliminated hypothesis H47 (true-hypothesis).
+---  Eliminated hypothesis H14 (true-hypothesis).
+---  Eliminated hypothesis H15 (true-hypothesis).
+---  Eliminated hypothesis H19 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H13 (true-hypothesis).
+---  Eliminated hypothesis H18 (true-hypothesis).
+---  Eliminated hypothesis H26 (true-hypothesis).
+---  Eliminated hypothesis H27 (true-hypothesis).
+---  Eliminated hypothesis H31 (true-hypothesis).
+---  Eliminated hypothesis H24 (true-hypothesis).
+---  Eliminated hypothesis H25 (true-hypothesis).
+---  Eliminated hypothesis H30 (true-hypothesis).
+---  Eliminated hypothesis H38 (true-hypothesis).
+---  Eliminated hypothesis H39 (true-hypothesis).
+---  Eliminated hypothesis H43 (true-hypothesis).
+---  Eliminated hypothesis H36 (true-hypothesis).
+---  Eliminated hypothesis H37 (true-hypothesis).
+---  Eliminated hypothesis H42 (true-hypothesis).
+---  Eliminated hypothesis H16 (redundant, given H9).
+---  Eliminated hypothesis H17 (redundant, given H10).
+---  Eliminated hypothesis H28 (redundant, given H7).
+---  Eliminated hypothesis H29 (redundant, given H8).
+---  Eliminated hypothesis H40 (redundant, given H5).
+---  Eliminated hypothesis H41 (redundant, given H6).
+---  Eliminated conclusion C9, which is a duplicate of C5.
+---  Eliminated conclusion C10, which is a duplicate of C6.
+***  Proved C11:  fld_millisec(thetime) div 3600000 >= millisecst__base__first
+     using hypothesis H3.
+***  Proved C5:  fld_millisec(thetime) div 3600000 >= 0
+     using hypothesis H3.
+***  Proved C6:  fld_millisec(thetime) div 3600000 <= 2147483647
+     using hypothesis H4.
+     +++  New H48:  integer__size >= 0
+     +++  New H49:  character__size >= 0
+     +++  New H50:  natural__size >= 0
+     +++  New H51:  positive__size >= 0
+     +++  New H52:  timet__size >= 0
+     +++  New H53:  yearst__size >= 0
+     +++  New H54:  yearst__base__first <= yearst__base__last
+     +++  New H55:  monthst__size >= 0
+     +++  New H56:  monthst__base__first <= monthst__base__last
+     +++  New H57:  dayst__size >= 0
+     +++  New H58:  dayst__base__first <= dayst__base__last
+     +++  New H59:  timetexti__size >= 0
+     +++  New H60:  millisecst__size >= 0
+     +++  New H61:  millisecst__base__first <= millisecst__base__last
+     +++  New H62:  yearst__base__first <= 1901
+     +++  New H63:  yearst__base__last >= 2099
+     +++  New H64:  monthst__base__first <= 1
+     +++  New H65:  monthst__base__last >= 12
+     +++  New H66:  dayst__base__first <= 1
+     +++  New H67:  dayst__base__last >= 31
+     +++  New H68:  millisecst__base__first <= 0
+     +++  New H69:  millisecst__base__last >= 86399999
+***  Proved C12:  fld_millisec(thetime) div 3600000 <= millisecst__base__last
+     using hypotheses H4 & H69.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_printtime_6.  @@@@@@@@@@
+%%%  Simplified H1 on reading formula in, to give:
+     %%%  H1:  true
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  true
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          timetexti__last -> character__first <= element(localtext, [i___1]) 
+          and element(localtext, [i___1]) <= character__last)
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as 
+          H17).
+%%%  Simplified H22 on reading formula in, to give:
+     %%%  H22:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          timetexti__last -> character__first <= element(localtext__1, [i___1]) 
+          and element(localtext__1, [i___1]) <= character__last)
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as 
+          H29).
+%%%  Simplified H34 on reading formula in, to give:
+     %%%  H34:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          timetexti__last -> character__first <= element(localtext__2, [i___1]) 
+          and element(localtext__2, [i___1]) <= character__last)
+---  Hypothesis H35 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H44 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H45 has been replaced by "true".  (It is already present, as 
+          H41).
+%%%  Simplified H46 on reading formula in, to give:
+     %%%  H46:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          timetexti__last -> character__first <= element(localtext__3, [i___1]) 
+          and element(localtext__3, [i___1]) <= character__last)
+---  Hypothesis H47 has been replaced by "true".  (It is already present, as 
+          H46).
+---  Hypothesis H56 has been replaced by "true".  (It is already present, as 
+          H52).
+---  Hypothesis H57 has been replaced by "true".  (It is already present, as 
+          H53).
+%%%  Simplified H61 on reading formula in, to give:
+     %%%  H61:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          timetexti__last -> character__first <= element(localtext__4, [i___1]) 
+          and element(localtext__4, [i___1]) <= character__last)
+---  Hypothesis H62 has been replaced by "true".  (It is already present, as 
+          H61).
+***  Proved C16:  millisecsinhr <> 0
+     using hypothesis H60.
+-S-  Applied substitution rule printtime_rules(14).
+     This was achieved by replacing all occurrences of lastminindex by:
+          16.
+<S>  New C1:  16 >= positive__first
+<S>  New C2:  16 <= positive__last
+<S>  New C7:  timetexti__last >= 16
+-S-  Applied substitution rule printtime_rules(34).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New H12:  lastyearindex >= 1
+<S>  New H14:  firstyearindex >= 1
+<S>  New H24:  lastmonthindex >= 1
+<S>  New H26:  firstmonthindex >= 1
+<S>  New H36:  lastdayindex >= 1
+<S>  New H38:  firstdayindex >= 1
+<S>  New H48:  lasthourindex >= 1
+<S>  New H50:  firsthourindex >= 1
+<S>  New C3:  firstminindex >= 1
+<S>  New C1:  true
+-S-  Applied substitution rule printtime_rules(35).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New H13:  lastyearindex <= 2147483647
+<S>  New H15:  firstyearindex <= 2147483647
+<S>  New H25:  lastmonthindex <= 2147483647
+<S>  New H27:  firstmonthindex <= 2147483647
+<S>  New H37:  lastdayindex <= 2147483647
+<S>  New H39:  firstdayindex <= 2147483647
+<S>  New H49:  lasthourindex <= 2147483647
+<S>  New H51:  firsthourindex <= 2147483647
+<S>  New C4:  firstminindex <= 2147483647
+<S>  New C2:  true
+-S-  Applied substitution rule printtime_rules(13).
+     This was achieved by replacing all occurrences of firstminindex by:
+          15.
+<S>  New C8:  timetexti__first <= 15
+<S>  New C3:  true
+<S>  New C4:  true
+-S-  Applied substitution rule printtime_rules(29).
+     This was achieved by replacing all occurrences of natural__first by:
+          0.
+<S>  New H16:  fld_year(thetime) >= 0
+<S>  New H28:  fld_month(thetime) >= 0
+<S>  New H40:  fld_day(thetime) >= 0
+<S>  New H52:  fld_millisec(thetime) div millisecsinhr >= 0
+<S>  New C5:  fld_millisec(thetime) mod millisecsinhr div millisecsinmin >= 0
+<S>  New C9:  fld_millisec(thetime) mod millisecsinhr div millisecsinmin >= 0
+-S-  Applied substitution rule printtime_rules(30).
+     This was achieved by replacing all occurrences of natural__last by:
+          2147483647.
+<S>  New H17:  fld_year(thetime) <= 2147483647
+<S>  New H29:  fld_month(thetime) <= 2147483647
+<S>  New H41:  fld_day(thetime) <= 2147483647
+<S>  New H53:  fld_millisec(thetime) div millisecsinhr <= 2147483647
+<S>  New C6:  fld_millisec(thetime) mod millisecsinhr div millisecsinmin <= 
+          2147483647
+<S>  New C10:  fld_millisec(thetime) mod millisecsinhr div millisecsinmin <= 
+          2147483647
+-S-  Applied substitution rule printtime_rules(60).
+     This was achieved by replacing all occurrences of timetexti__last by:
+          21.
+<S>  New H11:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          21 -> character__first <= element(localtext, [i___1]) and element(
+          localtext, [i___1]) <= character__last)
+<S>  New H18:  21 >= lastyearindex
+<S>  New H22:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          21 -> character__first <= element(localtext__1, [i___1]) and element(
+          localtext__1, [i___1]) <= character__last)
+<S>  New H30:  21 >= lastmonthindex
+<S>  New H34:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          21 -> character__first <= element(localtext__2, [i___1]) and element(
+          localtext__2, [i___1]) <= character__last)
+<S>  New H42:  21 >= lastdayindex
+<S>  New H46:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          21 -> character__first <= element(localtext__3, [i___1]) and element(
+          localtext__3, [i___1]) <= character__last)
+<S>  New H54:  21 >= lasthourindex
+<S>  New H61:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          21 -> character__first <= element(localtext__4, [i___1]) and element(
+          localtext__4, [i___1]) <= character__last)
+<S>  New C7:  true
+-S-  Applied substitution rule printtime_rules(59).
+     This was achieved by replacing all occurrences of timetexti__first by:
+          1.
+<S>  New H19:  1 <= firstyearindex
+<S>  New H31:  1 <= firstmonthindex
+<S>  New H43:  1 <= firstdayindex
+<S>  New H55:  1 <= firsthourindex
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 
+          character__first <= element(localtext, [i___1]) and element(
+          localtext, [i___1]) <= character__last)
+<S>  New H22:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 
+          character__first <= element(localtext__1, [i___1]) and element(
+          localtext__1, [i___1]) <= character__last)
+<S>  New H34:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 
+          character__first <= element(localtext__2, [i___1]) and element(
+          localtext__2, [i___1]) <= character__last)
+<S>  New H46:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 
+          character__first <= element(localtext__3, [i___1]) and element(
+          localtext__3, [i___1]) <= character__last)
+<S>  New H61:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 
+          character__first <= element(localtext__4, [i___1]) and element(
+          localtext__4, [i___1]) <= character__last)
+<S>  New C8:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  Proved C7:  true
+***  Proved C8:  true
+-S-  Applied substitution rule printtime_rules(3).
+     This was achieved by replacing all occurrences of millisecsinmin by:
+          60000.
+<S>  New C11:  fld_millisec(thetime) mod millisecsinhr div 60000 >= 
+          millisecst__base__first
+<S>  New C12:  fld_millisec(thetime) mod millisecsinhr div 60000 <= 
+          millisecst__base__last
+<S>  New C13:  true
+<S>  New C5:  fld_millisec(thetime) mod millisecsinhr div 60000 >= 0
+<S>  New C9:  fld_millisec(thetime) mod millisecsinhr div 60000 >= 0
+<S>  New C6:  fld_millisec(thetime) mod millisecsinhr div 60000 <= 2147483647
+<S>  New C10:  fld_millisec(thetime) mod millisecsinhr div 60000 <= 2147483647
+-S-  Applied substitution rule printtime_rules(4).
+     This was achieved by replacing all occurrences of millisecsinhr by:
+          3600000.
+<S>  New H52:  fld_millisec(thetime) div 3600000 >= 0
+<S>  New H53:  fld_millisec(thetime) div 3600000 <= 2147483647
+<S>  New H58:  fld_millisec(thetime) div 3600000 >= millisecst__base__first
+<S>  New H59:  fld_millisec(thetime) div 3600000 <= millisecst__base__last
+<S>  New H60:  true
+<S>  New C14:  fld_millisec(thetime) mod 3600000 >= millisecst__base__first
+<S>  New C15:  fld_millisec(thetime) mod 3600000 <= millisecst__base__last
+<S>  New C11:  fld_millisec(thetime) mod 3600000 div 60000 >= 
+          millisecst__base__first
+<S>  New C12:  fld_millisec(thetime) mod 3600000 div 60000 <= 
+          millisecst__base__last
+<S>  New C5:  fld_millisec(thetime) mod 3600000 div 60000 >= 0
+<S>  New C9:  fld_millisec(thetime) mod 3600000 div 60000 >= 0
+<S>  New C6:  fld_millisec(thetime) mod 3600000 div 60000 <= 2147483647
+<S>  New C10:  fld_millisec(thetime) mod 3600000 div 60000 <= 2147483647
+-S-  Applied substitution rule printtime_rules(5).
+     This was achieved by replacing all occurrences of firstyearindex by:
+          1.
+<S>  New H14:  true
+<S>  New H15:  true
+<S>  New H19:  true
+-S-  Applied substitution rule printtime_rules(6).
+     This was achieved by replacing all occurrences of lastyearindex by:
+          4.
+<S>  New H12:  true
+<S>  New H13:  true
+<S>  New H18:  true
+-S-  Applied substitution rule printtime_rules(7).
+     This was achieved by replacing all occurrences of firstmonthindex by:
+          6.
+<S>  New H26:  true
+<S>  New H27:  true
+<S>  New H31:  true
+-S-  Applied substitution rule printtime_rules(8).
+     This was achieved by replacing all occurrences of lastmonthindex by:
+          7.
+<S>  New H24:  true
+<S>  New H25:  true
+<S>  New H30:  true
+-S-  Applied substitution rule printtime_rules(9).
+     This was achieved by replacing all occurrences of firstdayindex by:
+          9.
+<S>  New H38:  true
+<S>  New H39:  true
+<S>  New H43:  true
+-S-  Applied substitution rule printtime_rules(10).
+     This was achieved by replacing all occurrences of lastdayindex by:
+          10.
+<S>  New H36:  true
+<S>  New H37:  true
+<S>  New H42:  true
+-S-  Applied substitution rule printtime_rules(11).
+     This was achieved by replacing all occurrences of firsthourindex by:
+          12.
+<S>  New H50:  true
+<S>  New H51:  true
+<S>  New H55:  true
+-S-  Applied substitution rule printtime_rules(12).
+     This was achieved by replacing all occurrences of lasthourindex by:
+          13.
+<S>  New H48:  true
+<S>  New H49:  true
+<S>  New H54:  true
+-S-  Applied substitution rule printtime_rules(24).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext, [i___1]) and element(localtext, [i___1]) <= 
+          character__last)
+<S>  New H22:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__1, [i___1]) and element(localtext__1, [i___1]) <= 
+          character__last)
+<S>  New H34:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__2, [i___1]) and element(localtext__2, [i___1]) <= 
+          character__last)
+<S>  New H46:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__3, [i___1]) and element(localtext__3, [i___1]) <= 
+          character__last)
+<S>  New H61:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__4, [i___1]) and element(localtext__4, [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule printtime_rules(25).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext, [i___1]) and element(localtext, [i___1]) <= 255)
+<S>  New H22:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__1, [i___1]) and element(localtext__1, [i___1]) <= 
+          255)
+<S>  New H34:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__2, [i___1]) and element(localtext__2, [i___1]) <= 
+          255)
+<S>  New H46:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__3, [i___1]) and element(localtext__3, [i___1]) <= 
+          255)
+<S>  New H61:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__4, [i___1]) and element(localtext__4, [i___1]) <= 
+          255)
+-S-  Applied substitution rule printtime_rules(41).
+     This was achieved by replacing all occurrences of yearst__first by:
+          1901.
+<S>  New H9:  fld_year(thetime) >= 1901
+-S-  Applied substitution rule printtime_rules(42).
+     This was achieved by replacing all occurrences of yearst__last by:
+          2099.
+<S>  New H10:  fld_year(thetime) <= 2099
+-S-  Applied substitution rule printtime_rules(47).
+     This was achieved by replacing all occurrences of monthst__first by:
+          1.
+<S>  New H7:  fld_month(thetime) >= 1
+-S-  Applied substitution rule printtime_rules(48).
+     This was achieved by replacing all occurrences of monthst__last by:
+          12.
+<S>  New H8:  fld_month(thetime) <= 12
+-S-  Applied substitution rule printtime_rules(53).
+     This was achieved by replacing all occurrences of dayst__first by:
+          1.
+<S>  New H5:  fld_day(thetime) >= 1
+-S-  Applied substitution rule printtime_rules(54).
+     This was achieved by replacing all occurrences of dayst__last by:
+          31.
+<S>  New H6:  fld_day(thetime) <= 31
+-S-  Applied substitution rule printtime_rules(64).
+     This was achieved by replacing all occurrences of millisecst__first by:
+          0.
+<S>  New H3:  fld_millisec(thetime) >= 0
+-S-  Applied substitution rule printtime_rules(65).
+     This was achieved by replacing all occurrences of millisecst__last by:
+          86399999.
+<S>  New H4:  fld_millisec(thetime) <= 86399999
+***  Proved C13:  true
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H2 (true-hypothesis).
+---  Eliminated hypothesis H20 (true-hypothesis).
+---  Eliminated hypothesis H21 (true-hypothesis).
+---  Eliminated hypothesis H23 (true-hypothesis).
+---  Eliminated hypothesis H32 (true-hypothesis).
+---  Eliminated hypothesis H33 (true-hypothesis).
+---  Eliminated hypothesis H35 (true-hypothesis).
+---  Eliminated hypothesis H44 (true-hypothesis).
+---  Eliminated hypothesis H45 (true-hypothesis).
+---  Eliminated hypothesis H47 (true-hypothesis).
+---  Eliminated hypothesis H56 (true-hypothesis).
+---  Eliminated hypothesis H57 (true-hypothesis).
+---  Eliminated hypothesis H62 (true-hypothesis).
+---  Eliminated hypothesis H60 (true-hypothesis).
+---  Eliminated hypothesis H14 (true-hypothesis).
+---  Eliminated hypothesis H15 (true-hypothesis).
+---  Eliminated hypothesis H19 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H13 (true-hypothesis).
+---  Eliminated hypothesis H18 (true-hypothesis).
+---  Eliminated hypothesis H26 (true-hypothesis).
+---  Eliminated hypothesis H27 (true-hypothesis).
+---  Eliminated hypothesis H31 (true-hypothesis).
+---  Eliminated hypothesis H24 (true-hypothesis).
+---  Eliminated hypothesis H25 (true-hypothesis).
+---  Eliminated hypothesis H30 (true-hypothesis).
+---  Eliminated hypothesis H38 (true-hypothesis).
+---  Eliminated hypothesis H39 (true-hypothesis).
+---  Eliminated hypothesis H43 (true-hypothesis).
+---  Eliminated hypothesis H36 (true-hypothesis).
+---  Eliminated hypothesis H37 (true-hypothesis).
+---  Eliminated hypothesis H42 (true-hypothesis).
+---  Eliminated hypothesis H50 (true-hypothesis).
+---  Eliminated hypothesis H51 (true-hypothesis).
+---  Eliminated hypothesis H55 (true-hypothesis).
+---  Eliminated hypothesis H48 (true-hypothesis).
+---  Eliminated hypothesis H49 (true-hypothesis).
+---  Eliminated hypothesis H54 (true-hypothesis).
+---  Eliminated hypothesis H16 (redundant, given H9).
+---  Eliminated hypothesis H17 (redundant, given H10).
+---  Eliminated hypothesis H28 (redundant, given H7).
+---  Eliminated hypothesis H29 (redundant, given H8).
+---  Eliminated hypothesis H40 (redundant, given H5).
+---  Eliminated hypothesis H41 (redundant, given H6).
+---  Eliminated conclusion C9, which is a duplicate of C5.
+---  Eliminated conclusion C10, which is a duplicate of C6.
+***  Proved C11:  fld_millisec(thetime) mod 3600000 div 60000 >= 
+          millisecst__base__first
+***  Proved C5:  fld_millisec(thetime) mod 3600000 div 60000 >= 0
+***  Proved C6:  fld_millisec(thetime) mod 3600000 div 60000 <= 2147483647
+     +++  New H63:  integer__size >= 0
+     +++  New H64:  character__size >= 0
+     +++  New H65:  natural__size >= 0
+     +++  New H66:  positive__size >= 0
+     +++  New H67:  timet__size >= 0
+     +++  New H68:  yearst__size >= 0
+     +++  New H69:  yearst__base__first <= yearst__base__last
+     +++  New H70:  monthst__size >= 0
+     +++  New H71:  monthst__base__first <= monthst__base__last
+     +++  New H72:  dayst__size >= 0
+     +++  New H73:  dayst__base__first <= dayst__base__last
+     +++  New H74:  timetexti__size >= 0
+     +++  New H75:  millisecst__size >= 0
+     +++  New H76:  millisecst__base__first <= millisecst__base__last
+     +++  New H77:  yearst__base__first <= 1901
+     +++  New H78:  yearst__base__last >= 2099
+     +++  New H79:  monthst__base__first <= 1
+     +++  New H80:  monthst__base__last >= 12
+     +++  New H81:  dayst__base__first <= 1
+     +++  New H82:  dayst__base__last >= 31
+     +++  New H83:  millisecst__base__first <= 0
+     +++  New H84:  millisecst__base__last >= 86399999
+***  Proved C14:  fld_millisec(thetime) mod 3600000 >= millisecst__base__first
+     using hypothesis H83.
+***  Proved C15:  fld_millisec(thetime) mod 3600000 <= millisecst__base__last
+     using hypothesis H84.
+***  Proved C12:  fld_millisec(thetime) mod 3600000 div 60000 <= 
+          millisecst__base__last
+     using hypothesis H84.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_printtime_7.  @@@@@@@@@@
+%%%  Simplified H1 on reading formula in, to give:
+     %%%  H1:  true
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  true
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          timetexti__last -> character__first <= element(localtext, [i___1]) 
+          and element(localtext, [i___1]) <= character__last)
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as 
+          H17).
+%%%  Simplified H22 on reading formula in, to give:
+     %%%  H22:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          timetexti__last -> character__first <= element(localtext__1, [i___1]) 
+          and element(localtext__1, [i___1]) <= character__last)
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as 
+          H29).
+%%%  Simplified H34 on reading formula in, to give:
+     %%%  H34:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          timetexti__last -> character__first <= element(localtext__2, [i___1]) 
+          and element(localtext__2, [i___1]) <= character__last)
+---  Hypothesis H35 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H44 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H45 has been replaced by "true".  (It is already present, as 
+          H41).
+%%%  Simplified H46 on reading formula in, to give:
+     %%%  H46:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          timetexti__last -> character__first <= element(localtext__3, [i___1]) 
+          and element(localtext__3, [i___1]) <= character__last)
+---  Hypothesis H47 has been replaced by "true".  (It is already present, as 
+          H46).
+---  Hypothesis H56 has been replaced by "true".  (It is already present, as 
+          H52).
+---  Hypothesis H57 has been replaced by "true".  (It is already present, as 
+          H53).
+%%%  Simplified H61 on reading formula in, to give:
+     %%%  H61:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          timetexti__last -> character__first <= element(localtext__4, [i___1]) 
+          and element(localtext__4, [i___1]) <= character__last)
+---  Hypothesis H62 has been replaced by "true".  (It is already present, as 
+          H61).
+---  Hypothesis H71 has been replaced by "true".  (It is already present, as 
+          H67).
+---  Hypothesis H72 has been replaced by "true".  (It is already present, as 
+          H68).
+---  Hypothesis H78 has been replaced by "true".  (It is already present, as 
+          H60).
+%%%  Simplified H79 on reading formula in, to give:
+     %%%  H79:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          timetexti__last -> character__first <= element(localtext__5, [i___1]) 
+          and element(localtext__5, [i___1]) <= character__last)
+---  Hypothesis H80 has been replaced by "true".  (It is already present, as 
+          H79).
+***  Proved C16:  millisecsinmin <> 0
+     using hypothesis H75.
+-S-  Applied substitution rule printtime_rules(16).
+     This was achieved by replacing all occurrences of lastsecindex by:
+          19.
+<S>  New C1:  19 >= positive__first
+<S>  New C2:  19 <= positive__last
+<S>  New C7:  timetexti__last >= 19
+-S-  Applied substitution rule printtime_rules(34).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New H12:  lastyearindex >= 1
+<S>  New H14:  firstyearindex >= 1
+<S>  New H24:  lastmonthindex >= 1
+<S>  New H26:  firstmonthindex >= 1
+<S>  New H36:  lastdayindex >= 1
+<S>  New H38:  firstdayindex >= 1
+<S>  New H48:  lasthourindex >= 1
+<S>  New H50:  firsthourindex >= 1
+<S>  New H63:  lastminindex >= 1
+<S>  New H65:  firstminindex >= 1
+<S>  New C3:  firstsecindex >= 1
+<S>  New C1:  true
+-S-  Applied substitution rule printtime_rules(35).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New H13:  lastyearindex <= 2147483647
+<S>  New H15:  firstyearindex <= 2147483647
+<S>  New H25:  lastmonthindex <= 2147483647
+<S>  New H27:  firstmonthindex <= 2147483647
+<S>  New H37:  lastdayindex <= 2147483647
+<S>  New H39:  firstdayindex <= 2147483647
+<S>  New H49:  lasthourindex <= 2147483647
+<S>  New H51:  firsthourindex <= 2147483647
+<S>  New H64:  lastminindex <= 2147483647
+<S>  New H66:  firstminindex <= 2147483647
+<S>  New C4:  firstsecindex <= 2147483647
+<S>  New C2:  true
+-S-  Applied substitution rule printtime_rules(15).
+     This was achieved by replacing all occurrences of firstsecindex by:
+          18.
+<S>  New C8:  timetexti__first <= 18
+<S>  New C3:  true
+<S>  New C4:  true
+-S-  Applied substitution rule printtime_rules(29).
+     This was achieved by replacing all occurrences of natural__first by:
+          0.
+<S>  New H16:  fld_year(thetime) >= 0
+<S>  New H28:  fld_month(thetime) >= 0
+<S>  New H40:  fld_day(thetime) >= 0
+<S>  New H52:  fld_millisec(thetime) div millisecsinhr >= 0
+<S>  New H67:  fld_millisec(thetime) mod millisecsinhr div millisecsinmin >= 0
+<S>  New C5:  fld_millisec(thetime) mod millisecsinmin div millisecsinsec >= 0
+<S>  New C9:  fld_millisec(thetime) mod millisecsinmin div millisecsinsec >= 0
+-S-  Applied substitution rule printtime_rules(30).
+     This was achieved by replacing all occurrences of natural__last by:
+          2147483647.
+<S>  New H17:  fld_year(thetime) <= 2147483647
+<S>  New H29:  fld_month(thetime) <= 2147483647
+<S>  New H41:  fld_day(thetime) <= 2147483647
+<S>  New H53:  fld_millisec(thetime) div millisecsinhr <= 2147483647
+<S>  New H68:  fld_millisec(thetime) mod millisecsinhr div millisecsinmin <= 
+          2147483647
+<S>  New C6:  fld_millisec(thetime) mod millisecsinmin div millisecsinsec <= 
+          2147483647
+<S>  New C10:  fld_millisec(thetime) mod millisecsinmin div millisecsinsec <= 
+          2147483647
+-S-  Applied substitution rule printtime_rules(60).
+     This was achieved by replacing all occurrences of timetexti__last by:
+          21.
+<S>  New H11:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          21 -> character__first <= element(localtext, [i___1]) and element(
+          localtext, [i___1]) <= character__last)
+<S>  New H18:  21 >= lastyearindex
+<S>  New H22:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          21 -> character__first <= element(localtext__1, [i___1]) and element(
+          localtext__1, [i___1]) <= character__last)
+<S>  New H30:  21 >= lastmonthindex
+<S>  New H34:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          21 -> character__first <= element(localtext__2, [i___1]) and element(
+          localtext__2, [i___1]) <= character__last)
+<S>  New H42:  21 >= lastdayindex
+<S>  New H46:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          21 -> character__first <= element(localtext__3, [i___1]) and element(
+          localtext__3, [i___1]) <= character__last)
+<S>  New H54:  21 >= lasthourindex
+<S>  New H61:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          21 -> character__first <= element(localtext__4, [i___1]) and element(
+          localtext__4, [i___1]) <= character__last)
+<S>  New H69:  21 >= lastminindex
+<S>  New H79:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          21 -> character__first <= element(localtext__5, [i___1]) and element(
+          localtext__5, [i___1]) <= character__last)
+<S>  New C7:  true
+-S-  Applied substitution rule printtime_rules(59).
+     This was achieved by replacing all occurrences of timetexti__first by:
+          1.
+<S>  New H19:  1 <= firstyearindex
+<S>  New H31:  1 <= firstmonthindex
+<S>  New H43:  1 <= firstdayindex
+<S>  New H55:  1 <= firsthourindex
+<S>  New H70:  1 <= firstminindex
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 
+          character__first <= element(localtext, [i___1]) and element(
+          localtext, [i___1]) <= character__last)
+<S>  New H22:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 
+          character__first <= element(localtext__1, [i___1]) and element(
+          localtext__1, [i___1]) <= character__last)
+<S>  New H34:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 
+          character__first <= element(localtext__2, [i___1]) and element(
+          localtext__2, [i___1]) <= character__last)
+<S>  New H46:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 
+          character__first <= element(localtext__3, [i___1]) and element(
+          localtext__3, [i___1]) <= character__last)
+<S>  New H61:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 
+          character__first <= element(localtext__4, [i___1]) and element(
+          localtext__4, [i___1]) <= character__last)
+<S>  New H79:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 
+          character__first <= element(localtext__5, [i___1]) and element(
+          localtext__5, [i___1]) <= character__last)
+<S>  New C8:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  Proved C7:  true
+***  Proved C8:  true
+-S-  Applied substitution rule printtime_rules(2).
+     This was achieved by replacing all occurrences of millisecsinsec by:
+          1000.
+<S>  New C11:  fld_millisec(thetime) mod millisecsinmin div 1000 >= 
+          millisecst__base__first
+<S>  New C12:  fld_millisec(thetime) mod millisecsinmin div 1000 <= 
+          millisecst__base__last
+<S>  New C13:  true
+<S>  New C5:  fld_millisec(thetime) mod millisecsinmin div 1000 >= 0
+<S>  New C9:  fld_millisec(thetime) mod millisecsinmin div 1000 >= 0
+<S>  New C6:  fld_millisec(thetime) mod millisecsinmin div 1000 <= 2147483647
+<S>  New C10:  fld_millisec(thetime) mod millisecsinmin div 1000 <= 2147483647
+-S-  Applied substitution rule printtime_rules(3).
+     This was achieved by replacing all occurrences of millisecsinmin by:
+          60000.
+<S>  New H67:  fld_millisec(thetime) mod millisecsinhr div 60000 >= 0
+<S>  New H68:  fld_millisec(thetime) mod millisecsinhr div 60000 <= 2147483647
+<S>  New H73:  fld_millisec(thetime) mod millisecsinhr div 60000 >= 
+          millisecst__base__first
+<S>  New H74:  fld_millisec(thetime) mod millisecsinhr div 60000 <= 
+          millisecst__base__last
+<S>  New H75:  true
+<S>  New C14:  fld_millisec(thetime) mod 60000 >= millisecst__base__first
+<S>  New C15:  fld_millisec(thetime) mod 60000 <= millisecst__base__last
+<S>  New C11:  fld_millisec(thetime) mod 60000 div 1000 >= 
+          millisecst__base__first
+<S>  New C12:  fld_millisec(thetime) mod 60000 div 1000 <= 
+          millisecst__base__last
+<S>  New C5:  fld_millisec(thetime) mod 60000 div 1000 >= 0
+<S>  New C9:  fld_millisec(thetime) mod 60000 div 1000 >= 0
+<S>  New C6:  fld_millisec(thetime) mod 60000 div 1000 <= 2147483647
+<S>  New C10:  fld_millisec(thetime) mod 60000 div 1000 <= 2147483647
+-S-  Applied substitution rule printtime_rules(4).
+     This was achieved by replacing all occurrences of millisecsinhr by:
+          3600000.
+<S>  New H52:  fld_millisec(thetime) div 3600000 >= 0
+<S>  New H53:  fld_millisec(thetime) div 3600000 <= 2147483647
+<S>  New H58:  fld_millisec(thetime) div 3600000 >= millisecst__base__first
+<S>  New H59:  fld_millisec(thetime) div 3600000 <= millisecst__base__last
+<S>  New H60:  true
+<S>  New H76:  fld_millisec(thetime) mod 3600000 >= millisecst__base__first
+<S>  New H77:  fld_millisec(thetime) mod 3600000 <= millisecst__base__last
+<S>  New H67:  fld_millisec(thetime) mod 3600000 div 60000 >= 0
+<S>  New H68:  fld_millisec(thetime) mod 3600000 div 60000 <= 2147483647
+<S>  New H73:  fld_millisec(thetime) mod 3600000 div 60000 >= 
+          millisecst__base__first
+<S>  New H74:  fld_millisec(thetime) mod 3600000 div 60000 <= 
+          millisecst__base__last
+-S-  Applied substitution rule printtime_rules(5).
+     This was achieved by replacing all occurrences of firstyearindex by:
+          1.
+<S>  New H14:  true
+<S>  New H15:  true
+<S>  New H19:  true
+-S-  Applied substitution rule printtime_rules(6).
+     This was achieved by replacing all occurrences of lastyearindex by:
+          4.
+<S>  New H12:  true
+<S>  New H13:  true
+<S>  New H18:  true
+-S-  Applied substitution rule printtime_rules(7).
+     This was achieved by replacing all occurrences of firstmonthindex by:
+          6.
+<S>  New H26:  true
+<S>  New H27:  true
+<S>  New H31:  true
+-S-  Applied substitution rule printtime_rules(8).
+     This was achieved by replacing all occurrences of lastmonthindex by:
+          7.
+<S>  New H24:  true
+<S>  New H25:  true
+<S>  New H30:  true
+-S-  Applied substitution rule printtime_rules(9).
+     This was achieved by replacing all occurrences of firstdayindex by:
+          9.
+<S>  New H38:  true
+<S>  New H39:  true
+<S>  New H43:  true
+-S-  Applied substitution rule printtime_rules(10).
+     This was achieved by replacing all occurrences of lastdayindex by:
+          10.
+<S>  New H36:  true
+<S>  New H37:  true
+<S>  New H42:  true
+-S-  Applied substitution rule printtime_rules(11).
+     This was achieved by replacing all occurrences of firsthourindex by:
+          12.
+<S>  New H50:  true
+<S>  New H51:  true
+<S>  New H55:  true
+-S-  Applied substitution rule printtime_rules(12).
+     This was achieved by replacing all occurrences of lasthourindex by:
+          13.
+<S>  New H48:  true
+<S>  New H49:  true
+<S>  New H54:  true
+-S-  Applied substitution rule printtime_rules(13).
+     This was achieved by replacing all occurrences of firstminindex by:
+          15.
+<S>  New H65:  true
+<S>  New H66:  true
+<S>  New H70:  true
+-S-  Applied substitution rule printtime_rules(14).
+     This was achieved by replacing all occurrences of lastminindex by:
+          16.
+<S>  New H63:  true
+<S>  New H64:  true
+<S>  New H69:  true
+-S-  Applied substitution rule printtime_rules(24).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext, [i___1]) and element(localtext, [i___1]) <= 
+          character__last)
+<S>  New H22:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__1, [i___1]) and element(localtext__1, [i___1]) <= 
+          character__last)
+<S>  New H34:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__2, [i___1]) and element(localtext__2, [i___1]) <= 
+          character__last)
+<S>  New H46:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__3, [i___1]) and element(localtext__3, [i___1]) <= 
+          character__last)
+<S>  New H61:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__4, [i___1]) and element(localtext__4, [i___1]) <= 
+          character__last)
+<S>  New H79:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__5, [i___1]) and element(localtext__5, [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule printtime_rules(25).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext, [i___1]) and element(localtext, [i___1]) <= 255)
+<S>  New H22:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__1, [i___1]) and element(localtext__1, [i___1]) <= 
+          255)
+<S>  New H34:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__2, [i___1]) and element(localtext__2, [i___1]) <= 
+          255)
+<S>  New H46:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__3, [i___1]) and element(localtext__3, [i___1]) <= 
+          255)
+<S>  New H61:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__4, [i___1]) and element(localtext__4, [i___1]) <= 
+          255)
+<S>  New H79:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__5, [i___1]) and element(localtext__5, [i___1]) <= 
+          255)
+-S-  Applied substitution rule printtime_rules(41).
+     This was achieved by replacing all occurrences of yearst__first by:
+          1901.
+<S>  New H9:  fld_year(thetime) >= 1901
+-S-  Applied substitution rule printtime_rules(42).
+     This was achieved by replacing all occurrences of yearst__last by:
+          2099.
+<S>  New H10:  fld_year(thetime) <= 2099
+-S-  Applied substitution rule printtime_rules(47).
+     This was achieved by replacing all occurrences of monthst__first by:
+          1.
+<S>  New H7:  fld_month(thetime) >= 1
+-S-  Applied substitution rule printtime_rules(48).
+     This was achieved by replacing all occurrences of monthst__last by:
+          12.
+<S>  New H8:  fld_month(thetime) <= 12
+-S-  Applied substitution rule printtime_rules(53).
+     This was achieved by replacing all occurrences of dayst__first by:
+          1.
+<S>  New H5:  fld_day(thetime) >= 1
+-S-  Applied substitution rule printtime_rules(54).
+     This was achieved by replacing all occurrences of dayst__last by:
+          31.
+<S>  New H6:  fld_day(thetime) <= 31
+-S-  Applied substitution rule printtime_rules(64).
+     This was achieved by replacing all occurrences of millisecst__first by:
+          0.
+<S>  New H3:  fld_millisec(thetime) >= 0
+-S-  Applied substitution rule printtime_rules(65).
+     This was achieved by replacing all occurrences of millisecst__last by:
+          86399999.
+<S>  New H4:  fld_millisec(thetime) <= 86399999
+***  Proved C13:  true
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H2 (true-hypothesis).
+---  Eliminated hypothesis H20 (true-hypothesis).
+---  Eliminated hypothesis H21 (true-hypothesis).
+---  Eliminated hypothesis H23 (true-hypothesis).
+---  Eliminated hypothesis H32 (true-hypothesis).
+---  Eliminated hypothesis H33 (true-hypothesis).
+---  Eliminated hypothesis H35 (true-hypothesis).
+---  Eliminated hypothesis H44 (true-hypothesis).
+---  Eliminated hypothesis H45 (true-hypothesis).
+---  Eliminated hypothesis H47 (true-hypothesis).
+---  Eliminated hypothesis H56 (true-hypothesis).
+---  Eliminated hypothesis H57 (true-hypothesis).
+---  Eliminated hypothesis H62 (true-hypothesis).
+---  Eliminated hypothesis H71 (true-hypothesis).
+---  Eliminated hypothesis H72 (true-hypothesis).
+---  Eliminated hypothesis H78 (true-hypothesis).
+---  Eliminated hypothesis H80 (true-hypothesis).
+---  Eliminated hypothesis H75 (true-hypothesis).
+---  Eliminated hypothesis H60 (true-hypothesis).
+---  Eliminated hypothesis H14 (true-hypothesis).
+---  Eliminated hypothesis H15 (true-hypothesis).
+---  Eliminated hypothesis H19 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H13 (true-hypothesis).
+---  Eliminated hypothesis H18 (true-hypothesis).
+---  Eliminated hypothesis H26 (true-hypothesis).
+---  Eliminated hypothesis H27 (true-hypothesis).
+---  Eliminated hypothesis H31 (true-hypothesis).
+---  Eliminated hypothesis H24 (true-hypothesis).
+---  Eliminated hypothesis H25 (true-hypothesis).
+---  Eliminated hypothesis H30 (true-hypothesis).
+---  Eliminated hypothesis H38 (true-hypothesis).
+---  Eliminated hypothesis H39 (true-hypothesis).
+---  Eliminated hypothesis H43 (true-hypothesis).
+---  Eliminated hypothesis H36 (true-hypothesis).
+---  Eliminated hypothesis H37 (true-hypothesis).
+---  Eliminated hypothesis H42 (true-hypothesis).
+---  Eliminated hypothesis H50 (true-hypothesis).
+---  Eliminated hypothesis H51 (true-hypothesis).
+---  Eliminated hypothesis H55 (true-hypothesis).
+---  Eliminated hypothesis H48 (true-hypothesis).
+---  Eliminated hypothesis H49 (true-hypothesis).
+---  Eliminated hypothesis H54 (true-hypothesis).
+---  Eliminated hypothesis H65 (true-hypothesis).
+---  Eliminated hypothesis H66 (true-hypothesis).
+---  Eliminated hypothesis H70 (true-hypothesis).
+---  Eliminated hypothesis H63 (true-hypothesis).
+---  Eliminated hypothesis H64 (true-hypothesis).
+---  Eliminated hypothesis H69 (true-hypothesis).
+---  Eliminated hypothesis H16 (redundant, given H9).
+---  Eliminated hypothesis H17 (redundant, given H10).
+---  Eliminated hypothesis H28 (redundant, given H7).
+---  Eliminated hypothesis H29 (redundant, given H8).
+---  Eliminated hypothesis H40 (redundant, given H5).
+---  Eliminated hypothesis H41 (redundant, given H6).
+---  Eliminated conclusion C9, which is a duplicate of C5.
+---  Eliminated conclusion C10, which is a duplicate of C6.
+***  Proved C11:  fld_millisec(thetime) mod 60000 div 1000 >= 
+          millisecst__base__first
+***  Proved C5:  fld_millisec(thetime) mod 60000 div 1000 >= 0
+***  Proved C6:  fld_millisec(thetime) mod 60000 div 1000 <= 2147483647
+     +++  New H81:  integer__size >= 0
+     +++  New H82:  character__size >= 0
+     +++  New H83:  natural__size >= 0
+     +++  New H84:  positive__size >= 0
+     +++  New H85:  timet__size >= 0
+     +++  New H86:  yearst__size >= 0
+     +++  New H87:  yearst__base__first <= yearst__base__last
+     +++  New H88:  monthst__size >= 0
+     +++  New H89:  monthst__base__first <= monthst__base__last
+     +++  New H90:  dayst__size >= 0
+     +++  New H91:  dayst__base__first <= dayst__base__last
+     +++  New H92:  timetexti__size >= 0
+     +++  New H93:  millisecst__size >= 0
+     +++  New H94:  millisecst__base__first <= millisecst__base__last
+     +++  New H95:  yearst__base__first <= 1901
+     +++  New H96:  yearst__base__last >= 2099
+     +++  New H97:  monthst__base__first <= 1
+     +++  New H98:  monthst__base__last >= 12
+     +++  New H99:  dayst__base__first <= 1
+     +++  New H100:  dayst__base__last >= 31
+     +++  New H101:  millisecst__base__first <= 0
+     +++  New H102:  millisecst__base__last >= 86399999
+***  Proved C14:  fld_millisec(thetime) mod 60000 >= millisecst__base__first
+     using hypothesis H101.
+***  Proved C15:  fld_millisec(thetime) mod 60000 <= millisecst__base__last
+     using hypothesis H102.
+***  Proved C12:  fld_millisec(thetime) mod 60000 div 1000 <= 
+          millisecst__base__last
+     using hypothesis H102.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_printtime_8.  @@@@@@@@@@
+%%%  Simplified H1 on reading formula in, to give:
+     %%%  H1:  true
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  true
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          timetexti__last -> character__first <= element(localtext, [i___1]) 
+          and element(localtext, [i___1]) <= character__last)
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as 
+          H17).
+%%%  Simplified H22 on reading formula in, to give:
+     %%%  H22:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          timetexti__last -> character__first <= element(localtext__1, [i___1]) 
+          and element(localtext__1, [i___1]) <= character__last)
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as 
+          H29).
+%%%  Simplified H34 on reading formula in, to give:
+     %%%  H34:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          timetexti__last -> character__first <= element(localtext__2, [i___1]) 
+          and element(localtext__2, [i___1]) <= character__last)
+---  Hypothesis H35 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H44 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H45 has been replaced by "true".  (It is already present, as 
+          H41).
+%%%  Simplified H46 on reading formula in, to give:
+     %%%  H46:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          timetexti__last -> character__first <= element(localtext__3, [i___1]) 
+          and element(localtext__3, [i___1]) <= character__last)
+---  Hypothesis H47 has been replaced by "true".  (It is already present, as 
+          H46).
+---  Hypothesis H56 has been replaced by "true".  (It is already present, as 
+          H52).
+---  Hypothesis H57 has been replaced by "true".  (It is already present, as 
+          H53).
+%%%  Simplified H61 on reading formula in, to give:
+     %%%  H61:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          timetexti__last -> character__first <= element(localtext__4, [i___1]) 
+          and element(localtext__4, [i___1]) <= character__last)
+---  Hypothesis H62 has been replaced by "true".  (It is already present, as 
+          H61).
+---  Hypothesis H71 has been replaced by "true".  (It is already present, as 
+          H67).
+---  Hypothesis H72 has been replaced by "true".  (It is already present, as 
+          H68).
+---  Hypothesis H78 has been replaced by "true".  (It is already present, as 
+          H60).
+%%%  Simplified H79 on reading formula in, to give:
+     %%%  H79:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          timetexti__last -> character__first <= element(localtext__5, [i___1]) 
+          and element(localtext__5, [i___1]) <= character__last)
+---  Hypothesis H80 has been replaced by "true".  (It is already present, as 
+          H79).
+---  Hypothesis H89 has been replaced by "true".  (It is already present, as 
+          H85).
+---  Hypothesis H90 has been replaced by "true".  (It is already present, as 
+          H86).
+---  Hypothesis H96 has been replaced by "true".  (It is already present, as 
+          H75).
+%%%  Simplified H97 on reading formula in, to give:
+     %%%  H97:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          timetexti__last -> character__first <= element(localtext__6, [i___1]) 
+          and element(localtext__6, [i___1]) <= character__last)
+---  Hypothesis H98 has been replaced by "true".  (It is already present, as 
+          H97).
+***  Proved C16:  millisecsinsec <> 0
+     using hypothesis H93.
+-S-  Applied substitution rule printtime_rules(17).
+     This was achieved by replacing all occurrences of tenthsecindex by:
+          21.
+<S>  New C1:  21 >= positive__first
+<S>  New C2:  21 <= positive__last
+<S>  New C3:  21 >= positive__first
+<S>  New C4:  21 <= positive__last
+<S>  New C7:  timetexti__last >= 21
+<S>  New C8:  timetexti__first <= 21
+-S-  Applied substitution rule printtime_rules(34).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New H12:  lastyearindex >= 1
+<S>  New H14:  firstyearindex >= 1
+<S>  New H24:  lastmonthindex >= 1
+<S>  New H26:  firstmonthindex >= 1
+<S>  New H36:  lastdayindex >= 1
+<S>  New H38:  firstdayindex >= 1
+<S>  New H48:  lasthourindex >= 1
+<S>  New H50:  firsthourindex >= 1
+<S>  New H63:  lastminindex >= 1
+<S>  New H65:  firstminindex >= 1
+<S>  New H81:  lastsecindex >= 1
+<S>  New H83:  firstsecindex >= 1
+<S>  New C1:  true
+<S>  New C3:  true
+-S-  Applied substitution rule printtime_rules(35).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New H13:  lastyearindex <= 2147483647
+<S>  New H15:  firstyearindex <= 2147483647
+<S>  New H25:  lastmonthindex <= 2147483647
+<S>  New H27:  firstmonthindex <= 2147483647
+<S>  New H37:  lastdayindex <= 2147483647
+<S>  New H39:  firstdayindex <= 2147483647
+<S>  New H49:  lasthourindex <= 2147483647
+<S>  New H51:  firsthourindex <= 2147483647
+<S>  New H64:  lastminindex <= 2147483647
+<S>  New H66:  firstminindex <= 2147483647
+<S>  New H82:  lastsecindex <= 2147483647
+<S>  New H84:  firstsecindex <= 2147483647
+<S>  New C2:  true
+<S>  New C4:  true
+-S-  Applied substitution rule printtime_rules(29).
+     This was achieved by replacing all occurrences of natural__first by:
+          0.
+<S>  New H16:  fld_year(thetime) >= 0
+<S>  New H28:  fld_month(thetime) >= 0
+<S>  New H40:  fld_day(thetime) >= 0
+<S>  New H52:  fld_millisec(thetime) div millisecsinhr >= 0
+<S>  New H67:  fld_millisec(thetime) mod millisecsinhr div millisecsinmin >= 0
+<S>  New H85:  fld_millisec(thetime) mod millisecsinmin div millisecsinsec >= 0
+<S>  New C5:  fld_millisec(thetime) mod millisecsinsec div millisecsintenthsec 
+          >= 0
+<S>  New C9:  fld_millisec(thetime) mod millisecsinsec div millisecsintenthsec 
+          >= 0
+-S-  Applied substitution rule printtime_rules(30).
+     This was achieved by replacing all occurrences of natural__last by:
+          2147483647.
+<S>  New H17:  fld_year(thetime) <= 2147483647
+<S>  New H29:  fld_month(thetime) <= 2147483647
+<S>  New H41:  fld_day(thetime) <= 2147483647
+<S>  New H53:  fld_millisec(thetime) div millisecsinhr <= 2147483647
+<S>  New H68:  fld_millisec(thetime) mod millisecsinhr div millisecsinmin <= 
+          2147483647
+<S>  New H86:  fld_millisec(thetime) mod millisecsinmin div millisecsinsec <= 
+          2147483647
+<S>  New C6:  fld_millisec(thetime) mod millisecsinsec div millisecsintenthsec 
+          <= 2147483647
+<S>  New C10:  fld_millisec(thetime) mod millisecsinsec div millisecsintenthsec 
+          <= 2147483647
+-S-  Applied substitution rule printtime_rules(60).
+     This was achieved by replacing all occurrences of timetexti__last by:
+          21.
+<S>  New H11:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          21 -> character__first <= element(localtext, [i___1]) and element(
+          localtext, [i___1]) <= character__last)
+<S>  New H18:  21 >= lastyearindex
+<S>  New H22:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          21 -> character__first <= element(localtext__1, [i___1]) and element(
+          localtext__1, [i___1]) <= character__last)
+<S>  New H30:  21 >= lastmonthindex
+<S>  New H34:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          21 -> character__first <= element(localtext__2, [i___1]) and element(
+          localtext__2, [i___1]) <= character__last)
+<S>  New H42:  21 >= lastdayindex
+<S>  New H46:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          21 -> character__first <= element(localtext__3, [i___1]) and element(
+          localtext__3, [i___1]) <= character__last)
+<S>  New H54:  21 >= lasthourindex
+<S>  New H61:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          21 -> character__first <= element(localtext__4, [i___1]) and element(
+          localtext__4, [i___1]) <= character__last)
+<S>  New H69:  21 >= lastminindex
+<S>  New H79:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          21 -> character__first <= element(localtext__5, [i___1]) and element(
+          localtext__5, [i___1]) <= character__last)
+<S>  New H87:  21 >= lastsecindex
+<S>  New H97:  for_all(i___1 : integer, timetexti__first <= i___1 and i___1 <= 
+          21 -> character__first <= element(localtext__6, [i___1]) and element(
+          localtext__6, [i___1]) <= character__last)
+<S>  New C7:  true
+-S-  Applied substitution rule printtime_rules(59).
+     This was achieved by replacing all occurrences of timetexti__first by:
+          1.
+<S>  New H19:  1 <= firstyearindex
+<S>  New H31:  1 <= firstmonthindex
+<S>  New H43:  1 <= firstdayindex
+<S>  New H55:  1 <= firsthourindex
+<S>  New H70:  1 <= firstminindex
+<S>  New H88:  1 <= firstsecindex
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 
+          character__first <= element(localtext, [i___1]) and element(
+          localtext, [i___1]) <= character__last)
+<S>  New H22:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 
+          character__first <= element(localtext__1, [i___1]) and element(
+          localtext__1, [i___1]) <= character__last)
+<S>  New H34:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 
+          character__first <= element(localtext__2, [i___1]) and element(
+          localtext__2, [i___1]) <= character__last)
+<S>  New H46:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 
+          character__first <= element(localtext__3, [i___1]) and element(
+          localtext__3, [i___1]) <= character__last)
+<S>  New H61:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 
+          character__first <= element(localtext__4, [i___1]) and element(
+          localtext__4, [i___1]) <= character__last)
+<S>  New H79:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 
+          character__first <= element(localtext__5, [i___1]) and element(
+          localtext__5, [i___1]) <= character__last)
+<S>  New H97:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 
+          character__first <= element(localtext__6, [i___1]) and element(
+          localtext__6, [i___1]) <= character__last)
+<S>  New C8:  true
+***  Proved C1:  true
+***  Proved C3:  true
+***  Proved C2:  true
+***  Proved C4:  true
+***  Proved C7:  true
+***  Proved C8:  true
+-S-  Applied substitution rule printtime_rules(1).
+     This was achieved by replacing all occurrences of millisecsintenthsec by:
+          100.
+<S>  New C11:  fld_millisec(thetime) mod millisecsinsec div 100 >= 
+          millisecst__base__first
+<S>  New C12:  fld_millisec(thetime) mod millisecsinsec div 100 <= 
+          millisecst__base__last
+<S>  New C13:  true
+<S>  New C5:  fld_millisec(thetime) mod millisecsinsec div 100 >= 0
+<S>  New C9:  fld_millisec(thetime) mod millisecsinsec div 100 >= 0
+<S>  New C6:  fld_millisec(thetime) mod millisecsinsec div 100 <= 2147483647
+<S>  New C10:  fld_millisec(thetime) mod millisecsinsec div 100 <= 2147483647
+-S-  Applied substitution rule printtime_rules(2).
+     This was achieved by replacing all occurrences of millisecsinsec by:
+          1000.
+<S>  New H85:  fld_millisec(thetime) mod millisecsinmin div 1000 >= 0
+<S>  New H86:  fld_millisec(thetime) mod millisecsinmin div 1000 <= 2147483647
+<S>  New H91:  fld_millisec(thetime) mod millisecsinmin div 1000 >= 
+          millisecst__base__first
+<S>  New H92:  fld_millisec(thetime) mod millisecsinmin div 1000 <= 
+          millisecst__base__last
+<S>  New H93:  true
+<S>  New C14:  fld_millisec(thetime) mod 1000 >= millisecst__base__first
+<S>  New C15:  fld_millisec(thetime) mod 1000 <= millisecst__base__last
+<S>  New C11:  fld_millisec(thetime) mod 1000 div 100 >= millisecst__base__first
+<S>  New C12:  fld_millisec(thetime) mod 1000 div 100 <= millisecst__base__last
+<S>  New C5:  fld_millisec(thetime) mod 1000 div 100 >= 0
+<S>  New C9:  fld_millisec(thetime) mod 1000 div 100 >= 0
+<S>  New C6:  fld_millisec(thetime) mod 1000 div 100 <= 2147483647
+<S>  New C10:  fld_millisec(thetime) mod 1000 div 100 <= 2147483647
+-S-  Applied substitution rule printtime_rules(3).
+     This was achieved by replacing all occurrences of millisecsinmin by:
+          60000.
+<S>  New H67:  fld_millisec(thetime) mod millisecsinhr div 60000 >= 0
+<S>  New H68:  fld_millisec(thetime) mod millisecsinhr div 60000 <= 2147483647
+<S>  New H73:  fld_millisec(thetime) mod millisecsinhr div 60000 >= 
+          millisecst__base__first
+<S>  New H74:  fld_millisec(thetime) mod millisecsinhr div 60000 <= 
+          millisecst__base__last
+<S>  New H75:  true
+<S>  New H94:  fld_millisec(thetime) mod 60000 >= millisecst__base__first
+<S>  New H95:  fld_millisec(thetime) mod 60000 <= millisecst__base__last
+<S>  New H85:  fld_millisec(thetime) mod 60000 div 1000 >= 0
+<S>  New H86:  fld_millisec(thetime) mod 60000 div 1000 <= 2147483647
+<S>  New H91:  fld_millisec(thetime) mod 60000 div 1000 >= 
+          millisecst__base__first
+<S>  New H92:  fld_millisec(thetime) mod 60000 div 1000 <= 
+          millisecst__base__last
+-S-  Applied substitution rule printtime_rules(4).
+     This was achieved by replacing all occurrences of millisecsinhr by:
+          3600000.
+<S>  New H52:  fld_millisec(thetime) div 3600000 >= 0
+<S>  New H53:  fld_millisec(thetime) div 3600000 <= 2147483647
+<S>  New H58:  fld_millisec(thetime) div 3600000 >= millisecst__base__first
+<S>  New H59:  fld_millisec(thetime) div 3600000 <= millisecst__base__last
+<S>  New H60:  true
+<S>  New H76:  fld_millisec(thetime) mod 3600000 >= millisecst__base__first
+<S>  New H77:  fld_millisec(thetime) mod 3600000 <= millisecst__base__last
+<S>  New H67:  fld_millisec(thetime) mod 3600000 div 60000 >= 0
+<S>  New H68:  fld_millisec(thetime) mod 3600000 div 60000 <= 2147483647
+<S>  New H73:  fld_millisec(thetime) mod 3600000 div 60000 >= 
+          millisecst__base__first
+<S>  New H74:  fld_millisec(thetime) mod 3600000 div 60000 <= 
+          millisecst__base__last
+-S-  Applied substitution rule printtime_rules(5).
+     This was achieved by replacing all occurrences of firstyearindex by:
+          1.
+<S>  New H14:  true
+<S>  New H15:  true
+<S>  New H19:  true
+-S-  Applied substitution rule printtime_rules(6).
+     This was achieved by replacing all occurrences of lastyearindex by:
+          4.
+<S>  New H12:  true
+<S>  New H13:  true
+<S>  New H18:  true
+-S-  Applied substitution rule printtime_rules(7).
+     This was achieved by replacing all occurrences of firstmonthindex by:
+          6.
+<S>  New H26:  true
+<S>  New H27:  true
+<S>  New H31:  true
+-S-  Applied substitution rule printtime_rules(8).
+     This was achieved by replacing all occurrences of lastmonthindex by:
+          7.
+<S>  New H24:  true
+<S>  New H25:  true
+<S>  New H30:  true
+-S-  Applied substitution rule printtime_rules(9).
+     This was achieved by replacing all occurrences of firstdayindex by:
+          9.
+<S>  New H38:  true
+<S>  New H39:  true
+<S>  New H43:  true
+-S-  Applied substitution rule printtime_rules(10).
+     This was achieved by replacing all occurrences of lastdayindex by:
+          10.
+<S>  New H36:  true
+<S>  New H37:  true
+<S>  New H42:  true
+-S-  Applied substitution rule printtime_rules(11).
+     This was achieved by replacing all occurrences of firsthourindex by:
+          12.
+<S>  New H50:  true
+<S>  New H51:  true
+<S>  New H55:  true
+-S-  Applied substitution rule printtime_rules(12).
+     This was achieved by replacing all occurrences of lasthourindex by:
+          13.
+<S>  New H48:  true
+<S>  New H49:  true
+<S>  New H54:  true
+-S-  Applied substitution rule printtime_rules(13).
+     This was achieved by replacing all occurrences of firstminindex by:
+          15.
+<S>  New H65:  true
+<S>  New H66:  true
+<S>  New H70:  true
+-S-  Applied substitution rule printtime_rules(14).
+     This was achieved by replacing all occurrences of lastminindex by:
+          16.
+<S>  New H63:  true
+<S>  New H64:  true
+<S>  New H69:  true
+-S-  Applied substitution rule printtime_rules(15).
+     This was achieved by replacing all occurrences of firstsecindex by:
+          18.
+<S>  New H83:  true
+<S>  New H84:  true
+<S>  New H88:  true
+-S-  Applied substitution rule printtime_rules(16).
+     This was achieved by replacing all occurrences of lastsecindex by:
+          19.
+<S>  New H81:  true
+<S>  New H82:  true
+<S>  New H87:  true
+-S-  Applied substitution rule printtime_rules(24).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext, [i___1]) and element(localtext, [i___1]) <= 
+          character__last)
+<S>  New H22:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__1, [i___1]) and element(localtext__1, [i___1]) <= 
+          character__last)
+<S>  New H34:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__2, [i___1]) and element(localtext__2, [i___1]) <= 
+          character__last)
+<S>  New H46:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__3, [i___1]) and element(localtext__3, [i___1]) <= 
+          character__last)
+<S>  New H61:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__4, [i___1]) and element(localtext__4, [i___1]) <= 
+          character__last)
+<S>  New H79:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__5, [i___1]) and element(localtext__5, [i___1]) <= 
+          character__last)
+<S>  New H97:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__6, [i___1]) and element(localtext__6, [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule printtime_rules(25).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext, [i___1]) and element(localtext, [i___1]) <= 255)
+<S>  New H22:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__1, [i___1]) and element(localtext__1, [i___1]) <= 
+          255)
+<S>  New H34:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__2, [i___1]) and element(localtext__2, [i___1]) <= 
+          255)
+<S>  New H46:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__3, [i___1]) and element(localtext__3, [i___1]) <= 
+          255)
+<S>  New H61:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__4, [i___1]) and element(localtext__4, [i___1]) <= 
+          255)
+<S>  New H79:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__5, [i___1]) and element(localtext__5, [i___1]) <= 
+          255)
+<S>  New H97:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 21 -> 0 <= 
+          element(localtext__6, [i___1]) and element(localtext__6, [i___1]) <= 
+          255)
+-S-  Applied substitution rule printtime_rules(41).
+     This was achieved by replacing all occurrences of yearst__first by:
+          1901.
+<S>  New H9:  fld_year(thetime) >= 1901
+-S-  Applied substitution rule printtime_rules(42).
+     This was achieved by replacing all occurrences of yearst__last by:
+          2099.
+<S>  New H10:  fld_year(thetime) <= 2099
+-S-  Applied substitution rule printtime_rules(47).
+     This was achieved by replacing all occurrences of monthst__first by:
+          1.
+<S>  New H7:  fld_month(thetime) >= 1
+-S-  Applied substitution rule printtime_rules(48).
+     This was achieved by replacing all occurrences of monthst__last by:
+          12.
+<S>  New H8:  fld_month(thetime) <= 12
+-S-  Applied substitution rule printtime_rules(53).
+     This was achieved by replacing all occurrences of dayst__first by:
+          1.
+<S>  New H5:  fld_day(thetime) >= 1
+-S-  Applied substitution rule printtime_rules(54).
+     This was achieved by replacing all occurrences of dayst__last by:
+          31.
+<S>  New H6:  fld_day(thetime) <= 31
+-S-  Applied substitution rule printtime_rules(64).
+     This was achieved by replacing all occurrences of millisecst__first by:
+          0.
+<S>  New H3:  fld_millisec(thetime) >= 0
+-S-  Applied substitution rule printtime_rules(65).
+     This was achieved by replacing all occurrences of millisecst__last by:
+          86399999.
+<S>  New H4:  fld_millisec(thetime) <= 86399999
+***  Proved C13:  true
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H2 (true-hypothesis).
+---  Eliminated hypothesis H20 (true-hypothesis).
+---  Eliminated hypothesis H21 (true-hypothesis).
+---  Eliminated hypothesis H23 (true-hypothesis).
+---  Eliminated hypothesis H32 (true-hypothesis).
+---  Eliminated hypothesis H33 (true-hypothesis).
+---  Eliminated hypothesis H35 (true-hypothesis).
+---  Eliminated hypothesis H44 (true-hypothesis).
+---  Eliminated hypothesis H45 (true-hypothesis).
+---  Eliminated hypothesis H47 (true-hypothesis).
+---  Eliminated hypothesis H56 (true-hypothesis).
+---  Eliminated hypothesis H57 (true-hypothesis).
+---  Eliminated hypothesis H62 (true-hypothesis).
+---  Eliminated hypothesis H71 (true-hypothesis).
+---  Eliminated hypothesis H72 (true-hypothesis).
+---  Eliminated hypothesis H78 (true-hypothesis).
+---  Eliminated hypothesis H80 (true-hypothesis).
+---  Eliminated hypothesis H89 (true-hypothesis).
+---  Eliminated hypothesis H90 (true-hypothesis).
+---  Eliminated hypothesis H96 (true-hypothesis).
+---  Eliminated hypothesis H98 (true-hypothesis).
+---  Eliminated hypothesis H93 (true-hypothesis).
+---  Eliminated hypothesis H75 (true-hypothesis).
+---  Eliminated hypothesis H60 (true-hypothesis).
+---  Eliminated hypothesis H14 (true-hypothesis).
+---  Eliminated hypothesis H15 (true-hypothesis).
+---  Eliminated hypothesis H19 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H13 (true-hypothesis).
+---  Eliminated hypothesis H18 (true-hypothesis).
+---  Eliminated hypothesis H26 (true-hypothesis).
+---  Eliminated hypothesis H27 (true-hypothesis).
+---  Eliminated hypothesis H31 (true-hypothesis).
+---  Eliminated hypothesis H24 (true-hypothesis).
+---  Eliminated hypothesis H25 (true-hypothesis).
+---  Eliminated hypothesis H30 (true-hypothesis).
+---  Eliminated hypothesis H38 (true-hypothesis).
+---  Eliminated hypothesis H39 (true-hypothesis).
+---  Eliminated hypothesis H43 (true-hypothesis).
+---  Eliminated hypothesis H36 (true-hypothesis).
+---  Eliminated hypothesis H37 (true-hypothesis).
+---  Eliminated hypothesis H42 (true-hypothesis).
+---  Eliminated hypothesis H50 (true-hypothesis).
+---  Eliminated hypothesis H51 (true-hypothesis).
+---  Eliminated hypothesis H55 (true-hypothesis).
+---  Eliminated hypothesis H48 (true-hypothesis).
+---  Eliminated hypothesis H49 (true-hypothesis).
+---  Eliminated hypothesis H54 (true-hypothesis).
+---  Eliminated hypothesis H65 (true-hypothesis).
+---  Eliminated hypothesis H66 (true-hypothesis).
+---  Eliminated hypothesis H70 (true-hypothesis).
+---  Eliminated hypothesis H63 (true-hypothesis).
+---  Eliminated hypothesis H64 (true-hypothesis).
+---  Eliminated hypothesis H69 (true-hypothesis).
+---  Eliminated hypothesis H83 (true-hypothesis).
+---  Eliminated hypothesis H84 (true-hypothesis).
+---  Eliminated hypothesis H88 (true-hypothesis).
+---  Eliminated hypothesis H81 (true-hypothesis).
+---  Eliminated hypothesis H82 (true-hypothesis).
+---  Eliminated hypothesis H87 (true-hypothesis).
+---  Eliminated hypothesis H16 (redundant, given H9).
+---  Eliminated hypothesis H17 (redundant, given H10).
+---  Eliminated hypothesis H28 (redundant, given H7).
+---  Eliminated hypothesis H29 (redundant, given H8).
+---  Eliminated hypothesis H40 (redundant, given H5).
+---  Eliminated hypothesis H41 (redundant, given H6).
+---  Eliminated conclusion C9, which is a duplicate of C5.
+---  Eliminated conclusion C10, which is a duplicate of C6.
+***  Proved C11:  fld_millisec(thetime) mod 1000 div 100 >= 
+          millisecst__base__first
+***  Proved C5:  fld_millisec(thetime) mod 1000 div 100 >= 0
+***  Proved C6:  fld_millisec(thetime) mod 1000 div 100 <= 2147483647
+     +++  New H99:  integer__size >= 0
+     +++  New H100:  character__size >= 0
+     +++  New H101:  natural__size >= 0
+     +++  New H102:  positive__size >= 0
+     +++  New H103:  timet__size >= 0
+     +++  New H104:  yearst__size >= 0
+     +++  New H105:  yearst__base__first <= yearst__base__last
+     +++  New H106:  monthst__size >= 0
+     +++  New H107:  monthst__base__first <= monthst__base__last
+     +++  New H108:  dayst__size >= 0
+     +++  New H109:  dayst__base__first <= dayst__base__last
+     +++  New H110:  timetexti__size >= 0
+     +++  New H111:  millisecst__size >= 0
+     +++  New H112:  millisecst__base__first <= millisecst__base__last
+     +++  New H113:  yearst__base__first <= 1901
+     +++  New H114:  yearst__base__last >= 2099
+     +++  New H115:  monthst__base__first <= 1
+     +++  New H116:  monthst__base__last >= 12
+     +++  New H117:  dayst__base__first <= 1
+     +++  New H118:  dayst__base__last >= 31
+     +++  New H119:  millisecst__base__first <= 0
+     +++  New H120:  millisecst__base__last >= 86399999
+***  Proved C14:  fld_millisec(thetime) mod 1000 >= millisecst__base__first
+     using hypothesis H119.
+***  Proved C15:  fld_millisec(thetime) mod 1000 <= millisecst__base__last
+     using hypothesis H120.
+***  Proved C12:  fld_millisec(thetime) mod 1000 div 100 <= 
+          millisecst__base__last
+     using hypothesis H120.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_printtime_9.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+

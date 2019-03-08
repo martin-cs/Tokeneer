@@ -1,0 +1,91 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:07.76*/
+
+                          /*function Clock.PrintTime*/
+
+
+rule_family printtime_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+printtime_rules(1): millisecsintenthsec may_be_replaced_by 100.
+printtime_rules(2): millisecsinsec may_be_replaced_by 1000.
+printtime_rules(3): millisecsinmin may_be_replaced_by 60000.
+printtime_rules(4): millisecsinhr may_be_replaced_by 3600000.
+printtime_rules(5): firstyearindex may_be_replaced_by 1.
+printtime_rules(6): lastyearindex may_be_replaced_by 4.
+printtime_rules(7): firstmonthindex may_be_replaced_by 6.
+printtime_rules(8): lastmonthindex may_be_replaced_by 7.
+printtime_rules(9): firstdayindex may_be_replaced_by 9.
+printtime_rules(10): lastdayindex may_be_replaced_by 10.
+printtime_rules(11): firsthourindex may_be_replaced_by 12.
+printtime_rules(12): lasthourindex may_be_replaced_by 13.
+printtime_rules(13): firstminindex may_be_replaced_by 15.
+printtime_rules(14): lastminindex may_be_replaced_by 16.
+printtime_rules(15): firstsecindex may_be_replaced_by 18.
+printtime_rules(16): lastsecindex may_be_replaced_by 19.
+printtime_rules(17): tenthsecindex may_be_replaced_by 21.
+printtime_rules(18): integer__size >= 0 may_be_deduced.
+printtime_rules(19): integer__first may_be_replaced_by -2147483648.
+printtime_rules(20): integer__last may_be_replaced_by 2147483647.
+printtime_rules(21): integer__base__first may_be_replaced_by -2147483648.
+printtime_rules(22): integer__base__last may_be_replaced_by 2147483647.
+printtime_rules(23): character__size >= 0 may_be_deduced.
+printtime_rules(24): character__first may_be_replaced_by 0.
+printtime_rules(25): character__last may_be_replaced_by 255.
+printtime_rules(26): character__base__first may_be_replaced_by 0.
+printtime_rules(27): character__base__last may_be_replaced_by 255.
+printtime_rules(28): natural__size >= 0 may_be_deduced.
+printtime_rules(29): natural__first may_be_replaced_by 0.
+printtime_rules(30): natural__last may_be_replaced_by 2147483647.
+printtime_rules(31): natural__base__first may_be_replaced_by -2147483648.
+printtime_rules(32): natural__base__last may_be_replaced_by 2147483647.
+printtime_rules(33): positive__size >= 0 may_be_deduced.
+printtime_rules(34): positive__first may_be_replaced_by 1.
+printtime_rules(35): positive__last may_be_replaced_by 2147483647.
+printtime_rules(36): positive__base__first may_be_replaced_by -2147483648.
+printtime_rules(37): positive__base__last may_be_replaced_by 2147483647.
+printtime_rules(38): timet__size >= 0 may_be_deduced.
+printtime_rules(39): A = B may_be_deduced_from
+     [goal(checktype(A,timet)),
+      goal(checktype(B,timet)),
+      fld_year(A) = fld_year(B),
+      fld_month(A) = fld_month(B),
+      fld_day(A) = fld_day(B),
+      fld_millisec(A) = fld_millisec(B)].
+printtime_rules(40): yearst__size >= 0 may_be_deduced.
+printtime_rules(41): yearst__first may_be_replaced_by 1901.
+printtime_rules(42): yearst__last may_be_replaced_by 2099.
+printtime_rules(43): yearst__base__first <= yearst__base__last may_be_deduced.
+printtime_rules(44): yearst__base__first <= yearst__first may_be_deduced.
+printtime_rules(45): yearst__base__last >= yearst__last may_be_deduced.
+printtime_rules(46): monthst__size >= 0 may_be_deduced.
+printtime_rules(47): monthst__first may_be_replaced_by 1.
+printtime_rules(48): monthst__last may_be_replaced_by 12.
+printtime_rules(49): monthst__base__first <= monthst__base__last may_be_deduced.
+printtime_rules(50): monthst__base__first <= monthst__first may_be_deduced.
+printtime_rules(51): monthst__base__last >= monthst__last may_be_deduced.
+printtime_rules(52): dayst__size >= 0 may_be_deduced.
+printtime_rules(53): dayst__first may_be_replaced_by 1.
+printtime_rules(54): dayst__last may_be_replaced_by 31.
+printtime_rules(55): dayst__base__first <= dayst__base__last may_be_deduced.
+printtime_rules(56): dayst__base__first <= dayst__first may_be_deduced.
+printtime_rules(57): dayst__base__last >= dayst__last may_be_deduced.
+printtime_rules(58): timetexti__size >= 0 may_be_deduced.
+printtime_rules(59): timetexti__first may_be_replaced_by 1.
+printtime_rules(60): timetexti__last may_be_replaced_by 21.
+printtime_rules(61): timetexti__base__first may_be_replaced_by -2147483648.
+printtime_rules(62): timetexti__base__last may_be_replaced_by 2147483647.
+printtime_rules(63): millisecst__size >= 0 may_be_deduced.
+printtime_rules(64): millisecst__first may_be_replaced_by 0.
+printtime_rules(65): millisecst__last may_be_replaced_by 86399999.
+printtime_rules(66): millisecst__base__first <= millisecst__base__last may_be_deduced.
+printtime_rules(67): millisecst__base__first <= millisecst__first may_be_deduced.
+printtime_rules(68): millisecst__base__last >= millisecst__last may_be_deduced.

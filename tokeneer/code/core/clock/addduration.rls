@@ -1,0 +1,55 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:07.85*/
+
+                         /*function Clock.AddDuration*/
+
+
+rule_family addduration_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+addduration_rules(1): timet__size >= 0 may_be_deduced.
+addduration_rules(2): A = B may_be_deduced_from
+     [goal(checktype(A,timet)),
+      goal(checktype(B,timet)),
+      fld_year(A) = fld_year(B),
+      fld_month(A) = fld_month(B),
+      fld_day(A) = fld_day(B),
+      fld_millisec(A) = fld_millisec(B)].
+addduration_rules(3): yearst__size >= 0 may_be_deduced.
+addduration_rules(4): yearst__first may_be_replaced_by 1901.
+addduration_rules(5): yearst__last may_be_replaced_by 2099.
+addduration_rules(6): yearst__base__first <= yearst__base__last may_be_deduced.
+addduration_rules(7): yearst__base__first <= yearst__first may_be_deduced.
+addduration_rules(8): yearst__base__last >= yearst__last may_be_deduced.
+addduration_rules(9): monthst__size >= 0 may_be_deduced.
+addduration_rules(10): monthst__first may_be_replaced_by 1.
+addduration_rules(11): monthst__last may_be_replaced_by 12.
+addduration_rules(12): monthst__base__first <= monthst__base__last may_be_deduced.
+addduration_rules(13): monthst__base__first <= monthst__first may_be_deduced.
+addduration_rules(14): monthst__base__last >= monthst__last may_be_deduced.
+addduration_rules(15): dayst__size >= 0 may_be_deduced.
+addduration_rules(16): dayst__first may_be_replaced_by 1.
+addduration_rules(17): dayst__last may_be_replaced_by 31.
+addduration_rules(18): dayst__base__first <= dayst__base__last may_be_deduced.
+addduration_rules(19): dayst__base__first <= dayst__first may_be_deduced.
+addduration_rules(20): dayst__base__last >= dayst__last may_be_deduced.
+addduration_rules(21): durationt__size >= 0 may_be_deduced.
+addduration_rules(22): durationt__first may_be_replaced_by 0.
+addduration_rules(23): durationt__last may_be_replaced_by 864000.
+addduration_rules(24): durationt__base__first <= durationt__base__last may_be_deduced.
+addduration_rules(25): durationt__base__first <= durationt__first may_be_deduced.
+addduration_rules(26): durationt__base__last >= durationt__last may_be_deduced.
+addduration_rules(27): millisecst__size >= 0 may_be_deduced.
+addduration_rules(28): millisecst__first may_be_replaced_by 0.
+addduration_rules(29): millisecst__last may_be_replaced_by 86399999.
+addduration_rules(30): millisecst__base__first <= millisecst__base__last may_be_deduced.
+addduration_rules(31): millisecst__base__first <= millisecst__first may_be_deduced.
+addduration_rules(32): millisecst__base__last >= millisecst__last may_be_deduced.

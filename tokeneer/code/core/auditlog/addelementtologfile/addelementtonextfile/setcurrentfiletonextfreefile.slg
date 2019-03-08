@@ -1,0 +1,160 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:08  SIMPLIFIED 05-SEP-2011, 15:38:40
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure 
+          AuditLog.AddElementToLogFile.AddElementToNextFile.SetCurrentFileToNextFreeFile
+
+
+
+
+
+
+@@@@@@@@@@  VC: procedure_setcurrentfiletonextfreefile_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  true
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified C6 on reading formula in, to give:
+     %%%  C6:  true
+%%%  Simplified C8 on reading formula in, to give:
+     %%%  C8:  true
+***  Proved C1:  true
+***  Proved C2:  logfileindext__first <= logfileindext__last
+     using hypotheses H3 & H4.
+***  Proved C3:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+     using hypothesis H2.
+***  Proved C4:  currentlogfile >= logfileindext__first
+     using hypothesis H3.
+***  Proved C5:  currentlogfile <= logfileindext__last
+     using hypothesis H4.
+***  Proved C6:  true
+***  Proved C7:  logfileindext__first <= logfileindext__last
+     using hypotheses H3 & H4.
+***  Proved C8:  true
+***  Proved C9:  logfileindext__first <= logfileindext__last
+     using hypotheses H3 & H4.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_setcurrentfiletonextfreefile_2.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+---  Hypothesis H6 has been replaced by "true".  (It is already present, as H1).
+---  Hypothesis H7 has been replaced by "true".  (It is already present, as H2).
+---  Hypothesis H8 has been replaced by "true".  (It is already present, as H1).
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H2).
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H2)
+          .
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+***  Proved C1:  loop__1__i + 1 >= logfileindext__first
+     using hypothesis H1.
+***  Proved C3:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+     using hypothesis H3.
+***  Proved C4:  currentlogfile >= logfileindext__first
+     using hypothesis H4.
+***  Proved C5:  currentlogfile <= logfileindext__last
+     using hypothesis H5.
+***  Proved C6:  loop__1__i + 1 >= logfileindext__first
+     using hypothesis H1.
+***  Proved C8:  loop__1__i + 1 >= logfileindext__first
+     using hypothesis H1.
+-S-  Applied substitution rule setcurrentfi_rules(9).
+     This was achieved by replacing all occurrences of logfileindext__last by:
+          17.
+<S>  New H2:  loop__1__i <= 17
+<S>  New H3:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= 17 -> filestatust__first <= element(logfilesstatus, [i___1]) and 
+          element(logfilesstatus, [i___1]) <= filestatust__last)
+<S>  New H5:  currentlogfile <= 17
+<S>  New H13:  not loop__1__i = 17
+<S>  New C2:  loop__1__i <= 16
+<S>  New C7:  loop__1__i <= 16
+<S>  New C9:  loop__1__i <= 16
+***  Proved C2:  loop__1__i <= 16
+     using hypotheses H2 & H13.
+***  Proved C7:  loop__1__i <= 16
+     using hypotheses H2 & H13.
+***  Proved C9:  loop__1__i <= 16
+     using hypotheses H2 & H13.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_setcurrentfiletonextfreefile_3.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+---  Hypothesis H6 has been replaced by "true".  (It is already present, as H1).
+---  Hypothesis H7 has been replaced by "true".  (It is already present, as H2).
+---  Hypothesis H8 has been replaced by "true".  (It is already present, as H1).
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H2).
+***  Proved C1:  loop__1__i >= logfileindext__first
+     using hypothesis H1.
+***  Proved C2:  loop__1__i <= logfileindext__last
+     using hypothesis H2.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_setcurrentfiletonextfreefile_4.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+---  Hypothesis H6 has been replaced by "true".  (It is already present, as H1).
+---  Hypothesis H7 has been replaced by "true".  (It is already present, as H2).
+---  Hypothesis H8 has been replaced by "true".  (It is already present, as H1).
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H2).
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H2)
+          .
+***  Proved C1:  loop__1__i >= logfileindext__first
+     using hypothesis H1.
+***  Proved C2:  loop__1__i <= logfileindext__last
+     using hypothesis H2.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_setcurrentfiletonextfreefile_5.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_setcurrentfiletonextfreefile_6.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+

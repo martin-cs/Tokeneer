@@ -1,0 +1,88 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:25.86
+
+                 procedure Enclave.CompleteFailedEnrolment
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 342:
+
+procedure_completefailedenrolment_1.
+H1:    status = waitingendenrol .
+H2:    status >= statust__first .
+H3:    status <= statust__last .
+H4:    true .
+H5:    not (floppy__ispresent(floppy__state)) .
+        ->
+C1:    screen__insertenrolmentdata >= screen__msgtextt__first .
+C2:    screen__insertenrolmentdata <= screen__msgtextt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 343:
+
+procedure_completefailedenrolment_2.
+H1:    status = waitingendenrol .
+H2:    status >= statust__first .
+H3:    status <= statust__last .
+H4:    true .
+H5:    not (floppy__ispresent(floppy__state)) .
+H6:    screen__insertenrolmentdata >= screen__msgtextt__first .
+H7:    screen__insertenrolmentdata <= screen__msgtextt__last .
+        ->
+C1:    display__blank >= display__msgt__first .
+C2:    display__blank <= display__msgt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 345:
+
+procedure_completefailedenrolment_3.
+H1:    status = waitingendenrol .
+H2:    status >= statust__first .
+H3:    status <= statust__last .
+H4:    true .
+H5:    not (floppy__ispresent(floppy__state)) .
+H6:    screen__insertenrolmentdata >= screen__msgtextt__first .
+H7:    screen__insertenrolmentdata <= screen__msgtextt__last .
+H8:    display__blank >= display__msgt__first .
+H9:    display__blank <= display__msgt__last .
+        ->
+C1:    notenrolled >= statust__first .
+C2:    notenrolled <= statust__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_completefailedenrolment_4.
+H1:    status = waitingendenrol .
+H2:    status >= statust__first .
+H3:    status <= statust__last .
+H4:    true .
+H5:    not (floppy__ispresent(floppy__state)) .
+H6:    screen__insertenrolmentdata >= screen__msgtextt__first .
+H7:    screen__insertenrolmentdata <= screen__msgtextt__last .
+H8:    display__blank >= display__msgt__first .
+H9:    display__blank <= display__msgt__last .
+H10:   notenrolled >= statust__first .
+H11:   notenrolled <= statust__last .
+        ->
+C1:    (notenrolled = waitingendenrol) or (notenrolled = 
+           notenrolled) .
+ 
+
+procedure_completefailedenrolment_5.
+H1:    status = waitingendenrol .
+H2:    status >= statust__first .
+H3:    status <= statust__last .
+H4:    true .
+H5:    not (not (floppy__ispresent(floppy__state))) .
+        ->
+C1:    (status = waitingendenrol) or (status = notenrolled) .
+ 
+

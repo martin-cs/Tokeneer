@@ -1,0 +1,459 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:24.76
+
+                        procedure UserEntry.Progress
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 1266:
+
+procedure_progress_1.
+H1:    keystore__privatekeypresent(keystore__state) .
+H2:    status > quiescent .
+H3:    (status = waitingremovetokenfail) -> (not (
+           usertoken__ispresent(usertoken__state))) .
+H4:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H5:    status >= statust__first .
+H6:    status <= statust__last .
+        ->
+C1:    status >= activestatust__first .
+C2:    status <= activestatust__last .
+C3:    status >= activestatust__first .
+C4:    status <= activestatust__last .
+ 
+
+For path(s) from start to precondition check associated with statement of line 1272:
+
+procedure_progress_2.
+H1:    keystore__privatekeypresent(keystore__state) .
+H2:    status > quiescent .
+H3:    (status = waitingremovetokenfail) -> (not (
+           usertoken__ispresent(usertoken__state))) .
+H4:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H5:    status >= statust__first .
+H6:    status <= statust__last .
+H7:    status >= activestatust__first .
+H8:    status <= activestatust__last .
+H9:    status >= activestatust__first .
+H10:   status <= activestatust__last .
+H11:   status >= activestatust__first .
+H12:   status <= activestatust__last .
+H13:   status = waitingfinger .
+        ->
+C1:    status = waitingfinger .
+ 
+
+For path(s) from start to precondition check associated with statement of line 1276:
+
+procedure_progress_3.
+H1:    keystore__privatekeypresent(keystore__state) .
+H2:    status > quiescent .
+H3:    (status = waitingremovetokenfail) -> (not (
+           usertoken__ispresent(usertoken__state))) .
+H4:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H5:    status >= statust__first .
+H6:    status <= statust__last .
+H7:    status >= activestatust__first .
+H8:    status <= activestatust__last .
+H9:    status >= activestatust__first .
+H10:   status <= activestatust__last .
+H11:   status >= activestatust__first .
+H12:   status <= activestatust__last .
+H13:   status = waitingupdatetoken .
+        ->
+C1:    keystore__privatekeypresent(keystore__state) .
+ 
+
+For path(s) from start to precondition check associated with statement of line 1280:
+
+procedure_progress_4.
+H1:    keystore__privatekeypresent(keystore__state) .
+H2:    status > quiescent .
+H3:    (status = waitingremovetokenfail) -> (not (
+           usertoken__ispresent(usertoken__state))) .
+H4:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H5:    status >= statust__first .
+H6:    status <= statust__last .
+H7:    status >= activestatust__first .
+H8:    status <= activestatust__last .
+H9:    status >= activestatust__first .
+H10:   status <= activestatust__last .
+H11:   status >= activestatust__first .
+H12:   status <= activestatust__last .
+H13:   status = waitingremovetokensuccess .
+        ->
+C1:    status = waitingremovetokensuccess .
+C2:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+ 
+
+For path(s) from start to finish:
+
+procedure_progress_5.
+H1:    keystore__privatekeypresent(keystore__state) .
+H2:    status > quiescent .
+H3:    (status = waitingremovetokenfail) -> (not (
+           usertoken__ispresent(usertoken__state))) .
+H4:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H5:    status >= statust__first .
+H6:    status <= statust__last .
+H7:    status >= activestatust__first .
+H8:    status <= activestatust__last .
+H9:    status >= activestatust__first .
+H10:   status <= activestatust__last .
+H11:   status >= activestatust__first .
+H12:   status <= activestatust__last .
+H13:   status = gotusertoken .
+H14:   status__1 >= statust__first .
+H15:   status__1 <= statust__last .
+        ->
+C1:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+C2:    (latch__islocked(latch__state) and (not (
+           latch__islocked(latch__state)))) <-> 
+           prf_userentryunlockdoor .
+ 
+
+procedure_progress_6.
+H1:    keystore__privatekeypresent(keystore__state) .
+H2:    status > quiescent .
+H3:    (status = waitingremovetokenfail) -> (not (
+           usertoken__ispresent(usertoken__state))) .
+H4:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H5:    status >= statust__first .
+H6:    status <= statust__last .
+H7:    status >= activestatust__first .
+H8:    status <= activestatust__last .
+H9:    status >= activestatust__first .
+H10:   status <= activestatust__last .
+H11:   status >= activestatust__first .
+H12:   status <= activestatust__last .
+H13:   status = waitingfinger .
+H14:   status = waitingfinger .
+H15:   status__2 >= statust__first .
+H16:   status__2 <= statust__last .
+        ->
+C1:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+C2:    (latch__islocked(latch__state) and (not (
+           latch__islocked(latch__state)))) <-> 
+           prf_userentryunlockdoor .
+ 
+
+procedure_progress_7.
+H1:    keystore__privatekeypresent(keystore__state) .
+H2:    status > quiescent .
+H3:    (status = waitingremovetokenfail) -> (not (
+           usertoken__ispresent(usertoken__state))) .
+H4:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H5:    status >= statust__first .
+H6:    status <= statust__last .
+H7:    status >= activestatust__first .
+H8:    status <= activestatust__last .
+H9:    status >= activestatust__first .
+H10:   status <= activestatust__last .
+H11:   status >= activestatust__first .
+H12:   status <= activestatust__last .
+H13:   status = gotfinger .
+H14:   status__3 >= statust__first .
+H15:   status__3 <= statust__last .
+        ->
+C1:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+C2:    (latch__islocked(latch__state) and (not (
+           latch__islocked(latch__state)))) <-> 
+           prf_userentryunlockdoor .
+ 
+
+procedure_progress_8.
+H1:    keystore__privatekeypresent(keystore__state) .
+H2:    status > quiescent .
+H3:    (status = waitingremovetokenfail) -> (not (
+           usertoken__ispresent(usertoken__state))) .
+H4:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H5:    status >= statust__first .
+H6:    status <= statust__last .
+H7:    status >= activestatust__first .
+H8:    status <= activestatust__last .
+H9:    status >= activestatust__first .
+H10:   status <= activestatust__last .
+H11:   status >= activestatust__first .
+H12:   status <= activestatust__last .
+H13:   status = waitingupdatetoken .
+H14:   keystore__privatekeypresent(keystore__state) .
+H15:   status__4 >= statust__first .
+H16:   status__4 <= statust__last .
+        ->
+C1:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+C2:    (latch__islocked(latch__state) and (not (
+           latch__islocked(latch__state)))) <-> 
+           prf_userentryunlockdoor .
+ 
+
+procedure_progress_9.
+H1:    keystore__privatekeypresent(keystore__state) .
+H2:    status > quiescent .
+H3:    (status = waitingremovetokenfail) -> (not (
+           usertoken__ispresent(usertoken__state))) .
+H4:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H5:    status >= statust__first .
+H6:    status <= statust__last .
+H7:    status >= activestatust__first .
+H8:    status <= activestatust__last .
+H9:    status >= activestatust__first .
+H10:   status <= activestatust__last .
+H11:   status >= activestatust__first .
+H12:   status <= activestatust__last .
+H13:   status = waitingentry .
+H14:   status__5 >= statust__first .
+H15:   status__5 <= statust__last .
+        ->
+C1:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+C2:    (latch__islocked(latch__state) and (not (
+           latch__islocked(latch__state)))) <-> 
+           prf_userentryunlockdoor .
+ 
+
+procedure_progress_10.
+H1:    keystore__privatekeypresent(keystore__state) .
+H2:    status > quiescent .
+H3:    (status = waitingremovetokenfail) -> (not (
+           usertoken__ispresent(usertoken__state))) .
+H4:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H5:    status >= statust__first .
+H6:    status <= statust__last .
+H7:    status >= activestatust__first .
+H8:    status <= activestatust__last .
+H9:    status >= activestatust__first .
+H10:   status <= activestatust__last .
+H11:   status >= activestatust__first .
+H12:   status <= activestatust__last .
+H13:   status = waitingremovetokensuccess .
+H14:   status = waitingremovetokensuccess .
+H15:   (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H16:   (latch__islocked(latch__state__6) and ((
+           door__thecurrentdoor(door__state__6) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(door__state__6)))) <-> (
+           door__thedooralarm(door__state__6) = 
+           alarmtypes__alarming) .
+H17:   (latch__islocked(latch__state) and (not (
+           latch__islocked(latch__state__6)))) <-> 
+           prf_userentryunlockdoor .
+H18:   status__6 >= statust__first .
+H19:   status__6 <= statust__last .
+        ->
+C1:    (latch__islocked(latch__state__6) and ((
+           door__thecurrentdoor(door__state__6) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(door__state__6)))) <-> (
+           door__thedooralarm(door__state__6) = 
+           alarmtypes__alarming) .
+C2:    (latch__islocked(latch__state) and (not (
+           latch__islocked(latch__state__6)))) <-> 
+           prf_userentryunlockdoor .
+ 
+
+procedure_progress_11.
+H1:    keystore__privatekeypresent(keystore__state) .
+H2:    status > quiescent .
+H3:    (status = waitingremovetokenfail) -> (not (
+           usertoken__ispresent(usertoken__state))) .
+H4:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H5:    status >= statust__first .
+H6:    status <= statust__last .
+H7:    status >= activestatust__first .
+H8:    status <= activestatust__last .
+H9:    status >= activestatust__first .
+H10:   status <= activestatust__last .
+H11:   status >= activestatust__first .
+H12:   status <= activestatust__last .
+H13:   status = waitingremovetokenfail .
+H14:   status__7 >= statust__first .
+H15:   status__7 <= statust__last .
+        ->
+C1:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+C2:    (latch__islocked(latch__state) and (not (
+           latch__islocked(latch__state)))) <-> 
+           prf_userentryunlockdoor .
+ 
+
+For checks of refinement integrity: 
+
+procedure_progress_12.
+H1:    userentry__currentactivitypossible(state, 
+           usertoken__state) .
+H2:    keystore__privatekeypresent(keystore__state) .
+H3:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H4:    status = fld_status(state) .
+H5:    fingertimeout = fld_fingertimeout(state) .
+H6:    tokenremovaltimeout = fld_tokenremovaltimeout(state) .
+H7:    status >= statust__first .
+H8:    status <= statust__last .
+        ->
+C1:    keystore__privatekeypresent(keystore__state) .
+C2:    status > quiescent .
+C3:    (status = waitingremovetokenfail) -> (not (
+           usertoken__ispresent(usertoken__state))) .
+C4:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+ 
+
+procedure_progress_13.
+H1:    userentry__currentactivitypossible(state~, 
+           usertoken__state~) .
+H2:    keystore__privatekeypresent(keystore__state) .
+H3:    (latch__islocked(latch__state~) and ((
+           door__thecurrentdoor(door__state~) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state~)))) <-> (door__thedooralarm(
+           door__state~) = alarmtypes__alarming) .
+H4:    keystore__privatekeypresent(keystore__state) .
+H5:    status~ > quiescent .
+H6:    (status~ = waitingremovetokenfail) -> (not (
+           usertoken__ispresent(usertoken__state~))) .
+H7:    (latch__islocked(latch__state~) and ((
+           door__thecurrentdoor(door__state~) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state~)))) <-> (door__thedooralarm(
+           door__state~) = alarmtypes__alarming) .
+H8:    status~ = fld_status(state~) .
+H9:    status = fld_status(state) .
+H10:   fingertimeout~ = fld_fingertimeout(state~) .
+H11:   fingertimeout = fld_fingertimeout(state) .
+H12:   tokenremovaltimeout~ = fld_tokenremovaltimeout(state~) .
+H13:   tokenremovaltimeout = fld_tokenremovaltimeout(state) .
+H14:   status~ >= statust__first .
+H15:   status~ <= statust__last .
+H16:   status >= statust__first .
+H17:   status <= statust__last .
+H18:   (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H19:   (latch__islocked(latch__state~) and (not (
+           latch__islocked(latch__state)))) <-> 
+           prf_userentryunlockdoor .
+        ->
+C1:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+C2:    (latch__islocked(latch__state~) and (not (
+           latch__islocked(latch__state)))) <-> 
+           prf_userentryunlockdoor .
+ 
+

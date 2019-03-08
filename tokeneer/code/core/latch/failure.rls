@@ -1,0 +1,52 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:10.46*/
+
+                          /*procedure Latch.Failure*/
+
+
+rule_family failure_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+failure_rules(1): t__size >= 0 may_be_deduced.
+failure_rules(2): t__first may_be_replaced_by locked.
+failure_rules(3): t__last may_be_replaced_by unlocked.
+failure_rules(4): t__base__first may_be_replaced_by locked.
+failure_rules(5): t__base__last may_be_replaced_by unlocked.
+failure_rules(6): t__pos(t__first) may_be_replaced_by 0.
+failure_rules(7): t__pos(locked) may_be_replaced_by 0.
+failure_rules(8): t__val(0) may_be_replaced_by locked.
+failure_rules(9): t__pos(unlocked) may_be_replaced_by 1.
+failure_rules(10): t__val(1) may_be_replaced_by unlocked.
+failure_rules(11): t__pos(t__last) may_be_replaced_by 1.
+failure_rules(12): t__pos(succ(X)) may_be_replaced_by t__pos(X) + 1
+     if [X <=unlocked, X <> unlocked].
+failure_rules(13): t__pos(pred(X)) may_be_replaced_by t__pos(X) - 1
+     if [X >=locked, X <> locked].
+failure_rules(14): t__pos(X) >= 0 may_be_deduced_from
+     [locked <= X, X <= unlocked].
+failure_rules(15): t__pos(X) <= 1 may_be_deduced_from
+     [locked <= X, X <= unlocked].
+failure_rules(16): t__val(X) >= locked may_be_deduced_from
+     [0 <= X, X <= 1].
+failure_rules(17): t__val(X) <= unlocked may_be_deduced_from
+     [0 <= X, X <= 1].
+failure_rules(18): succ(t__val(X)) may_be_replaced_by t__val(X+1)
+     if [0 <= X, X < 1].
+failure_rules(19): pred(t__val(X)) may_be_replaced_by t__val(X-1)
+     if [0 < X, X <= 1].
+failure_rules(20): t__pos(t__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+failure_rules(21): t__val(t__pos(X)) may_be_replaced_by X
+     if [locked <= X, X <= unlocked].
+failure_rules(22): t__pos(X) <= t__pos(Y) & X <= Y are_interchangeable 
+     if [locked <= X, X <= unlocked, locked <= Y, Y <= unlocked].
+failure_rules(23): t__val(X) <= t__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].

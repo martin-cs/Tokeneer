@@ -1,0 +1,108 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:25  SIMPLIFIED 05-SEP-2011, 15:40:32
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure Enclave.CompleteFailedEnrolment
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/enclave/enclave.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_completefailedenrolment_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  statust__first <= status
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  screen__msgtextt__first <= screen__insertenrolmentdata
+-S-  Applied substitution rule completefail_rules(37).
+     This was achieved by replacing all occurrences of screen__msgtextt__first 
+          by:
+          screen__clear.
+<S>  New C1:  true
+-S-  Applied substitution rule completefail_rules(38).
+     This was achieved by replacing all occurrences of screen__msgtextt__last 
+          by:
+          screen__insertconfigdata.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_completefailedenrolment_2.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  statust__first <= status
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  screen__msgtextt__first <= screen__insertenrolmentdata
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  display__msgt__first <= display__blank
+-S-  Applied substitution rule completefail_rules(2).
+     This was achieved by replacing all occurrences of display__msgt__first by:
+          display__blank.
+<S>  New C1:  true
+-S-  Applied substitution rule completefail_rules(3).
+     This was achieved by replacing all occurrences of display__msgt__last by:
+          display__doorunlocked.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_completefailedenrolment_3.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  statust__first <= status
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  screen__msgtextt__first <= screen__insertenrolmentdata
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  display__msgt__first <= display__blank
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  statust__first <= notenrolled
+***  Proved C2:  notenrolled <= statust__last
+     using hypotheses H1 & H3.
+-S-  Applied substitution rule completefail_rules(86).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H2:  notenrolled <= status
+<S>  New C1:  true
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_completefailedenrolment_4.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  statust__first <= status
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  screen__msgtextt__first <= screen__insertenrolmentdata
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  display__msgt__first <= display__blank
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  statust__first <= notenrolled
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  true
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_completefailedenrolment_5.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  statust__first <= status
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  floppy__ispresent(floppy__state)
+***  Proved C1:  status = waitingendenrol or status = notenrolled
+     using hypothesis H1.
+***  PROVED VC.
+

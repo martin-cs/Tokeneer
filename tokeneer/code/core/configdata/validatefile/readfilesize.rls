@@ -1,0 +1,39 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:28.02*/
+
+               /*procedure ConfigData.ValidateFile.ReadFileSize*/
+
+
+rule_family readfilesize_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+readfilesize_rules(1): system__min_int may_be_replaced_by -9223372036854775808.
+readfilesize_rules(2): system__max_int may_be_replaced_by 9223372036854775807.
+readfilesize_rules(3): integer__size >= 0 may_be_deduced.
+readfilesize_rules(4): integer__first may_be_replaced_by -2147483648.
+readfilesize_rules(5): integer__last may_be_replaced_by 2147483647.
+readfilesize_rules(6): integer__base__first may_be_replaced_by -2147483648.
+readfilesize_rules(7): integer__base__last may_be_replaced_by 2147483647.
+readfilesize_rules(8): natural__size >= 0 may_be_deduced.
+readfilesize_rules(9): natural__first may_be_replaced_by 0.
+readfilesize_rules(10): natural__last may_be_replaced_by 2147483647.
+readfilesize_rules(11): natural__base__first may_be_replaced_by -2147483648.
+readfilesize_rules(12): natural__base__last may_be_replaced_by 2147483647.
+readfilesize_rules(13): positive__size >= 0 may_be_deduced.
+readfilesize_rules(14): positive__first may_be_replaced_by 1.
+readfilesize_rules(15): positive__last may_be_replaced_by 2147483647.
+readfilesize_rules(16): positive__base__first may_be_replaced_by -2147483648.
+readfilesize_rules(17): positive__base__last may_be_replaced_by 2147483647.
+readfilesize_rules(18): audittypes__filesizet__size >= 0 may_be_deduced.
+readfilesize_rules(19): audittypes__filesizet__first may_be_replaced_by 0.
+readfilesize_rules(20): audittypes__filesizet__last may_be_replaced_by 4194304.
+readfilesize_rules(21): audittypes__filesizet__base__first may_be_replaced_by -2147483648.
+readfilesize_rules(22): audittypes__filesizet__base__last may_be_replaced_by 2147483647.

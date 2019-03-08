@@ -1,0 +1,150 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:14  SIMPLIFIED 05-SEP-2011, 15:39:07
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure Auth.Clear
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/cert_/attr_/auth/auth.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_clear_1.  @@@@@@@@@@
+-S-  Applied substitution rule clear_rules(58).
+     This was achieved by replacing all occurrences of 
+          privtypes__privileget__first by:
+          privtypes__useronly.
+<S>  New C1:  therole(nullcontents) = privtypes__useronly
+-S-  Applied substitution rule clear_rules(41).
+     This was achieved by replacing all occurrences of nullcontents by:
+          mk__contentst(inherit := cert__attr__nullcontents, role := 
+          privtypes__useronly, clearance := mk__privtypes__clearancet(class := 
+          privtypes__unmarked)).
+<S>  New C1:  therole(mk__contentst(inherit := cert__attr__nullcontents, role 
+          := privtypes__useronly, clearance := mk__privtypes__clearancet(class 
+          := privtypes__unmarked))) = privtypes__useronly
+---  Eliminated hypothesis H1 (true-hypothesis).
+     +++  New H2:  integer__size >= 0
+     +++  New H3:  character__size >= 0
+     +++  New H4:  positive__size >= 0
+     +++  New H5:  privtypes__privileget__size >= 0
+     +++  New H6:  privtypes__classt__size >= 0
+     +++  New H7:  privtypes__clearancet__size >= 0
+     +++  New H8:  cryptotypes__namecountt__size >= 0
+     +++  New H9:  cryptotypes__issueridt__size >= 0
+     +++  New H10:  cryptotypes__issueridt__base__first <= 
+          cryptotypes__issueridt__base__last
+     +++  New H11:  cryptotypes__issuert__size >= 0
+     +++  New H12:  cryptotypes__algorithmt__size >= 0
+     +++  New H13:  certtypes__serialnumbert__size >= 0
+     +++  New H14:  certtypes__serialnumbert__base__first <= 
+          certtypes__serialnumbert__base__last
+     +++  New H15:  certtypes__idt__size >= 0
+     +++  New H16:  cert__contentst__size >= 0
+     +++  New H17:  cert__attr__contentst__size >= 0
+     +++  New H18:  contentst__size >= 0
+     +++  New H19:  privtypes__useronly <= fld_role(nullcontents)
+     +++  New H20:  fld_role(nullcontents) <= privtypes__securityofficer
+     +++  New H21:  privtypes__unmarked <= fld_class(fld_clearance(nullcontents)
+          )
+     +++  New H22:  fld_class(fld_clearance(nullcontents)) <= 
+          privtypes__topsecret
+     +++  New H23:  0 <= fld_namelength(fld_issuer(fld_id(fld_inherit(
+          cert__attr__nullcontents))))
+     +++  New H24:  0 <= fld_namelength(fld_issuer(fld_basecertid(
+          cert__attr__nullcontents)))
+     +++  New H25:  0 <= fld_namelength(fld_issuer(fld_id(fld_inherit(
+          fld_inherit(nullcontents)))))
+     +++  New H26:  0 <= fld_namelength(fld_issuer(fld_basecertid(fld_inherit(
+          nullcontents))))
+     +++  New H27:  fld_namelength(fld_issuer(fld_id(fld_inherit(
+          cert__attr__nullcontents)))) <= 40
+     +++  New H28:  fld_namelength(fld_issuer(fld_basecertid(
+          cert__attr__nullcontents))) <= 40
+     +++  New H29:  fld_namelength(fld_issuer(fld_id(fld_inherit(fld_inherit(
+          nullcontents))))) <= 40
+     +++  New H30:  fld_namelength(fld_issuer(fld_basecertid(fld_inherit(
+          nullcontents)))) <= 40
+     +++  New H31:  0 <= fld_id(fld_issuer(fld_id(fld_inherit(
+          cert__attr__nullcontents))))
+     +++  New H32:  0 <= fld_id(fld_issuer(fld_basecertid(
+          cert__attr__nullcontents)))
+     +++  New H33:  0 <= fld_id(fld_issuer(fld_id(fld_inherit(fld_inherit(
+          nullcontents)))))
+     +++  New H34:  0 <= fld_id(fld_issuer(fld_basecertid(fld_inherit(
+          nullcontents))))
+     +++  New H35:  cryptotypes__issueridt__base__first <= 0
+     +++  New H36:  fld_id(fld_issuer(fld_id(fld_inherit(
+          cert__attr__nullcontents)))) <= 4294967295
+     +++  New H37:  fld_id(fld_issuer(fld_basecertid(cert__attr__nullcontents)))
+           <= 4294967295
+     +++  New H38:  fld_id(fld_issuer(fld_id(fld_inherit(fld_inherit(
+          nullcontents))))) <= 4294967295
+     +++  New H39:  fld_id(fld_issuer(fld_basecertid(fld_inherit(nullcontents)))
+          ) <= 4294967295
+     +++  New H40:  cryptotypes__issueridt__base__last >= 4294967295
+     +++  New H41:  cryptotypes__rsa <= fld_mechanism(fld_inherit(
+          cert__attr__nullcontents))
+     +++  New H42:  cryptotypes__rsa <= fld_mechanism(fld_inherit(fld_inherit(
+          nullcontents)))
+     +++  New H43:  fld_mechanism(fld_inherit(cert__attr__nullcontents)) <= 
+          cryptotypes__ripemd160_rsa
+     +++  New H44:  fld_mechanism(fld_inherit(fld_inherit(nullcontents))) <= 
+          cryptotypes__ripemd160_rsa
+     +++  New H45:  0 <= fld_serialnumber(fld_id(fld_inherit(
+          cert__attr__nullcontents)))
+     +++  New H46:  0 <= fld_serialnumber(fld_basecertid(
+          cert__attr__nullcontents))
+     +++  New H47:  0 <= fld_serialnumber(fld_id(fld_inherit(fld_inherit(
+          nullcontents))))
+     +++  New H48:  0 <= fld_serialnumber(fld_basecertid(fld_inherit(
+          nullcontents)))
+     +++  New H49:  certtypes__serialnumbert__base__first <= 0
+     +++  New H50:  fld_serialnumber(fld_id(fld_inherit(
+          cert__attr__nullcontents))) <= 4294967295
+     +++  New H51:  fld_serialnumber(fld_basecertid(cert__attr__nullcontents)) 
+          <= 4294967295
+     +++  New H52:  fld_serialnumber(fld_id(fld_inherit(fld_inherit(
+          nullcontents)))) <= 4294967295
+     +++  New H53:  fld_serialnumber(fld_basecertid(fld_inherit(nullcontents))) 
+          <= 4294967295
+     +++  New H54:  certtypes__serialnumbert__base__last >= 4294967295
+***  Proved C1:  therole(mk__contentst(inherit := cert__attr__nullcontents, 
+          role := privtypes__useronly, clearance := mk__privtypes__clearancet(
+          class := privtypes__unmarked))) = privtypes__useronly
+     This was achieved by applying the rewrite rule auth_user(1)
+     [from rulefile auth.rlu] to rewrite this conclusion to:
+<S>  C1:  fld_role(mk__contentst(inherit := cert__attr__nullcontents, role := 
+          privtypes__useronly, clearance := mk__privtypes__clearancet(class := 
+          privtypes__unmarked))) = privtypes__useronly
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  By simple reasoning, proved: fld_role(mk__contentst(inherit := 
+          cert__attr__nullcontents, role := privtypes__useronly, clearance := 
+          mk__privtypes__clearancet(class := privtypes__unmarked))) = 
+          privtypes__useronly
+***  PROVED VC.
+
+VCN  1: Summary of user rule application.
+FIL  auth.rlu
+RUL     auth_user(1)
+CON        1
+
+
+OVR  Overall summary of VCs using user rules.
+FIL  auth.rlu
+RUL     auth_user(1)
+VCS        1
+

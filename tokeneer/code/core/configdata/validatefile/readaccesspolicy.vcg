@@ -1,0 +1,665 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:28.96
+
+             procedure ConfigData.ValidateFile.ReadAccessPolicy
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 709:
+
+procedure_readaccesspolicy_1.
+H1:    true .
+        ->
+C1:    accesspolicyt__first >= accesspolicyt__first .
+C2:    accesspolicyt__first <= accesspolicyt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 710:
+
+procedure_readaccesspolicy_2.
+H1:    true .
+H2:    accesspolicyt__first >= accesspolicyt__first .
+H3:    accesspolicyt__first <= accesspolicyt__last .
+H4:    for_all(i___1: integer, ((i___1 >= accesspolicytexti__first) and (
+           i___1 <= accesspolicytexti__last)) -> ((element(thetitle__1, [
+           i___1]) >= character__first) and (element(thetitle__1, [
+           i___1]) <= character__last))) .
+H5:    stop__1 >= natural__first .
+H6:    stop__1 <= natural__last .
+        ->
+C1:    stop__1 >= natural__first .
+C2:    stop__1 <= natural__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 714:
+
+procedure_readaccesspolicy_3.
+H1:    true .
+H2:    accesspolicyt__first >= accesspolicyt__first .
+H3:    accesspolicyt__first <= accesspolicyt__last .
+H4:    for_all(i___1: integer, ((i___1 >= accesspolicytexti__first) and (
+           i___1 <= accesspolicytexti__last)) -> ((element(thetitle__1, [
+           i___1]) >= character__first) and (element(thetitle__1, [
+           i___1]) <= character__last))) .
+H5:    stop__1 >= natural__first .
+H6:    stop__1 <= natural__last .
+H7:    stop__1 >= natural__first .
+H8:    stop__1 <= natural__last .
+H9:    for_all(i___1: integer, ((i___1 >= accesspolicytexti__first) and (
+           i___1 <= accesspolicytexti__last)) -> ((element(thetitle__1, [
+           i___1]) >= character__first) and (element(thetitle__1, [
+           i___1]) <= character__last))) .
+H10:   stop__1 >= natural__first .
+H11:   stop__1 <= natural__last .
+H12:   stop__1 = accesspolicytexti__last .
+H13:   thetitle__1 = accesspolicytitle .
+H14:   for_all(i___1: integer, ((i___1 >= accesstexti__first) and (
+           i___1 <= accesstexti__last)) -> ((element(rawaccesspolicy__2, [
+           i___1]) >= character__first) and (element(rawaccesspolicy__2, [
+           i___1]) <= character__last))) .
+H15:   stop__2 >= natural__first .
+H16:   stop__2 <= natural__last .
+        ->
+C1:    stop__2 >= natural__first .
+C2:    stop__2 <= natural__last .
+ 
+
+For path(s) from start to assertion of line 716:
+
+procedure_readaccesspolicy_4.
+H1:    true .
+H2:    accesspolicyt__first >= accesspolicyt__first .
+H3:    accesspolicyt__first <= accesspolicyt__last .
+H4:    for_all(i___1: integer, ((i___1 >= accesspolicytexti__first) and (
+           i___1 <= accesspolicytexti__last)) -> ((element(thetitle__1, [
+           i___1]) >= character__first) and (element(thetitle__1, [
+           i___1]) <= character__last))) .
+H5:    stop__1 >= natural__first .
+H6:    stop__1 <= natural__last .
+H7:    stop__1 >= natural__first .
+H8:    stop__1 <= natural__last .
+H9:    for_all(i___1: integer, ((i___1 >= accesspolicytexti__first) and (
+           i___1 <= accesspolicytexti__last)) -> ((element(thetitle__1, [
+           i___1]) >= character__first) and (element(thetitle__1, [
+           i___1]) <= character__last))) .
+H10:   stop__1 >= natural__first .
+H11:   stop__1 <= natural__last .
+H12:   stop__1 = accesspolicytexti__last .
+H13:   thetitle__1 = accesspolicytitle .
+H14:   for_all(i___1: integer, ((i___1 >= accesstexti__first) and (
+           i___1 <= accesstexti__last)) -> ((element(rawaccesspolicy__2, [
+           i___1]) >= character__first) and (element(rawaccesspolicy__2, [
+           i___1]) <= character__last))) .
+H15:   stop__2 >= natural__first .
+H16:   stop__2 <= natural__last .
+H17:   stop__2 >= natural__first .
+H18:   stop__2 <= natural__last .
+        ->
+C1:    accesspolicyt__first >= accesspolicyt__first .
+C2:    accesspolicyt__first <= accesspolicyt__last .
+C3:    accesspolicyt__first >= accesspolicyt__first .
+C4:    accesspolicyt__first <= accesspolicyt__last .
+C5:    accesspolicyt__first >= accesspolicyt__first .
+C6:    accesspolicyt__first <= accesspolicyt__last .
+ 
+
+For path(s) from assertion of line 716 to assertion of line 716:
+
+procedure_readaccesspolicy_5.
+H1:    loop__1__ap >= accesspolicyt__first .
+H2:    loop__1__ap <= accesspolicyt__last .
+H3:    loop__1__ap >= accesspolicyt__first .
+H4:    loop__1__ap <= accesspolicyt__last .
+H5:    loop__1__ap >= accesspolicyt__first .
+H6:    loop__1__ap <= accesspolicyt__last .
+H7:    stop >= natural__first .
+H8:    stop <= natural__last .
+H9:    loop__1__ap >= accesspolicyt__first .
+H10:   loop__1__ap <= accesspolicyt__last .
+H11:   not (stop = fld_length(element(accessstringlookup, [
+           loop__1__ap]))) .
+H12:   true .
+H13:   not matched .
+H14:   not (loop__1__ap = accesspolicyt__last) .
+        ->
+C1:    succ(loop__1__ap) >= accesspolicyt__first .
+C2:    succ(loop__1__ap) <= accesspolicyt__last .
+C3:    succ(loop__1__ap) >= accesspolicyt__first .
+C4:    succ(loop__1__ap) <= accesspolicyt__last .
+C5:    succ(loop__1__ap) >= accesspolicyt__first .
+C6:    succ(loop__1__ap) <= accesspolicyt__last .
+ 
+
+For path(s) from assertion of line 718 to assertion of line 716:
+
+procedure_readaccesspolicy_6.
+H1:    loop__1__ap >= accesspolicyt__first .
+H2:    loop__1__ap <= accesspolicyt__last .
+H3:    stop >= accesstexti__first .
+H4:    stop <= accesstexti__last .
+H5:    loop__1__ap >= accesspolicyt__first .
+H6:    loop__1__ap <= accesspolicyt__last .
+H7:    loop__1__ap >= accesspolicyt__first .
+H8:    loop__1__ap <= accesspolicyt__last .
+H9:    stop >= natural__first .
+H10:   stop <= natural__last .
+H11:   stop >= integer__first .
+H12:   stop <= integer__last .
+H13:   1 >= integer__first .
+H14:   1 <= integer__last .
+H15:   (1 <= stop) -> ((stop >= accesstexti__first) and (
+           stop <= accesstexti__last)) .
+H16:   (1 <= stop) -> ((1 >= accesstexti__first) and (1 <= 
+           accesstexti__last)) .
+H17:   stop >= natural__first .
+H18:   stop <= natural__last .
+H19:   not (1 <= stop) .
+H20:   true .
+H21:   not true .
+H22:   not (loop__1__ap = accesspolicyt__last) .
+        ->
+C1:    succ(loop__1__ap) >= accesspolicyt__first .
+C2:    succ(loop__1__ap) <= accesspolicyt__last .
+C3:    succ(loop__1__ap) >= accesspolicyt__first .
+C4:    succ(loop__1__ap) <= accesspolicyt__last .
+C5:    succ(loop__1__ap) >= accesspolicyt__first .
+C6:    succ(loop__1__ap) <= accesspolicyt__last .
+ 
+
+For path(s) from assertion of line 724 to assertion of line 716:
+
+procedure_readaccesspolicy_7.
+H1:    loop__1__ap >= accesspolicyt__first .
+H2:    loop__1__ap <= accesspolicyt__last .
+H3:    stop >= accesstexti__first .
+H4:    stop <= accesstexti__last .
+H5:    stop = stop__entry__loop__2 .
+H6:    loop__2__i >= accesstexti__first .
+H7:    loop__2__i <= accesstexti__last .
+H8:    loop__2__i <= stop .
+H9:    loop__2__i >= accesstexti__first .
+H10:   loop__2__i <= accesstexti__last .
+H11:   loop__2__i >= 1 .
+H12:   loop__2__i <= stop__entry__loop__2 .
+H13:   stop__entry__loop__2 >= natural__first .
+H14:   stop__entry__loop__2 <= natural__last .
+H15:   loop__1__ap >= accesspolicyt__first .
+H16:   loop__1__ap <= accesspolicyt__last .
+H17:   loop__1__ap >= accesspolicyt__first .
+H18:   loop__1__ap <= accesspolicyt__last .
+H19:   for_all(i___1: integer, ((i___1 >= accesstexti__first) and (
+           i___1 <= accesstexti__last)) -> ((element(
+           rawaccesspolicy, [i___1]) >= character__first) and (element(
+           rawaccesspolicy, [i___1]) <= character__last))) .
+H20:   loop__2__i >= accesstexti__first .
+H21:   loop__2__i <= accesstexti__last .
+H22:   loop__2__i >= accesstexti__first .
+H23:   loop__2__i <= accesstexti__last .
+H24:   loop__1__ap >= accesspolicyt__first .
+H25:   loop__1__ap <= accesspolicyt__last .
+H26:   element(fld_text(element(accessstringlookup, [
+           loop__1__ap])), [loop__2__i]) <> element(
+           rawaccesspolicy, [loop__2__i]) .
+H27:   true .
+H28:   not false .
+H29:   not (loop__1__ap = accesspolicyt__last) .
+        ->
+C1:    succ(loop__1__ap) >= accesspolicyt__first .
+C2:    succ(loop__1__ap) <= accesspolicyt__last .
+C3:    succ(loop__1__ap) >= accesspolicyt__first .
+C4:    succ(loop__1__ap) <= accesspolicyt__last .
+C5:    succ(loop__1__ap) >= accesspolicyt__first .
+C6:    succ(loop__1__ap) <= accesspolicyt__last .
+ 
+
+procedure_readaccesspolicy_8.
+H1:    loop__1__ap >= accesspolicyt__first .
+H2:    loop__1__ap <= accesspolicyt__last .
+H3:    stop >= accesstexti__first .
+H4:    stop <= accesstexti__last .
+H5:    stop = stop__entry__loop__2 .
+H6:    loop__2__i >= accesstexti__first .
+H7:    loop__2__i <= accesstexti__last .
+H8:    loop__2__i <= stop .
+H9:    loop__2__i >= accesstexti__first .
+H10:   loop__2__i <= accesstexti__last .
+H11:   loop__2__i >= 1 .
+H12:   loop__2__i <= stop__entry__loop__2 .
+H13:   stop__entry__loop__2 >= natural__first .
+H14:   stop__entry__loop__2 <= natural__last .
+H15:   loop__1__ap >= accesspolicyt__first .
+H16:   loop__1__ap <= accesspolicyt__last .
+H17:   loop__1__ap >= accesspolicyt__first .
+H18:   loop__1__ap <= accesspolicyt__last .
+H19:   for_all(i___1: integer, ((i___1 >= accesstexti__first) and (
+           i___1 <= accesstexti__last)) -> ((element(
+           rawaccesspolicy, [i___1]) >= character__first) and (element(
+           rawaccesspolicy, [i___1]) <= character__last))) .
+H20:   loop__2__i >= accesstexti__first .
+H21:   loop__2__i <= accesstexti__last .
+H22:   loop__2__i >= accesstexti__first .
+H23:   loop__2__i <= accesstexti__last .
+H24:   loop__1__ap >= accesspolicyt__first .
+H25:   loop__1__ap <= accesspolicyt__last .
+H26:   not (element(fld_text(element(accessstringlookup, [
+           loop__1__ap])), [loop__2__i]) <> element(
+           rawaccesspolicy, [loop__2__i])) .
+H27:   loop__2__i = stop__entry__loop__2 .
+H28:   true .
+H29:   not matched .
+H30:   not (loop__1__ap = accesspolicyt__last) .
+        ->
+C1:    succ(loop__1__ap) >= accesspolicyt__first .
+C2:    succ(loop__1__ap) <= accesspolicyt__last .
+C3:    succ(loop__1__ap) >= accesspolicyt__first .
+C4:    succ(loop__1__ap) <= accesspolicyt__last .
+C5:    succ(loop__1__ap) >= accesspolicyt__first .
+C6:    succ(loop__1__ap) <= accesspolicyt__last .
+ 
+
+For path(s) from assertion of line 716 to run-time check associated with statement of line 717:
+
+procedure_readaccesspolicy_9.
+H1:    loop__1__ap >= accesspolicyt__first .
+H2:    loop__1__ap <= accesspolicyt__last .
+H3:    loop__1__ap >= accesspolicyt__first .
+H4:    loop__1__ap <= accesspolicyt__last .
+H5:    loop__1__ap >= accesspolicyt__first .
+H6:    loop__1__ap <= accesspolicyt__last .
+H7:    stop >= natural__first .
+H8:    stop <= natural__last .
+        ->
+C1:    loop__1__ap >= accesspolicyt__first .
+C2:    loop__1__ap <= accesspolicyt__last .
+ 
+
+For path(s) from assertion of line 716 to assertion of line 718:
+
+procedure_readaccesspolicy_10.
+H1:    loop__1__ap >= accesspolicyt__first .
+H2:    loop__1__ap <= accesspolicyt__last .
+H3:    loop__1__ap >= accesspolicyt__first .
+H4:    loop__1__ap <= accesspolicyt__last .
+H5:    loop__1__ap >= accesspolicyt__first .
+H6:    loop__1__ap <= accesspolicyt__last .
+H7:    stop >= natural__first .
+H8:    stop <= natural__last .
+H9:    loop__1__ap >= accesspolicyt__first .
+H10:   loop__1__ap <= accesspolicyt__last .
+H11:   stop = fld_length(element(accessstringlookup, [
+           loop__1__ap])) .
+        ->
+C1:    loop__1__ap >= accesspolicyt__first .
+C2:    loop__1__ap <= accesspolicyt__last .
+C3:    stop >= accesstexti__first .
+C4:    stop <= accesstexti__last .
+C5:    loop__1__ap >= accesspolicyt__first .
+C6:    loop__1__ap <= accesspolicyt__last .
+C7:    loop__1__ap >= accesspolicyt__first .
+C8:    loop__1__ap <= accesspolicyt__last .
+ 
+
+For path(s) from assertion of line 718 to run-time check associated with statement of line 723:
+
+procedure_readaccesspolicy_11.
+H1:    loop__1__ap >= accesspolicyt__first .
+H2:    loop__1__ap <= accesspolicyt__last .
+H3:    stop >= accesstexti__first .
+H4:    stop <= accesstexti__last .
+H5:    loop__1__ap >= accesspolicyt__first .
+H6:    loop__1__ap <= accesspolicyt__last .
+H7:    loop__1__ap >= accesspolicyt__first .
+H8:    loop__1__ap <= accesspolicyt__last .
+H9:    stop >= natural__first .
+H10:   stop <= natural__last .
+        ->
+C1:    stop >= integer__first .
+C2:    stop <= integer__last .
+C3:    1 >= integer__first .
+C4:    1 <= integer__last .
+ 
+
+For path(s) from assertion of line 718 to run-time check associated with statement of line 723:
+
+procedure_readaccesspolicy_12.
+H1:    loop__1__ap >= accesspolicyt__first .
+H2:    loop__1__ap <= accesspolicyt__last .
+H3:    stop >= accesstexti__first .
+H4:    stop <= accesstexti__last .
+H5:    loop__1__ap >= accesspolicyt__first .
+H6:    loop__1__ap <= accesspolicyt__last .
+H7:    loop__1__ap >= accesspolicyt__first .
+H8:    loop__1__ap <= accesspolicyt__last .
+H9:    stop >= natural__first .
+H10:   stop <= natural__last .
+H11:   stop >= integer__first .
+H12:   stop <= integer__last .
+H13:   1 >= integer__first .
+H14:   1 <= integer__last .
+        ->
+C1:    (1 <= stop) -> ((stop >= accesstexti__first) and (
+           stop <= accesstexti__last)) .
+C2:    (1 <= stop) -> ((1 >= accesstexti__first) and (1 <= 
+           accesstexti__last)) .
+ 
+
+For path(s) from assertion of line 718 to assertion of line 724:
+
+procedure_readaccesspolicy_13.
+H1:    loop__1__ap >= accesspolicyt__first .
+H2:    loop__1__ap <= accesspolicyt__last .
+H3:    stop >= accesstexti__first .
+H4:    stop <= accesstexti__last .
+H5:    loop__1__ap >= accesspolicyt__first .
+H6:    loop__1__ap <= accesspolicyt__last .
+H7:    loop__1__ap >= accesspolicyt__first .
+H8:    loop__1__ap <= accesspolicyt__last .
+H9:    stop >= natural__first .
+H10:   stop <= natural__last .
+H11:   stop >= integer__first .
+H12:   stop <= integer__last .
+H13:   1 >= integer__first .
+H14:   1 <= integer__last .
+H15:   (1 <= stop) -> ((stop >= accesstexti__first) and (
+           stop <= accesstexti__last)) .
+H16:   (1 <= stop) -> ((1 >= accesstexti__first) and (1 <= 
+           accesstexti__last)) .
+H17:   stop >= natural__first .
+H18:   stop <= natural__last .
+H19:   1 <= stop .
+        ->
+C1:    loop__1__ap >= accesspolicyt__first .
+C2:    loop__1__ap <= accesspolicyt__last .
+C3:    stop >= accesstexti__first .
+C4:    stop <= accesstexti__last .
+C5:    stop = stop .
+C6:    1 >= accesstexti__first .
+C7:    1 <= accesstexti__last .
+C8:    1 <= stop .
+C9:    1 >= accesstexti__first .
+C10:   1 <= accesstexti__last .
+C11:   1 >= 1 .
+C12:   1 <= stop .
+C13:   stop >= natural__first .
+C14:   stop <= natural__last .
+C15:   loop__1__ap >= accesspolicyt__first .
+C16:   loop__1__ap <= accesspolicyt__last .
+C17:   loop__1__ap >= accesspolicyt__first .
+C18:   loop__1__ap <= accesspolicyt__last .
+ 
+
+For path(s) from assertion of line 724 to assertion of line 724:
+
+procedure_readaccesspolicy_14.
+H1:    loop__1__ap >= accesspolicyt__first .
+H2:    loop__1__ap <= accesspolicyt__last .
+H3:    stop >= accesstexti__first .
+H4:    stop <= accesstexti__last .
+H5:    stop = stop__entry__loop__2 .
+H6:    loop__2__i >= accesstexti__first .
+H7:    loop__2__i <= accesstexti__last .
+H8:    loop__2__i <= stop .
+H9:    loop__2__i >= accesstexti__first .
+H10:   loop__2__i <= accesstexti__last .
+H11:   loop__2__i >= 1 .
+H12:   loop__2__i <= stop__entry__loop__2 .
+H13:   stop__entry__loop__2 >= natural__first .
+H14:   stop__entry__loop__2 <= natural__last .
+H15:   loop__1__ap >= accesspolicyt__first .
+H16:   loop__1__ap <= accesspolicyt__last .
+H17:   loop__1__ap >= accesspolicyt__first .
+H18:   loop__1__ap <= accesspolicyt__last .
+H19:   for_all(i___1: integer, ((i___1 >= accesstexti__first) and (
+           i___1 <= accesstexti__last)) -> ((element(
+           rawaccesspolicy, [i___1]) >= character__first) and (element(
+           rawaccesspolicy, [i___1]) <= character__last))) .
+H20:   loop__2__i >= accesstexti__first .
+H21:   loop__2__i <= accesstexti__last .
+H22:   loop__2__i >= accesstexti__first .
+H23:   loop__2__i <= accesstexti__last .
+H24:   loop__1__ap >= accesspolicyt__first .
+H25:   loop__1__ap <= accesspolicyt__last .
+H26:   not (element(fld_text(element(accessstringlookup, [
+           loop__1__ap])), [loop__2__i]) <> element(
+           rawaccesspolicy, [loop__2__i])) .
+H27:   not (loop__2__i = stop__entry__loop__2) .
+        ->
+C1:    loop__1__ap >= accesspolicyt__first .
+C2:    loop__1__ap <= accesspolicyt__last .
+C3:    stop >= accesstexti__first .
+C4:    stop <= accesstexti__last .
+C5:    stop = stop__entry__loop__2 .
+C6:    loop__2__i + 1 >= accesstexti__first .
+C7:    loop__2__i + 1 <= accesstexti__last .
+C8:    loop__2__i + 1 <= stop .
+C9:    loop__2__i + 1 >= accesstexti__first .
+C10:   loop__2__i + 1 <= accesstexti__last .
+C11:   loop__2__i + 1 >= 1 .
+C12:   loop__2__i + 1 <= stop__entry__loop__2 .
+C13:   stop__entry__loop__2 >= natural__first .
+C14:   stop__entry__loop__2 <= natural__last .
+C15:   loop__1__ap >= accesspolicyt__first .
+C16:   loop__1__ap <= accesspolicyt__last .
+C17:   loop__1__ap >= accesspolicyt__first .
+C18:   loop__1__ap <= accesspolicyt__last .
+ 
+
+For path(s) from assertion of line 724 to run-time check associated with statement of line 729:
+
+procedure_readaccesspolicy_15.
+H1:    loop__1__ap >= accesspolicyt__first .
+H2:    loop__1__ap <= accesspolicyt__last .
+H3:    stop >= accesstexti__first .
+H4:    stop <= accesstexti__last .
+H5:    stop = stop__entry__loop__2 .
+H6:    loop__2__i >= accesstexti__first .
+H7:    loop__2__i <= accesstexti__last .
+H8:    loop__2__i <= stop .
+H9:    loop__2__i >= accesstexti__first .
+H10:   loop__2__i <= accesstexti__last .
+H11:   loop__2__i >= 1 .
+H12:   loop__2__i <= stop__entry__loop__2 .
+H13:   stop__entry__loop__2 >= natural__first .
+H14:   stop__entry__loop__2 <= natural__last .
+H15:   loop__1__ap >= accesspolicyt__first .
+H16:   loop__1__ap <= accesspolicyt__last .
+H17:   loop__1__ap >= accesspolicyt__first .
+H18:   loop__1__ap <= accesspolicyt__last .
+H19:   for_all(i___1: integer, ((i___1 >= accesstexti__first) and (
+           i___1 <= accesstexti__last)) -> ((element(
+           rawaccesspolicy, [i___1]) >= character__first) and (element(
+           rawaccesspolicy, [i___1]) <= character__last))) .
+        ->
+C1:    loop__2__i >= accesstexti__first .
+C2:    loop__2__i <= accesstexti__last .
+C3:    loop__2__i >= accesstexti__first .
+C4:    loop__2__i <= accesstexti__last .
+C5:    loop__1__ap >= accesspolicyt__first .
+C6:    loop__1__ap <= accesspolicyt__last .
+ 
+
+For path(s) from assertion of line 716 to run-time check associated with statement of line 736:
+
+procedure_readaccesspolicy_16.
+H1:    loop__1__ap >= accesspolicyt__first .
+H2:    loop__1__ap <= accesspolicyt__last .
+H3:    loop__1__ap >= accesspolicyt__first .
+H4:    loop__1__ap <= accesspolicyt__last .
+H5:    loop__1__ap >= accesspolicyt__first .
+H6:    loop__1__ap <= accesspolicyt__last .
+H7:    stop >= natural__first .
+H8:    stop <= natural__last .
+H9:    loop__1__ap >= accesspolicyt__first .
+H10:   loop__1__ap <= accesspolicyt__last .
+H11:   not (stop = fld_length(element(accessstringlookup, [
+           loop__1__ap]))) .
+H12:   true .
+H13:   matched .
+        ->
+C1:    loop__1__ap >= accesspolicyt__first .
+C2:    loop__1__ap <= accesspolicyt__last .
+ 
+
+For path(s) from assertion of line 718 to run-time check associated with statement of line 736:
+
+procedure_readaccesspolicy_17.
+H1:    loop__1__ap >= accesspolicyt__first .
+H2:    loop__1__ap <= accesspolicyt__last .
+H3:    stop >= accesstexti__first .
+H4:    stop <= accesstexti__last .
+H5:    loop__1__ap >= accesspolicyt__first .
+H6:    loop__1__ap <= accesspolicyt__last .
+H7:    loop__1__ap >= accesspolicyt__first .
+H8:    loop__1__ap <= accesspolicyt__last .
+H9:    stop >= natural__first .
+H10:   stop <= natural__last .
+H11:   stop >= integer__first .
+H12:   stop <= integer__last .
+H13:   1 >= integer__first .
+H14:   1 <= integer__last .
+H15:   (1 <= stop) -> ((stop >= accesstexti__first) and (
+           stop <= accesstexti__last)) .
+H16:   (1 <= stop) -> ((1 >= accesstexti__first) and (1 <= 
+           accesstexti__last)) .
+H17:   stop >= natural__first .
+H18:   stop <= natural__last .
+H19:   not (1 <= stop) .
+H20:   true .
+H21:   true .
+        ->
+C1:    loop__1__ap >= accesspolicyt__first .
+C2:    loop__1__ap <= accesspolicyt__last .
+ 
+
+For path(s) from assertion of line 724 to run-time check associated with statement of line 736:
+
+procedure_readaccesspolicy_18.
+H1:    loop__1__ap >= accesspolicyt__first .
+H2:    loop__1__ap <= accesspolicyt__last .
+H3:    stop >= accesstexti__first .
+H4:    stop <= accesstexti__last .
+H5:    stop = stop__entry__loop__2 .
+H6:    loop__2__i >= accesstexti__first .
+H7:    loop__2__i <= accesstexti__last .
+H8:    loop__2__i <= stop .
+H9:    loop__2__i >= accesstexti__first .
+H10:   loop__2__i <= accesstexti__last .
+H11:   loop__2__i >= 1 .
+H12:   loop__2__i <= stop__entry__loop__2 .
+H13:   stop__entry__loop__2 >= natural__first .
+H14:   stop__entry__loop__2 <= natural__last .
+H15:   loop__1__ap >= accesspolicyt__first .
+H16:   loop__1__ap <= accesspolicyt__last .
+H17:   loop__1__ap >= accesspolicyt__first .
+H18:   loop__1__ap <= accesspolicyt__last .
+H19:   for_all(i___1: integer, ((i___1 >= accesstexti__first) and (
+           i___1 <= accesstexti__last)) -> ((element(
+           rawaccesspolicy, [i___1]) >= character__first) and (element(
+           rawaccesspolicy, [i___1]) <= character__last))) .
+H20:   loop__2__i >= accesstexti__first .
+H21:   loop__2__i <= accesstexti__last .
+H22:   loop__2__i >= accesstexti__first .
+H23:   loop__2__i <= accesstexti__last .
+H24:   loop__1__ap >= accesspolicyt__first .
+H25:   loop__1__ap <= accesspolicyt__last .
+H26:   element(fld_text(element(accessstringlookup, [
+           loop__1__ap])), [loop__2__i]) <> element(
+           rawaccesspolicy, [loop__2__i]) .
+H27:   true .
+H28:   false .
+        ->
+C1:    loop__1__ap >= accesspolicyt__first .
+C2:    loop__1__ap <= accesspolicyt__last .
+ 
+
+procedure_readaccesspolicy_19.
+H1:    loop__1__ap >= accesspolicyt__first .
+H2:    loop__1__ap <= accesspolicyt__last .
+H3:    stop >= accesstexti__first .
+H4:    stop <= accesstexti__last .
+H5:    stop = stop__entry__loop__2 .
+H6:    loop__2__i >= accesstexti__first .
+H7:    loop__2__i <= accesstexti__last .
+H8:    loop__2__i <= stop .
+H9:    loop__2__i >= accesstexti__first .
+H10:   loop__2__i <= accesstexti__last .
+H11:   loop__2__i >= 1 .
+H12:   loop__2__i <= stop__entry__loop__2 .
+H13:   stop__entry__loop__2 >= natural__first .
+H14:   stop__entry__loop__2 <= natural__last .
+H15:   loop__1__ap >= accesspolicyt__first .
+H16:   loop__1__ap <= accesspolicyt__last .
+H17:   loop__1__ap >= accesspolicyt__first .
+H18:   loop__1__ap <= accesspolicyt__last .
+H19:   for_all(i___1: integer, ((i___1 >= accesstexti__first) and (
+           i___1 <= accesstexti__last)) -> ((element(
+           rawaccesspolicy, [i___1]) >= character__first) and (element(
+           rawaccesspolicy, [i___1]) <= character__last))) .
+H20:   loop__2__i >= accesstexti__first .
+H21:   loop__2__i <= accesstexti__last .
+H22:   loop__2__i >= accesstexti__first .
+H23:   loop__2__i <= accesstexti__last .
+H24:   loop__1__ap >= accesspolicyt__first .
+H25:   loop__1__ap <= accesspolicyt__last .
+H26:   not (element(fld_text(element(accessstringlookup, [
+           loop__1__ap])), [loop__2__i]) <> element(
+           rawaccesspolicy, [loop__2__i])) .
+H27:   loop__2__i = stop__entry__loop__2 .
+H28:   true .
+H29:   matched .
+        ->
+C1:    loop__1__ap >= accesspolicyt__first .
+C2:    loop__1__ap <= accesspolicyt__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_readaccesspolicy_20.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+For path(s) from assertion of line 716 to finish:
+
+procedure_readaccesspolicy_21.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_readaccesspolicy_22.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+For path(s) from assertion of line 718 to finish:
+
+procedure_readaccesspolicy_23.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_readaccesspolicy_24.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+For path(s) from assertion of line 724 to finish:
+
+procedure_readaccesspolicy_25.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_readaccesspolicy_26.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_readaccesspolicy_27.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_readaccesspolicy_28.
+*** true .          /* trivially true VC removed by Examiner */
+
+

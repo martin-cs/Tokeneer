@@ -1,0 +1,219 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:12.68}
+
+                         {procedure KeyStore.AddKey}
+
+
+title procedure addkey;
+
+  function round__(real) : integer;
+  type character = integer;
+  type basictypes__unsigned32t = integer;
+  type audittypes__elementt = (audittypes__startunenrolledtis, 
+     audittypes__startenrolledtis, audittypes__enrolmentcomplete, 
+     audittypes__enrolmentfailed, audittypes__displaychanged, 
+     audittypes__screenchanged, audittypes__doorclosed, 
+     audittypes__dooropened, audittypes__latchlocked, 
+     audittypes__latchunlocked, audittypes__alarmraised, 
+     audittypes__alarmsilenced, audittypes__truncatelog, 
+     audittypes__auditalarmraised, audittypes__auditalarmsilenced, 
+     audittypes__usertokenremoved, audittypes__usertokenpresent, 
+     audittypes__usertokeninvalid, audittypes__authcertvalid, 
+     audittypes__authcertinvalid, audittypes__fingerdetected, 
+     audittypes__fingertimeout, audittypes__fingermatched, 
+     audittypes__fingernotmatched, audittypes__authcertwritten, 
+     audittypes__authcertwritefailed, audittypes__entrypermitted, 
+     audittypes__entrytimeout, audittypes__entrydenied, 
+     audittypes__admintokenpresent, audittypes__admintokenvalid, 
+     audittypes__admintokeninvalid, audittypes__admintokenexpired, 
+     audittypes__admintokenremoved, audittypes__invalidoprequest, 
+     audittypes__operationstart, audittypes__archivelog, 
+     audittypes__archivecomplete, audittypes__archivecheckfailed, 
+     audittypes__updatedconfigdata, audittypes__invalidconfigdata, 
+     audittypes__shutdown, audittypes__overridelock, 
+     audittypes__systemfault);
+  type audittypes__severityt = (audittypes__information, 
+     audittypes__warning, audittypes__critical);
+  type cryptotypes__issueridt = integer;
+  type cryptotypes__algorithmt = (cryptotypes__rsa, 
+     cryptotypes__md2, cryptotypes__md5, cryptotypes__sha_1, 
+     cryptotypes__ripemd128, cryptotypes__ripemd160, 
+     cryptotypes__md2_rsa, cryptotypes__md5_rsa, 
+     cryptotypes__sha1_rsa, cryptotypes__ripemd128_rsa, 
+     cryptotypes__ripemd160_rsa);
+  type cryptotypes__keyidt = integer;
+  type cryptotypes__keylengtht = integer;
+  type keystore__interface__store__type = pending;
+  type keystore__interface__maskt = integer;
+  type keystore__interface__returnvaluet = (
+     keystore__interface__ok, keystore__interface__hostmemory, 
+     keystore__interface__generalerror, 
+     keystore__interface__functionfailed, 
+     keystore__interface__argumentsbad, 
+     keystore__interface__attributereadonly, 
+     keystore__interface__attributetypeinvalid, 
+     keystore__interface__attributevalueinvalid, 
+     keystore__interface__datainvalid, 
+     keystore__interface__datalenrange, 
+     keystore__interface__deviceerror, 
+     keystore__interface__devicememory, 
+     keystore__interface__functioncanceled, 
+     keystore__interface__keyhandleinvalid, 
+     keystore__interface__keysizerange, 
+     keystore__interface__keytypeinconsistent, 
+     keystore__interface__keyfunctionnotpermitted, 
+     keystore__interface__mechanisminvalid, 
+     keystore__interface__mechanismparaminvalid, 
+     keystore__interface__objecthandleinvalid, 
+     keystore__interface__operationactive, 
+     keystore__interface__operationnotinitialized, 
+     keystore__interface__signatureinvalid, 
+     keystore__interface__signaturelenrange, 
+     keystore__interface__templateincomplete, 
+     keystore__interface__templateinconsistent, 
+     keystore__interface__buffertoosmall, 
+     keystore__interface__cryptokinotinitialized, 
+     keystore__interface__cryptokialreadyinitialized);
+  type string = array [integer] of character;
+  const null__string : string = pending;
+  type cryptotypes__keypartt = record
+        algorithmid : cryptotypes__algorithmt;
+        keyid : integer;
+        keylength : integer
+     end;
+  type prf_storet = record
+        keystore__interface__store : 
+     keystore__interface__store__type
+     end;
+  type issystemt = array [keystore__interface__returnvaluet] of boolean;
+  type cryptotypes__issuert = record
+        id : integer;
+        namelength : integer;
+        name : string
+     end;
+  type keystore__interface__keytemplatet = record
+        attrmask : integer;
+        owner : cryptotypes__issuert;
+        keyid : integer;
+        keylength : integer;
+        ispublic : boolean
+     end;
+  type optionalprivatekeyt = record
+        ispresent : boolean;
+        owner : cryptotypes__issuert
+     end;
+  type state__type = record
+        thistisinfo : optionalprivatekeyt
+     end;
+  const keystore__interface__fullkeymask : integer = pending;
+  const issystem : issystemt = pending;
+  const keystore__interface__returnvaluet__base__first : 
+     keystore__interface__returnvaluet = pending; 
+  const keystore__interface__returnvaluet__base__last : 
+     keystore__interface__returnvaluet = pending; 
+  const keystore__interface__maskt__base__first : integer = pending; 
+  const keystore__interface__maskt__base__last : integer = pending; 
+  const cryptotypes__keylengtht__base__first : integer = pending; 
+  const cryptotypes__keylengtht__base__last : integer = pending; 
+  const cryptotypes__keyidt__base__first : integer = pending; 
+  const cryptotypes__keyidt__base__last : integer = pending; 
+  const cryptotypes__algorithmt__base__first : 
+     cryptotypes__algorithmt = pending; 
+  const cryptotypes__algorithmt__base__last : 
+     cryptotypes__algorithmt = pending; 
+  const cryptotypes__issueridt__base__first : integer = pending; 
+  const cryptotypes__issueridt__base__last : integer = pending; 
+  const cryptotypes__namei__base__first : integer = pending; 
+  const cryptotypes__namei__base__last : integer = pending; 
+  const cryptotypes__namecountt__base__first : integer = pending; 
+  const cryptotypes__namecountt__base__last : integer = pending; 
+  const audittypes__descriptioni__base__first : integer = pending; 
+  const audittypes__descriptioni__base__last : integer = pending; 
+  const audittypes__severityt__base__first : 
+     audittypes__severityt = pending; 
+  const audittypes__severityt__base__last : audittypes__severityt = pending; 
+  const audittypes__elementt__base__first : audittypes__elementt = pending; 
+  const audittypes__elementt__base__last : audittypes__elementt = pending; 
+  const basictypes__unsigned32t__base__first : integer = pending; 
+  const basictypes__unsigned32t__base__last : integer = pending; 
+  const positive__base__first : integer = pending; 
+  const positive__base__last : integer = pending; 
+  const character__base__first : character = pending; 
+  const character__base__last : character = pending; 
+  const integer__base__first : integer = pending; 
+  const integer__base__last : integer = pending; 
+  const optionalprivatekeyt__size : integer = pending; 
+  const keystore__interface__returnvaluet__first : 
+     keystore__interface__returnvaluet = pending; 
+  const keystore__interface__returnvaluet__last : 
+     keystore__interface__returnvaluet = pending; 
+  const keystore__interface__returnvaluet__size : integer = pending; 
+  const keystore__interface__keytemplatet__size : integer = pending; 
+  const keystore__interface__maskt__first : integer = pending; 
+  const keystore__interface__maskt__last : integer = pending; 
+  const keystore__interface__maskt__modulus : integer = pending; 
+  const keystore__interface__maskt__size : integer = pending; 
+  const cryptotypes__keypartt__size : integer = pending; 
+  const cryptotypes__keylengtht__first : integer = pending; 
+  const cryptotypes__keylengtht__last : integer = pending; 
+  const cryptotypes__keylengtht__size : integer = pending; 
+  const cryptotypes__keyidt__first : integer = pending; 
+  const cryptotypes__keyidt__last : integer = pending; 
+  const cryptotypes__keyidt__size : integer = pending; 
+  const cryptotypes__algorithmt__first : cryptotypes__algorithmt = pending; 
+  const cryptotypes__algorithmt__last : cryptotypes__algorithmt = pending; 
+  const cryptotypes__algorithmt__size : integer = pending; 
+  const cryptotypes__issuert__size : integer = pending; 
+  const cryptotypes__issueridt__first : integer = pending; 
+  const cryptotypes__issueridt__last : integer = pending; 
+  const cryptotypes__issueridt__size : integer = pending; 
+  const cryptotypes__namei__first : integer = pending; 
+  const cryptotypes__namei__last : integer = pending; 
+  const cryptotypes__namei__size : integer = pending; 
+  const cryptotypes__namecountt__first : integer = pending; 
+  const cryptotypes__namecountt__last : integer = pending; 
+  const cryptotypes__namecountt__size : integer = pending; 
+  const audittypes__descriptioni__first : integer = pending; 
+  const audittypes__descriptioni__last : integer = pending; 
+  const audittypes__descriptioni__size : integer = pending; 
+  const audittypes__severityt__first : audittypes__severityt = pending; 
+  const audittypes__severityt__last : audittypes__severityt = pending; 
+  const audittypes__severityt__size : integer = pending; 
+  const audittypes__elementt__first : audittypes__elementt = pending; 
+  const audittypes__elementt__last : audittypes__elementt = pending; 
+  const audittypes__elementt__size : integer = pending; 
+  const basictypes__unsigned32t__first : integer = pending; 
+  const basictypes__unsigned32t__last : integer = pending; 
+  const basictypes__unsigned32t__size : integer = pending; 
+  const positive__first : integer = pending; 
+  const positive__last : integer = pending; 
+  const positive__size : integer = pending; 
+  const character__first : character = pending; 
+  const character__last : character = pending; 
+  const character__size : integer = pending; 
+  const integer__first : integer = pending; 
+  const integer__last : integer = pending; 
+  const integer__size : integer = pending; 
+  var state : state__type;
+  var store : prf_storet;
+  var theowner : cryptotypes__issuert;
+  var thekey : cryptotypes__keypartt;
+  var ispublic : boolean;
+  var added : boolean;
+  var keystore__interface__store : 
+     keystore__interface__store__type;
+  var thistisinfo : optionalprivatekeyt;
+  var retval : keystore__interface__returnvaluet;
+  function keystore__privatekeypresent(state__type) : boolean;
+  function convertretvaltotext(keystore__interface__returnvaluet, 
+     string) : string;
+  function privatekeypresent(optionalprivatekeyt) : boolean;
+  var retval__1 : keystore__interface__returnvaluet;
+
+end;

@@ -1,0 +1,211 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:20.13*/
+
+           /*procedure UserToken.ReadAndCheckAuthCert.CheckIDCertOK*/
+
+
+rule_family checkidcerto_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+checkidcerto_rules(1): integer__size >= 0 may_be_deduced.
+checkidcerto_rules(2): integer__first may_be_replaced_by -2147483648.
+checkidcerto_rules(3): integer__last may_be_replaced_by 2147483647.
+checkidcerto_rules(4): integer__base__first may_be_replaced_by -2147483648.
+checkidcerto_rules(5): integer__base__last may_be_replaced_by 2147483647.
+checkidcerto_rules(6): character__size >= 0 may_be_deduced.
+checkidcerto_rules(7): character__first may_be_replaced_by 0.
+checkidcerto_rules(8): character__last may_be_replaced_by 255.
+checkidcerto_rules(9): character__base__first may_be_replaced_by 0.
+checkidcerto_rules(10): character__base__last may_be_replaced_by 255.
+checkidcerto_rules(11): positive__size >= 0 may_be_deduced.
+checkidcerto_rules(12): positive__first may_be_replaced_by 1.
+checkidcerto_rules(13): positive__last may_be_replaced_by 2147483647.
+checkidcerto_rules(14): positive__base__first may_be_replaced_by -2147483648.
+checkidcerto_rules(15): positive__base__last may_be_replaced_by 2147483647.
+checkidcerto_rules(16): basictypes__unsigned32t__size >= 0 may_be_deduced.
+checkidcerto_rules(17): basictypes__unsigned32t__size may_be_replaced_by 32.
+checkidcerto_rules(18): basictypes__unsigned32t__first may_be_replaced_by 0.
+checkidcerto_rules(19): basictypes__unsigned32t__last may_be_replaced_by 4294967295.
+checkidcerto_rules(20): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__base__last may_be_deduced.
+checkidcerto_rules(21): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__first may_be_deduced.
+checkidcerto_rules(22): basictypes__unsigned32t__base__last >= 
+     basictypes__unsigned32t__last may_be_deduced.
+checkidcerto_rules(23): cryptotypes__namecountt__size >= 0 may_be_deduced.
+checkidcerto_rules(24): cryptotypes__namecountt__first may_be_replaced_by 0.
+checkidcerto_rules(25): cryptotypes__namecountt__last may_be_replaced_by 40.
+checkidcerto_rules(26): cryptotypes__namecountt__base__first may_be_replaced_by -2147483648.
+checkidcerto_rules(27): cryptotypes__namecountt__base__last may_be_replaced_by 2147483647.
+checkidcerto_rules(28): cryptotypes__namei__size >= 0 may_be_deduced.
+checkidcerto_rules(29): cryptotypes__namei__first may_be_replaced_by 1.
+checkidcerto_rules(30): cryptotypes__namei__last may_be_replaced_by 40.
+checkidcerto_rules(31): cryptotypes__namei__base__first may_be_replaced_by -2147483648.
+checkidcerto_rules(32): cryptotypes__namei__base__last may_be_replaced_by 2147483647.
+checkidcerto_rules(33): cryptotypes__issueridt__size >= 0 may_be_deduced.
+checkidcerto_rules(34): cryptotypes__issueridt__first may_be_replaced_by 0.
+checkidcerto_rules(35): cryptotypes__issueridt__last may_be_replaced_by 4294967295.
+checkidcerto_rules(36): cryptotypes__issueridt__base__first <= 
+     cryptotypes__issueridt__base__last may_be_deduced.
+checkidcerto_rules(37): cryptotypes__issueridt__base__first <= 
+     cryptotypes__issueridt__first may_be_deduced.
+checkidcerto_rules(38): cryptotypes__issueridt__base__last >= 
+     cryptotypes__issueridt__last may_be_deduced.
+checkidcerto_rules(39): cryptotypes__issuert__size >= 0 may_be_deduced.
+checkidcerto_rules(40): A = B may_be_deduced_from
+     [goal(checktype(A,cryptotypes__issuert)),
+      goal(checktype(B,cryptotypes__issuert)),
+      fld_id(A) = fld_id(B),
+      fld_namelength(A) = fld_namelength(B),
+      fld_name(A) = fld_name(B)].
+checkidcerto_rules(41): certtypes__rawcertificatei__size >= 0 may_be_deduced.
+checkidcerto_rules(42): certtypes__rawcertificatei__first may_be_replaced_by 1.
+checkidcerto_rules(43): certtypes__rawcertificatei__last may_be_replaced_by 4096.
+checkidcerto_rules(44): certtypes__rawcertificatei__base__first may_be_replaced_by -2147483648.
+checkidcerto_rules(45): certtypes__rawcertificatei__base__last may_be_replaced_by 2147483647.
+checkidcerto_rules(46): certtypes__certificatet__size >= 0 may_be_deduced.
+checkidcerto_rules(47): certtypes__certificatet__first may_be_replaced_by certtypes__idcert.
+checkidcerto_rules(48): certtypes__certificatet__last may_be_replaced_by certtypes__iandacert.
+checkidcerto_rules(49): certtypes__certificatet__base__first may_be_replaced_by certtypes__idcert.
+checkidcerto_rules(50): certtypes__certificatet__base__last may_be_replaced_by certtypes__iandacert.
+checkidcerto_rules(51): certtypes__certificatet__pos(
+     certtypes__certificatet__first) may_be_replaced_by 0.
+checkidcerto_rules(52): certtypes__certificatet__pos(
+     certtypes__idcert) may_be_replaced_by 0.
+checkidcerto_rules(53): certtypes__certificatet__val(0) may_be_replaced_by 
+     certtypes__idcert.
+checkidcerto_rules(54): certtypes__certificatet__pos(
+     certtypes__authcert) may_be_replaced_by 1.
+checkidcerto_rules(55): certtypes__certificatet__val(1) may_be_replaced_by 
+     certtypes__authcert.
+checkidcerto_rules(56): certtypes__certificatet__pos(
+     certtypes__privcert) may_be_replaced_by 2.
+checkidcerto_rules(57): certtypes__certificatet__val(2) may_be_replaced_by 
+     certtypes__privcert.
+checkidcerto_rules(58): certtypes__certificatet__pos(
+     certtypes__iandacert) may_be_replaced_by 3.
+checkidcerto_rules(59): certtypes__certificatet__val(3) may_be_replaced_by 
+     certtypes__iandacert.
+checkidcerto_rules(60): certtypes__certificatet__pos(
+     certtypes__certificatet__last) may_be_replaced_by 3.
+checkidcerto_rules(61): certtypes__certificatet__pos(succ(X)) may_be_replaced_by 
+     certtypes__certificatet__pos(X) + 1
+     if [X <=certtypes__iandacert, X <> certtypes__iandacert].
+checkidcerto_rules(62): certtypes__certificatet__pos(pred(X)) may_be_replaced_by 
+     certtypes__certificatet__pos(X) - 1
+     if [X >=certtypes__idcert, X <> certtypes__idcert].
+checkidcerto_rules(63): certtypes__certificatet__pos(X) >= 0 may_be_deduced_from
+     [certtypes__idcert <= X, X <= certtypes__iandacert].
+checkidcerto_rules(64): certtypes__certificatet__pos(X) <= 3 may_be_deduced_from
+     [certtypes__idcert <= X, X <= certtypes__iandacert].
+checkidcerto_rules(65): certtypes__certificatet__val(X) >= 
+     certtypes__idcert may_be_deduced_from
+     [0 <= X, X <= 3].
+checkidcerto_rules(66): certtypes__certificatet__val(X) <= 
+     certtypes__iandacert may_be_deduced_from
+     [0 <= X, X <= 3].
+checkidcerto_rules(67): succ(certtypes__certificatet__val(X)) may_be_replaced_by 
+     certtypes__certificatet__val(X+1)
+     if [0 <= X, X < 3].
+checkidcerto_rules(68): pred(certtypes__certificatet__val(X)) may_be_replaced_by 
+     certtypes__certificatet__val(X-1)
+     if [0 < X, X <= 3].
+checkidcerto_rules(69): certtypes__certificatet__pos(
+     certtypes__certificatet__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 3].
+checkidcerto_rules(70): certtypes__certificatet__val(
+     certtypes__certificatet__pos(X)) may_be_replaced_by X
+     if [certtypes__idcert <= X, X <= certtypes__iandacert].
+checkidcerto_rules(71): certtypes__certificatet__pos(X) <= 
+     certtypes__certificatet__pos(Y) & X <= Y are_interchangeable 
+     if [certtypes__idcert <= X, X <= certtypes__iandacert, 
+     certtypes__idcert <= Y, Y <= certtypes__iandacert].
+checkidcerto_rules(72): certtypes__certificatet__val(X) <= 
+     certtypes__certificatet__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 3, 0 <= Y, Y <= 3].
+checkidcerto_rules(73): certtypes__serialnumbert__size >= 0 may_be_deduced.
+checkidcerto_rules(74): certtypes__serialnumbert__first may_be_replaced_by 0.
+checkidcerto_rules(75): certtypes__serialnumbert__last may_be_replaced_by 4294967295.
+checkidcerto_rules(76): certtypes__serialnumbert__base__first <= 
+     certtypes__serialnumbert__base__last may_be_deduced.
+checkidcerto_rules(77): certtypes__serialnumbert__base__first <= 
+     certtypes__serialnumbert__first may_be_deduced.
+checkidcerto_rules(78): certtypes__serialnumbert__base__last >= 
+     certtypes__serialnumbert__last may_be_deduced.
+checkidcerto_rules(79): certtypes__idt__size >= 0 may_be_deduced.
+checkidcerto_rules(80): A = B may_be_deduced_from
+     [goal(checktype(A,certtypes__idt)),
+      goal(checktype(B,certtypes__idt)),
+      fld_issuer(A) = fld_issuer(B),
+      fld_serialnumber(A) = fld_serialnumber(B)].
+checkidcerto_rules(81): cert__id__contentst__size >= 0 may_be_deduced.
+checkidcerto_rules(82): A = B may_be_deduced_from
+     [goal(checktype(A,cert__id__contentst)),
+      goal(checktype(B,cert__id__contentst)),
+      fld_inherit(A) = fld_inherit(B)].
+checkidcerto_rules(83): tokentypes__tokenidt__size >= 0 may_be_deduced.
+checkidcerto_rules(84): tokentypes__tokenidt__first may_be_replaced_by 0.
+checkidcerto_rules(85): tokentypes__tokenidt__last may_be_replaced_by 4294967295.
+checkidcerto_rules(86): tokentypes__tokenidt__base__first <= 
+     tokentypes__tokenidt__base__last may_be_deduced.
+checkidcerto_rules(87): tokentypes__tokenidt__base__first <= 
+     tokentypes__tokenidt__first may_be_deduced.
+checkidcerto_rules(88): tokentypes__tokenidt__base__last >= 
+     tokentypes__tokenidt__last may_be_deduced.
+checkidcerto_rules(89): certificatestatus__size >= 0 may_be_deduced.
+checkidcerto_rules(90): certificatestatus__first may_be_replaced_by bad.
+checkidcerto_rules(91): certificatestatus__last may_be_replaced_by validcert.
+checkidcerto_rules(92): certificatestatus__base__first may_be_replaced_by bad.
+checkidcerto_rules(93): certificatestatus__base__last may_be_replaced_by validcert.
+checkidcerto_rules(94): certificatestatus__pos(certificatestatus__first) may_be_replaced_by 0.
+checkidcerto_rules(95): certificatestatus__pos(bad) may_be_replaced_by 0.
+checkidcerto_rules(96): certificatestatus__val(0) may_be_replaced_by 
+     bad.
+checkidcerto_rules(97): certificatestatus__pos(notverified) may_be_replaced_by 1.
+checkidcerto_rules(98): certificatestatus__val(1) may_be_replaced_by 
+     notverified.
+checkidcerto_rules(99): certificatestatus__pos(notcurrent) may_be_replaced_by 2.
+checkidcerto_rules(100): certificatestatus__val(2) may_be_replaced_by 
+     notcurrent.
+checkidcerto_rules(101): certificatestatus__pos(validcert) may_be_replaced_by 3.
+checkidcerto_rules(102): certificatestatus__val(3) may_be_replaced_by 
+     validcert.
+checkidcerto_rules(103): certificatestatus__pos(certificatestatus__last) may_be_replaced_by 3.
+checkidcerto_rules(104): certificatestatus__pos(succ(X)) may_be_replaced_by 
+     certificatestatus__pos(X) + 1
+     if [X <=validcert, X <> validcert].
+checkidcerto_rules(105): certificatestatus__pos(pred(X)) may_be_replaced_by 
+     certificatestatus__pos(X) - 1
+     if [X >=bad, X <> bad].
+checkidcerto_rules(106): certificatestatus__pos(X) >= 0 may_be_deduced_from
+     [bad <= X, X <= validcert].
+checkidcerto_rules(107): certificatestatus__pos(X) <= 3 may_be_deduced_from
+     [bad <= X, X <= validcert].
+checkidcerto_rules(108): certificatestatus__val(X) >= bad may_be_deduced_from
+     [0 <= X, X <= 3].
+checkidcerto_rules(109): certificatestatus__val(X) <= validcert may_be_deduced_from
+     [0 <= X, X <= 3].
+checkidcerto_rules(110): succ(certificatestatus__val(X)) may_be_replaced_by 
+     certificatestatus__val(X+1)
+     if [0 <= X, X < 3].
+checkidcerto_rules(111): pred(certificatestatus__val(X)) may_be_replaced_by 
+     certificatestatus__val(X-1)
+     if [0 < X, X <= 3].
+checkidcerto_rules(112): certificatestatus__pos(certificatestatus__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 3].
+checkidcerto_rules(113): certificatestatus__val(certificatestatus__pos(X)) may_be_replaced_by X
+     if [bad <= X, X <= validcert].
+checkidcerto_rules(114): certificatestatus__pos(X) <= 
+     certificatestatus__pos(Y) & X <= Y are_interchangeable 
+     if [bad <= X, X <= validcert, bad <= Y, Y <= validcert].
+checkidcerto_rules(115): certificatestatus__val(X) <= 
+     certificatestatus__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 3, 0 <= Y, Y <= 3].

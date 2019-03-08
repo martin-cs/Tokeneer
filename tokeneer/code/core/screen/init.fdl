@@ -1,0 +1,82 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:23.68}
+
+                           {procedure Screen.Init}
+
+
+title procedure init;
+
+  function round__(real) : integer;
+  type audittypes__elementt = (audittypes__startunenrolledtis, 
+     audittypes__startenrolledtis, audittypes__enrolmentcomplete, 
+     audittypes__enrolmentfailed, audittypes__displaychanged, 
+     audittypes__screenchanged, audittypes__doorclosed, 
+     audittypes__dooropened, audittypes__latchlocked, 
+     audittypes__latchunlocked, audittypes__alarmraised, 
+     audittypes__alarmsilenced, audittypes__truncatelog, 
+     audittypes__auditalarmraised, audittypes__auditalarmsilenced, 
+     audittypes__usertokenremoved, audittypes__usertokenpresent, 
+     audittypes__usertokeninvalid, audittypes__authcertvalid, 
+     audittypes__authcertinvalid, audittypes__fingerdetected, 
+     audittypes__fingertimeout, audittypes__fingermatched, 
+     audittypes__fingernotmatched, audittypes__authcertwritten, 
+     audittypes__authcertwritefailed, audittypes__entrypermitted, 
+     audittypes__entrytimeout, audittypes__entrydenied, 
+     audittypes__admintokenpresent, audittypes__admintokenvalid, 
+     audittypes__admintokeninvalid, audittypes__admintokenexpired, 
+     audittypes__admintokenremoved, audittypes__invalidoprequest, 
+     audittypes__operationstart, audittypes__archivelog, 
+     audittypes__archivecomplete, audittypes__archivecheckfailed, 
+     audittypes__updatedconfigdata, audittypes__invalidconfigdata, 
+     audittypes__shutdown, audittypes__overridelock, 
+     audittypes__systemfault);
+  type audittypes__severityt = (audittypes__information, 
+     audittypes__warning, audittypes__critical);
+  type alarmtypes__statust = (alarmtypes__alarming, 
+     alarmtypes__silent);
+  type msgtextt = (clear, welcomeadmin, busy, removeadmintoken, 
+     closedoor, requestadminop, doingop, invalidrequest, 
+     invaliddata, archivefailed, insertenrolmentdata, 
+     validatingenrolmentdata, enrolmentfailed, insertblankfloppy, 
+     insertconfigdata);
+  const msgtextt__base__first : msgtextt = pending; 
+  const msgtextt__base__last : msgtextt = pending; 
+  const alarmtypes__statust__base__first : alarmtypes__statust = pending; 
+  const alarmtypes__statust__base__last : alarmtypes__statust = pending; 
+  const audittypes__severityt__base__first : 
+     audittypes__severityt = pending; 
+  const audittypes__severityt__base__last : audittypes__severityt = pending; 
+  const audittypes__elementt__base__first : audittypes__elementt = pending; 
+  const audittypes__elementt__base__last : audittypes__elementt = pending; 
+  const msgtextt__first : msgtextt = pending; 
+  const msgtextt__last : msgtextt = pending; 
+  const msgtextt__size : integer = pending; 
+  const alarmtypes__statust__first : alarmtypes__statust = pending; 
+  const alarmtypes__statust__last : alarmtypes__statust = pending; 
+  const alarmtypes__statust__size : integer = pending; 
+  const audittypes__severityt__first : audittypes__severityt = pending; 
+  const audittypes__severityt__last : audittypes__severityt = pending; 
+  const audittypes__severityt__size : integer = pending; 
+  const audittypes__elementt__first : audittypes__elementt = pending; 
+  const audittypes__elementt__last : audittypes__elementt = pending; 
+  const audittypes__elementt__size : integer = pending; 
+  var isenrolled : boolean;
+  var currentmsg : msgtextt;
+  var currentdooralarm : alarmtypes__statust;
+  var currentlogalarm : alarmtypes__statust;
+  var screenok : boolean;
+  var writeok : boolean;
+  var writeok__4 : boolean;
+  var writeok__3 : boolean;
+  var screenok__1 : boolean;
+  var currentmsg__4 : msgtextt;
+  var currentlogalarm__3 : alarmtypes__statust;
+  var currentdooralarm__3 : alarmtypes__statust;
+
+end;

@@ -1,0 +1,42 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:18.17
+
+                       procedure Stats.AddFailedEntry
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 70:
+
+procedure_addfailedentry_1.
+H1:    true .
+H2:    fld_failbio(thestats) >= statscount__first .
+H3:    fld_failbio(thestats) <= statscount__last .
+H4:    fld_successbio(thestats) >= statscount__first .
+H5:    fld_successbio(thestats) <= statscount__last .
+H6:    fld_failentry(thestats) >= statscount__first .
+H7:    fld_failentry(thestats) <= statscount__last .
+H8:    fld_successentry(thestats) >= statscount__first .
+H9:    fld_successentry(thestats) <= statscount__last .
+H10:   fld_failentry(thestats) <> statscount__last .
+        ->
+C1:    fld_failentry(thestats) + 1 >= statscount__first .
+C2:    fld_failentry(thestats) + 1 <= statscount__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_addfailedentry_2.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_addfailedentry_3.
+*** true .          /* trivially true VC removed by Examiner */
+
+

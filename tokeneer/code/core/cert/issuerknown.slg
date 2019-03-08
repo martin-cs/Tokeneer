@@ -1,0 +1,157 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:13  SIMPLIFIED 05-SEP-2011, 15:39:00
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure Cert.IssuerKnown
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/cert/cert.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_issuerknown_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  cryptotypes__algorithmt__first <= fld_mechanism(contents)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(fld_id(contents))), [i___1]) and element(fld_name(
+          fld_issuer(fld_id(contents))), [i___1]) <= character__last)
+-S-  Applied substitution rule issuerknown_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H8:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(fld_issuer(
+          fld_id(contents))), [i___1]) and element(fld_name(fld_issuer(fld_id(
+          contents))), [i___1]) <= character__last)
+-S-  Applied substitution rule issuerknown_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H8:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(fld_issuer(
+          fld_id(contents))), [i___1]) and element(fld_name(fld_issuer(fld_id(
+          contents))), [i___1]) <= 255)
+-S-  Applied substitution rule issuerknown_rules(17).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namecountt__first by:
+          0.
+<S>  New H9:  fld_namelength(fld_issuer(fld_id(contents))) >= 0
+-S-  Applied substitution rule issuerknown_rules(18).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namecountt__last by:
+          40.
+<S>  New H10:  fld_namelength(fld_issuer(fld_id(contents))) <= 40
+-S-  Applied substitution rule issuerknown_rules(22).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namei__first by:
+          1.
+<S>  New H8:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          cryptotypes__namei__last -> 0 <= element(fld_name(fld_issuer(fld_id(
+          contents))), [i___1]) and element(fld_name(fld_issuer(fld_id(contents)
+          )), [i___1]) <= 255)
+-S-  Applied substitution rule issuerknown_rules(23).
+     This was achieved by replacing all occurrences of cryptotypes__namei__last 
+          by:
+          40.
+<S>  New H8:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 40 -> 0 <= 
+          element(fld_name(fld_issuer(fld_id(contents))), [i___1]) and element(
+          fld_name(fld_issuer(fld_id(contents))), [i___1]) <= 255)
+-S-  Applied substitution rule issuerknown_rules(27).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__issueridt__first by:
+          0.
+<S>  New H11:  fld_id(fld_issuer(fld_id(contents))) >= 0
+-S-  Applied substitution rule issuerknown_rules(28).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__issueridt__last by:
+          4294967295.
+<S>  New H12:  fld_id(fld_issuer(fld_id(contents))) <= 4294967295
+-S-  Applied substitution rule issuerknown_rules(35).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__algorithmt__first by:
+          cryptotypes__rsa.
+<S>  New H2:  cryptotypes__rsa <= fld_mechanism(contents)
+-S-  Applied substitution rule issuerknown_rules(36).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__algorithmt__last by:
+          cryptotypes__ripemd160_rsa.
+<S>  New H3:  fld_mechanism(contents) <= cryptotypes__ripemd160_rsa
+-S-  Applied substitution rule issuerknown_rules(76).
+     This was achieved by replacing all occurrences of 
+          certtypes__serialnumbert__first by:
+          0.
+<S>  New H6:  fld_serialnumber(fld_id(contents)) >= 0
+-S-  Applied substitution rule issuerknown_rules(77).
+     This was achieved by replacing all occurrences of 
+          certtypes__serialnumbert__last by:
+          4294967295.
+<S>  New H7:  fld_serialnumber(fld_id(contents)) <= 4294967295
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H4 (true-hypothesis).
+---  Eliminated hypothesis H5 (true-hypothesis).
+---  Eliminated hypothesis H14 (true-hypothesis).
+-S-  Eliminated hypothesis H13.
+     This was achieved by replacing all occurrences of isknown__1 by:
+          keystore__prf_issuerkeynotnull(fld_issuer(fld_id(contents)), 
+          keystore__store).
+<S>  New C1:  keystore__prf_issuerkeynotnull(fld_issuer(fld_id(contents)), 
+          keystore__store) <-> keystore__prf_issuerkeynotnull(prf_idissuer(
+          contents), keystore__store)
+     +++  New H15:  integer__size >= 0
+     +++  New H16:  character__size >= 0
+     +++  New H17:  positive__size >= 0
+     +++  New H18:  cryptotypes__namecountt__size >= 0
+     +++  New H19:  cryptotypes__namei__size >= 0
+     +++  New H20:  cryptotypes__issueridt__size >= 0
+     +++  New H21:  cryptotypes__issueridt__base__first <= 
+          cryptotypes__issueridt__base__last
+     +++  New H22:  cryptotypes__issuert__size >= 0
+     +++  New H23:  cryptotypes__algorithmt__size >= 0
+     +++  New H24:  certtypes__serialnumbert__size >= 0
+     +++  New H25:  certtypes__serialnumbert__base__first <= 
+          certtypes__serialnumbert__base__last
+     +++  New H26:  certtypes__idt__size >= 0
+     +++  New H27:  contentst__size >= 0
+     +++  New H28:  cryptotypes__issueridt__base__first <= 0
+     +++  New H29:  cryptotypes__issueridt__base__last >= 4294967295
+     +++  New H30:  certtypes__serialnumbert__base__first <= 0
+     +++  New H31:  certtypes__serialnumbert__base__last >= 4294967295
+***  Proved C1:  keystore__prf_issuerkeynotnull(fld_issuer(fld_id(contents)), 
+          keystore__store) <-> keystore__prf_issuerkeynotnull(prf_idissuer(
+          contents), keystore__store)
+     This was achieved by applying the rewrite rule cert_user(1)
+     [from rulefile cert.rlu] to rewrite this conclusion to:
+<S>  C1:  keystore__prf_issuerkeynotnull(fld_issuer(fld_id(contents)), 
+          keystore__store) <-> keystore__prf_issuerkeynotnull(fld_issuer(fld_id(
+          contents)), keystore__store)
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  By simple reasoning, proved: keystore__prf_issuerkeynotnull(
+          fld_issuer(fld_id(contents)), keystore__store) <-> 
+          keystore__prf_issuerkeynotnull(fld_issuer(fld_id(contents)), 
+          keystore__store)
+***  PROVED VC.
+
+VCN  1: Summary of user rule application.
+FIL  cert.rlu
+RUL     cert_user(1)
+CON        1
+
+
+OVR  Overall summary of VCs using user rules.
+FIL  cert.rlu
+RUL     cert_user(1)
+VCS        1
+

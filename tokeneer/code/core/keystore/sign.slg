@@ -1,0 +1,560 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:12  SIMPLIFIED 05-SEP-2011, 15:41:28
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure KeyStore.Sign
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/keystore/keystore.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_sign_1.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(fld_rawdata(rawcertdata), [i___1]) and 
+          element(fld_rawdata(rawcertdata), [i___1]) <= character__last)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  cryptotypes__algorithmt__first <= mechanism
+-S-  Applied substitution rule sign_rules(169).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__algorithmt__first by:
+          cryptotypes__rsa.
+<S>  New C1:  cryptotypes__rsa <= mechanism
+-S-  Applied substitution rule sign_rules(1).
+     This was achieved by replacing all occurrences of mechanism by:
+          cryptotypes__sha1_rsa.
+<S>  New C2:  cryptotypes__sha1_rsa <= cryptotypes__algorithmt__last
+<S>  New C1:  true
+-S-  Applied substitution rule sign_rules(170).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__algorithmt__last by:
+          cryptotypes__ripemd160_rsa.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_sign_2.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(fld_rawdata(rawcertdata), [i___1]) and 
+          element(fld_rawdata(rawcertdata), [i___1]) <= character__last)
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  cryptotypes__algorithmt__first <= mechanism
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, keystore__interface__digestpadi__first 
+          <= i___1 and i___1 <= keystore__interface__digestpadi__last -> 
+          basictypes__bytet__first <= element(fld_pad(thedigest__1), [i___1]) 
+          and element(fld_pad(thedigest__1), [i___1]) <= 
+          basictypes__bytet__last)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  keystore__interface__returnvaluet__first <= fld_verifyreturn(
+          thedigest__1)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  keystore__interface__returnvaluet__first <= fld_signreturn(
+          thedigest__1)
+***  Proved C1:  theprivatekeyh__2 >= basictypes__unsigned32t__first
+     using hypothesis H17.
+***  Proved C2:  theprivatekeyh__2 <= basictypes__unsigned32t__last
+     using hypothesis H18.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_sign_3.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(fld_rawdata(rawcertdata), [i___1]) and 
+          element(fld_rawdata(rawcertdata), [i___1]) <= character__last)
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  cryptotypes__algorithmt__first <= mechanism
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, keystore__interface__digestpadi__first 
+          <= i___1 and i___1 <= keystore__interface__digestpadi__last -> 
+          basictypes__bytet__first <= element(fld_pad(thedigest__1), [i___1]) 
+          and element(fld_pad(thedigest__1), [i___1]) <= 
+          basictypes__bytet__last)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  keystore__interface__returnvaluet__first <= fld_verifyreturn(
+          thedigest__1)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  keystore__interface__returnvaluet__first <= fld_signreturn(
+          thedigest__1)
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H22 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H24 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H28 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as 
+          H13).
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  cryptotypes__algorithmt__first <= mechanism
+***  Proved C1:  theprivatekeyh__2 >= basictypes__unsigned32t__first
+     using hypothesis H17.
+***  Proved C2:  theprivatekeyh__2 <= basictypes__unsigned32t__last
+     using hypothesis H18.
+***  Proved C3:  cryptotypes__algorithmt__first <= mechanism
+     using hypothesis H5.
+***  Proved C4:  mechanism <= cryptotypes__algorithmt__last
+     using hypothesis H6.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_sign_4.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(fld_rawdata(rawcertdata), [i___1]) and 
+          element(fld_rawdata(rawcertdata), [i___1]) <= character__last)
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  cryptotypes__algorithmt__first <= mechanism
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, keystore__interface__digestpadi__first 
+          <= i___1 and i___1 <= keystore__interface__digestpadi__last -> 
+          basictypes__bytet__first <= element(fld_pad(thedigest__1), [i___1]) 
+          and element(fld_pad(thedigest__1), [i___1]) <= 
+          basictypes__bytet__last)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  keystore__interface__returnvaluet__first <= fld_verifyreturn(
+          thedigest__1)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  keystore__interface__returnvaluet__first <= fld_signreturn(
+          thedigest__1)
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H22 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H24 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H28 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as H5)
+          .
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as H6)
+          .
+%%%  Simplified H36 on reading formula in, to give:
+     %%%  H36:  for_all(i___1 : integer, certtypes__sigdatai__first <= i___1 
+          and i___1 <= certtypes__sigdatai__last -> character__first <= element(
+          fld_sigdata(signature__3), [i___1]) and element(fld_sigdata(
+          signature__3), [i___1]) <= character__last)
+%%%  Simplified H37 on reading formula in, to give:
+     %%%  H37:  keystore__interface__returnvaluet__first <= retval__3
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  keystore__interface__returnvaluet__first <= retval__3
+***  Proved C1:  keystore__interface__returnvaluet__first <= retval__3
+     using hypothesis H37.
+***  Proved C2:  retval__3 <= keystore__interface__returnvaluet__last
+     using hypothesis H38.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_sign_5.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(fld_rawdata(rawcertdata), [i___1]) and 
+          element(fld_rawdata(rawcertdata), [i___1]) <= character__last)
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  cryptotypes__algorithmt__first <= mechanism
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, keystore__interface__digestpadi__first 
+          <= i___1 and i___1 <= keystore__interface__digestpadi__last -> 
+          basictypes__bytet__first <= element(fld_pad(thedigest__1), [i___1]) 
+          and element(fld_pad(thedigest__1), [i___1]) <= 
+          basictypes__bytet__last)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  keystore__interface__returnvaluet__first <= fld_verifyreturn(
+          thedigest__1)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  keystore__interface__returnvaluet__first <= fld_signreturn(
+          thedigest__1)
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H22 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H24 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H28 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as H5)
+          .
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as H6)
+          .
+%%%  Simplified H36 on reading formula in, to give:
+     %%%  H36:  for_all(i___1 : integer, certtypes__sigdatai__first <= i___1 
+          and i___1 <= certtypes__sigdatai__last -> character__first <= element(
+          fld_sigdata(signature__3), [i___1]) and element(fld_sigdata(
+          signature__3), [i___1]) <= character__last)
+%%%  Simplified H37 on reading formula in, to give:
+     %%%  H37:  keystore__interface__returnvaluet__first <= retval__3
+---  Hypothesis H39 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H40 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H41 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H42 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H43 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H44 has been replaced by "true".  (It is already present, as 
+          H38).
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  keystore__interface__returnvaluet__first <= retval__3
+***  Proved C1:  keystore__interface__returnvaluet__first <= retval__3
+     using hypothesis H37.
+***  Proved C2:  retval__3 <= keystore__interface__returnvaluet__last
+     using hypothesis H38.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_sign_6.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(fld_rawdata(rawcertdata), [i___1]) and 
+          element(fld_rawdata(rawcertdata), [i___1]) <= character__last)
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  cryptotypes__algorithmt__first <= mechanism
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, keystore__interface__digestpadi__first 
+          <= i___1 and i___1 <= keystore__interface__digestpadi__last -> 
+          basictypes__bytet__first <= element(fld_pad(thedigest__1), [i___1]) 
+          and element(fld_pad(thedigest__1), [i___1]) <= 
+          basictypes__bytet__last)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  keystore__interface__returnvaluet__first <= fld_verifyreturn(
+          thedigest__1)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  keystore__interface__returnvaluet__first <= fld_signreturn(
+          thedigest__1)
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H22 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H24 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H28 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as H5)
+          .
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as H6)
+          .
+%%%  Simplified H36 on reading formula in, to give:
+     %%%  H36:  for_all(i___1 : integer, certtypes__sigdatai__first <= i___1 
+          and i___1 <= certtypes__sigdatai__last -> character__first <= element(
+          fld_sigdata(signature__3), [i___1]) and element(fld_sigdata(
+          signature__3), [i___1]) <= character__last)
+%%%  Simplified H37 on reading formula in, to give:
+     %%%  H37:  keystore__interface__returnvaluet__first <= retval__3
+---  Hypothesis H39 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H40 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H41 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H42 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H43 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H44 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H45 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H46 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H48 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H38).
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  keystore__interface__returnvaluet__first <= retval__3
+***  Proved C1:  keystore__interface__returnvaluet__first <= retval__3
+     using hypothesis H37.
+***  Proved C2:  retval__3 <= keystore__interface__returnvaluet__last
+     using hypothesis H38.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_sign_7.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(fld_rawdata(rawcertdata), [i___1]) and 
+          element(fld_rawdata(rawcertdata), [i___1]) <= character__last)
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  cryptotypes__algorithmt__first <= mechanism
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, keystore__interface__digestpadi__first 
+          <= i___1 and i___1 <= keystore__interface__digestpadi__last -> 
+          basictypes__bytet__first <= element(fld_pad(thedigest__1), [i___1]) 
+          and element(fld_pad(thedigest__1), [i___1]) <= 
+          basictypes__bytet__last)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  keystore__interface__returnvaluet__first <= fld_verifyreturn(
+          thedigest__1)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  keystore__interface__returnvaluet__first <= fld_signreturn(
+          thedigest__1)
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H22 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H24 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H28 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as H5)
+          .
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as H6)
+          .
+%%%  Simplified H36 on reading formula in, to give:
+     %%%  H36:  for_all(i___1 : integer, certtypes__sigdatai__first <= i___1 
+          and i___1 <= certtypes__sigdatai__last -> character__first <= element(
+          fld_sigdata(signature__3), [i___1]) and element(fld_sigdata(
+          signature__3), [i___1]) <= character__last)
+%%%  Simplified H37 on reading formula in, to give:
+     %%%  H37:  keystore__interface__returnvaluet__first <= retval__3
+---  Hypothesis H39 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H40 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H41 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H42 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H43 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H44 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H45 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H46 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H48 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H50 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as 
+          H38).
+%%%  Simplified H52 on reading formula in, to give:
+     %%%  H52:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(convertretvaltotext(retval__3, mk__string([1] := 83, [2] 
+          := 105, [3] := 103, [4] := 110)), [i___1]) and element(
+          convertretvaltotext(retval__3, mk__string([1] := 83, [2] := 105, [3] 
+          := 103, [4] := 110)), [i___1]) <= character__last)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__systemfault
+-S-  Applied substitution rule sign_rules(139).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule sign_rules(140).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule sign_rules(32).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule sign_rules(33).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_sign_8.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(fld_rawdata(rawcertdata), [i___1]) and 
+          element(fld_rawdata(rawcertdata), [i___1]) <= character__last)
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  cryptotypes__algorithmt__first <= mechanism
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, keystore__interface__digestpadi__first 
+          <= i___1 and i___1 <= keystore__interface__digestpadi__last -> 
+          basictypes__bytet__first <= element(fld_pad(thedigest__1), [i___1]) 
+          and element(fld_pad(thedigest__1), [i___1]) <= 
+          basictypes__bytet__last)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  keystore__interface__returnvaluet__first <= fld_verifyreturn(
+          thedigest__1)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  keystore__interface__returnvaluet__first <= fld_signreturn(
+          thedigest__1)
+-S-  Applied substitution rule sign_rules(217).
+     This was achieved by replacing all occurrences of 
+          certtypes__sigdatai__first by:
+          1.
+<S>  New C1:  true
+-S-  Applied substitution rule sign_rules(218).
+     This was achieved by replacing all occurrences of 
+          certtypes__sigdatai__last by:
+          4096.
+<S>  New C2:  true
+-S-  Applied substitution rule sign_rules(8).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H4:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 0 <= element(
+          fld_rawdata(rawcertdata), [i___1]) and element(fld_rawdata(
+          rawcertdata), [i___1]) <= character__last)
+<S>  New C3:  true
+-S-  Applied substitution rule sign_rules(9).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H4:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 0 <= element(
+          fld_rawdata(rawcertdata), [i___1]) and element(fld_rawdata(
+          rawcertdata), [i___1]) <= 255)
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_sign_9.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_sign_10.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_sign_11.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_sign_12.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_sign_13.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+

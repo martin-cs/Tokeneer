@@ -1,0 +1,53 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:14  SIMPLIFIED 05-SEP-2011, 15:39:12
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+function Auth.TheRole
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/cert_/attr_/auth/auth.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: function_therole_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  privtypes__classt__first <= fld_class(fld_clearance(contents))
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  privtypes__privileget__first <= fld_role(contents)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___2 : integer, cryptotypes__namei__first <= i___2 and 
+          i___2 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(fld_basecertid(fld_inherit(contents)))), [i___2]) 
+          and element(fld_name(fld_issuer(fld_basecertid(fld_inherit(contents)))
+          ), [i___2]) <= character__last)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  cryptotypes__algorithmt__first <= fld_mechanism(fld_inherit(
+          fld_inherit(contents)))
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(fld_id(fld_inherit(fld_inherit(contents))))), [
+          i___1]) and element(fld_name(fld_issuer(fld_id(fld_inherit(
+          fld_inherit(contents))))), [i___1]) <= character__last)
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  privtypes__privileget__first <= fld_role(contents)
+***  Proved C1:  true
+***  Proved C2:  privtypes__privileget__first <= fld_role(contents)
+     using hypothesis H4.
+***  Proved C3:  fld_role(contents) <= privtypes__privileget__last
+     using hypothesis H5.
+***  PROVED VC.
+

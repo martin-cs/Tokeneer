@@ -1,0 +1,461 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:09.98*/
+
+                     /*procedure AuditLog.ClearLogEntries*/
+
+
+rule_family clearlogentr_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+clearlogentr_rules(1): maxlogfileentries may_be_replaced_by 1024.
+clearlogentr_rules(2): integer__size >= 0 may_be_deduced.
+clearlogentr_rules(3): integer__first may_be_replaced_by -2147483648.
+clearlogentr_rules(4): integer__last may_be_replaced_by 2147483647.
+clearlogentr_rules(5): integer__base__first may_be_replaced_by -2147483648.
+clearlogentr_rules(6): integer__base__last may_be_replaced_by 2147483647.
+clearlogentr_rules(7): character__size >= 0 may_be_deduced.
+clearlogentr_rules(8): character__first may_be_replaced_by 0.
+clearlogentr_rules(9): character__last may_be_replaced_by 255.
+clearlogentr_rules(10): character__base__first may_be_replaced_by 0.
+clearlogentr_rules(11): character__base__last may_be_replaced_by 255.
+clearlogentr_rules(12): positive__size >= 0 may_be_deduced.
+clearlogentr_rules(13): positive__first may_be_replaced_by 1.
+clearlogentr_rules(14): positive__last may_be_replaced_by 2147483647.
+clearlogentr_rules(15): positive__base__first may_be_replaced_by -2147483648.
+clearlogentr_rules(16): positive__base__last may_be_replaced_by 2147483647.
+clearlogentr_rules(17): audittypes__elementt__size >= 0 may_be_deduced.
+clearlogentr_rules(18): audittypes__elementt__first may_be_replaced_by audittypes__startunenrolledtis.
+clearlogentr_rules(19): audittypes__elementt__last may_be_replaced_by audittypes__systemfault.
+clearlogentr_rules(20): audittypes__elementt__base__first may_be_replaced_by audittypes__startunenrolledtis.
+clearlogentr_rules(21): audittypes__elementt__base__last may_be_replaced_by audittypes__systemfault.
+clearlogentr_rules(22): audittypes__elementt__pos(
+     audittypes__elementt__first) may_be_replaced_by 0.
+clearlogentr_rules(23): audittypes__elementt__pos(
+     audittypes__startunenrolledtis) may_be_replaced_by 0.
+clearlogentr_rules(24): audittypes__elementt__val(0) may_be_replaced_by 
+     audittypes__startunenrolledtis.
+clearlogentr_rules(25): audittypes__elementt__pos(
+     audittypes__startenrolledtis) may_be_replaced_by 1.
+clearlogentr_rules(26): audittypes__elementt__val(1) may_be_replaced_by 
+     audittypes__startenrolledtis.
+clearlogentr_rules(27): audittypes__elementt__pos(
+     audittypes__enrolmentcomplete) may_be_replaced_by 2.
+clearlogentr_rules(28): audittypes__elementt__val(2) may_be_replaced_by 
+     audittypes__enrolmentcomplete.
+clearlogentr_rules(29): audittypes__elementt__pos(
+     audittypes__enrolmentfailed) may_be_replaced_by 3.
+clearlogentr_rules(30): audittypes__elementt__val(3) may_be_replaced_by 
+     audittypes__enrolmentfailed.
+clearlogentr_rules(31): audittypes__elementt__pos(
+     audittypes__displaychanged) may_be_replaced_by 4.
+clearlogentr_rules(32): audittypes__elementt__val(4) may_be_replaced_by 
+     audittypes__displaychanged.
+clearlogentr_rules(33): audittypes__elementt__pos(
+     audittypes__screenchanged) may_be_replaced_by 5.
+clearlogentr_rules(34): audittypes__elementt__val(5) may_be_replaced_by 
+     audittypes__screenchanged.
+clearlogentr_rules(35): audittypes__elementt__pos(
+     audittypes__doorclosed) may_be_replaced_by 6.
+clearlogentr_rules(36): audittypes__elementt__val(6) may_be_replaced_by 
+     audittypes__doorclosed.
+clearlogentr_rules(37): audittypes__elementt__pos(
+     audittypes__dooropened) may_be_replaced_by 7.
+clearlogentr_rules(38): audittypes__elementt__val(7) may_be_replaced_by 
+     audittypes__dooropened.
+clearlogentr_rules(39): audittypes__elementt__pos(
+     audittypes__latchlocked) may_be_replaced_by 8.
+clearlogentr_rules(40): audittypes__elementt__val(8) may_be_replaced_by 
+     audittypes__latchlocked.
+clearlogentr_rules(41): audittypes__elementt__pos(
+     audittypes__latchunlocked) may_be_replaced_by 9.
+clearlogentr_rules(42): audittypes__elementt__val(9) may_be_replaced_by 
+     audittypes__latchunlocked.
+clearlogentr_rules(43): audittypes__elementt__pos(
+     audittypes__alarmraised) may_be_replaced_by 10.
+clearlogentr_rules(44): audittypes__elementt__val(10) may_be_replaced_by 
+     audittypes__alarmraised.
+clearlogentr_rules(45): audittypes__elementt__pos(
+     audittypes__alarmsilenced) may_be_replaced_by 11.
+clearlogentr_rules(46): audittypes__elementt__val(11) may_be_replaced_by 
+     audittypes__alarmsilenced.
+clearlogentr_rules(47): audittypes__elementt__pos(
+     audittypes__truncatelog) may_be_replaced_by 12.
+clearlogentr_rules(48): audittypes__elementt__val(12) may_be_replaced_by 
+     audittypes__truncatelog.
+clearlogentr_rules(49): audittypes__elementt__pos(
+     audittypes__auditalarmraised) may_be_replaced_by 13.
+clearlogentr_rules(50): audittypes__elementt__val(13) may_be_replaced_by 
+     audittypes__auditalarmraised.
+clearlogentr_rules(51): audittypes__elementt__pos(
+     audittypes__auditalarmsilenced) may_be_replaced_by 14.
+clearlogentr_rules(52): audittypes__elementt__val(14) may_be_replaced_by 
+     audittypes__auditalarmsilenced.
+clearlogentr_rules(53): audittypes__elementt__pos(
+     audittypes__usertokenremoved) may_be_replaced_by 15.
+clearlogentr_rules(54): audittypes__elementt__val(15) may_be_replaced_by 
+     audittypes__usertokenremoved.
+clearlogentr_rules(55): audittypes__elementt__pos(
+     audittypes__usertokenpresent) may_be_replaced_by 16.
+clearlogentr_rules(56): audittypes__elementt__val(16) may_be_replaced_by 
+     audittypes__usertokenpresent.
+clearlogentr_rules(57): audittypes__elementt__pos(
+     audittypes__usertokeninvalid) may_be_replaced_by 17.
+clearlogentr_rules(58): audittypes__elementt__val(17) may_be_replaced_by 
+     audittypes__usertokeninvalid.
+clearlogentr_rules(59): audittypes__elementt__pos(
+     audittypes__authcertvalid) may_be_replaced_by 18.
+clearlogentr_rules(60): audittypes__elementt__val(18) may_be_replaced_by 
+     audittypes__authcertvalid.
+clearlogentr_rules(61): audittypes__elementt__pos(
+     audittypes__authcertinvalid) may_be_replaced_by 19.
+clearlogentr_rules(62): audittypes__elementt__val(19) may_be_replaced_by 
+     audittypes__authcertinvalid.
+clearlogentr_rules(63): audittypes__elementt__pos(
+     audittypes__fingerdetected) may_be_replaced_by 20.
+clearlogentr_rules(64): audittypes__elementt__val(20) may_be_replaced_by 
+     audittypes__fingerdetected.
+clearlogentr_rules(65): audittypes__elementt__pos(
+     audittypes__fingertimeout) may_be_replaced_by 21.
+clearlogentr_rules(66): audittypes__elementt__val(21) may_be_replaced_by 
+     audittypes__fingertimeout.
+clearlogentr_rules(67): audittypes__elementt__pos(
+     audittypes__fingermatched) may_be_replaced_by 22.
+clearlogentr_rules(68): audittypes__elementt__val(22) may_be_replaced_by 
+     audittypes__fingermatched.
+clearlogentr_rules(69): audittypes__elementt__pos(
+     audittypes__fingernotmatched) may_be_replaced_by 23.
+clearlogentr_rules(70): audittypes__elementt__val(23) may_be_replaced_by 
+     audittypes__fingernotmatched.
+clearlogentr_rules(71): audittypes__elementt__pos(
+     audittypes__authcertwritten) may_be_replaced_by 24.
+clearlogentr_rules(72): audittypes__elementt__val(24) may_be_replaced_by 
+     audittypes__authcertwritten.
+clearlogentr_rules(73): audittypes__elementt__pos(
+     audittypes__authcertwritefailed) may_be_replaced_by 25.
+clearlogentr_rules(74): audittypes__elementt__val(25) may_be_replaced_by 
+     audittypes__authcertwritefailed.
+clearlogentr_rules(75): audittypes__elementt__pos(
+     audittypes__entrypermitted) may_be_replaced_by 26.
+clearlogentr_rules(76): audittypes__elementt__val(26) may_be_replaced_by 
+     audittypes__entrypermitted.
+clearlogentr_rules(77): audittypes__elementt__pos(
+     audittypes__entrytimeout) may_be_replaced_by 27.
+clearlogentr_rules(78): audittypes__elementt__val(27) may_be_replaced_by 
+     audittypes__entrytimeout.
+clearlogentr_rules(79): audittypes__elementt__pos(
+     audittypes__entrydenied) may_be_replaced_by 28.
+clearlogentr_rules(80): audittypes__elementt__val(28) may_be_replaced_by 
+     audittypes__entrydenied.
+clearlogentr_rules(81): audittypes__elementt__pos(
+     audittypes__admintokenpresent) may_be_replaced_by 29.
+clearlogentr_rules(82): audittypes__elementt__val(29) may_be_replaced_by 
+     audittypes__admintokenpresent.
+clearlogentr_rules(83): audittypes__elementt__pos(
+     audittypes__admintokenvalid) may_be_replaced_by 30.
+clearlogentr_rules(84): audittypes__elementt__val(30) may_be_replaced_by 
+     audittypes__admintokenvalid.
+clearlogentr_rules(85): audittypes__elementt__pos(
+     audittypes__admintokeninvalid) may_be_replaced_by 31.
+clearlogentr_rules(86): audittypes__elementt__val(31) may_be_replaced_by 
+     audittypes__admintokeninvalid.
+clearlogentr_rules(87): audittypes__elementt__pos(
+     audittypes__admintokenexpired) may_be_replaced_by 32.
+clearlogentr_rules(88): audittypes__elementt__val(32) may_be_replaced_by 
+     audittypes__admintokenexpired.
+clearlogentr_rules(89): audittypes__elementt__pos(
+     audittypes__admintokenremoved) may_be_replaced_by 33.
+clearlogentr_rules(90): audittypes__elementt__val(33) may_be_replaced_by 
+     audittypes__admintokenremoved.
+clearlogentr_rules(91): audittypes__elementt__pos(
+     audittypes__invalidoprequest) may_be_replaced_by 34.
+clearlogentr_rules(92): audittypes__elementt__val(34) may_be_replaced_by 
+     audittypes__invalidoprequest.
+clearlogentr_rules(93): audittypes__elementt__pos(
+     audittypes__operationstart) may_be_replaced_by 35.
+clearlogentr_rules(94): audittypes__elementt__val(35) may_be_replaced_by 
+     audittypes__operationstart.
+clearlogentr_rules(95): audittypes__elementt__pos(
+     audittypes__archivelog) may_be_replaced_by 36.
+clearlogentr_rules(96): audittypes__elementt__val(36) may_be_replaced_by 
+     audittypes__archivelog.
+clearlogentr_rules(97): audittypes__elementt__pos(
+     audittypes__archivecomplete) may_be_replaced_by 37.
+clearlogentr_rules(98): audittypes__elementt__val(37) may_be_replaced_by 
+     audittypes__archivecomplete.
+clearlogentr_rules(99): audittypes__elementt__pos(
+     audittypes__archivecheckfailed) may_be_replaced_by 38.
+clearlogentr_rules(100): audittypes__elementt__val(38) may_be_replaced_by 
+     audittypes__archivecheckfailed.
+clearlogentr_rules(101): audittypes__elementt__pos(
+     audittypes__updatedconfigdata) may_be_replaced_by 39.
+clearlogentr_rules(102): audittypes__elementt__val(39) may_be_replaced_by 
+     audittypes__updatedconfigdata.
+clearlogentr_rules(103): audittypes__elementt__pos(
+     audittypes__invalidconfigdata) may_be_replaced_by 40.
+clearlogentr_rules(104): audittypes__elementt__val(40) may_be_replaced_by 
+     audittypes__invalidconfigdata.
+clearlogentr_rules(105): audittypes__elementt__pos(
+     audittypes__shutdown) may_be_replaced_by 41.
+clearlogentr_rules(106): audittypes__elementt__val(41) may_be_replaced_by 
+     audittypes__shutdown.
+clearlogentr_rules(107): audittypes__elementt__pos(
+     audittypes__overridelock) may_be_replaced_by 42.
+clearlogentr_rules(108): audittypes__elementt__val(42) may_be_replaced_by 
+     audittypes__overridelock.
+clearlogentr_rules(109): audittypes__elementt__pos(
+     audittypes__systemfault) may_be_replaced_by 43.
+clearlogentr_rules(110): audittypes__elementt__val(43) may_be_replaced_by 
+     audittypes__systemfault.
+clearlogentr_rules(111): audittypes__elementt__pos(
+     audittypes__elementt__last) may_be_replaced_by 43.
+clearlogentr_rules(112): audittypes__elementt__pos(succ(X)) may_be_replaced_by 
+     audittypes__elementt__pos(X) + 1
+     if [X <=audittypes__systemfault, X <> 
+     audittypes__systemfault].
+clearlogentr_rules(113): audittypes__elementt__pos(pred(X)) may_be_replaced_by 
+     audittypes__elementt__pos(X) - 1
+     if [X >=audittypes__startunenrolledtis, X <> 
+     audittypes__startunenrolledtis].
+clearlogentr_rules(114): audittypes__elementt__pos(X) >= 0 may_be_deduced_from
+     [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+clearlogentr_rules(115): audittypes__elementt__pos(X) <= 43 may_be_deduced_from
+     [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+clearlogentr_rules(116): audittypes__elementt__val(X) >= 
+     audittypes__startunenrolledtis may_be_deduced_from
+     [0 <= X, X <= 43].
+clearlogentr_rules(117): audittypes__elementt__val(X) <= 
+     audittypes__systemfault may_be_deduced_from
+     [0 <= X, X <= 43].
+clearlogentr_rules(118): succ(audittypes__elementt__val(X)) may_be_replaced_by 
+     audittypes__elementt__val(X+1)
+     if [0 <= X, X < 43].
+clearlogentr_rules(119): pred(audittypes__elementt__val(X)) may_be_replaced_by 
+     audittypes__elementt__val(X-1)
+     if [0 < X, X <= 43].
+clearlogentr_rules(120): audittypes__elementt__pos(
+     audittypes__elementt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 43].
+clearlogentr_rules(121): audittypes__elementt__val(
+     audittypes__elementt__pos(X)) may_be_replaced_by X
+     if [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+clearlogentr_rules(122): audittypes__elementt__pos(X) <= 
+     audittypes__elementt__pos(Y) & X <= Y are_interchangeable 
+     if [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault, audittypes__startunenrolledtis <= Y, Y <= 
+     audittypes__systemfault].
+clearlogentr_rules(123): audittypes__elementt__val(X) <= 
+     audittypes__elementt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 43, 0 <= Y, Y <= 43].
+clearlogentr_rules(124): audittypes__severityt__size >= 0 may_be_deduced.
+clearlogentr_rules(125): audittypes__severityt__first may_be_replaced_by audittypes__information.
+clearlogentr_rules(126): audittypes__severityt__last may_be_replaced_by audittypes__critical.
+clearlogentr_rules(127): audittypes__severityt__base__first may_be_replaced_by audittypes__information.
+clearlogentr_rules(128): audittypes__severityt__base__last may_be_replaced_by audittypes__critical.
+clearlogentr_rules(129): audittypes__severityt__pos(
+     audittypes__severityt__first) may_be_replaced_by 0.
+clearlogentr_rules(130): audittypes__severityt__pos(
+     audittypes__information) may_be_replaced_by 0.
+clearlogentr_rules(131): audittypes__severityt__val(0) may_be_replaced_by 
+     audittypes__information.
+clearlogentr_rules(132): audittypes__severityt__pos(
+     audittypes__warning) may_be_replaced_by 1.
+clearlogentr_rules(133): audittypes__severityt__val(1) may_be_replaced_by 
+     audittypes__warning.
+clearlogentr_rules(134): audittypes__severityt__pos(
+     audittypes__critical) may_be_replaced_by 2.
+clearlogentr_rules(135): audittypes__severityt__val(2) may_be_replaced_by 
+     audittypes__critical.
+clearlogentr_rules(136): audittypes__severityt__pos(
+     audittypes__severityt__last) may_be_replaced_by 2.
+clearlogentr_rules(137): audittypes__severityt__pos(succ(X)) may_be_replaced_by 
+     audittypes__severityt__pos(X) + 1
+     if [X <=audittypes__critical, X <> audittypes__critical].
+clearlogentr_rules(138): audittypes__severityt__pos(pred(X)) may_be_replaced_by 
+     audittypes__severityt__pos(X) - 1
+     if [X >=audittypes__information, X <> 
+     audittypes__information].
+clearlogentr_rules(139): audittypes__severityt__pos(X) >= 0 may_be_deduced_from
+     [audittypes__information <= X, X <= audittypes__critical].
+clearlogentr_rules(140): audittypes__severityt__pos(X) <= 2 may_be_deduced_from
+     [audittypes__information <= X, X <= audittypes__critical].
+clearlogentr_rules(141): audittypes__severityt__val(X) >= 
+     audittypes__information may_be_deduced_from
+     [0 <= X, X <= 2].
+clearlogentr_rules(142): audittypes__severityt__val(X) <= 
+     audittypes__critical may_be_deduced_from
+     [0 <= X, X <= 2].
+clearlogentr_rules(143): succ(audittypes__severityt__val(X)) may_be_replaced_by 
+     audittypes__severityt__val(X+1)
+     if [0 <= X, X < 2].
+clearlogentr_rules(144): pred(audittypes__severityt__val(X)) may_be_replaced_by 
+     audittypes__severityt__val(X-1)
+     if [0 < X, X <= 2].
+clearlogentr_rules(145): audittypes__severityt__pos(
+     audittypes__severityt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 2].
+clearlogentr_rules(146): audittypes__severityt__val(
+     audittypes__severityt__pos(X)) may_be_replaced_by X
+     if [audittypes__information <= X, X <= audittypes__critical].
+clearlogentr_rules(147): audittypes__severityt__pos(X) <= 
+     audittypes__severityt__pos(Y) & X <= Y are_interchangeable 
+     if [audittypes__information <= X, X <= audittypes__critical, 
+     audittypes__information <= Y, Y <= audittypes__critical].
+clearlogentr_rules(148): audittypes__severityt__val(X) <= 
+     audittypes__severityt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 2, 0 <= Y, Y <= 2].
+clearlogentr_rules(149): audittypes__usertexti__size >= 0 may_be_deduced.
+clearlogentr_rules(150): audittypes__usertexti__first may_be_replaced_by 1.
+clearlogentr_rules(151): audittypes__usertexti__last may_be_replaced_by 50.
+clearlogentr_rules(152): audittypes__usertexti__base__first may_be_replaced_by -2147483648.
+clearlogentr_rules(153): audittypes__usertexti__base__last may_be_replaced_by 2147483647.
+clearlogentr_rules(154): alarmtypes__statust__size >= 0 may_be_deduced.
+clearlogentr_rules(155): alarmtypes__statust__first may_be_replaced_by alarmtypes__alarming.
+clearlogentr_rules(156): alarmtypes__statust__last may_be_replaced_by alarmtypes__silent.
+clearlogentr_rules(157): alarmtypes__statust__base__first may_be_replaced_by alarmtypes__alarming.
+clearlogentr_rules(158): alarmtypes__statust__base__last may_be_replaced_by alarmtypes__silent.
+clearlogentr_rules(159): alarmtypes__statust__pos(
+     alarmtypes__statust__first) may_be_replaced_by 0.
+clearlogentr_rules(160): alarmtypes__statust__pos(
+     alarmtypes__alarming) may_be_replaced_by 0.
+clearlogentr_rules(161): alarmtypes__statust__val(0) may_be_replaced_by 
+     alarmtypes__alarming.
+clearlogentr_rules(162): alarmtypes__statust__pos(
+     alarmtypes__silent) may_be_replaced_by 1.
+clearlogentr_rules(163): alarmtypes__statust__val(1) may_be_replaced_by 
+     alarmtypes__silent.
+clearlogentr_rules(164): alarmtypes__statust__pos(
+     alarmtypes__statust__last) may_be_replaced_by 1.
+clearlogentr_rules(165): alarmtypes__statust__pos(succ(X)) may_be_replaced_by 
+     alarmtypes__statust__pos(X) + 1
+     if [X <=alarmtypes__silent, X <> alarmtypes__silent].
+clearlogentr_rules(166): alarmtypes__statust__pos(pred(X)) may_be_replaced_by 
+     alarmtypes__statust__pos(X) - 1
+     if [X >=alarmtypes__alarming, X <> alarmtypes__alarming].
+clearlogentr_rules(167): alarmtypes__statust__pos(X) >= 0 may_be_deduced_from
+     [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+clearlogentr_rules(168): alarmtypes__statust__pos(X) <= 1 may_be_deduced_from
+     [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+clearlogentr_rules(169): alarmtypes__statust__val(X) >= 
+     alarmtypes__alarming may_be_deduced_from
+     [0 <= X, X <= 1].
+clearlogentr_rules(170): alarmtypes__statust__val(X) <= 
+     alarmtypes__silent may_be_deduced_from
+     [0 <= X, X <= 1].
+clearlogentr_rules(171): succ(alarmtypes__statust__val(X)) may_be_replaced_by 
+     alarmtypes__statust__val(X+1)
+     if [0 <= X, X < 1].
+clearlogentr_rules(172): pred(alarmtypes__statust__val(X)) may_be_replaced_by 
+     alarmtypes__statust__val(X-1)
+     if [0 < X, X <= 1].
+clearlogentr_rules(173): alarmtypes__statust__pos(
+     alarmtypes__statust__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+clearlogentr_rules(174): alarmtypes__statust__val(
+     alarmtypes__statust__pos(X)) may_be_replaced_by X
+     if [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+clearlogentr_rules(175): alarmtypes__statust__pos(X) <= 
+     alarmtypes__statust__pos(Y) & X <= Y are_interchangeable 
+     if [alarmtypes__alarming <= X, X <= alarmtypes__silent, 
+     alarmtypes__alarming <= Y, Y <= alarmtypes__silent].
+clearlogentr_rules(176): alarmtypes__statust__val(X) <= 
+     alarmtypes__statust__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].
+clearlogentr_rules(177): logfilecountt__size >= 0 may_be_deduced.
+clearlogentr_rules(178): logfilecountt__first may_be_replaced_by 0.
+clearlogentr_rules(179): logfilecountt__last may_be_replaced_by 17.
+clearlogentr_rules(180): logfilecountt__base__first <= 
+     logfilecountt__base__last may_be_deduced.
+clearlogentr_rules(181): logfilecountt__base__first <= 
+     logfilecountt__first may_be_deduced.
+clearlogentr_rules(182): logfilecountt__base__last >= 
+     logfilecountt__last may_be_deduced.
+clearlogentr_rules(183): logfileindext__size >= 0 may_be_deduced.
+clearlogentr_rules(184): logfileindext__first may_be_replaced_by 1.
+clearlogentr_rules(185): logfileindext__last may_be_replaced_by 17.
+clearlogentr_rules(186): logfileindext__base__first <= 
+     logfileindext__base__last may_be_deduced.
+clearlogentr_rules(187): logfileindext__base__first <= 
+     logfileindext__first may_be_deduced.
+clearlogentr_rules(188): logfileindext__base__last >= 
+     logfileindext__last may_be_deduced.
+clearlogentr_rules(189): filestatust__size >= 0 may_be_deduced.
+clearlogentr_rules(190): filestatust__first may_be_replaced_by free.
+clearlogentr_rules(191): filestatust__last may_be_replaced_by used.
+clearlogentr_rules(192): filestatust__base__first may_be_replaced_by free.
+clearlogentr_rules(193): filestatust__base__last may_be_replaced_by used.
+clearlogentr_rules(194): filestatust__pos(filestatust__first) may_be_replaced_by 0.
+clearlogentr_rules(195): filestatust__pos(free) may_be_replaced_by 0.
+clearlogentr_rules(196): filestatust__val(0) may_be_replaced_by 
+     free.
+clearlogentr_rules(197): filestatust__pos(archived) may_be_replaced_by 1.
+clearlogentr_rules(198): filestatust__val(1) may_be_replaced_by 
+     archived.
+clearlogentr_rules(199): filestatust__pos(used) may_be_replaced_by 2.
+clearlogentr_rules(200): filestatust__val(2) may_be_replaced_by 
+     used.
+clearlogentr_rules(201): filestatust__pos(filestatust__last) may_be_replaced_by 2.
+clearlogentr_rules(202): filestatust__pos(succ(X)) may_be_replaced_by 
+     filestatust__pos(X) + 1
+     if [X <=used, X <> used].
+clearlogentr_rules(203): filestatust__pos(pred(X)) may_be_replaced_by 
+     filestatust__pos(X) - 1
+     if [X >=free, X <> free].
+clearlogentr_rules(204): filestatust__pos(X) >= 0 may_be_deduced_from
+     [free <= X, X <= used].
+clearlogentr_rules(205): filestatust__pos(X) <= 2 may_be_deduced_from
+     [free <= X, X <= used].
+clearlogentr_rules(206): filestatust__val(X) >= free may_be_deduced_from
+     [0 <= X, X <= 2].
+clearlogentr_rules(207): filestatust__val(X) <= used may_be_deduced_from
+     [0 <= X, X <= 2].
+clearlogentr_rules(208): succ(filestatust__val(X)) may_be_replaced_by 
+     filestatust__val(X+1)
+     if [0 <= X, X < 2].
+clearlogentr_rules(209): pred(filestatust__val(X)) may_be_replaced_by 
+     filestatust__val(X-1)
+     if [0 < X, X <= 2].
+clearlogentr_rules(210): filestatust__pos(filestatust__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 2].
+clearlogentr_rules(211): filestatust__val(filestatust__pos(X)) may_be_replaced_by X
+     if [free <= X, X <= used].
+clearlogentr_rules(212): filestatust__pos(X) <= filestatust__pos(Y) & X <= Y are_interchangeable 
+     if [free <= X, X <= used, free <= Y, Y <= used].
+clearlogentr_rules(213): filestatust__val(X) <= filestatust__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 2, 0 <= Y, Y <= 2].
+clearlogentr_rules(214): logfilelistt__size >= 0 may_be_deduced.
+clearlogentr_rules(215): A = B may_be_deduced_from
+     [goal(checktype(A,logfilelistt)),
+      goal(checktype(B,logfilelistt)),
+      fld_list(A) = fld_list(B),
+      fld_head(A) = fld_head(B),
+      fld_lasti(A) = fld_lasti(B),
+      fld_length(A) = fld_length(B)].
+clearlogentr_rules(216): logentrycountt__size >= 0 may_be_deduced.
+clearlogentr_rules(217): logentrycountt__first may_be_replaced_by 0.
+clearlogentr_rules(218): logentrycountt__last may_be_replaced_by 17408.
+clearlogentr_rules(219): logentrycountt__base__first <= 
+     logentrycountt__base__last may_be_deduced.
+clearlogentr_rules(220): logentrycountt__base__first <= 
+     logentrycountt__first may_be_deduced.
+clearlogentr_rules(221): logentrycountt__base__last >= 
+     logentrycountt__last may_be_deduced.
+clearlogentr_rules(222): fileentrycountt__size >= 0 may_be_deduced.
+clearlogentr_rules(223): fileentrycountt__first may_be_replaced_by 0.
+clearlogentr_rules(224): fileentrycountt__last may_be_replaced_by 1024.
+clearlogentr_rules(225): fileentrycountt__base__first <= 
+     fileentrycountt__base__last may_be_deduced.
+clearlogentr_rules(226): fileentrycountt__base__first <= 
+     fileentrycountt__first may_be_deduced.
+clearlogentr_rules(227): fileentrycountt__base__last >= 
+     fileentrycountt__last may_be_deduced.

@@ -1,0 +1,45 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:20.92}
+
+                        {function UserToken.GetClass}
+
+
+title function getclass;
+
+  function round__(real) : integer;
+  type privtypes__classt = (privtypes__unmarked, 
+     privtypes__unclassified, privtypes__restricted, 
+     privtypes__confidential, privtypes__secret, 
+     privtypes__topsecret);
+  type cert__contentst = pending;
+  type privtypes__clearancet = record
+        class : privtypes__classt
+     end;
+  type cert__attr__contentst = record
+        inherit : cert__contentst
+     end;
+  type cert__attr__auth__contentst = record
+        inherit : cert__attr__contentst
+     end;
+  type validauthcertt = record
+        valid : boolean;
+        contents : cert__attr__auth__contentst
+     end;
+  const privtypes__classt__base__first : privtypes__classt = pending; 
+  const privtypes__classt__base__last : privtypes__classt = pending; 
+  const validauthcertt__size : integer = pending; 
+  const privtypes__clearancet__size : integer = pending; 
+  const privtypes__classt__first : privtypes__classt = pending; 
+  const privtypes__classt__last : privtypes__classt = pending; 
+  const privtypes__classt__size : integer = pending; 
+  var authcert : validauthcertt;
+  function cert__attr__auth__theclearance(
+     cert__attr__auth__contentst) : privtypes__clearancet;
+
+end;

@@ -1,0 +1,2079 @@
+
+%=======================================================================
+\chapter{Internal Operations}
+\label{sec:Internal}
+%=======================================================================
+In this section we present a number of operations performed internally
+by the TIS. These operations are combined to create the operations
+available to the user.
+
+The majority of these operations only update elements in a single
+schema, although they may read values from other schemas to influence
+new values, these may be viewed as imports to the operations.
+
+%-------------------------------------------------------------------------
+\section{Updating the Audit Log}
+%-------------------------------------------------------------------------
+\label{sec:logTr}
+%.....................................
+\subsection{Adding elements to the Log}
+%.....................................
+
+\begin{traceunit}{FD.AuditLog.AddElementsToLog}
+{FS.AuditLog.AddElementsToLog}
+\end{traceunit}
+
+When we add a set of entries to the log, either there is sufficient
+room in the log for the new entries, in which case the log will not
+need to be truncated, or there is insufficient room in the log, in
+which case the log will be truncated losing the oldest data.
+
+The implementation uses several files to hold the log. If the current
+file has sufficient room to take the log then the new entries will be
+added to the current file, otherwise a new file will need to be found
+to contain the remaining data.
+ 
+If the log is truncated or close to its maximum size an alarm raised 
+to notify the administrator that the log is full. 
+
+Assuming that the set of elements being added to the file contains fewer
+elements than the maximum file capacity we can define operations for
+adding sets of elements to the current log file. 
+The new elements being added refer to the new elements that are
+generated during a single interation through the main loop. We have
+already assumed that a file must be able to contain at least 100
+elements, so it is a reasonable assumption that the number of new
+elements added at any one time is less than the capacity of a file.
+
+\begin{schema}{ValidNewElements}
+        RealWorldTimeChanges
+\also
+        AuditLogC
+\\      newElements? : \finset AuditC
+\where
+        \# newElements? < maxLogFileEntries
+\\      newElements? \neq \emptyset
+\also
+        oldestLogTimeC~ newElements? \geq nowC 
+\\      newestLogTimeC~ newElements? \leq nowC'
+\\      \forall i : LOGFILEINDEX | i \notin freeLogFiles @
+        nowC \geq newestLogTimeC~ (logFiles~ i) 
+\end{schema}
+
+If the set of $newElements$ is empty then no change occurs to the log.
+
+\begin{schema}{AddNoElementsToLog}
+        \Xi AuditLogC
+\\      newElements? : \finset AuditC
+\where
+        newElements? = \emptyset
+\end{schema}
+
+If there is space for the $newElements$ in the current file then these
+elements are added to the current file, and a check is made to determine whether the
+$auditAlarm$ should be raised.
+
+\begin{schema}{AddElementsToCurrentFile}
+        \Delta AuditLogC
+\also
+        ConfigC
+\\      ValidNewElements
+\where
+      \# newElements? + \# (logFiles~ currentLogFile) \leq maxLogFileEntries  
+\also
+        numberLogEntries' = numberLogEntries + \# newElements? 
+\\      logFiles' = logFiles \oplus \{ currentLogFile \mapsto
+logFiles~ currentLogFile \cup newElements? \}
+\\      currentLogFile' = currentLogFile 
+\\      usedLogFiles' = usedLogFiles
+\\      freeLogFiles' = freeLogFiles 
+\\      logFilesStatus' = logFilesStatus
+\also
+      (numberLogEntries' \geq alarmThresholdEntries \land auditAlarmC' = alarming
+\\ \t1   \lor numberLogEntries' < alarmThresholdEntries \land
+auditAlarmC' = auditAlarmC)
+\end{schema}
+\begin{Zcomment}
+\item
+The value of $alarmThresholdEntries$ is imported from $ConfigC$. 
+\end{Zcomment}
+
+If there is insufficient space for the $newElements$ in the
+current log file and there is a free file still available then the
+current log file is filled using the oldest elements from the set of
+$newElements$, the remaining $newElements$ are added to one of the
+previously empty files, which becomes the new current file.
+
+\begin{schema}{AddElementsToNextFileNoTruncate}
+      \Delta AuditLogC
+\also
+        ConfigC
+\\      ValidNewElements
+\where
+        freeLogFiles \neq \emptyset
+\\      \# newElements? + \# (logFiles~ currentLogFile) > maxLogFileEntries  
+\also
+        numberLogEntries' = numberLogEntries + \# newElements? 
+\\      \exists elementsInCurrentFile, elementsInNextFile : \finset AuditC @
+        elementsInCurrentFile \subseteq newElements? 
+\\ \t1  \land 
+        \# elementsInCurrentFile + \# (logFiles~ currentLogFile) =
+        maxLogFileEntries
+\\ \t1  \land elementsInNextFile = newElements? \setminus
+        elementsInCurrentFile
+\\ \t1  \land oldestLogTimeC~ elementsInNextFile \geq newestLogTimeC~
+        elementsInCurrentFile 
+\\ \t1  \land logFiles' = logFiles \oplus \{ currentLogFile \mapsto
+            logFiles~ currentLogFile \cup elementsInCurrentFile~ ,
+\\ \t5      currentLogFile'~ \mapsto elementsInNextFile \}
+\also
+        currentLogFile' = min~ freeLogFiles 
+\\      usedLogFiles' = usedLogFiles \cat \langle currentLogFile' \rangle
+\\      freeLogFiles' = freeLogFiles \setminus \{ currentLogFile' \}
+\\      logFilesStatus' = logFilesStatus \oplus \{ currentLogFile'
+\mapsto used \}
+\also
+      (numberLogEntries' \geq alarmThresholdEntries \land auditAlarmC' = alarming
+\\ \t1   \lor numberLogEntries' < alarmThresholdEntries \land
+auditAlarmC' = auditAlarmC)
+\end{schema}
+\begin{Zcomment}
+\item
+$elementsInCurrentFile$ is the subset of $newElements$ that will fill
+the current file.
+\item $elementsInNextFile$ is the subset of $newElements$ that will be
+written to a new file.
+\item
+The value of $alarmThresholdEntries$ is imported from $ConfigC$. 
+\end{Zcomment}
+
+If there is insufficient space for the $newElements$ in the
+current log file and there is not a free file available then the log
+will require truncation before all the data can be added.  The
+current log file is filled using the oldest elements from the set of
+$newElements$. The oldest file is emptied and an audit entry recording
+the truncation is added to this file followed by the 
+ remaining $newElements$. The file that was the oldest now becomes the new current file.
+
+
+\begin{schema}{AddElementsToNextFileWithTruncate}
+        \Delta AuditLogC
+\also
+        ConfigC
+\\      ValidNewElements
+\where
+        freeLogFiles = \emptyset
+\\      \# newElements? + \# (logFiles~ currentLogFile) \geq maxLogFileEntries  
+\also
+        numberLogEntries' = numberLogEntries + \# newElements? -
+         maxLogFileEntries + 1
+
+\\      \exists truncElement : AuditC; elementsInCurrentFile, elementsInNextFile :
+   \finset AuditC  @ 
+\\ \t1        truncElement.logTime \in nowC \upto nowC'
+\\  \t1  \land truncElement.elementId = truncateLogElement
+\\ \t1   \land truncElement.severity = critical  
+\\ \t1   \land truncElement.user = noUser   
+                  
+\also
+\\ \t1  \land elementsInCurrentFile \subseteq newElements? 
+\\ \t1  \land 
+        \# (logFiles~ currentLogFile) + \# elementsInCurrentFile =
+        maxLogFileEntries
+\\ \t1  \land elementsInNextFile = newElements? \setminus
+        elementsInCurrentFile
+\\ \t1  \land oldestLogTimeC~ elementsInNextFile \geq truncElement.logTime
+\\ \t1  \land truncElement.logTime \geq newestLogTimeC~ elementsInCurrentFile        
+
+\also
+\\ \t1  \land logFiles' = logFiles \oplus \{ currentLogFile \mapsto
+            logFiles~ currentLogFile \cup elementsInCurrentFile~ ,
+\\ \t5      currentLogFile'~ \mapsto elementsInNextFile \cup 
+        \{ truncElement \}~ \} 
+\also
+        currentLogFile' = head~ usedLogFiles
+\\      usedLogFiles' = tail~ usedLogFiles \cat \langle currentLogFile' \rangle
+\\      freeLogFiles' = freeLogFiles
+\\      logFilesStatus' = logFilesStatus \oplus \{ currentLogFile'
+\mapsto used \}
+
+\also
+        auditAlarmC' = alarming
+\end{schema}
+\begin{Zcomment}
+\item
+The status of the $currentLogFile'$ may change from $archived$ to
+$used$ during this operation.
+\item
+$elementsInCurrentFile$ is the subset of $newElements$ that will fill
+the current file.
+\item $elementsInNextFile$ is the subset of $newElements$ that will be
+written to a new file.
+\item $truncElement$ is the audit element recording the truncation of
+the log file.
+\item
+The $truncElement.description$ should contain the time range of data truncated from
+the log. This is not formally stated.
+\item
+The value of $alarmThresholdEntries$ is imported from $ConfigC$. 
+\end{Zcomment}
+
+Combining these gives us the operation of adding a number of elements
+to the log file.
+
+\begin{zed}
+AddElementsToLogC \defs AddNoElementsToLog 
+\\ \t4  \lor AddElementsToCurrentFile \lor
+        AddElementsToNextFileNoTruncate 
+\\ \t4   \lor AddElementsToNextFileWithTruncate
+\end{zed}
+%..............................................................
+\subsection{Implementation Notes}
+%.............................................................
+It should be noted that for implementation purposes only a single
+element will be added to the log at a time, the following operations
+are those that are required to be implemented. These deal with
+truncation and addition separately and then these two problems are
+brought together to define the full operation.
+
+\begin{traceunit}{FD.AuditLog.AddElementToLogFile}
+\traceto{FD.AuditLog.AddElementsToLog}
+\end{traceunit}
+
+An element is only valid for addition into the log if it occured
+between the last and the next time indicated by the real world. This
+can be guaranteed by using the current time (from a trusted source) for
+each element added to the log.
+
+\begin{schema}{ValidNewElement}
+        RealWorldTimeChanges
+\also
+        AuditLogC
+\\      newElement? : AuditC
+\where
+        newElement?.logTime \in nowC \upto nowC' 
+\\      \forall i : LOGFILEINDEX | i \notin freeLogFiles @
+        nowC \geq newestLogTimeC~ (logFiles~ i) 
+\end{schema}
+
+If there is room in the current file the new element is added to this.
+
+\begin{schema}{AddElementToCurrentLogFile}
+        \Delta AuditLogC
+\also
+        ConfigC
+\\      ValidNewElement
+\where
+      \# (logFiles~ currentLogFile) < maxLogFileEntries
+\also
+        numberLogEntries' = numberLogEntries + 1 
+\\      logFiles' = logFiles \oplus \{ currentLogFile \mapsto
+logFiles~ currentLogFile \cup \{ newElement? \}~ \}
+\\      currentLogFile' = currentLogFile 
+\\      usedLogFiles' = usedLogFiles
+\\      freeLogFiles' = freeLogFiles 
+\\      logFilesStatus' = logFilesStatus
+\also
+      (numberLogEntries' \geq alarmThresholdEntries \land auditAlarmC' = alarming
+\\ \t1   \lor numberLogEntries' < alarmThresholdEntries \land
+auditAlarmC' = auditAlarmC)
+\end{schema}
+\begin{Zcomment}
+\item
+The value of $alarmThresholdEntries$ is imported from $ConfigC$. 
+\end{Zcomment}
+
+If there is no room in the current file then there must be a free file
+and this becomes the current file.
+
+\begin{schema}{AddElementToNextLogFile}
+        \Delta AuditLogC
+\also
+        ConfigC
+\\      ValidNewElement
+\where
+        freeLogFiles \neq \emptyset
+\\      \# (logFiles~ currentLogFile) = maxLogFileEntries
+\also
+        numberLogEntries' = numberLogEntries + 1 
+\\      logFiles' = logFiles \oplus \{ currentLogFile' \mapsto \{ newElement? \}~ \}
+\\      currentLogFile' = min~ freeLogFiles 
+\\      usedLogFiles' = usedLogFiles \cat \langle currentLogFile' \rangle
+\\      freeLogFiles' = freeLogFiles \setminus \{ currentLogFile' \}
+\\      logFilesStatus' = logFilesStatus \oplus \{ currentLogFile'
+\mapsto used \}
+\also
+      (numberLogEntries' \geq alarmThresholdEntries \land auditAlarmC' = alarming
+\\ \t1   \lor numberLogEntries' < alarmThresholdEntries \land
+auditAlarmC' = auditAlarmC)
+\end{schema}
+\begin{Zcomment}
+\item
+The value of $alarmThresholdEntries$ is imported from $ConfigC$. 
+\end{Zcomment}
+
+\begin{zed}
+AddElementToLogFile \defs AddElementToCurrentLogFile \lor AddElementToNextLogFile
+\end{zed}
+
+\begin{traceunit}{FD.AuditLog.TruncateLog}
+\traceto{FD.AuditLog.AddElementsToLog}
+\end{traceunit}
+
+
+
+The log files are truncated by deleting the oldest log file, as there
+are at least two files, this is not the current file.
+
+\begin{schema}{TruncateLog}
+        \Delta AuditLogC
+\also   
+        RealWorldTimeChanges
+\also
+        truncElement! : AuditC
+\where
+        freeLogFiles = \emptyset
+\\      \# (logFiles~ currentLogFile) = maxLogFileEntries
+\also
+        numberLogEntries' = numberLogEntries - maxLogFileEntries
+\\      logFiles' = logFiles \oplus \{ head~ usedLogFiles \mapsto
+\emptyset \}
+
+\also      
+        currentLogFile' = currentLogFile
+\\      usedLogFiles' = tail~ usedLogFiles
+\\      freeLogFiles' = freeLogFiles \cup \{ head~ usedLogFiles \} 
+\\      logFilesStatus' = logFilesStatus \oplus \{ head~ usedLogFiles
+\mapsto free \}
+\\      auditAlarmC' = alarming
+\also
+        truncElement!.logTime \in nowC \upto nowC'
+\\      truncElement!.elementId = truncateLogElement
+\\      truncElement!.severity = critical  
+\\      truncElement!.user = noUser   
+\end{schema}
+\begin{Zcomment}
+\item
+The $truncElement!.description$ should contain the time range of data truncated from
+the log. This is not formally stated.
+\item
+$truncElement!$ is the audit element recording this truncation.
+\end{Zcomment}
+
+\begin{schema}{TruncateLogNotRequired}
+        \Xi AuditLogC
+\where
+        freeLogFiles \neq \emptyset
+\\      \lor \# (logFiles~ currentLogFile) < maxLogFileEntries
+\end{schema}
+
+\begin{traceunit}{FD.AuditLog.AddElementToLog}
+\traceto{FD.AuditLog.AddElementsToLog}
+\end{traceunit}
+
+\begin{zed}
+AddElementToLogC \defs ((TruncateLog [ theElement' / truncElement! ] \semi
+AddElementToLogFile[ theElement/ newElement?]) 
+\\ \t5 \lor TruncateLogNotRequired ) 
+\\ \t6 \semi AddElementToLogFile
+\end{zed}
+
+
+We claim that adding new entries for the log one by one has the same
+effect as adding them as a set. All that is required is that the
+elements are added in chronological order. This is stated formally as follows:
+
+\begin{argue}
+[ AddElementsToLogC | newElements? \neq \emptyset ] \equiv 
+\\ \t3 [ ValidNewElements; \Delta AuditLogC; ConfigC | 
+\\ \t4 \exists newElement? : AuditC;
+        remainingElements? : \finset AuditC @ 
+\\ \t4  newElement? \in newElements? 
+        \land newElement?.logTime = oldestLogTimeC~ newElements?
+\\  \t4 
+        \land remainingElements? = newElements? \setminus \{ newElement? \}
+\\ \t4  \land AddElementToLogC \semi AddElementsToLogC
+        [remainingElements? / newElements? ]  ~]  
+ 
+\end{argue}
+\begin{Zcomment}
+\item
+$newElement?$ is the oldest element in
+$newElements?$, while $remainingElements?$ are the elements that are left in
+$newElements?$ once $newElement?$ is removed. 
+\item
+The above states that adding $newElement?$ using the operation
+$AddElementToLogC$ followed by adding $remainingElements?$ using the
+operation $AddElementsToLogC$ is equivalent to adding the set
+$newElements?$ using the operation $AddElementsToLogC$.
+\end{Zcomment}
+
+%..............................
+\subsection{Archiving the Log}
+%..............................
+
+\begin{traceunit}{FD.AuditLog.ArchiveLog}
+\traceto{FS.AuditLog.ArchiveLog}
+\end{traceunit}
+
+
+When we archive the log an audit element is added to the log and an
+archive is generated which can be written to floppy. 
+
+We only archive complete log files, upto the maximum capacity of the
+archive media.
+
+This activity does not clear the log since a check will be made to
+ensure the archive was successful before clearing the log. It marks
+all files that are archived so that they can be recognised for clearing
+if the export of the archive log succeeds.
+
+\begin{schema}{DetermineArchiveLog}
+        \Delta AuditLogC
+\also
+        RealWorldTimeChanges
+\\      AdminTokenC
+\\      ConfigC
+\also
+        archive! : \finset AuditC
+\\      archiveElement! : AuditC
+\where
+        \exists archivedFiles : \finset LOGFILEINDEX @
+\\ \t1           archivedFiles =  \{ i : LOGFILEINDEX | i \in \ran
+        (( 1 \upto maxNumberArchivableFiles )\dres usedLogFiles ) 
+\\ \t3 
+        \land \# (logFiles~ i) = maxLogFileEntries  \}
+
+\\ \t1  \land archive! = \bigcup \{ i : archivedFiles @ logFiles~ i \}
+\also 
+   \t1  \land logFilesStatus' = logFilesStatus \oplus \{ i: archivedFiles @ i
+   \mapsto archived \}
+\also
+        usedLogFiles' = usedLogFiles
+\\        freeLogFiles' = freeLogFiles
+\\        logFiles' = logFiles
+\\        numberLogEntries' = numberLogEntries
+\also
+        archiveElement!.logTime \in nowC \upto nowC'
+\\      archiveElement!.elementId = archiveLogElement
+\\      archiveElement!.severity = information
+\\      archiveElement!.user = extractUser~ currentAdminTokenC 
+\also
+        auditAlarmC' = auditAlarmC
+\end{schema}
+\begin{Zcomment}
+\item
+$archivedFiles$ is the set of files that will be archived, these are
+all full files from the front of the list of $usedLogFiles$.
+ \item
+The $archiveElement!$ is the audit entry recording the
+construction of an archive.
+\item
+The $archiveElement!.description$ should contain the time range of
+data selected for archive from
+the log. This is not formally stated.
+\item 
+The Id of the current administrator is imported from
+$AdminTokenC$.
+\item
+The $alarmThresholdEntries$ is imported from $ConfigC$.
+\end{Zcomment}
+
+Other elements may be added to the log once the archive has been determined.
+
+\begin{zed}
+        ArchiveLogC \defs (DetermineArchiveLog \semi 
+\\ \t4  [AddElementsToLogC; archiveElement! : AuditC | archiveElement! \in
+newElements? ]) 
+\\ \t5        \hide (archiveElement!)
+\end{zed}
+
+%..............................
+\subsection{Clearing the Log}
+%..............................
+
+\begin{traceunit}{FD.AuditLog.ClearLog}
+\traceto{FS.AuditLog.ClearLog}
+\end{traceunit}
+
+The log should only be cleared if it can be verified that an archive
+has been created of the data that is about to be cleared.
+
+The action of clearing the log will replace all files marked as
+archived by empty files.
+
+\begin{schema}{ClearLogEntries}
+        RealWorldTimeChanges
+\also
+        ConfigC
+\\      AdminTokenC
+\\      \Delta AuditLogC
+\also
+        archiveCompleteElement! : AuditC
+\where
+        \exists archivedFiles : \finset LOGFILEINDEX @
+\\ \t1        archivedFiles = \dom ( logFilesStatus \rres \{ archived \} )
+\\ \t1       \land logFilesStatus' = logFilesStatus \oplus (archivedFiles
+\cross \{ free \})
+\also
+    \t1     \land usedLogFiles' = usedLogFiles \filter (LOGFILEINDEX \setminus archivedFiles)
+\\  \t1      \land freeLogFiles' = freeLogFiles \cup archivedFiles
+\\  \t1      \land logFiles' = logFiles \oplus (archivedFiles \cross 
+        \{ \emptyset \})
+\\  \t1      \land numberLogEntries' = numberLogEntries - maxLogFileEntries *
+\# archivedFiles
+\also
+        archiveCompleteElement!.logTime \in nowC \upto nowC'
+\\      archiveCompleteElement!.elementId = archiveCompleteElement
+\\      archiveCompleteElement!.severity = information
+\\      archiveCompleteElement!.description = noDescription
+\\      archiveCompleteElement!.user = extractUser~ currentAdminTokenC 
+\also
+        (numberLogEntries' < alarmThresholdEntries \land
+        auditAlarmC' = silent
+\\ \t1  \lor numberLogEntries \geq alarmThresholdEntries \land
+        auditAlarmC' = alarming)
+\end{schema}
+
+Other entries may be added to the log following clearing of the
+archived entries.
+
+\begin{zed}
+        ClearLogC \defs (ClearLogEntries \semi 
+\\ \t3  [AddElementsToLogC; archiveCompleteElement! : AuditC | 
+\\ \t6 archiveCompleteElement! \in
+newElements? ]) 
+\\ \t4        \hide (archiveCompleteElement!)
+\end{zed}
+
+
+\begin{traceunit}{FD.AuditLog.CancelArchive}
+\end{traceunit}
+
+If the archive fails then all record of the archive should be removed
+from the status of the log files.
+
+\begin{schema}{CancelArchiveIndication}
+        RealWorldTimeChanges
+\also
+        ConfigC
+\\      AdminTokenC
+\\      RealWorldChangesC
+\\      \Delta AuditLogC
+\where
+        \exists archivedFiles : \finset LOGFILEINDEX @
+\\ \t1        archivedFiles = \dom ( logFilesStatus \rres 
+\{ archived \} )
+\\ \t1     \land logFilesStatus' = logFilesStatus \oplus (archivedFiles
+\cross \{ used \})
+\also
+          usedLogFiles' = usedLogFiles 
+\\        freeLogFiles' = freeLogFiles 
+\\        logFiles' = logFiles 
+\\        numberLogEntries' = numberLogEntries 
+\end{schema}
+\begin{Zcomment}
+\item
+The log entry associated with this is created at the system level as
+it may incorporate the reason for failure
+\end{Zcomment}
+
+Other elements may be added to the log following cancellation of the
+archive indication.
+
+\begin{zed}
+        CancelArchive \defs (CancelArchiveIndication \semi
+        AddElementsToLogC)
+\end{zed}
+
+%.....................................................
+\subsection{Auditing Changes}
+%.....................................................
+
+\begin{traceunit}{FD.AuditLog.LogChange}
+\traceto{FS.AuditLog.LogChange}
+\end{traceunit}
+
+
+TIS adds audit entries whenever any of the following changes occurs:
+\begin{itemize}
+\item
+The door is opened or closed.
+\item
+The door is latched or unlatched.
+\item
+The alarm starts alarming or becomes silenced.
+\item
+The audit alarm  starts alarming or becomes silenced.
+\item
+The text displayed on the display changes.
+\item
+The message text displayed on the screen changes.
+\item
+The log is truncated (this has already been covered in Section
+\ref{sec:logTr}). 
+\end{itemize}
+
+\begin{zed}
+DOORCHANGE\_ELEMENTS == \{ doorOpenedElement, doorClosedElement \}
+\end{zed}
+\begin{Zcomment}
+\item
+The $doorOpenedElement$ and $doorClosedElement$ are the audit entries recording that the door has
+been opened and closed respectively.
+\end{Zcomment}
+
+Audit entries associated with changes to the door do not specify a
+user, nor do they include additional details.
+
+\begin{schema}{AuditDoorC}
+        \Delta DoorLatchAlarmC
+\also
+        RealWorldTimeChanges
+\\      newElements? : \finset AuditC
+\where
+        \forall  newElement : AuditC | 
+\\ \t1  newElement \in newElements?
+        \land newElement.elementId \in DOORCHANGE\_ELEMENTS @ 
+\\ \t2        newElement.logTime \in nowC \upto nowC'
+\\ \t2  \land newElement.user = noUser
+\\ \t2  \land newElement.severity = information
+\\ \t2  \land newElement.description = noDescription
+\also
+         ( currentDoorC \neq currentDoorC' \land
+                currentDoorC' = open 
+\\      \t1             \iff (\exists_1 element : AuditC @ element \in
+newElements? \land
+element.elementId = doorOpenedElement 
+\\ \t2 \land auditTypes~ newElements? \cap DOORCHANGE\_ELEMENTS = 
+\{ doorOpenedElement \} ))
+\\         (currentDoorC' \neq currentDoorC \land currentDoorC' =
+closed 
+\\      \t1             \iff (\exists_1 element : AuditC @ element \in  newElements? \land
+element.elementId = doorClosedElement
+\\ \t2 \land auditTypes~ newElements? \cap DOORCHANGE\_ELEMENTS = 
+\{ doorClosedElement \} ))
+               
+\end{schema}
+
+\begin{zed}
+LATCHCHANGE\_ELEMENTS == \{ latchLockedElement, latchUnlockedElement \}
+\end{zed}
+\begin{Zcomment}
+\item
+The $latchLockedElement$ and $latchUnlockedElement$ are the audit entries recording that the latch has
+been locked and unlocked respectively.
+\end{Zcomment}
+
+Audit entries associated with changes to the latch do not specify a
+user, nor do they include additional details.
+
+
+\begin{schema}{AuditLatchC}
+        \Delta DoorLatchAlarmC
+\also
+        RealWorldTimeChanges
+\\      newElements? : \finset AuditC
+\where
+        \forall  newElement : AuditC | 
+\\ \t1  newElement \in newElements?
+        \land newElement.elementId \in LATCHCHANGE\_ELEMENTS @ 
+\\ \t2        newElement.logTime \in nowC \upto nowC'
+\\ \t2  \land newElement.user = noUser
+\\ \t2  \land newElement.severity = information
+\\ \t2  \land newElement.description = noDescription
+\also
+          (currentLatchC' \neq currentLatchC \land currentLatchC'
+        = locked 
+\\      \t1             \iff (\exists_1 element : AuditC @ element \in
+newElements? \land
+element.elementId = latchLockedElement 
+\\ \t2 \land auditTypes~ newElements? \cap LATCHCHANGE\_ELEMENTS = 
+\{ latchLockedElement \} ))
+
+\\        (currentLatchC' \neq currentLatchC \land currentLatchC'
+        = unlocked 
+\\      \t1             \iff (\exists_1 element : AuditC @ element \in
+newElements? \land
+element.elementId = latchUnlockedElement 
+\\ \t2 \land auditTypes~ newElements? \cap LATCHCHANGE\_ELEMENTS = 
+\{ latchUnlockedElement \} ))
+               
+\end{schema}
+
+\begin{zed}
+ALARMCHANGE\_ELEMENTS == \{ alarmSilencedElement, alarmRaisedElement \}
+\end{zed}
+\begin{Zcomment}
+\item
+The $alarmSilencedElement$ and $alarmRaisedElement$ are the audit entries recording that the alarm has
+been silenced and raised respectively.
+\end{Zcomment}
+
+Audit entries associated with changes to the alarm do not specify a
+user, nor do they include additional details.
+
+
+\begin{schema}{AuditAlarmC}
+        \Delta DoorLatchAlarmC
+\also
+        RealWorldTimeChanges
+\\      newElements? : \finset AuditC
+\where
+        \forall  newElement : AuditC |
+\\ \t1 newElement \in newElements?
+        \land newElement.elementId \in ALARMCHANGE\_ELEMENTS @ 
+\\ \t2        newElement.logTime \in nowC \upto nowC'
+\\ \t2  \land newElement.user = noUser
+\\ \t2  \land newElement.description = noDescription
+\also
+        (doorAlarmC \neq doorAlarmC' \land doorAlarmC' = alarming 
+\\      \t1             \iff (\exists_1 element : AuditC @ element \in  newElements? \land
+element.elementId = alarmRaisedElement
+\\ \t2 \land element.severity = critical
+\\ \t2 \land auditTypes~ newElements? \cap ALARMCHANGE\_ELEMENTS = 
+\{ alarmRaisedElement \} ))
+\\      (doorAlarmC \neq doorAlarmC' \land doorAlarmC' = silent 
+\\      \t1             \iff (\exists_1 element : AuditC @ element \in  newElements? \land
+element.elementId = alarmSilencedElement 
+\\ \t2 \land element.severity = information
+\\ \t2 \land auditTypes~ newElements? \cap ALARMCHANGE\_ELEMENTS = 
+\{ alarmSilencedElement \}))
+\end{schema}
+
+\begin{zed}
+AUDITALARMCHANGE\_ELEMENTS == \{ auditAlarmSilencedElement, auditAlarmRaisedElement \}
+\end{zed}
+\begin{Zcomment}
+\item
+The $auditAlarmSilencedElement$ and $auditAlarmRaisedElement$ are the
+audit entries recording that the audit log overflow warning alarm has
+been silenced and raised respectively.
+\end{Zcomment}
+
+Audit entries associated with changes to the alarm do not specify a
+user, nor do they include additional details.
+
+\begin{schema}{AuditLogAlarmC}
+        \Delta AuditLogC
+\also
+        RealWorldTimeChanges
+\\      newElements? : \finset AuditC
+\where
+        \forall  newElement : AuditC | 
+\\ \t1  newElement \in newElements?
+        \land newElement.elementId \in AUDITALARMCHANGE\_ELEMENTS @ 
+\\ \t2        newElement.logTime \in nowC \upto nowC'
+\\ \t2  \land newElement.user = noUser
+\\ \t2  \land newElement.description = noDescription
+\also
+      (auditAlarmC \neq auditAlarmC' \land auditAlarmC' = alarming 
+\\      \t1             \iff (\exists_1 element : AuditC @ element \in  newElements? \land
+element.elementId = auditAlarmRaisedElement 
+\\ \t2  \land element.severity = warning
+\\ \t2 \land auditTypes~ newElements? \cap AUDITALARMCHANGE\_ELEMENTS = 
+\{ auditAlarmRaisedElement \}))
+\\      (auditAlarmC \neq auditAlarmC' \land auditAlarmC' = silent 
+\\      \t1             \iff (\exists_1 element : AuditC @ element \in  newElements? \land
+element.elementId = auditAlarmSilencedElement
+\\ \t2  \land element.severity = information
+\\ \t2 \land auditTypes~ newElements? \cap AUDITALARMCHANGE\_ELEMENTS = 
+\{ auditAlarmSilencedElement \} ))
+               
+\end{schema}
+
+Audit entries recording that the display has changed are of type  $displayChangedElement$.
+Audit entries associated with changes to the display do not specify a
+user, the additional details will give the new displayed text, this is
+not stated formally.
+
+\begin{schema}{AuditDisplayC}
+        currentDisplayC, currentDisplayC' : DISPLAYMESSAGE 
+\also
+        RealWorldTimeChanges
+\\      newElements? : \finset AuditC
+\where
+        \forall  newElement : AuditC | 
+\\ \t1  newElement \in newElements?
+        \land newElement.elementId = displayChangedElement  @ 
+\\ \t2        newElement.logTime \in nowC \upto nowC'
+\\ \t2  \land newElement.user = noUser
+\\ \t2  \land newElement.severity = information
+\also
+  (currentDisplayC' \neq currentDisplayC 
+\\      \t1             \iff (\exists_1 element : AuditC @ element \in  newElements? \land
+element.elementId = displayChangedElement ))
+\end{schema}
+
+Audit entries recording that the screen message has changed are of type  $screenChangedElement$.
+Audit entries associated with changes to the screen message do not specify a
+user, the additional details will give the new displayed text, this is
+not stated formally.
+
+\begin{schema}{AuditScreenC}
+        \Delta ScreenC
+\also
+        RealWorldTimeChanges
+\\      newElements? : \finset AuditC
+\where
+        \forall  newElement : AuditC | 
+\\ \t1  newElement \in newElements?
+        \land newElement.elementId = screenChangedElement  @ 
+\\ \t2        newElement.logTime \in nowC \upto nowC'
+\\ \t2  \land newElement.user = noUser
+\\ \t2  \land newElement.severity = information
+\also
+      ( screenMsgC' \neq screenMsgC  
+\\      \t1             \iff (\exists_1 element : AuditC @ element \in  newElements? \land
+element.elementId = screenChangedElement ))
+\end{schema}
+\begin{Zcomment}
+\item
+The $screenChangedElement$ is the audit entry recording that the
+screen has changed.
+\end{Zcomment}
+
+\begin{zed}
+        LogChangeC \defs AuditAlarmC \land AuditLatchC \land AuditDoorC
+        \land AuditLogAlarmC \land AuditScreenC \land AuditDisplayC 
+\end{zed}
+%-------------------------------------------------------------------------
+\section{Updating System Statistics}
+%-------------------------------------------------------------------------
+
+\begin{traceunit}{FD.Stats.Update}
+\traceto{FS.Stats.Update}
+\end{traceunit}
+
+System statistics are updated as actions that are being monitored for
+the statistics occur.
+
+We provide operations to increment the count of each of the events
+being monitored.
+
+\begin{schema}{AddSuccessfulEntryToStatsC}
+        \Delta StatsC
+\where
+        failEntryC' = failEntryC 
+\\      successEntryC' = successEntryC + 1
+\\      failBioC' = failBioC
+\\      successBioC' = successBioC 
+\end{schema}
+
+\begin{schema}{AddFailedEntryToStatsC}
+        \Delta StatsC
+\where
+        failEntryC' = failEntryC + 1
+\\      successEntryC' = successEntryC
+\\      failBioC' = failBioC
+\\      successBioC' = successBioC 
+\end{schema}
+
+\begin{schema}{AddSuccessfulBioCheckToStatsC}
+        \Delta StatsC
+\where
+        failEntryC' = failEntryC
+\\      successEntryC' = successEntryC
+\\      failBioC' = failBioC
+\\      successBioC' = successBioC + 1
+\end{schema}
+
+\begin{schema}{AddFailedBioCheckToStatsC}
+        \Delta StatsC
+\where
+        failEntryC' = failEntryC
+\\      successEntryC' = successEntryC
+\\      failBioC' = failBioC + 1
+\\      successBioC' = successBioC
+\end{schema}
+
+%-------------------------------------------------------------------------
+\section{Updating Certificate Store}
+%-------------------------------------------------------------------------
+
+\begin{traceunit}{FD.CertificateStore.Update}
+\end{traceunit}
+
+
+The certificate store needs to be updated to increment the next
+available serial number whenever an authorisation certificate is
+issued.
+
+
+\begin{schema}{UpdateCertificateStore}
+        \Delta CertificateStore
+\where
+        nextSerialNumber' = nextSerialNumber + 1
+\end{schema}
+
+%------------------------------------------------------------------------
+\section{Operating the Door, Latch and Alarm}
+%------------------------------------------------------------------------
+
+\begin{traceunit}{FD.Latch.UpdateInternalLatch}
+\traceto{FD.Door.UnlockDoor}
+\traceto{FD.Door.LockDoor}
+\traceto{FD.Interface.TISPoll}
+\end{traceunit}
+
+The state of the latch depends on whether the latch timout has expired
+or not. 
+
+The latch is locked if the timout has expired.
+
+\begin{schema}{LatchTimeoutExpired}
+        \Delta DoorLatchAlarmC
+\where
+        currentTimeC \geq latchTimeoutC
+\also
+        currentLatchC' = locked
+\\      currentTimeC'  = currentTimeC
+\\      latchTimeoutC' = latchTimeoutC
+\\      alarmTimeoutC' = alarmTimeoutC 
+\\      currentDoorC' = currentDoorC
+\\      doorAlarmC' = doorAlarmC
+\end{schema}
+
+The latch is unlocked if the timeout has not expired.
+
+\begin{schema}{LatchTimeoutNotExpired}
+        \Delta DoorLatchAlarmC
+\where
+        latchTimeoutC > currentTimeC
+\also
+        currentLatchC' = unlocked
+\\      currentTimeC'  = currentTimeC
+\\      latchTimeoutC' = latchTimeoutC
+\\      alarmTimeoutC' = alarmTimeoutC 
+\\      currentDoorC' = currentDoorC
+\\      doorAlarmC' = doorAlarmC
+\end{schema}
+
+\begin{zed}
+        UpdateInternalLatch \defs LatchTimeoutExpired \lor
+        LatchTimeoutNotExpired
+\end{zed}
+
+
+\begin{traceunit}{FD.Latch.UpdateInternalAlarm}
+\traceto{FD.Door.UnlockDoor}
+\traceto{FD.Door.LockDoor}
+\traceto{FD.Interface.TISPoll}
+\end{traceunit}
+
+The state of the alarm depends on the state of the door, the state of
+the latch and whether the alarm timout has expired
+or not. 
+
+If the door is open, latch is locked and the alarm timout has expired
+then the alarm is raised.
+
+\begin{schema}{RaiseAlarm}
+        \Delta DoorLatchAlarmC
+\where
+        currentDoorC = open
+\\      currentLatchC = locked 
+\\      currentTimeC \geq alarmTimeoutC 
+\also
+        doorAlarmC' = alarming
+\\      currentLatchC' = currentLatchC
+\\      latchTimeoutC' = latchTimeoutC
+\\      alarmTimeoutC' = alarmTimeoutC 
+\\      currentTimeC' = currentTimeC
+\\      currentDoorC' = currentDoorC
+\end{schema}
+
+If the door closed, or the latch is unlocked or the alarm timout has not expired
+then the alarm is silenced.
+
+
+\begin{schema}{SilenceAlarm}
+        \Delta DoorLatchAlarmC
+\where
+        currentDoorC = closed 
+\\      \lor currentLatchC = unlocked 
+\\      \lor currentTimeC < alarmTimeoutC 
+\also
+        doorAlarmC' = alarming
+\\      currentLatchC' = currentLatchC
+\\      latchTimeoutC' = latchTimeoutC
+\\      alarmTimeoutC' = alarmTimeoutC 
+\\      currentTimeC' = currentTimeC
+\\      currentDoorC' = currentDoorC
+\end{schema}
+
+\begin{zed}
+        UpdateInternalAlarm \defs RaiseAlarm \lor SilenceAlarm 
+\end{zed}
+
+
+\begin{traceunit}{FD.Door.UnlockDoor}
+\traceto{FS.Door.UnlockDoor}
+\end{traceunit}
+
+
+When the door is unlatched the timeouts on the door
+latch and alarm are set to cause the door to be latched again in the future. 
+
+\begin{schema}{SetUnlockDoorTimeouts}
+        \Delta DoorLatchAlarmC
+\\      ConfigC
+\where
+        currentLatchC' = currentLatchC
+\\      currentTimeC' = currentTimeC
+\\      latchTimeoutC' = currentTimeC + latchUnlockDurationC
+\\      alarmTimeoutC' = currentTimeC + latchUnlockDurationC + alarmSilentDurationC
+\\      currentDoorC' = currentDoorC
+\\      doorAlarmC' = doorAlarmC
+\end{schema}
+\begin{Zcomment}
+\item
+$latchUnlockDurationC$ and $alarmSilentDurationC$ are imported from $ConfigC$.
+\end{Zcomment}
+
+Once the timeouts have been reset the latch and alarm must be updated.
+
+\begin{zed}
+        UnlockDoorC \defs SetUnlockDoorTimeouts \semi UpdateInternalLatch
+        \semi UpdateInternalAlarm
+\end{zed}
+
+\begin{traceunit}{FD.Door.LockDoor}
+\traceto{FS.Door.LockDoor}
+\end{traceunit}
+
+Sometimes the door needs to be explicitly latched by TIS,
+when this occurs the timeouts on the door
+latch and alarm are reset. 
+Resetting the timeouts to the current time will ensure that the alarm
+will sound if there is a breach of security, this will occur through
+checks on the alarm timeout.
+
+\begin{schema}{SetLockDoorTimeouts}
+        \Delta DoorLatchAlarmC
+\where
+        currentLatchC' = currentLatchC
+\\      currentTimeC' = currentTimeC
+\\      latchTimeoutC' = currentTimeC
+\\      alarmTimeoutC' = currentTimeC 
+\\      currentDoorC' = currentDoorC
+\\      doorAlarmC' = doorAlarmC
+\end{schema}
+
+Once the timeouts have been reset the latch and alarm must be updated.
+
+\begin{zed}
+        LockDoorC \defs SetLockDoorTimeouts \semi UpdateInternalLatch
+        \semi UpdateInternalAlarm
+\end{zed}
+
+
+%------------------------------------------------------------------------
+\section{Certificate Operations}
+%------------------------------------------------------------------------
+
+%.....................................
+\subsection{Validating Certificates}
+%.....................................
+
+\begin{traceunit}{FD.Certificate.SignedOK}
+{FS.Certificate.Validate}
+\end{traceunit}
+
+When a certificate is checked in the context of a key store it is
+only acceptable if the certificate issuer is known to the key store
+and the signature can be verified by the key store.
+
+A certificate must have been issued by a known issuer.
+
+\begin{schema}{CertIssuerKnownC}
+        KeyStoreC
+\\      CertificateContents
+\where
+        keyMatchingIssuer~ idC.issuerC.id \neq \Nil
+\end{schema}
+
+A certificate must have been signed by the issuer. 
+
+\begin{schema}{CertOKC}
+        CertIssuerKnownC
+\\      
+        RawCertificate
+\where
+        (mechanism, digest~ mechanism~ data, 
+        signature) 
+\\ \t1   \isVerifiedBy (\The (keyMatchingIssuer~ idC.issuerC.id))
+\end{schema}
+
+%........................................
+\begin{traceunit}{FD.Certificate.AuthCertSignedOK}
+{FS.Certificate.Validate}
+\end{traceunit}
+
+
+
+In addition the Authorisation certificate must have been issued by this ID
+station; we make the assumption that a single ID station protects an enclave.
+
+\begin{schema}{CertIssuerIsThisTISC}
+        KeyStoreC
+\\      CertificateContents
+\where
+        privateKey \neq \Nil
+\\      idC.issuerC = (\The privateKey).keyOwner
+\end{schema}
+
+\begin{zed}
+        AuthCertOKC \defs CertIssuerIsThisTISC \land CertOKC
+\end{zed}
+
+
+
+%.....................................
+\subsection{Currency of Certificates}
+%.....................................
+
+\begin{traceunit}{FD.Certificate.IsCurrent}
+\end{traceunit}
+
+A certificate is considered current, within the context of the current
+time if the current time lies between the not before time and the not
+after time.
+
+\begin{schema}{CertIsCurrent}
+        CertificateContents
+\also
+        currentTimeC : TIME
+\where
+        currentTimeC \in notBefore \upto notAfter
+\end{schema}
+
+
+%...............................................
+\subsection{Generating Authorisation Certificates}
+%...............................................
+
+\begin{traceunit}{FD.Certificate.NewAuthCert}
+\traceto{FS.Certificate.NewAuthCert}
+\end{traceunit}
+
+An authorisation certificate contents can be constructed using information from
+a valid token and the current configuration of TIS.
+TIS can only generate the authorisation certificate if it has its own
+key to perform the signing with.
+
+All Authorisation certificates will be signed using RSA the encryption
+of a SHA-1 digest.
+
+\begin{schema}{NewAuthCertContents}
+        ValidTokenC
+\\      KeyStoreC
+\\      CertificateStore
+\\      ConfigC
+\\      newAuthCertContents! : AuthCertContents
+\\      currentTimeC : TIME
+\where
+        
+        privateKey \neq \Nil
+\also
+        newAuthCertContents!.idC.issuerC = (\The privateKey).keyOwner
+\\      newAuthCertContents!.idC.serialNumber = nextSerialNumber
+\also
+        (currentTimeC \in authPeriodIsEmpty
+\\ \t1    \land newAuthCertContents!.notBefore = currentTimeC
+\\ \t1    \land  newAuthCertContents!.notAfter = zeroTime 
+\\   \lor
+        currentTimeC \notin authPeriodIsEmpty
+\\ \t1    \land newAuthCertContents!.notBefore = first~ (getAuthPeriod~currentTimeC)
+\\ \t1    \land newAuthCertContents!.notAfter = second~ (getAuthPeriod~currentTimeC))
+
+\\      newAuthCertContents!.mechanism = rsaWithSha1
+\\      newAuthCertContents!.baseCertIdC = (extractIDCert~ idCertC).idC
+\\      newAuthCertContents!.roleC = (extractPrivCert~ privCertC).roleC
+\\      newAuthCertContents!.clearanceC.class = minClass \{ enclaveClearanceC ,
+(extractPrivCert~ privCertC).clearanceC.class \}
+\end{schema}
+
+The data for new authorisation certificate is constructed from the
+contents of the certificate. The signature is obtained by signing the
+digest of this data.
+
+\begin{schema}{NewAuthCertC}
+        ValidTokenC
+\\      KeyStoreC
+\\      CertificateStore
+\\      ConfigC
+\\      newAuthCert! : AuthCertC
+\\      currentTimeC : TIME
+\where
+        
+        privateKey \neq \Nil
+\also
+        \exists newAuthCertContents! : AuthCertContents @ 
+\\  \t1     NewAuthCertContents
+\\  \t1   \land  newAuthCert!.data = constructAuthCert~ newAuthCertContents!
+
+\\  newAuthCert!.signature = 
+\\ \t1   sign~ rsaWithSha1~
+        (\The (keyMatchingIssuer~ (\The privateKey).keyOwner.id))~
+        (digest~rsaWithSha1~ newAuthCert!.data) 
+\end{schema}
+
+%..................................
+\subsection{Adding Authorisation Certificates to User Token}
+%..................................
+
+\begin{traceunit}{FD.UserToken.AddAuthCertToUserToken}
+\traceto{FS.UserToken.AddAuthCertToUserToken}
+\end{traceunit}
+
+
+If a valid user token is present in the system then an authorisation
+certificate can be added to it.
+
+
+\begin{schema}{AddAuthCertToUserTokenC}
+        \Delta UserTokenC
+\\      KeyStoreC
+\\      CertificateStore
+\\      ConfigC
+\\      currentTimeC : TIME
+\where
+        userTokenPresenceC = present
+\\      currentUserTokenC \in \ran goodTC
+\also
+      \exists ValidTokenC; ValidTokenC' @ \theta ValidTokenC = (goodTC \inv
+currentUserTokenC) 
+\\ \t1  \land \theta ValidTokenC' = (goodTC \inv currentUserTokenC')
+\\ \t1  \land (\exists newAuthCert! : AuthCertC @ \The authCertC' = newAuthCert!
+        \land NewAuthCertC)
+\\ \t1  \land tokenIDC' = tokenIDC
+\\ \t1  \land idCertC' = idCertC
+\\ \t1  \land privCertC' = privCertC
+\\ \t1  \land iandACertC' = iandACertC
+\also
+        userTokenPresenceC' = userTokenPresenceC
+\end{schema}
+
+
+%------------------------------------------------------------------------
+\section{Updating the Key Store}
+%------------------------------------------------------------------------
+
+\begin{traceunit}{FD.KeyStore.UpdateKeyStore}
+\traceto{FS.KeyStore.UpdateKeyStore}
+\end{traceunit}
+
+
+The key store is updated using the supplied enrolment data 
+to add issuers and their public keys.
+
+\begin{schema}{UpdateKeyStoreC}
+        \Delta KeyStoreC
+\\      ValidEnrolC
+\where
+        keys' = (keys \setminus \{ key : keys | key.keyType = private \})
+\\ \t1                 \cup \{ c : \ran issuerCertsC ;  key : KeyPart |
+\\ \t3        key.keyOwner = (extractIDCert~c).subjectC    
+\\ \t3        \land key.keyType = public
+\\ \t3        \land key.keyData = (extractIDCert~c).subjectPubKC @ key \} 
+\\ \t1 \cup 
+        \{ key : KeyPart | 
+\\ \t3        key.keyOwner = (extractIDCert~idStationCertC).subjectC    
+\\ \t3        \land key.keyType = private
+\\ \t3        \land key.keyData = theTISKey @ key \} 
+\also
+        theTISKey' = theTISKey
+
+\end{schema}
+\begin{Zcomment}
+\item
+This operation uses union and override so that it can be used to add
+issuers as well as initial enrolment. 
+\item
+The enrolment data must include the ID certificate for this TIS. This
+contains the official name for the TIS and will result in the private
+TIS key being inserted into the keystore with the name of the TIS. If
+the private key was already in the keystore it will be replaced.
+\end{Zcomment}
+
+The enrolment data will always be supplied on a floppy disk.
+
+\begin{schema}{UpdateKeyStoreFromFloppyC}
+        \Delta KeyStoreC
+\\      FloppyC
+\where
+        currentFloppyC \in \ran enrolmentFileC
+\\
+        (\exists ValidEnrolC @ \theta ValidEnrolC = enrolmentFileC \inv
+currentFloppyC
+\\ \t1  \land UpdateKeyStoreC)   
+\also
+\end{schema}
+
+%------------------------------------------------------------------------
+\section{Token Validation}
+%------------------------------------------------------------------------
+
+\begin{traceunit}{FD.Token.Validate}
+\end{traceunit}
+
+There are a number of validation checks that need to be performed on
+tokens.
+Some of these checks are consistency checks, others require the
+presence of a key store.
+
+
+The token must contain an ID certificate, which has a serial number
+matching the tokenID. 
+
+\begin{schema}{TokenIDCertPresent}
+        TokenC
+\where
+       idCertC \in \dom extractIDCert
+\\     (extractIDCert~ idCertC).idC.serialNumber = tokenIDC   
+\end{schema}
+
+The ID certificate must be correctly signed by a known issuer.
+
+\begin{schema}{TokenIDCertOK}
+        TokenIDCertPresent
+\also
+        KeyStoreC
+\where
+       \exists IDCertContents ; RawCertificate @ 
+\\ \t1          \theta IDCertContents = extractIDCert~ idCertC 
+                \land \theta RawCertificate = idCertC 
+          \land CertOKC  
+\end{schema}
+
+The ID certificate must be current.
+
+\begin{schema}{TokenIDCertCurrent}
+        TokenIDCertPresent
+\also
+        currentTimeC : TIME
+\where
+        \exists IDCertContents @ \theta IDCertContents =
+        extractIDCert~ idCertC 
+  \land CertIsCurrent
+\end{schema}
+
+The privilege certificate must be present and the base certificate
+must match the ID Certificate.
+
+\begin{schema}{TokenPrivCertPresent}
+        TokenIDCertPresent
+\where
+         privCertC \in \dom extractPrivCert
+\\      (extractIDCert~ idCertC).idC = (extractPrivCert~ privCertC).baseCertIdC   
+\end{schema}
+
+The privilege certificate must be correctly signed by a known issuer.
+
+\begin{schema}{TokenPrivCertOK}
+        TokenPrivCertPresent
+\also
+        KeyStoreC
+\where
+   \exists PrivCertContents ; RawCertificate @ 
+\\ \t1          \theta PrivCertContents = extractPrivCert~ privCertC 
+                \land \theta RawCertificate = privCertC 
+          \land CertOKC  
+\end{schema}
+
+The Priv certificate must be current.
+
+\begin{schema}{TokenPrivCertCurrent}
+        TokenPrivCertPresent
+\also
+        currentTimeC : TIME
+\where
+   \exists PrivCertContents @ 
+                \theta PrivCertContents = extractPrivCert~ privCertC 
+          \land CertIsCurrent  
+\end{schema}
+
+The I\&A certificate must be present and the base certificate
+must match the ID Certificate.
+
+\begin{schema}{TokenIandACertPresent}
+        TokenIDCertPresent
+\where
+            iandACertC \in \dom extractIandACert
+\\            (extractIDCert~ idCertC).idC = (extractIandACert~ iandACertC).baseCertIdC   
+\end{schema}
+
+The I\&A certificate must be correctly signed by a known issuer.
+
+\begin{schema}{TokenIandACertOK}
+        TokenIandACertPresent
+\also
+        KeyStoreC
+\where
+      \exists IandACertContents ; RawCertificate @ 
+\\ \t1          \theta IandACertContents = extractIandACert~ iandACertC 
+                \land \theta RawCertificate = iandACertC \land CertOKC  
+\end{schema}
+
+The I\&A certificate must be current.
+
+\begin{schema}{TokenIandACertCurrent}
+        TokenIandACertPresent
+\also
+        currentTimeC : TIME
+\where
+        \exists IandACertContents  @ 
+       \theta IandACertContents = extractIandACert~
+iandACertC 
+ \land CertIsCurrent
+\end{schema}
+
+\begin{zed}
+TokenOKC \defs TokenIDCertCurrent \land
+        TokenPrivCertCurrent \land TokenIandACertCurrent
+\end{zed}
+
+The Auth certificate must be present and the serial number of the base certificate
+must match the ID Certificate.
+
+\begin{schema}{TokenAuthCertPresent}
+        TokenIDCertPresent
+\where
+        authCertC \neq \Nil
+\\      \The authCertC \in \dom extractAuthCert
+\\      (extractIDCert~ idCertC).idC = (extractAuthCert~ (\The authCertC)).baseCertIdC   
+\end{schema}
+
+The Auth certificate must be correctly signed by this TIS.
+
+\begin{schema}{TokenAuthCertOK}
+        TokenAuthCertPresent
+\also
+        KeyStoreC
+\where
+        \exists AuthCertContents ; RawCertificate @ 
+\\ \t1          \theta AuthCertContents = extractAuthCert~ (\The authCertC) 
+                \land \theta RawCertificate = (\The authCertC) \land AuthCertOKC   
+\end{schema}
+
+The Auth certificate must be current.
+
+\begin{schema}{TokenAuthCertCurrent}
+        TokenAuthCertPresent
+\also
+        currentTimeC : TIME
+\where
+        \exists AuthCertContents  @ 
+        \theta AuthCertContents = extractAuthCert~ (\The authCertC) 
+           \land CertIsCurrent   
+\end{schema}
+
+\begin{zed}
+        TokenWithOKAuthCertC \defs TokenAuthCertOK \land TokenAuthCertCurrent
+\end{zed}
+
+
+%------------------------------------------------------------------------
+\section{User Token Operations and Checks}
+%------------------------------------------------------------------------
+
+
+%...................................
+\subsection{User Token Clear}
+%...................................
+
+\begin{traceunit}{FD.UserToken.Clear}
+\end{traceunit}
+
+
+The user token held internally must be cleared whenever the token is
+removed. This ensures that no information relating to the user token
+is retained following token removal.
+
+\begin{schema}{ClearUserToken}
+        \Delta UserTokenC
+\where
+        userTokenPresenceC' = absent      
+\\      currentUserTokenC' = noTC
+\end{schema}
+
+%....................................
+\subsection{User Token Validation}
+%....................................
+
+\begin{traceunit}{FD.UserToken.UserTokenOK}
+\end{traceunit}
+
+
+The user token must be good, in that it must not result in errors being
+raised when it is read.
+
+\begin{schema}{UserTokenGood}
+        UserTokenC
+\where
+ 	currentUserTokenC \in \ran goodTC
+\end{schema}
+
+\begin{schema}{UserTokenOKC}
+        UserTokenGood
+\\      KeyStoreC
+\\      currentTimeC : TIME
+\where
+        \exists TokenC @ goodTC~ \theta TokenC = currentUserTokenC
+\\ \t1          \land TokenIDCertOK \land TokenIDCertCurrent
+\\ \t1          \land TokenPrivCertOK \land TokenPrivCertCurrent
+\\ \t1          \land TokenIandACertOK \land TokenIandACertCurrent
+
+\end{schema}
+
+\begin{traceunit}{FD.UserToken.UserTokenNotOK}
+\end{traceunit}
+
+
+If a user token is not OK then the cause of the fault will be captured in
+the description of the audit entry. 
+
+
+\begin{axdef}
+        tokenBad, idCertBad, idCertNotVerifiable, idCertNotCurrent, 
+\\      iandACertBad, iandACertNotVerifiable, iandACertNotCurrent,
+\\      privCertBad, privCertNotVerifiable, privCertNotCurrent : TEXT
+\end{axdef}
+ 
+The formal statement below makes clear there is only one description
+generated. In the case where the token exhibits many faults the first
+applicable fault, taking the possible descriptions in the order presented, 
+will be described in the description. This is not captured formally. 
+
+\begin{schema}{UserTokenNotOK}
+        UserTokenC
+\\      KeyStoreC
+\\      currentTimeC : TIME
+\also
+        description! : TEXT
+\where
+        \lnot UserTokenGood \land description! = tokenBad 
+
+        \lor (\exists TokenC @ goodTC~ \theta TokenC = currentUserTokenC
+\\ \t1          \land 
+        (\lnot TokenIDCertPresent  \land description! = idCertBad
+\\ \t1  \lor \lnot TokenIDCertOK  \land description! = idCertNotVerifiable
+\\ \t1  \lor \lnot TokenIDCertCurrent \land description! = idCertNotCurrent 
+\\ \t1  \lor \lnot TokenPrivCertPresent  \land description! = privCertBad
+\\ \t1  \lor \lnot TokenPrivCertOK \land description! = privCertNotVerifiable 
+\\ \t1  \lor \lnot TokenPrivCertCurrent \land description! = privCertNotCurrent 
+\\ \t1  \lor \lnot TokenIandACertPresent \land description! = iandACertBad
+\\ \t1  \lor \lnot TokenIandACertOK \land description! = iandACertNotVerifiable
+\\ \t1  \lor \lnot TokenIandACertCurrent \land description! = iandACertNotCurrent
+
+))
+\end{schema}
+
+\begin{traceunit}{FD.UserToken.UserTokenWithOKAuthCert}
+\end{traceunit}
+
+
+We also need to check whether a User token has an acceptable
+Authorisation Certificate. This requires the Authorisation certificate
+to be present, 
+ correctly reference the TokenID, be verifiable within the context
+of the Key Store and be current. 
+
+\begin{schema}{UserTokenWithOKAuthCertC}
+        UserTokenGood
+\\      KeyStoreC
+\\      currentTimeC : TIME
+\where
+	\exists TokenC @ 
+		goodTC(\theta TokenC) = currentUserTokenC
+\\ \t1          \land TokenIDCertOK 
+\\ \t1          \land TokenAuthCertOK \land TokenAuthCertCurrent
+\end{schema}
+
+%------------------------------------------------------------------------
+\section{Admin Token Operations and Checks}
+%------------------------------------------------------------------------
+
+%...................................
+\subsection{Admin Token Clear}
+%...................................
+
+\begin{traceunit}{FD.AdminToken.Clear}
+\end{traceunit}
+
+The admin token held internally must be cleared whenever the token is
+removed. This ensures that no information relating to the Admin token
+is retained following token removal.
+
+\begin{schema}{ClearAdminToken}
+        \Delta AdminTokenC
+\where
+        adminTokenPresenceC' = absent      
+\\      currentAdminTokenC' = noTC
+\end{schema}
+
+%...................................
+\subsection{Admin Token Validation}
+%...................................
+
+The admin token must be good, in that it must not result in errors being
+raised when it is read.
+
+\begin{schema}{AdminTokenGood}
+        AdminTokenC
+\where
+ 	currentAdminTokenC \in \ran goodTC
+\end{schema}
+
+
+\begin{traceunit}{FD.AdminToken.Current}
+\end{traceunit}
+
+The Authorisation certificate on the admin token must be present,
+and current:
+
+\begin{schema}{AdminTokenCurrent}
+        AdminTokenGood
+\\      currentTimeC : TIME
+\where
+        \exists TokenC @ goodTC~ \theta TokenC = currentAdminTokenC
+\\ \t1          \land TokenAuthCertCurrent
+\end{schema}
+
+\begin{traceunit}{FD.AdminToken.AdminTokenOK}
+\end{traceunit}
+
+Additionally it must be
+validated within the context of the key store and the role
+must correspond to an administrator.
+
+\begin{schema}{AdminTokenOKC}
+        AdminTokenCurrent
+\\      KeyStoreC
+\where
+        \exists TokenC @ goodTC~ \theta TokenC = currentAdminTokenC
+\\ \t1          \land TokenIDCertOK 
+\\ \t1          \land TokenAuthCertOK \land TokenAuthCertCurrent
+\\ \t1    \land (extractAuthCert~ (\The authCertC)).roleC \in ADMINPRIVILEGE
+\end{schema}
+
+\begin{traceunit}{FD.AdminToken.AdminTokenNotOK}
+\end{traceunit}
+
+
+
+If an admin token is not OK then the cause of the fault will be captured in
+the description of the audit entry. 
+
+\begin{axdef}
+      authCertBad, authCertNotVerifiable, authCertNotCurrent,
+      authCertNotAdmin : TEXT
+\end{axdef}
+  
+The formal statement below makes clear there is only one description
+generated. In the case where the token exhibits many faults the first
+applicable fault, taking the possible descriptions in the order presented, 
+will be described in the description. This is not captured formally. 
+
+
+\begin{schema}{AdminTokenNotOK}
+        AdminTokenC
+\\      KeyStoreC
+\\      currentTimeC : TIME
+\also
+        description! : TEXT
+\where
+        \lnot AdminTokenGood \land description! = tokenBad 
+
+        \lor (\exists TokenC @ goodTC~ \theta TokenC = currentAdminTokenC
+\\ \t1          \land 
+        (\lnot TokenIDCertPresent  \land description! = idCertBad
+\\ \t1  \lor \lnot TokenIDCertOK  \land description! = idCertNotVerifiable
+\\ \t1  \lor \lnot TokenAuthCertPresent  \land description! = authCertBad
+\\ \t1  \lor \lnot TokenAuthCertOK  \land description! = authCertNotVerifiable
+\\ \t1  \lor \lnot TokenAuthCertCurrent \land description! = authCertNotCurrent
+\\ \t1  \lor (extractAuthCert~ (\The authCertC)).roleC \notin ADMINPRIVILEGE
+\\ \t2       \land description! = authCertNotAdmin
+))
+\end{schema}
+
+%------------------------------------------------------------------------
+\section{Administrator Operations and Checks}
+%------------------------------------------------------------------------
+An administrator may log on to the TIS console, logoff, or start an
+operation. There are also a number of checks that are performed on the
+Admin state.
+
+%........................
+\subsection{Logon Administrator}
+%........................
+
+\begin{traceunit}{FD.Admin.AdminLogon}
+\traceto{FS.Admin.AdminLogon}
+\end{traceunit}
+
+An administrator can only log on if there is no-one currently logged on.
+
+\begin{schema}{AdminLogonC}
+        \Delta AdminC
+\\      requiredRole? : ADMINPRIVILEGE
+\where
+        rolePresentC = \Nil
+\also
+\\      \The rolePresentC' = requiredRole?
+\also
+        currentAdminOpC' = \Nil
+\end{schema}
+
+%........................
+\subsection{Logout Administrator}
+%........................
+
+\begin{traceunit}{FD.Admin.AdminLogout}
+\traceto{FS.Admin.AdminLogout}
+\end{traceunit}
+
+An administrator can always log off.
+This will terminate the current operation.
+
+\begin{schema}{AdminLogoutC}
+        \Delta AdminC
+\where
+        rolePresentC' = \Nil
+\\      currentAdminOpC' = \Nil
+\end{schema}
+
+%........................
+\subsection{Administrator Starts Operation}
+%........................
+
+\begin{traceunit}{FD.Admin.AdminStartOp}
+\traceto{FS.Admin.AdminStartOp}
+\end{traceunit}
+
+An administrator, who is currently logged on, can start any of the
+operations that he is allowed to perform. An operation can only be
+started if there is no operation currently in progress.
+
+\begin{schema}{AdminStartOpC}
+        \Delta AdminC
+\\      requestedOp? :ADMINOP
+\where
+        rolePresentC \neq \Nil
+\\      currentAdminOpC = \Nil
+\\      requestedOp? \in  availableOpsC 
+\also
+        rolePresentC' = rolePresentC
+\\      \The currentAdminOpC' = requestedOp?
+\end{schema}
+
+%........................
+\subsection{Administrator Finishes Operation}
+%........................
+
+\begin{traceunit}{FD.Admin.AdminFinishOp}
+\traceto{FD.Admin.AdminFinishOp}
+\end{traceunit}
+
+An administrator, who is currently logged on, can finish an operation.
+
+\begin{schema}{AdminFinishOpC}
+        \Delta AdminC
+\where
+        rolePresentC \neq \Nil
+\\      currentAdminOpC \neq \Nil
+\also
+        rolePresentC' = rolePresentC
+\\      currentAdminOpC' = \Nil 
+\end{schema}
+
+
+
+%........................
+\subsection{Administrator Checks}
+%........................
+
+\begin{traceunit}{FD.Admin.AdminOpIsAvailable}
+\end{traceunit}
+
+A check can be made to ensure that the requested operation is one that
+is available.
+
+\begin{schema}{AdminOpIsAvailable}
+        AdminC
+\also
+        request? : KEYBOARD
+\where
+        request? \in keyedOps \limg availableOpsC \rimg
+\end{schema}
+
+
+\begin{traceunit}{FD.Admin.AdminIsPresent}
+\end{traceunit}
+
+A check can be made to ensure that an administrator is logged on.
+
+\begin{schema}{AdminIsPresent}
+        AdminC
+\where
+        rolePresentC \neq \Nil
+\end{schema}
+
+
+\begin{traceunit}{FD.Admin.AdminIsDoingOp}
+\end{traceunit}
+
+A check can be made to ensure that an administrator is performing an operation.
+
+\begin{schema}{AdminIsDoingOp}
+        AdminC
+\where
+        currentAdminOpC \neq \Nil
+\end{schema}
+
+
+
+%------------------------------------------------------------------------
+\section{Prioritisation Checks}
+%------------------------------------------------------------------------
+
+There are a number of checks relating to the internal state that
+determine what action needs to be performed.
+
+
+%.........................
+\subsection{Enrolement In Progress}
+%.........................
+\begin{traceunit}{FD.Enclave.EnrolmentInProgress}
+\end{traceunit}
+
+No other activity can take place until enrolment has completed. 
+
+\begin{schema}{EnrolmentIsInProgress}
+        enclaveStatusC : ENCLAVESTATUS
+\where
+        enclaveStatusC \in \{ notEnrolled, waitingEnrol, waitingEndEnrol \}
+\end{schema}
+
+%........................
+\subsection{Administrator Must Logout}
+%........................
+
+\begin{traceunit}{FD.Enclave.AdminMustLogout}
+\end{traceunit}
+
+An administrator must be logged out if there is a role present but the
+administrator token has been torn. The only exception to this is when
+TIS is in the process of shutting down, this does not force a loggout
+if the token is removed.
+
+\begin{schema}{PresentAdminHasDeparted}
+        AdminTokenC
+\\      AdminC
+\\      enclaveStatusC : ENCLAVESTATUS
+\where
+        AdminIsPresent
+\\      currentAdminOpC = \Nil \lor \The currentAdminOpC \neq shutdownOp 
+\\      adminTokenPresenceC = absent
+\end{schema}
+
+A logged on administrator expires their logon if the authorisation
+certificate is no longer valid. This takes priority over any user
+entry activity, although expiry checks only take place when there is
+no administrator activity.
+
+\begin{schema}{AdminTokenHasExpired}
+        AdminTokenC
+\\      AdminC
+\also
+        enclaveStatusC : ENCLAVESTATUS
+\\      currentTimeC : TIME
+\where
+        AdminIsPresent
+\\      enclaveStatusC = enclaveQuiescent
+\\      adminTokenPresenceC = present
+\\      \lnot AdminTokenCurrent
+\end{schema}
+
+\begin{zed}
+        AdminMustLogout \defs AdminTokenHasExpired \lor
+        PresentAdminHasDeparted 
+\end{zed}
+
+
+%........................
+\subsection{User Departed}
+%........................
+
+\begin{traceunit}{FD.UserEntry.UserHasDeparted}
+\end{traceunit}
+
+
+A user is considered to have just departed from the system
+if the status is not $quiescent$ but the user token has been torn.
+
+\begin{schema}{UserHasDeparted}
+        UserTokenC
+\\      statusC : STATUS
+\where
+        statusC \neq quiescent
+\\      userTokenPresenceC = absent
+\end{schema}
+
+%........................
+\subsection{User Entry In Progress}
+%........................
+
+\begin{traceunit}{FD.UserEntry.UserEntryInProgress}
+\end{traceunit}
+
+User entry processing is considered to be in progess while the status
+is neither $quiescent$ nor $waitingRemoveTokenFail$.
+
+\begin{schema}{UserEntryInProgress}
+        statusC : STATUS
+\where
+        statusC \notin \{ quiescent, waitingRemoveTokenFail \}
+\end{schema}
+
+
+%........................
+\subsection{Current User Entry Activity Possible}
+%........................
+
+\begin{traceunit}{FD.UserEntry.CurrentUserEntryActivityPossible}
+\end{traceunit}
+
+A user entry activity is possible if a user has just departed or
+there is a user entry in progress.
+
+\begin{zed}
+        CurrentUserEntryActivityPossible \defs
+        UserHasDeparted \lor UserEntryInProgress
+\end{zed}
+
+
+
+%........................
+\subsection{Admin Departed}
+%........................
+
+\begin{traceunit}{FD.Enclave.AdminHasDeparted}
+\end{traceunit}
+
+
+A administrator is considered to have just departed from the system
+if the enclave status is not $quiescent$ but the admin token has been torn.
+
+\begin{schema}{AdminHasDeparted}
+        AdminTokenC
+\\      enclaveStatusC : ENCLAVESTATUS
+\where
+        \lnot EnrolmentIsInProgress
+\also
+        enclaveStatusC \neq enclaveQuiescent
+\\      adminTokenPresenceC = absent
+\end{schema}
+
+
+
+%........................
+\subsection{Enclave Activities In Progress}
+%........................
+
+\begin{traceunit}{FD.Enclave.EnclaveActivityInProgress}
+\end{traceunit}
+
+There is an administrator activity in progress within the enclave when the
+$enclaveStatus$ is neither $enclaveQuiescent$ nor
+$waitingRemovalAdminTokenFail$ and an enrolment is not in progress.
+
+\begin{schema}{AdminActivityInProgress}
+        enclaveStatusC : ENCLAVESTATUS
+\where
+        \lnot EnrolmentIsInProgress
+\\      enclaveStatusC \notin \{ enclaveQuiescent, waitingRemoveAdminTokenFail \}
+\end{schema}
+
+
+
+%........................
+\subsection{Current Enclave Activity Possible}
+%........................
+
+\begin{traceunit}{FD.Enclave.CurrentAdminActivityPossible}
+\end{traceunit}
+
+An enclave activity is possible if the administrator has just departed or
+there is an enclave activity in progress.
+
+\begin{zed}
+        CurrentAdminActivityPossible \defs
+        AdminHasDeparted \lor AdminActivityInProgress
+\end{zed}
+
+
+
+%........................
+\subsection{User Entry Can Start}
+%........................
+
+\begin{traceunit}{FD.UserEntry.UserEntryCanStart}
+\end{traceunit}
+
+User entry processing can start if a user token is present and the
+status is $quiescent$.
+
+\begin{schema}{UserEntryCanStart}
+        UserTokenC
+\\      statusC : STATUS
+\where
+        statusC = quiescent
+\\      userTokenPresenceC = present
+\end{schema}
+
+
+%........................
+\subsection{Admin Op Can Start}
+%........................
+
+\begin{traceunit}{FD.Enclave.AdminOpCanStart}
+\end{traceunit}
+
+An administrator operation can start if there is an administrator
+present and enclave is quiescent.
+
+\begin{schema}{AdminOpCanStart}
+        AdminC
+\\      AdminTokenC
+\\      enclaveStatusC : ENCLAVESTATUS
+\where
+        AdminIsPresent
+\\      enclaveStatusC = enclaveQuiescent
+\\      adminTokenPresenceC = present
+\end{schema}
+
+
+%........................
+\subsection{Admin Logon Can Start}
+%........................
+
+\begin{traceunit}{FD.Enclave.AdminLoginCanStart}
+\end{traceunit}
+
+An administrator operation can start the logon procedure if there is
+no administrator present and enclave is quiescent. 
+
+\begin{schema}{AdminLogonCanStart}
+        AdminTokenC
+\\      AdminC
+\\      enclaveStatusC : ENCLAVESTATUS
+\where
+        \lnot AdminIsPresent
+\\      enclaveStatusC = enclaveQuiescent
+\\      adminTokenPresenceC = present
+\end{schema}
+
+
+

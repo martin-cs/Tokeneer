@@ -1,0 +1,79 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:30.74*/
+
+                  /*function ConfigData.TheEnclaveClearance*/
+
+
+rule_family theenclavecl_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+theenclavecl_rules(1): privtypes__classt__size >= 0 may_be_deduced.
+theenclavecl_rules(2): privtypes__classt__first may_be_replaced_by privtypes__unmarked.
+theenclavecl_rules(3): privtypes__classt__last may_be_replaced_by privtypes__topsecret.
+theenclavecl_rules(4): privtypes__classt__base__first may_be_replaced_by privtypes__unmarked.
+theenclavecl_rules(5): privtypes__classt__base__last may_be_replaced_by privtypes__topsecret.
+theenclavecl_rules(6): privtypes__classt__pos(privtypes__classt__first) may_be_replaced_by 0.
+theenclavecl_rules(7): privtypes__classt__pos(privtypes__unmarked) may_be_replaced_by 0.
+theenclavecl_rules(8): privtypes__classt__val(0) may_be_replaced_by 
+     privtypes__unmarked.
+theenclavecl_rules(9): privtypes__classt__pos(
+     privtypes__unclassified) may_be_replaced_by 1.
+theenclavecl_rules(10): privtypes__classt__val(1) may_be_replaced_by 
+     privtypes__unclassified.
+theenclavecl_rules(11): privtypes__classt__pos(
+     privtypes__restricted) may_be_replaced_by 2.
+theenclavecl_rules(12): privtypes__classt__val(2) may_be_replaced_by 
+     privtypes__restricted.
+theenclavecl_rules(13): privtypes__classt__pos(
+     privtypes__confidential) may_be_replaced_by 3.
+theenclavecl_rules(14): privtypes__classt__val(3) may_be_replaced_by 
+     privtypes__confidential.
+theenclavecl_rules(15): privtypes__classt__pos(privtypes__secret) may_be_replaced_by 4.
+theenclavecl_rules(16): privtypes__classt__val(4) may_be_replaced_by 
+     privtypes__secret.
+theenclavecl_rules(17): privtypes__classt__pos(
+     privtypes__topsecret) may_be_replaced_by 5.
+theenclavecl_rules(18): privtypes__classt__val(5) may_be_replaced_by 
+     privtypes__topsecret.
+theenclavecl_rules(19): privtypes__classt__pos(privtypes__classt__last) may_be_replaced_by 5.
+theenclavecl_rules(20): privtypes__classt__pos(succ(X)) may_be_replaced_by 
+     privtypes__classt__pos(X) + 1
+     if [X <=privtypes__topsecret, X <> privtypes__topsecret].
+theenclavecl_rules(21): privtypes__classt__pos(pred(X)) may_be_replaced_by 
+     privtypes__classt__pos(X) - 1
+     if [X >=privtypes__unmarked, X <> privtypes__unmarked].
+theenclavecl_rules(22): privtypes__classt__pos(X) >= 0 may_be_deduced_from
+     [privtypes__unmarked <= X, X <= privtypes__topsecret].
+theenclavecl_rules(23): privtypes__classt__pos(X) <= 5 may_be_deduced_from
+     [privtypes__unmarked <= X, X <= privtypes__topsecret].
+theenclavecl_rules(24): privtypes__classt__val(X) >= 
+     privtypes__unmarked may_be_deduced_from
+     [0 <= X, X <= 5].
+theenclavecl_rules(25): privtypes__classt__val(X) <= 
+     privtypes__topsecret may_be_deduced_from
+     [0 <= X, X <= 5].
+theenclavecl_rules(26): succ(privtypes__classt__val(X)) may_be_replaced_by 
+     privtypes__classt__val(X+1)
+     if [0 <= X, X < 5].
+theenclavecl_rules(27): pred(privtypes__classt__val(X)) may_be_replaced_by 
+     privtypes__classt__val(X-1)
+     if [0 < X, X <= 5].
+theenclavecl_rules(28): privtypes__classt__pos(privtypes__classt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 5].
+theenclavecl_rules(29): privtypes__classt__val(privtypes__classt__pos(X)) may_be_replaced_by X
+     if [privtypes__unmarked <= X, X <= privtypes__topsecret].
+theenclavecl_rules(30): privtypes__classt__pos(X) <= 
+     privtypes__classt__pos(Y) & X <= Y are_interchangeable 
+     if [privtypes__unmarked <= X, X <= privtypes__topsecret, 
+     privtypes__unmarked <= Y, Y <= privtypes__topsecret].
+theenclavecl_rules(31): privtypes__classt__val(X) <= 
+     privtypes__classt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 5, 0 <= Y, Y <= 5].

@@ -1,0 +1,84 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:14  SIMPLIFIED 05-SEP-2011, 15:39:11
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure Auth.SetContents
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/cert_/attr_/auth/auth.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_setcontents_1.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(id)), [i___1]) and element(fld_name(fld_issuer(id)
+          ), [i___1]) <= character__last)
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  cryptotypes__algorithmt__first <= mechanism
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(basecertid)), [i___1]) and element(fld_name(
+          fld_issuer(basecertid)), [i___1]) <= character__last)
+%%%  Simplified H18 on reading formula in, to give:
+     %%%  H18:  privtypes__privileget__first <= role
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  privtypes__classt__first <= fld_class(clearance)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  cryptotypes__algorithmt__first <= mechanism
+***  Proved C1:  cryptotypes__algorithmt__first <= mechanism
+     using hypothesis H9.
+***  Proved C2:  mechanism <= cryptotypes__algorithmt__last
+     using hypothesis H10.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_setcontents_2.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(id)), [i___1]) and element(fld_name(fld_issuer(id)
+          ), [i___1]) <= character__last)
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  cryptotypes__algorithmt__first <= mechanism
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(basecertid)), [i___1]) and element(fld_name(
+          fld_issuer(basecertid)), [i___1]) <= character__last)
+%%%  Simplified H18 on reading formula in, to give:
+     %%%  H18:  privtypes__privileget__first <= role
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  privtypes__classt__first <= fld_class(clearance)
+---  Hypothesis H22 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as 
+          H10).
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  privtypes__privileget__first <= role
+***  Proved C1:  privtypes__privileget__first <= role
+     using hypothesis H18.
+***  Proved C2:  role <= privtypes__privileget__last
+     using hypothesis H19.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_setcontents_3.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+

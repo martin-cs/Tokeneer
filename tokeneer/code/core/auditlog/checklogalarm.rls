@@ -1,0 +1,87 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:08.10*/
+
+                      /*procedure AuditLog.CheckLogAlarm*/
+
+
+rule_family checklogalar_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+checklogalar_rules(1): audittypes__auditentrycountt__size >= 0 may_be_deduced.
+checklogalar_rules(2): audittypes__auditentrycountt__first may_be_replaced_by 0.
+checklogalar_rules(3): audittypes__auditentrycountt__last may_be_replaced_by 16384.
+checklogalar_rules(4): audittypes__auditentrycountt__base__first <= 
+     audittypes__auditentrycountt__base__last may_be_deduced.
+checklogalar_rules(5): audittypes__auditentrycountt__base__first <= 
+     audittypes__auditentrycountt__first may_be_deduced.
+checklogalar_rules(6): audittypes__auditentrycountt__base__last >= 
+     audittypes__auditentrycountt__last may_be_deduced.
+checklogalar_rules(7): alarmtypes__statust__size >= 0 may_be_deduced.
+checklogalar_rules(8): alarmtypes__statust__first may_be_replaced_by alarmtypes__alarming.
+checklogalar_rules(9): alarmtypes__statust__last may_be_replaced_by alarmtypes__silent.
+checklogalar_rules(10): alarmtypes__statust__base__first may_be_replaced_by alarmtypes__alarming.
+checklogalar_rules(11): alarmtypes__statust__base__last may_be_replaced_by alarmtypes__silent.
+checklogalar_rules(12): alarmtypes__statust__pos(
+     alarmtypes__statust__first) may_be_replaced_by 0.
+checklogalar_rules(13): alarmtypes__statust__pos(
+     alarmtypes__alarming) may_be_replaced_by 0.
+checklogalar_rules(14): alarmtypes__statust__val(0) may_be_replaced_by 
+     alarmtypes__alarming.
+checklogalar_rules(15): alarmtypes__statust__pos(
+     alarmtypes__silent) may_be_replaced_by 1.
+checklogalar_rules(16): alarmtypes__statust__val(1) may_be_replaced_by 
+     alarmtypes__silent.
+checklogalar_rules(17): alarmtypes__statust__pos(
+     alarmtypes__statust__last) may_be_replaced_by 1.
+checklogalar_rules(18): alarmtypes__statust__pos(succ(X)) may_be_replaced_by 
+     alarmtypes__statust__pos(X) + 1
+     if [X <=alarmtypes__silent, X <> alarmtypes__silent].
+checklogalar_rules(19): alarmtypes__statust__pos(pred(X)) may_be_replaced_by 
+     alarmtypes__statust__pos(X) - 1
+     if [X >=alarmtypes__alarming, X <> alarmtypes__alarming].
+checklogalar_rules(20): alarmtypes__statust__pos(X) >= 0 may_be_deduced_from
+     [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+checklogalar_rules(21): alarmtypes__statust__pos(X) <= 1 may_be_deduced_from
+     [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+checklogalar_rules(22): alarmtypes__statust__val(X) >= 
+     alarmtypes__alarming may_be_deduced_from
+     [0 <= X, X <= 1].
+checklogalar_rules(23): alarmtypes__statust__val(X) <= 
+     alarmtypes__silent may_be_deduced_from
+     [0 <= X, X <= 1].
+checklogalar_rules(24): succ(alarmtypes__statust__val(X)) may_be_replaced_by 
+     alarmtypes__statust__val(X+1)
+     if [0 <= X, X < 1].
+checklogalar_rules(25): pred(alarmtypes__statust__val(X)) may_be_replaced_by 
+     alarmtypes__statust__val(X-1)
+     if [0 < X, X <= 1].
+checklogalar_rules(26): alarmtypes__statust__pos(
+     alarmtypes__statust__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+checklogalar_rules(27): alarmtypes__statust__val(
+     alarmtypes__statust__pos(X)) may_be_replaced_by X
+     if [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+checklogalar_rules(28): alarmtypes__statust__pos(X) <= 
+     alarmtypes__statust__pos(Y) & X <= Y are_interchangeable 
+     if [alarmtypes__alarming <= X, X <= alarmtypes__silent, 
+     alarmtypes__alarming <= Y, Y <= alarmtypes__silent].
+checklogalar_rules(29): alarmtypes__statust__val(X) <= 
+     alarmtypes__statust__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].
+checklogalar_rules(30): logentrycountt__size >= 0 may_be_deduced.
+checklogalar_rules(31): logentrycountt__first may_be_replaced_by 0.
+checklogalar_rules(32): logentrycountt__last may_be_replaced_by 17408.
+checklogalar_rules(33): logentrycountt__base__first <= 
+     logentrycountt__base__last may_be_deduced.
+checklogalar_rules(34): logentrycountt__base__first <= 
+     logentrycountt__first may_be_deduced.
+checklogalar_rules(35): logentrycountt__base__last >= 
+     logentrycountt__last may_be_deduced.

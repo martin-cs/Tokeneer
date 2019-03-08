@@ -1,0 +1,31 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:18.17*/
+
+                       /*procedure Stats.AddFailedEntry*/
+
+
+rule_family addfailedent_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+addfailedent_rules(1): t__size >= 0 may_be_deduced.
+addfailedent_rules(2): A = B may_be_deduced_from
+     [goal(checktype(A,t)),
+      goal(checktype(B,t)),
+      fld_successentry(A) = fld_successentry(B),
+      fld_failentry(A) = fld_failentry(B),
+      fld_successbio(A) = fld_successbio(B),
+      fld_failbio(A) = fld_failbio(B)].
+addfailedent_rules(3): statscount__size >= 0 may_be_deduced.
+addfailedent_rules(4): statscount__first may_be_replaced_by 0.
+addfailedent_rules(5): statscount__last may_be_replaced_by 2147483647.
+addfailedent_rules(6): statscount__base__first <= statscount__base__last may_be_deduced.
+addfailedent_rules(7): statscount__base__first <= statscount__first may_be_deduced.
+addfailedent_rules(8): statscount__base__last >= statscount__last may_be_deduced.

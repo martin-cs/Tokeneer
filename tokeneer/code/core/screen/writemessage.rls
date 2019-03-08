@@ -1,0 +1,202 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:21.57*/
+
+                       /*procedure Screen.WriteMessage*/
+
+
+rule_family writemessage_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+writemessage_rules(1): msgtextt__size >= 0 may_be_deduced.
+writemessage_rules(2): msgtextt__first may_be_replaced_by clear.
+writemessage_rules(3): msgtextt__last may_be_replaced_by insertconfigdata.
+writemessage_rules(4): msgtextt__base__first may_be_replaced_by clear.
+writemessage_rules(5): msgtextt__base__last may_be_replaced_by insertconfigdata.
+writemessage_rules(6): msgtextt__pos(msgtextt__first) may_be_replaced_by 0.
+writemessage_rules(7): msgtextt__pos(clear) may_be_replaced_by 0.
+writemessage_rules(8): msgtextt__val(0) may_be_replaced_by clear.
+writemessage_rules(9): msgtextt__pos(welcomeadmin) may_be_replaced_by 1.
+writemessage_rules(10): msgtextt__val(1) may_be_replaced_by 
+     welcomeadmin.
+writemessage_rules(11): msgtextt__pos(busy) may_be_replaced_by 2.
+writemessage_rules(12): msgtextt__val(2) may_be_replaced_by busy.
+writemessage_rules(13): msgtextt__pos(removeadmintoken) may_be_replaced_by 3.
+writemessage_rules(14): msgtextt__val(3) may_be_replaced_by 
+     removeadmintoken.
+writemessage_rules(15): msgtextt__pos(closedoor) may_be_replaced_by 4.
+writemessage_rules(16): msgtextt__val(4) may_be_replaced_by 
+     closedoor.
+writemessage_rules(17): msgtextt__pos(requestadminop) may_be_replaced_by 5.
+writemessage_rules(18): msgtextt__val(5) may_be_replaced_by 
+     requestadminop.
+writemessage_rules(19): msgtextt__pos(doingop) may_be_replaced_by 6.
+writemessage_rules(20): msgtextt__val(6) may_be_replaced_by 
+     doingop.
+writemessage_rules(21): msgtextt__pos(invalidrequest) may_be_replaced_by 7.
+writemessage_rules(22): msgtextt__val(7) may_be_replaced_by 
+     invalidrequest.
+writemessage_rules(23): msgtextt__pos(invaliddata) may_be_replaced_by 8.
+writemessage_rules(24): msgtextt__val(8) may_be_replaced_by 
+     invaliddata.
+writemessage_rules(25): msgtextt__pos(archivefailed) may_be_replaced_by 9.
+writemessage_rules(26): msgtextt__val(9) may_be_replaced_by 
+     archivefailed.
+writemessage_rules(27): msgtextt__pos(insertenrolmentdata) may_be_replaced_by 10.
+writemessage_rules(28): msgtextt__val(10) may_be_replaced_by 
+     insertenrolmentdata.
+writemessage_rules(29): msgtextt__pos(validatingenrolmentdata) may_be_replaced_by 11.
+writemessage_rules(30): msgtextt__val(11) may_be_replaced_by 
+     validatingenrolmentdata.
+writemessage_rules(31): msgtextt__pos(enrolmentfailed) may_be_replaced_by 12.
+writemessage_rules(32): msgtextt__val(12) may_be_replaced_by 
+     enrolmentfailed.
+writemessage_rules(33): msgtextt__pos(insertblankfloppy) may_be_replaced_by 13.
+writemessage_rules(34): msgtextt__val(13) may_be_replaced_by 
+     insertblankfloppy.
+writemessage_rules(35): msgtextt__pos(insertconfigdata) may_be_replaced_by 14.
+writemessage_rules(36): msgtextt__val(14) may_be_replaced_by 
+     insertconfigdata.
+writemessage_rules(37): msgtextt__pos(msgtextt__last) may_be_replaced_by 14.
+writemessage_rules(38): msgtextt__pos(succ(X)) may_be_replaced_by 
+     msgtextt__pos(X) + 1
+     if [X <=insertconfigdata, X <> insertconfigdata].
+writemessage_rules(39): msgtextt__pos(pred(X)) may_be_replaced_by 
+     msgtextt__pos(X) - 1
+     if [X >=clear, X <> clear].
+writemessage_rules(40): msgtextt__pos(X) >= 0 may_be_deduced_from
+     [clear <= X, X <= insertconfigdata].
+writemessage_rules(41): msgtextt__pos(X) <= 14 may_be_deduced_from
+     [clear <= X, X <= insertconfigdata].
+writemessage_rules(42): msgtextt__val(X) >= clear may_be_deduced_from
+     [0 <= X, X <= 14].
+writemessage_rules(43): msgtextt__val(X) <= insertconfigdata may_be_deduced_from
+     [0 <= X, X <= 14].
+writemessage_rules(44): succ(msgtextt__val(X)) may_be_replaced_by 
+     msgtextt__val(X+1)
+     if [0 <= X, X < 14].
+writemessage_rules(45): pred(msgtextt__val(X)) may_be_replaced_by 
+     msgtextt__val(X-1)
+     if [0 < X, X <= 14].
+writemessage_rules(46): msgtextt__pos(msgtextt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 14].
+writemessage_rules(47): msgtextt__val(msgtextt__pos(X)) may_be_replaced_by X
+     if [clear <= X, X <= insertconfigdata].
+writemessage_rules(48): msgtextt__pos(X) <= msgtextt__pos(Y) & X <= Y are_interchangeable 
+     if [clear <= X, X <= insertconfigdata, clear <= Y, Y <= 
+     insertconfigdata].
+writemessage_rules(49): msgtextt__val(X) <= msgtextt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 14, 0 <= Y, Y <= 14].
+writemessage_rules(50): screen__interface__colours__size >= 0 may_be_deduced.
+writemessage_rules(51): screen__interface__colours__first may_be_replaced_by screen__interface__brightwhite.
+writemessage_rules(52): screen__interface__colours__last may_be_replaced_by screen__interface__black.
+writemessage_rules(53): screen__interface__colours__base__first may_be_replaced_by screen__interface__brightwhite.
+writemessage_rules(54): screen__interface__colours__base__last may_be_replaced_by screen__interface__black.
+writemessage_rules(55): screen__interface__colours__pos(
+     screen__interface__colours__first) may_be_replaced_by 0.
+writemessage_rules(56): screen__interface__colours__pos(
+     screen__interface__brightwhite) may_be_replaced_by 0.
+writemessage_rules(57): screen__interface__colours__val(0) may_be_replaced_by 
+     screen__interface__brightwhite.
+writemessage_rules(58): screen__interface__colours__pos(
+     screen__interface__white) may_be_replaced_by 1.
+writemessage_rules(59): screen__interface__colours__val(1) may_be_replaced_by 
+     screen__interface__white.
+writemessage_rules(60): screen__interface__colours__pos(
+     screen__interface__red) may_be_replaced_by 2.
+writemessage_rules(61): screen__interface__colours__val(2) may_be_replaced_by 
+     screen__interface__red.
+writemessage_rules(62): screen__interface__colours__pos(
+     screen__interface__green) may_be_replaced_by 3.
+writemessage_rules(63): screen__interface__colours__val(3) may_be_replaced_by 
+     screen__interface__green.
+writemessage_rules(64): screen__interface__colours__pos(
+     screen__interface__black) may_be_replaced_by 4.
+writemessage_rules(65): screen__interface__colours__val(4) may_be_replaced_by 
+     screen__interface__black.
+writemessage_rules(66): screen__interface__colours__pos(
+     screen__interface__colours__last) may_be_replaced_by 4.
+writemessage_rules(67): screen__interface__colours__pos(succ(X)) may_be_replaced_by 
+     screen__interface__colours__pos(X) + 1
+     if [X <=screen__interface__black, X <> 
+     screen__interface__black].
+writemessage_rules(68): screen__interface__colours__pos(pred(X)) may_be_replaced_by 
+     screen__interface__colours__pos(X) - 1
+     if [X >=screen__interface__brightwhite, X <> 
+     screen__interface__brightwhite].
+writemessage_rules(69): screen__interface__colours__pos(X) >= 0 may_be_deduced_from
+     [screen__interface__brightwhite <= X, X <= 
+     screen__interface__black].
+writemessage_rules(70): screen__interface__colours__pos(X) <= 4 may_be_deduced_from
+     [screen__interface__brightwhite <= X, X <= 
+     screen__interface__black].
+writemessage_rules(71): screen__interface__colours__val(X) >= 
+     screen__interface__brightwhite may_be_deduced_from
+     [0 <= X, X <= 4].
+writemessage_rules(72): screen__interface__colours__val(X) <= 
+     screen__interface__black may_be_deduced_from
+     [0 <= X, X <= 4].
+writemessage_rules(73): succ(screen__interface__colours__val(X)) may_be_replaced_by 
+     screen__interface__colours__val(X+1)
+     if [0 <= X, X < 4].
+writemessage_rules(74): pred(screen__interface__colours__val(X)) may_be_replaced_by 
+     screen__interface__colours__val(X-1)
+     if [0 < X, X <= 4].
+writemessage_rules(75): screen__interface__colours__pos(
+     screen__interface__colours__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 4].
+writemessage_rules(76): screen__interface__colours__val(
+     screen__interface__colours__pos(X)) may_be_replaced_by X
+     if [screen__interface__brightwhite <= X, X <= 
+     screen__interface__black].
+writemessage_rules(77): screen__interface__colours__pos(X) <= 
+     screen__interface__colours__pos(Y) & X <= Y are_interchangeable 
+     if [screen__interface__brightwhite <= X, X <= 
+     screen__interface__black, screen__interface__brightwhite <= Y, Y <= 
+     screen__interface__black].
+writemessage_rules(78): screen__interface__colours__val(X) <= 
+     screen__interface__colours__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 4, 0 <= Y, Y <= 4].
+writemessage_rules(79): screen__interface__screenwidtht__size >= 0 may_be_deduced.
+writemessage_rules(80): screen__interface__screenwidtht__first may_be_replaced_by 0.
+writemessage_rules(81): screen__interface__screenwidtht__last may_be_replaced_by 80.
+writemessage_rules(82): screen__interface__screenwidtht__base__first <= 
+     screen__interface__screenwidtht__base__last may_be_deduced.
+writemessage_rules(83): screen__interface__screenwidtht__base__first <= 
+     screen__interface__screenwidtht__first may_be_deduced.
+writemessage_rules(84): screen__interface__screenwidtht__base__last >= 
+     screen__interface__screenwidtht__last may_be_deduced.
+writemessage_rules(85): screen__interface__screenheightt__size >= 0 may_be_deduced.
+writemessage_rules(86): screen__interface__screenheightt__first may_be_replaced_by 0.
+writemessage_rules(87): screen__interface__screenheightt__last may_be_replaced_by 30.
+writemessage_rules(88): screen__interface__screenheightt__base__first <= 
+     screen__interface__screenheightt__base__last may_be_deduced.
+writemessage_rules(89): screen__interface__screenheightt__base__first <= 
+     screen__interface__screenheightt__first may_be_deduced.
+writemessage_rules(90): screen__interface__screenheightt__base__last >= 
+     screen__interface__screenheightt__last may_be_deduced.
+writemessage_rules(91): screen__interface__screenxcoordt__size >= 0 may_be_deduced.
+writemessage_rules(92): screen__interface__screenxcoordt__first may_be_replaced_by 0.
+writemessage_rules(93): screen__interface__screenxcoordt__last may_be_replaced_by 79.
+writemessage_rules(94): screen__interface__screenxcoordt__base__first <= 
+     screen__interface__screenxcoordt__base__last may_be_deduced.
+writemessage_rules(95): screen__interface__screenxcoordt__base__first <= 
+     screen__interface__screenxcoordt__first may_be_deduced.
+writemessage_rules(96): screen__interface__screenxcoordt__base__last >= 
+     screen__interface__screenxcoordt__last may_be_deduced.
+writemessage_rules(97): screen__interface__screenycoordt__size >= 0 may_be_deduced.
+writemessage_rules(98): screen__interface__screenycoordt__first may_be_replaced_by 0.
+writemessage_rules(99): screen__interface__screenycoordt__last may_be_replaced_by 29.
+writemessage_rules(100): screen__interface__screenycoordt__base__first <= 
+     screen__interface__screenycoordt__base__last may_be_deduced.
+writemessage_rules(101): screen__interface__screenycoordt__base__first <= 
+     screen__interface__screenycoordt__first may_be_deduced.
+writemessage_rules(102): screen__interface__screenycoordt__base__last >= 
+     screen__interface__screenycoordt__last may_be_deduced.

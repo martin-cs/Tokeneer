@@ -1,0 +1,67 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:08.10
+
+                      procedure AuditLog.CheckLogAlarm
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 221:
+
+procedure_checklogalarm_1.
+H1:    true .
+H2:    numberlogentries >= logentrycountt__first .
+H3:    numberlogentries <= logentrycountt__last .
+H4:    auditalarm >= alarmtypes__statust__first .
+H5:    auditalarm <= alarmtypes__statust__last .
+H6:    configdata__thealarmthresholdentries(configdata__state) >= 
+           audittypes__auditentrycountt__first .
+H7:    configdata__thealarmthresholdentries(configdata__state) <= 
+           audittypes__auditentrycountt__last .
+        ->
+C1:    configdata__thealarmthresholdentries(configdata__state) >= 
+           logentrycountt__first .
+C2:    configdata__thealarmthresholdentries(configdata__state) <= 
+           logentrycountt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 223:
+
+procedure_checklogalarm_2.
+H1:    true .
+H2:    numberlogentries >= logentrycountt__first .
+H3:    numberlogentries <= logentrycountt__last .
+H4:    auditalarm >= alarmtypes__statust__first .
+H5:    auditalarm <= alarmtypes__statust__last .
+H6:    configdata__thealarmthresholdentries(configdata__state) >= 
+           audittypes__auditentrycountt__first .
+H7:    configdata__thealarmthresholdentries(configdata__state) <= 
+           audittypes__auditentrycountt__last .
+H8:    configdata__thealarmthresholdentries(configdata__state) >= 
+           logentrycountt__first .
+H9:    configdata__thealarmthresholdentries(configdata__state) <= 
+           logentrycountt__last .
+H10:   numberlogentries >= 
+           configdata__thealarmthresholdentries(
+           configdata__state) .
+        ->
+C1:    alarmtypes__alarming >= alarmtypes__statust__first .
+C2:    alarmtypes__alarming <= alarmtypes__statust__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_checklogalarm_3.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_checklogalarm_4.
+*** true .          /* trivially true VC removed by Examiner */
+
+

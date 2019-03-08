@@ -1,0 +1,218 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:21  SIMPLIFIED 05-SEP-2011, 15:38:37
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure AdminToken.ReadAndCheck.CheckIDCertOK
+
+
+
+
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_1.  @@@@@@@@@@
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  certtypes__certificatet__first <= certtypes__idcert
+-S-  Applied substitution rule checkidcerto_rules(47).
+     This was achieved by replacing all occurrences of 
+          certtypes__certificatet__first by:
+          certtypes__idcert.
+<S>  New C1:  true
+-S-  Applied substitution rule checkidcerto_rules(48).
+     This was achieved by replacing all occurrences of 
+          certtypes__certificatet__last by:
+          certtypes__iandacert.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_2.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  certtypes__certificatet__first <= certtypes__idcert
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(rawcert__1, [i___1]) and element(
+          rawcert__1, [i___1]) <= character__last)
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H6)
+          .
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(cert__theid(fld_inherit(idcertcontents__2)))), [
+          i___1]) and element(fld_name(fld_issuer(cert__theid(fld_inherit(
+          idcertcontents__2)))), [i___1]) <= character__last)
+-S-  Applied substitution rule checkidcerto_rules(84).
+     This was achieved by replacing all occurrences of 
+          tokentypes__tokenidt__first by:
+          0.
+<S>  New H2:  tokenid >= 0
+<S>  New C1:  fld_serialnumber(cert__theid(fld_inherit(idcertcontents__2))) >= 0
+-S-  Applied substitution rule checkidcerto_rules(85).
+     This was achieved by replacing all occurrences of 
+          tokentypes__tokenidt__last by:
+          4294967295.
+<S>  New H3:  tokenid <= 4294967295
+<S>  New C2:  fld_serialnumber(cert__theid(fld_inherit(idcertcontents__2))) <= 
+          4294967295
+-S-  Applied substitution rule checkidcerto_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 0 <= element(
+          rawcert__1, [i___1]) and element(rawcert__1, [i___1]) <= 
+          character__last)
+<S>  New H16:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(fld_issuer(
+          cert__theid(fld_inherit(idcertcontents__2)))), [i___1]) and element(
+          fld_name(fld_issuer(cert__theid(fld_inherit(idcertcontents__2)))), [
+          i___1]) <= character__last)
+-S-  Applied substitution rule checkidcerto_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 0 <= element(
+          rawcert__1, [i___1]) and element(rawcert__1, [i___1]) <= 255)
+<S>  New H16:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(fld_issuer(
+          cert__theid(fld_inherit(idcertcontents__2)))), [i___1]) and element(
+          fld_name(fld_issuer(cert__theid(fld_inherit(idcertcontents__2)))), [
+          i___1]) <= 255)
+-S-  Applied substitution rule checkidcerto_rules(24).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namecountt__first by:
+          0.
+<S>  New H17:  fld_namelength(fld_issuer(cert__theid(fld_inherit(
+          idcertcontents__2)))) >= 0
+-S-  Applied substitution rule checkidcerto_rules(25).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namecountt__last by:
+          40.
+<S>  New H18:  fld_namelength(fld_issuer(cert__theid(fld_inherit(
+          idcertcontents__2)))) <= 40
+-S-  Applied substitution rule checkidcerto_rules(29).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namei__first by:
+          1.
+<S>  New H16:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          cryptotypes__namei__last -> 0 <= element(fld_name(fld_issuer(
+          cert__theid(fld_inherit(idcertcontents__2)))), [i___1]) and element(
+          fld_name(fld_issuer(cert__theid(fld_inherit(idcertcontents__2)))), [
+          i___1]) <= 255)
+-S-  Applied substitution rule checkidcerto_rules(30).
+     This was achieved by replacing all occurrences of cryptotypes__namei__last 
+          by:
+          40.
+<S>  New H16:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 40 -> 0 <= 
+          element(fld_name(fld_issuer(cert__theid(fld_inherit(idcertcontents__2)
+          ))), [i___1]) and element(fld_name(fld_issuer(cert__theid(fld_inherit(
+          idcertcontents__2)))), [i___1]) <= 255)
+-S-  Applied substitution rule checkidcerto_rules(34).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__issueridt__first by:
+          0.
+<S>  New H19:  fld_id(fld_issuer(cert__theid(fld_inherit(idcertcontents__2)))) 
+          >= 0
+-S-  Applied substitution rule checkidcerto_rules(35).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__issueridt__last by:
+          4294967295.
+<S>  New H20:  fld_id(fld_issuer(cert__theid(fld_inherit(idcertcontents__2)))) 
+          <= 4294967295
+-S-  Applied substitution rule checkidcerto_rules(42).
+     This was achieved by replacing all occurrences of 
+          certtypes__rawcertificatei__first by:
+          1.
+<S>  New H6:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          certtypes__rawcertificatei__last -> 0 <= element(rawcert__1, [i___1]) 
+          and element(rawcert__1, [i___1]) <= 255)
+-S-  Applied substitution rule checkidcerto_rules(43).
+     This was achieved by replacing all occurrences of 
+          certtypes__rawcertificatei__last by:
+          4096.
+<S>  New H6:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 4096 -> 0 <= 
+          element(rawcert__1, [i___1]) and element(rawcert__1, [i___1]) <= 255)
+-S-  Applied substitution rule checkidcerto_rules(47).
+     This was achieved by replacing all occurrences of 
+          certtypes__certificatet__first by:
+          certtypes__idcert.
+<S>  New H4:  true
+-S-  Applied substitution rule checkidcerto_rules(48).
+     This was achieved by replacing all occurrences of 
+          certtypes__certificatet__last by:
+          certtypes__iandacert.
+<S>  New H5:  true
+-S-  Applied substitution rule checkidcerto_rules(74).
+     This was achieved by replacing all occurrences of 
+          certtypes__serialnumbert__first by:
+          0.
+<S>  New H14:  fld_serialnumber(cert__theid(fld_inherit(idcertcontents__2))) >= 
+          0
+-S-  Applied substitution rule checkidcerto_rules(75).
+     This was achieved by replacing all occurrences of 
+          certtypes__serialnumbert__last by:
+          4294967295.
+<S>  New H15:  fld_serialnumber(cert__theid(fld_inherit(idcertcontents__2))) <= 
+          4294967295
+***  Proved C1:  fld_serialnumber(cert__theid(fld_inherit(idcertcontents__2))) 
+          >= 0
+     using hypothesis H14.
+***  Proved C2:  fld_serialnumber(cert__theid(fld_inherit(idcertcontents__2))) 
+          <= 4294967295
+     using hypothesis H15.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_3.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_4.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_5.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_6.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_7.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_8.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_9.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_10.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_11.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+

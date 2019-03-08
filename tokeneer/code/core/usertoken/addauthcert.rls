@@ -1,0 +1,788 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:20.67*/
+
+                      /*procedure UserToken.AddAuthCert*/
+
+
+rule_family addauthcert_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+addauthcert_rules(1): integer__size >= 0 may_be_deduced.
+addauthcert_rules(2): integer__first may_be_replaced_by -2147483648.
+addauthcert_rules(3): integer__last may_be_replaced_by 2147483647.
+addauthcert_rules(4): integer__base__first may_be_replaced_by -2147483648.
+addauthcert_rules(5): integer__base__last may_be_replaced_by 2147483647.
+addauthcert_rules(6): character__size >= 0 may_be_deduced.
+addauthcert_rules(7): character__first may_be_replaced_by 0.
+addauthcert_rules(8): character__last may_be_replaced_by 255.
+addauthcert_rules(9): character__base__first may_be_replaced_by 0.
+addauthcert_rules(10): character__base__last may_be_replaced_by 255.
+addauthcert_rules(11): positive__size >= 0 may_be_deduced.
+addauthcert_rules(12): positive__first may_be_replaced_by 1.
+addauthcert_rules(13): positive__last may_be_replaced_by 2147483647.
+addauthcert_rules(14): positive__base__first may_be_replaced_by -2147483648.
+addauthcert_rules(15): positive__base__last may_be_replaced_by 2147483647.
+addauthcert_rules(16): basictypes__unsigned32t__size >= 0 may_be_deduced.
+addauthcert_rules(17): basictypes__unsigned32t__size may_be_replaced_by 32.
+addauthcert_rules(18): basictypes__unsigned32t__first may_be_replaced_by 0.
+addauthcert_rules(19): basictypes__unsigned32t__last may_be_replaced_by 4294967295.
+addauthcert_rules(20): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__base__last may_be_deduced.
+addauthcert_rules(21): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__first may_be_deduced.
+addauthcert_rules(22): basictypes__unsigned32t__base__last >= 
+     basictypes__unsigned32t__last may_be_deduced.
+addauthcert_rules(23): basictypes__presencet__size >= 0 may_be_deduced.
+addauthcert_rules(24): basictypes__presencet__first may_be_replaced_by basictypes__present.
+addauthcert_rules(25): basictypes__presencet__last may_be_replaced_by basictypes__absent.
+addauthcert_rules(26): basictypes__presencet__base__first may_be_replaced_by basictypes__present.
+addauthcert_rules(27): basictypes__presencet__base__last may_be_replaced_by basictypes__absent.
+addauthcert_rules(28): basictypes__presencet__pos(
+     basictypes__presencet__first) may_be_replaced_by 0.
+addauthcert_rules(29): basictypes__presencet__pos(
+     basictypes__present) may_be_replaced_by 0.
+addauthcert_rules(30): basictypes__presencet__val(0) may_be_replaced_by 
+     basictypes__present.
+addauthcert_rules(31): basictypes__presencet__pos(
+     basictypes__absent) may_be_replaced_by 1.
+addauthcert_rules(32): basictypes__presencet__val(1) may_be_replaced_by 
+     basictypes__absent.
+addauthcert_rules(33): basictypes__presencet__pos(
+     basictypes__presencet__last) may_be_replaced_by 1.
+addauthcert_rules(34): basictypes__presencet__pos(succ(X)) may_be_replaced_by 
+     basictypes__presencet__pos(X) + 1
+     if [X <=basictypes__absent, X <> basictypes__absent].
+addauthcert_rules(35): basictypes__presencet__pos(pred(X)) may_be_replaced_by 
+     basictypes__presencet__pos(X) - 1
+     if [X >=basictypes__present, X <> basictypes__present].
+addauthcert_rules(36): basictypes__presencet__pos(X) >= 0 may_be_deduced_from
+     [basictypes__present <= X, X <= basictypes__absent].
+addauthcert_rules(37): basictypes__presencet__pos(X) <= 1 may_be_deduced_from
+     [basictypes__present <= X, X <= basictypes__absent].
+addauthcert_rules(38): basictypes__presencet__val(X) >= 
+     basictypes__present may_be_deduced_from
+     [0 <= X, X <= 1].
+addauthcert_rules(39): basictypes__presencet__val(X) <= 
+     basictypes__absent may_be_deduced_from
+     [0 <= X, X <= 1].
+addauthcert_rules(40): succ(basictypes__presencet__val(X)) may_be_replaced_by 
+     basictypes__presencet__val(X+1)
+     if [0 <= X, X < 1].
+addauthcert_rules(41): pred(basictypes__presencet__val(X)) may_be_replaced_by 
+     basictypes__presencet__val(X-1)
+     if [0 < X, X <= 1].
+addauthcert_rules(42): basictypes__presencet__pos(
+     basictypes__presencet__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+addauthcert_rules(43): basictypes__presencet__val(
+     basictypes__presencet__pos(X)) may_be_replaced_by X
+     if [basictypes__present <= X, X <= basictypes__absent].
+addauthcert_rules(44): basictypes__presencet__pos(X) <= 
+     basictypes__presencet__pos(Y) & X <= Y are_interchangeable 
+     if [basictypes__present <= X, X <= basictypes__absent, 
+     basictypes__present <= Y, Y <= basictypes__absent].
+addauthcert_rules(45): basictypes__presencet__val(X) <= 
+     basictypes__presencet__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].
+addauthcert_rules(46): audittypes__elementt__size >= 0 may_be_deduced.
+addauthcert_rules(47): audittypes__elementt__first may_be_replaced_by audittypes__startunenrolledtis.
+addauthcert_rules(48): audittypes__elementt__last may_be_replaced_by audittypes__systemfault.
+addauthcert_rules(49): audittypes__elementt__base__first may_be_replaced_by audittypes__startunenrolledtis.
+addauthcert_rules(50): audittypes__elementt__base__last may_be_replaced_by audittypes__systemfault.
+addauthcert_rules(51): audittypes__elementt__pos(
+     audittypes__elementt__first) may_be_replaced_by 0.
+addauthcert_rules(52): audittypes__elementt__pos(
+     audittypes__startunenrolledtis) may_be_replaced_by 0.
+addauthcert_rules(53): audittypes__elementt__val(0) may_be_replaced_by 
+     audittypes__startunenrolledtis.
+addauthcert_rules(54): audittypes__elementt__pos(
+     audittypes__startenrolledtis) may_be_replaced_by 1.
+addauthcert_rules(55): audittypes__elementt__val(1) may_be_replaced_by 
+     audittypes__startenrolledtis.
+addauthcert_rules(56): audittypes__elementt__pos(
+     audittypes__enrolmentcomplete) may_be_replaced_by 2.
+addauthcert_rules(57): audittypes__elementt__val(2) may_be_replaced_by 
+     audittypes__enrolmentcomplete.
+addauthcert_rules(58): audittypes__elementt__pos(
+     audittypes__enrolmentfailed) may_be_replaced_by 3.
+addauthcert_rules(59): audittypes__elementt__val(3) may_be_replaced_by 
+     audittypes__enrolmentfailed.
+addauthcert_rules(60): audittypes__elementt__pos(
+     audittypes__displaychanged) may_be_replaced_by 4.
+addauthcert_rules(61): audittypes__elementt__val(4) may_be_replaced_by 
+     audittypes__displaychanged.
+addauthcert_rules(62): audittypes__elementt__pos(
+     audittypes__screenchanged) may_be_replaced_by 5.
+addauthcert_rules(63): audittypes__elementt__val(5) may_be_replaced_by 
+     audittypes__screenchanged.
+addauthcert_rules(64): audittypes__elementt__pos(
+     audittypes__doorclosed) may_be_replaced_by 6.
+addauthcert_rules(65): audittypes__elementt__val(6) may_be_replaced_by 
+     audittypes__doorclosed.
+addauthcert_rules(66): audittypes__elementt__pos(
+     audittypes__dooropened) may_be_replaced_by 7.
+addauthcert_rules(67): audittypes__elementt__val(7) may_be_replaced_by 
+     audittypes__dooropened.
+addauthcert_rules(68): audittypes__elementt__pos(
+     audittypes__latchlocked) may_be_replaced_by 8.
+addauthcert_rules(69): audittypes__elementt__val(8) may_be_replaced_by 
+     audittypes__latchlocked.
+addauthcert_rules(70): audittypes__elementt__pos(
+     audittypes__latchunlocked) may_be_replaced_by 9.
+addauthcert_rules(71): audittypes__elementt__val(9) may_be_replaced_by 
+     audittypes__latchunlocked.
+addauthcert_rules(72): audittypes__elementt__pos(
+     audittypes__alarmraised) may_be_replaced_by 10.
+addauthcert_rules(73): audittypes__elementt__val(10) may_be_replaced_by 
+     audittypes__alarmraised.
+addauthcert_rules(74): audittypes__elementt__pos(
+     audittypes__alarmsilenced) may_be_replaced_by 11.
+addauthcert_rules(75): audittypes__elementt__val(11) may_be_replaced_by 
+     audittypes__alarmsilenced.
+addauthcert_rules(76): audittypes__elementt__pos(
+     audittypes__truncatelog) may_be_replaced_by 12.
+addauthcert_rules(77): audittypes__elementt__val(12) may_be_replaced_by 
+     audittypes__truncatelog.
+addauthcert_rules(78): audittypes__elementt__pos(
+     audittypes__auditalarmraised) may_be_replaced_by 13.
+addauthcert_rules(79): audittypes__elementt__val(13) may_be_replaced_by 
+     audittypes__auditalarmraised.
+addauthcert_rules(80): audittypes__elementt__pos(
+     audittypes__auditalarmsilenced) may_be_replaced_by 14.
+addauthcert_rules(81): audittypes__elementt__val(14) may_be_replaced_by 
+     audittypes__auditalarmsilenced.
+addauthcert_rules(82): audittypes__elementt__pos(
+     audittypes__usertokenremoved) may_be_replaced_by 15.
+addauthcert_rules(83): audittypes__elementt__val(15) may_be_replaced_by 
+     audittypes__usertokenremoved.
+addauthcert_rules(84): audittypes__elementt__pos(
+     audittypes__usertokenpresent) may_be_replaced_by 16.
+addauthcert_rules(85): audittypes__elementt__val(16) may_be_replaced_by 
+     audittypes__usertokenpresent.
+addauthcert_rules(86): audittypes__elementt__pos(
+     audittypes__usertokeninvalid) may_be_replaced_by 17.
+addauthcert_rules(87): audittypes__elementt__val(17) may_be_replaced_by 
+     audittypes__usertokeninvalid.
+addauthcert_rules(88): audittypes__elementt__pos(
+     audittypes__authcertvalid) may_be_replaced_by 18.
+addauthcert_rules(89): audittypes__elementt__val(18) may_be_replaced_by 
+     audittypes__authcertvalid.
+addauthcert_rules(90): audittypes__elementt__pos(
+     audittypes__authcertinvalid) may_be_replaced_by 19.
+addauthcert_rules(91): audittypes__elementt__val(19) may_be_replaced_by 
+     audittypes__authcertinvalid.
+addauthcert_rules(92): audittypes__elementt__pos(
+     audittypes__fingerdetected) may_be_replaced_by 20.
+addauthcert_rules(93): audittypes__elementt__val(20) may_be_replaced_by 
+     audittypes__fingerdetected.
+addauthcert_rules(94): audittypes__elementt__pos(
+     audittypes__fingertimeout) may_be_replaced_by 21.
+addauthcert_rules(95): audittypes__elementt__val(21) may_be_replaced_by 
+     audittypes__fingertimeout.
+addauthcert_rules(96): audittypes__elementt__pos(
+     audittypes__fingermatched) may_be_replaced_by 22.
+addauthcert_rules(97): audittypes__elementt__val(22) may_be_replaced_by 
+     audittypes__fingermatched.
+addauthcert_rules(98): audittypes__elementt__pos(
+     audittypes__fingernotmatched) may_be_replaced_by 23.
+addauthcert_rules(99): audittypes__elementt__val(23) may_be_replaced_by 
+     audittypes__fingernotmatched.
+addauthcert_rules(100): audittypes__elementt__pos(
+     audittypes__authcertwritten) may_be_replaced_by 24.
+addauthcert_rules(101): audittypes__elementt__val(24) may_be_replaced_by 
+     audittypes__authcertwritten.
+addauthcert_rules(102): audittypes__elementt__pos(
+     audittypes__authcertwritefailed) may_be_replaced_by 25.
+addauthcert_rules(103): audittypes__elementt__val(25) may_be_replaced_by 
+     audittypes__authcertwritefailed.
+addauthcert_rules(104): audittypes__elementt__pos(
+     audittypes__entrypermitted) may_be_replaced_by 26.
+addauthcert_rules(105): audittypes__elementt__val(26) may_be_replaced_by 
+     audittypes__entrypermitted.
+addauthcert_rules(106): audittypes__elementt__pos(
+     audittypes__entrytimeout) may_be_replaced_by 27.
+addauthcert_rules(107): audittypes__elementt__val(27) may_be_replaced_by 
+     audittypes__entrytimeout.
+addauthcert_rules(108): audittypes__elementt__pos(
+     audittypes__entrydenied) may_be_replaced_by 28.
+addauthcert_rules(109): audittypes__elementt__val(28) may_be_replaced_by 
+     audittypes__entrydenied.
+addauthcert_rules(110): audittypes__elementt__pos(
+     audittypes__admintokenpresent) may_be_replaced_by 29.
+addauthcert_rules(111): audittypes__elementt__val(29) may_be_replaced_by 
+     audittypes__admintokenpresent.
+addauthcert_rules(112): audittypes__elementt__pos(
+     audittypes__admintokenvalid) may_be_replaced_by 30.
+addauthcert_rules(113): audittypes__elementt__val(30) may_be_replaced_by 
+     audittypes__admintokenvalid.
+addauthcert_rules(114): audittypes__elementt__pos(
+     audittypes__admintokeninvalid) may_be_replaced_by 31.
+addauthcert_rules(115): audittypes__elementt__val(31) may_be_replaced_by 
+     audittypes__admintokeninvalid.
+addauthcert_rules(116): audittypes__elementt__pos(
+     audittypes__admintokenexpired) may_be_replaced_by 32.
+addauthcert_rules(117): audittypes__elementt__val(32) may_be_replaced_by 
+     audittypes__admintokenexpired.
+addauthcert_rules(118): audittypes__elementt__pos(
+     audittypes__admintokenremoved) may_be_replaced_by 33.
+addauthcert_rules(119): audittypes__elementt__val(33) may_be_replaced_by 
+     audittypes__admintokenremoved.
+addauthcert_rules(120): audittypes__elementt__pos(
+     audittypes__invalidoprequest) may_be_replaced_by 34.
+addauthcert_rules(121): audittypes__elementt__val(34) may_be_replaced_by 
+     audittypes__invalidoprequest.
+addauthcert_rules(122): audittypes__elementt__pos(
+     audittypes__operationstart) may_be_replaced_by 35.
+addauthcert_rules(123): audittypes__elementt__val(35) may_be_replaced_by 
+     audittypes__operationstart.
+addauthcert_rules(124): audittypes__elementt__pos(
+     audittypes__archivelog) may_be_replaced_by 36.
+addauthcert_rules(125): audittypes__elementt__val(36) may_be_replaced_by 
+     audittypes__archivelog.
+addauthcert_rules(126): audittypes__elementt__pos(
+     audittypes__archivecomplete) may_be_replaced_by 37.
+addauthcert_rules(127): audittypes__elementt__val(37) may_be_replaced_by 
+     audittypes__archivecomplete.
+addauthcert_rules(128): audittypes__elementt__pos(
+     audittypes__archivecheckfailed) may_be_replaced_by 38.
+addauthcert_rules(129): audittypes__elementt__val(38) may_be_replaced_by 
+     audittypes__archivecheckfailed.
+addauthcert_rules(130): audittypes__elementt__pos(
+     audittypes__updatedconfigdata) may_be_replaced_by 39.
+addauthcert_rules(131): audittypes__elementt__val(39) may_be_replaced_by 
+     audittypes__updatedconfigdata.
+addauthcert_rules(132): audittypes__elementt__pos(
+     audittypes__invalidconfigdata) may_be_replaced_by 40.
+addauthcert_rules(133): audittypes__elementt__val(40) may_be_replaced_by 
+     audittypes__invalidconfigdata.
+addauthcert_rules(134): audittypes__elementt__pos(
+     audittypes__shutdown) may_be_replaced_by 41.
+addauthcert_rules(135): audittypes__elementt__val(41) may_be_replaced_by 
+     audittypes__shutdown.
+addauthcert_rules(136): audittypes__elementt__pos(
+     audittypes__overridelock) may_be_replaced_by 42.
+addauthcert_rules(137): audittypes__elementt__val(42) may_be_replaced_by 
+     audittypes__overridelock.
+addauthcert_rules(138): audittypes__elementt__pos(
+     audittypes__systemfault) may_be_replaced_by 43.
+addauthcert_rules(139): audittypes__elementt__val(43) may_be_replaced_by 
+     audittypes__systemfault.
+addauthcert_rules(140): audittypes__elementt__pos(
+     audittypes__elementt__last) may_be_replaced_by 43.
+addauthcert_rules(141): audittypes__elementt__pos(succ(X)) may_be_replaced_by 
+     audittypes__elementt__pos(X) + 1
+     if [X <=audittypes__systemfault, X <> 
+     audittypes__systemfault].
+addauthcert_rules(142): audittypes__elementt__pos(pred(X)) may_be_replaced_by 
+     audittypes__elementt__pos(X) - 1
+     if [X >=audittypes__startunenrolledtis, X <> 
+     audittypes__startunenrolledtis].
+addauthcert_rules(143): audittypes__elementt__pos(X) >= 0 may_be_deduced_from
+     [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+addauthcert_rules(144): audittypes__elementt__pos(X) <= 43 may_be_deduced_from
+     [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+addauthcert_rules(145): audittypes__elementt__val(X) >= 
+     audittypes__startunenrolledtis may_be_deduced_from
+     [0 <= X, X <= 43].
+addauthcert_rules(146): audittypes__elementt__val(X) <= 
+     audittypes__systemfault may_be_deduced_from
+     [0 <= X, X <= 43].
+addauthcert_rules(147): succ(audittypes__elementt__val(X)) may_be_replaced_by 
+     audittypes__elementt__val(X+1)
+     if [0 <= X, X < 43].
+addauthcert_rules(148): pred(audittypes__elementt__val(X)) may_be_replaced_by 
+     audittypes__elementt__val(X-1)
+     if [0 < X, X <= 43].
+addauthcert_rules(149): audittypes__elementt__pos(
+     audittypes__elementt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 43].
+addauthcert_rules(150): audittypes__elementt__val(
+     audittypes__elementt__pos(X)) may_be_replaced_by X
+     if [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+addauthcert_rules(151): audittypes__elementt__pos(X) <= 
+     audittypes__elementt__pos(Y) & X <= Y are_interchangeable 
+     if [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault, audittypes__startunenrolledtis <= Y, Y <= 
+     audittypes__systemfault].
+addauthcert_rules(152): audittypes__elementt__val(X) <= 
+     audittypes__elementt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 43, 0 <= Y, Y <= 43].
+addauthcert_rules(153): audittypes__severityt__size >= 0 may_be_deduced.
+addauthcert_rules(154): audittypes__severityt__first may_be_replaced_by audittypes__information.
+addauthcert_rules(155): audittypes__severityt__last may_be_replaced_by audittypes__critical.
+addauthcert_rules(156): audittypes__severityt__base__first may_be_replaced_by audittypes__information.
+addauthcert_rules(157): audittypes__severityt__base__last may_be_replaced_by audittypes__critical.
+addauthcert_rules(158): audittypes__severityt__pos(
+     audittypes__severityt__first) may_be_replaced_by 0.
+addauthcert_rules(159): audittypes__severityt__pos(
+     audittypes__information) may_be_replaced_by 0.
+addauthcert_rules(160): audittypes__severityt__val(0) may_be_replaced_by 
+     audittypes__information.
+addauthcert_rules(161): audittypes__severityt__pos(
+     audittypes__warning) may_be_replaced_by 1.
+addauthcert_rules(162): audittypes__severityt__val(1) may_be_replaced_by 
+     audittypes__warning.
+addauthcert_rules(163): audittypes__severityt__pos(
+     audittypes__critical) may_be_replaced_by 2.
+addauthcert_rules(164): audittypes__severityt__val(2) may_be_replaced_by 
+     audittypes__critical.
+addauthcert_rules(165): audittypes__severityt__pos(
+     audittypes__severityt__last) may_be_replaced_by 2.
+addauthcert_rules(166): audittypes__severityt__pos(succ(X)) may_be_replaced_by 
+     audittypes__severityt__pos(X) + 1
+     if [X <=audittypes__critical, X <> audittypes__critical].
+addauthcert_rules(167): audittypes__severityt__pos(pred(X)) may_be_replaced_by 
+     audittypes__severityt__pos(X) - 1
+     if [X >=audittypes__information, X <> 
+     audittypes__information].
+addauthcert_rules(168): audittypes__severityt__pos(X) >= 0 may_be_deduced_from
+     [audittypes__information <= X, X <= audittypes__critical].
+addauthcert_rules(169): audittypes__severityt__pos(X) <= 2 may_be_deduced_from
+     [audittypes__information <= X, X <= audittypes__critical].
+addauthcert_rules(170): audittypes__severityt__val(X) >= 
+     audittypes__information may_be_deduced_from
+     [0 <= X, X <= 2].
+addauthcert_rules(171): audittypes__severityt__val(X) <= 
+     audittypes__critical may_be_deduced_from
+     [0 <= X, X <= 2].
+addauthcert_rules(172): succ(audittypes__severityt__val(X)) may_be_replaced_by 
+     audittypes__severityt__val(X+1)
+     if [0 <= X, X < 2].
+addauthcert_rules(173): pred(audittypes__severityt__val(X)) may_be_replaced_by 
+     audittypes__severityt__val(X-1)
+     if [0 < X, X <= 2].
+addauthcert_rules(174): audittypes__severityt__pos(
+     audittypes__severityt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 2].
+addauthcert_rules(175): audittypes__severityt__val(
+     audittypes__severityt__pos(X)) may_be_replaced_by X
+     if [audittypes__information <= X, X <= audittypes__critical].
+addauthcert_rules(176): audittypes__severityt__pos(X) <= 
+     audittypes__severityt__pos(Y) & X <= Y are_interchangeable 
+     if [audittypes__information <= X, X <= audittypes__critical, 
+     audittypes__information <= Y, Y <= audittypes__critical].
+addauthcert_rules(177): audittypes__severityt__val(X) <= 
+     audittypes__severityt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 2, 0 <= Y, Y <= 2].
+addauthcert_rules(178): privtypes__privileget__size >= 0 may_be_deduced.
+addauthcert_rules(179): privtypes__privileget__first may_be_replaced_by privtypes__useronly.
+addauthcert_rules(180): privtypes__privileget__last may_be_replaced_by privtypes__securityofficer.
+addauthcert_rules(181): privtypes__privileget__base__first may_be_replaced_by privtypes__useronly.
+addauthcert_rules(182): privtypes__privileget__base__last may_be_replaced_by privtypes__securityofficer.
+addauthcert_rules(183): privtypes__privileget__pos(
+     privtypes__privileget__first) may_be_replaced_by 0.
+addauthcert_rules(184): privtypes__privileget__pos(
+     privtypes__useronly) may_be_replaced_by 0.
+addauthcert_rules(185): privtypes__privileget__val(0) may_be_replaced_by 
+     privtypes__useronly.
+addauthcert_rules(186): privtypes__privileget__pos(
+     privtypes__guard) may_be_replaced_by 1.
+addauthcert_rules(187): privtypes__privileget__val(1) may_be_replaced_by 
+     privtypes__guard.
+addauthcert_rules(188): privtypes__privileget__pos(
+     privtypes__auditmanager) may_be_replaced_by 2.
+addauthcert_rules(189): privtypes__privileget__val(2) may_be_replaced_by 
+     privtypes__auditmanager.
+addauthcert_rules(190): privtypes__privileget__pos(
+     privtypes__securityofficer) may_be_replaced_by 3.
+addauthcert_rules(191): privtypes__privileget__val(3) may_be_replaced_by 
+     privtypes__securityofficer.
+addauthcert_rules(192): privtypes__privileget__pos(
+     privtypes__privileget__last) may_be_replaced_by 3.
+addauthcert_rules(193): privtypes__privileget__pos(succ(X)) may_be_replaced_by 
+     privtypes__privileget__pos(X) + 1
+     if [X <=privtypes__securityofficer, X <> 
+     privtypes__securityofficer].
+addauthcert_rules(194): privtypes__privileget__pos(pred(X)) may_be_replaced_by 
+     privtypes__privileget__pos(X) - 1
+     if [X >=privtypes__useronly, X <> privtypes__useronly].
+addauthcert_rules(195): privtypes__privileget__pos(X) >= 0 may_be_deduced_from
+     [privtypes__useronly <= X, X <= privtypes__securityofficer].
+addauthcert_rules(196): privtypes__privileget__pos(X) <= 3 may_be_deduced_from
+     [privtypes__useronly <= X, X <= privtypes__securityofficer].
+addauthcert_rules(197): privtypes__privileget__val(X) >= 
+     privtypes__useronly may_be_deduced_from
+     [0 <= X, X <= 3].
+addauthcert_rules(198): privtypes__privileget__val(X) <= 
+     privtypes__securityofficer may_be_deduced_from
+     [0 <= X, X <= 3].
+addauthcert_rules(199): succ(privtypes__privileget__val(X)) may_be_replaced_by 
+     privtypes__privileget__val(X+1)
+     if [0 <= X, X < 3].
+addauthcert_rules(200): pred(privtypes__privileget__val(X)) may_be_replaced_by 
+     privtypes__privileget__val(X-1)
+     if [0 < X, X <= 3].
+addauthcert_rules(201): privtypes__privileget__pos(
+     privtypes__privileget__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 3].
+addauthcert_rules(202): privtypes__privileget__val(
+     privtypes__privileget__pos(X)) may_be_replaced_by X
+     if [privtypes__useronly <= X, X <= 
+     privtypes__securityofficer].
+addauthcert_rules(203): privtypes__privileget__pos(X) <= 
+     privtypes__privileget__pos(Y) & X <= Y are_interchangeable 
+     if [privtypes__useronly <= X, X <= 
+     privtypes__securityofficer, privtypes__useronly <= Y, Y <= 
+     privtypes__securityofficer].
+addauthcert_rules(204): privtypes__privileget__val(X) <= 
+     privtypes__privileget__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 3, 0 <= Y, Y <= 3].
+addauthcert_rules(205): privtypes__classt__size >= 0 may_be_deduced.
+addauthcert_rules(206): privtypes__classt__first may_be_replaced_by privtypes__unmarked.
+addauthcert_rules(207): privtypes__classt__last may_be_replaced_by privtypes__topsecret.
+addauthcert_rules(208): privtypes__classt__base__first may_be_replaced_by privtypes__unmarked.
+addauthcert_rules(209): privtypes__classt__base__last may_be_replaced_by privtypes__topsecret.
+addauthcert_rules(210): privtypes__classt__pos(privtypes__classt__first) may_be_replaced_by 0.
+addauthcert_rules(211): privtypes__classt__pos(
+     privtypes__unmarked) may_be_replaced_by 0.
+addauthcert_rules(212): privtypes__classt__val(0) may_be_replaced_by 
+     privtypes__unmarked.
+addauthcert_rules(213): privtypes__classt__pos(
+     privtypes__unclassified) may_be_replaced_by 1.
+addauthcert_rules(214): privtypes__classt__val(1) may_be_replaced_by 
+     privtypes__unclassified.
+addauthcert_rules(215): privtypes__classt__pos(
+     privtypes__restricted) may_be_replaced_by 2.
+addauthcert_rules(216): privtypes__classt__val(2) may_be_replaced_by 
+     privtypes__restricted.
+addauthcert_rules(217): privtypes__classt__pos(
+     privtypes__confidential) may_be_replaced_by 3.
+addauthcert_rules(218): privtypes__classt__val(3) may_be_replaced_by 
+     privtypes__confidential.
+addauthcert_rules(219): privtypes__classt__pos(privtypes__secret) may_be_replaced_by 4.
+addauthcert_rules(220): privtypes__classt__val(4) may_be_replaced_by 
+     privtypes__secret.
+addauthcert_rules(221): privtypes__classt__pos(
+     privtypes__topsecret) may_be_replaced_by 5.
+addauthcert_rules(222): privtypes__classt__val(5) may_be_replaced_by 
+     privtypes__topsecret.
+addauthcert_rules(223): privtypes__classt__pos(privtypes__classt__last) may_be_replaced_by 5.
+addauthcert_rules(224): privtypes__classt__pos(succ(X)) may_be_replaced_by 
+     privtypes__classt__pos(X) + 1
+     if [X <=privtypes__topsecret, X <> privtypes__topsecret].
+addauthcert_rules(225): privtypes__classt__pos(pred(X)) may_be_replaced_by 
+     privtypes__classt__pos(X) - 1
+     if [X >=privtypes__unmarked, X <> privtypes__unmarked].
+addauthcert_rules(226): privtypes__classt__pos(X) >= 0 may_be_deduced_from
+     [privtypes__unmarked <= X, X <= privtypes__topsecret].
+addauthcert_rules(227): privtypes__classt__pos(X) <= 5 may_be_deduced_from
+     [privtypes__unmarked <= X, X <= privtypes__topsecret].
+addauthcert_rules(228): privtypes__classt__val(X) >= 
+     privtypes__unmarked may_be_deduced_from
+     [0 <= X, X <= 5].
+addauthcert_rules(229): privtypes__classt__val(X) <= 
+     privtypes__topsecret may_be_deduced_from
+     [0 <= X, X <= 5].
+addauthcert_rules(230): succ(privtypes__classt__val(X)) may_be_replaced_by 
+     privtypes__classt__val(X+1)
+     if [0 <= X, X < 5].
+addauthcert_rules(231): pred(privtypes__classt__val(X)) may_be_replaced_by 
+     privtypes__classt__val(X-1)
+     if [0 < X, X <= 5].
+addauthcert_rules(232): privtypes__classt__pos(privtypes__classt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 5].
+addauthcert_rules(233): privtypes__classt__val(privtypes__classt__pos(X)) may_be_replaced_by X
+     if [privtypes__unmarked <= X, X <= privtypes__topsecret].
+addauthcert_rules(234): privtypes__classt__pos(X) <= 
+     privtypes__classt__pos(Y) & X <= Y are_interchangeable 
+     if [privtypes__unmarked <= X, X <= privtypes__topsecret, 
+     privtypes__unmarked <= Y, Y <= privtypes__topsecret].
+addauthcert_rules(235): privtypes__classt__val(X) <= 
+     privtypes__classt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 5, 0 <= Y, Y <= 5].
+addauthcert_rules(236): privtypes__clearancet__size >= 0 may_be_deduced.
+addauthcert_rules(237): A = B may_be_deduced_from
+     [goal(checktype(A,privtypes__clearancet)),
+      goal(checktype(B,privtypes__clearancet)),
+      fld_class(A) = fld_class(B)].
+addauthcert_rules(238): cryptotypes__namecountt__size >= 0 may_be_deduced.
+addauthcert_rules(239): cryptotypes__namecountt__first may_be_replaced_by 0.
+addauthcert_rules(240): cryptotypes__namecountt__last may_be_replaced_by 40.
+addauthcert_rules(241): cryptotypes__namecountt__base__first may_be_replaced_by -2147483648.
+addauthcert_rules(242): cryptotypes__namecountt__base__last may_be_replaced_by 2147483647.
+addauthcert_rules(243): cryptotypes__namei__size >= 0 may_be_deduced.
+addauthcert_rules(244): cryptotypes__namei__first may_be_replaced_by 1.
+addauthcert_rules(245): cryptotypes__namei__last may_be_replaced_by 40.
+addauthcert_rules(246): cryptotypes__namei__base__first may_be_replaced_by -2147483648.
+addauthcert_rules(247): cryptotypes__namei__base__last may_be_replaced_by 2147483647.
+addauthcert_rules(248): cryptotypes__issueridt__size >= 0 may_be_deduced.
+addauthcert_rules(249): cryptotypes__issueridt__first may_be_replaced_by 0.
+addauthcert_rules(250): cryptotypes__issueridt__last may_be_replaced_by 4294967295.
+addauthcert_rules(251): cryptotypes__issueridt__base__first <= 
+     cryptotypes__issueridt__base__last may_be_deduced.
+addauthcert_rules(252): cryptotypes__issueridt__base__first <= 
+     cryptotypes__issueridt__first may_be_deduced.
+addauthcert_rules(253): cryptotypes__issueridt__base__last >= 
+     cryptotypes__issueridt__last may_be_deduced.
+addauthcert_rules(254): cryptotypes__issuert__size >= 0 may_be_deduced.
+addauthcert_rules(255): A = B may_be_deduced_from
+     [goal(checktype(A,cryptotypes__issuert)),
+      goal(checktype(B,cryptotypes__issuert)),
+      fld_id(A) = fld_id(B),
+      fld_namelength(A) = fld_namelength(B),
+      fld_name(A) = fld_name(B)].
+addauthcert_rules(256): cryptotypes__algorithmt__size >= 0 may_be_deduced.
+addauthcert_rules(257): cryptotypes__algorithmt__first may_be_replaced_by cryptotypes__rsa.
+addauthcert_rules(258): cryptotypes__algorithmt__last may_be_replaced_by cryptotypes__ripemd160_rsa.
+addauthcert_rules(259): cryptotypes__algorithmt__base__first may_be_replaced_by cryptotypes__rsa.
+addauthcert_rules(260): cryptotypes__algorithmt__base__last may_be_replaced_by cryptotypes__ripemd160_rsa.
+addauthcert_rules(261): cryptotypes__algorithmt__pos(
+     cryptotypes__algorithmt__first) may_be_replaced_by 0.
+addauthcert_rules(262): cryptotypes__algorithmt__pos(
+     cryptotypes__rsa) may_be_replaced_by 0.
+addauthcert_rules(263): cryptotypes__algorithmt__val(0) may_be_replaced_by 
+     cryptotypes__rsa.
+addauthcert_rules(264): cryptotypes__algorithmt__pos(
+     cryptotypes__md2) may_be_replaced_by 1.
+addauthcert_rules(265): cryptotypes__algorithmt__val(1) may_be_replaced_by 
+     cryptotypes__md2.
+addauthcert_rules(266): cryptotypes__algorithmt__pos(
+     cryptotypes__md5) may_be_replaced_by 2.
+addauthcert_rules(267): cryptotypes__algorithmt__val(2) may_be_replaced_by 
+     cryptotypes__md5.
+addauthcert_rules(268): cryptotypes__algorithmt__pos(
+     cryptotypes__sha_1) may_be_replaced_by 3.
+addauthcert_rules(269): cryptotypes__algorithmt__val(3) may_be_replaced_by 
+     cryptotypes__sha_1.
+addauthcert_rules(270): cryptotypes__algorithmt__pos(
+     cryptotypes__ripemd128) may_be_replaced_by 4.
+addauthcert_rules(271): cryptotypes__algorithmt__val(4) may_be_replaced_by 
+     cryptotypes__ripemd128.
+addauthcert_rules(272): cryptotypes__algorithmt__pos(
+     cryptotypes__ripemd160) may_be_replaced_by 5.
+addauthcert_rules(273): cryptotypes__algorithmt__val(5) may_be_replaced_by 
+     cryptotypes__ripemd160.
+addauthcert_rules(274): cryptotypes__algorithmt__pos(
+     cryptotypes__md2_rsa) may_be_replaced_by 6.
+addauthcert_rules(275): cryptotypes__algorithmt__val(6) may_be_replaced_by 
+     cryptotypes__md2_rsa.
+addauthcert_rules(276): cryptotypes__algorithmt__pos(
+     cryptotypes__md5_rsa) may_be_replaced_by 7.
+addauthcert_rules(277): cryptotypes__algorithmt__val(7) may_be_replaced_by 
+     cryptotypes__md5_rsa.
+addauthcert_rules(278): cryptotypes__algorithmt__pos(
+     cryptotypes__sha1_rsa) may_be_replaced_by 8.
+addauthcert_rules(279): cryptotypes__algorithmt__val(8) may_be_replaced_by 
+     cryptotypes__sha1_rsa.
+addauthcert_rules(280): cryptotypes__algorithmt__pos(
+     cryptotypes__ripemd128_rsa) may_be_replaced_by 9.
+addauthcert_rules(281): cryptotypes__algorithmt__val(9) may_be_replaced_by 
+     cryptotypes__ripemd128_rsa.
+addauthcert_rules(282): cryptotypes__algorithmt__pos(
+     cryptotypes__ripemd160_rsa) may_be_replaced_by 10.
+addauthcert_rules(283): cryptotypes__algorithmt__val(10) may_be_replaced_by 
+     cryptotypes__ripemd160_rsa.
+addauthcert_rules(284): cryptotypes__algorithmt__pos(
+     cryptotypes__algorithmt__last) may_be_replaced_by 10.
+addauthcert_rules(285): cryptotypes__algorithmt__pos(succ(X)) may_be_replaced_by 
+     cryptotypes__algorithmt__pos(X) + 1
+     if [X <=cryptotypes__ripemd160_rsa, X <> 
+     cryptotypes__ripemd160_rsa].
+addauthcert_rules(286): cryptotypes__algorithmt__pos(pred(X)) may_be_replaced_by 
+     cryptotypes__algorithmt__pos(X) - 1
+     if [X >=cryptotypes__rsa, X <> cryptotypes__rsa].
+addauthcert_rules(287): cryptotypes__algorithmt__pos(X) >= 0 may_be_deduced_from
+     [cryptotypes__rsa <= X, X <= cryptotypes__ripemd160_rsa].
+addauthcert_rules(288): cryptotypes__algorithmt__pos(X) <= 10 may_be_deduced_from
+     [cryptotypes__rsa <= X, X <= cryptotypes__ripemd160_rsa].
+addauthcert_rules(289): cryptotypes__algorithmt__val(X) >= 
+     cryptotypes__rsa may_be_deduced_from
+     [0 <= X, X <= 10].
+addauthcert_rules(290): cryptotypes__algorithmt__val(X) <= 
+     cryptotypes__ripemd160_rsa may_be_deduced_from
+     [0 <= X, X <= 10].
+addauthcert_rules(291): succ(cryptotypes__algorithmt__val(X)) may_be_replaced_by 
+     cryptotypes__algorithmt__val(X+1)
+     if [0 <= X, X < 10].
+addauthcert_rules(292): pred(cryptotypes__algorithmt__val(X)) may_be_replaced_by 
+     cryptotypes__algorithmt__val(X-1)
+     if [0 < X, X <= 10].
+addauthcert_rules(293): cryptotypes__algorithmt__pos(
+     cryptotypes__algorithmt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 10].
+addauthcert_rules(294): cryptotypes__algorithmt__val(
+     cryptotypes__algorithmt__pos(X)) may_be_replaced_by X
+     if [cryptotypes__rsa <= X, X <= cryptotypes__ripemd160_rsa].
+addauthcert_rules(295): cryptotypes__algorithmt__pos(X) <= 
+     cryptotypes__algorithmt__pos(Y) & X <= Y are_interchangeable 
+     if [cryptotypes__rsa <= X, X <= cryptotypes__ripemd160_rsa, 
+     cryptotypes__rsa <= Y, Y <= cryptotypes__ripemd160_rsa].
+addauthcert_rules(296): cryptotypes__algorithmt__val(X) <= 
+     cryptotypes__algorithmt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 10, 0 <= Y, Y <= 10].
+addauthcert_rules(297): certtypes__serialnumbert__size >= 0 may_be_deduced.
+addauthcert_rules(298): certtypes__serialnumbert__first may_be_replaced_by 0.
+addauthcert_rules(299): certtypes__serialnumbert__last may_be_replaced_by 4294967295.
+addauthcert_rules(300): certtypes__serialnumbert__base__first <= 
+     certtypes__serialnumbert__base__last may_be_deduced.
+addauthcert_rules(301): certtypes__serialnumbert__base__first <= 
+     certtypes__serialnumbert__first may_be_deduced.
+addauthcert_rules(302): certtypes__serialnumbert__base__last >= 
+     certtypes__serialnumbert__last may_be_deduced.
+addauthcert_rules(303): certtypes__idt__size >= 0 may_be_deduced.
+addauthcert_rules(304): A = B may_be_deduced_from
+     [goal(checktype(A,certtypes__idt)),
+      goal(checktype(B,certtypes__idt)),
+      fld_issuer(A) = fld_issuer(B),
+      fld_serialnumber(A) = fld_serialnumber(B)].
+addauthcert_rules(305): cert__attr__contentst__size >= 0 may_be_deduced.
+addauthcert_rules(306): A = B may_be_deduced_from
+     [goal(checktype(A,cert__attr__contentst)),
+      goal(checktype(B,cert__attr__contentst)),
+      fld_inherit(A) = fld_inherit(B)].
+addauthcert_rules(307): cert__attr__auth__contentst__size >= 0 may_be_deduced.
+addauthcert_rules(308): A = B may_be_deduced_from
+     [goal(checktype(A,cert__attr__auth__contentst)),
+      goal(checktype(B,cert__attr__auth__contentst)),
+      fld_inherit(A) = fld_inherit(B)].
+addauthcert_rules(309): cert__attr__ianda__contentst__size >= 0 may_be_deduced.
+addauthcert_rules(310): A = B may_be_deduced_from
+     [goal(checktype(A,cert__attr__ianda__contentst)),
+      goal(checktype(B,cert__attr__ianda__contentst)),
+      fld_inherit(A) = fld_inherit(B)].
+addauthcert_rules(311): cert__attr__priv__contentst__size >= 0 may_be_deduced.
+addauthcert_rules(312): A = B may_be_deduced_from
+     [goal(checktype(A,cert__attr__priv__contentst)),
+      goal(checktype(B,cert__attr__priv__contentst)),
+      fld_inherit(A) = fld_inherit(B)].
+addauthcert_rules(313): cert__id__contentst__size >= 0 may_be_deduced.
+addauthcert_rules(314): A = B may_be_deduced_from
+     [goal(checktype(A,cert__id__contentst)),
+      goal(checktype(B,cert__id__contentst)),
+      fld_inherit(A) = fld_inherit(B)].
+addauthcert_rules(315): tokentypes__tryt__size >= 0 may_be_deduced.
+addauthcert_rules(316): tokentypes__tryt__first may_be_replaced_by tokentypes__notoken.
+addauthcert_rules(317): tokentypes__tryt__last may_be_replaced_by tokentypes__goodtoken.
+addauthcert_rules(318): tokentypes__tryt__base__first may_be_replaced_by tokentypes__notoken.
+addauthcert_rules(319): tokentypes__tryt__base__last may_be_replaced_by tokentypes__goodtoken.
+addauthcert_rules(320): tokentypes__tryt__pos(tokentypes__tryt__first) may_be_replaced_by 0.
+addauthcert_rules(321): tokentypes__tryt__pos(tokentypes__notoken) may_be_replaced_by 0.
+addauthcert_rules(322): tokentypes__tryt__val(0) may_be_replaced_by 
+     tokentypes__notoken.
+addauthcert_rules(323): tokentypes__tryt__pos(
+     tokentypes__badtoken) may_be_replaced_by 1.
+addauthcert_rules(324): tokentypes__tryt__val(1) may_be_replaced_by 
+     tokentypes__badtoken.
+addauthcert_rules(325): tokentypes__tryt__pos(
+     tokentypes__goodtoken) may_be_replaced_by 2.
+addauthcert_rules(326): tokentypes__tryt__val(2) may_be_replaced_by 
+     tokentypes__goodtoken.
+addauthcert_rules(327): tokentypes__tryt__pos(tokentypes__tryt__last) may_be_replaced_by 2.
+addauthcert_rules(328): tokentypes__tryt__pos(succ(X)) may_be_replaced_by 
+     tokentypes__tryt__pos(X) + 1
+     if [X <=tokentypes__goodtoken, X <> tokentypes__goodtoken].
+addauthcert_rules(329): tokentypes__tryt__pos(pred(X)) may_be_replaced_by 
+     tokentypes__tryt__pos(X) - 1
+     if [X >=tokentypes__notoken, X <> tokentypes__notoken].
+addauthcert_rules(330): tokentypes__tryt__pos(X) >= 0 may_be_deduced_from
+     [tokentypes__notoken <= X, X <= tokentypes__goodtoken].
+addauthcert_rules(331): tokentypes__tryt__pos(X) <= 2 may_be_deduced_from
+     [tokentypes__notoken <= X, X <= tokentypes__goodtoken].
+addauthcert_rules(332): tokentypes__tryt__val(X) >= 
+     tokentypes__notoken may_be_deduced_from
+     [0 <= X, X <= 2].
+addauthcert_rules(333): tokentypes__tryt__val(X) <= 
+     tokentypes__goodtoken may_be_deduced_from
+     [0 <= X, X <= 2].
+addauthcert_rules(334): succ(tokentypes__tryt__val(X)) may_be_replaced_by 
+     tokentypes__tryt__val(X+1)
+     if [0 <= X, X < 2].
+addauthcert_rules(335): pred(tokentypes__tryt__val(X)) may_be_replaced_by 
+     tokentypes__tryt__val(X-1)
+     if [0 < X, X <= 2].
+addauthcert_rules(336): tokentypes__tryt__pos(tokentypes__tryt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 2].
+addauthcert_rules(337): tokentypes__tryt__val(tokentypes__tryt__pos(X)) may_be_replaced_by X
+     if [tokentypes__notoken <= X, X <= tokentypes__goodtoken].
+addauthcert_rules(338): tokentypes__tryt__pos(X) <= 
+     tokentypes__tryt__pos(Y) & X <= Y are_interchangeable 
+     if [tokentypes__notoken <= X, X <= tokentypes__goodtoken, 
+     tokentypes__notoken <= Y, Y <= tokentypes__goodtoken].
+addauthcert_rules(339): tokentypes__tryt__val(X) <= 
+     tokentypes__tryt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 2, 0 <= Y, Y <= 2].
+addauthcert_rules(340): certificatestatus__size >= 0 may_be_deduced.
+addauthcert_rules(341): certificatestatus__first may_be_replaced_by bad.
+addauthcert_rules(342): certificatestatus__last may_be_replaced_by validcert.
+addauthcert_rules(343): certificatestatus__base__first may_be_replaced_by bad.
+addauthcert_rules(344): certificatestatus__base__last may_be_replaced_by validcert.
+addauthcert_rules(345): certificatestatus__pos(certificatestatus__first) may_be_replaced_by 0.
+addauthcert_rules(346): certificatestatus__pos(bad) may_be_replaced_by 0.
+addauthcert_rules(347): certificatestatus__val(0) may_be_replaced_by 
+     bad.
+addauthcert_rules(348): certificatestatus__pos(notverified) may_be_replaced_by 1.
+addauthcert_rules(349): certificatestatus__val(1) may_be_replaced_by 
+     notverified.
+addauthcert_rules(350): certificatestatus__pos(notcurrent) may_be_replaced_by 2.
+addauthcert_rules(351): certificatestatus__val(2) may_be_replaced_by 
+     notcurrent.
+addauthcert_rules(352): certificatestatus__pos(validcert) may_be_replaced_by 3.
+addauthcert_rules(353): certificatestatus__val(3) may_be_replaced_by 
+     validcert.
+addauthcert_rules(354): certificatestatus__pos(certificatestatus__last) may_be_replaced_by 3.
+addauthcert_rules(355): certificatestatus__pos(succ(X)) may_be_replaced_by 
+     certificatestatus__pos(X) + 1
+     if [X <=validcert, X <> validcert].
+addauthcert_rules(356): certificatestatus__pos(pred(X)) may_be_replaced_by 
+     certificatestatus__pos(X) - 1
+     if [X >=bad, X <> bad].
+addauthcert_rules(357): certificatestatus__pos(X) >= 0 may_be_deduced_from
+     [bad <= X, X <= validcert].
+addauthcert_rules(358): certificatestatus__pos(X) <= 3 may_be_deduced_from
+     [bad <= X, X <= validcert].
+addauthcert_rules(359): certificatestatus__val(X) >= bad may_be_deduced_from
+     [0 <= X, X <= 3].
+addauthcert_rules(360): certificatestatus__val(X) <= validcert may_be_deduced_from
+     [0 <= X, X <= 3].
+addauthcert_rules(361): succ(certificatestatus__val(X)) may_be_replaced_by 
+     certificatestatus__val(X+1)
+     if [0 <= X, X < 3].
+addauthcert_rules(362): pred(certificatestatus__val(X)) may_be_replaced_by 
+     certificatestatus__val(X-1)
+     if [0 < X, X <= 3].
+addauthcert_rules(363): certificatestatus__pos(certificatestatus__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 3].
+addauthcert_rules(364): certificatestatus__val(certificatestatus__pos(X)) may_be_replaced_by X
+     if [bad <= X, X <= validcert].
+addauthcert_rules(365): certificatestatus__pos(X) <= 
+     certificatestatus__pos(Y) & X <= Y are_interchangeable 
+     if [bad <= X, X <= validcert, bad <= Y, Y <= validcert].
+addauthcert_rules(366): certificatestatus__val(X) <= 
+     certificatestatus__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 3, 0 <= Y, Y <= 3].
+addauthcert_rules(367): valididcertt__size >= 0 may_be_deduced.
+addauthcert_rules(368): A = B may_be_deduced_from
+     [goal(checktype(A,valididcertt)),
+      goal(checktype(B,valididcertt)),
+      fld_valid(A) = fld_valid(B),
+      fld_idstatus(A) = fld_idstatus(B),
+      fld_contents(A) = fld_contents(B)].
+addauthcert_rules(369): validprivcertt__size >= 0 may_be_deduced.
+addauthcert_rules(370): A = B may_be_deduced_from
+     [goal(checktype(A,validprivcertt)),
+      goal(checktype(B,validprivcertt)),
+      fld_valid(A) = fld_valid(B),
+      fld_contents(A) = fld_contents(B)].
+addauthcert_rules(371): validauthcertt__size >= 0 may_be_deduced.
+addauthcert_rules(372): A = B may_be_deduced_from
+     [goal(checktype(A,validauthcertt)),
+      goal(checktype(B,validauthcertt)),
+      fld_valid(A) = fld_valid(B),
+      fld_contents(A) = fld_contents(B)].
+addauthcert_rules(373): validiandacertt__size >= 0 may_be_deduced.
+addauthcert_rules(374): A = B may_be_deduced_from
+     [goal(checktype(A,validiandacertt)),
+      goal(checktype(B,validiandacertt)),
+      fld_valid(A) = fld_valid(B),
+      fld_contents(A) = fld_contents(B)].

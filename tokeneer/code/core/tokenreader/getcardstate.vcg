@@ -1,0 +1,106 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:18.39
+
+                     function TokenReader.GetCardState
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 153:
+
+function_getcardstate_1.
+H1:    true .
+H2:    cardstate >= basictypes__unsigned32t__first .
+H3:    cardstate <= basictypes__unsigned32t__last .
+H4:    cardstate >= tokenreader__interface__cardstatet__pos(
+           tokenreader__interface__cardstatet__first) .
+H5:    cardstate <= tokenreader__interface__cardstatet__pos(
+           tokenreader__interface__cardstatet__last) .
+        ->
+C1:    tokenreader__interface__cardstatet__val(cardstate) >= 
+           tokenreader__interface__cardstatet__first .
+C2:    tokenreader__interface__cardstatet__val(cardstate) <= 
+           tokenreader__interface__cardstatet__last .
+C3:    cardstate >= tokenreader__interface__cardstatet__pos(
+           tokenreader__interface__cardstatet__first) .
+C4:    cardstate <= tokenreader__interface__cardstatet__pos(
+           tokenreader__interface__cardstatet__last) .
+ 
+
+For path(s) from start to run-time check associated with statement of line 155:
+
+function_getcardstate_2.
+H1:    true .
+H2:    cardstate >= basictypes__unsigned32t__first .
+H3:    cardstate <= basictypes__unsigned32t__last .
+H4:    not ((cardstate >= tokenreader__interface__cardstatet__pos(
+           tokenreader__interface__cardstatet__first)) and (
+           cardstate <= tokenreader__interface__cardstatet__pos(
+           tokenreader__interface__cardstatet__last))) .
+        ->
+C1:    tokenreader__interface__invalidcardstate >= 
+           tokenreader__interface__cardstatet__first .
+C2:    tokenreader__interface__invalidcardstate <= 
+           tokenreader__interface__cardstatet__last .
+ 
+
+For path(s) from start to finish:
+
+function_getcardstate_3.
+H1:    true .
+H2:    cardstate >= basictypes__unsigned32t__first .
+H3:    cardstate <= basictypes__unsigned32t__last .
+H4:    cardstate >= tokenreader__interface__cardstatet__pos(
+           tokenreader__interface__cardstatet__first) .
+H5:    cardstate <= tokenreader__interface__cardstatet__pos(
+           tokenreader__interface__cardstatet__last) .
+H6:    tokenreader__interface__cardstatet__val(cardstate) >= 
+           tokenreader__interface__cardstatet__first .
+H7:    tokenreader__interface__cardstatet__val(cardstate) <= 
+           tokenreader__interface__cardstatet__last .
+H8:    cardstate >= tokenreader__interface__cardstatet__pos(
+           tokenreader__interface__cardstatet__first) .
+H9:    cardstate <= tokenreader__interface__cardstatet__pos(
+           tokenreader__interface__cardstatet__last) .
+H10:   tokenreader__interface__cardstatet__val(cardstate) >= 
+           tokenreader__interface__cardstatet__first .
+H11:   tokenreader__interface__cardstatet__val(cardstate) <= 
+           tokenreader__interface__cardstatet__last .
+        ->
+C1:    true .
+C2:    tokenreader__interface__cardstatet__val(cardstate) >= 
+           tokenreader__interface__cardstatet__first .
+C3:    tokenreader__interface__cardstatet__val(cardstate) <= 
+           tokenreader__interface__cardstatet__last .
+ 
+
+function_getcardstate_4.
+H1:    true .
+H2:    cardstate >= basictypes__unsigned32t__first .
+H3:    cardstate <= basictypes__unsigned32t__last .
+H4:    not ((cardstate >= tokenreader__interface__cardstatet__pos(
+           tokenreader__interface__cardstatet__first)) and (
+           cardstate <= tokenreader__interface__cardstatet__pos(
+           tokenreader__interface__cardstatet__last))) .
+H5:    tokenreader__interface__invalidcardstate >= 
+           tokenreader__interface__cardstatet__first .
+H6:    tokenreader__interface__invalidcardstate <= 
+           tokenreader__interface__cardstatet__last .
+H7:    tokenreader__interface__invalidcardstate >= 
+           tokenreader__interface__cardstatet__first .
+H8:    tokenreader__interface__invalidcardstate <= 
+           tokenreader__interface__cardstatet__last .
+        ->
+C1:    true .
+C2:    tokenreader__interface__invalidcardstate >= 
+           tokenreader__interface__cardstatet__first .
+C3:    tokenreader__interface__invalidcardstate <= 
+           tokenreader__interface__cardstatet__last .
+ 
+

@@ -1,0 +1,75 @@
+           *******************************************************
+                            Listing of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:27.78
+
+Line
+   1  ------------------------------------------------------------------
+   2  -- Tokeneer ID Station Core Software
+   3  --
+   4  -- Copyright (2003) United States Government, as represented
+   5  -- by the Director, National Security Agency. All rights reserved.
+   6  --
+   7  -- This material was originally developed by Praxis High Integrity
+   8  -- Systems Ltd. under contract to the National Security Agency.
+   9  ------------------------------------------------------------------
+  10  
+  11  ------------------------------------------------------------------
+  12  -- Poll
+  13  --
+  14  -- Implementation Notes:
+  15  --    None.
+  16  --
+  17  ------------------------------------------------------------------
+  18  with Clock;
+  19  with Door;
+  20  with Keyboard;
+  21  with UserEntry;
+  22  with UserToken;
+  23  with AdminToken;
+  24  
+  25  package body Poll
+  26  is
+  27  
+  28  
+  29  
+  30     ------------------------------------------------------------------
+  31     -- Activity
+  32     --
+  33     -- Implementation Notes:
+  34     --
+  35     --    Note that polling the biometric device is not done here
+  36     --    it is only polled when the system is waiting to read the
+  37     --    device so appears as part of the WaitingFinger activity.
+  38     --
+  39     --    Note that polling the floppy is not done here
+  40     --    it is only polled when the system needs a floppy to be present.
+  41     ------------------------------------------------------------------
+  42  
+  43     procedure Activity (SystemFault :    out Boolean)
+  44     is
+  45     begin
+  46        Clock.Poll;
+  47        Door.Poll(SystemFault => SystemFault);
+  48        UserToken.Poll;
+  49        AdminToken.Poll;
+  50        UserEntry.DisplayPollUpdate;
+  51        Keyboard.Poll;
+  52  
+  53     end Activity;
+
++++        Flow analysis of subprogram Activity performed: 
+           no errors found.
+
+  54  
+  55  
+  56  end Poll;
+No summarized warnings
+
+
+
+--End of file--------------------------------------------------

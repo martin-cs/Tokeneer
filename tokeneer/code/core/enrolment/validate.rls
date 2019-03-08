@@ -1,0 +1,37 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:25.33*/
+
+                        /*procedure Enrolment.Validate*/
+
+
+rule_family validate_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+validate_rules(1): integer__size >= 0 may_be_deduced.
+validate_rules(2): integer__first may_be_replaced_by -2147483648.
+validate_rules(3): integer__last may_be_replaced_by 2147483647.
+validate_rules(4): integer__base__first may_be_replaced_by -2147483648.
+validate_rules(5): integer__base__last may_be_replaced_by 2147483647.
+validate_rules(6): character__size >= 0 may_be_deduced.
+validate_rules(7): character__first may_be_replaced_by 0.
+validate_rules(8): character__last may_be_replaced_by 255.
+validate_rules(9): character__base__first may_be_replaced_by 0.
+validate_rules(10): character__base__last may_be_replaced_by 255.
+validate_rules(11): positive__size >= 0 may_be_deduced.
+validate_rules(12): positive__first may_be_replaced_by 1.
+validate_rules(13): positive__last may_be_replaced_by 2147483647.
+validate_rules(14): positive__base__first may_be_replaced_by -2147483648.
+validate_rules(15): positive__base__last may_be_replaced_by 2147483647.
+validate_rules(16): audittypes__descriptioni__size >= 0 may_be_deduced.
+validate_rules(17): audittypes__descriptioni__first may_be_replaced_by 1.
+validate_rules(18): audittypes__descriptioni__last may_be_replaced_by 150.
+validate_rules(19): audittypes__descriptioni__base__first may_be_replaced_by -2147483648.
+validate_rules(20): audittypes__descriptioni__base__last may_be_replaced_by 2147483647.

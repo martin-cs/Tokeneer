@@ -1,0 +1,119 @@
+%==========================================================================
+\chapter{Reading Z, a small introduction}
+\label{chap:readZ}
+%==========================================================================
+In this section we explain the basics of how to read Z. 
+
+The main building block in Z is a {\em schema}. 
+A Z schema takes the form of a number of state components and,
+optionally, constraints on the state.
+
+%%unchecked
+\begin{schema}{SchemaName}
+        declarations
+\where
+        constraints
+\end{schema} 
+
+For example we might declare a counter with an upper bound. The
+counter variable $x$ is declared and it is constrained
+to be less than 100.
+
+%%unchecked
+\begin{schema}{Counter}
+x : \nat
+\where
+x < 100
+\end{schema} 
+
+Within the declarative part of a schema we can include schema
+names. The effect of this inclusion is to bring into scope all the
+variables and constraints of the schemas that have been included.
+So in the following $NewCounter$ is a counter with a lower bound as
+well as the upper bound inherited from $Counter$.
+
+%%unchecked
+\begin{schema}{NewCounter}
+        Counter
+\where
+        40 < x
+\end{schema}
+
+Schemas are used to describe behaviour under change. Using a
+convention of decorating state with a $'$ after change we can describe an
+effect of an operation by describing the new values of the state in
+terms of its relationship to
+the old value of the state.  
+
+We can describe a simple increment
+of our counter by the following schema in which the new value of $x$
+is the old value of $x$ incremented by 1. Note that the underlying
+constraints on the variables from the $Counter$ schema still apply, so
+$x' < 100$ is still true.
+%%unchecked
+\begin{schema}{IncrementCounter}
+        Counter
+\\      Counter'
+\where
+x' = x + 1
+\end{schema}
+
+In general, instead of writing $Counter, Counter'$ in our schema declaration we
+make use of the definition
+%%unchecked
+\begin{schema}{\Delta Counter}
+        Counter
+\\      Counter'
+\end{schema}
+
+the $\Delta$ indicating a change to the variables in the schema $Counter$.
+
+Another useful definition is $\Xi Counter$ which is describes the case
+where the state of the schema is unchanged
+%%unchecked
+\begin{schema}{\Xi Counter}
+        \Delta Counter
+\where
+        \theta Counter = \theta Counter'
+\end{schema} 
+\begin{Zcomment}
+\item
+The $\theta$ here is read as ``the state of ''.
+\end{Zcomment}
+
+In addition to schemas, Z allows us to define basic types which give
+the types of the basic components of our schemas. We might want to
+introduce the concept of a ``string'' as a basic type in our system,
+this will appear as:
+
+%%unchecked
+\begin{zed}
+        [ STRING ]
+\end{zed}
+
+We can define constants and functions. Here we define a constant
+$clearString$ and print function that
+turns natural numbers into strings.
+
+%%unchecked
+\begin{axdef}
+        clearString : STRING
+\\      printNat : \nat \inj STRING
+\end{axdef}
+
+Where we know all the possible entities of a basic type we can
+declare it as a free type. $NEWSTRING$ is a free type with a named
+value element $clearNewString$ and a function, $newPrintNat$ returning 
+elements of type $NEWSTRING$.
+
+%%unchecked
+\begin{zed}
+        NEWSTRING ::= clearNewString | newPrintNat \ldata \nat \rdata
+\end{zed} 
+A key property of the free type is that all elements of the free type
+are distinct.
+
+These ideas, along with a basic appreciation of predicate logic, should be sufficient to aid reading this
+specification. For a more detailed description of the Z notation refer
+to \cite{Spivey}.
+

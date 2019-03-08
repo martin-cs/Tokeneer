@@ -1,0 +1,638 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:19.30*/
+
+                         /*procedure TokenReader.Poll*/
+
+
+rule_family poll_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+poll_rules(1): statuschangetimeout may_be_replaced_by 0.
+poll_rules(2): integer__size >= 0 may_be_deduced.
+poll_rules(3): integer__first may_be_replaced_by -2147483648.
+poll_rules(4): integer__last may_be_replaced_by 2147483647.
+poll_rules(5): integer__base__first may_be_replaced_by -2147483648.
+poll_rules(6): integer__base__last may_be_replaced_by 2147483647.
+poll_rules(7): character__size >= 0 may_be_deduced.
+poll_rules(8): character__first may_be_replaced_by 0.
+poll_rules(9): character__last may_be_replaced_by 255.
+poll_rules(10): character__base__first may_be_replaced_by 0.
+poll_rules(11): character__base__last may_be_replaced_by 255.
+poll_rules(12): positive__size >= 0 may_be_deduced.
+poll_rules(13): positive__first may_be_replaced_by 1.
+poll_rules(14): positive__last may_be_replaced_by 2147483647.
+poll_rules(15): positive__base__first may_be_replaced_by -2147483648.
+poll_rules(16): positive__base__last may_be_replaced_by 2147483647.
+poll_rules(17): basictypes__unsigned32t__size >= 0 may_be_deduced.
+poll_rules(18): basictypes__unsigned32t__size may_be_replaced_by 32.
+poll_rules(19): basictypes__unsigned32t__first may_be_replaced_by 0.
+poll_rules(20): basictypes__unsigned32t__last may_be_replaced_by 4294967295.
+poll_rules(21): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__base__last may_be_deduced.
+poll_rules(22): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__first may_be_deduced.
+poll_rules(23): basictypes__unsigned32t__base__last >= 
+     basictypes__unsigned32t__last may_be_deduced.
+poll_rules(24): audittypes__elementt__size >= 0 may_be_deduced.
+poll_rules(25): audittypes__elementt__first may_be_replaced_by audittypes__startunenrolledtis.
+poll_rules(26): audittypes__elementt__last may_be_replaced_by audittypes__systemfault.
+poll_rules(27): audittypes__elementt__base__first may_be_replaced_by audittypes__startunenrolledtis.
+poll_rules(28): audittypes__elementt__base__last may_be_replaced_by audittypes__systemfault.
+poll_rules(29): audittypes__elementt__pos(audittypes__elementt__first) may_be_replaced_by 0.
+poll_rules(30): audittypes__elementt__pos(
+     audittypes__startunenrolledtis) may_be_replaced_by 0.
+poll_rules(31): audittypes__elementt__val(0) may_be_replaced_by 
+     audittypes__startunenrolledtis.
+poll_rules(32): audittypes__elementt__pos(
+     audittypes__startenrolledtis) may_be_replaced_by 1.
+poll_rules(33): audittypes__elementt__val(1) may_be_replaced_by 
+     audittypes__startenrolledtis.
+poll_rules(34): audittypes__elementt__pos(
+     audittypes__enrolmentcomplete) may_be_replaced_by 2.
+poll_rules(35): audittypes__elementt__val(2) may_be_replaced_by 
+     audittypes__enrolmentcomplete.
+poll_rules(36): audittypes__elementt__pos(
+     audittypes__enrolmentfailed) may_be_replaced_by 3.
+poll_rules(37): audittypes__elementt__val(3) may_be_replaced_by 
+     audittypes__enrolmentfailed.
+poll_rules(38): audittypes__elementt__pos(
+     audittypes__displaychanged) may_be_replaced_by 4.
+poll_rules(39): audittypes__elementt__val(4) may_be_replaced_by 
+     audittypes__displaychanged.
+poll_rules(40): audittypes__elementt__pos(
+     audittypes__screenchanged) may_be_replaced_by 5.
+poll_rules(41): audittypes__elementt__val(5) may_be_replaced_by 
+     audittypes__screenchanged.
+poll_rules(42): audittypes__elementt__pos(audittypes__doorclosed) may_be_replaced_by 6.
+poll_rules(43): audittypes__elementt__val(6) may_be_replaced_by 
+     audittypes__doorclosed.
+poll_rules(44): audittypes__elementt__pos(audittypes__dooropened) may_be_replaced_by 7.
+poll_rules(45): audittypes__elementt__val(7) may_be_replaced_by 
+     audittypes__dooropened.
+poll_rules(46): audittypes__elementt__pos(audittypes__latchlocked) may_be_replaced_by 8.
+poll_rules(47): audittypes__elementt__val(8) may_be_replaced_by 
+     audittypes__latchlocked.
+poll_rules(48): audittypes__elementt__pos(
+     audittypes__latchunlocked) may_be_replaced_by 9.
+poll_rules(49): audittypes__elementt__val(9) may_be_replaced_by 
+     audittypes__latchunlocked.
+poll_rules(50): audittypes__elementt__pos(audittypes__alarmraised) may_be_replaced_by 10.
+poll_rules(51): audittypes__elementt__val(10) may_be_replaced_by 
+     audittypes__alarmraised.
+poll_rules(52): audittypes__elementt__pos(
+     audittypes__alarmsilenced) may_be_replaced_by 11.
+poll_rules(53): audittypes__elementt__val(11) may_be_replaced_by 
+     audittypes__alarmsilenced.
+poll_rules(54): audittypes__elementt__pos(audittypes__truncatelog) may_be_replaced_by 12.
+poll_rules(55): audittypes__elementt__val(12) may_be_replaced_by 
+     audittypes__truncatelog.
+poll_rules(56): audittypes__elementt__pos(
+     audittypes__auditalarmraised) may_be_replaced_by 13.
+poll_rules(57): audittypes__elementt__val(13) may_be_replaced_by 
+     audittypes__auditalarmraised.
+poll_rules(58): audittypes__elementt__pos(
+     audittypes__auditalarmsilenced) may_be_replaced_by 14.
+poll_rules(59): audittypes__elementt__val(14) may_be_replaced_by 
+     audittypes__auditalarmsilenced.
+poll_rules(60): audittypes__elementt__pos(
+     audittypes__usertokenremoved) may_be_replaced_by 15.
+poll_rules(61): audittypes__elementt__val(15) may_be_replaced_by 
+     audittypes__usertokenremoved.
+poll_rules(62): audittypes__elementt__pos(
+     audittypes__usertokenpresent) may_be_replaced_by 16.
+poll_rules(63): audittypes__elementt__val(16) may_be_replaced_by 
+     audittypes__usertokenpresent.
+poll_rules(64): audittypes__elementt__pos(
+     audittypes__usertokeninvalid) may_be_replaced_by 17.
+poll_rules(65): audittypes__elementt__val(17) may_be_replaced_by 
+     audittypes__usertokeninvalid.
+poll_rules(66): audittypes__elementt__pos(
+     audittypes__authcertvalid) may_be_replaced_by 18.
+poll_rules(67): audittypes__elementt__val(18) may_be_replaced_by 
+     audittypes__authcertvalid.
+poll_rules(68): audittypes__elementt__pos(
+     audittypes__authcertinvalid) may_be_replaced_by 19.
+poll_rules(69): audittypes__elementt__val(19) may_be_replaced_by 
+     audittypes__authcertinvalid.
+poll_rules(70): audittypes__elementt__pos(
+     audittypes__fingerdetected) may_be_replaced_by 20.
+poll_rules(71): audittypes__elementt__val(20) may_be_replaced_by 
+     audittypes__fingerdetected.
+poll_rules(72): audittypes__elementt__pos(
+     audittypes__fingertimeout) may_be_replaced_by 21.
+poll_rules(73): audittypes__elementt__val(21) may_be_replaced_by 
+     audittypes__fingertimeout.
+poll_rules(74): audittypes__elementt__pos(
+     audittypes__fingermatched) may_be_replaced_by 22.
+poll_rules(75): audittypes__elementt__val(22) may_be_replaced_by 
+     audittypes__fingermatched.
+poll_rules(76): audittypes__elementt__pos(
+     audittypes__fingernotmatched) may_be_replaced_by 23.
+poll_rules(77): audittypes__elementt__val(23) may_be_replaced_by 
+     audittypes__fingernotmatched.
+poll_rules(78): audittypes__elementt__pos(
+     audittypes__authcertwritten) may_be_replaced_by 24.
+poll_rules(79): audittypes__elementt__val(24) may_be_replaced_by 
+     audittypes__authcertwritten.
+poll_rules(80): audittypes__elementt__pos(
+     audittypes__authcertwritefailed) may_be_replaced_by 25.
+poll_rules(81): audittypes__elementt__val(25) may_be_replaced_by 
+     audittypes__authcertwritefailed.
+poll_rules(82): audittypes__elementt__pos(
+     audittypes__entrypermitted) may_be_replaced_by 26.
+poll_rules(83): audittypes__elementt__val(26) may_be_replaced_by 
+     audittypes__entrypermitted.
+poll_rules(84): audittypes__elementt__pos(
+     audittypes__entrytimeout) may_be_replaced_by 27.
+poll_rules(85): audittypes__elementt__val(27) may_be_replaced_by 
+     audittypes__entrytimeout.
+poll_rules(86): audittypes__elementt__pos(audittypes__entrydenied) may_be_replaced_by 28.
+poll_rules(87): audittypes__elementt__val(28) may_be_replaced_by 
+     audittypes__entrydenied.
+poll_rules(88): audittypes__elementt__pos(
+     audittypes__admintokenpresent) may_be_replaced_by 29.
+poll_rules(89): audittypes__elementt__val(29) may_be_replaced_by 
+     audittypes__admintokenpresent.
+poll_rules(90): audittypes__elementt__pos(
+     audittypes__admintokenvalid) may_be_replaced_by 30.
+poll_rules(91): audittypes__elementt__val(30) may_be_replaced_by 
+     audittypes__admintokenvalid.
+poll_rules(92): audittypes__elementt__pos(
+     audittypes__admintokeninvalid) may_be_replaced_by 31.
+poll_rules(93): audittypes__elementt__val(31) may_be_replaced_by 
+     audittypes__admintokeninvalid.
+poll_rules(94): audittypes__elementt__pos(
+     audittypes__admintokenexpired) may_be_replaced_by 32.
+poll_rules(95): audittypes__elementt__val(32) may_be_replaced_by 
+     audittypes__admintokenexpired.
+poll_rules(96): audittypes__elementt__pos(
+     audittypes__admintokenremoved) may_be_replaced_by 33.
+poll_rules(97): audittypes__elementt__val(33) may_be_replaced_by 
+     audittypes__admintokenremoved.
+poll_rules(98): audittypes__elementt__pos(
+     audittypes__invalidoprequest) may_be_replaced_by 34.
+poll_rules(99): audittypes__elementt__val(34) may_be_replaced_by 
+     audittypes__invalidoprequest.
+poll_rules(100): audittypes__elementt__pos(
+     audittypes__operationstart) may_be_replaced_by 35.
+poll_rules(101): audittypes__elementt__val(35) may_be_replaced_by 
+     audittypes__operationstart.
+poll_rules(102): audittypes__elementt__pos(audittypes__archivelog) may_be_replaced_by 36.
+poll_rules(103): audittypes__elementt__val(36) may_be_replaced_by 
+     audittypes__archivelog.
+poll_rules(104): audittypes__elementt__pos(
+     audittypes__archivecomplete) may_be_replaced_by 37.
+poll_rules(105): audittypes__elementt__val(37) may_be_replaced_by 
+     audittypes__archivecomplete.
+poll_rules(106): audittypes__elementt__pos(
+     audittypes__archivecheckfailed) may_be_replaced_by 38.
+poll_rules(107): audittypes__elementt__val(38) may_be_replaced_by 
+     audittypes__archivecheckfailed.
+poll_rules(108): audittypes__elementt__pos(
+     audittypes__updatedconfigdata) may_be_replaced_by 39.
+poll_rules(109): audittypes__elementt__val(39) may_be_replaced_by 
+     audittypes__updatedconfigdata.
+poll_rules(110): audittypes__elementt__pos(
+     audittypes__invalidconfigdata) may_be_replaced_by 40.
+poll_rules(111): audittypes__elementt__val(40) may_be_replaced_by 
+     audittypes__invalidconfigdata.
+poll_rules(112): audittypes__elementt__pos(audittypes__shutdown) may_be_replaced_by 41.
+poll_rules(113): audittypes__elementt__val(41) may_be_replaced_by 
+     audittypes__shutdown.
+poll_rules(114): audittypes__elementt__pos(
+     audittypes__overridelock) may_be_replaced_by 42.
+poll_rules(115): audittypes__elementt__val(42) may_be_replaced_by 
+     audittypes__overridelock.
+poll_rules(116): audittypes__elementt__pos(
+     audittypes__systemfault) may_be_replaced_by 43.
+poll_rules(117): audittypes__elementt__val(43) may_be_replaced_by 
+     audittypes__systemfault.
+poll_rules(118): audittypes__elementt__pos(audittypes__elementt__last) may_be_replaced_by 43.
+poll_rules(119): audittypes__elementt__pos(succ(X)) may_be_replaced_by 
+     audittypes__elementt__pos(X) + 1
+     if [X <=audittypes__systemfault, X <> 
+     audittypes__systemfault].
+poll_rules(120): audittypes__elementt__pos(pred(X)) may_be_replaced_by 
+     audittypes__elementt__pos(X) - 1
+     if [X >=audittypes__startunenrolledtis, X <> 
+     audittypes__startunenrolledtis].
+poll_rules(121): audittypes__elementt__pos(X) >= 0 may_be_deduced_from
+     [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+poll_rules(122): audittypes__elementt__pos(X) <= 43 may_be_deduced_from
+     [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+poll_rules(123): audittypes__elementt__val(X) >= 
+     audittypes__startunenrolledtis may_be_deduced_from
+     [0 <= X, X <= 43].
+poll_rules(124): audittypes__elementt__val(X) <= 
+     audittypes__systemfault may_be_deduced_from
+     [0 <= X, X <= 43].
+poll_rules(125): succ(audittypes__elementt__val(X)) may_be_replaced_by 
+     audittypes__elementt__val(X+1)
+     if [0 <= X, X < 43].
+poll_rules(126): pred(audittypes__elementt__val(X)) may_be_replaced_by 
+     audittypes__elementt__val(X-1)
+     if [0 < X, X <= 43].
+poll_rules(127): audittypes__elementt__pos(audittypes__elementt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 43].
+poll_rules(128): audittypes__elementt__val(audittypes__elementt__pos(X)) may_be_replaced_by X
+     if [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+poll_rules(129): audittypes__elementt__pos(X) <= 
+     audittypes__elementt__pos(Y) & X <= Y are_interchangeable 
+     if [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault, audittypes__startunenrolledtis <= Y, Y <= 
+     audittypes__systemfault].
+poll_rules(130): audittypes__elementt__val(X) <= 
+     audittypes__elementt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 43, 0 <= Y, Y <= 43].
+poll_rules(131): audittypes__severityt__size >= 0 may_be_deduced.
+poll_rules(132): audittypes__severityt__first may_be_replaced_by audittypes__information.
+poll_rules(133): audittypes__severityt__last may_be_replaced_by audittypes__critical.
+poll_rules(134): audittypes__severityt__base__first may_be_replaced_by audittypes__information.
+poll_rules(135): audittypes__severityt__base__last may_be_replaced_by audittypes__critical.
+poll_rules(136): audittypes__severityt__pos(audittypes__severityt__first) may_be_replaced_by 0.
+poll_rules(137): audittypes__severityt__pos(
+     audittypes__information) may_be_replaced_by 0.
+poll_rules(138): audittypes__severityt__val(0) may_be_replaced_by 
+     audittypes__information.
+poll_rules(139): audittypes__severityt__pos(audittypes__warning) may_be_replaced_by 1.
+poll_rules(140): audittypes__severityt__val(1) may_be_replaced_by 
+     audittypes__warning.
+poll_rules(141): audittypes__severityt__pos(audittypes__critical) may_be_replaced_by 2.
+poll_rules(142): audittypes__severityt__val(2) may_be_replaced_by 
+     audittypes__critical.
+poll_rules(143): audittypes__severityt__pos(audittypes__severityt__last) may_be_replaced_by 2.
+poll_rules(144): audittypes__severityt__pos(succ(X)) may_be_replaced_by 
+     audittypes__severityt__pos(X) + 1
+     if [X <=audittypes__critical, X <> audittypes__critical].
+poll_rules(145): audittypes__severityt__pos(pred(X)) may_be_replaced_by 
+     audittypes__severityt__pos(X) - 1
+     if [X >=audittypes__information, X <> 
+     audittypes__information].
+poll_rules(146): audittypes__severityt__pos(X) >= 0 may_be_deduced_from
+     [audittypes__information <= X, X <= audittypes__critical].
+poll_rules(147): audittypes__severityt__pos(X) <= 2 may_be_deduced_from
+     [audittypes__information <= X, X <= audittypes__critical].
+poll_rules(148): audittypes__severityt__val(X) >= 
+     audittypes__information may_be_deduced_from
+     [0 <= X, X <= 2].
+poll_rules(149): audittypes__severityt__val(X) <= 
+     audittypes__critical may_be_deduced_from
+     [0 <= X, X <= 2].
+poll_rules(150): succ(audittypes__severityt__val(X)) may_be_replaced_by 
+     audittypes__severityt__val(X+1)
+     if [0 <= X, X < 2].
+poll_rules(151): pred(audittypes__severityt__val(X)) may_be_replaced_by 
+     audittypes__severityt__val(X-1)
+     if [0 < X, X <= 2].
+poll_rules(152): audittypes__severityt__pos(audittypes__severityt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 2].
+poll_rules(153): audittypes__severityt__val(audittypes__severityt__pos(X)) may_be_replaced_by X
+     if [audittypes__information <= X, X <= audittypes__critical].
+poll_rules(154): audittypes__severityt__pos(X) <= 
+     audittypes__severityt__pos(Y) & X <= Y are_interchangeable 
+     if [audittypes__information <= X, X <= audittypes__critical, 
+     audittypes__information <= Y, Y <= audittypes__critical].
+poll_rules(155): audittypes__severityt__val(X) <= 
+     audittypes__severityt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 2, 0 <= Y, Y <= 2].
+poll_rules(156): audittypes__descriptioni__size >= 0 may_be_deduced.
+poll_rules(157): audittypes__descriptioni__first may_be_replaced_by 1.
+poll_rules(158): audittypes__descriptioni__last may_be_replaced_by 150.
+poll_rules(159): audittypes__descriptioni__base__first may_be_replaced_by -2147483648.
+poll_rules(160): audittypes__descriptioni__base__last may_be_replaced_by 2147483647.
+poll_rules(161): tokentypes__tokenidt__size >= 0 may_be_deduced.
+poll_rules(162): tokentypes__tokenidt__first may_be_replaced_by 0.
+poll_rules(163): tokentypes__tokenidt__last may_be_replaced_by 4294967295.
+poll_rules(164): tokentypes__tokenidt__base__first <= 
+     tokentypes__tokenidt__base__last may_be_deduced.
+poll_rules(165): tokentypes__tokenidt__base__first <= 
+     tokentypes__tokenidt__first may_be_deduced.
+poll_rules(166): tokentypes__tokenidt__base__last >= 
+     tokentypes__tokenidt__last may_be_deduced.
+poll_rules(167): tokentypes__tryt__size >= 0 may_be_deduced.
+poll_rules(168): tokentypes__tryt__first may_be_replaced_by tokentypes__notoken.
+poll_rules(169): tokentypes__tryt__last may_be_replaced_by tokentypes__goodtoken.
+poll_rules(170): tokentypes__tryt__base__first may_be_replaced_by tokentypes__notoken.
+poll_rules(171): tokentypes__tryt__base__last may_be_replaced_by tokentypes__goodtoken.
+poll_rules(172): tokentypes__tryt__pos(tokentypes__tryt__first) may_be_replaced_by 0.
+poll_rules(173): tokentypes__tryt__pos(tokentypes__notoken) may_be_replaced_by 0.
+poll_rules(174): tokentypes__tryt__val(0) may_be_replaced_by 
+     tokentypes__notoken.
+poll_rules(175): tokentypes__tryt__pos(tokentypes__badtoken) may_be_replaced_by 1.
+poll_rules(176): tokentypes__tryt__val(1) may_be_replaced_by 
+     tokentypes__badtoken.
+poll_rules(177): tokentypes__tryt__pos(tokentypes__goodtoken) may_be_replaced_by 2.
+poll_rules(178): tokentypes__tryt__val(2) may_be_replaced_by 
+     tokentypes__goodtoken.
+poll_rules(179): tokentypes__tryt__pos(tokentypes__tryt__last) may_be_replaced_by 2.
+poll_rules(180): tokentypes__tryt__pos(succ(X)) may_be_replaced_by 
+     tokentypes__tryt__pos(X) + 1
+     if [X <=tokentypes__goodtoken, X <> tokentypes__goodtoken].
+poll_rules(181): tokentypes__tryt__pos(pred(X)) may_be_replaced_by 
+     tokentypes__tryt__pos(X) - 1
+     if [X >=tokentypes__notoken, X <> tokentypes__notoken].
+poll_rules(182): tokentypes__tryt__pos(X) >= 0 may_be_deduced_from
+     [tokentypes__notoken <= X, X <= tokentypes__goodtoken].
+poll_rules(183): tokentypes__tryt__pos(X) <= 2 may_be_deduced_from
+     [tokentypes__notoken <= X, X <= tokentypes__goodtoken].
+poll_rules(184): tokentypes__tryt__val(X) >= tokentypes__notoken may_be_deduced_from
+     [0 <= X, X <= 2].
+poll_rules(185): tokentypes__tryt__val(X) <= 
+     tokentypes__goodtoken may_be_deduced_from
+     [0 <= X, X <= 2].
+poll_rules(186): succ(tokentypes__tryt__val(X)) may_be_replaced_by 
+     tokentypes__tryt__val(X+1)
+     if [0 <= X, X < 2].
+poll_rules(187): pred(tokentypes__tryt__val(X)) may_be_replaced_by 
+     tokentypes__tryt__val(X-1)
+     if [0 < X, X <= 2].
+poll_rules(188): tokentypes__tryt__pos(tokentypes__tryt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 2].
+poll_rules(189): tokentypes__tryt__val(tokentypes__tryt__pos(X)) may_be_replaced_by X
+     if [tokentypes__notoken <= X, X <= tokentypes__goodtoken].
+poll_rules(190): tokentypes__tryt__pos(X) <= tokentypes__tryt__pos(Y) & X <= Y are_interchangeable 
+     if [tokentypes__notoken <= X, X <= tokentypes__goodtoken, 
+     tokentypes__notoken <= Y, Y <= tokentypes__goodtoken].
+poll_rules(191): tokentypes__tryt__val(X) <= tokentypes__tryt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 2, 0 <= Y, Y <= 2].
+poll_rules(192): readert__size >= 0 may_be_deduced.
+poll_rules(193): readert__first may_be_replaced_by user.
+poll_rules(194): readert__last may_be_replaced_by admin.
+poll_rules(195): readert__base__first may_be_replaced_by user.
+poll_rules(196): readert__base__last may_be_replaced_by admin.
+poll_rules(197): readert__pos(readert__first) may_be_replaced_by 0.
+poll_rules(198): readert__pos(user) may_be_replaced_by 0.
+poll_rules(199): readert__val(0) may_be_replaced_by user.
+poll_rules(200): readert__pos(admin) may_be_replaced_by 1.
+poll_rules(201): readert__val(1) may_be_replaced_by admin.
+poll_rules(202): readert__pos(readert__last) may_be_replaced_by 1.
+poll_rules(203): readert__pos(succ(X)) may_be_replaced_by readert__pos(X) + 1
+     if [X <=admin, X <> admin].
+poll_rules(204): readert__pos(pred(X)) may_be_replaced_by readert__pos(X) - 1
+     if [X >=user, X <> user].
+poll_rules(205): readert__pos(X) >= 0 may_be_deduced_from
+     [user <= X, X <= admin].
+poll_rules(206): readert__pos(X) <= 1 may_be_deduced_from
+     [user <= X, X <= admin].
+poll_rules(207): readert__val(X) >= user may_be_deduced_from
+     [0 <= X, X <= 1].
+poll_rules(208): readert__val(X) <= admin may_be_deduced_from
+     [0 <= X, X <= 1].
+poll_rules(209): succ(readert__val(X)) may_be_replaced_by readert__val(X+1)
+     if [0 <= X, X < 1].
+poll_rules(210): pred(readert__val(X)) may_be_replaced_by readert__val(X-1)
+     if [0 < X, X <= 1].
+poll_rules(211): readert__pos(readert__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+poll_rules(212): readert__val(readert__pos(X)) may_be_replaced_by X
+     if [user <= X, X <= admin].
+poll_rules(213): readert__pos(X) <= readert__pos(Y) & X <= Y are_interchangeable 
+     if [user <= X, X <= admin, user <= Y, Y <= admin].
+poll_rules(214): readert__val(X) <= readert__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].
+poll_rules(215): tokenreader__interface__readernamei__size >= 0 may_be_deduced.
+poll_rules(216): tokenreader__interface__readernamei__first may_be_replaced_by 1.
+poll_rules(217): tokenreader__interface__readernamei__last may_be_replaced_by 8.
+poll_rules(218): tokenreader__interface__readernamei__base__first may_be_replaced_by -2147483648.
+poll_rules(219): tokenreader__interface__readernamei__base__last may_be_replaced_by 2147483647.
+poll_rules(220): tokenreader__interface__responsecodet__size >= 0 may_be_deduced.
+poll_rules(221): tokenreader__interface__responsecodet__first may_be_replaced_by tokenreader__interface__success.
+poll_rules(222): tokenreader__interface__responsecodet__last may_be_replaced_by tokenreader__interface__invalidresponsecode.
+poll_rules(223): tokenreader__interface__responsecodet__base__first may_be_replaced_by tokenreader__interface__success.
+poll_rules(224): tokenreader__interface__responsecodet__base__last may_be_replaced_by tokenreader__interface__invalidresponsecode.
+poll_rules(225): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__responsecodet__first) may_be_replaced_by 0.
+poll_rules(226): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__success) may_be_replaced_by 0.
+poll_rules(227): tokenreader__interface__responsecodet__val(0) may_be_replaced_by 
+     tokenreader__interface__success.
+poll_rules(228): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__invalidhandle) may_be_replaced_by 1.
+poll_rules(229): tokenreader__interface__responsecodet__val(1) may_be_replaced_by 
+     tokenreader__interface__invalidhandle.
+poll_rules(230): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__invalidvalue) may_be_replaced_by 2.
+poll_rules(231): tokenreader__interface__responsecodet__val(2) may_be_replaced_by 
+     tokenreader__interface__invalidvalue.
+poll_rules(232): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__cancelled) may_be_replaced_by 3.
+poll_rules(233): tokenreader__interface__responsecodet__val(3) may_be_replaced_by 
+     tokenreader__interface__cancelled.
+poll_rules(234): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__nomemory) may_be_replaced_by 4.
+poll_rules(235): tokenreader__interface__responsecodet__val(4) may_be_replaced_by 
+     tokenreader__interface__nomemory.
+poll_rules(236): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__insufficientbuffer) may_be_replaced_by 5.
+poll_rules(237): tokenreader__interface__responsecodet__val(5) may_be_replaced_by 
+     tokenreader__interface__insufficientbuffer.
+poll_rules(238): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__unknownreader) may_be_replaced_by 6.
+poll_rules(239): tokenreader__interface__responsecodet__val(6) may_be_replaced_by 
+     tokenreader__interface__unknownreader.
+poll_rules(240): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__timedout) may_be_replaced_by 7.
+poll_rules(241): tokenreader__interface__responsecodet__val(7) may_be_replaced_by 
+     tokenreader__interface__timedout.
+poll_rules(242): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__sharingviolation) may_be_replaced_by 8.
+poll_rules(243): tokenreader__interface__responsecodet__val(8) may_be_replaced_by 
+     tokenreader__interface__sharingviolation.
+poll_rules(244): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__nosmartcard) may_be_replaced_by 9.
+poll_rules(245): tokenreader__interface__responsecodet__val(9) may_be_replaced_by 
+     tokenreader__interface__nosmartcard.
+poll_rules(246): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__unknowncard) may_be_replaced_by 10.
+poll_rules(247): tokenreader__interface__responsecodet__val(10) may_be_replaced_by 
+     tokenreader__interface__unknowncard.
+poll_rules(248): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__protomismatch) may_be_replaced_by 11.
+poll_rules(249): tokenreader__interface__responsecodet__val(11) may_be_replaced_by 
+     tokenreader__interface__protomismatch.
+poll_rules(250): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__notready) may_be_replaced_by 12.
+poll_rules(251): tokenreader__interface__responsecodet__val(12) may_be_replaced_by 
+     tokenreader__interface__notready.
+poll_rules(252): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__systemcancelled) may_be_replaced_by 13.
+poll_rules(253): tokenreader__interface__responsecodet__val(13) may_be_replaced_by 
+     tokenreader__interface__systemcancelled.
+poll_rules(254): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__readerunavailable) may_be_replaced_by 14.
+poll_rules(255): tokenreader__interface__responsecodet__val(14) may_be_replaced_by 
+     tokenreader__interface__readerunavailable.
+poll_rules(256): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__unsupportedcard) may_be_replaced_by 15.
+poll_rules(257): tokenreader__interface__responsecodet__val(15) may_be_replaced_by 
+     tokenreader__interface__unsupportedcard.
+poll_rules(258): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__unresponsivecard) may_be_replaced_by 16.
+poll_rules(259): tokenreader__interface__responsecodet__val(16) may_be_replaced_by 
+     tokenreader__interface__unresponsivecard.
+poll_rules(260): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__unpoweredcard) may_be_replaced_by 17.
+poll_rules(261): tokenreader__interface__responsecodet__val(17) may_be_replaced_by 
+     tokenreader__interface__unpoweredcard.
+poll_rules(262): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__resetcard) may_be_replaced_by 18.
+poll_rules(263): tokenreader__interface__responsecodet__val(18) may_be_replaced_by 
+     tokenreader__interface__resetcard.
+poll_rules(264): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__removedcard) may_be_replaced_by 19.
+poll_rules(265): tokenreader__interface__responsecodet__val(19) may_be_replaced_by 
+     tokenreader__interface__removedcard.
+poll_rules(266): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__invalidresponsecode) may_be_replaced_by 20.
+poll_rules(267): tokenreader__interface__responsecodet__val(20) may_be_replaced_by 
+     tokenreader__interface__invalidresponsecode.
+poll_rules(268): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__responsecodet__last) may_be_replaced_by 20.
+poll_rules(269): tokenreader__interface__responsecodet__pos(succ(X)) may_be_replaced_by 
+     tokenreader__interface__responsecodet__pos(X) + 1
+     if [X <=tokenreader__interface__invalidresponsecode, X <> 
+     tokenreader__interface__invalidresponsecode].
+poll_rules(270): tokenreader__interface__responsecodet__pos(pred(X)) may_be_replaced_by 
+     tokenreader__interface__responsecodet__pos(X) - 1
+     if [X >=tokenreader__interface__success, X <> 
+     tokenreader__interface__success].
+poll_rules(271): tokenreader__interface__responsecodet__pos(X) >= 0 may_be_deduced_from
+     [tokenreader__interface__success <= X, X <= 
+     tokenreader__interface__invalidresponsecode].
+poll_rules(272): tokenreader__interface__responsecodet__pos(X) <= 20 may_be_deduced_from
+     [tokenreader__interface__success <= X, X <= 
+     tokenreader__interface__invalidresponsecode].
+poll_rules(273): tokenreader__interface__responsecodet__val(X) >= 
+     tokenreader__interface__success may_be_deduced_from
+     [0 <= X, X <= 20].
+poll_rules(274): tokenreader__interface__responsecodet__val(X) <= 
+     tokenreader__interface__invalidresponsecode may_be_deduced_from
+     [0 <= X, X <= 20].
+poll_rules(275): succ(tokenreader__interface__responsecodet__val(X)) may_be_replaced_by 
+     tokenreader__interface__responsecodet__val(X+1)
+     if [0 <= X, X < 20].
+poll_rules(276): pred(tokenreader__interface__responsecodet__val(X)) may_be_replaced_by 
+     tokenreader__interface__responsecodet__val(X-1)
+     if [0 < X, X <= 20].
+poll_rules(277): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__responsecodet__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 20].
+poll_rules(278): tokenreader__interface__responsecodet__val(
+     tokenreader__interface__responsecodet__pos(X)) may_be_replaced_by X
+     if [tokenreader__interface__success <= X, X <= 
+     tokenreader__interface__invalidresponsecode].
+poll_rules(279): tokenreader__interface__responsecodet__pos(X) <= 
+     tokenreader__interface__responsecodet__pos(Y) & X <= Y are_interchangeable 
+     if [tokenreader__interface__success <= X, X <= 
+     tokenreader__interface__invalidresponsecode, 
+     tokenreader__interface__success <= Y, Y <= 
+     tokenreader__interface__invalidresponsecode].
+poll_rules(280): tokenreader__interface__responsecodet__val(X) <= 
+     tokenreader__interface__responsecodet__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 20, 0 <= Y, Y <= 20].
+poll_rules(281): tokenreader__interface__readerstatet__size >= 0 may_be_deduced.
+poll_rules(282): tokenreader__interface__readerstatet__first may_be_replaced_by tokenreader__interface__invalidreaderstate.
+poll_rules(283): tokenreader__interface__readerstatet__last may_be_replaced_by tokenreader__interface__mute.
+poll_rules(284): tokenreader__interface__readerstatet__base__first may_be_replaced_by tokenreader__interface__invalidreaderstate.
+poll_rules(285): tokenreader__interface__readerstatet__base__last may_be_replaced_by tokenreader__interface__mute.
+poll_rules(286): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__readerstatet__first) may_be_replaced_by 0.
+poll_rules(287): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__invalidreaderstate) may_be_replaced_by 0.
+poll_rules(288): tokenreader__interface__readerstatet__val(0) may_be_replaced_by 
+     tokenreader__interface__invalidreaderstate.
+poll_rules(289): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__unaware) may_be_replaced_by 1.
+poll_rules(290): tokenreader__interface__readerstatet__val(1) may_be_replaced_by 
+     tokenreader__interface__unaware.
+poll_rules(291): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__ignore) may_be_replaced_by 2.
+poll_rules(292): tokenreader__interface__readerstatet__val(2) may_be_replaced_by 
+     tokenreader__interface__ignore.
+poll_rules(293): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__unavailable) may_be_replaced_by 3.
+poll_rules(294): tokenreader__interface__readerstatet__val(3) may_be_replaced_by 
+     tokenreader__interface__unavailable.
+poll_rules(295): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__empty) may_be_replaced_by 4.
+poll_rules(296): tokenreader__interface__readerstatet__val(4) may_be_replaced_by 
+     tokenreader__interface__empty.
+poll_rules(297): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__cardpresent) may_be_replaced_by 5.
+poll_rules(298): tokenreader__interface__readerstatet__val(5) may_be_replaced_by 
+     tokenreader__interface__cardpresent.
+poll_rules(299): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__mute) may_be_replaced_by 6.
+poll_rules(300): tokenreader__interface__readerstatet__val(6) may_be_replaced_by 
+     tokenreader__interface__mute.
+poll_rules(301): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__readerstatet__last) may_be_replaced_by 6.
+poll_rules(302): tokenreader__interface__readerstatet__pos(succ(X)) may_be_replaced_by 
+     tokenreader__interface__readerstatet__pos(X) + 1
+     if [X <=tokenreader__interface__mute, X <> 
+     tokenreader__interface__mute].
+poll_rules(303): tokenreader__interface__readerstatet__pos(pred(X)) may_be_replaced_by 
+     tokenreader__interface__readerstatet__pos(X) - 1
+     if [X >=tokenreader__interface__invalidreaderstate, X <> 
+     tokenreader__interface__invalidreaderstate].
+poll_rules(304): tokenreader__interface__readerstatet__pos(X) >= 0 may_be_deduced_from
+     [tokenreader__interface__invalidreaderstate <= X, X <= 
+     tokenreader__interface__mute].
+poll_rules(305): tokenreader__interface__readerstatet__pos(X) <= 6 may_be_deduced_from
+     [tokenreader__interface__invalidreaderstate <= X, X <= 
+     tokenreader__interface__mute].
+poll_rules(306): tokenreader__interface__readerstatet__val(X) >= 
+     tokenreader__interface__invalidreaderstate may_be_deduced_from
+     [0 <= X, X <= 6].
+poll_rules(307): tokenreader__interface__readerstatet__val(X) <= 
+     tokenreader__interface__mute may_be_deduced_from
+     [0 <= X, X <= 6].
+poll_rules(308): succ(tokenreader__interface__readerstatet__val(X)) may_be_replaced_by 
+     tokenreader__interface__readerstatet__val(X+1)
+     if [0 <= X, X < 6].
+poll_rules(309): pred(tokenreader__interface__readerstatet__val(X)) may_be_replaced_by 
+     tokenreader__interface__readerstatet__val(X-1)
+     if [0 < X, X <= 6].
+poll_rules(310): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__readerstatet__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 6].
+poll_rules(311): tokenreader__interface__readerstatet__val(
+     tokenreader__interface__readerstatet__pos(X)) may_be_replaced_by X
+     if [tokenreader__interface__invalidreaderstate <= X, X <= 
+     tokenreader__interface__mute].
+poll_rules(312): tokenreader__interface__readerstatet__pos(X) <= 
+     tokenreader__interface__readerstatet__pos(Y) & X <= Y are_interchangeable 
+     if [tokenreader__interface__invalidreaderstate <= X, X <= 
+     tokenreader__interface__mute, 
+     tokenreader__interface__invalidreaderstate <= Y, Y <= 
+     tokenreader__interface__mute].
+poll_rules(313): tokenreader__interface__readerstatet__val(X) <= 
+     tokenreader__interface__readerstatet__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 6, 0 <= Y, Y <= 6].
+poll_rules(314): tokenreader__interface__validreaderstatet__size >= 0 may_be_deduced.
+poll_rules(315): tokenreader__interface__validreaderstatet__first may_be_replaced_by tokenreader__interface__unaware.
+poll_rules(316): tokenreader__interface__validreaderstatet__last may_be_replaced_by tokenreader__interface__mute.
+poll_rules(317): tokenreader__interface__validreaderstatet__base__first may_be_replaced_by tokenreader__interface__invalidreaderstate.
+poll_rules(318): tokenreader__interface__validreaderstatet__base__last may_be_replaced_by tokenreader__interface__mute.
+poll_rules(319): readerinfot__size >= 0 may_be_deduced.
+poll_rules(320): A = B may_be_deduced_from
+     [goal(checktype(A,readerinfot)),
+      goal(checktype(B,readerinfot)),
+      fld_name(A) = fld_name(B),
+      fld_tokentry(A) = fld_tokentry(B),
+      fld_tokenid(A) = fld_tokenid(B),
+      fld_tokenconnected(A) = fld_tokenconnected(B),
+      fld_tokenhandle(A) = fld_tokenhandle(B),
+      fld_currentstatus(A) = fld_currentstatus(B),
+      fld_lastfault(A) = fld_lastfault(B)].

@@ -1,0 +1,76 @@
+<pre>
+     1	------------------------------------------------------------------
+     2	-- Tokeneer ID Station Core Software
+     3	--
+     4	-- Copyright (2003) United States Government, as represented
+     5	-- by the Director, National Security Agency. All rights reserved.
+     6	--
+     7	-- This material was originally developed by Praxis High Integrity
+     8	-- Systems Ltd. under contract to the National Security Agency.
+     9	------------------------------------------------------------------
+    10	
+    11	------------------------------------------------------------------
+    12	-- Bio.Interface
+    13	--
+    14	-- Description:
+    15	--    Makes the calls to the BioAPI.
+    16	--
+    17	------------------------------------------------------------------
+    18	--# inherit BasicTypes,
+    19	--#         IandATypes;
+    20	
+    21	private package Bio.Interface
+    22	--# own in Input;
+    23	is
+    24	
+    25	   ------------------------------------------------------------------
+    26	   -- Types
+    27	   --
+    28	   ------------------------------------------------------------------
+    29	
+    30	   ------------------------------------------------------------------
+    31	   -- SamplePresent
+    32	   --
+    33	   -- Description:
+    34	   --    Used in Bio.Poll
+    35	   --
+    36	   ------------------------------------------------------------------
+    37	   function IsSamplePresent return BasicTypes.PresenceT;
+    38	   --# global in     Input;
+    39	
+    40	
+    41	   ------------------------------------------------------------------
+    42	   -- Verify
+    43	   --
+    44	   -- Description:
+    45	   --    Used in Bio.Verify. Returns the match result, the achieved
+    46	   --    FAR and a return value stating any error occurrence.
+    47	   --
+    48	   ------------------------------------------------------------------
+    49	   procedure Verify (Template       : in     IandATypes.TemplateT;
+    50	                     MaxFAR         : in     IandATypes.FarT;
+    51	                     MatchResult    :    out IandATypes.MatchResultT;
+    52	                     AchievedFAR    :    out IandATypes.FarT;
+    53	                     BioReturn      :    out BasicTypes.Unsigned32T);
+    54	   --# global in     Input;
+    55	   --# derives MatchResult from Input,
+    56	   --#                          Template,
+    57	   --#                          MaxFAR &
+    58	   --#         AchievedFAR,
+    59	   --#         BioReturn   from Input,
+    60	   --#                          Template;
+    61	
+    62	
+    63	   ------------------------------------------------------------------
+    64	   -- Flush
+    65	   --
+    66	   -- Description:
+    67	   --    Flushes the Bio device of stale data.
+    68	   --
+    69	   ------------------------------------------------------------------
+    70	   procedure Flush;
+    71	   --# global in     Input;
+    72	   --# derives null from Input;
+    73	
+    74	end Bio.Interface;
+</pre>

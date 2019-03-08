@@ -1,0 +1,74 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:27.49}
+
+                    {procedure Enclave.StartAdminActivity}
+
+
+title procedure startadminactivity;
+
+  function round__(real) : integer;
+  type privtypes__privileget = (privtypes__useronly, 
+     privtypes__guard, privtypes__auditmanager, 
+     privtypes__securityofficer);
+  type admin__opandnullt = (admin__nullop, admin__archivelog, 
+     admin__updateconfigdata, admin__overridelock, 
+     admin__shutdownop);
+  type admin__t = pending;
+  type admintoken__statetype = pending;
+  type statust = (notenrolled, waitingenrol, waitingendenrol, 
+     enclavequiescent, waitingremoveadmintokenfail, gotadmintoken, 
+     waitingstartadminop, waitingfinishadminop, shutdown);
+  type statetype = record
+        status : statust
+     end;
+  const statust__base__first : statust = pending; 
+  const statust__base__last : statust = pending; 
+  const admin__opandnullt__base__first : admin__opandnullt = pending; 
+  const admin__opandnullt__base__last : admin__opandnullt = pending; 
+  const privtypes__privileget__base__first : 
+     privtypes__privileget = pending; 
+  const privtypes__privileget__base__last : privtypes__privileget = pending; 
+  const statust__first : statust = pending; 
+  const statust__last : statust = pending; 
+  const statust__size : integer = pending; 
+  const admin__opandnullt__first : admin__opandnullt = pending; 
+  const admin__opandnullt__last : admin__opandnullt = pending; 
+  const admin__opandnullt__size : integer = pending; 
+  const privtypes__privileget__first : privtypes__privileget = pending; 
+  const privtypes__privileget__last : privtypes__privileget = pending; 
+  const privtypes__privileget__size : integer = pending; 
+  var admintoken__state : admintoken__statetype;
+  var state : statetype;
+  var theadmin : admin__t;
+  var status : statust;
+  function admin__prf_rolepresent(admin__t) : 
+     privtypes__privileget;
+  function admin__isdoingop(admin__t) : boolean;
+  function admin__thecurrentop(admin__t) : admin__opandnullt;
+  function admin__ispresent(admin__t) : boolean;
+  function admintoken__theauthcertrole(admintoken__statetype) : 
+     privtypes__privileget;
+  function admintoken__prf_isgood(admintoken__statetype) : boolean;
+  function admintoken__prf_authcertvalid(admintoken__statetype) : boolean;
+  function prf_statusisgotadmintoken(statetype) : boolean;
+  function prf_statusiswaitingremoveadmintokenfail(statetype) : boolean;
+  function prf_statusiswaitingstartadminop(statetype) : boolean;
+  function prf_statusiswaitingfinishadminop(statetype) : boolean;
+  function prf_statusisenclavequiescent(statetype) : boolean;
+  function prf_statusisshutdown(statetype) : boolean;
+  function enclave__enrolmentisinprogress(statetype) : boolean;
+  function enrolmentisinprogress(statust) : boolean;
+  function adminlogoncanstart(admintoken__statetype, statust, 
+     admin__t) : boolean;
+  function adminopcanstart(admintoken__statetype, statust, 
+     admin__t) : boolean;
+  var theadmin__1 : admin__t;
+  var status__1 : statust;
+
+end;

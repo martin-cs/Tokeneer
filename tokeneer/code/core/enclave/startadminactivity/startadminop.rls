@@ -1,0 +1,673 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:27.35*/
+
+             /*procedure Enclave.StartAdminActivity.StartAdminOp*/
+
+
+rule_family startadminop_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+startadminop_rules(1): integer__size >= 0 may_be_deduced.
+startadminop_rules(2): integer__first may_be_replaced_by -2147483648.
+startadminop_rules(3): integer__last may_be_replaced_by 2147483647.
+startadminop_rules(4): integer__base__first may_be_replaced_by -2147483648.
+startadminop_rules(5): integer__base__last may_be_replaced_by 2147483647.
+startadminop_rules(6): character__size >= 0 may_be_deduced.
+startadminop_rules(7): character__first may_be_replaced_by 0.
+startadminop_rules(8): character__last may_be_replaced_by 255.
+startadminop_rules(9): character__base__first may_be_replaced_by 0.
+startadminop_rules(10): character__base__last may_be_replaced_by 255.
+startadminop_rules(11): positive__size >= 0 may_be_deduced.
+startadminop_rules(12): positive__first may_be_replaced_by 1.
+startadminop_rules(13): positive__last may_be_replaced_by 2147483647.
+startadminop_rules(14): positive__base__first may_be_replaced_by -2147483648.
+startadminop_rules(15): positive__base__last may_be_replaced_by 2147483647.
+startadminop_rules(16): basictypes__presencet__size >= 0 may_be_deduced.
+startadminop_rules(17): basictypes__presencet__first may_be_replaced_by basictypes__present.
+startadminop_rules(18): basictypes__presencet__last may_be_replaced_by basictypes__absent.
+startadminop_rules(19): basictypes__presencet__base__first may_be_replaced_by basictypes__present.
+startadminop_rules(20): basictypes__presencet__base__last may_be_replaced_by basictypes__absent.
+startadminop_rules(21): basictypes__presencet__pos(
+     basictypes__presencet__first) may_be_replaced_by 0.
+startadminop_rules(22): basictypes__presencet__pos(
+     basictypes__present) may_be_replaced_by 0.
+startadminop_rules(23): basictypes__presencet__val(0) may_be_replaced_by 
+     basictypes__present.
+startadminop_rules(24): basictypes__presencet__pos(
+     basictypes__absent) may_be_replaced_by 1.
+startadminop_rules(25): basictypes__presencet__val(1) may_be_replaced_by 
+     basictypes__absent.
+startadminop_rules(26): basictypes__presencet__pos(
+     basictypes__presencet__last) may_be_replaced_by 1.
+startadminop_rules(27): basictypes__presencet__pos(succ(X)) may_be_replaced_by 
+     basictypes__presencet__pos(X) + 1
+     if [X <=basictypes__absent, X <> basictypes__absent].
+startadminop_rules(28): basictypes__presencet__pos(pred(X)) may_be_replaced_by 
+     basictypes__presencet__pos(X) - 1
+     if [X >=basictypes__present, X <> basictypes__present].
+startadminop_rules(29): basictypes__presencet__pos(X) >= 0 may_be_deduced_from
+     [basictypes__present <= X, X <= basictypes__absent].
+startadminop_rules(30): basictypes__presencet__pos(X) <= 1 may_be_deduced_from
+     [basictypes__present <= X, X <= basictypes__absent].
+startadminop_rules(31): basictypes__presencet__val(X) >= 
+     basictypes__present may_be_deduced_from
+     [0 <= X, X <= 1].
+startadminop_rules(32): basictypes__presencet__val(X) <= 
+     basictypes__absent may_be_deduced_from
+     [0 <= X, X <= 1].
+startadminop_rules(33): succ(basictypes__presencet__val(X)) may_be_replaced_by 
+     basictypes__presencet__val(X+1)
+     if [0 <= X, X < 1].
+startadminop_rules(34): pred(basictypes__presencet__val(X)) may_be_replaced_by 
+     basictypes__presencet__val(X-1)
+     if [0 < X, X <= 1].
+startadminop_rules(35): basictypes__presencet__pos(
+     basictypes__presencet__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+startadminop_rules(36): basictypes__presencet__val(
+     basictypes__presencet__pos(X)) may_be_replaced_by X
+     if [basictypes__present <= X, X <= basictypes__absent].
+startadminop_rules(37): basictypes__presencet__pos(X) <= 
+     basictypes__presencet__pos(Y) & X <= Y are_interchangeable 
+     if [basictypes__present <= X, X <= basictypes__absent, 
+     basictypes__present <= Y, Y <= basictypes__absent].
+startadminop_rules(38): basictypes__presencet__val(X) <= 
+     basictypes__presencet__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].
+startadminop_rules(39): audittypes__elementt__size >= 0 may_be_deduced.
+startadminop_rules(40): audittypes__elementt__first may_be_replaced_by audittypes__startunenrolledtis.
+startadminop_rules(41): audittypes__elementt__last may_be_replaced_by audittypes__systemfault.
+startadminop_rules(42): audittypes__elementt__base__first may_be_replaced_by audittypes__startunenrolledtis.
+startadminop_rules(43): audittypes__elementt__base__last may_be_replaced_by audittypes__systemfault.
+startadminop_rules(44): audittypes__elementt__pos(
+     audittypes__elementt__first) may_be_replaced_by 0.
+startadminop_rules(45): audittypes__elementt__pos(
+     audittypes__startunenrolledtis) may_be_replaced_by 0.
+startadminop_rules(46): audittypes__elementt__val(0) may_be_replaced_by 
+     audittypes__startunenrolledtis.
+startadminop_rules(47): audittypes__elementt__pos(
+     audittypes__startenrolledtis) may_be_replaced_by 1.
+startadminop_rules(48): audittypes__elementt__val(1) may_be_replaced_by 
+     audittypes__startenrolledtis.
+startadminop_rules(49): audittypes__elementt__pos(
+     audittypes__enrolmentcomplete) may_be_replaced_by 2.
+startadminop_rules(50): audittypes__elementt__val(2) may_be_replaced_by 
+     audittypes__enrolmentcomplete.
+startadminop_rules(51): audittypes__elementt__pos(
+     audittypes__enrolmentfailed) may_be_replaced_by 3.
+startadminop_rules(52): audittypes__elementt__val(3) may_be_replaced_by 
+     audittypes__enrolmentfailed.
+startadminop_rules(53): audittypes__elementt__pos(
+     audittypes__displaychanged) may_be_replaced_by 4.
+startadminop_rules(54): audittypes__elementt__val(4) may_be_replaced_by 
+     audittypes__displaychanged.
+startadminop_rules(55): audittypes__elementt__pos(
+     audittypes__screenchanged) may_be_replaced_by 5.
+startadminop_rules(56): audittypes__elementt__val(5) may_be_replaced_by 
+     audittypes__screenchanged.
+startadminop_rules(57): audittypes__elementt__pos(
+     audittypes__doorclosed) may_be_replaced_by 6.
+startadminop_rules(58): audittypes__elementt__val(6) may_be_replaced_by 
+     audittypes__doorclosed.
+startadminop_rules(59): audittypes__elementt__pos(
+     audittypes__dooropened) may_be_replaced_by 7.
+startadminop_rules(60): audittypes__elementt__val(7) may_be_replaced_by 
+     audittypes__dooropened.
+startadminop_rules(61): audittypes__elementt__pos(
+     audittypes__latchlocked) may_be_replaced_by 8.
+startadminop_rules(62): audittypes__elementt__val(8) may_be_replaced_by 
+     audittypes__latchlocked.
+startadminop_rules(63): audittypes__elementt__pos(
+     audittypes__latchunlocked) may_be_replaced_by 9.
+startadminop_rules(64): audittypes__elementt__val(9) may_be_replaced_by 
+     audittypes__latchunlocked.
+startadminop_rules(65): audittypes__elementt__pos(
+     audittypes__alarmraised) may_be_replaced_by 10.
+startadminop_rules(66): audittypes__elementt__val(10) may_be_replaced_by 
+     audittypes__alarmraised.
+startadminop_rules(67): audittypes__elementt__pos(
+     audittypes__alarmsilenced) may_be_replaced_by 11.
+startadminop_rules(68): audittypes__elementt__val(11) may_be_replaced_by 
+     audittypes__alarmsilenced.
+startadminop_rules(69): audittypes__elementt__pos(
+     audittypes__truncatelog) may_be_replaced_by 12.
+startadminop_rules(70): audittypes__elementt__val(12) may_be_replaced_by 
+     audittypes__truncatelog.
+startadminop_rules(71): audittypes__elementt__pos(
+     audittypes__auditalarmraised) may_be_replaced_by 13.
+startadminop_rules(72): audittypes__elementt__val(13) may_be_replaced_by 
+     audittypes__auditalarmraised.
+startadminop_rules(73): audittypes__elementt__pos(
+     audittypes__auditalarmsilenced) may_be_replaced_by 14.
+startadminop_rules(74): audittypes__elementt__val(14) may_be_replaced_by 
+     audittypes__auditalarmsilenced.
+startadminop_rules(75): audittypes__elementt__pos(
+     audittypes__usertokenremoved) may_be_replaced_by 15.
+startadminop_rules(76): audittypes__elementt__val(15) may_be_replaced_by 
+     audittypes__usertokenremoved.
+startadminop_rules(77): audittypes__elementt__pos(
+     audittypes__usertokenpresent) may_be_replaced_by 16.
+startadminop_rules(78): audittypes__elementt__val(16) may_be_replaced_by 
+     audittypes__usertokenpresent.
+startadminop_rules(79): audittypes__elementt__pos(
+     audittypes__usertokeninvalid) may_be_replaced_by 17.
+startadminop_rules(80): audittypes__elementt__val(17) may_be_replaced_by 
+     audittypes__usertokeninvalid.
+startadminop_rules(81): audittypes__elementt__pos(
+     audittypes__authcertvalid) may_be_replaced_by 18.
+startadminop_rules(82): audittypes__elementt__val(18) may_be_replaced_by 
+     audittypes__authcertvalid.
+startadminop_rules(83): audittypes__elementt__pos(
+     audittypes__authcertinvalid) may_be_replaced_by 19.
+startadminop_rules(84): audittypes__elementt__val(19) may_be_replaced_by 
+     audittypes__authcertinvalid.
+startadminop_rules(85): audittypes__elementt__pos(
+     audittypes__fingerdetected) may_be_replaced_by 20.
+startadminop_rules(86): audittypes__elementt__val(20) may_be_replaced_by 
+     audittypes__fingerdetected.
+startadminop_rules(87): audittypes__elementt__pos(
+     audittypes__fingertimeout) may_be_replaced_by 21.
+startadminop_rules(88): audittypes__elementt__val(21) may_be_replaced_by 
+     audittypes__fingertimeout.
+startadminop_rules(89): audittypes__elementt__pos(
+     audittypes__fingermatched) may_be_replaced_by 22.
+startadminop_rules(90): audittypes__elementt__val(22) may_be_replaced_by 
+     audittypes__fingermatched.
+startadminop_rules(91): audittypes__elementt__pos(
+     audittypes__fingernotmatched) may_be_replaced_by 23.
+startadminop_rules(92): audittypes__elementt__val(23) may_be_replaced_by 
+     audittypes__fingernotmatched.
+startadminop_rules(93): audittypes__elementt__pos(
+     audittypes__authcertwritten) may_be_replaced_by 24.
+startadminop_rules(94): audittypes__elementt__val(24) may_be_replaced_by 
+     audittypes__authcertwritten.
+startadminop_rules(95): audittypes__elementt__pos(
+     audittypes__authcertwritefailed) may_be_replaced_by 25.
+startadminop_rules(96): audittypes__elementt__val(25) may_be_replaced_by 
+     audittypes__authcertwritefailed.
+startadminop_rules(97): audittypes__elementt__pos(
+     audittypes__entrypermitted) may_be_replaced_by 26.
+startadminop_rules(98): audittypes__elementt__val(26) may_be_replaced_by 
+     audittypes__entrypermitted.
+startadminop_rules(99): audittypes__elementt__pos(
+     audittypes__entrytimeout) may_be_replaced_by 27.
+startadminop_rules(100): audittypes__elementt__val(27) may_be_replaced_by 
+     audittypes__entrytimeout.
+startadminop_rules(101): audittypes__elementt__pos(
+     audittypes__entrydenied) may_be_replaced_by 28.
+startadminop_rules(102): audittypes__elementt__val(28) may_be_replaced_by 
+     audittypes__entrydenied.
+startadminop_rules(103): audittypes__elementt__pos(
+     audittypes__admintokenpresent) may_be_replaced_by 29.
+startadminop_rules(104): audittypes__elementt__val(29) may_be_replaced_by 
+     audittypes__admintokenpresent.
+startadminop_rules(105): audittypes__elementt__pos(
+     audittypes__admintokenvalid) may_be_replaced_by 30.
+startadminop_rules(106): audittypes__elementt__val(30) may_be_replaced_by 
+     audittypes__admintokenvalid.
+startadminop_rules(107): audittypes__elementt__pos(
+     audittypes__admintokeninvalid) may_be_replaced_by 31.
+startadminop_rules(108): audittypes__elementt__val(31) may_be_replaced_by 
+     audittypes__admintokeninvalid.
+startadminop_rules(109): audittypes__elementt__pos(
+     audittypes__admintokenexpired) may_be_replaced_by 32.
+startadminop_rules(110): audittypes__elementt__val(32) may_be_replaced_by 
+     audittypes__admintokenexpired.
+startadminop_rules(111): audittypes__elementt__pos(
+     audittypes__admintokenremoved) may_be_replaced_by 33.
+startadminop_rules(112): audittypes__elementt__val(33) may_be_replaced_by 
+     audittypes__admintokenremoved.
+startadminop_rules(113): audittypes__elementt__pos(
+     audittypes__invalidoprequest) may_be_replaced_by 34.
+startadminop_rules(114): audittypes__elementt__val(34) may_be_replaced_by 
+     audittypes__invalidoprequest.
+startadminop_rules(115): audittypes__elementt__pos(
+     audittypes__operationstart) may_be_replaced_by 35.
+startadminop_rules(116): audittypes__elementt__val(35) may_be_replaced_by 
+     audittypes__operationstart.
+startadminop_rules(117): audittypes__elementt__pos(
+     audittypes__archivelog) may_be_replaced_by 36.
+startadminop_rules(118): audittypes__elementt__val(36) may_be_replaced_by 
+     audittypes__archivelog.
+startadminop_rules(119): audittypes__elementt__pos(
+     audittypes__archivecomplete) may_be_replaced_by 37.
+startadminop_rules(120): audittypes__elementt__val(37) may_be_replaced_by 
+     audittypes__archivecomplete.
+startadminop_rules(121): audittypes__elementt__pos(
+     audittypes__archivecheckfailed) may_be_replaced_by 38.
+startadminop_rules(122): audittypes__elementt__val(38) may_be_replaced_by 
+     audittypes__archivecheckfailed.
+startadminop_rules(123): audittypes__elementt__pos(
+     audittypes__updatedconfigdata) may_be_replaced_by 39.
+startadminop_rules(124): audittypes__elementt__val(39) may_be_replaced_by 
+     audittypes__updatedconfigdata.
+startadminop_rules(125): audittypes__elementt__pos(
+     audittypes__invalidconfigdata) may_be_replaced_by 40.
+startadminop_rules(126): audittypes__elementt__val(40) may_be_replaced_by 
+     audittypes__invalidconfigdata.
+startadminop_rules(127): audittypes__elementt__pos(
+     audittypes__shutdown) may_be_replaced_by 41.
+startadminop_rules(128): audittypes__elementt__val(41) may_be_replaced_by 
+     audittypes__shutdown.
+startadminop_rules(129): audittypes__elementt__pos(
+     audittypes__overridelock) may_be_replaced_by 42.
+startadminop_rules(130): audittypes__elementt__val(42) may_be_replaced_by 
+     audittypes__overridelock.
+startadminop_rules(131): audittypes__elementt__pos(
+     audittypes__systemfault) may_be_replaced_by 43.
+startadminop_rules(132): audittypes__elementt__val(43) may_be_replaced_by 
+     audittypes__systemfault.
+startadminop_rules(133): audittypes__elementt__pos(
+     audittypes__elementt__last) may_be_replaced_by 43.
+startadminop_rules(134): audittypes__elementt__pos(succ(X)) may_be_replaced_by 
+     audittypes__elementt__pos(X) + 1
+     if [X <=audittypes__systemfault, X <> 
+     audittypes__systemfault].
+startadminop_rules(135): audittypes__elementt__pos(pred(X)) may_be_replaced_by 
+     audittypes__elementt__pos(X) - 1
+     if [X >=audittypes__startunenrolledtis, X <> 
+     audittypes__startunenrolledtis].
+startadminop_rules(136): audittypes__elementt__pos(X) >= 0 may_be_deduced_from
+     [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+startadminop_rules(137): audittypes__elementt__pos(X) <= 43 may_be_deduced_from
+     [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+startadminop_rules(138): audittypes__elementt__val(X) >= 
+     audittypes__startunenrolledtis may_be_deduced_from
+     [0 <= X, X <= 43].
+startadminop_rules(139): audittypes__elementt__val(X) <= 
+     audittypes__systemfault may_be_deduced_from
+     [0 <= X, X <= 43].
+startadminop_rules(140): succ(audittypes__elementt__val(X)) may_be_replaced_by 
+     audittypes__elementt__val(X+1)
+     if [0 <= X, X < 43].
+startadminop_rules(141): pred(audittypes__elementt__val(X)) may_be_replaced_by 
+     audittypes__elementt__val(X-1)
+     if [0 < X, X <= 43].
+startadminop_rules(142): audittypes__elementt__pos(
+     audittypes__elementt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 43].
+startadminop_rules(143): audittypes__elementt__val(
+     audittypes__elementt__pos(X)) may_be_replaced_by X
+     if [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+startadminop_rules(144): audittypes__elementt__pos(X) <= 
+     audittypes__elementt__pos(Y) & X <= Y are_interchangeable 
+     if [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault, audittypes__startunenrolledtis <= Y, Y <= 
+     audittypes__systemfault].
+startadminop_rules(145): audittypes__elementt__val(X) <= 
+     audittypes__elementt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 43, 0 <= Y, Y <= 43].
+startadminop_rules(146): audittypes__severityt__size >= 0 may_be_deduced.
+startadminop_rules(147): audittypes__severityt__first may_be_replaced_by audittypes__information.
+startadminop_rules(148): audittypes__severityt__last may_be_replaced_by audittypes__critical.
+startadminop_rules(149): audittypes__severityt__base__first may_be_replaced_by audittypes__information.
+startadminop_rules(150): audittypes__severityt__base__last may_be_replaced_by audittypes__critical.
+startadminop_rules(151): audittypes__severityt__pos(
+     audittypes__severityt__first) may_be_replaced_by 0.
+startadminop_rules(152): audittypes__severityt__pos(
+     audittypes__information) may_be_replaced_by 0.
+startadminop_rules(153): audittypes__severityt__val(0) may_be_replaced_by 
+     audittypes__information.
+startadminop_rules(154): audittypes__severityt__pos(
+     audittypes__warning) may_be_replaced_by 1.
+startadminop_rules(155): audittypes__severityt__val(1) may_be_replaced_by 
+     audittypes__warning.
+startadminop_rules(156): audittypes__severityt__pos(
+     audittypes__critical) may_be_replaced_by 2.
+startadminop_rules(157): audittypes__severityt__val(2) may_be_replaced_by 
+     audittypes__critical.
+startadminop_rules(158): audittypes__severityt__pos(
+     audittypes__severityt__last) may_be_replaced_by 2.
+startadminop_rules(159): audittypes__severityt__pos(succ(X)) may_be_replaced_by 
+     audittypes__severityt__pos(X) + 1
+     if [X <=audittypes__critical, X <> audittypes__critical].
+startadminop_rules(160): audittypes__severityt__pos(pred(X)) may_be_replaced_by 
+     audittypes__severityt__pos(X) - 1
+     if [X >=audittypes__information, X <> 
+     audittypes__information].
+startadminop_rules(161): audittypes__severityt__pos(X) >= 0 may_be_deduced_from
+     [audittypes__information <= X, X <= audittypes__critical].
+startadminop_rules(162): audittypes__severityt__pos(X) <= 2 may_be_deduced_from
+     [audittypes__information <= X, X <= audittypes__critical].
+startadminop_rules(163): audittypes__severityt__val(X) >= 
+     audittypes__information may_be_deduced_from
+     [0 <= X, X <= 2].
+startadminop_rules(164): audittypes__severityt__val(X) <= 
+     audittypes__critical may_be_deduced_from
+     [0 <= X, X <= 2].
+startadminop_rules(165): succ(audittypes__severityt__val(X)) may_be_replaced_by 
+     audittypes__severityt__val(X+1)
+     if [0 <= X, X < 2].
+startadminop_rules(166): pred(audittypes__severityt__val(X)) may_be_replaced_by 
+     audittypes__severityt__val(X-1)
+     if [0 < X, X <= 2].
+startadminop_rules(167): audittypes__severityt__pos(
+     audittypes__severityt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 2].
+startadminop_rules(168): audittypes__severityt__val(
+     audittypes__severityt__pos(X)) may_be_replaced_by X
+     if [audittypes__information <= X, X <= audittypes__critical].
+startadminop_rules(169): audittypes__severityt__pos(X) <= 
+     audittypes__severityt__pos(Y) & X <= Y are_interchangeable 
+     if [audittypes__information <= X, X <= audittypes__critical, 
+     audittypes__information <= Y, Y <= audittypes__critical].
+startadminop_rules(170): audittypes__severityt__val(X) <= 
+     audittypes__severityt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 2, 0 <= Y, Y <= 2].
+startadminop_rules(171): audittypes__usertexti__size >= 0 may_be_deduced.
+startadminop_rules(172): audittypes__usertexti__first may_be_replaced_by 1.
+startadminop_rules(173): audittypes__usertexti__last may_be_replaced_by 50.
+startadminop_rules(174): audittypes__usertexti__base__first may_be_replaced_by -2147483648.
+startadminop_rules(175): audittypes__usertexti__base__last may_be_replaced_by 2147483647.
+startadminop_rules(176): privtypes__privileget__size >= 0 may_be_deduced.
+startadminop_rules(177): privtypes__privileget__first may_be_replaced_by privtypes__useronly.
+startadminop_rules(178): privtypes__privileget__last may_be_replaced_by privtypes__securityofficer.
+startadminop_rules(179): privtypes__privileget__base__first may_be_replaced_by privtypes__useronly.
+startadminop_rules(180): privtypes__privileget__base__last may_be_replaced_by privtypes__securityofficer.
+startadminop_rules(181): privtypes__privileget__pos(
+     privtypes__privileget__first) may_be_replaced_by 0.
+startadminop_rules(182): privtypes__privileget__pos(
+     privtypes__useronly) may_be_replaced_by 0.
+startadminop_rules(183): privtypes__privileget__val(0) may_be_replaced_by 
+     privtypes__useronly.
+startadminop_rules(184): privtypes__privileget__pos(
+     privtypes__guard) may_be_replaced_by 1.
+startadminop_rules(185): privtypes__privileget__val(1) may_be_replaced_by 
+     privtypes__guard.
+startadminop_rules(186): privtypes__privileget__pos(
+     privtypes__auditmanager) may_be_replaced_by 2.
+startadminop_rules(187): privtypes__privileget__val(2) may_be_replaced_by 
+     privtypes__auditmanager.
+startadminop_rules(188): privtypes__privileget__pos(
+     privtypes__securityofficer) may_be_replaced_by 3.
+startadminop_rules(189): privtypes__privileget__val(3) may_be_replaced_by 
+     privtypes__securityofficer.
+startadminop_rules(190): privtypes__privileget__pos(
+     privtypes__privileget__last) may_be_replaced_by 3.
+startadminop_rules(191): privtypes__privileget__pos(succ(X)) may_be_replaced_by 
+     privtypes__privileget__pos(X) + 1
+     if [X <=privtypes__securityofficer, X <> 
+     privtypes__securityofficer].
+startadminop_rules(192): privtypes__privileget__pos(pred(X)) may_be_replaced_by 
+     privtypes__privileget__pos(X) - 1
+     if [X >=privtypes__useronly, X <> privtypes__useronly].
+startadminop_rules(193): privtypes__privileget__pos(X) >= 0 may_be_deduced_from
+     [privtypes__useronly <= X, X <= privtypes__securityofficer].
+startadminop_rules(194): privtypes__privileget__pos(X) <= 3 may_be_deduced_from
+     [privtypes__useronly <= X, X <= privtypes__securityofficer].
+startadminop_rules(195): privtypes__privileget__val(X) >= 
+     privtypes__useronly may_be_deduced_from
+     [0 <= X, X <= 3].
+startadminop_rules(196): privtypes__privileget__val(X) <= 
+     privtypes__securityofficer may_be_deduced_from
+     [0 <= X, X <= 3].
+startadminop_rules(197): succ(privtypes__privileget__val(X)) may_be_replaced_by 
+     privtypes__privileget__val(X+1)
+     if [0 <= X, X < 3].
+startadminop_rules(198): pred(privtypes__privileget__val(X)) may_be_replaced_by 
+     privtypes__privileget__val(X-1)
+     if [0 < X, X <= 3].
+startadminop_rules(199): privtypes__privileget__pos(
+     privtypes__privileget__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 3].
+startadminop_rules(200): privtypes__privileget__val(
+     privtypes__privileget__pos(X)) may_be_replaced_by X
+     if [privtypes__useronly <= X, X <= 
+     privtypes__securityofficer].
+startadminop_rules(201): privtypes__privileget__pos(X) <= 
+     privtypes__privileget__pos(Y) & X <= Y are_interchangeable 
+     if [privtypes__useronly <= X, X <= 
+     privtypes__securityofficer, privtypes__useronly <= Y, Y <= 
+     privtypes__securityofficer].
+startadminop_rules(202): privtypes__privileget__val(X) <= 
+     privtypes__privileget__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 3, 0 <= Y, Y <= 3].
+startadminop_rules(203): keyboard__datalengtht__size >= 0 may_be_deduced.
+startadminop_rules(204): keyboard__datalengtht__first may_be_replaced_by 0.
+startadminop_rules(205): keyboard__datalengtht__last may_be_replaced_by 78.
+startadminop_rules(206): keyboard__datalengtht__base__first may_be_replaced_by -2147483648.
+startadminop_rules(207): keyboard__datalengtht__base__last may_be_replaced_by 2147483647.
+startadminop_rules(208): keyboard__datai__size >= 0 may_be_deduced.
+startadminop_rules(209): keyboard__datai__first may_be_replaced_by 1.
+startadminop_rules(210): keyboard__datai__last may_be_replaced_by 78.
+startadminop_rules(211): keyboard__datai__base__first may_be_replaced_by -2147483648.
+startadminop_rules(212): keyboard__datai__base__last may_be_replaced_by 2147483647.
+startadminop_rules(213): keyboard__datat__size >= 0 may_be_deduced.
+startadminop_rules(214): A = B may_be_deduced_from
+     [goal(checktype(A,keyboard__datat)),
+      goal(checktype(B,keyboard__datat)),
+      fld_length(A) = fld_length(B),
+      fld_text(A) = fld_text(B)].
+startadminop_rules(215): admin__opandnullt__size >= 0 may_be_deduced.
+startadminop_rules(216): admin__opandnullt__first may_be_replaced_by admin__nullop.
+startadminop_rules(217): admin__opandnullt__last may_be_replaced_by admin__shutdownop.
+startadminop_rules(218): admin__opandnullt__base__first may_be_replaced_by admin__nullop.
+startadminop_rules(219): admin__opandnullt__base__last may_be_replaced_by admin__shutdownop.
+startadminop_rules(220): admin__opandnullt__pos(admin__opandnullt__first) may_be_replaced_by 0.
+startadminop_rules(221): admin__opandnullt__pos(admin__nullop) may_be_replaced_by 0.
+startadminop_rules(222): admin__opandnullt__val(0) may_be_replaced_by 
+     admin__nullop.
+startadminop_rules(223): admin__opandnullt__pos(admin__archivelog) may_be_replaced_by 1.
+startadminop_rules(224): admin__opandnullt__val(1) may_be_replaced_by 
+     admin__archivelog.
+startadminop_rules(225): admin__opandnullt__pos(
+     admin__updateconfigdata) may_be_replaced_by 2.
+startadminop_rules(226): admin__opandnullt__val(2) may_be_replaced_by 
+     admin__updateconfigdata.
+startadminop_rules(227): admin__opandnullt__pos(
+     admin__overridelock) may_be_replaced_by 3.
+startadminop_rules(228): admin__opandnullt__val(3) may_be_replaced_by 
+     admin__overridelock.
+startadminop_rules(229): admin__opandnullt__pos(admin__shutdownop) may_be_replaced_by 4.
+startadminop_rules(230): admin__opandnullt__val(4) may_be_replaced_by 
+     admin__shutdownop.
+startadminop_rules(231): admin__opandnullt__pos(admin__opandnullt__last) may_be_replaced_by 4.
+startadminop_rules(232): admin__opandnullt__pos(succ(X)) may_be_replaced_by 
+     admin__opandnullt__pos(X) + 1
+     if [X <=admin__shutdownop, X <> admin__shutdownop].
+startadminop_rules(233): admin__opandnullt__pos(pred(X)) may_be_replaced_by 
+     admin__opandnullt__pos(X) - 1
+     if [X >=admin__nullop, X <> admin__nullop].
+startadminop_rules(234): admin__opandnullt__pos(X) >= 0 may_be_deduced_from
+     [admin__nullop <= X, X <= admin__shutdownop].
+startadminop_rules(235): admin__opandnullt__pos(X) <= 4 may_be_deduced_from
+     [admin__nullop <= X, X <= admin__shutdownop].
+startadminop_rules(236): admin__opandnullt__val(X) >= 
+     admin__nullop may_be_deduced_from
+     [0 <= X, X <= 4].
+startadminop_rules(237): admin__opandnullt__val(X) <= 
+     admin__shutdownop may_be_deduced_from
+     [0 <= X, X <= 4].
+startadminop_rules(238): succ(admin__opandnullt__val(X)) may_be_replaced_by 
+     admin__opandnullt__val(X+1)
+     if [0 <= X, X < 4].
+startadminop_rules(239): pred(admin__opandnullt__val(X)) may_be_replaced_by 
+     admin__opandnullt__val(X-1)
+     if [0 < X, X <= 4].
+startadminop_rules(240): admin__opandnullt__pos(admin__opandnullt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 4].
+startadminop_rules(241): admin__opandnullt__val(admin__opandnullt__pos(X)) may_be_replaced_by X
+     if [admin__nullop <= X, X <= admin__shutdownop].
+startadminop_rules(242): admin__opandnullt__pos(X) <= 
+     admin__opandnullt__pos(Y) & X <= Y are_interchangeable 
+     if [admin__nullop <= X, X <= admin__shutdownop, 
+     admin__nullop <= Y, Y <= admin__shutdownop].
+startadminop_rules(243): admin__opandnullt__val(X) <= 
+     admin__opandnullt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 4, 0 <= Y, Y <= 4].
+startadminop_rules(244): admin__opt__size >= 0 may_be_deduced.
+startadminop_rules(245): admin__opt__first may_be_replaced_by admin__archivelog.
+startadminop_rules(246): admin__opt__last may_be_replaced_by admin__shutdownop.
+startadminop_rules(247): admin__opt__base__first may_be_replaced_by admin__nullop.
+startadminop_rules(248): admin__opt__base__last may_be_replaced_by admin__shutdownop.
+startadminop_rules(249): screen__msgtextt__size >= 0 may_be_deduced.
+startadminop_rules(250): screen__msgtextt__first may_be_replaced_by screen__clear.
+startadminop_rules(251): screen__msgtextt__last may_be_replaced_by screen__insertconfigdata.
+startadminop_rules(252): screen__msgtextt__base__first may_be_replaced_by screen__clear.
+startadminop_rules(253): screen__msgtextt__base__last may_be_replaced_by screen__insertconfigdata.
+startadminop_rules(254): screen__msgtextt__pos(screen__msgtextt__first) may_be_replaced_by 0.
+startadminop_rules(255): screen__msgtextt__pos(screen__clear) may_be_replaced_by 0.
+startadminop_rules(256): screen__msgtextt__val(0) may_be_replaced_by 
+     screen__clear.
+startadminop_rules(257): screen__msgtextt__pos(
+     screen__welcomeadmin) may_be_replaced_by 1.
+startadminop_rules(258): screen__msgtextt__val(1) may_be_replaced_by 
+     screen__welcomeadmin.
+startadminop_rules(259): screen__msgtextt__pos(screen__busy) may_be_replaced_by 2.
+startadminop_rules(260): screen__msgtextt__val(2) may_be_replaced_by 
+     screen__busy.
+startadminop_rules(261): screen__msgtextt__pos(
+     screen__removeadmintoken) may_be_replaced_by 3.
+startadminop_rules(262): screen__msgtextt__val(3) may_be_replaced_by 
+     screen__removeadmintoken.
+startadminop_rules(263): screen__msgtextt__pos(screen__closedoor) may_be_replaced_by 4.
+startadminop_rules(264): screen__msgtextt__val(4) may_be_replaced_by 
+     screen__closedoor.
+startadminop_rules(265): screen__msgtextt__pos(
+     screen__requestadminop) may_be_replaced_by 5.
+startadminop_rules(266): screen__msgtextt__val(5) may_be_replaced_by 
+     screen__requestadminop.
+startadminop_rules(267): screen__msgtextt__pos(screen__doingop) may_be_replaced_by 6.
+startadminop_rules(268): screen__msgtextt__val(6) may_be_replaced_by 
+     screen__doingop.
+startadminop_rules(269): screen__msgtextt__pos(
+     screen__invalidrequest) may_be_replaced_by 7.
+startadminop_rules(270): screen__msgtextt__val(7) may_be_replaced_by 
+     screen__invalidrequest.
+startadminop_rules(271): screen__msgtextt__pos(
+     screen__invaliddata) may_be_replaced_by 8.
+startadminop_rules(272): screen__msgtextt__val(8) may_be_replaced_by 
+     screen__invaliddata.
+startadminop_rules(273): screen__msgtextt__pos(
+     screen__archivefailed) may_be_replaced_by 9.
+startadminop_rules(274): screen__msgtextt__val(9) may_be_replaced_by 
+     screen__archivefailed.
+startadminop_rules(275): screen__msgtextt__pos(
+     screen__insertenrolmentdata) may_be_replaced_by 10.
+startadminop_rules(276): screen__msgtextt__val(10) may_be_replaced_by 
+     screen__insertenrolmentdata.
+startadminop_rules(277): screen__msgtextt__pos(
+     screen__validatingenrolmentdata) may_be_replaced_by 11.
+startadminop_rules(278): screen__msgtextt__val(11) may_be_replaced_by 
+     screen__validatingenrolmentdata.
+startadminop_rules(279): screen__msgtextt__pos(
+     screen__enrolmentfailed) may_be_replaced_by 12.
+startadminop_rules(280): screen__msgtextt__val(12) may_be_replaced_by 
+     screen__enrolmentfailed.
+startadminop_rules(281): screen__msgtextt__pos(
+     screen__insertblankfloppy) may_be_replaced_by 13.
+startadminop_rules(282): screen__msgtextt__val(13) may_be_replaced_by 
+     screen__insertblankfloppy.
+startadminop_rules(283): screen__msgtextt__pos(
+     screen__insertconfigdata) may_be_replaced_by 14.
+startadminop_rules(284): screen__msgtextt__val(14) may_be_replaced_by 
+     screen__insertconfigdata.
+startadminop_rules(285): screen__msgtextt__pos(screen__msgtextt__last) may_be_replaced_by 14.
+startadminop_rules(286): screen__msgtextt__pos(succ(X)) may_be_replaced_by 
+     screen__msgtextt__pos(X) + 1
+     if [X <=screen__insertconfigdata, X <> 
+     screen__insertconfigdata].
+startadminop_rules(287): screen__msgtextt__pos(pred(X)) may_be_replaced_by 
+     screen__msgtextt__pos(X) - 1
+     if [X >=screen__clear, X <> screen__clear].
+startadminop_rules(288): screen__msgtextt__pos(X) >= 0 may_be_deduced_from
+     [screen__clear <= X, X <= screen__insertconfigdata].
+startadminop_rules(289): screen__msgtextt__pos(X) <= 14 may_be_deduced_from
+     [screen__clear <= X, X <= screen__insertconfigdata].
+startadminop_rules(290): screen__msgtextt__val(X) >= 
+     screen__clear may_be_deduced_from
+     [0 <= X, X <= 14].
+startadminop_rules(291): screen__msgtextt__val(X) <= 
+     screen__insertconfigdata may_be_deduced_from
+     [0 <= X, X <= 14].
+startadminop_rules(292): succ(screen__msgtextt__val(X)) may_be_replaced_by 
+     screen__msgtextt__val(X+1)
+     if [0 <= X, X < 14].
+startadminop_rules(293): pred(screen__msgtextt__val(X)) may_be_replaced_by 
+     screen__msgtextt__val(X-1)
+     if [0 < X, X <= 14].
+startadminop_rules(294): screen__msgtextt__pos(screen__msgtextt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 14].
+startadminop_rules(295): screen__msgtextt__val(screen__msgtextt__pos(X)) may_be_replaced_by X
+     if [screen__clear <= X, X <= screen__insertconfigdata].
+startadminop_rules(296): screen__msgtextt__pos(X) <= 
+     screen__msgtextt__pos(Y) & X <= Y are_interchangeable 
+     if [screen__clear <= X, X <= screen__insertconfigdata, 
+     screen__clear <= Y, Y <= screen__insertconfigdata].
+startadminop_rules(297): screen__msgtextt__val(X) <= 
+     screen__msgtextt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 14, 0 <= Y, Y <= 14].
+startadminop_rules(298): statust__size >= 0 may_be_deduced.
+startadminop_rules(299): statust__first may_be_replaced_by notenrolled.
+startadminop_rules(300): statust__last may_be_replaced_by shutdown.
+startadminop_rules(301): statust__base__first may_be_replaced_by notenrolled.
+startadminop_rules(302): statust__base__last may_be_replaced_by shutdown.
+startadminop_rules(303): statust__pos(statust__first) may_be_replaced_by 0.
+startadminop_rules(304): statust__pos(notenrolled) may_be_replaced_by 0.
+startadminop_rules(305): statust__val(0) may_be_replaced_by 
+     notenrolled.
+startadminop_rules(306): statust__pos(waitingenrol) may_be_replaced_by 1.
+startadminop_rules(307): statust__val(1) may_be_replaced_by 
+     waitingenrol.
+startadminop_rules(308): statust__pos(waitingendenrol) may_be_replaced_by 2.
+startadminop_rules(309): statust__val(2) may_be_replaced_by 
+     waitingendenrol.
+startadminop_rules(310): statust__pos(enclavequiescent) may_be_replaced_by 3.
+startadminop_rules(311): statust__val(3) may_be_replaced_by 
+     enclavequiescent.
+startadminop_rules(312): statust__pos(waitingremoveadmintokenfail) may_be_replaced_by 4.
+startadminop_rules(313): statust__val(4) may_be_replaced_by 
+     waitingremoveadmintokenfail.
+startadminop_rules(314): statust__pos(gotadmintoken) may_be_replaced_by 5.
+startadminop_rules(315): statust__val(5) may_be_replaced_by 
+     gotadmintoken.
+startadminop_rules(316): statust__pos(waitingstartadminop) may_be_replaced_by 6.
+startadminop_rules(317): statust__val(6) may_be_replaced_by 
+     waitingstartadminop.
+startadminop_rules(318): statust__pos(waitingfinishadminop) may_be_replaced_by 7.
+startadminop_rules(319): statust__val(7) may_be_replaced_by 
+     waitingfinishadminop.
+startadminop_rules(320): statust__pos(shutdown) may_be_replaced_by 8.
+startadminop_rules(321): statust__val(8) may_be_replaced_by 
+     shutdown.
+startadminop_rules(322): statust__pos(statust__last) may_be_replaced_by 8.
+startadminop_rules(323): statust__pos(succ(X)) may_be_replaced_by 
+     statust__pos(X) + 1
+     if [X <=shutdown, X <> shutdown].
+startadminop_rules(324): statust__pos(pred(X)) may_be_replaced_by 
+     statust__pos(X) - 1
+     if [X >=notenrolled, X <> notenrolled].
+startadminop_rules(325): statust__pos(X) >= 0 may_be_deduced_from
+     [notenrolled <= X, X <= shutdown].
+startadminop_rules(326): statust__pos(X) <= 8 may_be_deduced_from
+     [notenrolled <= X, X <= shutdown].
+startadminop_rules(327): statust__val(X) >= notenrolled may_be_deduced_from
+     [0 <= X, X <= 8].
+startadminop_rules(328): statust__val(X) <= shutdown may_be_deduced_from
+     [0 <= X, X <= 8].
+startadminop_rules(329): succ(statust__val(X)) may_be_replaced_by 
+     statust__val(X+1)
+     if [0 <= X, X < 8].
+startadminop_rules(330): pred(statust__val(X)) may_be_replaced_by 
+     statust__val(X-1)
+     if [0 < X, X <= 8].
+startadminop_rules(331): statust__pos(statust__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 8].
+startadminop_rules(332): statust__val(statust__pos(X)) may_be_replaced_by X
+     if [notenrolled <= X, X <= shutdown].
+startadminop_rules(333): statust__pos(X) <= statust__pos(Y) & X <= Y are_interchangeable 
+     if [notenrolled <= X, X <= shutdown, notenrolled <= Y, Y <= 
+     shutdown].
+startadminop_rules(334): statust__val(X) <= statust__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 8, 0 <= Y, Y <= 8].

@@ -1,0 +1,524 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:24.46*/
+
+                     /*procedure UserEntry.ValidateEntry*/
+
+
+rule_family validateentr_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+validateentr_rules(1): integer__size >= 0 may_be_deduced.
+validateentr_rules(2): integer__first may_be_replaced_by -2147483648.
+validateentr_rules(3): integer__last may_be_replaced_by 2147483647.
+validateentr_rules(4): integer__base__first may_be_replaced_by -2147483648.
+validateentr_rules(5): integer__base__last may_be_replaced_by 2147483647.
+validateentr_rules(6): character__size >= 0 may_be_deduced.
+validateentr_rules(7): character__first may_be_replaced_by 0.
+validateentr_rules(8): character__last may_be_replaced_by 255.
+validateentr_rules(9): character__base__first may_be_replaced_by 0.
+validateentr_rules(10): character__base__last may_be_replaced_by 255.
+validateentr_rules(11): positive__size >= 0 may_be_deduced.
+validateentr_rules(12): positive__first may_be_replaced_by 1.
+validateentr_rules(13): positive__last may_be_replaced_by 2147483647.
+validateentr_rules(14): positive__base__first may_be_replaced_by -2147483648.
+validateentr_rules(15): positive__base__last may_be_replaced_by 2147483647.
+validateentr_rules(16): clock__durationt__size >= 0 may_be_deduced.
+validateentr_rules(17): clock__durationt__first may_be_replaced_by 0.
+validateentr_rules(18): clock__durationt__last may_be_replaced_by 864000.
+validateentr_rules(19): clock__durationt__base__first <= 
+     clock__durationt__base__last may_be_deduced.
+validateentr_rules(20): clock__durationt__base__first <= 
+     clock__durationt__first may_be_deduced.
+validateentr_rules(21): clock__durationt__base__last >= 
+     clock__durationt__last may_be_deduced.
+validateentr_rules(22): audittypes__elementt__size >= 0 may_be_deduced.
+validateentr_rules(23): audittypes__elementt__first may_be_replaced_by audittypes__startunenrolledtis.
+validateentr_rules(24): audittypes__elementt__last may_be_replaced_by audittypes__systemfault.
+validateentr_rules(25): audittypes__elementt__base__first may_be_replaced_by audittypes__startunenrolledtis.
+validateentr_rules(26): audittypes__elementt__base__last may_be_replaced_by audittypes__systemfault.
+validateentr_rules(27): audittypes__elementt__pos(
+     audittypes__elementt__first) may_be_replaced_by 0.
+validateentr_rules(28): audittypes__elementt__pos(
+     audittypes__startunenrolledtis) may_be_replaced_by 0.
+validateentr_rules(29): audittypes__elementt__val(0) may_be_replaced_by 
+     audittypes__startunenrolledtis.
+validateentr_rules(30): audittypes__elementt__pos(
+     audittypes__startenrolledtis) may_be_replaced_by 1.
+validateentr_rules(31): audittypes__elementt__val(1) may_be_replaced_by 
+     audittypes__startenrolledtis.
+validateentr_rules(32): audittypes__elementt__pos(
+     audittypes__enrolmentcomplete) may_be_replaced_by 2.
+validateentr_rules(33): audittypes__elementt__val(2) may_be_replaced_by 
+     audittypes__enrolmentcomplete.
+validateentr_rules(34): audittypes__elementt__pos(
+     audittypes__enrolmentfailed) may_be_replaced_by 3.
+validateentr_rules(35): audittypes__elementt__val(3) may_be_replaced_by 
+     audittypes__enrolmentfailed.
+validateentr_rules(36): audittypes__elementt__pos(
+     audittypes__displaychanged) may_be_replaced_by 4.
+validateentr_rules(37): audittypes__elementt__val(4) may_be_replaced_by 
+     audittypes__displaychanged.
+validateentr_rules(38): audittypes__elementt__pos(
+     audittypes__screenchanged) may_be_replaced_by 5.
+validateentr_rules(39): audittypes__elementt__val(5) may_be_replaced_by 
+     audittypes__screenchanged.
+validateentr_rules(40): audittypes__elementt__pos(
+     audittypes__doorclosed) may_be_replaced_by 6.
+validateentr_rules(41): audittypes__elementt__val(6) may_be_replaced_by 
+     audittypes__doorclosed.
+validateentr_rules(42): audittypes__elementt__pos(
+     audittypes__dooropened) may_be_replaced_by 7.
+validateentr_rules(43): audittypes__elementt__val(7) may_be_replaced_by 
+     audittypes__dooropened.
+validateentr_rules(44): audittypes__elementt__pos(
+     audittypes__latchlocked) may_be_replaced_by 8.
+validateentr_rules(45): audittypes__elementt__val(8) may_be_replaced_by 
+     audittypes__latchlocked.
+validateentr_rules(46): audittypes__elementt__pos(
+     audittypes__latchunlocked) may_be_replaced_by 9.
+validateentr_rules(47): audittypes__elementt__val(9) may_be_replaced_by 
+     audittypes__latchunlocked.
+validateentr_rules(48): audittypes__elementt__pos(
+     audittypes__alarmraised) may_be_replaced_by 10.
+validateentr_rules(49): audittypes__elementt__val(10) may_be_replaced_by 
+     audittypes__alarmraised.
+validateentr_rules(50): audittypes__elementt__pos(
+     audittypes__alarmsilenced) may_be_replaced_by 11.
+validateentr_rules(51): audittypes__elementt__val(11) may_be_replaced_by 
+     audittypes__alarmsilenced.
+validateentr_rules(52): audittypes__elementt__pos(
+     audittypes__truncatelog) may_be_replaced_by 12.
+validateentr_rules(53): audittypes__elementt__val(12) may_be_replaced_by 
+     audittypes__truncatelog.
+validateentr_rules(54): audittypes__elementt__pos(
+     audittypes__auditalarmraised) may_be_replaced_by 13.
+validateentr_rules(55): audittypes__elementt__val(13) may_be_replaced_by 
+     audittypes__auditalarmraised.
+validateentr_rules(56): audittypes__elementt__pos(
+     audittypes__auditalarmsilenced) may_be_replaced_by 14.
+validateentr_rules(57): audittypes__elementt__val(14) may_be_replaced_by 
+     audittypes__auditalarmsilenced.
+validateentr_rules(58): audittypes__elementt__pos(
+     audittypes__usertokenremoved) may_be_replaced_by 15.
+validateentr_rules(59): audittypes__elementt__val(15) may_be_replaced_by 
+     audittypes__usertokenremoved.
+validateentr_rules(60): audittypes__elementt__pos(
+     audittypes__usertokenpresent) may_be_replaced_by 16.
+validateentr_rules(61): audittypes__elementt__val(16) may_be_replaced_by 
+     audittypes__usertokenpresent.
+validateentr_rules(62): audittypes__elementt__pos(
+     audittypes__usertokeninvalid) may_be_replaced_by 17.
+validateentr_rules(63): audittypes__elementt__val(17) may_be_replaced_by 
+     audittypes__usertokeninvalid.
+validateentr_rules(64): audittypes__elementt__pos(
+     audittypes__authcertvalid) may_be_replaced_by 18.
+validateentr_rules(65): audittypes__elementt__val(18) may_be_replaced_by 
+     audittypes__authcertvalid.
+validateentr_rules(66): audittypes__elementt__pos(
+     audittypes__authcertinvalid) may_be_replaced_by 19.
+validateentr_rules(67): audittypes__elementt__val(19) may_be_replaced_by 
+     audittypes__authcertinvalid.
+validateentr_rules(68): audittypes__elementt__pos(
+     audittypes__fingerdetected) may_be_replaced_by 20.
+validateentr_rules(69): audittypes__elementt__val(20) may_be_replaced_by 
+     audittypes__fingerdetected.
+validateentr_rules(70): audittypes__elementt__pos(
+     audittypes__fingertimeout) may_be_replaced_by 21.
+validateentr_rules(71): audittypes__elementt__val(21) may_be_replaced_by 
+     audittypes__fingertimeout.
+validateentr_rules(72): audittypes__elementt__pos(
+     audittypes__fingermatched) may_be_replaced_by 22.
+validateentr_rules(73): audittypes__elementt__val(22) may_be_replaced_by 
+     audittypes__fingermatched.
+validateentr_rules(74): audittypes__elementt__pos(
+     audittypes__fingernotmatched) may_be_replaced_by 23.
+validateentr_rules(75): audittypes__elementt__val(23) may_be_replaced_by 
+     audittypes__fingernotmatched.
+validateentr_rules(76): audittypes__elementt__pos(
+     audittypes__authcertwritten) may_be_replaced_by 24.
+validateentr_rules(77): audittypes__elementt__val(24) may_be_replaced_by 
+     audittypes__authcertwritten.
+validateentr_rules(78): audittypes__elementt__pos(
+     audittypes__authcertwritefailed) may_be_replaced_by 25.
+validateentr_rules(79): audittypes__elementt__val(25) may_be_replaced_by 
+     audittypes__authcertwritefailed.
+validateentr_rules(80): audittypes__elementt__pos(
+     audittypes__entrypermitted) may_be_replaced_by 26.
+validateentr_rules(81): audittypes__elementt__val(26) may_be_replaced_by 
+     audittypes__entrypermitted.
+validateentr_rules(82): audittypes__elementt__pos(
+     audittypes__entrytimeout) may_be_replaced_by 27.
+validateentr_rules(83): audittypes__elementt__val(27) may_be_replaced_by 
+     audittypes__entrytimeout.
+validateentr_rules(84): audittypes__elementt__pos(
+     audittypes__entrydenied) may_be_replaced_by 28.
+validateentr_rules(85): audittypes__elementt__val(28) may_be_replaced_by 
+     audittypes__entrydenied.
+validateentr_rules(86): audittypes__elementt__pos(
+     audittypes__admintokenpresent) may_be_replaced_by 29.
+validateentr_rules(87): audittypes__elementt__val(29) may_be_replaced_by 
+     audittypes__admintokenpresent.
+validateentr_rules(88): audittypes__elementt__pos(
+     audittypes__admintokenvalid) may_be_replaced_by 30.
+validateentr_rules(89): audittypes__elementt__val(30) may_be_replaced_by 
+     audittypes__admintokenvalid.
+validateentr_rules(90): audittypes__elementt__pos(
+     audittypes__admintokeninvalid) may_be_replaced_by 31.
+validateentr_rules(91): audittypes__elementt__val(31) may_be_replaced_by 
+     audittypes__admintokeninvalid.
+validateentr_rules(92): audittypes__elementt__pos(
+     audittypes__admintokenexpired) may_be_replaced_by 32.
+validateentr_rules(93): audittypes__elementt__val(32) may_be_replaced_by 
+     audittypes__admintokenexpired.
+validateentr_rules(94): audittypes__elementt__pos(
+     audittypes__admintokenremoved) may_be_replaced_by 33.
+validateentr_rules(95): audittypes__elementt__val(33) may_be_replaced_by 
+     audittypes__admintokenremoved.
+validateentr_rules(96): audittypes__elementt__pos(
+     audittypes__invalidoprequest) may_be_replaced_by 34.
+validateentr_rules(97): audittypes__elementt__val(34) may_be_replaced_by 
+     audittypes__invalidoprequest.
+validateentr_rules(98): audittypes__elementt__pos(
+     audittypes__operationstart) may_be_replaced_by 35.
+validateentr_rules(99): audittypes__elementt__val(35) may_be_replaced_by 
+     audittypes__operationstart.
+validateentr_rules(100): audittypes__elementt__pos(
+     audittypes__archivelog) may_be_replaced_by 36.
+validateentr_rules(101): audittypes__elementt__val(36) may_be_replaced_by 
+     audittypes__archivelog.
+validateentr_rules(102): audittypes__elementt__pos(
+     audittypes__archivecomplete) may_be_replaced_by 37.
+validateentr_rules(103): audittypes__elementt__val(37) may_be_replaced_by 
+     audittypes__archivecomplete.
+validateentr_rules(104): audittypes__elementt__pos(
+     audittypes__archivecheckfailed) may_be_replaced_by 38.
+validateentr_rules(105): audittypes__elementt__val(38) may_be_replaced_by 
+     audittypes__archivecheckfailed.
+validateentr_rules(106): audittypes__elementt__pos(
+     audittypes__updatedconfigdata) may_be_replaced_by 39.
+validateentr_rules(107): audittypes__elementt__val(39) may_be_replaced_by 
+     audittypes__updatedconfigdata.
+validateentr_rules(108): audittypes__elementt__pos(
+     audittypes__invalidconfigdata) may_be_replaced_by 40.
+validateentr_rules(109): audittypes__elementt__val(40) may_be_replaced_by 
+     audittypes__invalidconfigdata.
+validateentr_rules(110): audittypes__elementt__pos(
+     audittypes__shutdown) may_be_replaced_by 41.
+validateentr_rules(111): audittypes__elementt__val(41) may_be_replaced_by 
+     audittypes__shutdown.
+validateentr_rules(112): audittypes__elementt__pos(
+     audittypes__overridelock) may_be_replaced_by 42.
+validateentr_rules(113): audittypes__elementt__val(42) may_be_replaced_by 
+     audittypes__overridelock.
+validateentr_rules(114): audittypes__elementt__pos(
+     audittypes__systemfault) may_be_replaced_by 43.
+validateentr_rules(115): audittypes__elementt__val(43) may_be_replaced_by 
+     audittypes__systemfault.
+validateentr_rules(116): audittypes__elementt__pos(
+     audittypes__elementt__last) may_be_replaced_by 43.
+validateentr_rules(117): audittypes__elementt__pos(succ(X)) may_be_replaced_by 
+     audittypes__elementt__pos(X) + 1
+     if [X <=audittypes__systemfault, X <> 
+     audittypes__systemfault].
+validateentr_rules(118): audittypes__elementt__pos(pred(X)) may_be_replaced_by 
+     audittypes__elementt__pos(X) - 1
+     if [X >=audittypes__startunenrolledtis, X <> 
+     audittypes__startunenrolledtis].
+validateentr_rules(119): audittypes__elementt__pos(X) >= 0 may_be_deduced_from
+     [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+validateentr_rules(120): audittypes__elementt__pos(X) <= 43 may_be_deduced_from
+     [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+validateentr_rules(121): audittypes__elementt__val(X) >= 
+     audittypes__startunenrolledtis may_be_deduced_from
+     [0 <= X, X <= 43].
+validateentr_rules(122): audittypes__elementt__val(X) <= 
+     audittypes__systemfault may_be_deduced_from
+     [0 <= X, X <= 43].
+validateentr_rules(123): succ(audittypes__elementt__val(X)) may_be_replaced_by 
+     audittypes__elementt__val(X+1)
+     if [0 <= X, X < 43].
+validateentr_rules(124): pred(audittypes__elementt__val(X)) may_be_replaced_by 
+     audittypes__elementt__val(X-1)
+     if [0 < X, X <= 43].
+validateentr_rules(125): audittypes__elementt__pos(
+     audittypes__elementt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 43].
+validateentr_rules(126): audittypes__elementt__val(
+     audittypes__elementt__pos(X)) may_be_replaced_by X
+     if [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+validateentr_rules(127): audittypes__elementt__pos(X) <= 
+     audittypes__elementt__pos(Y) & X <= Y are_interchangeable 
+     if [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault, audittypes__startunenrolledtis <= Y, Y <= 
+     audittypes__systemfault].
+validateentr_rules(128): audittypes__elementt__val(X) <= 
+     audittypes__elementt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 43, 0 <= Y, Y <= 43].
+validateentr_rules(129): audittypes__severityt__size >= 0 may_be_deduced.
+validateentr_rules(130): audittypes__severityt__first may_be_replaced_by audittypes__information.
+validateentr_rules(131): audittypes__severityt__last may_be_replaced_by audittypes__critical.
+validateentr_rules(132): audittypes__severityt__base__first may_be_replaced_by audittypes__information.
+validateentr_rules(133): audittypes__severityt__base__last may_be_replaced_by audittypes__critical.
+validateentr_rules(134): audittypes__severityt__pos(
+     audittypes__severityt__first) may_be_replaced_by 0.
+validateentr_rules(135): audittypes__severityt__pos(
+     audittypes__information) may_be_replaced_by 0.
+validateentr_rules(136): audittypes__severityt__val(0) may_be_replaced_by 
+     audittypes__information.
+validateentr_rules(137): audittypes__severityt__pos(
+     audittypes__warning) may_be_replaced_by 1.
+validateentr_rules(138): audittypes__severityt__val(1) may_be_replaced_by 
+     audittypes__warning.
+validateentr_rules(139): audittypes__severityt__pos(
+     audittypes__critical) may_be_replaced_by 2.
+validateentr_rules(140): audittypes__severityt__val(2) may_be_replaced_by 
+     audittypes__critical.
+validateentr_rules(141): audittypes__severityt__pos(
+     audittypes__severityt__last) may_be_replaced_by 2.
+validateentr_rules(142): audittypes__severityt__pos(succ(X)) may_be_replaced_by 
+     audittypes__severityt__pos(X) + 1
+     if [X <=audittypes__critical, X <> audittypes__critical].
+validateentr_rules(143): audittypes__severityt__pos(pred(X)) may_be_replaced_by 
+     audittypes__severityt__pos(X) - 1
+     if [X >=audittypes__information, X <> 
+     audittypes__information].
+validateentr_rules(144): audittypes__severityt__pos(X) >= 0 may_be_deduced_from
+     [audittypes__information <= X, X <= audittypes__critical].
+validateentr_rules(145): audittypes__severityt__pos(X) <= 2 may_be_deduced_from
+     [audittypes__information <= X, X <= audittypes__critical].
+validateentr_rules(146): audittypes__severityt__val(X) >= 
+     audittypes__information may_be_deduced_from
+     [0 <= X, X <= 2].
+validateentr_rules(147): audittypes__severityt__val(X) <= 
+     audittypes__critical may_be_deduced_from
+     [0 <= X, X <= 2].
+validateentr_rules(148): succ(audittypes__severityt__val(X)) may_be_replaced_by 
+     audittypes__severityt__val(X+1)
+     if [0 <= X, X < 2].
+validateentr_rules(149): pred(audittypes__severityt__val(X)) may_be_replaced_by 
+     audittypes__severityt__val(X-1)
+     if [0 < X, X <= 2].
+validateentr_rules(150): audittypes__severityt__pos(
+     audittypes__severityt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 2].
+validateentr_rules(151): audittypes__severityt__val(
+     audittypes__severityt__pos(X)) may_be_replaced_by X
+     if [audittypes__information <= X, X <= audittypes__critical].
+validateentr_rules(152): audittypes__severityt__pos(X) <= 
+     audittypes__severityt__pos(Y) & X <= Y are_interchangeable 
+     if [audittypes__information <= X, X <= audittypes__critical, 
+     audittypes__information <= Y, Y <= audittypes__critical].
+validateentr_rules(153): audittypes__severityt__val(X) <= 
+     audittypes__severityt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 2, 0 <= Y, Y <= 2].
+validateentr_rules(154): audittypes__usertexti__size >= 0 may_be_deduced.
+validateentr_rules(155): audittypes__usertexti__first may_be_replaced_by 1.
+validateentr_rules(156): audittypes__usertexti__last may_be_replaced_by 50.
+validateentr_rules(157): audittypes__usertexti__base__first may_be_replaced_by -2147483648.
+validateentr_rules(158): audittypes__usertexti__base__last may_be_replaced_by 2147483647.
+validateentr_rules(159): privtypes__classt__size >= 0 may_be_deduced.
+validateentr_rules(160): privtypes__classt__first may_be_replaced_by privtypes__unmarked.
+validateentr_rules(161): privtypes__classt__last may_be_replaced_by privtypes__topsecret.
+validateentr_rules(162): privtypes__classt__base__first may_be_replaced_by privtypes__unmarked.
+validateentr_rules(163): privtypes__classt__base__last may_be_replaced_by privtypes__topsecret.
+validateentr_rules(164): privtypes__classt__pos(privtypes__classt__first) may_be_replaced_by 0.
+validateentr_rules(165): privtypes__classt__pos(
+     privtypes__unmarked) may_be_replaced_by 0.
+validateentr_rules(166): privtypes__classt__val(0) may_be_replaced_by 
+     privtypes__unmarked.
+validateentr_rules(167): privtypes__classt__pos(
+     privtypes__unclassified) may_be_replaced_by 1.
+validateentr_rules(168): privtypes__classt__val(1) may_be_replaced_by 
+     privtypes__unclassified.
+validateentr_rules(169): privtypes__classt__pos(
+     privtypes__restricted) may_be_replaced_by 2.
+validateentr_rules(170): privtypes__classt__val(2) may_be_replaced_by 
+     privtypes__restricted.
+validateentr_rules(171): privtypes__classt__pos(
+     privtypes__confidential) may_be_replaced_by 3.
+validateentr_rules(172): privtypes__classt__val(3) may_be_replaced_by 
+     privtypes__confidential.
+validateentr_rules(173): privtypes__classt__pos(privtypes__secret) may_be_replaced_by 4.
+validateentr_rules(174): privtypes__classt__val(4) may_be_replaced_by 
+     privtypes__secret.
+validateentr_rules(175): privtypes__classt__pos(
+     privtypes__topsecret) may_be_replaced_by 5.
+validateentr_rules(176): privtypes__classt__val(5) may_be_replaced_by 
+     privtypes__topsecret.
+validateentr_rules(177): privtypes__classt__pos(privtypes__classt__last) may_be_replaced_by 5.
+validateentr_rules(178): privtypes__classt__pos(succ(X)) may_be_replaced_by 
+     privtypes__classt__pos(X) + 1
+     if [X <=privtypes__topsecret, X <> privtypes__topsecret].
+validateentr_rules(179): privtypes__classt__pos(pred(X)) may_be_replaced_by 
+     privtypes__classt__pos(X) - 1
+     if [X >=privtypes__unmarked, X <> privtypes__unmarked].
+validateentr_rules(180): privtypes__classt__pos(X) >= 0 may_be_deduced_from
+     [privtypes__unmarked <= X, X <= privtypes__topsecret].
+validateentr_rules(181): privtypes__classt__pos(X) <= 5 may_be_deduced_from
+     [privtypes__unmarked <= X, X <= privtypes__topsecret].
+validateentr_rules(182): privtypes__classt__val(X) >= 
+     privtypes__unmarked may_be_deduced_from
+     [0 <= X, X <= 5].
+validateentr_rules(183): privtypes__classt__val(X) <= 
+     privtypes__topsecret may_be_deduced_from
+     [0 <= X, X <= 5].
+validateentr_rules(184): succ(privtypes__classt__val(X)) may_be_replaced_by 
+     privtypes__classt__val(X+1)
+     if [0 <= X, X < 5].
+validateentr_rules(185): pred(privtypes__classt__val(X)) may_be_replaced_by 
+     privtypes__classt__val(X-1)
+     if [0 < X, X <= 5].
+validateentr_rules(186): privtypes__classt__pos(privtypes__classt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 5].
+validateentr_rules(187): privtypes__classt__val(privtypes__classt__pos(X)) may_be_replaced_by X
+     if [privtypes__unmarked <= X, X <= privtypes__topsecret].
+validateentr_rules(188): privtypes__classt__pos(X) <= 
+     privtypes__classt__pos(Y) & X <= Y are_interchangeable 
+     if [privtypes__unmarked <= X, X <= privtypes__topsecret, 
+     privtypes__unmarked <= Y, Y <= privtypes__topsecret].
+validateentr_rules(189): privtypes__classt__val(X) <= 
+     privtypes__classt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 5, 0 <= Y, Y <= 5].
+validateentr_rules(190): configdata__durationt__size >= 0 may_be_deduced.
+validateentr_rules(191): configdata__durationt__first may_be_replaced_by 0.
+validateentr_rules(192): configdata__durationt__last may_be_replaced_by 2000.
+validateentr_rules(193): configdata__durationt__base__first <= 
+     configdata__durationt__base__last may_be_deduced.
+validateentr_rules(194): configdata__durationt__base__first <= 
+     configdata__durationt__first may_be_deduced.
+validateentr_rules(195): configdata__durationt__base__last >= 
+     configdata__durationt__last may_be_deduced.
+validateentr_rules(196): display__msgt__size >= 0 may_be_deduced.
+validateentr_rules(197): display__msgt__first may_be_replaced_by display__blank.
+validateentr_rules(198): display__msgt__last may_be_replaced_by display__doorunlocked.
+validateentr_rules(199): display__msgt__base__first may_be_replaced_by display__blank.
+validateentr_rules(200): display__msgt__base__last may_be_replaced_by display__doorunlocked.
+validateentr_rules(201): display__msgt__pos(display__msgt__first) may_be_replaced_by 0.
+validateentr_rules(202): display__msgt__pos(display__blank) may_be_replaced_by 0.
+validateentr_rules(203): display__msgt__val(0) may_be_replaced_by 
+     display__blank.
+validateentr_rules(204): display__msgt__pos(display__welcome) may_be_replaced_by 1.
+validateentr_rules(205): display__msgt__val(1) may_be_replaced_by 
+     display__welcome.
+validateentr_rules(206): display__msgt__pos(display__insertfinger) may_be_replaced_by 2.
+validateentr_rules(207): display__msgt__val(2) may_be_replaced_by 
+     display__insertfinger.
+validateentr_rules(208): display__msgt__pos(display__opendoor) may_be_replaced_by 3.
+validateentr_rules(209): display__msgt__val(3) may_be_replaced_by 
+     display__opendoor.
+validateentr_rules(210): display__msgt__pos(display__wait) may_be_replaced_by 4.
+validateentr_rules(211): display__msgt__val(4) may_be_replaced_by 
+     display__wait.
+validateentr_rules(212): display__msgt__pos(display__removetoken) may_be_replaced_by 5.
+validateentr_rules(213): display__msgt__val(5) may_be_replaced_by 
+     display__removetoken.
+validateentr_rules(214): display__msgt__pos(
+     display__tokenupdatefailed) may_be_replaced_by 6.
+validateentr_rules(215): display__msgt__val(6) may_be_replaced_by 
+     display__tokenupdatefailed.
+validateentr_rules(216): display__msgt__pos(display__doorunlocked) may_be_replaced_by 7.
+validateentr_rules(217): display__msgt__val(7) may_be_replaced_by 
+     display__doorunlocked.
+validateentr_rules(218): display__msgt__pos(display__msgt__last) may_be_replaced_by 7.
+validateentr_rules(219): display__msgt__pos(succ(X)) may_be_replaced_by 
+     display__msgt__pos(X) + 1
+     if [X <=display__doorunlocked, X <> display__doorunlocked].
+validateentr_rules(220): display__msgt__pos(pred(X)) may_be_replaced_by 
+     display__msgt__pos(X) - 1
+     if [X >=display__blank, X <> display__blank].
+validateentr_rules(221): display__msgt__pos(X) >= 0 may_be_deduced_from
+     [display__blank <= X, X <= display__doorunlocked].
+validateentr_rules(222): display__msgt__pos(X) <= 7 may_be_deduced_from
+     [display__blank <= X, X <= display__doorunlocked].
+validateentr_rules(223): display__msgt__val(X) >= display__blank may_be_deduced_from
+     [0 <= X, X <= 7].
+validateentr_rules(224): display__msgt__val(X) <= 
+     display__doorunlocked may_be_deduced_from
+     [0 <= X, X <= 7].
+validateentr_rules(225): succ(display__msgt__val(X)) may_be_replaced_by 
+     display__msgt__val(X+1)
+     if [0 <= X, X < 7].
+validateentr_rules(226): pred(display__msgt__val(X)) may_be_replaced_by 
+     display__msgt__val(X-1)
+     if [0 < X, X <= 7].
+validateentr_rules(227): display__msgt__pos(display__msgt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 7].
+validateentr_rules(228): display__msgt__val(display__msgt__pos(X)) may_be_replaced_by X
+     if [display__blank <= X, X <= display__doorunlocked].
+validateentr_rules(229): display__msgt__pos(X) <= display__msgt__pos(Y) & X <= Y are_interchangeable 
+     if [display__blank <= X, X <= display__doorunlocked, 
+     display__blank <= Y, Y <= display__doorunlocked].
+validateentr_rules(230): display__msgt__val(X) <= display__msgt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 7, 0 <= Y, Y <= 7].
+validateentr_rules(231): statust__size >= 0 may_be_deduced.
+validateentr_rules(232): statust__first may_be_replaced_by quiescent.
+validateentr_rules(233): statust__last may_be_replaced_by waitingremovetokenfail.
+validateentr_rules(234): statust__base__first may_be_replaced_by quiescent.
+validateentr_rules(235): statust__base__last may_be_replaced_by waitingremovetokenfail.
+validateentr_rules(236): statust__pos(statust__first) may_be_replaced_by 0.
+validateentr_rules(237): statust__pos(quiescent) may_be_replaced_by 0.
+validateentr_rules(238): statust__val(0) may_be_replaced_by 
+     quiescent.
+validateentr_rules(239): statust__pos(gotusertoken) may_be_replaced_by 1.
+validateentr_rules(240): statust__val(1) may_be_replaced_by 
+     gotusertoken.
+validateentr_rules(241): statust__pos(waitingfinger) may_be_replaced_by 2.
+validateentr_rules(242): statust__val(2) may_be_replaced_by 
+     waitingfinger.
+validateentr_rules(243): statust__pos(gotfinger) may_be_replaced_by 3.
+validateentr_rules(244): statust__val(3) may_be_replaced_by 
+     gotfinger.
+validateentr_rules(245): statust__pos(waitingupdatetoken) may_be_replaced_by 4.
+validateentr_rules(246): statust__val(4) may_be_replaced_by 
+     waitingupdatetoken.
+validateentr_rules(247): statust__pos(waitingentry) may_be_replaced_by 5.
+validateentr_rules(248): statust__val(5) may_be_replaced_by 
+     waitingentry.
+validateentr_rules(249): statust__pos(waitingremovetokensuccess) may_be_replaced_by 6.
+validateentr_rules(250): statust__val(6) may_be_replaced_by 
+     waitingremovetokensuccess.
+validateentr_rules(251): statust__pos(waitingremovetokenfail) may_be_replaced_by 7.
+validateentr_rules(252): statust__val(7) may_be_replaced_by 
+     waitingremovetokenfail.
+validateentr_rules(253): statust__pos(statust__last) may_be_replaced_by 7.
+validateentr_rules(254): statust__pos(succ(X)) may_be_replaced_by 
+     statust__pos(X) + 1
+     if [X <=waitingremovetokenfail, X <> waitingremovetokenfail].
+validateentr_rules(255): statust__pos(pred(X)) may_be_replaced_by 
+     statust__pos(X) - 1
+     if [X >=quiescent, X <> quiescent].
+validateentr_rules(256): statust__pos(X) >= 0 may_be_deduced_from
+     [quiescent <= X, X <= waitingremovetokenfail].
+validateentr_rules(257): statust__pos(X) <= 7 may_be_deduced_from
+     [quiescent <= X, X <= waitingremovetokenfail].
+validateentr_rules(258): statust__val(X) >= quiescent may_be_deduced_from
+     [0 <= X, X <= 7].
+validateentr_rules(259): statust__val(X) <= 
+     waitingremovetokenfail may_be_deduced_from
+     [0 <= X, X <= 7].
+validateentr_rules(260): succ(statust__val(X)) may_be_replaced_by 
+     statust__val(X+1)
+     if [0 <= X, X < 7].
+validateentr_rules(261): pred(statust__val(X)) may_be_replaced_by 
+     statust__val(X-1)
+     if [0 < X, X <= 7].
+validateentr_rules(262): statust__pos(statust__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 7].
+validateentr_rules(263): statust__val(statust__pos(X)) may_be_replaced_by X
+     if [quiescent <= X, X <= waitingremovetokenfail].
+validateentr_rules(264): statust__pos(X) <= statust__pos(Y) & X <= Y are_interchangeable 
+     if [quiescent <= X, X <= waitingremovetokenfail, quiescent <= Y, Y <= 
+     waitingremovetokenfail].
+validateentr_rules(265): statust__val(X) <= statust__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 7, 0 <= Y, Y <= 7].

@@ -1,0 +1,426 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:28  SIMPLIFIED 05-SEP-2011, 15:39:58
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure ConfigData.ValidateFile.ReadFileSize
+
+
+
+
+
+
+@@@@@@@@@@  VC: procedure_readfilesize_1.  @@@@@@@@@@
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  true
+***  Proved C1:  true
+-S-  Applied substitution rule readfilesize_rules(19).
+     This was achieved by replacing all occurrences of 
+          audittypes__filesizet__first by:
+          0.
+<S>  New C2:  0 <= audittypes__filesizet__last
+-S-  Applied substitution rule readfilesize_rules(20).
+     This was achieved by replacing all occurrences of 
+          audittypes__filesizet__last by:
+          4194304.
+<S>  New C2:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_readfilesize_2.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  true
+-S-  Applied substitution rule readfilesize_rules(9).
+     This was achieved by replacing all occurrences of natural__first by:
+          0.
+<S>  New C1:  true
+-S-  Applied substitution rule readfilesize_rules(10).
+     This was achieved by replacing all occurrences of natural__last by:
+          2147483647.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_readfilesize_3.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  true
+***  Proved C1:  rawsize__1 >= integer__first
+     using hypothesis H6.
+***  Proved C2:  rawsize__1 <= integer__last
+     using hypothesis H7.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_readfilesize_4.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  true
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H6).
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H6)
+          .
+---  Hypothesis H12 has been replaced by "true".  (It is already present, as H7)
+          .
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  success__1 -> audittypes__filesizet__first div 1024 >= 
+          integer__base__first and audittypes__filesizet__first div 1024 <= 
+          integer__base__last
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  true
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  success__1 -> 1024 >= system__min_int and 1024 <= system__max_int
+%%%  Simplified C4 on reading formula in, to give:
+     %%%  C4:  true
+%%%  Simplified C6 on reading formula in, to give:
+     %%%  C6:  success__1 -> audittypes__filesizet__last div 1024 >= 
+          integer__base__first and audittypes__filesizet__last div 1024 <= 
+          integer__base__last
+%%%  Simplified C7 on reading formula in, to give:
+     %%%  C7:  true
+%%%  Simplified C8 on reading formula in, to give:
+     %%%  C8:  success__1 -> 1024 >= system__min_int and 1024 <= system__max_int
+%%%  Simplified C9 on reading formula in, to give:
+     %%%  C9:  true
+***  Proved C2:  true
+***  Proved C4:  true
+***  Proved C7:  true
+***  Proved C9:  true
+-S-  Applied substitution rule readfilesize_rules(1).
+     This was achieved by replacing all occurrences of system__min_int by:
+          - 9223372036854775808.
+<S>  New C3:  success__1 -> 1024 <= system__max_int
+<S>  New C8:  success__1 -> 1024 <= system__max_int
+-S-  Applied substitution rule readfilesize_rules(2).
+     This was achieved by replacing all occurrences of system__max_int by:
+          9223372036854775807.
+<S>  New C3:  true
+<S>  New C8:  true
+-S-  Applied substitution rule readfilesize_rules(4).
+     This was achieved by replacing all occurrences of integer__first by:
+          - 2147483648.
+<S>  New H6:  rawsize__1 >= - 2147483648
+<S>  New C5:  success__1 -> audittypes__filesizet__first >= - 2147483648 and 
+          audittypes__filesizet__first <= integer__last
+<S>  New C10:  success__1 -> audittypes__filesizet__last >= - 2147483648 and 
+          audittypes__filesizet__last <= integer__last
+-S-  Applied substitution rule readfilesize_rules(5).
+     This was achieved by replacing all occurrences of integer__last by:
+          2147483647.
+<S>  New H7:  rawsize__1 <= 2147483647
+<S>  New C5:  success__1 -> audittypes__filesizet__first >= - 2147483648 and 
+          audittypes__filesizet__first <= 2147483647
+<S>  New C10:  success__1 -> audittypes__filesizet__last >= - 2147483648 and 
+          audittypes__filesizet__last <= 2147483647
+-S-  Applied substitution rule readfilesize_rules(6).
+     This was achieved by replacing all occurrences of integer__base__first by:
+          - 2147483648.
+<S>  New C1:  success__1 -> audittypes__filesizet__first div 1024 >= - 
+          2147483648 and audittypes__filesizet__first div 1024 <= 
+          integer__base__last
+<S>  New C6:  success__1 -> audittypes__filesizet__last div 1024 >= - 
+          2147483648 and audittypes__filesizet__last div 1024 <= 
+          integer__base__last
+-S-  Applied substitution rule readfilesize_rules(7).
+     This was achieved by replacing all occurrences of integer__base__last by:
+          2147483647.
+<S>  New C1:  success__1 -> audittypes__filesizet__first div 1024 >= - 
+          2147483648 and audittypes__filesizet__first div 1024 <= 2147483647
+<S>  New C6:  success__1 -> audittypes__filesizet__last div 1024 >= - 
+          2147483648 and audittypes__filesizet__last div 1024 <= 2147483647
+-S-  Applied substitution rule readfilesize_rules(9).
+     This was achieved by replacing all occurrences of natural__first by:
+          0.
+<S>  New H4:  true
+-S-  Applied substitution rule readfilesize_rules(10).
+     This was achieved by replacing all occurrences of natural__last by:
+          2147483647.
+<S>  New H5:  true
+-S-  Applied substitution rule readfilesize_rules(19).
+     This was achieved by replacing all occurrences of 
+          audittypes__filesizet__first by:
+          0.
+<S>  New H3:  0 <= audittypes__filesizet__last
+<S>  New C5:  true
+<S>  New C1:  true
+-S-  Applied substitution rule readfilesize_rules(20).
+     This was achieved by replacing all occurrences of 
+          audittypes__filesizet__last by:
+          4194304.
+<S>  New H3:  true
+<S>  New C10:  true
+<S>  New C6:  true
+***  Proved C3:  true
+***  Proved C8:  true
+***  Proved C5:  true
+***  Proved C1:  true
+***  Proved C10:  true
+***  Proved C6:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_readfilesize_5.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  true
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H6).
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H6)
+          .
+---  Hypothesis H12 has been replaced by "true".  (It is already present, as H7)
+          .
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  success__1 -> audittypes__filesizet__first div 1024 >= 
+          integer__base__first and audittypes__filesizet__first div 1024 <= 
+          integer__base__last
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  true
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  success__1 -> 1024 >= system__min_int and 1024 <= 
+          system__max_int
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  true
+%%%  Simplified H18 on reading formula in, to give:
+     %%%  H18:  success__1 -> audittypes__filesizet__last div 1024 >= 
+          integer__base__first and audittypes__filesizet__last div 1024 <= 
+          integer__base__last
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as 
+          H16).
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  rawsize__1 <= audittypes__filesizet__last div 1024
+%%%  Simplified H25 on reading formula in, to give:
+     %%%  H25:  rawsize__1 >= audittypes__filesizet__first div 1024
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as H6)
+          .
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as H7)
+          .
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  rawsize__1 * 1024 >= audittypes__filesizet__first
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  rawsize__1 * 1024 <= audittypes__filesizet__last
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  rawsize__1 * 1024 >= audittypes__filesizet__first
+%%%  Simplified C4 on reading formula in, to give:
+     %%%  C4:  rawsize__1 * 1024 <= audittypes__filesizet__last
+%%%  Simplified C5 on reading formula in, to give:
+     %%%  C5:  rawsize__1 * 1024 >= integer__base__first
+%%%  Simplified C6 on reading formula in, to give:
+     %%%  C6:  rawsize__1 * 1024 <= integer__base__last
+%%%  Simplified C7 on reading formula in, to give:
+     %%%  C7:  1024 >= system__min_int
+%%%  Simplified C8 on reading formula in, to give:
+     %%%  C8:  1024 <= system__max_int
+%%%  Simplified C9 on reading formula in, to give:
+     %%%  C9:  true
+***  Proved C9:  true
+-S-  Applied substitution rule readfilesize_rules(19).
+     This was achieved by replacing all occurrences of 
+          audittypes__filesizet__first by:
+          0.
+<S>  New H3:  0 <= audittypes__filesizet__last
+<S>  New H13:  success__1 -> 0 >= integer__base__first and 0 <= 
+          integer__base__last
+<S>  New H17:  success__1 -> 0 >= integer__first and 0 <= integer__last
+<S>  New H25:  rawsize__1 >= 0
+<S>  New C1:  rawsize__1 * 1024 >= 0
+<S>  New C3:  rawsize__1 * 1024 >= 0
+-S-  Applied substitution rule readfilesize_rules(20).
+     This was achieved by replacing all occurrences of 
+          audittypes__filesizet__last by:
+          4194304.
+<S>  New H18:  success__1 -> 4096 >= integer__base__first and 4096 <= 
+          integer__base__last
+<S>  New H22:  success__1 -> 4194304 >= integer__first and 4194304 <= 
+          integer__last
+<S>  New H24:  rawsize__1 <= 4096
+<S>  New H3:  true
+<S>  New C2:  rawsize__1 * 1024 <= 4194304
+<S>  New C4:  rawsize__1 * 1024 <= 4194304
+-S-  Applied substitution rule readfilesize_rules(6).
+     This was achieved by replacing all occurrences of integer__base__first by:
+          - 2147483648.
+<S>  New H13:  success__1 -> 0 <= integer__base__last
+<S>  New H18:  success__1 -> 4096 <= integer__base__last
+<S>  New C5:  rawsize__1 * 1024 >= - 2147483648
+-S-  Applied substitution rule readfilesize_rules(7).
+     This was achieved by replacing all occurrences of integer__base__last by:
+          2147483647.
+<S>  New H13:  true
+<S>  New H18:  true
+<S>  New C6:  rawsize__1 * 1024 <= 2147483647
+-S-  Applied substitution rule readfilesize_rules(1).
+     This was achieved by replacing all occurrences of system__min_int by:
+          - 9223372036854775808.
+<S>  New H15:  success__1 -> 1024 <= system__max_int
+<S>  New C7:  true
+-S-  Applied substitution rule readfilesize_rules(2).
+     This was achieved by replacing all occurrences of system__max_int by:
+          9223372036854775807.
+<S>  New H15:  true
+<S>  New C8:  true
+***  Proved C1:  rawsize__1 * 1024 >= 0
+     using hypothesis H25.
+***  Proved C3:  rawsize__1 * 1024 >= 0
+     using hypothesis H25.
+***  Proved C2:  rawsize__1 * 1024 <= 4194304
+     using hypothesis H24.
+***  Proved C4:  rawsize__1 * 1024 <= 4194304
+     using hypothesis H24.
+***  Proved C5:  rawsize__1 * 1024 >= - 2147483648
+     using hypothesis H25.
+***  Proved C6:  rawsize__1 * 1024 <= 2147483647
+     using hypothesis H24.
+***  Proved C7:  true
+***  Proved C8:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_readfilesize_6.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  true
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H6).
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H6)
+          .
+---  Hypothesis H12 has been replaced by "true".  (It is already present, as H7)
+          .
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  success__1 -> audittypes__filesizet__first div 1024 >= 
+          integer__base__first and audittypes__filesizet__first div 1024 <= 
+          integer__base__last
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  true
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  success__1 -> 1024 >= system__min_int and 1024 <= 
+          system__max_int
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  true
+%%%  Simplified H18 on reading formula in, to give:
+     %%%  H18:  success__1 -> audittypes__filesizet__last div 1024 >= 
+          integer__base__first and audittypes__filesizet__last div 1024 <= 
+          integer__base__last
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as 
+          H16).
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  rawsize__1 <= audittypes__filesizet__last div 1024
+%%%  Simplified H25 on reading formula in, to give:
+     %%%  H25:  rawsize__1 >= audittypes__filesizet__first div 1024
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as H6)
+          .
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as H7)
+          .
+%%%  Simplified H28 on reading formula in, to give:
+     %%%  H28:  rawsize__1 * 1024 >= audittypes__filesizet__first
+%%%  Simplified H29 on reading formula in, to give:
+     %%%  H29:  rawsize__1 * 1024 <= audittypes__filesizet__last
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as 
+          H29).
+%%%  Simplified H32 on reading formula in, to give:
+     %%%  H32:  rawsize__1 * 1024 >= integer__base__first
+%%%  Simplified H33 on reading formula in, to give:
+     %%%  H33:  rawsize__1 * 1024 <= integer__base__last
+%%%  Simplified H34 on reading formula in, to give:
+     %%%  H34:  1024 >= system__min_int
+%%%  Simplified H35 on reading formula in, to give:
+     %%%  H35:  1024 <= system__max_int
+%%%  Simplified H36 on reading formula in, to give:
+     %%%  H36:  true
+-S-  Applied substitution rule readfilesize_rules(14).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New C1:  true
+-S-  Applied substitution rule readfilesize_rules(15).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_readfilesize_7.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  true
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H6).
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H6)
+          .
+---  Hypothesis H12 has been replaced by "true".  (It is already present, as H7)
+          .
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  success__1 -> audittypes__filesizet__first div 1024 >= 
+          integer__base__first and audittypes__filesizet__first div 1024 <= 
+          integer__base__last
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  true
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  success__1 -> 1024 >= system__min_int and 1024 <= 
+          system__max_int
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  true
+%%%  Simplified H18 on reading formula in, to give:
+     %%%  H18:  success__1 -> audittypes__filesizet__last div 1024 >= 
+          integer__base__first and audittypes__filesizet__last div 1024 <= 
+          integer__base__last
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as 
+          H16).
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  not (success__1 and (rawsize__1 <= audittypes__filesizet__last 
+          div 1024 and rawsize__1 >= audittypes__filesizet__first div 1024))
+-S-  Applied substitution rule readfilesize_rules(14).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New C1:  true
+-S-  Applied substitution rule readfilesize_rules(15).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_readfilesize_8.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_readfilesize_9.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_readfilesize_10.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_readfilesize_11.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+

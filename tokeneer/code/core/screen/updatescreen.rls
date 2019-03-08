@@ -1,0 +1,601 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:23.40*/
+
+                       /*procedure Screen.UpdateScreen*/
+
+
+rule_family updatescreen_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+updatescreen_rules(1): clock__durationt__size >= 0 may_be_deduced.
+updatescreen_rules(2): clock__durationt__first may_be_replaced_by 0.
+updatescreen_rules(3): clock__durationt__last may_be_replaced_by 864000.
+updatescreen_rules(4): clock__durationt__base__first <= 
+     clock__durationt__base__last may_be_deduced.
+updatescreen_rules(5): clock__durationt__base__first <= 
+     clock__durationt__first may_be_deduced.
+updatescreen_rules(6): clock__durationt__base__last >= 
+     clock__durationt__last may_be_deduced.
+updatescreen_rules(7): audittypes__elementt__size >= 0 may_be_deduced.
+updatescreen_rules(8): audittypes__elementt__first may_be_replaced_by audittypes__startunenrolledtis.
+updatescreen_rules(9): audittypes__elementt__last may_be_replaced_by audittypes__systemfault.
+updatescreen_rules(10): audittypes__elementt__base__first may_be_replaced_by audittypes__startunenrolledtis.
+updatescreen_rules(11): audittypes__elementt__base__last may_be_replaced_by audittypes__systemfault.
+updatescreen_rules(12): audittypes__elementt__pos(
+     audittypes__elementt__first) may_be_replaced_by 0.
+updatescreen_rules(13): audittypes__elementt__pos(
+     audittypes__startunenrolledtis) may_be_replaced_by 0.
+updatescreen_rules(14): audittypes__elementt__val(0) may_be_replaced_by 
+     audittypes__startunenrolledtis.
+updatescreen_rules(15): audittypes__elementt__pos(
+     audittypes__startenrolledtis) may_be_replaced_by 1.
+updatescreen_rules(16): audittypes__elementt__val(1) may_be_replaced_by 
+     audittypes__startenrolledtis.
+updatescreen_rules(17): audittypes__elementt__pos(
+     audittypes__enrolmentcomplete) may_be_replaced_by 2.
+updatescreen_rules(18): audittypes__elementt__val(2) may_be_replaced_by 
+     audittypes__enrolmentcomplete.
+updatescreen_rules(19): audittypes__elementt__pos(
+     audittypes__enrolmentfailed) may_be_replaced_by 3.
+updatescreen_rules(20): audittypes__elementt__val(3) may_be_replaced_by 
+     audittypes__enrolmentfailed.
+updatescreen_rules(21): audittypes__elementt__pos(
+     audittypes__displaychanged) may_be_replaced_by 4.
+updatescreen_rules(22): audittypes__elementt__val(4) may_be_replaced_by 
+     audittypes__displaychanged.
+updatescreen_rules(23): audittypes__elementt__pos(
+     audittypes__screenchanged) may_be_replaced_by 5.
+updatescreen_rules(24): audittypes__elementt__val(5) may_be_replaced_by 
+     audittypes__screenchanged.
+updatescreen_rules(25): audittypes__elementt__pos(
+     audittypes__doorclosed) may_be_replaced_by 6.
+updatescreen_rules(26): audittypes__elementt__val(6) may_be_replaced_by 
+     audittypes__doorclosed.
+updatescreen_rules(27): audittypes__elementt__pos(
+     audittypes__dooropened) may_be_replaced_by 7.
+updatescreen_rules(28): audittypes__elementt__val(7) may_be_replaced_by 
+     audittypes__dooropened.
+updatescreen_rules(29): audittypes__elementt__pos(
+     audittypes__latchlocked) may_be_replaced_by 8.
+updatescreen_rules(30): audittypes__elementt__val(8) may_be_replaced_by 
+     audittypes__latchlocked.
+updatescreen_rules(31): audittypes__elementt__pos(
+     audittypes__latchunlocked) may_be_replaced_by 9.
+updatescreen_rules(32): audittypes__elementt__val(9) may_be_replaced_by 
+     audittypes__latchunlocked.
+updatescreen_rules(33): audittypes__elementt__pos(
+     audittypes__alarmraised) may_be_replaced_by 10.
+updatescreen_rules(34): audittypes__elementt__val(10) may_be_replaced_by 
+     audittypes__alarmraised.
+updatescreen_rules(35): audittypes__elementt__pos(
+     audittypes__alarmsilenced) may_be_replaced_by 11.
+updatescreen_rules(36): audittypes__elementt__val(11) may_be_replaced_by 
+     audittypes__alarmsilenced.
+updatescreen_rules(37): audittypes__elementt__pos(
+     audittypes__truncatelog) may_be_replaced_by 12.
+updatescreen_rules(38): audittypes__elementt__val(12) may_be_replaced_by 
+     audittypes__truncatelog.
+updatescreen_rules(39): audittypes__elementt__pos(
+     audittypes__auditalarmraised) may_be_replaced_by 13.
+updatescreen_rules(40): audittypes__elementt__val(13) may_be_replaced_by 
+     audittypes__auditalarmraised.
+updatescreen_rules(41): audittypes__elementt__pos(
+     audittypes__auditalarmsilenced) may_be_replaced_by 14.
+updatescreen_rules(42): audittypes__elementt__val(14) may_be_replaced_by 
+     audittypes__auditalarmsilenced.
+updatescreen_rules(43): audittypes__elementt__pos(
+     audittypes__usertokenremoved) may_be_replaced_by 15.
+updatescreen_rules(44): audittypes__elementt__val(15) may_be_replaced_by 
+     audittypes__usertokenremoved.
+updatescreen_rules(45): audittypes__elementt__pos(
+     audittypes__usertokenpresent) may_be_replaced_by 16.
+updatescreen_rules(46): audittypes__elementt__val(16) may_be_replaced_by 
+     audittypes__usertokenpresent.
+updatescreen_rules(47): audittypes__elementt__pos(
+     audittypes__usertokeninvalid) may_be_replaced_by 17.
+updatescreen_rules(48): audittypes__elementt__val(17) may_be_replaced_by 
+     audittypes__usertokeninvalid.
+updatescreen_rules(49): audittypes__elementt__pos(
+     audittypes__authcertvalid) may_be_replaced_by 18.
+updatescreen_rules(50): audittypes__elementt__val(18) may_be_replaced_by 
+     audittypes__authcertvalid.
+updatescreen_rules(51): audittypes__elementt__pos(
+     audittypes__authcertinvalid) may_be_replaced_by 19.
+updatescreen_rules(52): audittypes__elementt__val(19) may_be_replaced_by 
+     audittypes__authcertinvalid.
+updatescreen_rules(53): audittypes__elementt__pos(
+     audittypes__fingerdetected) may_be_replaced_by 20.
+updatescreen_rules(54): audittypes__elementt__val(20) may_be_replaced_by 
+     audittypes__fingerdetected.
+updatescreen_rules(55): audittypes__elementt__pos(
+     audittypes__fingertimeout) may_be_replaced_by 21.
+updatescreen_rules(56): audittypes__elementt__val(21) may_be_replaced_by 
+     audittypes__fingertimeout.
+updatescreen_rules(57): audittypes__elementt__pos(
+     audittypes__fingermatched) may_be_replaced_by 22.
+updatescreen_rules(58): audittypes__elementt__val(22) may_be_replaced_by 
+     audittypes__fingermatched.
+updatescreen_rules(59): audittypes__elementt__pos(
+     audittypes__fingernotmatched) may_be_replaced_by 23.
+updatescreen_rules(60): audittypes__elementt__val(23) may_be_replaced_by 
+     audittypes__fingernotmatched.
+updatescreen_rules(61): audittypes__elementt__pos(
+     audittypes__authcertwritten) may_be_replaced_by 24.
+updatescreen_rules(62): audittypes__elementt__val(24) may_be_replaced_by 
+     audittypes__authcertwritten.
+updatescreen_rules(63): audittypes__elementt__pos(
+     audittypes__authcertwritefailed) may_be_replaced_by 25.
+updatescreen_rules(64): audittypes__elementt__val(25) may_be_replaced_by 
+     audittypes__authcertwritefailed.
+updatescreen_rules(65): audittypes__elementt__pos(
+     audittypes__entrypermitted) may_be_replaced_by 26.
+updatescreen_rules(66): audittypes__elementt__val(26) may_be_replaced_by 
+     audittypes__entrypermitted.
+updatescreen_rules(67): audittypes__elementt__pos(
+     audittypes__entrytimeout) may_be_replaced_by 27.
+updatescreen_rules(68): audittypes__elementt__val(27) may_be_replaced_by 
+     audittypes__entrytimeout.
+updatescreen_rules(69): audittypes__elementt__pos(
+     audittypes__entrydenied) may_be_replaced_by 28.
+updatescreen_rules(70): audittypes__elementt__val(28) may_be_replaced_by 
+     audittypes__entrydenied.
+updatescreen_rules(71): audittypes__elementt__pos(
+     audittypes__admintokenpresent) may_be_replaced_by 29.
+updatescreen_rules(72): audittypes__elementt__val(29) may_be_replaced_by 
+     audittypes__admintokenpresent.
+updatescreen_rules(73): audittypes__elementt__pos(
+     audittypes__admintokenvalid) may_be_replaced_by 30.
+updatescreen_rules(74): audittypes__elementt__val(30) may_be_replaced_by 
+     audittypes__admintokenvalid.
+updatescreen_rules(75): audittypes__elementt__pos(
+     audittypes__admintokeninvalid) may_be_replaced_by 31.
+updatescreen_rules(76): audittypes__elementt__val(31) may_be_replaced_by 
+     audittypes__admintokeninvalid.
+updatescreen_rules(77): audittypes__elementt__pos(
+     audittypes__admintokenexpired) may_be_replaced_by 32.
+updatescreen_rules(78): audittypes__elementt__val(32) may_be_replaced_by 
+     audittypes__admintokenexpired.
+updatescreen_rules(79): audittypes__elementt__pos(
+     audittypes__admintokenremoved) may_be_replaced_by 33.
+updatescreen_rules(80): audittypes__elementt__val(33) may_be_replaced_by 
+     audittypes__admintokenremoved.
+updatescreen_rules(81): audittypes__elementt__pos(
+     audittypes__invalidoprequest) may_be_replaced_by 34.
+updatescreen_rules(82): audittypes__elementt__val(34) may_be_replaced_by 
+     audittypes__invalidoprequest.
+updatescreen_rules(83): audittypes__elementt__pos(
+     audittypes__operationstart) may_be_replaced_by 35.
+updatescreen_rules(84): audittypes__elementt__val(35) may_be_replaced_by 
+     audittypes__operationstart.
+updatescreen_rules(85): audittypes__elementt__pos(
+     audittypes__archivelog) may_be_replaced_by 36.
+updatescreen_rules(86): audittypes__elementt__val(36) may_be_replaced_by 
+     audittypes__archivelog.
+updatescreen_rules(87): audittypes__elementt__pos(
+     audittypes__archivecomplete) may_be_replaced_by 37.
+updatescreen_rules(88): audittypes__elementt__val(37) may_be_replaced_by 
+     audittypes__archivecomplete.
+updatescreen_rules(89): audittypes__elementt__pos(
+     audittypes__archivecheckfailed) may_be_replaced_by 38.
+updatescreen_rules(90): audittypes__elementt__val(38) may_be_replaced_by 
+     audittypes__archivecheckfailed.
+updatescreen_rules(91): audittypes__elementt__pos(
+     audittypes__updatedconfigdata) may_be_replaced_by 39.
+updatescreen_rules(92): audittypes__elementt__val(39) may_be_replaced_by 
+     audittypes__updatedconfigdata.
+updatescreen_rules(93): audittypes__elementt__pos(
+     audittypes__invalidconfigdata) may_be_replaced_by 40.
+updatescreen_rules(94): audittypes__elementt__val(40) may_be_replaced_by 
+     audittypes__invalidconfigdata.
+updatescreen_rules(95): audittypes__elementt__pos(
+     audittypes__shutdown) may_be_replaced_by 41.
+updatescreen_rules(96): audittypes__elementt__val(41) may_be_replaced_by 
+     audittypes__shutdown.
+updatescreen_rules(97): audittypes__elementt__pos(
+     audittypes__overridelock) may_be_replaced_by 42.
+updatescreen_rules(98): audittypes__elementt__val(42) may_be_replaced_by 
+     audittypes__overridelock.
+updatescreen_rules(99): audittypes__elementt__pos(
+     audittypes__systemfault) may_be_replaced_by 43.
+updatescreen_rules(100): audittypes__elementt__val(43) may_be_replaced_by 
+     audittypes__systemfault.
+updatescreen_rules(101): audittypes__elementt__pos(
+     audittypes__elementt__last) may_be_replaced_by 43.
+updatescreen_rules(102): audittypes__elementt__pos(succ(X)) may_be_replaced_by 
+     audittypes__elementt__pos(X) + 1
+     if [X <=audittypes__systemfault, X <> 
+     audittypes__systemfault].
+updatescreen_rules(103): audittypes__elementt__pos(pred(X)) may_be_replaced_by 
+     audittypes__elementt__pos(X) - 1
+     if [X >=audittypes__startunenrolledtis, X <> 
+     audittypes__startunenrolledtis].
+updatescreen_rules(104): audittypes__elementt__pos(X) >= 0 may_be_deduced_from
+     [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+updatescreen_rules(105): audittypes__elementt__pos(X) <= 43 may_be_deduced_from
+     [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+updatescreen_rules(106): audittypes__elementt__val(X) >= 
+     audittypes__startunenrolledtis may_be_deduced_from
+     [0 <= X, X <= 43].
+updatescreen_rules(107): audittypes__elementt__val(X) <= 
+     audittypes__systemfault may_be_deduced_from
+     [0 <= X, X <= 43].
+updatescreen_rules(108): succ(audittypes__elementt__val(X)) may_be_replaced_by 
+     audittypes__elementt__val(X+1)
+     if [0 <= X, X < 43].
+updatescreen_rules(109): pred(audittypes__elementt__val(X)) may_be_replaced_by 
+     audittypes__elementt__val(X-1)
+     if [0 < X, X <= 43].
+updatescreen_rules(110): audittypes__elementt__pos(
+     audittypes__elementt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 43].
+updatescreen_rules(111): audittypes__elementt__val(
+     audittypes__elementt__pos(X)) may_be_replaced_by X
+     if [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+updatescreen_rules(112): audittypes__elementt__pos(X) <= 
+     audittypes__elementt__pos(Y) & X <= Y are_interchangeable 
+     if [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault, audittypes__startunenrolledtis <= Y, Y <= 
+     audittypes__systemfault].
+updatescreen_rules(113): audittypes__elementt__val(X) <= 
+     audittypes__elementt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 43, 0 <= Y, Y <= 43].
+updatescreen_rules(114): audittypes__severityt__size >= 0 may_be_deduced.
+updatescreen_rules(115): audittypes__severityt__first may_be_replaced_by audittypes__information.
+updatescreen_rules(116): audittypes__severityt__last may_be_replaced_by audittypes__critical.
+updatescreen_rules(117): audittypes__severityt__base__first may_be_replaced_by audittypes__information.
+updatescreen_rules(118): audittypes__severityt__base__last may_be_replaced_by audittypes__critical.
+updatescreen_rules(119): audittypes__severityt__pos(
+     audittypes__severityt__first) may_be_replaced_by 0.
+updatescreen_rules(120): audittypes__severityt__pos(
+     audittypes__information) may_be_replaced_by 0.
+updatescreen_rules(121): audittypes__severityt__val(0) may_be_replaced_by 
+     audittypes__information.
+updatescreen_rules(122): audittypes__severityt__pos(
+     audittypes__warning) may_be_replaced_by 1.
+updatescreen_rules(123): audittypes__severityt__val(1) may_be_replaced_by 
+     audittypes__warning.
+updatescreen_rules(124): audittypes__severityt__pos(
+     audittypes__critical) may_be_replaced_by 2.
+updatescreen_rules(125): audittypes__severityt__val(2) may_be_replaced_by 
+     audittypes__critical.
+updatescreen_rules(126): audittypes__severityt__pos(
+     audittypes__severityt__last) may_be_replaced_by 2.
+updatescreen_rules(127): audittypes__severityt__pos(succ(X)) may_be_replaced_by 
+     audittypes__severityt__pos(X) + 1
+     if [X <=audittypes__critical, X <> audittypes__critical].
+updatescreen_rules(128): audittypes__severityt__pos(pred(X)) may_be_replaced_by 
+     audittypes__severityt__pos(X) - 1
+     if [X >=audittypes__information, X <> 
+     audittypes__information].
+updatescreen_rules(129): audittypes__severityt__pos(X) >= 0 may_be_deduced_from
+     [audittypes__information <= X, X <= audittypes__critical].
+updatescreen_rules(130): audittypes__severityt__pos(X) <= 2 may_be_deduced_from
+     [audittypes__information <= X, X <= audittypes__critical].
+updatescreen_rules(131): audittypes__severityt__val(X) >= 
+     audittypes__information may_be_deduced_from
+     [0 <= X, X <= 2].
+updatescreen_rules(132): audittypes__severityt__val(X) <= 
+     audittypes__critical may_be_deduced_from
+     [0 <= X, X <= 2].
+updatescreen_rules(133): succ(audittypes__severityt__val(X)) may_be_replaced_by 
+     audittypes__severityt__val(X+1)
+     if [0 <= X, X < 2].
+updatescreen_rules(134): pred(audittypes__severityt__val(X)) may_be_replaced_by 
+     audittypes__severityt__val(X-1)
+     if [0 < X, X <= 2].
+updatescreen_rules(135): audittypes__severityt__pos(
+     audittypes__severityt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 2].
+updatescreen_rules(136): audittypes__severityt__val(
+     audittypes__severityt__pos(X)) may_be_replaced_by X
+     if [audittypes__information <= X, X <= audittypes__critical].
+updatescreen_rules(137): audittypes__severityt__pos(X) <= 
+     audittypes__severityt__pos(Y) & X <= Y are_interchangeable 
+     if [audittypes__information <= X, X <= audittypes__critical, 
+     audittypes__information <= Y, Y <= audittypes__critical].
+updatescreen_rules(138): audittypes__severityt__val(X) <= 
+     audittypes__severityt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 2, 0 <= Y, Y <= 2].
+updatescreen_rules(139): audittypes__filesizet__size >= 0 may_be_deduced.
+updatescreen_rules(140): audittypes__filesizet__first may_be_replaced_by 0.
+updatescreen_rules(141): audittypes__filesizet__last may_be_replaced_by 4194304.
+updatescreen_rules(142): audittypes__filesizet__base__first may_be_replaced_by -2147483648.
+updatescreen_rules(143): audittypes__filesizet__base__last may_be_replaced_by 2147483647.
+updatescreen_rules(144): alarmtypes__statust__size >= 0 may_be_deduced.
+updatescreen_rules(145): alarmtypes__statust__first may_be_replaced_by alarmtypes__alarming.
+updatescreen_rules(146): alarmtypes__statust__last may_be_replaced_by alarmtypes__silent.
+updatescreen_rules(147): alarmtypes__statust__base__first may_be_replaced_by alarmtypes__alarming.
+updatescreen_rules(148): alarmtypes__statust__base__last may_be_replaced_by alarmtypes__silent.
+updatescreen_rules(149): alarmtypes__statust__pos(
+     alarmtypes__statust__first) may_be_replaced_by 0.
+updatescreen_rules(150): alarmtypes__statust__pos(
+     alarmtypes__alarming) may_be_replaced_by 0.
+updatescreen_rules(151): alarmtypes__statust__val(0) may_be_replaced_by 
+     alarmtypes__alarming.
+updatescreen_rules(152): alarmtypes__statust__pos(
+     alarmtypes__silent) may_be_replaced_by 1.
+updatescreen_rules(153): alarmtypes__statust__val(1) may_be_replaced_by 
+     alarmtypes__silent.
+updatescreen_rules(154): alarmtypes__statust__pos(
+     alarmtypes__statust__last) may_be_replaced_by 1.
+updatescreen_rules(155): alarmtypes__statust__pos(succ(X)) may_be_replaced_by 
+     alarmtypes__statust__pos(X) + 1
+     if [X <=alarmtypes__silent, X <> alarmtypes__silent].
+updatescreen_rules(156): alarmtypes__statust__pos(pred(X)) may_be_replaced_by 
+     alarmtypes__statust__pos(X) - 1
+     if [X >=alarmtypes__alarming, X <> alarmtypes__alarming].
+updatescreen_rules(157): alarmtypes__statust__pos(X) >= 0 may_be_deduced_from
+     [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+updatescreen_rules(158): alarmtypes__statust__pos(X) <= 1 may_be_deduced_from
+     [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+updatescreen_rules(159): alarmtypes__statust__val(X) >= 
+     alarmtypes__alarming may_be_deduced_from
+     [0 <= X, X <= 1].
+updatescreen_rules(160): alarmtypes__statust__val(X) <= 
+     alarmtypes__silent may_be_deduced_from
+     [0 <= X, X <= 1].
+updatescreen_rules(161): succ(alarmtypes__statust__val(X)) may_be_replaced_by 
+     alarmtypes__statust__val(X+1)
+     if [0 <= X, X < 1].
+updatescreen_rules(162): pred(alarmtypes__statust__val(X)) may_be_replaced_by 
+     alarmtypes__statust__val(X-1)
+     if [0 < X, X <= 1].
+updatescreen_rules(163): alarmtypes__statust__pos(
+     alarmtypes__statust__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+updatescreen_rules(164): alarmtypes__statust__val(
+     alarmtypes__statust__pos(X)) may_be_replaced_by X
+     if [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+updatescreen_rules(165): alarmtypes__statust__pos(X) <= 
+     alarmtypes__statust__pos(Y) & X <= Y are_interchangeable 
+     if [alarmtypes__alarming <= X, X <= alarmtypes__silent, 
+     alarmtypes__alarming <= Y, Y <= alarmtypes__silent].
+updatescreen_rules(166): alarmtypes__statust__val(X) <= 
+     alarmtypes__statust__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].
+updatescreen_rules(167): privtypes__classt__size >= 0 may_be_deduced.
+updatescreen_rules(168): privtypes__classt__first may_be_replaced_by privtypes__unmarked.
+updatescreen_rules(169): privtypes__classt__last may_be_replaced_by privtypes__topsecret.
+updatescreen_rules(170): privtypes__classt__base__first may_be_replaced_by privtypes__unmarked.
+updatescreen_rules(171): privtypes__classt__base__last may_be_replaced_by privtypes__topsecret.
+updatescreen_rules(172): privtypes__classt__pos(privtypes__classt__first) may_be_replaced_by 0.
+updatescreen_rules(173): privtypes__classt__pos(
+     privtypes__unmarked) may_be_replaced_by 0.
+updatescreen_rules(174): privtypes__classt__val(0) may_be_replaced_by 
+     privtypes__unmarked.
+updatescreen_rules(175): privtypes__classt__pos(
+     privtypes__unclassified) may_be_replaced_by 1.
+updatescreen_rules(176): privtypes__classt__val(1) may_be_replaced_by 
+     privtypes__unclassified.
+updatescreen_rules(177): privtypes__classt__pos(
+     privtypes__restricted) may_be_replaced_by 2.
+updatescreen_rules(178): privtypes__classt__val(2) may_be_replaced_by 
+     privtypes__restricted.
+updatescreen_rules(179): privtypes__classt__pos(
+     privtypes__confidential) may_be_replaced_by 3.
+updatescreen_rules(180): privtypes__classt__val(3) may_be_replaced_by 
+     privtypes__confidential.
+updatescreen_rules(181): privtypes__classt__pos(privtypes__secret) may_be_replaced_by 4.
+updatescreen_rules(182): privtypes__classt__val(4) may_be_replaced_by 
+     privtypes__secret.
+updatescreen_rules(183): privtypes__classt__pos(
+     privtypes__topsecret) may_be_replaced_by 5.
+updatescreen_rules(184): privtypes__classt__val(5) may_be_replaced_by 
+     privtypes__topsecret.
+updatescreen_rules(185): privtypes__classt__pos(privtypes__classt__last) may_be_replaced_by 5.
+updatescreen_rules(186): privtypes__classt__pos(succ(X)) may_be_replaced_by 
+     privtypes__classt__pos(X) + 1
+     if [X <=privtypes__topsecret, X <> privtypes__topsecret].
+updatescreen_rules(187): privtypes__classt__pos(pred(X)) may_be_replaced_by 
+     privtypes__classt__pos(X) - 1
+     if [X >=privtypes__unmarked, X <> privtypes__unmarked].
+updatescreen_rules(188): privtypes__classt__pos(X) >= 0 may_be_deduced_from
+     [privtypes__unmarked <= X, X <= privtypes__topsecret].
+updatescreen_rules(189): privtypes__classt__pos(X) <= 5 may_be_deduced_from
+     [privtypes__unmarked <= X, X <= privtypes__topsecret].
+updatescreen_rules(190): privtypes__classt__val(X) >= 
+     privtypes__unmarked may_be_deduced_from
+     [0 <= X, X <= 5].
+updatescreen_rules(191): privtypes__classt__val(X) <= 
+     privtypes__topsecret may_be_deduced_from
+     [0 <= X, X <= 5].
+updatescreen_rules(192): succ(privtypes__classt__val(X)) may_be_replaced_by 
+     privtypes__classt__val(X+1)
+     if [0 <= X, X < 5].
+updatescreen_rules(193): pred(privtypes__classt__val(X)) may_be_replaced_by 
+     privtypes__classt__val(X-1)
+     if [0 < X, X <= 5].
+updatescreen_rules(194): privtypes__classt__pos(privtypes__classt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 5].
+updatescreen_rules(195): privtypes__classt__val(privtypes__classt__pos(X)) may_be_replaced_by X
+     if [privtypes__unmarked <= X, X <= privtypes__topsecret].
+updatescreen_rules(196): privtypes__classt__pos(X) <= 
+     privtypes__classt__pos(Y) & X <= Y are_interchangeable 
+     if [privtypes__unmarked <= X, X <= privtypes__topsecret, 
+     privtypes__unmarked <= Y, Y <= privtypes__topsecret].
+updatescreen_rules(197): privtypes__classt__val(X) <= 
+     privtypes__classt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 5, 0 <= Y, Y <= 5].
+updatescreen_rules(198): iandatypes__fart__size >= 0 may_be_deduced.
+updatescreen_rules(199): iandatypes__fart__size may_be_replaced_by 32.
+updatescreen_rules(200): iandatypes__fart__first may_be_replaced_by 0.
+updatescreen_rules(201): iandatypes__fart__last may_be_replaced_by 2147483647.
+updatescreen_rules(202): iandatypes__fart__base__first <= 
+     iandatypes__fart__base__last may_be_deduced.
+updatescreen_rules(203): iandatypes__fart__base__first <= 
+     iandatypes__fart__first may_be_deduced.
+updatescreen_rules(204): iandatypes__fart__base__last >= 
+     iandatypes__fart__last may_be_deduced.
+updatescreen_rules(205): configdata__accesspolicyt__size >= 0 may_be_deduced.
+updatescreen_rules(206): configdata__accesspolicyt__first may_be_replaced_by configdata__workinghours.
+updatescreen_rules(207): configdata__accesspolicyt__last may_be_replaced_by configdata__allhours.
+updatescreen_rules(208): configdata__accesspolicyt__base__first may_be_replaced_by configdata__workinghours.
+updatescreen_rules(209): configdata__accesspolicyt__base__last may_be_replaced_by configdata__allhours.
+updatescreen_rules(210): configdata__accesspolicyt__pos(
+     configdata__accesspolicyt__first) may_be_replaced_by 0.
+updatescreen_rules(211): configdata__accesspolicyt__pos(
+     configdata__workinghours) may_be_replaced_by 0.
+updatescreen_rules(212): configdata__accesspolicyt__val(0) may_be_replaced_by 
+     configdata__workinghours.
+updatescreen_rules(213): configdata__accesspolicyt__pos(
+     configdata__allhours) may_be_replaced_by 1.
+updatescreen_rules(214): configdata__accesspolicyt__val(1) may_be_replaced_by 
+     configdata__allhours.
+updatescreen_rules(215): configdata__accesspolicyt__pos(
+     configdata__accesspolicyt__last) may_be_replaced_by 1.
+updatescreen_rules(216): configdata__accesspolicyt__pos(succ(X)) may_be_replaced_by 
+     configdata__accesspolicyt__pos(X) + 1
+     if [X <=configdata__allhours, X <> configdata__allhours].
+updatescreen_rules(217): configdata__accesspolicyt__pos(pred(X)) may_be_replaced_by 
+     configdata__accesspolicyt__pos(X) - 1
+     if [X >=configdata__workinghours, X <> 
+     configdata__workinghours].
+updatescreen_rules(218): configdata__accesspolicyt__pos(X) >= 0 may_be_deduced_from
+     [configdata__workinghours <= X, X <= configdata__allhours].
+updatescreen_rules(219): configdata__accesspolicyt__pos(X) <= 1 may_be_deduced_from
+     [configdata__workinghours <= X, X <= configdata__allhours].
+updatescreen_rules(220): configdata__accesspolicyt__val(X) >= 
+     configdata__workinghours may_be_deduced_from
+     [0 <= X, X <= 1].
+updatescreen_rules(221): configdata__accesspolicyt__val(X) <= 
+     configdata__allhours may_be_deduced_from
+     [0 <= X, X <= 1].
+updatescreen_rules(222): succ(configdata__accesspolicyt__val(X)) may_be_replaced_by 
+     configdata__accesspolicyt__val(X+1)
+     if [0 <= X, X < 1].
+updatescreen_rules(223): pred(configdata__accesspolicyt__val(X)) may_be_replaced_by 
+     configdata__accesspolicyt__val(X-1)
+     if [0 < X, X <= 1].
+updatescreen_rules(224): configdata__accesspolicyt__pos(
+     configdata__accesspolicyt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+updatescreen_rules(225): configdata__accesspolicyt__val(
+     configdata__accesspolicyt__pos(X)) may_be_replaced_by X
+     if [configdata__workinghours <= X, X <= configdata__allhours].
+updatescreen_rules(226): configdata__accesspolicyt__pos(X) <= 
+     configdata__accesspolicyt__pos(Y) & X <= Y are_interchangeable 
+     if [configdata__workinghours <= X, X <= configdata__allhours, 
+     configdata__workinghours <= Y, Y <= configdata__allhours].
+updatescreen_rules(227): configdata__accesspolicyt__val(X) <= 
+     configdata__accesspolicyt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].
+updatescreen_rules(228): msgtextt__size >= 0 may_be_deduced.
+updatescreen_rules(229): msgtextt__first may_be_replaced_by clear.
+updatescreen_rules(230): msgtextt__last may_be_replaced_by insertconfigdata.
+updatescreen_rules(231): msgtextt__base__first may_be_replaced_by clear.
+updatescreen_rules(232): msgtextt__base__last may_be_replaced_by insertconfigdata.
+updatescreen_rules(233): msgtextt__pos(msgtextt__first) may_be_replaced_by 0.
+updatescreen_rules(234): msgtextt__pos(clear) may_be_replaced_by 0.
+updatescreen_rules(235): msgtextt__val(0) may_be_replaced_by 
+     clear.
+updatescreen_rules(236): msgtextt__pos(welcomeadmin) may_be_replaced_by 1.
+updatescreen_rules(237): msgtextt__val(1) may_be_replaced_by 
+     welcomeadmin.
+updatescreen_rules(238): msgtextt__pos(busy) may_be_replaced_by 2.
+updatescreen_rules(239): msgtextt__val(2) may_be_replaced_by busy.
+updatescreen_rules(240): msgtextt__pos(removeadmintoken) may_be_replaced_by 3.
+updatescreen_rules(241): msgtextt__val(3) may_be_replaced_by 
+     removeadmintoken.
+updatescreen_rules(242): msgtextt__pos(closedoor) may_be_replaced_by 4.
+updatescreen_rules(243): msgtextt__val(4) may_be_replaced_by 
+     closedoor.
+updatescreen_rules(244): msgtextt__pos(requestadminop) may_be_replaced_by 5.
+updatescreen_rules(245): msgtextt__val(5) may_be_replaced_by 
+     requestadminop.
+updatescreen_rules(246): msgtextt__pos(doingop) may_be_replaced_by 6.
+updatescreen_rules(247): msgtextt__val(6) may_be_replaced_by 
+     doingop.
+updatescreen_rules(248): msgtextt__pos(invalidrequest) may_be_replaced_by 7.
+updatescreen_rules(249): msgtextt__val(7) may_be_replaced_by 
+     invalidrequest.
+updatescreen_rules(250): msgtextt__pos(invaliddata) may_be_replaced_by 8.
+updatescreen_rules(251): msgtextt__val(8) may_be_replaced_by 
+     invaliddata.
+updatescreen_rules(252): msgtextt__pos(archivefailed) may_be_replaced_by 9.
+updatescreen_rules(253): msgtextt__val(9) may_be_replaced_by 
+     archivefailed.
+updatescreen_rules(254): msgtextt__pos(insertenrolmentdata) may_be_replaced_by 10.
+updatescreen_rules(255): msgtextt__val(10) may_be_replaced_by 
+     insertenrolmentdata.
+updatescreen_rules(256): msgtextt__pos(validatingenrolmentdata) may_be_replaced_by 11.
+updatescreen_rules(257): msgtextt__val(11) may_be_replaced_by 
+     validatingenrolmentdata.
+updatescreen_rules(258): msgtextt__pos(enrolmentfailed) may_be_replaced_by 12.
+updatescreen_rules(259): msgtextt__val(12) may_be_replaced_by 
+     enrolmentfailed.
+updatescreen_rules(260): msgtextt__pos(insertblankfloppy) may_be_replaced_by 13.
+updatescreen_rules(261): msgtextt__val(13) may_be_replaced_by 
+     insertblankfloppy.
+updatescreen_rules(262): msgtextt__pos(insertconfigdata) may_be_replaced_by 14.
+updatescreen_rules(263): msgtextt__val(14) may_be_replaced_by 
+     insertconfigdata.
+updatescreen_rules(264): msgtextt__pos(msgtextt__last) may_be_replaced_by 14.
+updatescreen_rules(265): msgtextt__pos(succ(X)) may_be_replaced_by 
+     msgtextt__pos(X) + 1
+     if [X <=insertconfigdata, X <> insertconfigdata].
+updatescreen_rules(266): msgtextt__pos(pred(X)) may_be_replaced_by 
+     msgtextt__pos(X) - 1
+     if [X >=clear, X <> clear].
+updatescreen_rules(267): msgtextt__pos(X) >= 0 may_be_deduced_from
+     [clear <= X, X <= insertconfigdata].
+updatescreen_rules(268): msgtextt__pos(X) <= 14 may_be_deduced_from
+     [clear <= X, X <= insertconfigdata].
+updatescreen_rules(269): msgtextt__val(X) >= clear may_be_deduced_from
+     [0 <= X, X <= 14].
+updatescreen_rules(270): msgtextt__val(X) <= insertconfigdata may_be_deduced_from
+     [0 <= X, X <= 14].
+updatescreen_rules(271): succ(msgtextt__val(X)) may_be_replaced_by 
+     msgtextt__val(X+1)
+     if [0 <= X, X < 14].
+updatescreen_rules(272): pred(msgtextt__val(X)) may_be_replaced_by 
+     msgtextt__val(X-1)
+     if [0 < X, X <= 14].
+updatescreen_rules(273): msgtextt__pos(msgtextt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 14].
+updatescreen_rules(274): msgtextt__val(msgtextt__pos(X)) may_be_replaced_by X
+     if [clear <= X, X <= insertconfigdata].
+updatescreen_rules(275): msgtextt__pos(X) <= msgtextt__pos(Y) & X <= Y are_interchangeable 
+     if [clear <= X, X <= insertconfigdata, clear <= Y, Y <= 
+     insertconfigdata].
+updatescreen_rules(276): msgtextt__val(X) <= msgtextt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 14, 0 <= Y, Y <= 14].
+updatescreen_rules(277): screenstatst__size >= 0 may_be_deduced.
+updatescreen_rules(278): A = B may_be_deduced_from
+     [goal(checktype(A,screenstatst)),
+      goal(checktype(B,screenstatst)),
+      fld_isdisplayed(A) = fld_isdisplayed(B),
+      fld_data(A) = fld_data(B)].
+updatescreen_rules(279): displayedconfigt__size >= 0 may_be_deduced.
+updatescreen_rules(280): A = B may_be_deduced_from
+     [goal(checktype(A,displayedconfigt)),
+      goal(checktype(B,displayedconfigt)),
+      fld_latchunlock(A) = fld_latchunlock(B),
+      fld_alarmsilent(A) = fld_alarmsilent(B),
+      fld_fingerwait(A) = fld_fingerwait(B),
+      fld_tokenremove(A) = fld_tokenremove(B),
+      fld_workstart(A) = fld_workstart(B),
+      fld_workend(A) = fld_workend(B),
+      fld_authduration(A) = fld_authduration(B),
+      fld_policy(A) = fld_policy(B),
+      fld_minpreservedlog(A) = fld_minpreservedlog(B),
+      fld_alarmthreshold(A) = fld_alarmthreshold(B),
+      fld_minentry(A) = fld_minentry(B),
+      fld_clearance(A) = fld_clearance(B),
+      fld_maxfar(A) = fld_maxfar(B)].
+updatescreen_rules(281): screenconfigt__size >= 0 may_be_deduced.
+updatescreen_rules(282): A = B may_be_deduced_from
+     [goal(checktype(A,screenconfigt)),
+      goal(checktype(B,screenconfigt)),
+      fld_isdisplayed(A) = fld_isdisplayed(B),
+      fld_data(A) = fld_data(B)].

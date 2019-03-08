@@ -1,0 +1,39 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:10.44
+
+                         procedure Latch.SetTimeout
+
+
+
+
+For path(s) from start to finish:
+
+procedure_settimeout_1.
+H1:    true .
+        ->
+C1:    time = time .
+ 
+
+For checks of refinement integrity: 
+
+procedure_settimeout_2.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_settimeout_3.
+H1:    true .
+H2:    true .
+H3:    latchtimeout = fld_latchtimeout(state) .
+H4:    currentlatch = fld_currentlatch(state~) .
+H5:    currentlatch = fld_currentlatch(state) .
+H6:    latchtimeout = time .
+        ->
+C1:    prf_latchtimeout(state) = time .
+ 
+

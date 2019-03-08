@@ -1,0 +1,257 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:10  SIMPLIFIED 05-SEP-2011, 15:40:23
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure Door.UnlockDoor
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/door/unlockdoor.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_unlockdoor_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  t__first <= currentdoor
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  alarmtypes__statust__first <= dooralarm
+-S-  Applied substitution rule unlockdoor_rules(2).
+     This was achieved by replacing all occurrences of clock__durationt__first 
+          by:
+          0.
+<S>  New C1:  configdata__thelatchunlockduration(configdata__state) >= 0
+-S-  Applied substitution rule unlockdoor_rules(3).
+     This was achieved by replacing all occurrences of clock__durationt__last 
+          by:
+          864000.
+<S>  New C2:  configdata__thelatchunlockduration(configdata__state) <= 864000
+-S-  Applied substitution rule unlockdoor_rules(8).
+     This was achieved by replacing all occurrences of 
+          alarmtypes__statust__first by:
+          alarmtypes__alarming.
+<S>  New H4:  alarmtypes__alarming <= dooralarm
+-S-  Applied substitution rule unlockdoor_rules(9).
+     This was achieved by replacing all occurrences of 
+          alarmtypes__statust__last by:
+          alarmtypes__silent.
+<S>  New H5:  dooralarm <= alarmtypes__silent
+-S-  Applied substitution rule unlockdoor_rules(31).
+     This was achieved by replacing all occurrences of 
+          configdata__durationt__first by:
+          0.
+<S>  New H7:  configdata__thelatchunlockduration(configdata__state) >= 0
+-S-  Applied substitution rule unlockdoor_rules(32).
+     This was achieved by replacing all occurrences of 
+          configdata__durationt__last by:
+          2000.
+<S>  New H8:  configdata__thelatchunlockduration(configdata__state) <= 2000
+-S-  Applied substitution rule unlockdoor_rules(37).
+     This was achieved by replacing all occurrences of t__first by:
+          open.
+<S>  New H2:  open <= currentdoor
+-S-  Applied substitution rule unlockdoor_rules(38).
+     This was achieved by replacing all occurrences of t__last by:
+          closed.
+<S>  New H3:  currentdoor <= closed
+***  Proved C1:  configdata__thelatchunlockduration(configdata__state) >= 0
+     using hypothesis H7.
+***  Proved C2:  configdata__thelatchunlockduration(configdata__state) <= 864000
+     using hypothesis H8.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_unlockdoor_2.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  t__first <= currentdoor
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  alarmtypes__statust__first <= dooralarm
+-S-  Applied substitution rule unlockdoor_rules(2).
+     This was achieved by replacing all occurrences of clock__durationt__first 
+          by:
+          0.
+<S>  New H9:  configdata__thelatchunlockduration(configdata__state) >= 0
+<S>  New C1:  configdata__thealarmsilentduration(configdata__state) >= 0
+-S-  Applied substitution rule unlockdoor_rules(3).
+     This was achieved by replacing all occurrences of clock__durationt__last 
+          by:
+          864000.
+<S>  New H10:  configdata__thelatchunlockduration(configdata__state) <= 864000
+<S>  New C2:  configdata__thealarmsilentduration(configdata__state) <= 864000
+-S-  Applied substitution rule unlockdoor_rules(8).
+     This was achieved by replacing all occurrences of 
+          alarmtypes__statust__first by:
+          alarmtypes__alarming.
+<S>  New H4:  alarmtypes__alarming <= dooralarm
+-S-  Applied substitution rule unlockdoor_rules(9).
+     This was achieved by replacing all occurrences of 
+          alarmtypes__statust__last by:
+          alarmtypes__silent.
+<S>  New H5:  dooralarm <= alarmtypes__silent
+-S-  Applied substitution rule unlockdoor_rules(31).
+     This was achieved by replacing all occurrences of 
+          configdata__durationt__first by:
+          0.
+<S>  New H7:  configdata__thelatchunlockduration(configdata__state) >= 0
+<S>  New H14:  configdata__thealarmsilentduration(configdata__state) >= 0
+-S-  Applied substitution rule unlockdoor_rules(32).
+     This was achieved by replacing all occurrences of 
+          configdata__durationt__last by:
+          2000.
+<S>  New H8:  configdata__thelatchunlockduration(configdata__state) <= 2000
+<S>  New H15:  configdata__thealarmsilentduration(configdata__state) <= 2000
+-S-  Applied substitution rule unlockdoor_rules(37).
+     This was achieved by replacing all occurrences of t__first by:
+          open.
+<S>  New H2:  open <= currentdoor
+-S-  Applied substitution rule unlockdoor_rules(38).
+     This was achieved by replacing all occurrences of t__last by:
+          closed.
+<S>  New H3:  currentdoor <= closed
+***  Proved C1:  configdata__thealarmsilentduration(configdata__state) >= 0
+     using hypothesis H14.
+***  Proved C2:  configdata__thealarmsilentduration(configdata__state) <= 864000
+     using hypothesis H15.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_unlockdoor_3.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  t__first <= currentdoor
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  alarmtypes__statust__first <= dooralarm
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  alarmtypes__statust__first <= dooralarm__3
+***  Proved C1:  currentdoor = open and (latch__islocked(latch__state__2) and 
+          clock__greaterthanorequal(clock__thecurrenttime(clock__currenttime), 
+          clock__addduration(clock__addduration(clock__thecurrenttime(
+          clock__currenttime), configdata__thelatchunlockduration(
+          configdata__state)), configdata__thealarmsilentduration(
+          configdata__state)))) <-> dooralarm__3 = alarmtypes__alarming
+     using hypothesis H22.
+***  Proved C2:  latch__islocked(latch__state__2) <-> clock__greaterthanorequal(
+          clock__thecurrenttime(clock__currenttime), latch__prf_latchtimeout(
+          latch__state__2))
+     using hypothesis H20.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_unlockdoor_4.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_unlockdoor_5.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  currentdoor = fld_currentdoor(state~)
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  dooralarm~ = fld_dooralarm(state~)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  t__first <= currentdoor
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  alarmtypes__statust__first <= dooralarm~
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  dooralarm~ <= alarmtypes__statust__last
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  alarmtypes__statust__first <= dooralarm
+***  Proved C2:  latch__islocked(latch__state) <-> clock__greaterthanorequal(
+          clock__thecurrenttime(clock__currenttime), latch__prf_latchtimeout(
+          latch__state))
+     using hypothesis H15.
+-S-  Applied substitution rule unlockdoor_rules(8).
+     This was achieved by replacing all occurrences of 
+          alarmtypes__statust__first by:
+          alarmtypes__alarming.
+<S>  New H10:  alarmtypes__alarming <= dooralarm~
+<S>  New H12:  alarmtypes__alarming <= dooralarm
+-S-  Applied substitution rule unlockdoor_rules(9).
+     This was achieved by replacing all occurrences of 
+          alarmtypes__statust__last by:
+          alarmtypes__silent.
+<S>  New H11:  dooralarm~ <= alarmtypes__silent
+<S>  New H13:  dooralarm <= alarmtypes__silent
+-S-  Applied substitution rule unlockdoor_rules(37).
+     This was achieved by replacing all occurrences of t__first by:
+          open.
+<S>  New H8:  open <= currentdoor
+-S-  Applied substitution rule unlockdoor_rules(38).
+     This was achieved by replacing all occurrences of t__last by:
+          closed.
+<S>  New H9:  currentdoor <= closed
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H2 (true-hypothesis).
+-S-  Eliminated hypothesis H3.
+     This was achieved by replacing all occurrences of currentdoor by:
+          fld_currentdoor(state~).
+<S>  New H4:  fld_currentdoor(state~) = fld_currentdoor(state)
+<S>  New H14:  fld_currentdoor(state~) = open and (latch__islocked(latch__state)
+           and clock__greaterthanorequal(clock__thecurrenttime(
+          clock__currenttime), alarmtimeout)) <-> dooralarm = 
+          alarmtypes__alarming
+<S>  New H8:  open <= fld_currentdoor(state~)
+<S>  New H9:  fld_currentdoor(state~) <= closed
+-S-  Eliminated hypothesis H6.
+     This was achieved by replacing all occurrences of dooralarm by:
+          fld_dooralarm(state).
+<S>  New H12:  alarmtypes__alarming <= fld_dooralarm(state)
+<S>  New H13:  fld_dooralarm(state) <= alarmtypes__silent
+<S>  New H14:  fld_currentdoor(state~) = open and (latch__islocked(latch__state)
+           and clock__greaterthanorequal(clock__thecurrenttime(
+          clock__currenttime), alarmtimeout)) <-> fld_dooralarm(state) = 
+          alarmtypes__alarming
+-S-  Eliminated hypothesis H7.
+     This was achieved by replacing all occurrences of alarmtimeout by:
+          fld_alarmtimeout(state).
+<S>  New H14:  fld_currentdoor(state~) = open and (latch__islocked(latch__state)
+           and clock__greaterthanorequal(clock__thecurrenttime(
+          clock__currenttime), fld_alarmtimeout(state))) <-> fld_dooralarm(
+          state) = alarmtypes__alarming
+     +++  New H16:  clock__durationt__size >= 0
+     +++  New H17:  clock__durationt__base__first <= 
+          clock__durationt__base__last
+     +++  New H18:  alarmtypes__statust__size >= 0
+     +++  New H19:  configdata__durationt__size >= 0
+     +++  New H20:  configdata__durationt__base__first <= 
+          configdata__durationt__base__last
+     +++  New H21:  t__size >= 0
+     +++  New H22:  clock__durationt__base__first <= 0
+     +++  New H23:  clock__durationt__base__last >= 864000
+     +++  New H24:  configdata__durationt__base__first <= 0
+     +++  New H25:  configdata__durationt__base__last >= 2000
+***  Proved C1:  latch__islocked(latch__state) and (thecurrentdoor(state) = 
+          open and clock__greaterthanorequal(clock__thecurrenttime(
+          clock__currenttime), prf_alarmtimeout(state))) <-> thedooralarm(state)
+           = alarmtypes__alarming
+     This was achieved by applying the inference rule unlockdoor_user(1)
+     [from rulefile unlockdoor.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H14, proved: fld_currentdoor(state~) = open and (latch__islocked(
+          latch__state) and clock__greaterthanorequal(clock__thecurrenttime(
+          clock__currenttime), fld_alarmtimeout(state))) <-> fld_dooralarm(
+          state) = alarmtypes__alarming
+     <<<  From H4, proved: fld_currentdoor(state~) = fld_currentdoor(state)
+***  PROVED VC.
+
+VCN  5: Summary of user rule application.
+FIL  unlockdoor.rlu
+RUL     unlockdoor_user(1)
+CON        1
+
+
+OVR  Overall summary of VCs using user rules.
+FIL  unlockdoor.rlu
+RUL     unlockdoor_user(1)
+VCS        5
+

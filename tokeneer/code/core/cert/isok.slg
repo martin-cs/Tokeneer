@@ -1,0 +1,261 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:13  SIMPLIFIED 05-SEP-2011, 15:39:00
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure Cert.IsOK
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/cert/cert.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_isok_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(rawcert, [i___1]) and element(rawcert, [
+          i___1]) <= character__last)
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  cryptotypes__algorithmt__first <= fld_mechanism(contents)
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(fld_id(contents))), [i___1]) and element(fld_name(
+          fld_issuer(fld_id(contents))), [i___1]) <= character__last)
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(fld_rawdata(getdata(rawcert)), [i___1]) 
+          and element(fld_rawdata(getdata(rawcert)), [i___1]) <= 
+          character__last)
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  for_all(i___1 : integer, certtypes__sigdatai__first <= i___1 
+          and i___1 <= certtypes__sigdatai__last -> character__first <= element(
+          fld_sigdata(getsignature(rawcert)), [i___1]) and element(fld_sigdata(
+          getsignature(rawcert)), [i___1]) <= character__last)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  cryptotypes__algorithmt__first <= fld_mechanism(contents)
+***  Proved C1:  cryptotypes__algorithmt__first <= fld_mechanism(contents)
+     using hypothesis H3.
+***  Proved C2:  fld_mechanism(contents) <= cryptotypes__algorithmt__last
+     using hypothesis H4.
++++  Using "A->B, A |- B" on hypotheses H14 & H17 yields a new hypothesis:
+     +++  H24:  keystore__prf_issuerkeynotnull(prf_idissuer(contents), 
+          keystore__store)
+---  Attempted addition of new hypothesis:
+          isknown__1
+     eliminated: this already exists (as H17).
++++  Using "A->B, A |- B" on hypotheses H14 & H24 yields a new hypothesis:
+     +++  H17:  isknown__1
+-S-  Applied substitution rule isok_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H2:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 0 <= element(
+          rawcert, [i___1]) and element(rawcert, [i___1]) <= character__last)
+<S>  New H9:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(fld_issuer(
+          fld_id(contents))), [i___1]) and element(fld_name(fld_issuer(fld_id(
+          contents))), [i___1]) <= character__last)
+<S>  New H20:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 0 <= element(
+          fld_rawdata(getdata(rawcert)), [i___1]) and element(fld_rawdata(
+          getdata(rawcert)), [i___1]) <= character__last)
+<S>  New H23:  for_all(i___1 : integer, certtypes__sigdatai__first <= i___1 and 
+          i___1 <= certtypes__sigdatai__last -> 0 <= element(fld_sigdata(
+          getsignature(rawcert)), [i___1]) and element(fld_sigdata(getsignature(
+          rawcert)), [i___1]) <= character__last)
+-S-  Applied substitution rule isok_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H2:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 0 <= element(
+          rawcert, [i___1]) and element(rawcert, [i___1]) <= 255)
+<S>  New H9:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(fld_issuer(
+          fld_id(contents))), [i___1]) and element(fld_name(fld_issuer(fld_id(
+          contents))), [i___1]) <= 255)
+<S>  New H20:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 0 <= element(
+          fld_rawdata(getdata(rawcert)), [i___1]) and element(fld_rawdata(
+          getdata(rawcert)), [i___1]) <= 255)
+<S>  New H23:  for_all(i___1 : integer, certtypes__sigdatai__first <= i___1 and 
+          i___1 <= certtypes__sigdatai__last -> 0 <= element(fld_sigdata(
+          getsignature(rawcert)), [i___1]) and element(fld_sigdata(getsignature(
+          rawcert)), [i___1]) <= 255)
+-S-  Applied substitution rule isok_rules(17).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namecountt__first by:
+          0.
+<S>  New H10:  fld_namelength(fld_issuer(fld_id(contents))) >= 0
+-S-  Applied substitution rule isok_rules(18).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namecountt__last by:
+          40.
+<S>  New H11:  fld_namelength(fld_issuer(fld_id(contents))) <= 40
+-S-  Applied substitution rule isok_rules(22).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namei__first by:
+          1.
+<S>  New H9:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          cryptotypes__namei__last -> 0 <= element(fld_name(fld_issuer(fld_id(
+          contents))), [i___1]) and element(fld_name(fld_issuer(fld_id(contents)
+          )), [i___1]) <= 255)
+-S-  Applied substitution rule isok_rules(23).
+     This was achieved by replacing all occurrences of cryptotypes__namei__last 
+          by:
+          40.
+<S>  New H9:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 40 -> 0 <= 
+          element(fld_name(fld_issuer(fld_id(contents))), [i___1]) and element(
+          fld_name(fld_issuer(fld_id(contents))), [i___1]) <= 255)
+-S-  Applied substitution rule isok_rules(27).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__issueridt__first by:
+          0.
+<S>  New H12:  fld_id(fld_issuer(fld_id(contents))) >= 0
+-S-  Applied substitution rule isok_rules(28).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__issueridt__last by:
+          4294967295.
+<S>  New H13:  fld_id(fld_issuer(fld_id(contents))) <= 4294967295
+-S-  Applied substitution rule isok_rules(35).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__algorithmt__first by:
+          cryptotypes__rsa.
+<S>  New H3:  cryptotypes__rsa <= fld_mechanism(contents)
+-S-  Applied substitution rule isok_rules(36).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__algorithmt__last by:
+          cryptotypes__ripemd160_rsa.
+<S>  New H4:  fld_mechanism(contents) <= cryptotypes__ripemd160_rsa
+-S-  Applied substitution rule isok_rules(76).
+     This was achieved by replacing all occurrences of 
+          certtypes__rawcertificatei__first by:
+          1.
+<S>  New H18:  fld_datalength(getdata(rawcert)) >= 1
+<S>  New H2:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          certtypes__rawcertificatei__last -> 0 <= element(rawcert, [i___1]) 
+          and element(rawcert, [i___1]) <= 255)
+<S>  New H20:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          certtypes__rawcertificatei__last -> 0 <= element(fld_rawdata(getdata(
+          rawcert)), [i___1]) and element(fld_rawdata(getdata(rawcert)), [i___1]
+          ) <= 255)
+-S-  Applied substitution rule isok_rules(77).
+     This was achieved by replacing all occurrences of 
+          certtypes__rawcertificatei__last by:
+          4096.
+<S>  New H19:  fld_datalength(getdata(rawcert)) <= 4096
+<S>  New H2:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 4096 -> 0 <= 
+          element(rawcert, [i___1]) and element(rawcert, [i___1]) <= 255)
+<S>  New H20:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 4096 -> 0 <= 
+          element(fld_rawdata(getdata(rawcert)), [i___1]) and element(
+          fld_rawdata(getdata(rawcert)), [i___1]) <= 255)
+-S-  Applied substitution rule isok_rules(83).
+     This was achieved by replacing all occurrences of 
+          certtypes__sigdatai__first by:
+          1.
+<S>  New H21:  fld_siglength(getsignature(rawcert)) >= 1
+<S>  New H23:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          certtypes__sigdatai__last -> 0 <= element(fld_sigdata(getsignature(
+          rawcert)), [i___1]) and element(fld_sigdata(getsignature(rawcert)), [
+          i___1]) <= 255)
+-S-  Applied substitution rule isok_rules(84).
+     This was achieved by replacing all occurrences of 
+          certtypes__sigdatai__last by:
+          4096.
+<S>  New H22:  fld_siglength(getsignature(rawcert)) <= 4096
+<S>  New H23:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 4096 -> 0 <= 
+          element(fld_sigdata(getsignature(rawcert)), [i___1]) and element(
+          fld_sigdata(getsignature(rawcert)), [i___1]) <= 255)
+-S-  Applied substitution rule isok_rules(90).
+     This was achieved by replacing all occurrences of 
+          certtypes__serialnumbert__first by:
+          0.
+<S>  New H7:  fld_serialnumber(fld_id(contents)) >= 0
+-S-  Applied substitution rule isok_rules(91).
+     This was achieved by replacing all occurrences of 
+          certtypes__serialnumbert__last by:
+          4294967295.
+<S>  New H8:  fld_serialnumber(fld_id(contents)) <= 4294967295
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H5 (true-hypothesis).
+---  Eliminated hypothesis H6 (true-hypothesis).
+---  Eliminated hypothesis H15 (true-hypothesis).
+---  Eliminated hypothesis H16 (true-hypothesis).
+>>>  Using "A->B, A |- B" on H14, given H17, we simplify the former to:
+     >>>  H14:  keystore__prf_issuerkeynotnull(prf_idissuer(contents), 
+          keystore__store)
+-S-  Eliminated hypothesis H14.
+     This was achieved by replacing all occurrences of isknown__1 by:
+          keystore__prf_issuerkeynotnull(prf_idissuer(contents), 
+          keystore__store).
+<S>  New H17:  keystore__prf_issuerkeynotnull(prf_idissuer(contents), 
+          keystore__store)
+     +++  New H25:  integer__size >= 0
+     +++  New H26:  character__size >= 0
+     +++  New H27:  positive__size >= 0
+     +++  New H28:  cryptotypes__namecountt__size >= 0
+     +++  New H29:  cryptotypes__namei__size >= 0
+     +++  New H30:  cryptotypes__issueridt__size >= 0
+     +++  New H31:  cryptotypes__issueridt__base__first <= 
+          cryptotypes__issueridt__base__last
+     +++  New H32:  cryptotypes__issuert__size >= 0
+     +++  New H33:  cryptotypes__algorithmt__size >= 0
+     +++  New H34:  certtypes__rawcertificatei__size >= 0
+     +++  New H35:  certtypes__rawdatat__size >= 0
+     +++  New H36:  certtypes__sigdatai__size >= 0
+     +++  New H37:  certtypes__signaturet__size >= 0
+     +++  New H38:  certtypes__serialnumbert__size >= 0
+     +++  New H39:  certtypes__serialnumbert__base__first <= 
+          certtypes__serialnumbert__base__last
+     +++  New H40:  certtypes__idt__size >= 0
+     +++  New H41:  contentst__size >= 0
+     +++  New H42:  cryptotypes__issueridt__base__first <= 0
+     +++  New H43:  cryptotypes__issueridt__base__last >= 4294967295
+     +++  New H44:  certtypes__serialnumbert__base__first <= 0
+     +++  New H45:  certtypes__serialnumbert__base__last >= 4294967295
+***  Proved C3:  keystore__prf_issuerkeynotnull(fld_issuer(fld_id(contents)), 
+          keystore__store)
+     This was achieved by applying the rewrite rule cert_user(1)
+     [from rulefile cert.rlu] to rewrite this conclusion to:
+<S>  C3:  keystore__prf_issuerkeynotnull(prf_idissuer(contents), 
+          keystore__store)
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  From H24, proved: keystore__prf_issuerkeynotnull(prf_idissuer(
+          contents), keystore__store)
+***  PROVED VC.
+
+VCN  1: Summary of user rule application.
+FIL  cert.rlu
+RUL     cert_user(1)
+CON        3
+
+
+@@@@@@@@@@  VC: procedure_isok_2.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_isok_3.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+OVR  Overall summary of VCs using user rules.
+FIL  cert.rlu
+RUL     cert_user(1)
+VCS        1
+

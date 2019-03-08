@@ -1,0 +1,66 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:19.92*/
+
+                      /*procedure UserToken.ClearIDCert*/
+
+
+rule_family clearidcert_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+clearidcert_rules(1): certificatestatus__size >= 0 may_be_deduced.
+clearidcert_rules(2): certificatestatus__first may_be_replaced_by bad.
+clearidcert_rules(3): certificatestatus__last may_be_replaced_by validcert.
+clearidcert_rules(4): certificatestatus__base__first may_be_replaced_by bad.
+clearidcert_rules(5): certificatestatus__base__last may_be_replaced_by validcert.
+clearidcert_rules(6): certificatestatus__pos(certificatestatus__first) may_be_replaced_by 0.
+clearidcert_rules(7): certificatestatus__pos(bad) may_be_replaced_by 0.
+clearidcert_rules(8): certificatestatus__val(0) may_be_replaced_by 
+     bad.
+clearidcert_rules(9): certificatestatus__pos(notverified) may_be_replaced_by 1.
+clearidcert_rules(10): certificatestatus__val(1) may_be_replaced_by 
+     notverified.
+clearidcert_rules(11): certificatestatus__pos(notcurrent) may_be_replaced_by 2.
+clearidcert_rules(12): certificatestatus__val(2) may_be_replaced_by 
+     notcurrent.
+clearidcert_rules(13): certificatestatus__pos(validcert) may_be_replaced_by 3.
+clearidcert_rules(14): certificatestatus__val(3) may_be_replaced_by 
+     validcert.
+clearidcert_rules(15): certificatestatus__pos(certificatestatus__last) may_be_replaced_by 3.
+clearidcert_rules(16): certificatestatus__pos(succ(X)) may_be_replaced_by 
+     certificatestatus__pos(X) + 1
+     if [X <=validcert, X <> validcert].
+clearidcert_rules(17): certificatestatus__pos(pred(X)) may_be_replaced_by 
+     certificatestatus__pos(X) - 1
+     if [X >=bad, X <> bad].
+clearidcert_rules(18): certificatestatus__pos(X) >= 0 may_be_deduced_from
+     [bad <= X, X <= validcert].
+clearidcert_rules(19): certificatestatus__pos(X) <= 3 may_be_deduced_from
+     [bad <= X, X <= validcert].
+clearidcert_rules(20): certificatestatus__val(X) >= bad may_be_deduced_from
+     [0 <= X, X <= 3].
+clearidcert_rules(21): certificatestatus__val(X) <= validcert may_be_deduced_from
+     [0 <= X, X <= 3].
+clearidcert_rules(22): succ(certificatestatus__val(X)) may_be_replaced_by 
+     certificatestatus__val(X+1)
+     if [0 <= X, X < 3].
+clearidcert_rules(23): pred(certificatestatus__val(X)) may_be_replaced_by 
+     certificatestatus__val(X-1)
+     if [0 < X, X <= 3].
+clearidcert_rules(24): certificatestatus__pos(certificatestatus__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 3].
+clearidcert_rules(25): certificatestatus__val(certificatestatus__pos(X)) may_be_replaced_by X
+     if [bad <= X, X <= validcert].
+clearidcert_rules(26): certificatestatus__pos(X) <= 
+     certificatestatus__pos(Y) & X <= Y are_interchangeable 
+     if [bad <= X, X <= validcert, bad <= Y, Y <= validcert].
+clearidcert_rules(27): certificatestatus__val(X) <= 
+     certificatestatus__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 3, 0 <= Y, Y <= 3].

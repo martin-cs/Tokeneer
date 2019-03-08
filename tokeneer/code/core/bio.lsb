@@ -1,0 +1,318 @@
+           *******************************************************
+                            Listing of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:18.11
+
+Line
+   1  ------------------------------------------------------------------
+   2  -- Tokeneer ID Station Core Software
+   3  --
+   4  -- Copyright (2003) United States Government, as represented
+   5  -- by the Director, National Security Agency. All rights reserved.
+   6  --
+   7  -- This material was originally developed by Praxis High Integrity
+   8  -- Systems Ltd. under contract to the National Security Agency.
+   9  ------------------------------------------------------------------
+  10  
+  11  ------------------------------------------------------------------
+  12  -- Bio
+  13  --
+  14  -- Implementation Notes:
+  15  --    None.
+  16  --
+  17  ------------------------------------------------------------------
+  18  with AuditLog,
+  19       AuditTypes,
+  20       BasicTypes,
+  21       Bio.Interface;
+  22  
+  23  with Unchecked_Conversion;
+  24  use type BasicTypes.Unsigned32T;
+  25  
+  26  package body Bio
+  27  --# own Input is in Bio.Interface.Input;
+  28  is
+  29  
+  30     ------------------------------------------------------------------
+  31     -- Types
+  32     --
+  33     ------------------------------------------------------------------
+  34  
+  35     -- Verify returns an unsigned 32 bit 'return value', representing
+  36     -- the possible faults that could occur. ReturnT models the possible errors
+  37     -- and local procedure GetReturnCode converts the returned value
+  38     -- into a ReturnT type.
+  39  
+  40     type ReturnT is
+  41        (BioApiOk,
+  42         -- High Level framework errors:
+  43         InternalError,
+  44         MemoryError,
+  45         FunctionFailed,
+  46         InvalidData,
+  47         BioApiNotInitialized,
+  48         ModuleLoadFailed,
+  49         ModuleUnloadFailed,
+  50         -- BSP Level errors:
+  51         BspInternalError,
+  52         BspMemoryError,
+  53         BspFunctionFailed,
+  54         BspInvalidData,
+  55         BspUnableToCapture,
+  56         BspTimeoutExpired,
+  57         BspBirSignatureFailure,
+  58         BspInconsistentPurpose,
+  59         -- Device Level Errors:
+  60         DeviceLevelError);
+  61  
+  62     for ReturnT use   -- Error codes Values.
+  63        (BioApiOk               => 16#0000#,
+  64         InternalError          => 16#0001#,
+  65         MemoryError            => 16#0002#,
+  66         FunctionFailed         => 16#000A#,
+  67         InvalidData            => 16#0046#,
+  68         BioApiNotInitialized   => 16#0102#,
+  69         ModuleLoadFailed       => 16#0116#,
+  70         ModuleUnloadFailed     => 16#0118#,
+  71         BspInternalError       => 16#1001#,
+  72         BspMemoryError         => 16#1002#,
+  73         BspFunctionFailed      => 16#100A#,
+  74         BspInvalidData         => 16#1046#,
+  75         BspUnableToCapture     => 16#1101#,
+  76         BspTimeoutExpired      => 16#1103#,
+  77         BspBirSignatureFailure => 16#1105#,
+  78         BspInconsistentPurpose => 16#110D#,
+  79         DeviceLevelError       => 16#2001#);
+  80  
+  81     for ReturnT'Size use 32;
+  82  
+  83     ------------------------------------------------------------------
+  84     -- ValueOf
+  85     --
+  86     -- Description:
+  87     --    Converts a ReturnT type to its numeric representation.
+  88     --    Hidden from SPARK to allow unchecked conversion.
+  89     --
+  90     -- Implementation Notes:
+  91     --    None.
+  92     ------------------------------------------------------------------
+  93     function ValueOf(Code : ReturnT) return BasicTypes.Unsigned32T
+  94     is
+  95     --# hide ValueOf;
+  96        function CodeToVal is
+  97           new Unchecked_Conversion(ReturnT, BasicTypes.Unsigned32T);
+  98     begin
+  99        return CodeToVal(Code);
+ 100     end ValueOf;
+ 101  
+ 102  
+ 103     ------------------------------------------------------------------
+ 104     -- GetReturnCode
+ 105     --
+ 106     -- Description:
+ 107     --    Converts a supplied numeric return value to the
+ 108     --    correct enumeration. If the return value is not valid,
+ 109     --    the 'InternalError' literal is returned.
+ 110     --
+ 111     -- Implementation Notes:
+ 112     --    Loops over the enumerated type, and performs an unchecked
+ 113     --    conversion from the enumerated type to the numeric type.
+ 114     --    Exits when a match is made.
+ 115     ------------------------------------------------------------------
+ 116     function GetReturnCode (ReturnVal : BasicTypes.Unsigned32T)
+ 117        return ReturnT
+ 118     is
+ 119        Result : ReturnT := InternalError;
+ 120     begin
+ 121        for Code in ReturnT loop
+ 122           --# assert ReturnT'First <= Code and
+ 123           --#        Code <= ReturnT'Last and
+ 124           --#        Result = InternalError;
+ 125           if ReturnVal = ValueOf(Code) then
+ 126              Result := Code;
+ 127              exit;
+ 128           end if;
+ 129        end loop;
+ 130        return Result;
+ 131     end GetReturnCode;
+
++++        Flow analysis of subprogram GetReturnCode 
+           performed: no errors found.
+
+ 132  
+ 133  
+ 134     ------------------------------------------------------------------
+ 135     -- MakeDescription
+ 136     --
+ 137     -- Description:
+ 138     --    Produces a description for the Audit log from the
+ 139     --    supplied text and return value.
+ 140     --
+ 141     -- Implementation Notes:
+ 142     --    None
+ 143     ------------------------------------------------------------------
+ 144     function MakeDescription
+ 145       (Text        : String;
+ 146        ReturnValue : BasicTypes.Unsigned32T) return AuditTypes.DescriptionT
+ 147     is
+ 148        Result : AuditTypes.DescriptionT := AuditTypes.NoDescription;
+ 149        TheCodeName : ReturnT;
+ 150  
+ 151        ------------------------------------------------------------------
+ 152        -- SetResultString
+ 153        --
+ 154        -- Description:
+ 155        --    Sets the Result string allowing for overflow.
+ 156        --
+ 157        -- Implementation Notes:
+ 158        --    None
+ 159        ------------------------------------------------------------------
+ 160        procedure SetResultString
+ 161        --# global in     Text;
+ 162        --#        in     TheCodeName;
+ 163        --#        in     ReturnValue;
+ 164        --#        in out Result;
+ 165        --# derives Result from *,
+ 166        --#                     Text,
+ 167        --#                     TheCodeName,
+ 168        --#                     ReturnValue;
+ 169        is
+ 170           --# hide SetResultString;
+ 171  
+ 172           FullString : String := Text & ": "
+ 173             & ReturnT'Image(TheCodeName) & " ( "
+ 174             & BasicTypes.Unsigned32T'Image(ReturnValue) & " )";
+ 175        begin
+ 176  
+ 177           -- if the Full string is shorter then use it all otherwise
+ 178           -- truncate it.
+ 179           if FullString'Last <= AuditTypes.DescriptionI'Last then
+ 180              Result (1.. FullString'Last) := FullString;
+ 181           else
+ 182              Result := FullString (1 .. AuditTypes.DescriptionI'Last);
+ 183           end if;
+ 184        end SetResultString;
+ 185  
+ 186  
+ 187     begin
+ 188  
+ 189        TheCodeName := GetReturnCode (ReturnValue);
+ 190  
+ 191        SetResultString;
+ 192  
+ 193        return Result;
+ 194  
+ 195     end MakeDescription;
+
++++        Flow analysis of subprogram MakeDescription 
+           performed: no errors found.
+
+ 196  
+ 197  
+ 198     ------------------------------------------------------------------
+ 199     -- Poll
+ 200     --
+ 201     -- Implementation Notes:
+ 202     --    None.
+ 203     ------------------------------------------------------------------
+ 204  
+ 205     procedure Poll(FingerPresent :    out BasicTypes.PresenceT)
+ 206     --# global in Interface.Input;
+ 207     --# derives FingerPresent from Interface.Input;
+ 208     is
+ 209     begin
+ 210        FingerPresent := Interface.IsSamplePresent;
+ 211     end Poll;
+
++++        Flow analysis of subprogram Poll performed: no 
+           errors found.
+
+ 212  
+ 213  
+ 214     ------------------------------------------------------------------
+ 215     -- Verify
+ 216     --
+ 217     -- Implementation Notes:
+ 218     --    None.
+ 219     --
+ 220     ------------------------------------------------------------------
+ 221     procedure Verify(Template       : in     IandATypes.TemplateT;
+ 222                      MaxFAR         : in     IandATypes.FarT;
+ 223                      MatchResult    :    out IandATypes.MatchResultT;
+ 224                      AchievedFAR    :    out IandATypes.FarT)
+ 225     --# global in     Clock.Now;
+ 226     --#        in     ConfigData.State;
+ 227     --#        in     Interface.Input;
+ 228     --#        in out AuditLog.State;
+ 229     --#        in out AuditLog.FileState;
+ 230     --# derives AuditLog.State,
+ 231     --#         AuditLog.FileState from AuditLog.State,
+ 232     --#                                 AuditLog.FileState,
+ 233     --#                                 Template,
+ 234     --#                                 Clock.Now,
+ 235     --#                                 ConfigData.State,
+ 236     --#                                 Interface.Input &
+ 237     --#         MatchResult        from Template,
+ 238     --#                                 MaxFAR,
+ 239     --#                                 Interface.Input &
+ 240     --#         AchievedFAR        from Template,
+ 241     --#                                 Interface.Input;
+ 242     is
+ 243        NumericReturn : BasicTypes.Unsigned32T;
+ 244     begin
+ 245        Interface.Verify(Template     => Template,
+ 246                         MaxFAR       => MaxFAR,
+ 247                         MatchResult  => MatchResult,
+ 248                         AchievedFAR  => AchievedFAR,
+ 249                         BioReturn    => NumericReturn);
+ 250  
+ 251        if NumericReturn /= ValueOf(BioAPIOk) then
+ 252           -- An error occurred, overwrite match information.
+ 253           MatchResult := IandATypes.NoMatch;
+ 254           AuditLog.AddElementToLog
+ 255             (ElementID    => AuditTypes.SystemFault,
+ 256              Severity     => AuditTypes.Warning,
+ 257              User         => AuditTypes.NoUser,
+ 258              Description  => MakeDescription ("Biometric device failure ",
+ 259                                               NumericReturn));
+ 260           end if;
+ 261     end Verify;
+
++++        Flow analysis of subprogram Verify performed: no 
+           errors found.
+
+ 262  
+ 263  
+ 264     ------------------------------------------------------------------
+ 265     -- Flush
+ 266     --
+ 267     -- Implementation Notes:
+ 268     --    None.
+ 269     ------------------------------------------------------------------
+ 270     procedure Flush
+ 271     --# global in Interface.Input;
+ 272     --# derives null from Interface.Input;
+ 273     is
+ 274     begin
+ 275        Interface.Flush;
+ 276     end Flush;
+
++++        Flow analysis of subprogram Flush performed: no 
+           errors found.
+
+ 277  
+ 278  end Bio;
+18 summarized warning(s), comprising:
+     2 hidden part(s)*
+     2 representation clause(s)*
+     1 with clause(s) lacking a supporting inherit
+    13 use(s) of Ada2005 reserved words
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+
+--End of file--------------------------------------------------

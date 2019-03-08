@@ -1,0 +1,91 @@
+           *******************************************************
+                            Listing of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:14.13
+
+Line
+   1  ------------------------------------------------------------------
+   2  -- Tokeneer ID Station Core Software
+   3  --
+   4  -- Copyright (2003) United States Government, as represented
+   5  -- by the Director, National Security Agency. All rights reserved.
+   6  --
+   7  -- This material was originally developed by Praxis High Integrity
+   8  -- Systems Ltd. under contract to the National Security Agency.
+   9  ------------------------------------------------------------------
+  10  
+  11  ------------------------------------------------------------------
+  12  -- AttrCert
+  13  --
+  14  --  Implementation Notes:
+  15  --      None.
+  16  --
+  17  ------------------------------------------------------------------
+  18  
+  19  
+  20  package body Cert.Attr is
+  21  
+  22     ------------------------------------------------------------------
+  23     -- Types
+  24     --
+  25     ------------------------------------------------------------------
+  26  
+  27     ------------------------------------------------------------------
+  28     -- ExtractUser
+  29     --
+  30     -- Implementation Notes:
+  31     --     Prints the Issuer ID & SerialNumber.
+  32     ------------------------------------------------------------------
+  33  
+  34     function ExtractUser (Contents : ContentsT) return AuditTypes.UserTextT
+  35     is
+  36        --# hide ExtractUser;
+  37        LocalUser : AuditTypes.UserTextT := AuditTypes.NoUser;
+  38  
+  39           FullString : String := "Issuer: "
+  40             & CryptoTypes.IssuerIdT'Image(Contents.BaseCertID.Issuer.ID)
+  41             & " SerialNo:  "
+  42             & CertTypes.SerialNumberT'Image(Contents.BaseCertID.SerialNumber);
+  43        begin
+  44  
+  45           -- if the Full string is shorter then use it all otherwise
+  46           -- truncate it.
+  47           if FullString'Last <= AuditTypes.UserTextI'Last then
+  48              LocalUser (1.. FullString'Last) := FullString;
+  49           else
+  50              LocalUser := FullString (1 .. AuditTypes.UserTextI'Last);
+  51           end if;
+  52  
+  53        return LocalUser;
+  54     end ExtractUser;
+  55  
+  56     ------------------------------------------------------------------
+  57     -- TheBaseCert
+  58     --
+  59     -- Implementation Notes:
+  60     --     None
+  61     ------------------------------------------------------------------
+  62  
+  63     function TheBaseCert (Contents : ContentsT) return CertTypes.IDT
+  64     is
+  65     begin
+  66        return Contents.BaseCertID;
+  67     end TheBaseCert;
+
++++        Flow analysis of subprogram TheBaseCert 
+           performed: no errors found.
+
+  68  
+  69  
+  70  end Cert.Attr;
+1 summarized warning(s), comprising:
+     1 hidden part(s)*
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+
+--End of file--------------------------------------------------

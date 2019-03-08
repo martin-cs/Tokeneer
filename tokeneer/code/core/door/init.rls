@@ -1,0 +1,97 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:10.81*/
+
+                            /*procedure Door.Init*/
+
+
+rule_family init_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+init_rules(1): alarmtypes__statust__size >= 0 may_be_deduced.
+init_rules(2): alarmtypes__statust__first may_be_replaced_by alarmtypes__alarming.
+init_rules(3): alarmtypes__statust__last may_be_replaced_by alarmtypes__silent.
+init_rules(4): alarmtypes__statust__base__first may_be_replaced_by alarmtypes__alarming.
+init_rules(5): alarmtypes__statust__base__last may_be_replaced_by alarmtypes__silent.
+init_rules(6): alarmtypes__statust__pos(alarmtypes__statust__first) may_be_replaced_by 0.
+init_rules(7): alarmtypes__statust__pos(alarmtypes__alarming) may_be_replaced_by 0.
+init_rules(8): alarmtypes__statust__val(0) may_be_replaced_by 
+     alarmtypes__alarming.
+init_rules(9): alarmtypes__statust__pos(alarmtypes__silent) may_be_replaced_by 1.
+init_rules(10): alarmtypes__statust__val(1) may_be_replaced_by 
+     alarmtypes__silent.
+init_rules(11): alarmtypes__statust__pos(alarmtypes__statust__last) may_be_replaced_by 1.
+init_rules(12): alarmtypes__statust__pos(succ(X)) may_be_replaced_by 
+     alarmtypes__statust__pos(X) + 1
+     if [X <=alarmtypes__silent, X <> alarmtypes__silent].
+init_rules(13): alarmtypes__statust__pos(pred(X)) may_be_replaced_by 
+     alarmtypes__statust__pos(X) - 1
+     if [X >=alarmtypes__alarming, X <> alarmtypes__alarming].
+init_rules(14): alarmtypes__statust__pos(X) >= 0 may_be_deduced_from
+     [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+init_rules(15): alarmtypes__statust__pos(X) <= 1 may_be_deduced_from
+     [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+init_rules(16): alarmtypes__statust__val(X) >= 
+     alarmtypes__alarming may_be_deduced_from
+     [0 <= X, X <= 1].
+init_rules(17): alarmtypes__statust__val(X) <= alarmtypes__silent may_be_deduced_from
+     [0 <= X, X <= 1].
+init_rules(18): succ(alarmtypes__statust__val(X)) may_be_replaced_by 
+     alarmtypes__statust__val(X+1)
+     if [0 <= X, X < 1].
+init_rules(19): pred(alarmtypes__statust__val(X)) may_be_replaced_by 
+     alarmtypes__statust__val(X-1)
+     if [0 < X, X <= 1].
+init_rules(20): alarmtypes__statust__pos(alarmtypes__statust__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+init_rules(21): alarmtypes__statust__val(alarmtypes__statust__pos(X)) may_be_replaced_by X
+     if [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+init_rules(22): alarmtypes__statust__pos(X) <= 
+     alarmtypes__statust__pos(Y) & X <= Y are_interchangeable 
+     if [alarmtypes__alarming <= X, X <= alarmtypes__silent, 
+     alarmtypes__alarming <= Y, Y <= alarmtypes__silent].
+init_rules(23): alarmtypes__statust__val(X) <= 
+     alarmtypes__statust__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].
+init_rules(24): t__size >= 0 may_be_deduced.
+init_rules(25): t__first may_be_replaced_by open.
+init_rules(26): t__last may_be_replaced_by closed.
+init_rules(27): t__base__first may_be_replaced_by open.
+init_rules(28): t__base__last may_be_replaced_by closed.
+init_rules(29): t__pos(t__first) may_be_replaced_by 0.
+init_rules(30): t__pos(open) may_be_replaced_by 0.
+init_rules(31): t__val(0) may_be_replaced_by open.
+init_rules(32): t__pos(closed) may_be_replaced_by 1.
+init_rules(33): t__val(1) may_be_replaced_by closed.
+init_rules(34): t__pos(t__last) may_be_replaced_by 1.
+init_rules(35): t__pos(succ(X)) may_be_replaced_by t__pos(X) + 1
+     if [X <=closed, X <> closed].
+init_rules(36): t__pos(pred(X)) may_be_replaced_by t__pos(X) - 1
+     if [X >=open, X <> open].
+init_rules(37): t__pos(X) >= 0 may_be_deduced_from
+     [open <= X, X <= closed].
+init_rules(38): t__pos(X) <= 1 may_be_deduced_from
+     [open <= X, X <= closed].
+init_rules(39): t__val(X) >= open may_be_deduced_from
+     [0 <= X, X <= 1].
+init_rules(40): t__val(X) <= closed may_be_deduced_from
+     [0 <= X, X <= 1].
+init_rules(41): succ(t__val(X)) may_be_replaced_by t__val(X+1)
+     if [0 <= X, X < 1].
+init_rules(42): pred(t__val(X)) may_be_replaced_by t__val(X-1)
+     if [0 < X, X <= 1].
+init_rules(43): t__pos(t__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+init_rules(44): t__val(t__pos(X)) may_be_replaced_by X
+     if [open <= X, X <= closed].
+init_rules(45): t__pos(X) <= t__pos(Y) & X <= Y are_interchangeable 
+     if [open <= X, X <= closed, open <= Y, Y <= closed].
+init_rules(46): t__val(X) <= t__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].

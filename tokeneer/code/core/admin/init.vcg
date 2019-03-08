@@ -1,0 +1,40 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:16.32
+
+                            procedure Admin.Init
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 69:
+
+procedure_init_1.
+H1:    true .
+        ->
+C1:    nullop >= opandnullt__first .
+C2:    nullop <= opandnullt__last .
+C3:    privtypes__useronly >= privtypes__privileget__first .
+C4:    privtypes__useronly <= privtypes__privileget__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_init_2.
+H1:    true .
+H2:    nullop >= opandnullt__first .
+H3:    nullop <= opandnullt__last .
+H4:    privtypes__useronly >= privtypes__privileget__first .
+H5:    privtypes__useronly <= privtypes__privileget__last .
+        ->
+C1:    not (ispresent(mk__t(rolepresent := 
+           privtypes__useronly, currentop := nullop))) .
+C2:    not (isdoingop(mk__t(rolepresent := 
+           privtypes__useronly, currentop := nullop))) .
+ 
+

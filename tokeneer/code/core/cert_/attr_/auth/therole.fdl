@@ -1,0 +1,123 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:14.16}
+
+                           {function Auth.TheRole}
+
+
+title function therole;
+
+  function round__(real) : integer;
+  type character = integer;
+  type clock__timet = pending;
+  type privtypes__privileget = (privtypes__useronly, 
+     privtypes__guard, privtypes__auditmanager, 
+     privtypes__securityofficer);
+  type privtypes__classt = (privtypes__unmarked, 
+     privtypes__unclassified, privtypes__restricted, 
+     privtypes__confidential, privtypes__secret, 
+     privtypes__topsecret);
+  type cryptotypes__issueridt = integer;
+  type cryptotypes__algorithmt = (cryptotypes__rsa, 
+     cryptotypes__md2, cryptotypes__md5, cryptotypes__sha_1, 
+     cryptotypes__ripemd128, cryptotypes__ripemd160, 
+     cryptotypes__md2_rsa, cryptotypes__md5_rsa, 
+     cryptotypes__sha1_rsa, cryptotypes__ripemd128_rsa, 
+     cryptotypes__ripemd160_rsa);
+  type certtypes__serialnumbert = integer;
+  type string = array [integer] of character;
+  const null__string : string = pending;
+  type privtypes__clearancet = record
+        class : privtypes__classt
+     end;
+  type cryptotypes__issuert = record
+        id : integer;
+        namelength : integer;
+        name : string
+     end;
+  type certtypes__idt = record
+        issuer : cryptotypes__issuert;
+        serialnumber : integer
+     end;
+  type cert__contentst = record
+        id : certtypes__idt;
+        notbefore : clock__timet;
+        notafter : clock__timet;
+        mechanism : cryptotypes__algorithmt
+     end;
+  type cert__attr__contentst = record
+        inherit : cert__contentst;
+        basecertid : certtypes__idt
+     end;
+  type contentst = record
+        inherit : cert__attr__contentst;
+        role : privtypes__privileget;
+        clearance : privtypes__clearancet
+     end;
+  const certtypes__serialnumbert__base__first : integer = pending; 
+  const certtypes__serialnumbert__base__last : integer = pending; 
+  const cryptotypes__algorithmt__base__first : 
+     cryptotypes__algorithmt = pending; 
+  const cryptotypes__algorithmt__base__last : 
+     cryptotypes__algorithmt = pending; 
+  const cryptotypes__issueridt__base__first : integer = pending; 
+  const cryptotypes__issueridt__base__last : integer = pending; 
+  const cryptotypes__namei__base__first : integer = pending; 
+  const cryptotypes__namei__base__last : integer = pending; 
+  const cryptotypes__namecountt__base__first : integer = pending; 
+  const cryptotypes__namecountt__base__last : integer = pending; 
+  const privtypes__classt__base__first : privtypes__classt = pending; 
+  const privtypes__classt__base__last : privtypes__classt = pending; 
+  const privtypes__privileget__base__first : 
+     privtypes__privileget = pending; 
+  const privtypes__privileget__base__last : privtypes__privileget = pending; 
+  const positive__base__first : integer = pending; 
+  const positive__base__last : integer = pending; 
+  const character__base__first : character = pending; 
+  const character__base__last : character = pending; 
+  const integer__base__first : integer = pending; 
+  const integer__base__last : integer = pending; 
+  const contentst__size : integer = pending; 
+  const cert__attr__contentst__size : integer = pending; 
+  const cert__contentst__size : integer = pending; 
+  const certtypes__idt__size : integer = pending; 
+  const certtypes__serialnumbert__first : integer = pending; 
+  const certtypes__serialnumbert__last : integer = pending; 
+  const certtypes__serialnumbert__size : integer = pending; 
+  const cryptotypes__algorithmt__first : cryptotypes__algorithmt = pending; 
+  const cryptotypes__algorithmt__last : cryptotypes__algorithmt = pending; 
+  const cryptotypes__algorithmt__size : integer = pending; 
+  const cryptotypes__issuert__size : integer = pending; 
+  const cryptotypes__issueridt__first : integer = pending; 
+  const cryptotypes__issueridt__last : integer = pending; 
+  const cryptotypes__issueridt__size : integer = pending; 
+  const cryptotypes__namei__first : integer = pending; 
+  const cryptotypes__namei__last : integer = pending; 
+  const cryptotypes__namei__size : integer = pending; 
+  const cryptotypes__namecountt__first : integer = pending; 
+  const cryptotypes__namecountt__last : integer = pending; 
+  const cryptotypes__namecountt__size : integer = pending; 
+  const privtypes__clearancet__size : integer = pending; 
+  const privtypes__classt__first : privtypes__classt = pending; 
+  const privtypes__classt__last : privtypes__classt = pending; 
+  const privtypes__classt__size : integer = pending; 
+  const privtypes__privileget__first : privtypes__privileget = pending; 
+  const privtypes__privileget__last : privtypes__privileget = pending; 
+  const privtypes__privileget__size : integer = pending; 
+  const positive__first : integer = pending; 
+  const positive__last : integer = pending; 
+  const positive__size : integer = pending; 
+  const character__first : character = pending; 
+  const character__last : character = pending; 
+  const character__size : integer = pending; 
+  const integer__first : integer = pending; 
+  const integer__last : integer = pending; 
+  const integer__size : integer = pending; 
+  var contents : contentst;
+
+end;

@@ -1,0 +1,241 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:30  SIMPLIFIED 05-SEP-2011, 15:39:49
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+function ConfigData.TheAlarmThresholdEntries
+
+
+
+
+
+
+@@@@@@@@@@  VC: function_thealarmthresholdentries_1.  @@@@@@@@@@
+-S-  Applied substitution rule thealarmthre_rules(5).
+     This was achieved by replacing all occurrences of 
+          audittypes__filesizet__base__first by:
+          - 2147483648.
+<S>  New C1:  audittypes__sizeauditelement >= - 2147483647
+<S>  New C5:  audittypes__filesizet__last - alarmthresholdsize >= - 2147483648
+-S-  Applied substitution rule thealarmthre_rules(1).
+     This was achieved by replacing all occurrences of 
+          audittypes__sizeauditelement by:
+          256.
+<S>  New C2:  255 <= audittypes__filesizet__base__last
+<S>  New C3:  256 >= audittypes__filesizet__first
+<S>  New C4:  256 <= audittypes__filesizet__last
+<S>  New C1:  true
+-S-  Applied substitution rule thealarmthre_rules(6).
+     This was achieved by replacing all occurrences of 
+          audittypes__filesizet__base__last by:
+          2147483647.
+<S>  New C6:  audittypes__filesizet__last - alarmthresholdsize <= 2147483647
+<S>  New C2:  true
+-S-  Applied substitution rule thealarmthre_rules(3).
+     This was achieved by replacing all occurrences of 
+          audittypes__filesizet__first by:
+          0.
+<S>  New H2:  alarmthresholdsize >= 0
+<S>  New C3:  true
+-S-  Applied substitution rule thealarmthre_rules(4).
+     This was achieved by replacing all occurrences of 
+          audittypes__filesizet__last by:
+          4194304.
+<S>  New H3:  alarmthresholdsize <= 4194304
+<S>  New C5:  alarmthresholdsize <= 2151677952
+<S>  New C4:  true
+<S>  New C6:  - 2143289343 <= alarmthresholdsize
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C5:  alarmthresholdsize <= 2151677952
+     using hypothesis H3.
+***  Proved C4:  true
+***  Proved C6:  - 2143289343 <= alarmthresholdsize
+     using hypothesis H2.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_thealarmthresholdentries_2.  @@@@@@@@@@
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  true
+***  Proved C2:  true
+-S-  Applied substitution rule thealarmthre_rules(9).
+     This was achieved by replacing all occurrences of 
+          audittypes__auditentrycountt__last by:
+          16384.
+<S>  New C1:  16384 >= audittypes__auditentrycountt__first
+-S-  Applied substitution rule thealarmthre_rules(8).
+     This was achieved by replacing all occurrences of 
+          audittypes__auditentrycountt__first by:
+          0.
+<S>  New C1:  true
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_thealarmthresholdentries_3.  @@@@@@@@@@
+***  Proved C12:  audittypes__sizeauditelement >= audittypes__filesizet__first
+     using hypothesis H6.
+***  Proved C13:  audittypes__sizeauditelement <= audittypes__filesizet__last
+     using hypothesis H7.
+-S-  Applied substitution rule thealarmthre_rules(8).
+     This was achieved by replacing all occurrences of 
+          audittypes__auditentrycountt__first by:
+          0.
+<S>  New C1:  (alarmthresholdsize + audittypes__sizeauditelement - 1) div 
+          audittypes__sizeauditelement >= 0
+<S>  New C3:  (alarmthresholdsize + audittypes__sizeauditelement - 1) div 
+          audittypes__sizeauditelement >= 0
+-S-  Applied substitution rule thealarmthre_rules(9).
+     This was achieved by replacing all occurrences of 
+          audittypes__auditentrycountt__last by:
+          16384.
+<S>  New C2:  (alarmthresholdsize + audittypes__sizeauditelement - 1) div 
+          audittypes__sizeauditelement <= 16384
+<S>  New C4:  (alarmthresholdsize + audittypes__sizeauditelement - 1) div 
+          audittypes__sizeauditelement <= 16384
+-S-  Applied substitution rule thealarmthre_rules(5).
+     This was achieved by replacing all occurrences of 
+          audittypes__filesizet__base__first by:
+          - 2147483648.
+<S>  New H4:  audittypes__sizeauditelement >= - 2147483647
+<S>  New H8:  audittypes__filesizet__last - alarmthresholdsize >= - 2147483648
+<S>  New C5:  (alarmthresholdsize + audittypes__sizeauditelement - 1) div 
+          audittypes__sizeauditelement >= - 2147483648
+<S>  New C8:  alarmthresholdsize + audittypes__sizeauditelement >= - 2147483647
+<S>  New C10:  alarmthresholdsize + audittypes__sizeauditelement >= - 2147483648
+-S-  Applied substitution rule thealarmthre_rules(6).
+     This was achieved by replacing all occurrences of 
+          audittypes__filesizet__base__last by:
+          2147483647.
+<S>  New H5:  audittypes__sizeauditelement <= 2147483648
+<S>  New H9:  audittypes__filesizet__last - alarmthresholdsize <= 2147483647
+<S>  New C6:  (alarmthresholdsize + audittypes__sizeauditelement - 1) div 
+          audittypes__sizeauditelement <= 2147483647
+<S>  New C9:  alarmthresholdsize + audittypes__sizeauditelement <= 2147483648
+<S>  New C11:  alarmthresholdsize + audittypes__sizeauditelement <= 2147483647
+>>>  Restructured hypothesis H10 into:
+     >>>  H10:  audittypes__sizeauditelement - 1 <= audittypes__filesizet__last 
+          - alarmthresholdsize
+-S-  Applied substitution rule thealarmthre_rules(1).
+     This was achieved by replacing all occurrences of 
+          audittypes__sizeauditelement by:
+          256.
+<S>  New H4:  true
+<S>  New H5:  true
+<S>  New H6:  256 >= audittypes__filesizet__first
+<S>  New H7:  256 <= audittypes__filesizet__last
+<S>  New H10:  255 <= audittypes__filesizet__last - alarmthresholdsize
+<S>  New C7:  true
+<S>  New C1:  (alarmthresholdsize + 256 - 1) div 256 >= 0
+<S>  New C3:  (alarmthresholdsize + 256 - 1) div 256 >= 0
+<S>  New C2:  (alarmthresholdsize + 256 - 1) div 256 <= 16384
+<S>  New C4:  (alarmthresholdsize + 256 - 1) div 256 <= 16384
+<S>  New C5:  (alarmthresholdsize + 256 - 1) div 256 >= - 2147483648
+<S>  New C8:  alarmthresholdsize >= - 2147483903
+<S>  New C10:  alarmthresholdsize >= - 2147483904
+<S>  New C6:  (alarmthresholdsize + 256 - 1) div 256 <= 2147483647
+<S>  New C9:  alarmthresholdsize <= 2147483392
+<S>  New C11:  alarmthresholdsize <= 2147483391
+-S-  Applied substitution rule thealarmthre_rules(3).
+     This was achieved by replacing all occurrences of 
+          audittypes__filesizet__first by:
+          0.
+<S>  New H2:  alarmthresholdsize >= 0
+<S>  New H6:  true
+-S-  Applied substitution rule thealarmthre_rules(4).
+     This was achieved by replacing all occurrences of 
+          audittypes__filesizet__last by:
+          4194304.
+<S>  New H3:  alarmthresholdsize <= 4194304
+<S>  New H8:  alarmthresholdsize <= 2151677952
+<S>  New H9:  - 2143289343 <= alarmthresholdsize
+<S>  New H7:  true
+<S>  New H10:  alarmthresholdsize <= 4194049
+***  Proved C7:  true
+***  Proved C8:  alarmthresholdsize >= - 2147483903
+     using hypothesis H9.
+***  Proved C10:  alarmthresholdsize >= - 2147483904
+     using hypothesis H9.
+***  Proved C9:  alarmthresholdsize <= 2147483392
+     using hypothesis H3.
+***  Proved C11:  alarmthresholdsize <= 2147483391
+     using hypothesis H3.
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H4 (true-hypothesis).
+---  Eliminated hypothesis H5 (true-hypothesis).
+---  Eliminated hypothesis H6 (true-hypothesis).
+---  Eliminated hypothesis H7 (true-hypothesis).
+---  Eliminated hypothesis H3 (redundant, given H10).
+---  Eliminated hypothesis H8 (redundant, given H10).
+---  Eliminated hypothesis H9 (redundant, given H2).
+---  Eliminated conclusion C3, which is a duplicate of C1.
+---  Eliminated conclusion C4, which is a duplicate of C2.
+***  Proved C1:  (alarmthresholdsize + 256 - 1) div 256 >= 0
+     using hypothesis H2.
+***  Proved C2:  (alarmthresholdsize + 256 - 1) div 256 <= 16384
+     using hypothesis H10.
+***  Proved C5:  (alarmthresholdsize + 256 - 1) div 256 >= - 2147483648
+     using hypothesis H2.
+***  Proved C6:  (alarmthresholdsize + 256 - 1) div 256 <= 2147483647
+     using hypothesis H3.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_thealarmthresholdentries_4.  @@@@@@@@@@
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  true
+---  Hypothesis H13 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as 
+          H12).
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  true
+***  Proved C1:  true
+***  Proved C2:  audittypes__auditentrycountt__last >= 
+          audittypes__auditentrycountt__first
+     using hypothesis H11.
+***  Proved C3:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_thealarmthresholdentries_5.  @@@@@@@@@@
+---  Hypothesis H13 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H22 has been replaced by "true".  (It is already present, as H6)
+          .
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H24 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as 
+          H12).
+***  Proved C1:  true
+***  Proved C2:  (alarmthresholdsize + audittypes__sizeauditelement - 1) div 
+          audittypes__sizeauditelement >= audittypes__auditentrycountt__first
+     using hypothesis H11.
+***  Proved C3:  (alarmthresholdsize + audittypes__sizeauditelement - 1) div 
+          audittypes__sizeauditelement <= audittypes__auditentrycountt__last
+     using hypothesis H12.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_thealarmthresholdentries_6.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_thealarmthresholdentries_7.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+

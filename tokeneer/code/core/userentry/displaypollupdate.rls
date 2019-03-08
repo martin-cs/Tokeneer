@@ -1,0 +1,139 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:24.70*/
+
+                   /*procedure UserEntry.DisplayPollUpdate*/
+
+
+rule_family displaypollu_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+displaypollu_rules(1): display__msgt__size >= 0 may_be_deduced.
+displaypollu_rules(2): display__msgt__first may_be_replaced_by display__blank.
+displaypollu_rules(3): display__msgt__last may_be_replaced_by display__doorunlocked.
+displaypollu_rules(4): display__msgt__base__first may_be_replaced_by display__blank.
+displaypollu_rules(5): display__msgt__base__last may_be_replaced_by display__doorunlocked.
+displaypollu_rules(6): display__msgt__pos(display__msgt__first) may_be_replaced_by 0.
+displaypollu_rules(7): display__msgt__pos(display__blank) may_be_replaced_by 0.
+displaypollu_rules(8): display__msgt__val(0) may_be_replaced_by 
+     display__blank.
+displaypollu_rules(9): display__msgt__pos(display__welcome) may_be_replaced_by 1.
+displaypollu_rules(10): display__msgt__val(1) may_be_replaced_by 
+     display__welcome.
+displaypollu_rules(11): display__msgt__pos(display__insertfinger) may_be_replaced_by 2.
+displaypollu_rules(12): display__msgt__val(2) may_be_replaced_by 
+     display__insertfinger.
+displaypollu_rules(13): display__msgt__pos(display__opendoor) may_be_replaced_by 3.
+displaypollu_rules(14): display__msgt__val(3) may_be_replaced_by 
+     display__opendoor.
+displaypollu_rules(15): display__msgt__pos(display__wait) may_be_replaced_by 4.
+displaypollu_rules(16): display__msgt__val(4) may_be_replaced_by 
+     display__wait.
+displaypollu_rules(17): display__msgt__pos(display__removetoken) may_be_replaced_by 5.
+displaypollu_rules(18): display__msgt__val(5) may_be_replaced_by 
+     display__removetoken.
+displaypollu_rules(19): display__msgt__pos(
+     display__tokenupdatefailed) may_be_replaced_by 6.
+displaypollu_rules(20): display__msgt__val(6) may_be_replaced_by 
+     display__tokenupdatefailed.
+displaypollu_rules(21): display__msgt__pos(display__doorunlocked) may_be_replaced_by 7.
+displaypollu_rules(22): display__msgt__val(7) may_be_replaced_by 
+     display__doorunlocked.
+displaypollu_rules(23): display__msgt__pos(display__msgt__last) may_be_replaced_by 7.
+displaypollu_rules(24): display__msgt__pos(succ(X)) may_be_replaced_by 
+     display__msgt__pos(X) + 1
+     if [X <=display__doorunlocked, X <> display__doorunlocked].
+displaypollu_rules(25): display__msgt__pos(pred(X)) may_be_replaced_by 
+     display__msgt__pos(X) - 1
+     if [X >=display__blank, X <> display__blank].
+displaypollu_rules(26): display__msgt__pos(X) >= 0 may_be_deduced_from
+     [display__blank <= X, X <= display__doorunlocked].
+displaypollu_rules(27): display__msgt__pos(X) <= 7 may_be_deduced_from
+     [display__blank <= X, X <= display__doorunlocked].
+displaypollu_rules(28): display__msgt__val(X) >= display__blank may_be_deduced_from
+     [0 <= X, X <= 7].
+displaypollu_rules(29): display__msgt__val(X) <= 
+     display__doorunlocked may_be_deduced_from
+     [0 <= X, X <= 7].
+displaypollu_rules(30): succ(display__msgt__val(X)) may_be_replaced_by 
+     display__msgt__val(X+1)
+     if [0 <= X, X < 7].
+displaypollu_rules(31): pred(display__msgt__val(X)) may_be_replaced_by 
+     display__msgt__val(X-1)
+     if [0 < X, X <= 7].
+displaypollu_rules(32): display__msgt__pos(display__msgt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 7].
+displaypollu_rules(33): display__msgt__val(display__msgt__pos(X)) may_be_replaced_by X
+     if [display__blank <= X, X <= display__doorunlocked].
+displaypollu_rules(34): display__msgt__pos(X) <= display__msgt__pos(Y) & X <= Y are_interchangeable 
+     if [display__blank <= X, X <= display__doorunlocked, 
+     display__blank <= Y, Y <= display__doorunlocked].
+displaypollu_rules(35): display__msgt__val(X) <= display__msgt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 7, 0 <= Y, Y <= 7].
+displaypollu_rules(36): statust__size >= 0 may_be_deduced.
+displaypollu_rules(37): statust__first may_be_replaced_by quiescent.
+displaypollu_rules(38): statust__last may_be_replaced_by waitingremovetokenfail.
+displaypollu_rules(39): statust__base__first may_be_replaced_by quiescent.
+displaypollu_rules(40): statust__base__last may_be_replaced_by waitingremovetokenfail.
+displaypollu_rules(41): statust__pos(statust__first) may_be_replaced_by 0.
+displaypollu_rules(42): statust__pos(quiescent) may_be_replaced_by 0.
+displaypollu_rules(43): statust__val(0) may_be_replaced_by 
+     quiescent.
+displaypollu_rules(44): statust__pos(gotusertoken) may_be_replaced_by 1.
+displaypollu_rules(45): statust__val(1) may_be_replaced_by 
+     gotusertoken.
+displaypollu_rules(46): statust__pos(waitingfinger) may_be_replaced_by 2.
+displaypollu_rules(47): statust__val(2) may_be_replaced_by 
+     waitingfinger.
+displaypollu_rules(48): statust__pos(gotfinger) may_be_replaced_by 3.
+displaypollu_rules(49): statust__val(3) may_be_replaced_by 
+     gotfinger.
+displaypollu_rules(50): statust__pos(waitingupdatetoken) may_be_replaced_by 4.
+displaypollu_rules(51): statust__val(4) may_be_replaced_by 
+     waitingupdatetoken.
+displaypollu_rules(52): statust__pos(waitingentry) may_be_replaced_by 5.
+displaypollu_rules(53): statust__val(5) may_be_replaced_by 
+     waitingentry.
+displaypollu_rules(54): statust__pos(waitingremovetokensuccess) may_be_replaced_by 6.
+displaypollu_rules(55): statust__val(6) may_be_replaced_by 
+     waitingremovetokensuccess.
+displaypollu_rules(56): statust__pos(waitingremovetokenfail) may_be_replaced_by 7.
+displaypollu_rules(57): statust__val(7) may_be_replaced_by 
+     waitingremovetokenfail.
+displaypollu_rules(58): statust__pos(statust__last) may_be_replaced_by 7.
+displaypollu_rules(59): statust__pos(succ(X)) may_be_replaced_by 
+     statust__pos(X) + 1
+     if [X <=waitingremovetokenfail, X <> waitingremovetokenfail].
+displaypollu_rules(60): statust__pos(pred(X)) may_be_replaced_by 
+     statust__pos(X) - 1
+     if [X >=quiescent, X <> quiescent].
+displaypollu_rules(61): statust__pos(X) >= 0 may_be_deduced_from
+     [quiescent <= X, X <= waitingremovetokenfail].
+displaypollu_rules(62): statust__pos(X) <= 7 may_be_deduced_from
+     [quiescent <= X, X <= waitingremovetokenfail].
+displaypollu_rules(63): statust__val(X) >= quiescent may_be_deduced_from
+     [0 <= X, X <= 7].
+displaypollu_rules(64): statust__val(X) <= waitingremovetokenfail may_be_deduced_from
+     [0 <= X, X <= 7].
+displaypollu_rules(65): succ(statust__val(X)) may_be_replaced_by 
+     statust__val(X+1)
+     if [0 <= X, X < 7].
+displaypollu_rules(66): pred(statust__val(X)) may_be_replaced_by 
+     statust__val(X-1)
+     if [0 < X, X <= 7].
+displaypollu_rules(67): statust__pos(statust__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 7].
+displaypollu_rules(68): statust__val(statust__pos(X)) may_be_replaced_by X
+     if [quiescent <= X, X <= waitingremovetokenfail].
+displaypollu_rules(69): statust__pos(X) <= statust__pos(Y) & X <= Y are_interchangeable 
+     if [quiescent <= X, X <= waitingremovetokenfail, quiescent <= Y, Y <= 
+     waitingremovetokenfail].
+displaypollu_rules(70): statust__val(X) <= statust__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 7, 0 <= Y, Y <= 7].

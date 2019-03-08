@@ -1,0 +1,63 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:18.02*/
+
+                             /*procedure Bio.Poll*/
+
+
+rule_family poll_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+poll_rules(1): basictypes__presencet__size >= 0 may_be_deduced.
+poll_rules(2): basictypes__presencet__first may_be_replaced_by basictypes__present.
+poll_rules(3): basictypes__presencet__last may_be_replaced_by basictypes__absent.
+poll_rules(4): basictypes__presencet__base__first may_be_replaced_by basictypes__present.
+poll_rules(5): basictypes__presencet__base__last may_be_replaced_by basictypes__absent.
+poll_rules(6): basictypes__presencet__pos(basictypes__presencet__first) may_be_replaced_by 0.
+poll_rules(7): basictypes__presencet__pos(basictypes__present) may_be_replaced_by 0.
+poll_rules(8): basictypes__presencet__val(0) may_be_replaced_by 
+     basictypes__present.
+poll_rules(9): basictypes__presencet__pos(basictypes__absent) may_be_replaced_by 1.
+poll_rules(10): basictypes__presencet__val(1) may_be_replaced_by 
+     basictypes__absent.
+poll_rules(11): basictypes__presencet__pos(basictypes__presencet__last) may_be_replaced_by 1.
+poll_rules(12): basictypes__presencet__pos(succ(X)) may_be_replaced_by 
+     basictypes__presencet__pos(X) + 1
+     if [X <=basictypes__absent, X <> basictypes__absent].
+poll_rules(13): basictypes__presencet__pos(pred(X)) may_be_replaced_by 
+     basictypes__presencet__pos(X) - 1
+     if [X >=basictypes__present, X <> basictypes__present].
+poll_rules(14): basictypes__presencet__pos(X) >= 0 may_be_deduced_from
+     [basictypes__present <= X, X <= basictypes__absent].
+poll_rules(15): basictypes__presencet__pos(X) <= 1 may_be_deduced_from
+     [basictypes__present <= X, X <= basictypes__absent].
+poll_rules(16): basictypes__presencet__val(X) >= 
+     basictypes__present may_be_deduced_from
+     [0 <= X, X <= 1].
+poll_rules(17): basictypes__presencet__val(X) <= 
+     basictypes__absent may_be_deduced_from
+     [0 <= X, X <= 1].
+poll_rules(18): succ(basictypes__presencet__val(X)) may_be_replaced_by 
+     basictypes__presencet__val(X+1)
+     if [0 <= X, X < 1].
+poll_rules(19): pred(basictypes__presencet__val(X)) may_be_replaced_by 
+     basictypes__presencet__val(X-1)
+     if [0 < X, X <= 1].
+poll_rules(20): basictypes__presencet__pos(basictypes__presencet__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+poll_rules(21): basictypes__presencet__val(basictypes__presencet__pos(X)) may_be_replaced_by X
+     if [basictypes__present <= X, X <= basictypes__absent].
+poll_rules(22): basictypes__presencet__pos(X) <= 
+     basictypes__presencet__pos(Y) & X <= Y are_interchangeable 
+     if [basictypes__present <= X, X <= basictypes__absent, 
+     basictypes__present <= Y, Y <= basictypes__absent].
+poll_rules(23): basictypes__presencet__val(X) <= 
+     basictypes__presencet__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].

@@ -1,0 +1,152 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:30.51*/
+
+                   /*procedure ConfigData.TheDisplayFields*/
+
+
+rule_family thedisplayfi_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+thedisplayfi_rules(1): clock__durationt__size >= 0 may_be_deduced.
+thedisplayfi_rules(2): clock__durationt__first may_be_replaced_by 0.
+thedisplayfi_rules(3): clock__durationt__last may_be_replaced_by 864000.
+thedisplayfi_rules(4): clock__durationt__base__first <= 
+     clock__durationt__base__last may_be_deduced.
+thedisplayfi_rules(5): clock__durationt__base__first <= 
+     clock__durationt__first may_be_deduced.
+thedisplayfi_rules(6): clock__durationt__base__last >= 
+     clock__durationt__last may_be_deduced.
+thedisplayfi_rules(7): audittypes__filesizet__size >= 0 may_be_deduced.
+thedisplayfi_rules(8): audittypes__filesizet__first may_be_replaced_by 0.
+thedisplayfi_rules(9): audittypes__filesizet__last may_be_replaced_by 4194304.
+thedisplayfi_rules(10): audittypes__filesizet__base__first may_be_replaced_by -2147483648.
+thedisplayfi_rules(11): audittypes__filesizet__base__last may_be_replaced_by 2147483647.
+thedisplayfi_rules(12): privtypes__classt__size >= 0 may_be_deduced.
+thedisplayfi_rules(13): privtypes__classt__first may_be_replaced_by privtypes__unmarked.
+thedisplayfi_rules(14): privtypes__classt__last may_be_replaced_by privtypes__topsecret.
+thedisplayfi_rules(15): privtypes__classt__base__first may_be_replaced_by privtypes__unmarked.
+thedisplayfi_rules(16): privtypes__classt__base__last may_be_replaced_by privtypes__topsecret.
+thedisplayfi_rules(17): privtypes__classt__pos(privtypes__classt__first) may_be_replaced_by 0.
+thedisplayfi_rules(18): privtypes__classt__pos(
+     privtypes__unmarked) may_be_replaced_by 0.
+thedisplayfi_rules(19): privtypes__classt__val(0) may_be_replaced_by 
+     privtypes__unmarked.
+thedisplayfi_rules(20): privtypes__classt__pos(
+     privtypes__unclassified) may_be_replaced_by 1.
+thedisplayfi_rules(21): privtypes__classt__val(1) may_be_replaced_by 
+     privtypes__unclassified.
+thedisplayfi_rules(22): privtypes__classt__pos(
+     privtypes__restricted) may_be_replaced_by 2.
+thedisplayfi_rules(23): privtypes__classt__val(2) may_be_replaced_by 
+     privtypes__restricted.
+thedisplayfi_rules(24): privtypes__classt__pos(
+     privtypes__confidential) may_be_replaced_by 3.
+thedisplayfi_rules(25): privtypes__classt__val(3) may_be_replaced_by 
+     privtypes__confidential.
+thedisplayfi_rules(26): privtypes__classt__pos(privtypes__secret) may_be_replaced_by 4.
+thedisplayfi_rules(27): privtypes__classt__val(4) may_be_replaced_by 
+     privtypes__secret.
+thedisplayfi_rules(28): privtypes__classt__pos(
+     privtypes__topsecret) may_be_replaced_by 5.
+thedisplayfi_rules(29): privtypes__classt__val(5) may_be_replaced_by 
+     privtypes__topsecret.
+thedisplayfi_rules(30): privtypes__classt__pos(privtypes__classt__last) may_be_replaced_by 5.
+thedisplayfi_rules(31): privtypes__classt__pos(succ(X)) may_be_replaced_by 
+     privtypes__classt__pos(X) + 1
+     if [X <=privtypes__topsecret, X <> privtypes__topsecret].
+thedisplayfi_rules(32): privtypes__classt__pos(pred(X)) may_be_replaced_by 
+     privtypes__classt__pos(X) - 1
+     if [X >=privtypes__unmarked, X <> privtypes__unmarked].
+thedisplayfi_rules(33): privtypes__classt__pos(X) >= 0 may_be_deduced_from
+     [privtypes__unmarked <= X, X <= privtypes__topsecret].
+thedisplayfi_rules(34): privtypes__classt__pos(X) <= 5 may_be_deduced_from
+     [privtypes__unmarked <= X, X <= privtypes__topsecret].
+thedisplayfi_rules(35): privtypes__classt__val(X) >= 
+     privtypes__unmarked may_be_deduced_from
+     [0 <= X, X <= 5].
+thedisplayfi_rules(36): privtypes__classt__val(X) <= 
+     privtypes__topsecret may_be_deduced_from
+     [0 <= X, X <= 5].
+thedisplayfi_rules(37): succ(privtypes__classt__val(X)) may_be_replaced_by 
+     privtypes__classt__val(X+1)
+     if [0 <= X, X < 5].
+thedisplayfi_rules(38): pred(privtypes__classt__val(X)) may_be_replaced_by 
+     privtypes__classt__val(X-1)
+     if [0 < X, X <= 5].
+thedisplayfi_rules(39): privtypes__classt__pos(privtypes__classt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 5].
+thedisplayfi_rules(40): privtypes__classt__val(privtypes__classt__pos(X)) may_be_replaced_by X
+     if [privtypes__unmarked <= X, X <= privtypes__topsecret].
+thedisplayfi_rules(41): privtypes__classt__pos(X) <= 
+     privtypes__classt__pos(Y) & X <= Y are_interchangeable 
+     if [privtypes__unmarked <= X, X <= privtypes__topsecret, 
+     privtypes__unmarked <= Y, Y <= privtypes__topsecret].
+thedisplayfi_rules(42): privtypes__classt__val(X) <= 
+     privtypes__classt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 5, 0 <= Y, Y <= 5].
+thedisplayfi_rules(43): iandatypes__fart__size >= 0 may_be_deduced.
+thedisplayfi_rules(44): iandatypes__fart__size may_be_replaced_by 32.
+thedisplayfi_rules(45): iandatypes__fart__first may_be_replaced_by 0.
+thedisplayfi_rules(46): iandatypes__fart__last may_be_replaced_by 2147483647.
+thedisplayfi_rules(47): iandatypes__fart__base__first <= 
+     iandatypes__fart__base__last may_be_deduced.
+thedisplayfi_rules(48): iandatypes__fart__base__first <= 
+     iandatypes__fart__first may_be_deduced.
+thedisplayfi_rules(49): iandatypes__fart__base__last >= 
+     iandatypes__fart__last may_be_deduced.
+thedisplayfi_rules(50): durationt__size >= 0 may_be_deduced.
+thedisplayfi_rules(51): durationt__first may_be_replaced_by 0.
+thedisplayfi_rules(52): durationt__last may_be_replaced_by 2000.
+thedisplayfi_rules(53): durationt__base__first <= durationt__base__last may_be_deduced.
+thedisplayfi_rules(54): durationt__base__first <= durationt__first may_be_deduced.
+thedisplayfi_rules(55): durationt__base__last >= durationt__last may_be_deduced.
+thedisplayfi_rules(56): accesspolicyt__size >= 0 may_be_deduced.
+thedisplayfi_rules(57): accesspolicyt__first may_be_replaced_by workinghours.
+thedisplayfi_rules(58): accesspolicyt__last may_be_replaced_by allhours.
+thedisplayfi_rules(59): accesspolicyt__base__first may_be_replaced_by workinghours.
+thedisplayfi_rules(60): accesspolicyt__base__last may_be_replaced_by allhours.
+thedisplayfi_rules(61): accesspolicyt__pos(accesspolicyt__first) may_be_replaced_by 0.
+thedisplayfi_rules(62): accesspolicyt__pos(workinghours) may_be_replaced_by 0.
+thedisplayfi_rules(63): accesspolicyt__val(0) may_be_replaced_by 
+     workinghours.
+thedisplayfi_rules(64): accesspolicyt__pos(allhours) may_be_replaced_by 1.
+thedisplayfi_rules(65): accesspolicyt__val(1) may_be_replaced_by 
+     allhours.
+thedisplayfi_rules(66): accesspolicyt__pos(accesspolicyt__last) may_be_replaced_by 1.
+thedisplayfi_rules(67): accesspolicyt__pos(succ(X)) may_be_replaced_by 
+     accesspolicyt__pos(X) + 1
+     if [X <=allhours, X <> allhours].
+thedisplayfi_rules(68): accesspolicyt__pos(pred(X)) may_be_replaced_by 
+     accesspolicyt__pos(X) - 1
+     if [X >=workinghours, X <> workinghours].
+thedisplayfi_rules(69): accesspolicyt__pos(X) >= 0 may_be_deduced_from
+     [workinghours <= X, X <= allhours].
+thedisplayfi_rules(70): accesspolicyt__pos(X) <= 1 may_be_deduced_from
+     [workinghours <= X, X <= allhours].
+thedisplayfi_rules(71): accesspolicyt__val(X) >= workinghours may_be_deduced_from
+     [0 <= X, X <= 1].
+thedisplayfi_rules(72): accesspolicyt__val(X) <= allhours may_be_deduced_from
+     [0 <= X, X <= 1].
+thedisplayfi_rules(73): succ(accesspolicyt__val(X)) may_be_replaced_by 
+     accesspolicyt__val(X+1)
+     if [0 <= X, X < 1].
+thedisplayfi_rules(74): pred(accesspolicyt__val(X)) may_be_replaced_by 
+     accesspolicyt__val(X-1)
+     if [0 < X, X <= 1].
+thedisplayfi_rules(75): accesspolicyt__pos(accesspolicyt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+thedisplayfi_rules(76): accesspolicyt__val(accesspolicyt__pos(X)) may_be_replaced_by X
+     if [workinghours <= X, X <= allhours].
+thedisplayfi_rules(77): accesspolicyt__pos(X) <= accesspolicyt__pos(Y) & X <= Y are_interchangeable 
+     if [workinghours <= X, X <= allhours, workinghours <= Y, Y <= 
+     allhours].
+thedisplayfi_rules(78): accesspolicyt__val(X) <= accesspolicyt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].

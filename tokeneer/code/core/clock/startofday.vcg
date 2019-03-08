@@ -1,0 +1,43 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:07.67
+
+                         function Clock.StartOfDay
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 290:
+
+function_startofday_1.
+H1:    true .
+H2:    fld_millisec(thetime) >= millisecst__first .
+H3:    fld_millisec(thetime) <= millisecst__last .
+H4:    fld_day(thetime) >= dayst__first .
+H5:    fld_day(thetime) <= dayst__last .
+H6:    fld_month(thetime) >= monthst__first .
+H7:    fld_month(thetime) <= monthst__last .
+H8:    fld_year(thetime) >= yearst__first .
+H9:    fld_year(thetime) <= yearst__last .
+        ->
+C1:    millisecst__first >= millisecst__first .
+C2:    millisecst__first <= millisecst__last .
+C3:    fld_day(thetime) >= dayst__first .
+C4:    fld_day(thetime) <= dayst__last .
+C5:    fld_month(thetime) >= monthst__first .
+C6:    fld_month(thetime) <= monthst__last .
+C7:    fld_year(thetime) >= yearst__first .
+C8:    fld_year(thetime) <= yearst__last .
+ 
+
+For path(s) from start to finish:
+
+function_startofday_2.
+*** true .          /* trivially true VC removed by Examiner */
+
+

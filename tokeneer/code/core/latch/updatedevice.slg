@@ -1,0 +1,289 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:10  SIMPLIFIED 05-SEP-2011, 15:41:35
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure Latch.UpdateDevice
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/latch/latch.rlu
+&&&  d:/sparkdev/tis2011/code/core/latch/updatedevice.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_updatedevice_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  t__first <= currentlatch
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__critical
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__systemfault
+-S-  Applied substitution rule updatedevice_rules(109).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule updatedevice_rules(110).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule updatedevice_rules(2).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule updatedevice_rules(3).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatedevice_2.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  t__first <= currentlatch
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__critical
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__systemfault
+-S-  Applied substitution rule updatedevice_rules(109).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule updatedevice_rules(110).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule updatedevice_rules(2).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule updatedevice_rules(3).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatedevice_3.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  t__first <= currentlatch
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  audittypes__severityt__first <= audittypes__critical
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  audittypes__elementt__first <= audittypes__systemfault
+***  Proved C1:  (islocked(currentlatch) <-> latch__interface__prf_islocked(
+          latch__interface__output__1)) or systemfault__1
+     using hypothesis H8.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatedevice_4.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  t__first <= currentlatch
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  audittypes__severityt__first <= audittypes__critical
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  audittypes__elementt__first <= audittypes__systemfault
+***  Proved C1:  (islocked(currentlatch) <-> latch__interface__prf_islocked(
+          latch__interface__output__2)) or systemfault__2
+     using hypothesis H8.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatedevice_5.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  t__first <= currentlatch
+-S-  Applied substitution rule updatedevice_rules(134).
+     This was achieved by replacing all occurrences of t__first by:
+          locked.
+<S>  New H2:  locked <= currentlatch
+-S-  Applied substitution rule updatedevice_rules(135).
+     This was achieved by replacing all occurrences of t__last by:
+          unlocked.
+<S>  New H3:  currentlatch <= unlocked
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H6 (true-hypothesis).
+---  Eliminated hypothesis H7 (true-hypothesis).
+%%%  Simplified H5 further (given H8), to give:
+     %%%  H5:  latch__interface__prf_islocked(latch__interface__output__1)
+-S-  Eliminated hypothesis H4.
+     This was achieved by replacing all occurrences of currentlatch by:
+          locked.
+<S>  New H2:  true
+<S>  New H3:  true
+<S>  New C1:  (islocked(locked) <-> latch__interface__prf_islocked(
+          latch__interface__output__1)) or systemfault__1
+-S-  Eliminated hypothesis H8.
+     This was achieved by replacing all occurrences of systemfault__1 by:
+          false.
+<S>  New C1:  islocked(locked) <-> latch__interface__prf_islocked(
+          latch__interface__output__1)
+---  Eliminated hypothesis H2 (true-hypothesis).
+---  Eliminated hypothesis H3 (true-hypothesis).
+     +++  New H9:  audittypes__elementt__size >= 0
+     +++  New H10:  audittypes__severityt__size >= 0
+     +++  New H11:  t__size >= 0
+***  Proved C1:  islocked(locked) <-> latch__interface__prf_islocked(
+          latch__interface__output__1)
+     This was achieved by applying the rewrite rule latch_user(2)
+     [from rulefile latch.rlu] to rewrite this conclusion to:
+<S>  C1:  locked = locked <-> latch__interface__prf_islocked(
+          latch__interface__output__1)
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  From H5, proved: locked = locked <-> latch__interface__prf_islocked(
+          latch__interface__output__1)
+***  PROVED VC.
+
+VCN  5: Summary of user rule application.
+FIL  latch.rlu
+RUL     latch_user(2)
+CON        1
+
+
+@@@@@@@@@@  VC: procedure_updatedevice_6.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  t__first <= currentlatch
+>>>  Restructured hypothesis H4 into:
+     >>>  H4:  currentlatch <> locked
+-S-  Applied substitution rule updatedevice_rules(134).
+     This was achieved by replacing all occurrences of t__first by:
+          locked.
+<S>  New H2:  locked <= currentlatch
+-S-  Applied substitution rule updatedevice_rules(135).
+     This was achieved by replacing all occurrences of t__last by:
+          unlocked.
+<S>  New H3:  currentlatch <= unlocked
+%%%  Hypotheses H2 & H4 together imply that
+          locked < currentlatch.
+     H2 & H4 have therefore been deleted and a new H9 added to this effect.
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H6 (true-hypothesis).
+---  Eliminated hypothesis H7 (true-hypothesis).
+%%%  Simplified H5 further (given H8), to give:
+     %%%  H5:  not latch__interface__prf_islocked(latch__interface__output__2)
+-S-  Eliminated hypothesis H8.
+     This was achieved by replacing all occurrences of systemfault__2 by:
+          false.
+<S>  New C1:  islocked(currentlatch) <-> latch__interface__prf_islocked(
+          latch__interface__output__2)
+     +++  New H10:  audittypes__elementt__size >= 0
+     +++  New H11:  audittypes__severityt__size >= 0
+     +++  New H12:  t__size >= 0
+***  Proved C1:  islocked(currentlatch) <-> latch__interface__prf_islocked(
+          latch__interface__output__2)
+     This was achieved by applying the rewrite rule latch_user(2)
+     [from rulefile latch.rlu] to rewrite this conclusion to:
+<S>  C1:  currentlatch = locked <-> latch__interface__prf_islocked(
+          latch__interface__output__2)
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  From H5 & H9, proved: currentlatch = locked <-> 
+          latch__interface__prf_islocked(latch__interface__output__2)
+***  PROVED VC.
+
+VCN  6: Summary of user rule application.
+FIL  latch.rlu
+RUL     latch_user(2)
+CON        1
+
+
+@@@@@@@@@@  VC: procedure_updatedevice_7.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatedevice_8.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  currentlatch = fld_currentlatch(state~)
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  latch__interface__output~ = fld_latch__interface__output(output~)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  latchtimeout = fld_latchtimeout(state~)
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  t__first <= currentlatch
+-S-  Applied substitution rule updatedevice_rules(134).
+     This was achieved by replacing all occurrences of t__first by:
+          locked.
+<S>  New H9:  locked <= currentlatch
+-S-  Applied substitution rule updatedevice_rules(135).
+     This was achieved by replacing all occurrences of t__last by:
+          unlocked.
+<S>  New H10:  currentlatch <= unlocked
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H2 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+-S-  Eliminated hypothesis H3.
+     This was achieved by replacing all occurrences of currentlatch by:
+          fld_currentlatch(state~).
+<S>  New H4:  fld_currentlatch(state~) = fld_currentlatch(state)
+<S>  New H12:  (islocked(fld_currentlatch(state~)) <-> 
+          latch__interface__prf_islocked(latch__interface__output)) or 
+          systemfault
+<S>  New H9:  locked <= fld_currentlatch(state~)
+<S>  New H10:  fld_currentlatch(state~) <= unlocked
+-S-  Eliminated hypothesis H6.
+     This was achieved by replacing all occurrences of latch__interface__output 
+          by:
+          fld_latch__interface__output(output).
+<S>  New H12:  (islocked(fld_currentlatch(state~)) <-> 
+          latch__interface__prf_islocked(fld_latch__interface__output(output))) 
+          or systemfault
+-S-  Eliminated hypothesis H7.
+     This was achieved by replacing all occurrences of latchtimeout by:
+          fld_latchtimeout(state~).
+<S>  New H8:  fld_latchtimeout(state~) = fld_latchtimeout(state)
+     +++  New H13:  audittypes__elementt__size >= 0
+     +++  New H14:  audittypes__severityt__size >= 0
+     +++  New H15:  t__size >= 0
+***  Proved C1:  (latch__islocked(state) <-> prf_islocked(output)) or 
+          systemfault
+     This was achieved by applying the inference rule updatedevice_user(1)
+     [from rulefile updatedevice.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H12, proved: (islocked(fld_currentlatch(state~)) <-> 
+          latch__interface__prf_islocked(fld_latch__interface__output(output))) 
+          or systemfault
+     <<<  From H4, proved: fld_currentlatch(state~) = fld_currentlatch(state)
+***  PROVED VC.
+
+VCN  8: Summary of user rule application.
+FIL  updatedevice.rlu
+RUL     updatedevice_user(1)
+CON        1
+
+
+OVR  Overall summary of VCs using user rules.
+FIL  latch.rlu
+RUL     latch_user(2)
+VCS        5, 6
+FIL  updatedevice.rlu
+RUL     updatedevice_user(1)
+VCS        8
+

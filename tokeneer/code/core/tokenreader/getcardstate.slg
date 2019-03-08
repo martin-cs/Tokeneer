@@ -1,0 +1,147 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:18  SIMPLIFIED 05-SEP-2011, 15:41:59
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+function TokenReader.GetCardState
+
+
+
+
+
+
+@@@@@@@@@@  VC: function_getcardstate_1.  @@@@@@@@@@
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  tokenreader__interface__cardstatet__first <= 
+          tokenreader__interface__cardstatet__val(cardstate)
+***  Proved C3:  cardstate >= tokenreader__interface__cardstatet__pos(
+          tokenreader__interface__cardstatet__first)
+     using hypothesis H4.
+***  Proved C4:  cardstate <= tokenreader__interface__cardstatet__pos(
+          tokenreader__interface__cardstatet__last)
+     using hypothesis H5.
+-S-  Applied substitution rule getcardstate_rules(9).
+     This was achieved by replacing all occurrences of 
+          tokenreader__interface__cardstatet__first by:
+          tokenreader__interface__invalidcardstate.
+<S>  New H4:  cardstate >= tokenreader__interface__cardstatet__pos(
+          tokenreader__interface__invalidcardstate)
+<S>  New C1:  tokenreader__interface__invalidcardstate <= 
+          tokenreader__interface__cardstatet__val(cardstate)
+-S-  Applied substitution rule getcardstate_rules(10).
+     This was achieved by replacing all occurrences of 
+          tokenreader__interface__cardstatet__last by:
+          tokenreader__interface__specific.
+<S>  New H5:  cardstate <= tokenreader__interface__cardstatet__pos(
+          tokenreader__interface__specific)
+<S>  New C2:  tokenreader__interface__cardstatet__val(cardstate) <= 
+          tokenreader__interface__specific
+-S-  Applied substitution rule getcardstate_rules(3).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__first by:
+          0.
+<S>  New H2:  cardstate >= 0
+-S-  Applied substitution rule getcardstate_rules(4).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__last by:
+          4294967295.
+<S>  New H3:  cardstate <= 4294967295
+-S-  Applied substitution rule getcardstate_rules(14).
+     This was achieved by replacing all occurrences of 
+          tokenreader__interface__cardstatet__pos(
+          tokenreader__interface__invalidcardstate) by:
+          0.
+<S>  New H4:  cardstate >= 0
+-S-  Applied substitution rule getcardstate_rules(26).
+     This was achieved by replacing all occurrences of 
+          tokenreader__interface__cardstatet__pos(
+          tokenreader__interface__specific) by:
+          6.
+<S>  New H5:  cardstate <= 6
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H4 (duplicate of H2).
+---  Eliminated hypothesis H3 (redundant, given H5).
+***  Proved C1:  tokenreader__interface__invalidcardstate <= 
+          tokenreader__interface__cardstatet__val(cardstate)
+     using hypotheses H2 & H5.
+***  Proved C2:  tokenreader__interface__cardstatet__val(cardstate) <= 
+          tokenreader__interface__specific
+     using hypotheses H2 & H5.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_getcardstate_2.  @@@@@@@@@@
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  tokenreader__interface__cardstatet__first <= 
+          tokenreader__interface__invalidcardstate
+-S-  Applied substitution rule getcardstate_rules(9).
+     This was achieved by replacing all occurrences of 
+          tokenreader__interface__cardstatet__first by:
+          tokenreader__interface__invalidcardstate.
+<S>  New H4:  not (cardstate >= tokenreader__interface__cardstatet__pos(
+          tokenreader__interface__invalidcardstate) and cardstate <= 
+          tokenreader__interface__cardstatet__pos(
+          tokenreader__interface__cardstatet__last))
+<S>  New C1:  true
+-S-  Applied substitution rule getcardstate_rules(10).
+     This was achieved by replacing all occurrences of 
+          tokenreader__interface__cardstatet__last by:
+          tokenreader__interface__specific.
+<S>  New H4:  not (cardstate >= tokenreader__interface__cardstatet__pos(
+          tokenreader__interface__invalidcardstate) and cardstate <= 
+          tokenreader__interface__cardstatet__pos(
+          tokenreader__interface__specific))
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_getcardstate_3.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  tokenreader__interface__cardstatet__first <= 
+          tokenreader__interface__cardstatet__val(cardstate)
+---  Hypothesis H8 has been replaced by "true".  (It is already present, as H4).
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H5).
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H6)
+          .
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H7)
+          .
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  tokenreader__interface__cardstatet__first <= 
+          tokenreader__interface__cardstatet__val(cardstate)
+***  Proved C1:  true
+***  Proved C2:  tokenreader__interface__cardstatet__first <= 
+          tokenreader__interface__cardstatet__val(cardstate)
+     using hypothesis H6.
+***  Proved C3:  tokenreader__interface__cardstatet__val(cardstate) <= 
+          tokenreader__interface__cardstatet__last
+     using hypothesis H7.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_getcardstate_4.  @@@@@@@@@@
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  tokenreader__interface__cardstatet__first <= 
+          tokenreader__interface__invalidcardstate
+---  Hypothesis H7 has been replaced by "true".  (It is already present, as H5).
+---  Hypothesis H8 has been replaced by "true".  (It is already present, as H6).
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  tokenreader__interface__cardstatet__first <= 
+          tokenreader__interface__invalidcardstate
+***  Proved C1:  true
+***  Proved C2:  tokenreader__interface__cardstatet__first <= 
+          tokenreader__interface__invalidcardstate
+     using hypothesis H5.
+***  Proved C3:  tokenreader__interface__invalidcardstate <= 
+          tokenreader__interface__cardstatet__last
+     using hypothesis H6.
+***  PROVED VC.
+

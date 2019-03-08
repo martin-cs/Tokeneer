@@ -1,0 +1,115 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:27.07}
+
+                  {procedure Enclave.ProgressAdminActivity}
+
+
+title procedure progressadminactivity;
+
+  function round__(real) : integer;
+  type clock__currenttime__type = pending;
+  type clock__timet = pending;
+  type alarmtypes__statust = (alarmtypes__alarming, 
+     alarmtypes__silent);
+  type privtypes__privileget = (privtypes__useronly, 
+     privtypes__guard, privtypes__auditmanager, 
+     privtypes__securityofficer);
+  type latch__statetype = pending;
+  type door__statetype = pending;
+  type door__t = (door__open, door__closed);
+  type admin__opandnullt = (admin__nullop, admin__archivelog, 
+     admin__updateconfigdata, admin__overridelock, 
+     admin__shutdownop);
+  type admin__t = pending;
+  type admintoken__statetype = pending;
+  type statust = (notenrolled, waitingenrol, waitingendenrol, 
+     enclavequiescent, waitingremoveadmintokenfail, gotadmintoken, 
+     waitingstartadminop, waitingfinishadminop, shutdown);
+  type statetype = record
+        status : statust
+     end;
+  const nonquiescentstates__base__first : statust = pending; 
+  const nonquiescentstates__base__last : statust = pending; 
+  const statust__base__first : statust = pending; 
+  const statust__base__last : statust = pending; 
+  const admin__opandnullt__base__first : admin__opandnullt = pending; 
+  const admin__opandnullt__base__last : admin__opandnullt = pending; 
+  const door__t__base__first : door__t = pending; 
+  const door__t__base__last : door__t = pending; 
+  const privtypes__privileget__base__first : 
+     privtypes__privileget = pending; 
+  const privtypes__privileget__base__last : privtypes__privileget = pending; 
+  const alarmtypes__statust__base__first : alarmtypes__statust = pending; 
+  const alarmtypes__statust__base__last : alarmtypes__statust = pending; 
+  const nonquiescentstates__first : statust = pending; 
+  const nonquiescentstates__last : statust = pending; 
+  const nonquiescentstates__size : integer = pending; 
+  const statust__first : statust = pending; 
+  const statust__last : statust = pending; 
+  const statust__size : integer = pending; 
+  const admin__opandnullt__first : admin__opandnullt = pending; 
+  const admin__opandnullt__last : admin__opandnullt = pending; 
+  const admin__opandnullt__size : integer = pending; 
+  const door__t__first : door__t = pending; 
+  const door__t__last : door__t = pending; 
+  const door__t__size : integer = pending; 
+  const privtypes__privileget__first : privtypes__privileget = pending; 
+  const privtypes__privileget__last : privtypes__privileget = pending; 
+  const privtypes__privileget__size : integer = pending; 
+  const alarmtypes__statust__first : alarmtypes__statust = pending; 
+  const alarmtypes__statust__last : alarmtypes__statust = pending; 
+  const alarmtypes__statust__size : integer = pending; 
+  var clock__currenttime : clock__currenttime__type;
+  var latch__state : latch__statetype;
+  var door__state : door__statetype;
+  var admintoken__state : admintoken__statetype;
+  var state : statetype;
+  var theadmin : admin__t;
+  var status : statust;
+  function clock__thecurrenttime(clock__currenttime__type) : 
+     clock__timet;
+  function clock__greaterthanorequal(clock__timet, clock__timet) : boolean;
+  function latch__islocked(latch__statetype) : boolean;
+  function door__prf_alarmtimeout(door__statetype) : clock__timet;
+  function door__thecurrentdoor(door__statetype) : door__t;
+  function door__thedooralarm(door__statetype) : 
+     alarmtypes__statust;
+  function admin__prf_rolepresent(admin__t) : 
+     privtypes__privileget;
+  function admin__isdoingop(admin__t) : boolean;
+  function admin__thecurrentop(admin__t) : admin__opandnullt;
+  function admin__ispresent(admin__t) : boolean;
+  function admintoken__theauthcertrole(admintoken__statetype) : 
+     privtypes__privileget;
+  function admintoken__prf_isgood(admintoken__statetype) : boolean;
+  function admintoken__prf_authcertvalid(admintoken__statetype) : boolean;
+  function prf_statusisgotadmintoken(statetype) : boolean;
+  function prf_statusiswaitingremoveadmintokenfail(statetype) : boolean;
+  function prf_statusiswaitingstartadminop(statetype) : boolean;
+  function prf_statusiswaitingfinishadminop(statetype) : boolean;
+  function prf_statusisenclavequiescent(statetype) : boolean;
+  function prf_statusisshutdown(statetype) : boolean;
+  function enclave__enrolmentisinprogress(statetype) : boolean;
+  function enclave__currentadminactivitypossible(statetype, 
+     admintoken__statetype) : boolean;
+  function enrolmentisinprogress(statust) : boolean;
+  function currentadminactivitypossible(admintoken__statetype, 
+     statust) : boolean;
+  var admintoken__state__2 : admintoken__statetype;
+  var admintoken__state__3 : admintoken__statetype;
+  var door__state__3 : door__statetype;
+  var latch__state__3 : latch__statetype;
+  var theadmin__3 : admin__t;
+  var status__3 : statust;
+  var status__2 : statust;
+  var admintoken__state__1 : admintoken__statetype;
+  var theadmin__1 : admin__t;
+  var status__1 : statust;
+
+end;

@@ -1,0 +1,279 @@
+           *******************************************************
+                            Listing of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:13.16
+
+Line
+   1  ------------------------------------------------------------------
+   2  -- Tokeneer ID Station Core Software
+   3  --
+   4  -- Copyright (2003) United States Government, as represented
+   5  -- by the Director, National Security Agency. All rights reserved.
+   6  --
+   7  -- This material was originally developed by Praxis High Integrity
+   8  -- Systems Ltd. under contract to the National Security Agency.
+   9  ------------------------------------------------------------------
+  10  
+  11  ------------------------------------------------------------------
+  12  -- Cert
+  13  --
+  14  -- Description:
+  15  --   Implements common components of all certificates.
+  16  --
+  17  ------------------------------------------------------------------
+  18  
+  19  with BasicTypes,
+  20       CertProcessing,
+  21       KeyStore;
+  22  
+  23  
+  24  package body Cert is
+  25  
+  26     ------------------------------------------------------------------
+  27     -- Types
+  28     --
+  29     ------------------------------------------------------------------
+  30  
+  31  
+  32     ------------------------------------------------------------------
+  33     -- Public Operations
+  34     --
+  35     ------------------------------------------------------------------
+  36     ------------------------------------------------------------------
+  37     -- TheIssuer
+  38     --
+  39     -- Implementation Notes:
+  40     --     None.
+  41     ------------------------------------------------------------------
+  42  
+  43     function TheIssuer (Contents : ContentsT) return CryptoTypes.IssuerT
+  44     is
+  45     begin
+  46        return Contents.ID.Issuer;
+  47     end TheIssuer;
+
++++        Flow analysis of subprogram TheIssuer performed: 
+           no errors found.
+
+  48  
+  49     ------------------------------------------------------------------
+  50     -- TheID
+  51     --
+  52     -- Implementation Notes:
+  53     --     None.
+  54     ------------------------------------------------------------------
+  55  
+  56     function TheID (Contents : ContentsT) return CertTypes.IDT
+  57     is
+  58     begin
+  59        return Contents.ID;
+  60     end TheID;
+
++++        Flow analysis of subprogram TheID performed: no 
+           errors found.
+
+  61  
+  62  
+  63     ------------------------------------------------------------------
+  64     -- ExtractUser
+  65     --
+  66     -- Implementation Notes:
+  67     --     Prints the Issuer ID & SerialNumber.
+  68     ------------------------------------------------------------------
+  69  
+  70     function ExtractUser (Contents : ContentsT) return AuditTypes.UserTextT
+  71     is
+  72        --# hide ExtractUser;
+  73        LocalUser : AuditTypes.UserTextT := AuditTypes.NoUser;
+  74  
+  75           FullString : String := "Issuer: "
+  76             & CryptoTypes.IssuerIdT'Image(Contents.ID.Issuer.ID)
+  77             & " SerialNo:  "
+  78             & CertTypes.SerialNumberT'Image(Contents.ID.SerialNumber);
+  79        begin
+  80  
+  81           -- if the Full string is shorter then use it all otherwise
+  82           -- truncate it.
+  83           if FullString'Last <= AuditTypes.UserTextI'Last then
+  84              LocalUser (1.. FullString'Last) := FullString;
+  85           else
+  86              LocalUser := FullString (1 .. AuditTypes.UserTextI'Last);
+  87           end if;
+  88  
+  89        return LocalUser;
+  90     end ExtractUser;
+  91  
+  92  
+  93     ------------------------------------------------------------------
+  94     -- TheMechanism
+  95     --
+  96     -- Implementation Notes:
+  97     --     None.
+  98     ------------------------------------------------------------------
+  99  
+ 100     function TheMechanism (Contents : ContentsT)
+ 101           return CryptoTypes.AlgorithmT
+ 102     is
+ 103     begin
+ 104        return Contents.Mechanism;
+ 105     end TheMechanism;
+
++++        Flow analysis of subprogram TheMechanism 
+           performed: no errors found.
+
+ 106  
+ 107  
+ 108     ------------------------------------------------------------------
+ 109     -- IsCurrent
+ 110     --
+ 111     -- Implementation Notes:
+ 112     --     None.
+ 113     ------------------------------------------------------------------
+ 114  
+ 115     function IsCurrent (Contents : ContentsT) return Boolean
+ 116     is
+ 117     begin
+ 118         return
+ 119           Clock.GreaterThanOrEqual( Clock.TheCurrentTime, Contents.NotBefore) and
+ 120           Clock.LessThanOrEqual(Clock.TheCurrentTime, Contents.NotAfter);
+ 121     end IsCurrent;
+
++++        Flow analysis of subprogram IsCurrent performed: 
+           no errors found.
+
+ 122  
+ 123  
+ 124     ------------------------------------------------------------------
+ 125     -- GetData
+ 126     --
+ 127     -- Implementation Notes:
+ 128     --    Deletes the Signature data from RawCert
+ 129     ------------------------------------------------------------------
+ 130  
+ 131     function GetData (RawCert : CertTypes.RawCertificateT)
+ 132           return CertTypes.RawDataT
+ 133     is
+ 134        LocalRawData : CertTypes.RawDataT;
+ 135        Ignored      : Boolean;
+ 136     begin
+ 137        --# accept F, 10, Ignored, "Ineffective assignment expected here" &
+ 138        --#        F, 33, Ignored, "Ineffective assignment expected here";
+ 139        CertProcessing.ObtainRawData(RawCert => RawCert,
+ 140                                     RawData => LocalRawData,
+ 141                                     ObtainSuccess => Ignored);
+ 142  
+ 143        return LocalRawData;
+ 144     end GetData;
+
++++        Flow analysis of subprogram GetData performed: 
+           no errors found.
+
+ 145  
+ 146     ------------------------------------------------------------------
+ 147     -- GetSignature
+ 148     --
+ 149     -- Implementation Notes:
+ 150     --     None.
+ 151     ------------------------------------------------------------------
+ 152  
+ 153     function GetSignature (RawCert : CertTypes.RawCertificateT)
+ 154           return CertTypes.SignatureT
+ 155     is
+ 156        LocalSig : CertTypes.SignatureT;
+ 157        Ignored  : Boolean;
+ 158     begin
+ 159        --# accept F, 10, Ignored, "Ineffective assignment expected here" &
+ 160        --#        F, 33, Ignored, "Ineffective assignment expected here";
+ 161        CertProcessing.ObtainSignatureData(RawCert => RawCert,
+ 162                                           SignatureData => LocalSig,
+ 163                                           ObtainSuccess => Ignored);
+ 164  
+ 165        return LocalSig;
+ 166     end GetSignature;
+
++++        Flow analysis of subprogram GetSignature 
+           performed: no errors found.
+
+ 167  
+ 168  
+ 169     ------------------------------------------------------------------
+ 170     -- IssuerKnown
+ 171     --
+ 172     -- Implementation Notes:
+ 173     --     None
+ 174     ------------------------------------------------------------------
+ 175  
+ 176     procedure IssuerKnown (Contents : in     ContentsT;
+ 177                            IsKnown   :    out Boolean )
+ 178     is
+ 179     begin
+ 180  
+ 181        KeyStore.KeyMatchingIssuerPresent
+ 182          ( Issuer    => Contents.ID.Issuer,
+ 183            IsPresent => IsKnown);
+ 184  
+ 185     end IssuerKnown;
+
++++        Flow analysis of subprogram IssuerKnown 
+           performed: no errors found.
+
+ 186  
+ 187     ------------------------------------------------------------------
+ 188     -- IsOK
+ 189     --
+ 190     -- Implementation Notes:
+ 191     --     None.
+ 192     ------------------------------------------------------------------
+ 193  
+ 194     procedure IsOK (RawCert    : in     CertTypes.RawCertificateT;
+ 195                     Contents   : in     ContentsT;
+ 196                     IsVerified :    out Boolean)
+ 197     is
+ 198        IsKnown : Boolean;
+ 199     begin
+ 200  
+ 201         IssuerKnown(Contents => Contents,
+ 202                     IsKnown  => IsKnown);
+ 203  
+ 204         if IsKnown then
+ 205            KeyStore.IsVerifiedBy
+ 206              ( Mechanism   => Contents.Mechanism,
+ 207                RawCertData => GetData(RawCert),
+ 208                Signature   => GetSignature(RawCert),
+ 209                TheIssuer   => Contents.ID.Issuer,
+ 210                Verified    => IsVerified);
+ 211  
+ 212         else
+ 213            IsVerified := False;
+ 214         end if;
+ 215  
+ 216     end IsOK;
+
++++        Flow analysis of subprogram IsOK performed: no 
+           errors found.
+
+ 217  
+ 218  end Cert;
+ 219  
+ 220  
+
+Expected messages marked with the accept annotation
+Type Msg    Lines              Reason                    Match
+     No.  From    To                                    No.  Line
+Flow  10   137   end  Ineffective assignment expected     1   139
+Flow  33   137   end  Ineffective assignment expected     1   144
+Flow  10   159   end  Ineffective assignment expected     1   161
+Flow  33   159   end  Ineffective assignment expected     1   166
+
+
+1 summarized warning(s), comprising:
+     1 hidden part(s)*
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+
+--End of file--------------------------------------------------

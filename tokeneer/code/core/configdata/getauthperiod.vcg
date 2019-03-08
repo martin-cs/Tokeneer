@@ -1,0 +1,103 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:30.62
+
+                     procedure ConfigData.GetAuthPeriod
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 1599:
+
+procedure_getauthperiod_1.
+H1:    true .
+H2:    workinghoursstart >= clock__durationt__first .
+H3:    workinghoursstart <= clock__durationt__last .
+H4:    workinghoursend >= clock__durationt__first .
+H5:    workinghoursend <= clock__durationt__last .
+H6:    maxauthduration >= clock__durationt__first .
+H7:    maxauthduration <= clock__durationt__last .
+H8:    accesspolicy >= accesspolicyt__first .
+H9:    accesspolicy <= accesspolicyt__last .
+H10:   accesspolicy = allhours .
+H11:   maxauthduration > 0 .
+        ->
+C1:    maxauthduration - 1 >= clock__durationt__first .
+C2:    maxauthduration - 1 <= clock__durationt__last .
+C3:    maxauthduration - 1 >= clock__durationt__base__first .
+C4:    maxauthduration - 1 <= clock__durationt__base__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 1607:
+
+procedure_getauthperiod_2.
+H1:    true .
+H2:    workinghoursstart >= clock__durationt__first .
+H3:    workinghoursstart <= clock__durationt__last .
+H4:    workinghoursend >= clock__durationt__first .
+H5:    workinghoursend <= clock__durationt__last .
+H6:    maxauthduration >= clock__durationt__first .
+H7:    maxauthduration <= clock__durationt__last .
+H8:    accesspolicy >= accesspolicyt__first .
+H9:    accesspolicy <= accesspolicyt__last .
+H10:   not (accesspolicy = allhours) .
+H11:   true .
+H12:   true .
+        ->
+C1:    workinghoursstart >= clock__durationt__first .
+C2:    workinghoursstart <= clock__durationt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 1608:
+
+procedure_getauthperiod_3.
+H1:    true .
+H2:    workinghoursstart >= clock__durationt__first .
+H3:    workinghoursstart <= clock__durationt__last .
+H4:    workinghoursend >= clock__durationt__first .
+H5:    workinghoursend <= clock__durationt__last .
+H6:    maxauthduration >= clock__durationt__first .
+H7:    maxauthduration <= clock__durationt__last .
+H8:    accesspolicy >= accesspolicyt__first .
+H9:    accesspolicy <= accesspolicyt__last .
+H10:   not (accesspolicy = allhours) .
+H11:   true .
+H12:   true .
+H13:   workinghoursstart >= clock__durationt__first .
+H14:   workinghoursstart <= clock__durationt__last .
+H15:   true .
+H16:   true .
+        ->
+C1:    workinghoursend >= clock__durationt__first .
+C2:    workinghoursend <= clock__durationt__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_getauthperiod_4.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_getauthperiod_5.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_getauthperiod_6.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+For checks of refinement integrity: 
+
+procedure_getauthperiod_7.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_getauthperiod_8.
+*** true .          /* trivially true VC removed by Examiner */
+
+

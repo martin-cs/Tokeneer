@@ -1,0 +1,57 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:12.86
+
+                         procedure KeyStore.Delete
+
+
+
+
+For path(s) from start to finish:
+
+procedure_delete_1.
+H1:    true .
+        ->
+C1:    not (privatekeypresent(mk__optionalprivatekeyt(
+           ispresent := false, owner := 
+           cryptotypes__nullissuer))) .
+ 
+
+For checks of refinement integrity: 
+
+procedure_delete_2.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_delete_3.
+H1:    true .
+H2:    true .
+H3:    keystore__interface__store~ = fld_keystore__interface__store(
+           store~) .
+H4:    keystore__interface__store = fld_keystore__interface__store(
+           store) .
+H5:    thistisinfo = fld_thistisinfo(state) .
+H6:    for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           fld_owner(thistisinfo)), [i___1]) >= character__first) and (element(
+           fld_name(fld_owner(thistisinfo)), [i___1]) <= 
+           character__last))) .
+H7:    fld_namelength(fld_owner(thistisinfo)) >= 
+           cryptotypes__namecountt__first .
+H8:    fld_namelength(fld_owner(thistisinfo)) <= 
+           cryptotypes__namecountt__last .
+H9:    fld_id(fld_owner(thistisinfo)) >= 
+           cryptotypes__issueridt__first .
+H10:   fld_id(fld_owner(thistisinfo)) <= 
+           cryptotypes__issueridt__last .
+H11:   true .
+H12:   not (privatekeypresent(thistisinfo)) .
+        ->
+C1:    not (keystore__privatekeypresent(state)) .
+ 
+

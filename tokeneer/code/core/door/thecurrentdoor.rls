@@ -1,0 +1,52 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:10.84*/
+
+                        /*function Door.TheCurrentDoor*/
+
+
+rule_family thecurrentdo_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+thecurrentdo_rules(1): t__size >= 0 may_be_deduced.
+thecurrentdo_rules(2): t__first may_be_replaced_by open.
+thecurrentdo_rules(3): t__last may_be_replaced_by closed.
+thecurrentdo_rules(4): t__base__first may_be_replaced_by open.
+thecurrentdo_rules(5): t__base__last may_be_replaced_by closed.
+thecurrentdo_rules(6): t__pos(t__first) may_be_replaced_by 0.
+thecurrentdo_rules(7): t__pos(open) may_be_replaced_by 0.
+thecurrentdo_rules(8): t__val(0) may_be_replaced_by open.
+thecurrentdo_rules(9): t__pos(closed) may_be_replaced_by 1.
+thecurrentdo_rules(10): t__val(1) may_be_replaced_by closed.
+thecurrentdo_rules(11): t__pos(t__last) may_be_replaced_by 1.
+thecurrentdo_rules(12): t__pos(succ(X)) may_be_replaced_by t__pos(X) + 1
+     if [X <=closed, X <> closed].
+thecurrentdo_rules(13): t__pos(pred(X)) may_be_replaced_by t__pos(X) - 1
+     if [X >=open, X <> open].
+thecurrentdo_rules(14): t__pos(X) >= 0 may_be_deduced_from
+     [open <= X, X <= closed].
+thecurrentdo_rules(15): t__pos(X) <= 1 may_be_deduced_from
+     [open <= X, X <= closed].
+thecurrentdo_rules(16): t__val(X) >= open may_be_deduced_from
+     [0 <= X, X <= 1].
+thecurrentdo_rules(17): t__val(X) <= closed may_be_deduced_from
+     [0 <= X, X <= 1].
+thecurrentdo_rules(18): succ(t__val(X)) may_be_replaced_by t__val(X+1)
+     if [0 <= X, X < 1].
+thecurrentdo_rules(19): pred(t__val(X)) may_be_replaced_by t__val(X-1)
+     if [0 < X, X <= 1].
+thecurrentdo_rules(20): t__pos(t__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+thecurrentdo_rules(21): t__val(t__pos(X)) may_be_replaced_by X
+     if [open <= X, X <= closed].
+thecurrentdo_rules(22): t__pos(X) <= t__pos(Y) & X <= Y are_interchangeable 
+     if [open <= X, X <= closed, open <= Y, Y <= closed].
+thecurrentdo_rules(23): t__val(X) <= t__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].

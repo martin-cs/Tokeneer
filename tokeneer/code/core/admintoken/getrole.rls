@@ -1,0 +1,217 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:21.42*/
+
+                        /*function AdminToken.GetRole*/
+
+
+rule_family getrole_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+getrole_rules(1): basictypes__unsigned32t__size >= 0 may_be_deduced.
+getrole_rules(2): basictypes__unsigned32t__size may_be_replaced_by 32.
+getrole_rules(3): basictypes__unsigned32t__first may_be_replaced_by 0.
+getrole_rules(4): basictypes__unsigned32t__last may_be_replaced_by 4294967295.
+getrole_rules(5): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__base__last may_be_deduced.
+getrole_rules(6): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__first may_be_deduced.
+getrole_rules(7): basictypes__unsigned32t__base__last >= 
+     basictypes__unsigned32t__last may_be_deduced.
+getrole_rules(8): basictypes__presencet__size >= 0 may_be_deduced.
+getrole_rules(9): basictypes__presencet__first may_be_replaced_by basictypes__present.
+getrole_rules(10): basictypes__presencet__last may_be_replaced_by basictypes__absent.
+getrole_rules(11): basictypes__presencet__base__first may_be_replaced_by basictypes__present.
+getrole_rules(12): basictypes__presencet__base__last may_be_replaced_by basictypes__absent.
+getrole_rules(13): basictypes__presencet__pos(
+     basictypes__presencet__first) may_be_replaced_by 0.
+getrole_rules(14): basictypes__presencet__pos(basictypes__present) may_be_replaced_by 0.
+getrole_rules(15): basictypes__presencet__val(0) may_be_replaced_by 
+     basictypes__present.
+getrole_rules(16): basictypes__presencet__pos(basictypes__absent) may_be_replaced_by 1.
+getrole_rules(17): basictypes__presencet__val(1) may_be_replaced_by 
+     basictypes__absent.
+getrole_rules(18): basictypes__presencet__pos(
+     basictypes__presencet__last) may_be_replaced_by 1.
+getrole_rules(19): basictypes__presencet__pos(succ(X)) may_be_replaced_by 
+     basictypes__presencet__pos(X) + 1
+     if [X <=basictypes__absent, X <> basictypes__absent].
+getrole_rules(20): basictypes__presencet__pos(pred(X)) may_be_replaced_by 
+     basictypes__presencet__pos(X) - 1
+     if [X >=basictypes__present, X <> basictypes__present].
+getrole_rules(21): basictypes__presencet__pos(X) >= 0 may_be_deduced_from
+     [basictypes__present <= X, X <= basictypes__absent].
+getrole_rules(22): basictypes__presencet__pos(X) <= 1 may_be_deduced_from
+     [basictypes__present <= X, X <= basictypes__absent].
+getrole_rules(23): basictypes__presencet__val(X) >= 
+     basictypes__present may_be_deduced_from
+     [0 <= X, X <= 1].
+getrole_rules(24): basictypes__presencet__val(X) <= 
+     basictypes__absent may_be_deduced_from
+     [0 <= X, X <= 1].
+getrole_rules(25): succ(basictypes__presencet__val(X)) may_be_replaced_by 
+     basictypes__presencet__val(X+1)
+     if [0 <= X, X < 1].
+getrole_rules(26): pred(basictypes__presencet__val(X)) may_be_replaced_by 
+     basictypes__presencet__val(X-1)
+     if [0 < X, X <= 1].
+getrole_rules(27): basictypes__presencet__pos(
+     basictypes__presencet__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+getrole_rules(28): basictypes__presencet__val(
+     basictypes__presencet__pos(X)) may_be_replaced_by X
+     if [basictypes__present <= X, X <= basictypes__absent].
+getrole_rules(29): basictypes__presencet__pos(X) <= 
+     basictypes__presencet__pos(Y) & X <= Y are_interchangeable 
+     if [basictypes__present <= X, X <= basictypes__absent, 
+     basictypes__present <= Y, Y <= basictypes__absent].
+getrole_rules(30): basictypes__presencet__val(X) <= 
+     basictypes__presencet__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].
+getrole_rules(31): privtypes__privileget__size >= 0 may_be_deduced.
+getrole_rules(32): privtypes__privileget__first may_be_replaced_by privtypes__useronly.
+getrole_rules(33): privtypes__privileget__last may_be_replaced_by privtypes__securityofficer.
+getrole_rules(34): privtypes__privileget__base__first may_be_replaced_by privtypes__useronly.
+getrole_rules(35): privtypes__privileget__base__last may_be_replaced_by privtypes__securityofficer.
+getrole_rules(36): privtypes__privileget__pos(
+     privtypes__privileget__first) may_be_replaced_by 0.
+getrole_rules(37): privtypes__privileget__pos(privtypes__useronly) may_be_replaced_by 0.
+getrole_rules(38): privtypes__privileget__val(0) may_be_replaced_by 
+     privtypes__useronly.
+getrole_rules(39): privtypes__privileget__pos(privtypes__guard) may_be_replaced_by 1.
+getrole_rules(40): privtypes__privileget__val(1) may_be_replaced_by 
+     privtypes__guard.
+getrole_rules(41): privtypes__privileget__pos(
+     privtypes__auditmanager) may_be_replaced_by 2.
+getrole_rules(42): privtypes__privileget__val(2) may_be_replaced_by 
+     privtypes__auditmanager.
+getrole_rules(43): privtypes__privileget__pos(
+     privtypes__securityofficer) may_be_replaced_by 3.
+getrole_rules(44): privtypes__privileget__val(3) may_be_replaced_by 
+     privtypes__securityofficer.
+getrole_rules(45): privtypes__privileget__pos(
+     privtypes__privileget__last) may_be_replaced_by 3.
+getrole_rules(46): privtypes__privileget__pos(succ(X)) may_be_replaced_by 
+     privtypes__privileget__pos(X) + 1
+     if [X <=privtypes__securityofficer, X <> 
+     privtypes__securityofficer].
+getrole_rules(47): privtypes__privileget__pos(pred(X)) may_be_replaced_by 
+     privtypes__privileget__pos(X) - 1
+     if [X >=privtypes__useronly, X <> privtypes__useronly].
+getrole_rules(48): privtypes__privileget__pos(X) >= 0 may_be_deduced_from
+     [privtypes__useronly <= X, X <= privtypes__securityofficer].
+getrole_rules(49): privtypes__privileget__pos(X) <= 3 may_be_deduced_from
+     [privtypes__useronly <= X, X <= privtypes__securityofficer].
+getrole_rules(50): privtypes__privileget__val(X) >= 
+     privtypes__useronly may_be_deduced_from
+     [0 <= X, X <= 3].
+getrole_rules(51): privtypes__privileget__val(X) <= 
+     privtypes__securityofficer may_be_deduced_from
+     [0 <= X, X <= 3].
+getrole_rules(52): succ(privtypes__privileget__val(X)) may_be_replaced_by 
+     privtypes__privileget__val(X+1)
+     if [0 <= X, X < 3].
+getrole_rules(53): pred(privtypes__privileget__val(X)) may_be_replaced_by 
+     privtypes__privileget__val(X-1)
+     if [0 < X, X <= 3].
+getrole_rules(54): privtypes__privileget__pos(
+     privtypes__privileget__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 3].
+getrole_rules(55): privtypes__privileget__val(
+     privtypes__privileget__pos(X)) may_be_replaced_by X
+     if [privtypes__useronly <= X, X <= 
+     privtypes__securityofficer].
+getrole_rules(56): privtypes__privileget__pos(X) <= 
+     privtypes__privileget__pos(Y) & X <= Y are_interchangeable 
+     if [privtypes__useronly <= X, X <= 
+     privtypes__securityofficer, privtypes__useronly <= Y, Y <= 
+     privtypes__securityofficer].
+getrole_rules(57): privtypes__privileget__val(X) <= 
+     privtypes__privileget__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 3, 0 <= Y, Y <= 3].
+getrole_rules(58): privtypes__adminprivileget__size >= 0 may_be_deduced.
+getrole_rules(59): privtypes__adminprivileget__first may_be_replaced_by privtypes__guard.
+getrole_rules(60): privtypes__adminprivileget__last may_be_replaced_by privtypes__securityofficer.
+getrole_rules(61): privtypes__adminprivileget__base__first may_be_replaced_by privtypes__useronly.
+getrole_rules(62): privtypes__adminprivileget__base__last may_be_replaced_by privtypes__securityofficer.
+getrole_rules(63): cert__attr__contentst__size >= 0 may_be_deduced.
+getrole_rules(64): A = B may_be_deduced_from
+     [goal(checktype(A,cert__attr__contentst)),
+      goal(checktype(B,cert__attr__contentst)),
+      fld_inherit(A) = fld_inherit(B)].
+getrole_rules(65): cert__attr__auth__contentst__size >= 0 may_be_deduced.
+getrole_rules(66): A = B may_be_deduced_from
+     [goal(checktype(A,cert__attr__auth__contentst)),
+      goal(checktype(B,cert__attr__auth__contentst)),
+      fld_inherit(A) = fld_inherit(B)].
+getrole_rules(67): cert__id__contentst__size >= 0 may_be_deduced.
+getrole_rules(68): A = B may_be_deduced_from
+     [goal(checktype(A,cert__id__contentst)),
+      goal(checktype(B,cert__id__contentst)),
+      fld_inherit(A) = fld_inherit(B)].
+getrole_rules(69): tokentypes__tryt__size >= 0 may_be_deduced.
+getrole_rules(70): tokentypes__tryt__first may_be_replaced_by tokentypes__notoken.
+getrole_rules(71): tokentypes__tryt__last may_be_replaced_by tokentypes__goodtoken.
+getrole_rules(72): tokentypes__tryt__base__first may_be_replaced_by tokentypes__notoken.
+getrole_rules(73): tokentypes__tryt__base__last may_be_replaced_by tokentypes__goodtoken.
+getrole_rules(74): tokentypes__tryt__pos(tokentypes__tryt__first) may_be_replaced_by 0.
+getrole_rules(75): tokentypes__tryt__pos(tokentypes__notoken) may_be_replaced_by 0.
+getrole_rules(76): tokentypes__tryt__val(0) may_be_replaced_by 
+     tokentypes__notoken.
+getrole_rules(77): tokentypes__tryt__pos(tokentypes__badtoken) may_be_replaced_by 1.
+getrole_rules(78): tokentypes__tryt__val(1) may_be_replaced_by 
+     tokentypes__badtoken.
+getrole_rules(79): tokentypes__tryt__pos(tokentypes__goodtoken) may_be_replaced_by 2.
+getrole_rules(80): tokentypes__tryt__val(2) may_be_replaced_by 
+     tokentypes__goodtoken.
+getrole_rules(81): tokentypes__tryt__pos(tokentypes__tryt__last) may_be_replaced_by 2.
+getrole_rules(82): tokentypes__tryt__pos(succ(X)) may_be_replaced_by 
+     tokentypes__tryt__pos(X) + 1
+     if [X <=tokentypes__goodtoken, X <> tokentypes__goodtoken].
+getrole_rules(83): tokentypes__tryt__pos(pred(X)) may_be_replaced_by 
+     tokentypes__tryt__pos(X) - 1
+     if [X >=tokentypes__notoken, X <> tokentypes__notoken].
+getrole_rules(84): tokentypes__tryt__pos(X) >= 0 may_be_deduced_from
+     [tokentypes__notoken <= X, X <= tokentypes__goodtoken].
+getrole_rules(85): tokentypes__tryt__pos(X) <= 2 may_be_deduced_from
+     [tokentypes__notoken <= X, X <= tokentypes__goodtoken].
+getrole_rules(86): tokentypes__tryt__val(X) >= 
+     tokentypes__notoken may_be_deduced_from
+     [0 <= X, X <= 2].
+getrole_rules(87): tokentypes__tryt__val(X) <= 
+     tokentypes__goodtoken may_be_deduced_from
+     [0 <= X, X <= 2].
+getrole_rules(88): succ(tokentypes__tryt__val(X)) may_be_replaced_by 
+     tokentypes__tryt__val(X+1)
+     if [0 <= X, X < 2].
+getrole_rules(89): pred(tokentypes__tryt__val(X)) may_be_replaced_by 
+     tokentypes__tryt__val(X-1)
+     if [0 < X, X <= 2].
+getrole_rules(90): tokentypes__tryt__pos(tokentypes__tryt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 2].
+getrole_rules(91): tokentypes__tryt__val(tokentypes__tryt__pos(X)) may_be_replaced_by X
+     if [tokentypes__notoken <= X, X <= tokentypes__goodtoken].
+getrole_rules(92): tokentypes__tryt__pos(X) <= tokentypes__tryt__pos(Y) & X <= Y are_interchangeable 
+     if [tokentypes__notoken <= X, X <= tokentypes__goodtoken, 
+     tokentypes__notoken <= Y, Y <= tokentypes__goodtoken].
+getrole_rules(93): tokentypes__tryt__val(X) <= tokentypes__tryt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 2, 0 <= Y, Y <= 2].
+getrole_rules(94): validauthcertt__size >= 0 may_be_deduced.
+getrole_rules(95): A = B may_be_deduced_from
+     [goal(checktype(A,validauthcertt)),
+      goal(checktype(B,validauthcertt)),
+      fld_valid(A) = fld_valid(B),
+      fld_contents(A) = fld_contents(B)].
+getrole_rules(96): valididcertt__size >= 0 may_be_deduced.
+getrole_rules(97): A = B may_be_deduced_from
+     [goal(checktype(A,valididcertt)),
+      goal(checktype(B,valididcertt)),
+      fld_valid(A) = fld_valid(B),
+      fld_contents(A) = fld_contents(B)].

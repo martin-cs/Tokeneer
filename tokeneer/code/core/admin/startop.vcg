@@ -1,0 +1,53 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:16.65
+
+                          procedure Admin.StartOp
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 204:
+
+procedure_startop_1.
+H1:    ispresent(theadmin) .
+H2:    fld_currentop(theadmin) >= opandnullt__first .
+H3:    fld_currentop(theadmin) <= opandnullt__last .
+H4:    fld_rolepresent(theadmin) >= privtypes__privileget__first .
+H5:    fld_rolepresent(theadmin) <= privtypes__privileget__last .
+H6:    op >= opt__first .
+H7:    op <= opt__last .
+        ->
+C1:    op >= opandnullt__first .
+C2:    op <= opandnullt__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_startop_2.
+H1:    ispresent(theadmin) .
+H2:    fld_currentop(theadmin) >= opandnullt__first .
+H3:    fld_currentop(theadmin) <= opandnullt__last .
+H4:    fld_rolepresent(theadmin) >= privtypes__privileget__first .
+H5:    fld_rolepresent(theadmin) <= privtypes__privileget__last .
+H6:    op >= opt__first .
+H7:    op <= opt__last .
+H8:    op >= opandnullt__first .
+H9:    op <= opandnullt__last .
+        ->
+C1:    ((op = overridelock) <-> (prf_rolepresent(theadmin) = 
+           privtypes__guard)) -> ((op = overridelock) <-> (
+           prf_rolepresent(upf_currentop(theadmin, op)) = 
+           privtypes__guard)) .
+C2:    thecurrentop(upf_currentop(theadmin, op)) = op .
+C3:    isdoingop(upf_currentop(theadmin, op)) .
+C4:    prf_rolepresent(upf_currentop(theadmin, op)) = 
+           prf_rolepresent(theadmin) .
+C5:    ispresent(upf_currentop(theadmin, op)) .
+ 
+

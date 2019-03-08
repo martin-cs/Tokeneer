@@ -1,0 +1,47 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:13.10
+
+                         procedure Cert.IssuerKnown
+
+
+
+
+For path(s) from start to finish:
+
+procedure_issuerknown_1.
+H1:    true .
+H2:    fld_mechanism(contents) >= cryptotypes__algorithmt__first .
+H3:    fld_mechanism(contents) <= cryptotypes__algorithmt__last .
+H4:    true .
+H5:    true .
+H6:    fld_serialnumber(fld_id(contents)) >= 
+           certtypes__serialnumbert__first .
+H7:    fld_serialnumber(fld_id(contents)) <= 
+           certtypes__serialnumbert__last .
+H8:    for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           fld_issuer(fld_id(contents))), [i___1]) >= 
+           character__first) and (element(fld_name(fld_issuer(fld_id(
+           contents))), [i___1]) <= character__last))) .
+H9:    fld_namelength(fld_issuer(fld_id(contents))) >= 
+           cryptotypes__namecountt__first .
+H10:   fld_namelength(fld_issuer(fld_id(contents))) <= 
+           cryptotypes__namecountt__last .
+H11:   fld_id(fld_issuer(fld_id(contents))) >= 
+           cryptotypes__issueridt__first .
+H12:   fld_id(fld_issuer(fld_id(contents))) <= 
+           cryptotypes__issueridt__last .
+H13:   isknown__1 <-> keystore__prf_issuerkeynotnull(fld_issuer(fld_id(
+           contents)), keystore__store) .
+H14:   true .
+        ->
+C1:    isknown__1 <-> keystore__prf_issuerkeynotnull(
+           prf_idissuer(contents), keystore__store) .
+ 
+

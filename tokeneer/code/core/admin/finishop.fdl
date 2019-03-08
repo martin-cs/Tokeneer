@@ -1,0 +1,42 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:16.68}
+
+                          {procedure Admin.FinishOp}
+
+
+title procedure finishop;
+
+  function round__(real) : integer;
+  type privtypes__privileget = (privtypes__useronly, 
+     privtypes__guard, privtypes__auditmanager, 
+     privtypes__securityofficer);
+  type opandnullt = (nullop, archivelog, updateconfigdata, 
+     overridelock, shutdownop);
+  type t = record
+        rolepresent : privtypes__privileget;
+        currentop : opandnullt
+     end;
+  const opandnullt__base__first : opandnullt = pending; 
+  const opandnullt__base__last : opandnullt = pending; 
+  const privtypes__privileget__base__first : 
+     privtypes__privileget = pending; 
+  const privtypes__privileget__base__last : privtypes__privileget = pending; 
+  const t__size : integer = pending; 
+  const opandnullt__first : opandnullt = pending; 
+  const opandnullt__last : opandnullt = pending; 
+  const opandnullt__size : integer = pending; 
+  const privtypes__privileget__first : privtypes__privileget = pending; 
+  const privtypes__privileget__last : privtypes__privileget = pending; 
+  const privtypes__privileget__size : integer = pending; 
+  var theadmin : t;
+  function prf_rolepresent(t) : privtypes__privileget;
+  function isdoingop(t) : boolean;
+  function ispresent(t) : boolean;
+
+end;

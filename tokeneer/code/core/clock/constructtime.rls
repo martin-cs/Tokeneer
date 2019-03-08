@@ -1,0 +1,65 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:07.60*/
+
+                       /*procedure Clock.ConstructTime*/
+
+
+rule_family constructtim_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+constructtim_rules(1): millisecsinmin may_be_replaced_by 60000.
+constructtim_rules(2): millisecsinhr may_be_replaced_by 3600000.
+constructtim_rules(3): basictypes__unsigned32t__size >= 0 may_be_deduced.
+constructtim_rules(4): basictypes__unsigned32t__size may_be_replaced_by 32.
+constructtim_rules(5): basictypes__unsigned32t__first may_be_replaced_by 0.
+constructtim_rules(6): basictypes__unsigned32t__last may_be_replaced_by 4294967295.
+constructtim_rules(7): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__base__last may_be_deduced.
+constructtim_rules(8): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__first may_be_deduced.
+constructtim_rules(9): basictypes__unsigned32t__base__last >= 
+     basictypes__unsigned32t__last may_be_deduced.
+constructtim_rules(10): yearst__size >= 0 may_be_deduced.
+constructtim_rules(11): yearst__first may_be_replaced_by 1901.
+constructtim_rules(12): yearst__last may_be_replaced_by 2099.
+constructtim_rules(13): yearst__base__first <= yearst__base__last may_be_deduced.
+constructtim_rules(14): yearst__base__first <= yearst__first may_be_deduced.
+constructtim_rules(15): yearst__base__last >= yearst__last may_be_deduced.
+constructtim_rules(16): monthst__size >= 0 may_be_deduced.
+constructtim_rules(17): monthst__first may_be_replaced_by 1.
+constructtim_rules(18): monthst__last may_be_replaced_by 12.
+constructtim_rules(19): monthst__base__first <= monthst__base__last may_be_deduced.
+constructtim_rules(20): monthst__base__first <= monthst__first may_be_deduced.
+constructtim_rules(21): monthst__base__last >= monthst__last may_be_deduced.
+constructtim_rules(22): dayst__size >= 0 may_be_deduced.
+constructtim_rules(23): dayst__first may_be_replaced_by 1.
+constructtim_rules(24): dayst__last may_be_replaced_by 31.
+constructtim_rules(25): dayst__base__first <= dayst__base__last may_be_deduced.
+constructtim_rules(26): dayst__base__first <= dayst__first may_be_deduced.
+constructtim_rules(27): dayst__base__last >= dayst__last may_be_deduced.
+constructtim_rules(28): hourst__size >= 0 may_be_deduced.
+constructtim_rules(29): hourst__first may_be_replaced_by 0.
+constructtim_rules(30): hourst__last may_be_replaced_by 23.
+constructtim_rules(31): hourst__base__first <= hourst__base__last may_be_deduced.
+constructtim_rules(32): hourst__base__first <= hourst__first may_be_deduced.
+constructtim_rules(33): hourst__base__last >= hourst__last may_be_deduced.
+constructtim_rules(34): minutest__size >= 0 may_be_deduced.
+constructtim_rules(35): minutest__first may_be_replaced_by 0.
+constructtim_rules(36): minutest__last may_be_replaced_by 59.
+constructtim_rules(37): minutest__base__first <= minutest__base__last may_be_deduced.
+constructtim_rules(38): minutest__base__first <= minutest__first may_be_deduced.
+constructtim_rules(39): minutest__base__last >= minutest__last may_be_deduced.
+constructtim_rules(40): millisecst__size >= 0 may_be_deduced.
+constructtim_rules(41): millisecst__first may_be_replaced_by 0.
+constructtim_rules(42): millisecst__last may_be_replaced_by 86399999.
+constructtim_rules(43): millisecst__base__first <= millisecst__base__last may_be_deduced.
+constructtim_rules(44): millisecst__base__first <= millisecst__first may_be_deduced.
+constructtim_rules(45): millisecst__base__last >= millisecst__last may_be_deduced.

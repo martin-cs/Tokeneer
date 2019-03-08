@@ -1,0 +1,146 @@
+
+%==========================================================================
+\chapter{The whole ID Station}
+\label{sec:Whole}
+%==========================================================================
+
+\section{Startup}
+
+
+When the TIS is powered up it needs to establish whether it is
+enrolled or not. This is formally described by
+\[
+        TISStartUp
+\]
+
+\section{The main loop}
+
+
+\begin{traceunit}{FS.TIS.TISMainLoop}
+\end{traceunit}
+
+
+
+The TIS achieves its function by repeatedly performing a number of 
+activities within a main loop.
+
+The main loop is broken down into several phases:
+
+\begin{itemize}
+\item   
+{\em Poll} - Polling reads the simple real world entities
+(door, time)
+and the reads the complex entities
+(user token reader, admin token reader, fingerprint reader, floppy).
+\item
+{\em Early Updates} - Critical updates of the door latch and alarm are
+performed as soon as new polled data is available.
+\item
+{\em TIS processing} - TIS processing is the activity performed by
+TIS, this is influenced by the current $status$ of TIS and the
+recently read inputs.
+\item
+{\em Updates} - Critical updates of the door latch and alarm are
+repeated once the processing is complete to ensure any internal state
+changes result in the latch and alarm being set correctly. Less critical updates of the screen and display
+are also performed once the processing is complete.
+\end{itemize}
+
+%...........................
+\subsection{Polling}
+%...........................
+
+The polling activity is captured by the schema:
+\[
+TISPoll
+\]
+%...........................
+\subsection{Early Updates}
+%...........................
+The early updates, which only update security critical outputs, are
+described by:
+\[
+TISEarlyUpdate
+\]
+%...........................
+\subsection{Processing}
+%...........................
+
+The the TIS processing depends on the current internal $status$ and $enclaveStatus$. 
+
+Initially the only activity that can be performed is enrolment,
+formally captured as
+$TISEnrol$.
+
+When it is in a $quiescent$ state it can start a number of activities. These
+are started by either reading a user token, an adminstrator token or
+keyboard data. In addition an administrator may logoff.
+
+Formally the quiecent activities are:
+
+\[
+        TISReadUserToken \lor TISReadAdminToken \lor TISStartAdminOp
+\lor TISAdminLogout
+\]
+\begin{Zcomment}
+\item
+$TISReadUserToken$ and $TISReadAdminToken$ are the first stages of
+$TISUserEntry$ and $TISAdminLogon$.
+\end{Zcomment}
+Alternatively there is no token present, and no-one logged on, in this
+case TIS is idle.
+
+\begin{schema}{TISIdle}
+        \Xi IDStation
+\\      \Xi TISControlledRealWorld
+\where
+        status = quiescent
+\\      enclaveStatus = enclaveQuiescent
+\\      userTokenPresence = absent
+\\      adminTokenPresence = absent
+\\      rolePresent = \Nil
+\end{schema}
+
+Once a user token has been presented to TIS the only activities
+that can be performed are stages in the multi-phase user entry
+authentication operation, formally captured as $TISUserEntry$. Since
+the user entry process is long lived it is necessary to check whether
+the admin token has been removed during each stage of this operation
+and act accordingly.
+
+Once an administrator token has been presented to TIS the
+administrator is logged onto the ID Station, formally captured as
+$TISAdminLogon$. Having logged the administrator on TIS returns to a
+$quiescent$ state waiting for the administrator to perform an
+operation, without preventing user entry.
+
+Once an operation request has been made by a logged on administrator
+TIS performs the, potentially multi-phase, administrator operation,
+formally captured as $TISAdminOp$ captured below:
+
+\begin{zed}
+        TISAdminOp \defs TISOverrideDoorLockOp  \lor TISShutdownOp 
+\\      \t4     \lor TISUpdateConfigDataOp \lor TISArchiveLogOp
+\end{zed}
+
+The overall processing activity is described by:
+
+\begin{zed}
+        TISProcessing \defs (TISEnrolOp
+\\ \t4  \lor TISUserEntryOp
+\\ \t4  \lor TISAdminLogon 
+\\ \t4  \lor TISStartAdminOp
+\\ \t4  \lor TISAdminOp 
+\\ \t4  \lor TISAdminLogout
+\\ \t4  \lor TISIdle ) \land LogChange
+\end{zed}
+
+%...........................
+\subsection{Final Updates}
+%...........................
+The updates performed following processing are described by:
+\[
+        TISUpdate
+\]
+
+

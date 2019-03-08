@@ -1,0 +1,66 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:27.74}
+
+                          {procedure Poll.Activity}
+
+
+title procedure activity;
+
+  function round__(real) : integer;
+  type clock__currenttime__type = pending;
+  type clock__timet = pending;
+  type alarmtypes__statust = (alarmtypes__alarming, 
+     alarmtypes__silent);
+  type privtypes__privileget = (privtypes__useronly, 
+     privtypes__guard, privtypes__auditmanager, 
+     privtypes__securityofficer);
+  type latch__statetype = pending;
+  type door__statetype = pending;
+  type door__t = (door__open, door__closed);
+  type admintoken__statetype = pending;
+  const door__t__base__first : door__t = pending; 
+  const door__t__base__last : door__t = pending; 
+  const privtypes__privileget__base__first : 
+     privtypes__privileget = pending; 
+  const privtypes__privileget__base__last : privtypes__privileget = pending; 
+  const alarmtypes__statust__base__first : alarmtypes__statust = pending; 
+  const alarmtypes__statust__base__last : alarmtypes__statust = pending; 
+  const door__t__first : door__t = pending; 
+  const door__t__last : door__t = pending; 
+  const door__t__size : integer = pending; 
+  const privtypes__privileget__first : privtypes__privileget = pending; 
+  const privtypes__privileget__last : privtypes__privileget = pending; 
+  const privtypes__privileget__size : integer = pending; 
+  const alarmtypes__statust__first : alarmtypes__statust = pending; 
+  const alarmtypes__statust__last : alarmtypes__statust = pending; 
+  const alarmtypes__statust__size : integer = pending; 
+  var clock__currenttime : clock__currenttime__type;
+  var latch__state : latch__statetype;
+  var door__state : door__statetype;
+  var admintoken__state : admintoken__statetype;
+  function clock__thecurrenttime(clock__currenttime__type) : 
+     clock__timet;
+  function clock__greaterthanorequal(clock__timet, clock__timet) : boolean;
+  function latch__prf_latchtimeout(latch__statetype) : 
+     clock__timet;
+  function latch__islocked(latch__statetype) : boolean;
+  function door__prf_alarmtimeout(door__statetype) : clock__timet;
+  function door__thecurrentdoor(door__statetype) : door__t;
+  function door__thedooralarm(door__statetype) : 
+     alarmtypes__statust;
+  function admintoken__theauthcertrole(admintoken__statetype) : 
+     privtypes__privileget;
+  function admintoken__prf_isgood(admintoken__statetype) : boolean;
+  function admintoken__prf_authcertvalid(admintoken__statetype) : boolean;
+  var admintoken__state__4 : admintoken__statetype;
+  var clock__currenttime__1 : clock__currenttime__type;
+  var door__state__2 : door__statetype;
+  var latch__state__2 : latch__statetype;
+
+end;

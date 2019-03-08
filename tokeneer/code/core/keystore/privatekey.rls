@@ -1,0 +1,396 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:12.18*/
+
+                       /*procedure KeyStore.PrivateKey*/
+
+
+rule_family privatekey_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+privatekey_rules(1): cryptotypes__issueridt__first <= fld_id(cryptotypes__nullissuer) may_be_deduced.
+privatekey_rules(2): fld_id(cryptotypes__nullissuer) <= 
+     cryptotypes__issueridt__last may_be_deduced.
+privatekey_rules(3): cryptotypes__namecountt__first <= fld_namelength(cryptotypes__nullissuer) may_be_deduced.
+privatekey_rules(4): fld_namelength(cryptotypes__nullissuer) <= 
+     cryptotypes__namecountt__last may_be_deduced.
+privatekey_rules(5): character__first <= element(fld_name(cryptotypes__nullissuer), [I]) may_be_deduced_from [1 <= I, I <= 40].
+privatekey_rules(6): element(fld_name(cryptotypes__nullissuer), [I]) <= 
+     character__last may_be_deduced_from [1 <= I, I <= 40].
+privatekey_rules(7): keystore__interface__ispublicmask may_be_replaced_by 8.
+privatekey_rules(8): expectedcount may_be_replaced_by 1.
+privatekey_rules(9): integer__size >= 0 may_be_deduced.
+privatekey_rules(10): integer__first may_be_replaced_by -2147483648.
+privatekey_rules(11): integer__last may_be_replaced_by 2147483647.
+privatekey_rules(12): integer__base__first may_be_replaced_by -2147483648.
+privatekey_rules(13): integer__base__last may_be_replaced_by 2147483647.
+privatekey_rules(14): character__size >= 0 may_be_deduced.
+privatekey_rules(15): character__first may_be_replaced_by 0.
+privatekey_rules(16): character__last may_be_replaced_by 255.
+privatekey_rules(17): character__base__first may_be_replaced_by 0.
+privatekey_rules(18): character__base__last may_be_replaced_by 255.
+privatekey_rules(19): positive__size >= 0 may_be_deduced.
+privatekey_rules(20): positive__first may_be_replaced_by 1.
+privatekey_rules(21): positive__last may_be_replaced_by 2147483647.
+privatekey_rules(22): positive__base__first may_be_replaced_by -2147483648.
+privatekey_rules(23): positive__base__last may_be_replaced_by 2147483647.
+privatekey_rules(24): basictypes__unsigned32t__size >= 0 may_be_deduced.
+privatekey_rules(25): basictypes__unsigned32t__size may_be_replaced_by 32.
+privatekey_rules(26): basictypes__unsigned32t__first may_be_replaced_by 0.
+privatekey_rules(27): basictypes__unsigned32t__last may_be_replaced_by 4294967295.
+privatekey_rules(28): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__base__last may_be_deduced.
+privatekey_rules(29): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__first may_be_deduced.
+privatekey_rules(30): basictypes__unsigned32t__base__last >= 
+     basictypes__unsigned32t__last may_be_deduced.
+privatekey_rules(31): audittypes__elementt__size >= 0 may_be_deduced.
+privatekey_rules(32): audittypes__elementt__first may_be_replaced_by audittypes__startunenrolledtis.
+privatekey_rules(33): audittypes__elementt__last may_be_replaced_by audittypes__systemfault.
+privatekey_rules(34): audittypes__elementt__base__first may_be_replaced_by audittypes__startunenrolledtis.
+privatekey_rules(35): audittypes__elementt__base__last may_be_replaced_by audittypes__systemfault.
+privatekey_rules(36): audittypes__elementt__pos(
+     audittypes__elementt__first) may_be_replaced_by 0.
+privatekey_rules(37): audittypes__elementt__pos(
+     audittypes__startunenrolledtis) may_be_replaced_by 0.
+privatekey_rules(38): audittypes__elementt__val(0) may_be_replaced_by 
+     audittypes__startunenrolledtis.
+privatekey_rules(39): audittypes__elementt__pos(
+     audittypes__startenrolledtis) may_be_replaced_by 1.
+privatekey_rules(40): audittypes__elementt__val(1) may_be_replaced_by 
+     audittypes__startenrolledtis.
+privatekey_rules(41): audittypes__elementt__pos(
+     audittypes__enrolmentcomplete) may_be_replaced_by 2.
+privatekey_rules(42): audittypes__elementt__val(2) may_be_replaced_by 
+     audittypes__enrolmentcomplete.
+privatekey_rules(43): audittypes__elementt__pos(
+     audittypes__enrolmentfailed) may_be_replaced_by 3.
+privatekey_rules(44): audittypes__elementt__val(3) may_be_replaced_by 
+     audittypes__enrolmentfailed.
+privatekey_rules(45): audittypes__elementt__pos(
+     audittypes__displaychanged) may_be_replaced_by 4.
+privatekey_rules(46): audittypes__elementt__val(4) may_be_replaced_by 
+     audittypes__displaychanged.
+privatekey_rules(47): audittypes__elementt__pos(
+     audittypes__screenchanged) may_be_replaced_by 5.
+privatekey_rules(48): audittypes__elementt__val(5) may_be_replaced_by 
+     audittypes__screenchanged.
+privatekey_rules(49): audittypes__elementt__pos(
+     audittypes__doorclosed) may_be_replaced_by 6.
+privatekey_rules(50): audittypes__elementt__val(6) may_be_replaced_by 
+     audittypes__doorclosed.
+privatekey_rules(51): audittypes__elementt__pos(
+     audittypes__dooropened) may_be_replaced_by 7.
+privatekey_rules(52): audittypes__elementt__val(7) may_be_replaced_by 
+     audittypes__dooropened.
+privatekey_rules(53): audittypes__elementt__pos(
+     audittypes__latchlocked) may_be_replaced_by 8.
+privatekey_rules(54): audittypes__elementt__val(8) may_be_replaced_by 
+     audittypes__latchlocked.
+privatekey_rules(55): audittypes__elementt__pos(
+     audittypes__latchunlocked) may_be_replaced_by 9.
+privatekey_rules(56): audittypes__elementt__val(9) may_be_replaced_by 
+     audittypes__latchunlocked.
+privatekey_rules(57): audittypes__elementt__pos(
+     audittypes__alarmraised) may_be_replaced_by 10.
+privatekey_rules(58): audittypes__elementt__val(10) may_be_replaced_by 
+     audittypes__alarmraised.
+privatekey_rules(59): audittypes__elementt__pos(
+     audittypes__alarmsilenced) may_be_replaced_by 11.
+privatekey_rules(60): audittypes__elementt__val(11) may_be_replaced_by 
+     audittypes__alarmsilenced.
+privatekey_rules(61): audittypes__elementt__pos(
+     audittypes__truncatelog) may_be_replaced_by 12.
+privatekey_rules(62): audittypes__elementt__val(12) may_be_replaced_by 
+     audittypes__truncatelog.
+privatekey_rules(63): audittypes__elementt__pos(
+     audittypes__auditalarmraised) may_be_replaced_by 13.
+privatekey_rules(64): audittypes__elementt__val(13) may_be_replaced_by 
+     audittypes__auditalarmraised.
+privatekey_rules(65): audittypes__elementt__pos(
+     audittypes__auditalarmsilenced) may_be_replaced_by 14.
+privatekey_rules(66): audittypes__elementt__val(14) may_be_replaced_by 
+     audittypes__auditalarmsilenced.
+privatekey_rules(67): audittypes__elementt__pos(
+     audittypes__usertokenremoved) may_be_replaced_by 15.
+privatekey_rules(68): audittypes__elementt__val(15) may_be_replaced_by 
+     audittypes__usertokenremoved.
+privatekey_rules(69): audittypes__elementt__pos(
+     audittypes__usertokenpresent) may_be_replaced_by 16.
+privatekey_rules(70): audittypes__elementt__val(16) may_be_replaced_by 
+     audittypes__usertokenpresent.
+privatekey_rules(71): audittypes__elementt__pos(
+     audittypes__usertokeninvalid) may_be_replaced_by 17.
+privatekey_rules(72): audittypes__elementt__val(17) may_be_replaced_by 
+     audittypes__usertokeninvalid.
+privatekey_rules(73): audittypes__elementt__pos(
+     audittypes__authcertvalid) may_be_replaced_by 18.
+privatekey_rules(74): audittypes__elementt__val(18) may_be_replaced_by 
+     audittypes__authcertvalid.
+privatekey_rules(75): audittypes__elementt__pos(
+     audittypes__authcertinvalid) may_be_replaced_by 19.
+privatekey_rules(76): audittypes__elementt__val(19) may_be_replaced_by 
+     audittypes__authcertinvalid.
+privatekey_rules(77): audittypes__elementt__pos(
+     audittypes__fingerdetected) may_be_replaced_by 20.
+privatekey_rules(78): audittypes__elementt__val(20) may_be_replaced_by 
+     audittypes__fingerdetected.
+privatekey_rules(79): audittypes__elementt__pos(
+     audittypes__fingertimeout) may_be_replaced_by 21.
+privatekey_rules(80): audittypes__elementt__val(21) may_be_replaced_by 
+     audittypes__fingertimeout.
+privatekey_rules(81): audittypes__elementt__pos(
+     audittypes__fingermatched) may_be_replaced_by 22.
+privatekey_rules(82): audittypes__elementt__val(22) may_be_replaced_by 
+     audittypes__fingermatched.
+privatekey_rules(83): audittypes__elementt__pos(
+     audittypes__fingernotmatched) may_be_replaced_by 23.
+privatekey_rules(84): audittypes__elementt__val(23) may_be_replaced_by 
+     audittypes__fingernotmatched.
+privatekey_rules(85): audittypes__elementt__pos(
+     audittypes__authcertwritten) may_be_replaced_by 24.
+privatekey_rules(86): audittypes__elementt__val(24) may_be_replaced_by 
+     audittypes__authcertwritten.
+privatekey_rules(87): audittypes__elementt__pos(
+     audittypes__authcertwritefailed) may_be_replaced_by 25.
+privatekey_rules(88): audittypes__elementt__val(25) may_be_replaced_by 
+     audittypes__authcertwritefailed.
+privatekey_rules(89): audittypes__elementt__pos(
+     audittypes__entrypermitted) may_be_replaced_by 26.
+privatekey_rules(90): audittypes__elementt__val(26) may_be_replaced_by 
+     audittypes__entrypermitted.
+privatekey_rules(91): audittypes__elementt__pos(
+     audittypes__entrytimeout) may_be_replaced_by 27.
+privatekey_rules(92): audittypes__elementt__val(27) may_be_replaced_by 
+     audittypes__entrytimeout.
+privatekey_rules(93): audittypes__elementt__pos(
+     audittypes__entrydenied) may_be_replaced_by 28.
+privatekey_rules(94): audittypes__elementt__val(28) may_be_replaced_by 
+     audittypes__entrydenied.
+privatekey_rules(95): audittypes__elementt__pos(
+     audittypes__admintokenpresent) may_be_replaced_by 29.
+privatekey_rules(96): audittypes__elementt__val(29) may_be_replaced_by 
+     audittypes__admintokenpresent.
+privatekey_rules(97): audittypes__elementt__pos(
+     audittypes__admintokenvalid) may_be_replaced_by 30.
+privatekey_rules(98): audittypes__elementt__val(30) may_be_replaced_by 
+     audittypes__admintokenvalid.
+privatekey_rules(99): audittypes__elementt__pos(
+     audittypes__admintokeninvalid) may_be_replaced_by 31.
+privatekey_rules(100): audittypes__elementt__val(31) may_be_replaced_by 
+     audittypes__admintokeninvalid.
+privatekey_rules(101): audittypes__elementt__pos(
+     audittypes__admintokenexpired) may_be_replaced_by 32.
+privatekey_rules(102): audittypes__elementt__val(32) may_be_replaced_by 
+     audittypes__admintokenexpired.
+privatekey_rules(103): audittypes__elementt__pos(
+     audittypes__admintokenremoved) may_be_replaced_by 33.
+privatekey_rules(104): audittypes__elementt__val(33) may_be_replaced_by 
+     audittypes__admintokenremoved.
+privatekey_rules(105): audittypes__elementt__pos(
+     audittypes__invalidoprequest) may_be_replaced_by 34.
+privatekey_rules(106): audittypes__elementt__val(34) may_be_replaced_by 
+     audittypes__invalidoprequest.
+privatekey_rules(107): audittypes__elementt__pos(
+     audittypes__operationstart) may_be_replaced_by 35.
+privatekey_rules(108): audittypes__elementt__val(35) may_be_replaced_by 
+     audittypes__operationstart.
+privatekey_rules(109): audittypes__elementt__pos(
+     audittypes__archivelog) may_be_replaced_by 36.
+privatekey_rules(110): audittypes__elementt__val(36) may_be_replaced_by 
+     audittypes__archivelog.
+privatekey_rules(111): audittypes__elementt__pos(
+     audittypes__archivecomplete) may_be_replaced_by 37.
+privatekey_rules(112): audittypes__elementt__val(37) may_be_replaced_by 
+     audittypes__archivecomplete.
+privatekey_rules(113): audittypes__elementt__pos(
+     audittypes__archivecheckfailed) may_be_replaced_by 38.
+privatekey_rules(114): audittypes__elementt__val(38) may_be_replaced_by 
+     audittypes__archivecheckfailed.
+privatekey_rules(115): audittypes__elementt__pos(
+     audittypes__updatedconfigdata) may_be_replaced_by 39.
+privatekey_rules(116): audittypes__elementt__val(39) may_be_replaced_by 
+     audittypes__updatedconfigdata.
+privatekey_rules(117): audittypes__elementt__pos(
+     audittypes__invalidconfigdata) may_be_replaced_by 40.
+privatekey_rules(118): audittypes__elementt__val(40) may_be_replaced_by 
+     audittypes__invalidconfigdata.
+privatekey_rules(119): audittypes__elementt__pos(
+     audittypes__shutdown) may_be_replaced_by 41.
+privatekey_rules(120): audittypes__elementt__val(41) may_be_replaced_by 
+     audittypes__shutdown.
+privatekey_rules(121): audittypes__elementt__pos(
+     audittypes__overridelock) may_be_replaced_by 42.
+privatekey_rules(122): audittypes__elementt__val(42) may_be_replaced_by 
+     audittypes__overridelock.
+privatekey_rules(123): audittypes__elementt__pos(
+     audittypes__systemfault) may_be_replaced_by 43.
+privatekey_rules(124): audittypes__elementt__val(43) may_be_replaced_by 
+     audittypes__systemfault.
+privatekey_rules(125): audittypes__elementt__pos(
+     audittypes__elementt__last) may_be_replaced_by 43.
+privatekey_rules(126): audittypes__elementt__pos(succ(X)) may_be_replaced_by 
+     audittypes__elementt__pos(X) + 1
+     if [X <=audittypes__systemfault, X <> 
+     audittypes__systemfault].
+privatekey_rules(127): audittypes__elementt__pos(pred(X)) may_be_replaced_by 
+     audittypes__elementt__pos(X) - 1
+     if [X >=audittypes__startunenrolledtis, X <> 
+     audittypes__startunenrolledtis].
+privatekey_rules(128): audittypes__elementt__pos(X) >= 0 may_be_deduced_from
+     [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+privatekey_rules(129): audittypes__elementt__pos(X) <= 43 may_be_deduced_from
+     [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+privatekey_rules(130): audittypes__elementt__val(X) >= 
+     audittypes__startunenrolledtis may_be_deduced_from
+     [0 <= X, X <= 43].
+privatekey_rules(131): audittypes__elementt__val(X) <= 
+     audittypes__systemfault may_be_deduced_from
+     [0 <= X, X <= 43].
+privatekey_rules(132): succ(audittypes__elementt__val(X)) may_be_replaced_by 
+     audittypes__elementt__val(X+1)
+     if [0 <= X, X < 43].
+privatekey_rules(133): pred(audittypes__elementt__val(X)) may_be_replaced_by 
+     audittypes__elementt__val(X-1)
+     if [0 < X, X <= 43].
+privatekey_rules(134): audittypes__elementt__pos(
+     audittypes__elementt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 43].
+privatekey_rules(135): audittypes__elementt__val(
+     audittypes__elementt__pos(X)) may_be_replaced_by X
+     if [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+privatekey_rules(136): audittypes__elementt__pos(X) <= 
+     audittypes__elementt__pos(Y) & X <= Y are_interchangeable 
+     if [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault, audittypes__startunenrolledtis <= Y, Y <= 
+     audittypes__systemfault].
+privatekey_rules(137): audittypes__elementt__val(X) <= 
+     audittypes__elementt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 43, 0 <= Y, Y <= 43].
+privatekey_rules(138): audittypes__severityt__size >= 0 may_be_deduced.
+privatekey_rules(139): audittypes__severityt__first may_be_replaced_by audittypes__information.
+privatekey_rules(140): audittypes__severityt__last may_be_replaced_by audittypes__critical.
+privatekey_rules(141): audittypes__severityt__base__first may_be_replaced_by audittypes__information.
+privatekey_rules(142): audittypes__severityt__base__last may_be_replaced_by audittypes__critical.
+privatekey_rules(143): audittypes__severityt__pos(
+     audittypes__severityt__first) may_be_replaced_by 0.
+privatekey_rules(144): audittypes__severityt__pos(
+     audittypes__information) may_be_replaced_by 0.
+privatekey_rules(145): audittypes__severityt__val(0) may_be_replaced_by 
+     audittypes__information.
+privatekey_rules(146): audittypes__severityt__pos(
+     audittypes__warning) may_be_replaced_by 1.
+privatekey_rules(147): audittypes__severityt__val(1) may_be_replaced_by 
+     audittypes__warning.
+privatekey_rules(148): audittypes__severityt__pos(
+     audittypes__critical) may_be_replaced_by 2.
+privatekey_rules(149): audittypes__severityt__val(2) may_be_replaced_by 
+     audittypes__critical.
+privatekey_rules(150): audittypes__severityt__pos(
+     audittypes__severityt__last) may_be_replaced_by 2.
+privatekey_rules(151): audittypes__severityt__pos(succ(X)) may_be_replaced_by 
+     audittypes__severityt__pos(X) + 1
+     if [X <=audittypes__critical, X <> audittypes__critical].
+privatekey_rules(152): audittypes__severityt__pos(pred(X)) may_be_replaced_by 
+     audittypes__severityt__pos(X) - 1
+     if [X >=audittypes__information, X <> 
+     audittypes__information].
+privatekey_rules(153): audittypes__severityt__pos(X) >= 0 may_be_deduced_from
+     [audittypes__information <= X, X <= audittypes__critical].
+privatekey_rules(154): audittypes__severityt__pos(X) <= 2 may_be_deduced_from
+     [audittypes__information <= X, X <= audittypes__critical].
+privatekey_rules(155): audittypes__severityt__val(X) >= 
+     audittypes__information may_be_deduced_from
+     [0 <= X, X <= 2].
+privatekey_rules(156): audittypes__severityt__val(X) <= 
+     audittypes__critical may_be_deduced_from
+     [0 <= X, X <= 2].
+privatekey_rules(157): succ(audittypes__severityt__val(X)) may_be_replaced_by 
+     audittypes__severityt__val(X+1)
+     if [0 <= X, X < 2].
+privatekey_rules(158): pred(audittypes__severityt__val(X)) may_be_replaced_by 
+     audittypes__severityt__val(X-1)
+     if [0 < X, X <= 2].
+privatekey_rules(159): audittypes__severityt__pos(
+     audittypes__severityt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 2].
+privatekey_rules(160): audittypes__severityt__val(
+     audittypes__severityt__pos(X)) may_be_replaced_by X
+     if [audittypes__information <= X, X <= audittypes__critical].
+privatekey_rules(161): audittypes__severityt__pos(X) <= 
+     audittypes__severityt__pos(Y) & X <= Y are_interchangeable 
+     if [audittypes__information <= X, X <= audittypes__critical, 
+     audittypes__information <= Y, Y <= audittypes__critical].
+privatekey_rules(162): audittypes__severityt__val(X) <= 
+     audittypes__severityt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 2, 0 <= Y, Y <= 2].
+privatekey_rules(163): cryptotypes__namecountt__size >= 0 may_be_deduced.
+privatekey_rules(164): cryptotypes__namecountt__first may_be_replaced_by 0.
+privatekey_rules(165): cryptotypes__namecountt__last may_be_replaced_by 40.
+privatekey_rules(166): cryptotypes__namecountt__base__first may_be_replaced_by -2147483648.
+privatekey_rules(167): cryptotypes__namecountt__base__last may_be_replaced_by 2147483647.
+privatekey_rules(168): cryptotypes__namei__size >= 0 may_be_deduced.
+privatekey_rules(169): cryptotypes__namei__first may_be_replaced_by 1.
+privatekey_rules(170): cryptotypes__namei__last may_be_replaced_by 40.
+privatekey_rules(171): cryptotypes__namei__base__first may_be_replaced_by -2147483648.
+privatekey_rules(172): cryptotypes__namei__base__last may_be_replaced_by 2147483647.
+privatekey_rules(173): cryptotypes__issueridt__size >= 0 may_be_deduced.
+privatekey_rules(174): cryptotypes__issueridt__first may_be_replaced_by 0.
+privatekey_rules(175): cryptotypes__issueridt__last may_be_replaced_by 4294967295.
+privatekey_rules(176): cryptotypes__issueridt__base__first <= 
+     cryptotypes__issueridt__base__last may_be_deduced.
+privatekey_rules(177): cryptotypes__issueridt__base__first <= 
+     cryptotypes__issueridt__first may_be_deduced.
+privatekey_rules(178): cryptotypes__issueridt__base__last >= 
+     cryptotypes__issueridt__last may_be_deduced.
+privatekey_rules(179): cryptotypes__issuert__size >= 0 may_be_deduced.
+privatekey_rules(180): A = B may_be_deduced_from
+     [goal(checktype(A,cryptotypes__issuert)),
+      goal(checktype(B,cryptotypes__issuert)),
+      fld_id(A) = fld_id(B),
+      fld_namelength(A) = fld_namelength(B),
+      fld_name(A) = fld_name(B)].
+privatekey_rules(181): keystore__interface__maskt__size >= 0 may_be_deduced.
+privatekey_rules(182): keystore__interface__maskt__size may_be_replaced_by 32.
+privatekey_rules(183): keystore__interface__maskt__first may_be_replaced_by 0.
+privatekey_rules(184): keystore__interface__maskt__last may_be_replaced_by 15.
+privatekey_rules(185): keystore__interface__maskt__base__first may_be_replaced_by 0.
+privatekey_rules(186): keystore__interface__maskt__base__last may_be_replaced_by 15.
+privatekey_rules(187): keystore__interface__maskt__modulus may_be_replaced_by 16.
+privatekey_rules(188): keystore__interface__keytemplatet__size >= 0 may_be_deduced.
+privatekey_rules(189): A = B may_be_deduced_from
+     [goal(checktype(A,keystore__interface__keytemplatet)),
+      goal(checktype(B,keystore__interface__keytemplatet)),
+      fld_attrmask(A) = fld_attrmask(B),
+      fld_owner(A) = fld_owner(B),
+      fld_keyid(A) = fld_keyid(B),
+      fld_keylength(A) = fld_keylength(B),
+      fld_ispublic(A) = fld_ispublic(B)].
+privatekey_rules(190): keystore__interface__handlecountt__size >= 0 may_be_deduced.
+privatekey_rules(191): keystore__interface__handlecountt__first may_be_replaced_by 0.
+privatekey_rules(192): keystore__interface__handlecountt__last may_be_replaced_by 20.
+privatekey_rules(193): keystore__interface__handlecountt__base__first <= 
+     keystore__interface__handlecountt__base__last may_be_deduced.
+privatekey_rules(194): keystore__interface__handlecountt__base__first <= 
+     keystore__interface__handlecountt__first may_be_deduced.
+privatekey_rules(195): keystore__interface__handlecountt__base__last >= 
+     keystore__interface__handlecountt__last may_be_deduced.
+privatekey_rules(196): keystore__interface__handlearrayi__size >= 0 may_be_deduced.
+privatekey_rules(197): keystore__interface__handlearrayi__first may_be_replaced_by 1.
+privatekey_rules(198): keystore__interface__handlearrayi__last may_be_replaced_by 20.
+privatekey_rules(199): keystore__interface__handlearrayi__base__first <= 
+     keystore__interface__handlearrayi__base__last may_be_deduced.
+privatekey_rules(200): keystore__interface__handlearrayi__base__first <= 
+     keystore__interface__handlearrayi__first may_be_deduced.
+privatekey_rules(201): keystore__interface__handlearrayi__base__last >= 
+     keystore__interface__handlearrayi__last may_be_deduced.

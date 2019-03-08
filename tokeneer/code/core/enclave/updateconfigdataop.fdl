@@ -1,0 +1,68 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:26.35}
+
+                    {procedure Enclave.UpdateConfigDataOp}
+
+
+title procedure updateconfigdataop;
+
+  function round__(real) : integer;
+  type privtypes__privileget = (privtypes__useronly, 
+     privtypes__guard, privtypes__auditmanager, 
+     privtypes__securityofficer);
+  type admin__opandnullt = (admin__nullop, admin__archivelog, 
+     admin__updateconfigdata, admin__overridelock, 
+     admin__shutdownop);
+  type admin__t = pending;
+  type screen__msgtextt = (screen__clear, screen__welcomeadmin, 
+     screen__busy, screen__removeadmintoken, screen__closedoor, 
+     screen__requestadminop, screen__doingop, 
+     screen__invalidrequest, screen__invaliddata, 
+     screen__archivefailed, screen__insertenrolmentdata, 
+     screen__validatingenrolmentdata, screen__enrolmentfailed, 
+     screen__insertblankfloppy, screen__insertconfigdata);
+  type floppy__state__type = pending;
+  type statust = (notenrolled, waitingenrol, waitingendenrol, 
+     enclavequiescent, waitingremoveadmintokenfail, gotadmintoken, 
+     waitingstartadminop, waitingfinishadminop, shutdown);
+  const statust__base__first : statust = pending; 
+  const statust__base__last : statust = pending; 
+  const screen__msgtextt__base__first : screen__msgtextt = pending; 
+  const screen__msgtextt__base__last : screen__msgtextt = pending; 
+  const admin__opandnullt__base__first : admin__opandnullt = pending; 
+  const admin__opandnullt__base__last : admin__opandnullt = pending; 
+  const privtypes__privileget__base__first : 
+     privtypes__privileget = pending; 
+  const privtypes__privileget__base__last : privtypes__privileget = pending; 
+  const statust__first : statust = pending; 
+  const statust__last : statust = pending; 
+  const statust__size : integer = pending; 
+  const screen__msgtextt__first : screen__msgtextt = pending; 
+  const screen__msgtextt__last : screen__msgtextt = pending; 
+  const screen__msgtextt__size : integer = pending; 
+  const admin__opandnullt__first : admin__opandnullt = pending; 
+  const admin__opandnullt__last : admin__opandnullt = pending; 
+  const admin__opandnullt__size : integer = pending; 
+  const privtypes__privileget__first : privtypes__privileget = pending; 
+  const privtypes__privileget__last : privtypes__privileget = pending; 
+  const privtypes__privileget__size : integer = pending; 
+  var floppy__state : floppy__state__type;
+  var status : statust;
+  var theadmin : admin__t;
+  var configdataok : boolean;
+  function admin__prf_rolepresent(admin__t) : 
+     privtypes__privileget;
+  function admin__isdoingop(admin__t) : boolean;
+  function admin__thecurrentop(admin__t) : admin__opandnullt;
+  function admin__ispresent(admin__t) : boolean;
+  function floppy__ispresent(floppy__state__type) : boolean;
+  var theadmin__7 : admin__t;
+  var configdataok__4 : boolean;
+
+end;

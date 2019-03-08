@@ -1,0 +1,1344 @@
+           *******************************************************
+                         Report of SPARK Examination
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:32.26
+
+Options:
+    index_file=tis.idx
+    warning_file=tis.wrn
+    notarget_compiler_data
+    config_file=config.adb
+    source_extension=ada
+    listing_extension=ls_
+    nodictionary_file
+    report_file=spark.rep
+    nohtml
+    vcg
+    nostatistics
+    fdl_identifiers=accept
+    flow_analysis=information
+    language=95
+    profile=sequential
+    annotation_character=#
+    rules=lazy
+    error_explanations=off
+    justification_option=full
+    output_directory=.
+    output_directory (actual)=D:\sparkdev\tis2011\code\core\
+
+Selected files:
+   @tis.smf
+
+
+Index Filename(s) used were: 
+   D:\sparkdev\tis2011\code\core\tis.idx
+
+
+Meta File(s) used were:
+   tis.smf
+      D:\sparkdev\tis2011\code\core\clock.adb
+      D:\sparkdev\tis2011\code\core\auditlog.adb
+      D:\sparkdev\tis2011\code\core\latch.adb
+      D:\sparkdev\tis2011\code\core\door.adb
+      D:\sparkdev\tis2011\code\core\alarm.adb
+      D:\sparkdev\tis2011\code\core\keystore.adb
+      D:\sparkdev\tis2011\code\core\cert.adb
+      D:\sparkdev\tis2011\code\core\cert-id.adb
+      D:\sparkdev\tis2011\code\core\cert-attr.adb
+      D:\sparkdev\tis2011\code\core\cert-attr-auth.adb
+      D:\sparkdev\tis2011\code\core\cert-attr-ianda.adb
+      D:\sparkdev\tis2011\code\core\cert-attr-priv.adb
+      D:\sparkdev\tis2011\code\core\certificatestore.adb
+      D:\sparkdev\tis2011\code\core\keyboard.adb
+      D:\sparkdev\tis2011\code\core\admin.adb
+      D:\sparkdev\tis2011\code\core\display.adb
+      D:\sparkdev\tis2011\code\core\bio.adb
+      D:\sparkdev\tis2011\code\core\stats.adb
+      D:\sparkdev\tis2011\code\core\tokenreader.adb
+      D:\sparkdev\tis2011\code\core\usertoken.adb
+      D:\sparkdev\tis2011\code\core\admintoken.adb
+      D:\sparkdev\tis2011\code\core\screen.adb
+      D:\sparkdev\tis2011\code\core\userentry.adb
+      D:\sparkdev\tis2011\code\core\configuration.adb
+      D:\sparkdev\tis2011\code\core\enrolment.adb
+      D:\sparkdev\tis2011\code\core\enclave.adb
+      D:\sparkdev\tis2011\code\core\poll.adb
+      D:\sparkdev\tis2011\code\core\updates.adb
+      D:\sparkdev\tis2011\code\core\configdata.adb
+      D:\sparkdev\tis2011\code\core\tismain.adb
+
+
+Summary warning reporting selected for:
+   Hidden parts
+   Representation clauses
+   Generation of default loop assertions
+   With clauses lacking a supporting inherit
+   Uses of Ada2005 reserved words
+   Notes
+
+
+
+Target configuration file:
+Line
+   1  ------------------------------------------------------------------
+   2  -- Tokeneer ID Station Core Software
+   3  --
+   4  -- Copyright (2003) United States Government, as represented
+   5  -- by the Director, National Security Agency. All rights reserved.
+   6  --
+   7  -- This material was originally developed by Praxis High Integrity
+   8  -- Systems Ltd. under contract to the National Security Agency.
+   9  ------------------------------------------------------------------
+  10  
+  11  ------------------------------------------------------------------
+  12  -- Auto-generated SPARK target configuration file
+  13  --
+  14  -- This is suitable for GNAT Pro, GPL and GAP editions
+  15  -- runnning on 32-bit Windows.
+  16  ------------------------------------------------------------------
+  17  
+  18  package Standard is
+  19     type Integer is range -2147483648 ..  2147483647;
+  20     type Float is digits  6 range -3.40282E+38 ..  3.40282E+38;
+  21  end Standard;
+  22  
+  23  package System is
+  24     type Address is private;
+  25     Min_Int : constant := -9223372036854775808;
+  26     Max_Int : constant :=  9223372036854775807;
+  27     Max_Binary_Modulus : constant :=  18446744073709551615 + 1;
+  28     Max_Digits : constant :=  18;
+  29     Max_Base_Digits : constant :=  18;
+  30     Max_Mantissa : constant :=  63;
+  31     Storage_Unit : constant :=  8;
+  32     Word_Size : constant :=  32;
+  33     Fine_Delta : constant :=  1.08420217248550443E-19;
+  34     subtype Any_Priority is Integer range  0 ..  31;
+  35     subtype Priority is Any_Priority range  0 ..  30;
+  36     subtype Interrupt_Priority is Any_Priority range  31 ..  31;
+  37  end System;
+2 summarized warning(s), comprising:
+     2 note(s)
+
+
+
+Source Filename(s) used were:
+   D:\sparkdev\tis2011\code\core\clock.adb
+   D:\sparkdev\tis2011\code\core\clock-interface.ads
+   D:\sparkdev\tis2011\code\core\clock.ads
+   D:\sparkdev\tis2011\code\core\basictypes.ads
+   D:\sparkdev\tis2011\code\core\auditlog.adb
+   D:\sparkdev\tis2011\code\core\auditlog.ads
+   D:\sparkdev\tis2011\code\core\file.ads
+   D:\sparkdev\tis2011\code\core\configdata.ads
+   D:\sparkdev\tis2011\code\core\alarmtypes.ads
+   D:\sparkdev\tis2011\code\core\audittypes.ads
+   D:\sparkdev\tis2011\code\core\iandatypes.ads
+   D:\sparkdev\tis2011\code\core\privtypes.ads
+   D:\sparkdev\tis2011\code\core\cryptotypes.ads
+   D:\sparkdev\tis2011\code\core\latch.adb
+   D:\sparkdev\tis2011\code\core\latch-interface.ads
+   D:\sparkdev\tis2011\code\core\latch.ads
+   D:\sparkdev\tis2011\code\core\door.adb
+   D:\sparkdev\tis2011\code\core\door-interface.ads
+   D:\sparkdev\tis2011\code\core\door.ads
+   D:\sparkdev\tis2011\code\core\alarm.adb
+   D:\sparkdev\tis2011\code\core\alarm-interface.ads
+   D:\sparkdev\tis2011\code\core\alarm.ads
+   D:\sparkdev\tis2011\code\core\keystore.adb
+   D:\sparkdev\tis2011\code\core\keystore-interface.ads
+   D:\sparkdev\tis2011\code\core\keystore.ads
+   D:\sparkdev\tis2011\code\core\certtypes.ads
+   D:\sparkdev\tis2011\code\core\cert.adb
+   D:\sparkdev\tis2011\code\core\cert-attr.ads
+   D:\sparkdev\tis2011\code\core\cert-id.ads
+   D:\sparkdev\tis2011\code\core\cert-attr-priv.ads
+   D:\sparkdev\tis2011\code\core\cert-attr-ianda.ads
+   D:\sparkdev\tis2011\code\core\cert-attr-auth.ads
+   D:\sparkdev\tis2011\code\core\cert.ads
+   D:\sparkdev\tis2011\code\core\certprocessing.ads
+   D:\sparkdev\tis2011\code\core\cert-id.adb
+   D:\sparkdev\tis2011\code\core\cert-attr.adb
+   D:\sparkdev\tis2011\code\core\cert-attr-auth.adb
+   D:\sparkdev\tis2011\code\core\cert-attr-ianda.adb
+   D:\sparkdev\tis2011\code\core\cert-attr-priv.adb
+   D:\sparkdev\tis2011\code\core\certificatestore.adb
+   D:\sparkdev\tis2011\code\core\certificatestore.ads
+   D:\sparkdev\tis2011\code\core\keyboard.adb
+   D:\sparkdev\tis2011\code\core\keyboard-interface.ads
+   D:\sparkdev\tis2011\code\core\keyboard.ads
+   D:\sparkdev\tis2011\code\core\admin.adb
+   D:\sparkdev\tis2011\code\core\admin.ads
+   D:\sparkdev\tis2011\code\core\display.adb
+   D:\sparkdev\tis2011\code\core\display-interface.ads
+   D:\sparkdev\tis2011\code\core\display.ads
+   D:\sparkdev\tis2011\code\core\bio.adb
+   D:\sparkdev\tis2011\code\core\bio-interface.ads
+   D:\sparkdev\tis2011\code\core\bio.ads
+   D:\sparkdev\tis2011\code\core\stats.adb
+   D:\sparkdev\tis2011\code\core\stats.ads
+   D:\sparkdev\tis2011\code\core\tokenreader.adb
+   D:\sparkdev\tis2011\code\core\tokenreader-interface.ads
+   D:\sparkdev\tis2011\code\core\tokenreader.ads
+   D:\sparkdev\tis2011\code\core\tokentypes.ads
+   D:\sparkdev\tis2011\code\core\usertoken.adb
+   D:\sparkdev\tis2011\code\core\usertoken-interface.ads
+   D:\sparkdev\tis2011\code\core\usertoken.ads
+   D:\sparkdev\tis2011\code\core\admintoken.adb
+   D:\sparkdev\tis2011\code\core\admintoken-interface.ads
+   D:\sparkdev\tis2011\code\core\admintoken.ads
+   D:\sparkdev\tis2011\code\core\screen.adb
+   D:\sparkdev\tis2011\code\core\screen-interface.ads
+   D:\sparkdev\tis2011\code\core\screen.ads
+   D:\sparkdev\tis2011\code\core\userentry.adb
+   D:\sparkdev\tis2011\code\core\userentry.ads
+   D:\sparkdev\tis2011\code\core\configuration.adb
+   D:\sparkdev\tis2011\code\core\configuration.ads
+   D:\sparkdev\tis2011\code\core\enrolment.adb
+   D:\sparkdev\tis2011\code\core\enrolment.ads
+   D:\sparkdev\tis2011\code\core\enclave.adb
+   D:\sparkdev\tis2011\code\core\enclave.ads
+   D:\sparkdev\tis2011\code\core\floppy.ads
+   D:\sparkdev\tis2011\code\core\poll.adb
+   D:\sparkdev\tis2011\code\core\poll.ads
+   D:\sparkdev\tis2011\code\core\updates.adb
+   D:\sparkdev\tis2011\code\core\updates.ads
+   D:\sparkdev\tis2011\code\core\configdata.adb
+   D:\sparkdev\tis2011\code\core\tismain.adb
+
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\clock-interface.ads
+No Listing File
+
+   Unit name:  Clock.Interface
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+2 summarized warning(s), comprising:
+     2 use(s) of Ada2005 reserved words
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\clock.ads
+No Listing File
+
+   Unit name:  Clock
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\basictypes.ads
+No Listing File
+
+   Unit name:  BasicTypes
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+3 summarized warning(s), comprising:
+     3 representation clause(s)*
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\auditlog.ads
+No Listing File
+
+   Unit name:  AuditLog
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\file.ads
+No Listing File
+
+   Unit name:  File
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+2 summarized warning(s), comprising:
+     1 hidden part(s)*
+     1 with clause(s) lacking a supporting inherit
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\configdata.ads
+No Listing File
+
+   Unit name:  ConfigData
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\alarmtypes.ads
+No Listing File
+
+   Unit name:  AlarmTypes
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\audittypes.ads
+No Listing File
+
+   Unit name:  AuditTypes
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\iandatypes.ads
+No Listing File
+
+   Unit name:  IandATypes
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+1 summarized warning(s), comprising:
+     1 representation clause(s)*
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\privtypes.ads
+No Listing File
+
+   Unit name:  PrivTypes
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\cryptotypes.ads
+No Listing File
+
+   Unit name:  CryptoTypes
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\latch-interface.ads
+No Listing File
+
+   Unit name:  Latch.Interface
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+2 summarized warning(s), comprising:
+     2 use(s) of Ada2005 reserved words
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\latch.ads
+No Listing File
+
+   Unit name:  Latch
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\door-interface.ads
+No Listing File
+
+   Unit name:  Door.Interface
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+2 summarized warning(s), comprising:
+     2 use(s) of Ada2005 reserved words
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\door.ads
+No Listing File
+
+   Unit name:  Door
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\alarm-interface.ads
+No Listing File
+
+   Unit name:  Alarm.Interface
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+2 summarized warning(s), comprising:
+     2 use(s) of Ada2005 reserved words
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\alarm.ads
+No Listing File
+
+   Unit name:  Alarm
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\keystore-interface.ads
+No Listing File
+
+   Unit name:  KeyStore.Interface
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+3 summarized warning(s), comprising:
+     1 representation clause(s)*
+     2 use(s) of Ada2005 reserved words
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\keystore.ads
+No Listing File
+
+   Unit name:  KeyStore
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\certtypes.ads
+No Listing File
+
+   Unit name:  CertTypes
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\cert-attr.ads
+No Listing File
+
+   Unit name:  Cert.Attr
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+
+Expected messages marked with the accept annotation
+Type Msg    Lines              Reason                    Match
+     No.  From    To                                    No.  Line
+Warn 394    86   end  Child packages supply constructo    1    87
+
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\cert-id.ads
+No Listing File
+
+   Unit name:  Cert.ID
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\cert-attr-priv.ads
+No Listing File
+
+   Unit name:  Cert.Attr.Priv
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\cert-attr-ianda.ads
+No Listing File
+
+   Unit name:  Cert.Attr.IandA
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\cert-attr-auth.ads
+No Listing File
+
+   Unit name:  Cert.Attr.Auth
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\cert.ads
+No Listing File
+
+   Unit name:  Cert
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+
+Expected messages marked with the accept annotation
+Type Msg    Lines              Reason                    Match
+     No.  From    To                                    No.  Line
+Warn 394   244   end  Child packages supply constructo    1   245
+
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\certprocessing.ads
+No Listing File
+
+   Unit name:  CertProcessing
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\certificatestore.ads
+No Listing File
+
+   Unit name:  CertificateStore
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\keyboard-interface.ads
+No Listing File
+
+   Unit name:  Keyboard.Interface
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+2 summarized warning(s), comprising:
+     2 use(s) of Ada2005 reserved words
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\keyboard.ads
+No Listing File
+
+   Unit name:  Keyboard
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\admin.ads
+No Listing File
+
+   Unit name:  Admin
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\display-interface.ads
+No Listing File
+
+   Unit name:  Display.Interface
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+2 summarized warning(s), comprising:
+     2 use(s) of Ada2005 reserved words
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\display.ads
+No Listing File
+
+   Unit name:  Display
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\bio-interface.ads
+No Listing File
+
+   Unit name:  Bio.Interface
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+2 summarized warning(s), comprising:
+     2 use(s) of Ada2005 reserved words
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\bio.ads
+No Listing File
+
+   Unit name:  Bio
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\stats.ads
+No Listing File
+
+   Unit name:  Stats
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\tokenreader-interface.ads
+No Listing File
+
+   Unit name:  TokenReader.Interface
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+3 summarized warning(s), comprising:
+     1 representation clause(s)*
+     2 use(s) of Ada2005 reserved words
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\tokenreader.ads
+No Listing File
+
+   Unit name:  TokenReader
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\tokentypes.ads
+No Listing File
+
+   Unit name:  TokenTypes
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\usertoken-interface.ads
+No Listing File
+
+   Unit name:  UserToken.Interface
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+2 summarized warning(s), comprising:
+     2 use(s) of Ada2005 reserved words
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\usertoken.ads
+No Listing File
+
+   Unit name:  UserToken
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\admintoken-interface.ads
+No Listing File
+
+   Unit name:  AdminToken.Interface
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+2 summarized warning(s), comprising:
+     2 use(s) of Ada2005 reserved words
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\admintoken.ads
+No Listing File
+
+   Unit name:  AdminToken
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\screen-interface.ads
+No Listing File
+
+   Unit name:  Screen.Interface
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+2 summarized warning(s), comprising:
+     2 use(s) of Ada2005 reserved words
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\screen.ads
+No Listing File
+
+   Unit name:  Screen
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\userentry.ads
+No Listing File
+
+   Unit name:  UserEntry
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\configuration.ads
+No Listing File
+
+   Unit name:  Configuration
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\enrolment.ads
+No Listing File
+
+   Unit name:  Enrolment
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\enclave.ads
+No Listing File
+
+   Unit name:  Enclave
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\floppy.ads
+No Listing File
+
+   Unit name:  Floppy
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\poll.ads
+No Listing File
+
+   Unit name:  Poll
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\updates.ads
+No Listing File
+
+   Unit name:  Updates
+   Unit type:  package specification
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\clock.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\clock.lsb
+
+   Unit name:  Clock
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+9 summarized warning(s), comprising:
+     9 use(s) of Ada2005 reserved words
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\auditlog.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\auditlog.lsb
+
+   Unit name:  AuditLog
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+
+Expected messages marked with the accept annotation
+Type Msg    Lines              Reason                    Match
+     No.  From    To                                    No.  Line
+Flow  23  1236   end  Array initialization is total in    1  1242
+Flow  23  1236   end  Array initialization is total in    1  1245
+Flow  23  1236   end  Array initialization is total in    1  1244
+Flow 602  1248   end  Array initialization is total in    1  1251
+Flow 602  1248   end  Array initialization is total in    1  1251
+Flow 602  1248   end  Array initialization is total in    1  1251
+Flow  22  1545  1550  Invariant expression expected an    1  1546
+
+
+6 summarized warning(s), comprising:
+     6 hidden part(s)*
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\latch.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\latch.lsb
+
+   Unit name:  Latch
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+8 summarized warning(s), comprising:
+     8 use(s) of Ada2005 reserved words
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\door.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\door.lsb
+
+   Unit name:  Door
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+8 summarized warning(s), comprising:
+     8 use(s) of Ada2005 reserved words
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\alarm.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\alarm.lsb
+
+   Unit name:  Alarm
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+8 summarized warning(s), comprising:
+     8 use(s) of Ada2005 reserved words
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\keystore.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\keystore.lsb
+
+   Unit name:  KeyStore
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+130 summarized warning(s), comprising:
+     1 hidden part(s)*
+   129 use(s) of Ada2005 reserved words
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\cert.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\cert.lsb
+
+   Unit name:  Cert
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+
+Expected messages marked with the accept annotation
+Type Msg    Lines              Reason                    Match
+     No.  From    To                                    No.  Line
+Flow  10   137   end  Ineffective assignment expected     1   139
+Flow  33   137   end  Ineffective assignment expected     1   144
+Flow  10   159   end  Ineffective assignment expected     1   161
+Flow  33   159   end  Ineffective assignment expected     1   166
+
+
+1 summarized warning(s), comprising:
+     1 hidden part(s)*
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\cert-id.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\cert-id.lsb
+
+   Unit name:  Cert.ID
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\cert-attr.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\cert-attr.lsb
+
+   Unit name:  Cert.Attr
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+1 summarized warning(s), comprising:
+     1 hidden part(s)*
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\cert-attr-auth.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\cert-attr-auth.lsb
+
+   Unit name:  Cert.Attr.Auth
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\cert-attr-ianda.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\cert-attr-ianda.lsb
+
+   Unit name:  Cert.Attr.IandA
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\cert-attr-priv.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\cert-attr-priv.lsb
+
+   Unit name:  Cert.Attr.Priv
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\certificatestore.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\certificatestore.lsb
+
+   Unit name:  CertificateStore
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+3 summarized warning(s), comprising:
+     2 hidden part(s)*
+     1 generation of default loop assertions*
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\keyboard.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\keyboard.lsb
+
+   Unit name:  Keyboard
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+14 summarized warning(s), comprising:
+    14 use(s) of Ada2005 reserved words
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\admin.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\admin.lsb
+
+   Unit name:  Admin
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\display.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\display.lsb
+
+   Unit name:  Display
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+10 summarized warning(s), comprising:
+    10 use(s) of Ada2005 reserved words
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\bio.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\bio.lsb
+
+   Unit name:  Bio
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+18 summarized warning(s), comprising:
+     2 hidden part(s)*
+     2 representation clause(s)*
+     1 with clause(s) lacking a supporting inherit
+    13 use(s) of Ada2005 reserved words
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\stats.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\stats.lsb
+
+   Unit name:  Stats
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\tokenreader.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\tokenreader.lsb
+
+   Unit name:  TokenReader
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+
+Expected messages marked with the accept annotation
+Type Msg    Lines              Reason                    Match
+     No.  From    To                                    No.  Line
+Flow  10   470   end  Ineffective assignment expected     1   473
+Flow  33   470   end  Ineffective assignment expected     1   477
+
+
+137 summarized warning(s), comprising:
+     1 hidden part(s)*
+   136 use(s) of Ada2005 reserved words
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\usertoken.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\usertoken.lsb
+
+   Unit name:  UserToken
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+121 summarized warning(s), comprising:
+     1 hidden part(s)*
+   120 use(s) of Ada2005 reserved words
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\admintoken.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\admintoken.lsb
+
+   Unit name:  AdminToken
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+71 summarized warning(s), comprising:
+     1 hidden part(s)*
+    70 use(s) of Ada2005 reserved words
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\screen.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\screen.lsb
+
+   Unit name:  Screen
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+
+Expected messages marked with the accept annotation
+Type Msg    Lines              Reason                    Match
+     No.  From    To                                    No.  Line
+Flow  10  1072   end  Ineffective assignment expected     2  1075
+Flow  33  1072   end  Ineffective assignment expected     1  1079
+
+
+175 summarized warning(s), comprising:
+     7 hidden part(s)*
+   168 use(s) of Ada2005 reserved words
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\userentry.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\userentry.lsb
+
+   Unit name:  UserEntry
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+1 summarized warning(s), comprising:
+     1 hidden part(s)*
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\configuration.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\configuration.lsb
+
+   Unit name:  Configuration
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+1 summarized warning(s), comprising:
+     1 hidden part(s)*
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\enrolment.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\enrolment.lsb
+
+   Unit name:  Enrolment
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+1 summarized warning(s), comprising:
+     1 hidden part(s)*
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\enclave.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\enclave.lsb
+
+   Unit name:  Enclave
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+
+Expected messages marked with the accept annotation
+Type Msg    Lines              Reason                    Match
+     No.  From    To                                    No.  Line
+Flow  10   264   268  Ineffective assignment expected     1   265
+Flow  10  1030  1034  Ineffective assignment expected     1  1031
+
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\poll.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\poll.lsb
+
+   Unit name:  Poll
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\updates.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\updates.lsb
+
+   Unit name:  Updates
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\configdata.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\configdata.lsb
+
+   Unit name:  ConfigData
+   Unit type:  package body
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+
+Expected messages marked with the accept annotation
+Type Msg    Lines              Reason                    Match
+     No.  From    To                                    No.  Line
+Flow  10  1387   end  Ineffective assignment expected     2  1390
+Flow  33  1387   end  Ineffective assignment expected     1  1398
+
+
+No summarized warnings
+
+
+Source Filename:   D:\sparkdev\tis2011\code\core\tismain.adb
+Listing Filename:  D:\sparkdev\tis2011\code\core\tismain.lsb
+
+   Unit name:  TISMain
+   Unit type:  main program
+   Unit has been analysed, any errors are listed below.
+
+No errors found
+
+
+Expected messages marked with the accept annotation
+Type Msg    Lines              Reason                    Match
+     No.  From    To                                    No.  Line
+Flow  10  1279   end  Ineffective assignment expected     1  1281
+Flow  33  1279   end  Ineffective assignment expected     1  1284
+Flow  10  1344   end  Ineffective assignment expected     1  1346
+Flow  33  1344   end  Ineffective assignment expected     1  1349
+Flow  10  1490  1492  Ineffective assignmente expected    1  1491
+Flow  10  1497  1499  Ineffective assignmente expected    1  1498
+
+
+No summarized warnings
+
+
+--End of file--------------------------------------------------

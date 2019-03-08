@@ -1,0 +1,170 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:32.07*/
+
+                             /*procedure TISMain*/
+
+
+rule_family tismain_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+tismain_rules(1): privtypes__privileget__size >= 0 may_be_deduced.
+tismain_rules(2): privtypes__privileget__first may_be_replaced_by privtypes__useronly.
+tismain_rules(3): privtypes__privileget__last may_be_replaced_by privtypes__securityofficer.
+tismain_rules(4): privtypes__privileget__base__first may_be_replaced_by privtypes__useronly.
+tismain_rules(5): privtypes__privileget__base__last may_be_replaced_by privtypes__securityofficer.
+tismain_rules(6): privtypes__privileget__pos(
+     privtypes__privileget__first) may_be_replaced_by 0.
+tismain_rules(7): privtypes__privileget__pos(privtypes__useronly) may_be_replaced_by 0.
+tismain_rules(8): privtypes__privileget__val(0) may_be_replaced_by 
+     privtypes__useronly.
+tismain_rules(9): privtypes__privileget__pos(privtypes__guard) may_be_replaced_by 1.
+tismain_rules(10): privtypes__privileget__val(1) may_be_replaced_by 
+     privtypes__guard.
+tismain_rules(11): privtypes__privileget__pos(
+     privtypes__auditmanager) may_be_replaced_by 2.
+tismain_rules(12): privtypes__privileget__val(2) may_be_replaced_by 
+     privtypes__auditmanager.
+tismain_rules(13): privtypes__privileget__pos(
+     privtypes__securityofficer) may_be_replaced_by 3.
+tismain_rules(14): privtypes__privileget__val(3) may_be_replaced_by 
+     privtypes__securityofficer.
+tismain_rules(15): privtypes__privileget__pos(
+     privtypes__privileget__last) may_be_replaced_by 3.
+tismain_rules(16): privtypes__privileget__pos(succ(X)) may_be_replaced_by 
+     privtypes__privileget__pos(X) + 1
+     if [X <=privtypes__securityofficer, X <> 
+     privtypes__securityofficer].
+tismain_rules(17): privtypes__privileget__pos(pred(X)) may_be_replaced_by 
+     privtypes__privileget__pos(X) - 1
+     if [X >=privtypes__useronly, X <> privtypes__useronly].
+tismain_rules(18): privtypes__privileget__pos(X) >= 0 may_be_deduced_from
+     [privtypes__useronly <= X, X <= privtypes__securityofficer].
+tismain_rules(19): privtypes__privileget__pos(X) <= 3 may_be_deduced_from
+     [privtypes__useronly <= X, X <= privtypes__securityofficer].
+tismain_rules(20): privtypes__privileget__val(X) >= 
+     privtypes__useronly may_be_deduced_from
+     [0 <= X, X <= 3].
+tismain_rules(21): privtypes__privileget__val(X) <= 
+     privtypes__securityofficer may_be_deduced_from
+     [0 <= X, X <= 3].
+tismain_rules(22): succ(privtypes__privileget__val(X)) may_be_replaced_by 
+     privtypes__privileget__val(X+1)
+     if [0 <= X, X < 3].
+tismain_rules(23): pred(privtypes__privileget__val(X)) may_be_replaced_by 
+     privtypes__privileget__val(X-1)
+     if [0 < X, X <= 3].
+tismain_rules(24): privtypes__privileget__pos(
+     privtypes__privileget__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 3].
+tismain_rules(25): privtypes__privileget__val(
+     privtypes__privileget__pos(X)) may_be_replaced_by X
+     if [privtypes__useronly <= X, X <= 
+     privtypes__securityofficer].
+tismain_rules(26): privtypes__privileget__pos(X) <= 
+     privtypes__privileget__pos(Y) & X <= Y are_interchangeable 
+     if [privtypes__useronly <= X, X <= 
+     privtypes__securityofficer, privtypes__useronly <= Y, Y <= 
+     privtypes__securityofficer].
+tismain_rules(27): privtypes__privileget__val(X) <= 
+     privtypes__privileget__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 3, 0 <= Y, Y <= 3].
+tismain_rules(28): door__t__size >= 0 may_be_deduced.
+tismain_rules(29): door__t__first may_be_replaced_by door__open.
+tismain_rules(30): door__t__last may_be_replaced_by door__closed.
+tismain_rules(31): door__t__base__first may_be_replaced_by door__open.
+tismain_rules(32): door__t__base__last may_be_replaced_by door__closed.
+tismain_rules(33): door__t__pos(door__t__first) may_be_replaced_by 0.
+tismain_rules(34): door__t__pos(door__open) may_be_replaced_by 0.
+tismain_rules(35): door__t__val(0) may_be_replaced_by door__open.
+tismain_rules(36): door__t__pos(door__closed) may_be_replaced_by 1.
+tismain_rules(37): door__t__val(1) may_be_replaced_by 
+     door__closed.
+tismain_rules(38): door__t__pos(door__t__last) may_be_replaced_by 1.
+tismain_rules(39): door__t__pos(succ(X)) may_be_replaced_by 
+     door__t__pos(X) + 1
+     if [X <=door__closed, X <> door__closed].
+tismain_rules(40): door__t__pos(pred(X)) may_be_replaced_by 
+     door__t__pos(X) - 1
+     if [X >=door__open, X <> door__open].
+tismain_rules(41): door__t__pos(X) >= 0 may_be_deduced_from
+     [door__open <= X, X <= door__closed].
+tismain_rules(42): door__t__pos(X) <= 1 may_be_deduced_from
+     [door__open <= X, X <= door__closed].
+tismain_rules(43): door__t__val(X) >= door__open may_be_deduced_from
+     [0 <= X, X <= 1].
+tismain_rules(44): door__t__val(X) <= door__closed may_be_deduced_from
+     [0 <= X, X <= 1].
+tismain_rules(45): succ(door__t__val(X)) may_be_replaced_by 
+     door__t__val(X+1)
+     if [0 <= X, X < 1].
+tismain_rules(46): pred(door__t__val(X)) may_be_replaced_by 
+     door__t__val(X-1)
+     if [0 < X, X <= 1].
+tismain_rules(47): door__t__pos(door__t__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+tismain_rules(48): door__t__val(door__t__pos(X)) may_be_replaced_by X
+     if [door__open <= X, X <= door__closed].
+tismain_rules(49): door__t__pos(X) <= door__t__pos(Y) & X <= Y are_interchangeable 
+     if [door__open <= X, X <= door__closed, door__open <= Y, Y <= 
+     door__closed].
+tismain_rules(50): door__t__val(X) <= door__t__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].
+tismain_rules(51): admin__opandnullt__size >= 0 may_be_deduced.
+tismain_rules(52): admin__opandnullt__first may_be_replaced_by admin__nullop.
+tismain_rules(53): admin__opandnullt__last may_be_replaced_by admin__shutdownop.
+tismain_rules(54): admin__opandnullt__base__first may_be_replaced_by admin__nullop.
+tismain_rules(55): admin__opandnullt__base__last may_be_replaced_by admin__shutdownop.
+tismain_rules(56): admin__opandnullt__pos(admin__opandnullt__first) may_be_replaced_by 0.
+tismain_rules(57): admin__opandnullt__pos(admin__nullop) may_be_replaced_by 0.
+tismain_rules(58): admin__opandnullt__val(0) may_be_replaced_by 
+     admin__nullop.
+tismain_rules(59): admin__opandnullt__pos(admin__archivelog) may_be_replaced_by 1.
+tismain_rules(60): admin__opandnullt__val(1) may_be_replaced_by 
+     admin__archivelog.
+tismain_rules(61): admin__opandnullt__pos(admin__updateconfigdata) may_be_replaced_by 2.
+tismain_rules(62): admin__opandnullt__val(2) may_be_replaced_by 
+     admin__updateconfigdata.
+tismain_rules(63): admin__opandnullt__pos(admin__overridelock) may_be_replaced_by 3.
+tismain_rules(64): admin__opandnullt__val(3) may_be_replaced_by 
+     admin__overridelock.
+tismain_rules(65): admin__opandnullt__pos(admin__shutdownop) may_be_replaced_by 4.
+tismain_rules(66): admin__opandnullt__val(4) may_be_replaced_by 
+     admin__shutdownop.
+tismain_rules(67): admin__opandnullt__pos(admin__opandnullt__last) may_be_replaced_by 4.
+tismain_rules(68): admin__opandnullt__pos(succ(X)) may_be_replaced_by 
+     admin__opandnullt__pos(X) + 1
+     if [X <=admin__shutdownop, X <> admin__shutdownop].
+tismain_rules(69): admin__opandnullt__pos(pred(X)) may_be_replaced_by 
+     admin__opandnullt__pos(X) - 1
+     if [X >=admin__nullop, X <> admin__nullop].
+tismain_rules(70): admin__opandnullt__pos(X) >= 0 may_be_deduced_from
+     [admin__nullop <= X, X <= admin__shutdownop].
+tismain_rules(71): admin__opandnullt__pos(X) <= 4 may_be_deduced_from
+     [admin__nullop <= X, X <= admin__shutdownop].
+tismain_rules(72): admin__opandnullt__val(X) >= admin__nullop may_be_deduced_from
+     [0 <= X, X <= 4].
+tismain_rules(73): admin__opandnullt__val(X) <= admin__shutdownop may_be_deduced_from
+     [0 <= X, X <= 4].
+tismain_rules(74): succ(admin__opandnullt__val(X)) may_be_replaced_by 
+     admin__opandnullt__val(X+1)
+     if [0 <= X, X < 4].
+tismain_rules(75): pred(admin__opandnullt__val(X)) may_be_replaced_by 
+     admin__opandnullt__val(X-1)
+     if [0 < X, X <= 4].
+tismain_rules(76): admin__opandnullt__pos(admin__opandnullt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 4].
+tismain_rules(77): admin__opandnullt__val(admin__opandnullt__pos(X)) may_be_replaced_by X
+     if [admin__nullop <= X, X <= admin__shutdownop].
+tismain_rules(78): admin__opandnullt__pos(X) <= admin__opandnullt__pos(Y) & X <= Y are_interchangeable 
+     if [admin__nullop <= X, X <= admin__shutdownop, 
+     admin__nullop <= Y, Y <= admin__shutdownop].
+tismain_rules(79): admin__opandnullt__val(X) <= admin__opandnullt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 4, 0 <= Y, Y <= 4].

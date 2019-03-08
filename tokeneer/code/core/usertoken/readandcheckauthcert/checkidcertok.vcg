@@ -1,0 +1,983 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:20.13
+
+           procedure UserToken.ReadAndCheckAuthCert.CheckIDCertOK
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 477:
+
+procedure_checkidcertok_1.
+H1:    true .
+H2:    tokenid >= tokentypes__tokenidt__first .
+H3:    tokenid <= tokentypes__tokenidt__last .
+        ->
+C1:    certtypes__idcert >= certtypes__certificatet__first .
+C2:    certtypes__idcert <= certtypes__certificatet__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 491:
+
+procedure_checkidcertok_2.
+H1:    true .
+H2:    tokenid >= tokentypes__tokenidt__first .
+H3:    tokenid <= tokentypes__tokenidt__last .
+H4:    certtypes__idcert >= certtypes__certificatet__first .
+H5:    certtypes__idcert <= certtypes__certificatet__last .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H7:    true .
+H8:    true .
+H9:    certfound__2 .
+H10:   for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H11:   true .
+H12:   true .
+H13:   extractok__3 .
+H14:   true .
+H15:   fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) >= 
+           certtypes__serialnumbert__first .
+H16:   fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) <= 
+           certtypes__serialnumbert__last .
+H17:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))), [
+           i___1]) >= character__first) and (element(fld_name(
+           fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))), [
+           i___1]) <= character__last))) .
+H18:   fld_namelength(fld_issuer(cert__theid(fld_inherit(
+           idcertcontents__3)))) >= cryptotypes__namecountt__first .
+H19:   fld_namelength(fld_issuer(cert__theid(fld_inherit(
+           idcertcontents__3)))) <= cryptotypes__namecountt__last .
+H20:   fld_id(fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))) >= 
+           cryptotypes__issueridt__first .
+H21:   fld_id(fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))) <= 
+           cryptotypes__issueridt__last .
+        ->
+C1:    fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) >= 
+           tokentypes__tokenidt__first .
+C2:    fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) <= 
+           tokentypes__tokenidt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 508:
+
+procedure_checkidcertok_3.
+H1:    true .
+H2:    tokenid >= tokentypes__tokenidt__first .
+H3:    tokenid <= tokentypes__tokenidt__last .
+H4:    certtypes__idcert >= certtypes__certificatet__first .
+H5:    certtypes__idcert <= certtypes__certificatet__last .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H7:    true .
+H8:    true .
+H9:    certfound__2 .
+H10:   for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H11:   true .
+H12:   true .
+H13:   extractok__3 .
+H14:   true .
+H15:   fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) >= 
+           certtypes__serialnumbert__first .
+H16:   fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) <= 
+           certtypes__serialnumbert__last .
+H17:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))), [
+           i___1]) >= character__first) and (element(fld_name(
+           fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))), [
+           i___1]) <= character__last))) .
+H18:   fld_namelength(fld_issuer(cert__theid(fld_inherit(
+           idcertcontents__3)))) >= cryptotypes__namecountt__first .
+H19:   fld_namelength(fld_issuer(cert__theid(fld_inherit(
+           idcertcontents__3)))) <= cryptotypes__namecountt__last .
+H20:   fld_id(fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))) >= 
+           cryptotypes__issueridt__first .
+H21:   fld_id(fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))) <= 
+           cryptotypes__issueridt__last .
+H22:   fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) >= 
+           tokentypes__tokenidt__first .
+H23:   fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) <= 
+           tokentypes__tokenidt__last .
+H24:   for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H25:   true .
+H26:   true .
+H27:   true .
+H28:   true .
+H29:   true .
+H30:   true .
+H31:   true .
+H32:   true .
+H33:   true .
+H34:   (not certfound__2) or ((not extractok__3) or (not (
+           tokenid = fld_serialnumber(cert__theid(fld_inherit(
+           idcertcontents__3)))))) .
+        ->
+C1:    bad >= certificatestatus__first .
+C2:    bad <= certificatestatus__last .
+ 
+
+procedure_checkidcertok_4.
+H1:    true .
+H2:    tokenid >= tokentypes__tokenidt__first .
+H3:    tokenid <= tokentypes__tokenidt__last .
+H4:    certtypes__idcert >= certtypes__certificatet__first .
+H5:    certtypes__idcert <= certtypes__certificatet__last .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H7:    true .
+H8:    true .
+H9:    certfound__2 .
+H10:   for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H11:   true .
+H12:   true .
+H13:   not extractok__3 .
+H14:   true .
+H15:   true .
+H16:   true .
+H17:   true .
+H18:   true .
+H19:   true .
+H20:   true .
+H21:   (not certfound__2) or ((not extractok__3) or (not 
+           false)) .
+        ->
+C1:    bad >= certificatestatus__first .
+C2:    bad <= certificatestatus__last .
+ 
+
+procedure_checkidcertok_5.
+H1:    true .
+H2:    tokenid >= tokentypes__tokenidt__first .
+H3:    tokenid <= tokentypes__tokenidt__last .
+H4:    certtypes__idcert >= certtypes__certificatet__first .
+H5:    certtypes__idcert <= certtypes__certificatet__last .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H7:    true .
+H8:    true .
+H9:    not certfound__2 .
+H10:   true .
+H11:   true .
+H12:   true .
+H13:   true .
+H14:   true .
+H15:   true .
+H16:   true .
+H17:   (not certfound__2) or ((not false) or (not false)) .
+        ->
+C1:    bad >= certificatestatus__first .
+C2:    bad <= certificatestatus__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 510:
+
+procedure_checkidcertok_6.
+H1:    true .
+H2:    tokenid >= tokentypes__tokenidt__first .
+H3:    tokenid <= tokentypes__tokenidt__last .
+H4:    certtypes__idcert >= certtypes__certificatet__first .
+H5:    certtypes__idcert <= certtypes__certificatet__last .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H7:    true .
+H8:    true .
+H9:    certfound__2 .
+H10:   for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H11:   true .
+H12:   true .
+H13:   extractok__3 .
+H14:   true .
+H15:   fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) >= 
+           certtypes__serialnumbert__first .
+H16:   fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) <= 
+           certtypes__serialnumbert__last .
+H17:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))), [
+           i___1]) >= character__first) and (element(fld_name(
+           fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))), [
+           i___1]) <= character__last))) .
+H18:   fld_namelength(fld_issuer(cert__theid(fld_inherit(
+           idcertcontents__3)))) >= cryptotypes__namecountt__first .
+H19:   fld_namelength(fld_issuer(cert__theid(fld_inherit(
+           idcertcontents__3)))) <= cryptotypes__namecountt__last .
+H20:   fld_id(fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))) >= 
+           cryptotypes__issueridt__first .
+H21:   fld_id(fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))) <= 
+           cryptotypes__issueridt__last .
+H22:   fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) >= 
+           tokentypes__tokenidt__first .
+H23:   fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) <= 
+           tokentypes__tokenidt__last .
+H24:   for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H25:   true .
+H26:   true .
+H27:   true .
+H28:   true .
+H29:   true .
+H30:   true .
+H31:   true .
+H32:   true .
+H33:   true .
+H34:   not ((not certfound__2) or ((not extractok__3) or (not (
+           tokenid = fld_serialnumber(cert__theid(fld_inherit(
+           idcertcontents__3))))))) .
+H35:   true .
+H36:   not verified__4 .
+        ->
+C1:    notverified >= certificatestatus__first .
+C2:    notverified <= certificatestatus__last .
+ 
+
+procedure_checkidcertok_7.
+H1:    true .
+H2:    tokenid >= tokentypes__tokenidt__first .
+H3:    tokenid <= tokentypes__tokenidt__last .
+H4:    certtypes__idcert >= certtypes__certificatet__first .
+H5:    certtypes__idcert <= certtypes__certificatet__last .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H7:    true .
+H8:    true .
+H9:    certfound__2 .
+H10:   for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H11:   true .
+H12:   true .
+H13:   not extractok__3 .
+H14:   true .
+H15:   true .
+H16:   true .
+H17:   true .
+H18:   true .
+H19:   true .
+H20:   true .
+H21:   not ((not certfound__2) or ((not extractok__3) or (not 
+           false))) .
+H22:   true .
+H23:   not false .
+        ->
+C1:    notverified >= certificatestatus__first .
+C2:    notverified <= certificatestatus__last .
+ 
+
+procedure_checkidcertok_8.
+H1:    true .
+H2:    tokenid >= tokentypes__tokenidt__first .
+H3:    tokenid <= tokentypes__tokenidt__last .
+H4:    certtypes__idcert >= certtypes__certificatet__first .
+H5:    certtypes__idcert <= certtypes__certificatet__last .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H7:    true .
+H8:    true .
+H9:    not certfound__2 .
+H10:   true .
+H11:   true .
+H12:   true .
+H13:   true .
+H14:   true .
+H15:   true .
+H16:   true .
+H17:   not ((not certfound__2) or ((not false) or (not 
+           false))) .
+H18:   true .
+H19:   not false .
+        ->
+C1:    notverified >= certificatestatus__first .
+C2:    notverified <= certificatestatus__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 512:
+
+procedure_checkidcertok_9.
+H1:    true .
+H2:    tokenid >= tokentypes__tokenidt__first .
+H3:    tokenid <= tokentypes__tokenidt__last .
+H4:    certtypes__idcert >= certtypes__certificatet__first .
+H5:    certtypes__idcert <= certtypes__certificatet__last .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H7:    true .
+H8:    true .
+H9:    certfound__2 .
+H10:   for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H11:   true .
+H12:   true .
+H13:   extractok__3 .
+H14:   true .
+H15:   fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) >= 
+           certtypes__serialnumbert__first .
+H16:   fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) <= 
+           certtypes__serialnumbert__last .
+H17:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))), [
+           i___1]) >= character__first) and (element(fld_name(
+           fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))), [
+           i___1]) <= character__last))) .
+H18:   fld_namelength(fld_issuer(cert__theid(fld_inherit(
+           idcertcontents__3)))) >= cryptotypes__namecountt__first .
+H19:   fld_namelength(fld_issuer(cert__theid(fld_inherit(
+           idcertcontents__3)))) <= cryptotypes__namecountt__last .
+H20:   fld_id(fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))) >= 
+           cryptotypes__issueridt__first .
+H21:   fld_id(fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))) <= 
+           cryptotypes__issueridt__last .
+H22:   fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) >= 
+           tokentypes__tokenidt__first .
+H23:   fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) <= 
+           tokentypes__tokenidt__last .
+H24:   for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H25:   true .
+H26:   true .
+H27:   true .
+H28:   true .
+H29:   true .
+H30:   true .
+H31:   true .
+H32:   true .
+H33:   true .
+H34:   not ((not certfound__2) or ((not extractok__3) or (not (
+           tokenid = fld_serialnumber(cert__theid(fld_inherit(
+           idcertcontents__3))))))) .
+H35:   true .
+H36:   not (not verified__4) .
+        ->
+C1:    validcert >= certificatestatus__first .
+C2:    validcert <= certificatestatus__last .
+ 
+
+procedure_checkidcertok_10.
+H1:    true .
+H2:    tokenid >= tokentypes__tokenidt__first .
+H3:    tokenid <= tokentypes__tokenidt__last .
+H4:    certtypes__idcert >= certtypes__certificatet__first .
+H5:    certtypes__idcert <= certtypes__certificatet__last .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H7:    true .
+H8:    true .
+H9:    certfound__2 .
+H10:   for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H11:   true .
+H12:   true .
+H13:   not extractok__3 .
+H14:   true .
+H15:   true .
+H16:   true .
+H17:   true .
+H18:   true .
+H19:   true .
+H20:   true .
+H21:   not ((not certfound__2) or ((not extractok__3) or (not 
+           false))) .
+H22:   true .
+H23:   not (not false) .
+        ->
+C1:    validcert >= certificatestatus__first .
+C2:    validcert <= certificatestatus__last .
+ 
+
+procedure_checkidcertok_11.
+H1:    true .
+H2:    tokenid >= tokentypes__tokenidt__first .
+H3:    tokenid <= tokentypes__tokenidt__last .
+H4:    certtypes__idcert >= certtypes__certificatet__first .
+H5:    certtypes__idcert <= certtypes__certificatet__last .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H7:    true .
+H8:    true .
+H9:    not certfound__2 .
+H10:   true .
+H11:   true .
+H12:   true .
+H13:   true .
+H14:   true .
+H15:   true .
+H16:   true .
+H17:   not ((not certfound__2) or ((not false) or (not 
+           false))) .
+H18:   true .
+H19:   not (not false) .
+        ->
+C1:    validcert >= certificatestatus__first .
+C2:    validcert <= certificatestatus__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 515:
+
+procedure_checkidcertok_12.
+H1:    true .
+H2:    tokenid >= tokentypes__tokenidt__first .
+H3:    tokenid <= tokentypes__tokenidt__last .
+H4:    certtypes__idcert >= certtypes__certificatet__first .
+H5:    certtypes__idcert <= certtypes__certificatet__last .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H7:    true .
+H8:    true .
+H9:    certfound__2 .
+H10:   for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H11:   true .
+H12:   true .
+H13:   extractok__3 .
+H14:   true .
+H15:   fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) >= 
+           certtypes__serialnumbert__first .
+H16:   fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) <= 
+           certtypes__serialnumbert__last .
+H17:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))), [
+           i___1]) >= character__first) and (element(fld_name(
+           fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))), [
+           i___1]) <= character__last))) .
+H18:   fld_namelength(fld_issuer(cert__theid(fld_inherit(
+           idcertcontents__3)))) >= cryptotypes__namecountt__first .
+H19:   fld_namelength(fld_issuer(cert__theid(fld_inherit(
+           idcertcontents__3)))) <= cryptotypes__namecountt__last .
+H20:   fld_id(fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))) >= 
+           cryptotypes__issueridt__first .
+H21:   fld_id(fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))) <= 
+           cryptotypes__issueridt__last .
+H22:   fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) >= 
+           tokentypes__tokenidt__first .
+H23:   fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) <= 
+           tokentypes__tokenidt__last .
+H24:   for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H25:   true .
+H26:   true .
+H27:   true .
+H28:   true .
+H29:   true .
+H30:   true .
+H31:   true .
+H32:   true .
+H33:   true .
+H34:   (not certfound__2) or ((not extractok__3) or (not (
+           tokenid = fld_serialnumber(cert__theid(fld_inherit(
+           idcertcontents__3)))))) .
+H35:   bad >= certificatestatus__first .
+H36:   bad <= certificatestatus__last .
+H37:   true .
+H38:   bad >= certificatestatus__first .
+H39:   bad <= certificatestatus__last .
+H40:   true .
+        ->
+C1:    bad >= certificatestatus__first .
+C2:    bad <= certificatestatus__last .
+ 
+
+procedure_checkidcertok_13.
+H1:    true .
+H2:    tokenid >= tokentypes__tokenidt__first .
+H3:    tokenid <= tokentypes__tokenidt__last .
+H4:    certtypes__idcert >= certtypes__certificatet__first .
+H5:    certtypes__idcert <= certtypes__certificatet__last .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H7:    true .
+H8:    true .
+H9:    certfound__2 .
+H10:   for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H11:   true .
+H12:   true .
+H13:   not extractok__3 .
+H14:   true .
+H15:   true .
+H16:   true .
+H17:   true .
+H18:   true .
+H19:   true .
+H20:   true .
+H21:   (not certfound__2) or ((not extractok__3) or (not 
+           false)) .
+H22:   bad >= certificatestatus__first .
+H23:   bad <= certificatestatus__last .
+H24:   true .
+H25:   bad >= certificatestatus__first .
+H26:   bad <= certificatestatus__last .
+H27:   true .
+        ->
+C1:    bad >= certificatestatus__first .
+C2:    bad <= certificatestatus__last .
+ 
+
+procedure_checkidcertok_14.
+H1:    true .
+H2:    tokenid >= tokentypes__tokenidt__first .
+H3:    tokenid <= tokentypes__tokenidt__last .
+H4:    certtypes__idcert >= certtypes__certificatet__first .
+H5:    certtypes__idcert <= certtypes__certificatet__last .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H7:    true .
+H8:    true .
+H9:    not certfound__2 .
+H10:   true .
+H11:   true .
+H12:   true .
+H13:   true .
+H14:   true .
+H15:   true .
+H16:   true .
+H17:   (not certfound__2) or ((not false) or (not false)) .
+H18:   bad >= certificatestatus__first .
+H19:   bad <= certificatestatus__last .
+H20:   true .
+H21:   bad >= certificatestatus__first .
+H22:   bad <= certificatestatus__last .
+H23:   true .
+        ->
+C1:    bad >= certificatestatus__first .
+C2:    bad <= certificatestatus__last .
+ 
+
+procedure_checkidcertok_15.
+H1:    true .
+H2:    tokenid >= tokentypes__tokenidt__first .
+H3:    tokenid <= tokentypes__tokenidt__last .
+H4:    certtypes__idcert >= certtypes__certificatet__first .
+H5:    certtypes__idcert <= certtypes__certificatet__last .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H7:    true .
+H8:    true .
+H9:    certfound__2 .
+H10:   for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H11:   true .
+H12:   true .
+H13:   extractok__3 .
+H14:   true .
+H15:   fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) >= 
+           certtypes__serialnumbert__first .
+H16:   fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) <= 
+           certtypes__serialnumbert__last .
+H17:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))), [
+           i___1]) >= character__first) and (element(fld_name(
+           fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))), [
+           i___1]) <= character__last))) .
+H18:   fld_namelength(fld_issuer(cert__theid(fld_inherit(
+           idcertcontents__3)))) >= cryptotypes__namecountt__first .
+H19:   fld_namelength(fld_issuer(cert__theid(fld_inherit(
+           idcertcontents__3)))) <= cryptotypes__namecountt__last .
+H20:   fld_id(fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))) >= 
+           cryptotypes__issueridt__first .
+H21:   fld_id(fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))) <= 
+           cryptotypes__issueridt__last .
+H22:   fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) >= 
+           tokentypes__tokenidt__first .
+H23:   fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) <= 
+           tokentypes__tokenidt__last .
+H24:   for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H25:   true .
+H26:   true .
+H27:   true .
+H28:   true .
+H29:   true .
+H30:   true .
+H31:   true .
+H32:   true .
+H33:   true .
+H34:   not ((not certfound__2) or ((not extractok__3) or (not (
+           tokenid = fld_serialnumber(cert__theid(fld_inherit(
+           idcertcontents__3))))))) .
+H35:   true .
+H36:   not verified__4 .
+H37:   notverified >= certificatestatus__first .
+H38:   notverified <= certificatestatus__last .
+H39:   true .
+H40:   notverified >= certificatestatus__first .
+H41:   notverified <= certificatestatus__last .
+H42:   true .
+        ->
+C1:    notverified >= certificatestatus__first .
+C2:    notverified <= certificatestatus__last .
+ 
+
+procedure_checkidcertok_16.
+H1:    true .
+H2:    tokenid >= tokentypes__tokenidt__first .
+H3:    tokenid <= tokentypes__tokenidt__last .
+H4:    certtypes__idcert >= certtypes__certificatet__first .
+H5:    certtypes__idcert <= certtypes__certificatet__last .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H7:    true .
+H8:    true .
+H9:    certfound__2 .
+H10:   for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H11:   true .
+H12:   true .
+H13:   not extractok__3 .
+H14:   true .
+H15:   true .
+H16:   true .
+H17:   true .
+H18:   true .
+H19:   true .
+H20:   true .
+H21:   not ((not certfound__2) or ((not extractok__3) or (not 
+           false))) .
+H22:   true .
+H23:   not false .
+H24:   notverified >= certificatestatus__first .
+H25:   notverified <= certificatestatus__last .
+H26:   true .
+H27:   notverified >= certificatestatus__first .
+H28:   notverified <= certificatestatus__last .
+H29:   true .
+        ->
+C1:    notverified >= certificatestatus__first .
+C2:    notverified <= certificatestatus__last .
+ 
+
+procedure_checkidcertok_17.
+H1:    true .
+H2:    tokenid >= tokentypes__tokenidt__first .
+H3:    tokenid <= tokentypes__tokenidt__last .
+H4:    certtypes__idcert >= certtypes__certificatet__first .
+H5:    certtypes__idcert <= certtypes__certificatet__last .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H7:    true .
+H8:    true .
+H9:    not certfound__2 .
+H10:   true .
+H11:   true .
+H12:   true .
+H13:   true .
+H14:   true .
+H15:   true .
+H16:   true .
+H17:   not ((not certfound__2) or ((not false) or (not 
+           false))) .
+H18:   true .
+H19:   not false .
+H20:   notverified >= certificatestatus__first .
+H21:   notverified <= certificatestatus__last .
+H22:   true .
+H23:   notverified >= certificatestatus__first .
+H24:   notverified <= certificatestatus__last .
+H25:   true .
+        ->
+C1:    notverified >= certificatestatus__first .
+C2:    notverified <= certificatestatus__last .
+ 
+
+procedure_checkidcertok_18.
+H1:    true .
+H2:    tokenid >= tokentypes__tokenidt__first .
+H3:    tokenid <= tokentypes__tokenidt__last .
+H4:    certtypes__idcert >= certtypes__certificatet__first .
+H5:    certtypes__idcert <= certtypes__certificatet__last .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H7:    true .
+H8:    true .
+H9:    certfound__2 .
+H10:   for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H11:   true .
+H12:   true .
+H13:   extractok__3 .
+H14:   true .
+H15:   fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) >= 
+           certtypes__serialnumbert__first .
+H16:   fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) <= 
+           certtypes__serialnumbert__last .
+H17:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))), [
+           i___1]) >= character__first) and (element(fld_name(
+           fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))), [
+           i___1]) <= character__last))) .
+H18:   fld_namelength(fld_issuer(cert__theid(fld_inherit(
+           idcertcontents__3)))) >= cryptotypes__namecountt__first .
+H19:   fld_namelength(fld_issuer(cert__theid(fld_inherit(
+           idcertcontents__3)))) <= cryptotypes__namecountt__last .
+H20:   fld_id(fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))) >= 
+           cryptotypes__issueridt__first .
+H21:   fld_id(fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))) <= 
+           cryptotypes__issueridt__last .
+H22:   fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) >= 
+           tokentypes__tokenidt__first .
+H23:   fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) <= 
+           tokentypes__tokenidt__last .
+H24:   for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H25:   true .
+H26:   true .
+H27:   true .
+H28:   true .
+H29:   true .
+H30:   true .
+H31:   true .
+H32:   true .
+H33:   true .
+H34:   not ((not certfound__2) or ((not extractok__3) or (not (
+           tokenid = fld_serialnumber(cert__theid(fld_inherit(
+           idcertcontents__3))))))) .
+H35:   true .
+H36:   not (not verified__4) .
+H37:   validcert >= certificatestatus__first .
+H38:   validcert <= certificatestatus__last .
+H39:   true .
+H40:   validcert >= certificatestatus__first .
+H41:   validcert <= certificatestatus__last .
+H42:   true .
+        ->
+C1:    validcert >= certificatestatus__first .
+C2:    validcert <= certificatestatus__last .
+ 
+
+procedure_checkidcertok_19.
+H1:    true .
+H2:    tokenid >= tokentypes__tokenidt__first .
+H3:    tokenid <= tokentypes__tokenidt__last .
+H4:    certtypes__idcert >= certtypes__certificatet__first .
+H5:    certtypes__idcert <= certtypes__certificatet__last .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H7:    true .
+H8:    true .
+H9:    certfound__2 .
+H10:   for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H11:   true .
+H12:   true .
+H13:   not extractok__3 .
+H14:   true .
+H15:   true .
+H16:   true .
+H17:   true .
+H18:   true .
+H19:   true .
+H20:   true .
+H21:   not ((not certfound__2) or ((not extractok__3) or (not 
+           false))) .
+H22:   true .
+H23:   not (not false) .
+H24:   validcert >= certificatestatus__first .
+H25:   validcert <= certificatestatus__last .
+H26:   true .
+H27:   validcert >= certificatestatus__first .
+H28:   validcert <= certificatestatus__last .
+H29:   true .
+        ->
+C1:    validcert >= certificatestatus__first .
+C2:    validcert <= certificatestatus__last .
+ 
+
+procedure_checkidcertok_20.
+H1:    true .
+H2:    tokenid >= tokentypes__tokenidt__first .
+H3:    tokenid <= tokentypes__tokenidt__last .
+H4:    certtypes__idcert >= certtypes__certificatet__first .
+H5:    certtypes__idcert <= certtypes__certificatet__last .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(rawcert__2, [
+           i___1]) >= character__first) and (element(rawcert__2, [
+           i___1]) <= character__last))) .
+H7:    true .
+H8:    true .
+H9:    not certfound__2 .
+H10:   true .
+H11:   true .
+H12:   true .
+H13:   true .
+H14:   true .
+H15:   true .
+H16:   true .
+H17:   not ((not certfound__2) or ((not false) or (not 
+           false))) .
+H18:   true .
+H19:   not (not false) .
+H20:   validcert >= certificatestatus__first .
+H21:   validcert <= certificatestatus__last .
+H22:   true .
+H23:   validcert >= certificatestatus__first .
+H24:   validcert <= certificatestatus__last .
+H25:   true .
+        ->
+C1:    validcert >= certificatestatus__first .
+C2:    validcert <= certificatestatus__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_checkidcertok_21.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_checkidcertok_22.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_checkidcertok_23.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_checkidcertok_24.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_checkidcertok_25.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_checkidcertok_26.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_checkidcertok_27.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_checkidcertok_28.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_checkidcertok_29.
+*** true .          /* trivially true VC removed by Examiner */
+
+

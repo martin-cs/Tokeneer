@@ -1,0 +1,272 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"> <head>
+    <title>Tokeneer Discovery</title>
+	<style type="text/css" media="screen">
+		@import "styles.css";
+	</style>
+	
+</head>
+<body>
+
+<div class="head">
+	<h1>Tokeneer Discovery - A SPARK Tutorial</h1>
+</div>
+
+<div class="sidebar">
+	<ul class="lesson_menu"> 
+	    <li><a id="intro" href="index.html"><strong>Introduction</strong></a>
+	    <li><a id="lesson_contracts" href="lesson_contracts.html"><strong>Contracts</strong>What is Special About SPARK Contracts?</a>
+	    <li><a id="lesson_intro" href="lesson_intro.html"><strong>Preamble</strong>Getting Started</a>
+	    <li><a id="lesson1" href="lesson1.html"><strong>Lesson 1</strong> Dealing with Improper Initialization</a>
+	    <li><a id="lesson2" href="lesson2.html"><strong>Lesson 2</strong> Identifying Ineffective Statements</a>
+	    <li><a id="lesson3" href="lesson3.html"><strong>Lesson 3</strong> Validating Input</a>
+	    <li><a id="lesson4" href="lesson4.html"><strong>Lesson 4</strong> SPARK Contracts</a>
+	    <li><a id="lesson5" href="lesson5.html"><strong>Lesson 5</strong> Dealing with Overflow Errors</a>
+	    <li><a id="lesson6" href="lesson6.html"><strong>Lesson 6</strong> Ensuring Secure Information Flow</a>
+	    <li><a id="lesson_summary" href="lesson_summary.html"><strong>Summary and Finding More Information</strong></a>
+	    <li><a id="install" href="installation.html">Installing SPARK and GPS</a>
+	    <li><a id="start_gps" href="start_gps.html">Starting GPS</a>
+	    <li><a id="examiner" href="spark_examine.html">Running the Examiner</a>
+	    <li><a id="analyse" href="spark_analyse.html">Analyse Tokeneer</a>
+    </ul> 
+
+</div>
+
+<div id="content">	
+    
+    <!-- Specific Course html right here -->
+<a name="improper_init">
+<h2>Lesson 1: Dealing with Improper Initialization</h2></a>
+
+    <p>
+    <q>If you don&#8217;t properly initialize your data and variables, an
+    attacker might be able to do the initialization for you, or
+    extract sensitive information that remains from previous
+    sessions. When those variables are used in security-critical
+    operations, such as making an authentication decision, then they
+    could be modified to bypass your security. Incorrect
+    initialization can occur anywhere, but it is probably most
+    prevalent in rarely-encountered conditions that cause your code to
+    inadvertently skip initialization, such as obscure
+    errors.</q> <cite><a
+    href="http://cwe.mitre.org/data/definitions/665.html">
+    Improper initialization errors</a></cite> is listed as one of the
+    <cite> <a href="http://www.sans.org/top25-programming-errors/">top
+    most dangerous programming errors</a></cite>. How
+    would you find those? How much would your compiler help?
+    </p>
+
+    <p> The SPARK Toolset identifies
+    <em>all</em> variables that have not been initialized prior to
+    them being read. And - if the SPARK automatic source code analysis finds
+    no uninitialized variables then there really are none!
+    </p>
+
+    <p> 
+    In this lesson, we will first inject a couple of
+    initialization errors into some of the Tokeneer code and then show how
+    you can use the SPARK tools to find those errors.
+    </p>
+
+<h3>Step-by-Step Instructions</h3>
+
+   <p>
+    Let us start by first running the Examiner, one of the SPARK
+    tools, on some of the Tokeneer code in the correct version. Then
+    we will inject an uninitialized variable error to the same code
+    and see how the Examiner&#8217;s data flow analysis finds it for us. 
+    </p>
+
+  <h4>Step 1: Run the Examiner on the Correct Version of the Code</h4>
+
+    <p>
+    The code below is from the procedure
+    <tt>GetStartAndEndTimeFromFile</tt> in
+    <a href="files/auditlog_adb.html"><em>auditlog.adb</em></a>.
+   <pre>
+
+       264   <b>procedure</b> GetStartAndEndTimeFromFile
+       265     (TheFile     : <b>in</b> <b>out</b> File.T;
+       266      Description :    <b>out</b> AuditTypes.DescriptionT)
+       267     &#8211;&#8211;# <b>global</b> <b>in</b> <b>out</b> AuditSystemFault;
+       268     &#8211;&#8211;# <b>derives</b> AuditSystemFault,
+       269     &#8211;&#8211;#         TheFile          <b>from</b> *,
+       270     &#8211;&#8211;#                               TheFile &amp;
+       271     &#8211;&#8211;#         Description      <b>from</b> TheFile;
+       272   <b>is</b>
+       273      OK : Boolean;
+       274      FirstTime : Clock.TimeTextT;
+       275      LastTime  : Clock.TimeTextT;
+       276      TimeCount : Natural; <EM>&#45;&#45; type Natural to match formal parameter
+</EM>
+       277                           <EM>&#45;&#45; in call to GetString
+</EM>
+       278      TimeOK    : Boolean := True;
+       279
+               &#8230;
+       311   <EM>&#45;&#45;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8211;
+</EM>
+       312   <EM>&#45;&#45; begin GetStartAndEndTimeFromFile
+</EM>
+       313   <EM>&#45;&#45;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8211;
+</EM>
+       314   <b>begin</b>
+       315
+       316      FirstTime := Clock.PrintTime(Clock.ZeroTime);
+       317      LastTime := Clock.PrintTime(Clock.ZeroTime);
+               &#8230;
+       358      Description := ConvertTimesToText;
+       359
+       360   <b>end</b> GetStartAndEndTimeFromFile;
+    
+</pre>
+
+    </p>
+
+    <p><a href="spark_examine.html">Run the Examiner (follow this link
+    to find out how)</a> for
+    <em>auditlog.adb</em> and notice that <a
+    href="files/examiner_auditlog_ok.html">it reports</a> no errors.
+    </p>
+
+  <h4>Step 2: Inject an Initialization Error and Find It Using the Examiner</h4>
+
+     <p>
+    Let&#8217;s introduce two types of uninitialized variables into the code
+    - variables that are
+    <em>never</em> initialized and variables that <em>may</em> not be
+    initialized.
+    </p>
+    
+    <p>
+    Lines <tt>316</tt> and <tt>317</tt> initialize the
+    variables <tt>FirstTime</tt> and
+    <tt>LastTime</tt>.  Put these two lines of code inside an
+    <tt>if</tt> statement so that the variables are only
+    initialized if the variable <tt>OK</tt> is <tt>true</tt>.
+    The modified code is shown below.
+    <pre>
+
+        316  <b>if</b> OK <b>then</b>
+        317      FirstTime := Clock.PrintTime(Clock.ZeroTime);
+        318      LastTime := Clock.PrintTime(Clock.ZeroTime);
+        319  <b>end</b> <b>if</b>;
+    
+</pre>
+
+    </p>
+    
+    <p>
+    The changes introduce a number of
+    <cite><a href="http://cwe.mitre.org/data/definitions/665.html">improper
+    initialization</a></cite> errors:
+   <ul class="vanilla_list">
+    <li>The variable <tt>OK</tt> is not initialized before it is read;
+    <li>The variables <tt>FirstTime</tt> and <tt>LastTime</tt>
+    may not be initialized;
+    <li>The uninitialized variables <tt>FirstTime</tt>,
+        <tt>LastTime</tt> and <tt>OK</tt> may then influence
+        the expression that assigns a value to the variable
+        <tt>Description</tt> - the variable <tt>OK</tt> is
+        <em>indirectly</em> used in the expression.
+    </ul>
+    </p>
+
+    <p>
+    <a href="spark_examine.html">Re-run the Examiner</a> and notice
+    that the
+    <a href="files/auditlog_uninit_var_output_1.html">Examiner
+    identifies all uninitialized variables as errors (follow this link
+    to see the reported errors)</a> and it differentiates between
+    variables that <em>are not</em> initialized and variables that
+    <em>may not</em> be initialized.
+    </p>
+
+  <h4>Step 3: Find an Array Index Initialization Error</h4>
+
+     <p>
+    Another common error is accessing an array element with an
+    uninitialized variable as the index. In this example we will
+    inject such an error and demonstrate that the Examiner also finds
+    these errors.
+    </p>
+    
+   <p>
+    Start with a fresh copy of the file <tt>auditlog.adb</tt> by
+    copying the file <tt>auditlog_copy.adb</tt> in
+    <tt>tokeneer/code/core</tt> to <tt>auditlog.adb</tt> in
+    the same directory.
+    The code below is from the procedure <tt>DeleteLogFile</tt> in  
+    <a href="files/auditlog_adb.html"><em>auditlog.adb</em></a>.
+    <pre>
+
+       512   <b>procedure</b> DeleteLogFile ( Index : LogFileIndexT)
+       513   &#8211;&#8211;# <b>global</b> <b>in</b> <b>out</b> AuditSystemFault;
+       514   &#8211;&#8211;#        <b>in</b> <b>out</b> LogFiles;
+       515   &#8211;&#8211;#        <b>in</b> <b>out</b> LogFilesStatus;
+       516   &#8211;&#8211;#        <b>in</b> <b>out</b> LogFileEntries;
+       517   &#8211;&#8211;# <b>derives</b> AuditSystemFault,
+       518   &#8211;&#8211;#         LogFiles         <b>from</b> *,
+       519   &#8211;&#8211;#                               LogFiles,
+       520   &#8211;&#8211;#                               Index &amp;
+       521   &#8211;&#8211;#         LogFilesStatus,
+       522   &#8211;&#8211;#         LogFileEntries   <b>from</b> *,
+       523   &#8211;&#8211;#                               Index;
+       524   <b>is</b>
+       525      OK : Boolean;
+       526      TheFile : File.T;
+       527   <b>begin</b>
+       528
+       529      TheFile := LogFiles (Index);
+                &#8230;
+       543   <b>end</b> DeleteLogFile;
+    
+</pre>
+
+    </p>
+
+    <p> 
+    Line <tt>529</tt> of the code accesses the
+    <tt>Index</tt><sup>th</sup> element of the array
+    <tt>LogFiles</tt>.
+    </p>
+
+    <p>
+    Declare a new variable <tt>I</tt> of type
+    <tt>LogFileIndexT</tt> and replace, on line 529,
+    <tt>Index</tt> with <tt>I</tt>.  The modified code is
+    shown below.
+    <pre>
+
+        512     <b>procedure</b> DeleteLogFile ( Index : LogFileIndexT)
+                &#8230;
+        524     <b>is</b>
+        525         OK : Boolean;
+        526         TheFile : File.T;
+        527         <span class="highlight">I : LogFileIndexT;</span>
+        528     <b>begin</b>
+        529
+        530         <span class="highlight">TheFile := LogFiles (I);</span>
+    
+</pre>
+
+    </p>
+    
+    <p>
+    <a href="spark_examine.html">Examine</a> the file
+    <a href="files/auditlog_adb.html"><em>auditlog.adb</em></a> and
+    notice that 
+    <a href="files/auditlog_uninit_var_output_2.html">it reports</a> 
+    that the variable <tt>I</tt> has not been initialized. 
+    </p>
+
+  <h3>Summary</h3>
+      <p>
+    We have seen that the the SPARK tools can verify that a SPARK
+    program is free from
+    <a href="http://cwe.mitre.org/data/definitions/665.html">improper
+    initialization errors</a>. In the next lesson, we will study how SPARK
+    handles a related class of errors - <a href="lesson2.html">
+    Identifying Ineffective Statements</a>.
+    </p>
+</div>

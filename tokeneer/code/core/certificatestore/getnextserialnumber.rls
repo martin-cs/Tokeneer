@@ -1,0 +1,51 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:15.98*/
+
+               /*procedure CertificateStore.GetNextSerialNumber*/
+
+
+rule_family getnextseria_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+getnextseria_rules(1): integer__size >= 0 may_be_deduced.
+getnextseria_rules(2): integer__first may_be_replaced_by -2147483648.
+getnextseria_rules(3): integer__last may_be_replaced_by 2147483647.
+getnextseria_rules(4): integer__base__first may_be_replaced_by -2147483648.
+getnextseria_rules(5): integer__base__last may_be_replaced_by 2147483647.
+getnextseria_rules(6): character__size >= 0 may_be_deduced.
+getnextseria_rules(7): character__first may_be_replaced_by 0.
+getnextseria_rules(8): character__last may_be_replaced_by 255.
+getnextseria_rules(9): character__base__first may_be_replaced_by 0.
+getnextseria_rules(10): character__base__last may_be_replaced_by 255.
+getnextseria_rules(11): natural__size >= 0 may_be_deduced.
+getnextseria_rules(12): natural__first may_be_replaced_by 0.
+getnextseria_rules(13): natural__last may_be_replaced_by 2147483647.
+getnextseria_rules(14): natural__base__first may_be_replaced_by -2147483648.
+getnextseria_rules(15): natural__base__last may_be_replaced_by 2147483647.
+getnextseria_rules(16): positive__size >= 0 may_be_deduced.
+getnextseria_rules(17): positive__first may_be_replaced_by 1.
+getnextseria_rules(18): positive__last may_be_replaced_by 2147483647.
+getnextseria_rules(19): positive__base__first may_be_replaced_by -2147483648.
+getnextseria_rules(20): positive__base__last may_be_replaced_by 2147483647.
+getnextseria_rules(21): certtypes__serialnumbert__size >= 0 may_be_deduced.
+getnextseria_rules(22): certtypes__serialnumbert__first may_be_replaced_by 0.
+getnextseria_rules(23): certtypes__serialnumbert__last may_be_replaced_by 4294967295.
+getnextseria_rules(24): certtypes__serialnumbert__base__first <= 
+     certtypes__serialnumbert__base__last may_be_deduced.
+getnextseria_rules(25): certtypes__serialnumbert__base__first <= 
+     certtypes__serialnumbert__first may_be_deduced.
+getnextseria_rules(26): certtypes__serialnumbert__base__last >= 
+     certtypes__serialnumbert__last may_be_deduced.
+getnextseria_rules(27): rawnexti__size >= 0 may_be_deduced.
+getnextseria_rules(28): rawnexti__first may_be_replaced_by 1.
+getnextseria_rules(29): rawnexti__last may_be_replaced_by 10.
+getnextseria_rules(30): rawnexti__base__first may_be_replaced_by -2147483648.
+getnextseria_rules(31): rawnexti__base__last may_be_replaced_by 2147483647.

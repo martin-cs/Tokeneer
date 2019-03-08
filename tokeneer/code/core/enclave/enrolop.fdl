@@ -1,0 +1,45 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:26.91}
+
+                         {procedure Enclave.EnrolOp}
+
+
+title procedure enrolop;
+
+  function round__(real) : integer;
+  type keystore__state__type = pending;
+  type statust = (notenrolled, waitingenrol, waitingendenrol, 
+     enclavequiescent, waitingremoveadmintokenfail, gotadmintoken, 
+     waitingstartadminop, waitingfinishadminop, shutdown);
+  type statetype = record
+        status : statust
+     end;
+  const enrolmentstates__base__first : statust = pending; 
+  const enrolmentstates__base__last : statust = pending; 
+  const statust__base__first : statust = pending; 
+  const statust__base__last : statust = pending; 
+  const enrolmentstates__first : statust = pending; 
+  const enrolmentstates__last : statust = pending; 
+  const enrolmentstates__size : integer = pending; 
+  const statust__first : statust = pending; 
+  const statust__last : statust = pending; 
+  const statust__size : integer = pending; 
+  var keystore__state : keystore__state__type;
+  var state : statetype;
+  var status : statust;
+  function keystore__privatekeypresent(keystore__state__type) : boolean;
+  function prf_statusisenclavequiescent(statetype) : boolean;
+  function enclave__enrolmentisinprogress(statetype) : boolean;
+  function enrolmentisinprogress(statust) : boolean;
+  var status__3 : statust;
+  var keystore__state__2 : keystore__state__type;
+  var status__2 : statust;
+  var status__1 : statust;
+
+end;

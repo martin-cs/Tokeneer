@@ -1,0 +1,1344 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:25.18
+
+               procedure Enrolment.Validate.ValidateAndAddKey
+
+
+
+
+For path(s) from start to assertion of line 151:
+
+procedure_validateandaddkey_1.
+H1:    true .
+H2:    true .
+H3:    certno >= positive__first .
+H4:    certno <= positive__last .
+H5:    0 >= natural__first .
+H6:    0 <= natural__last .
+H7:    true .
+H8:    0 = 0 .
+H9:    not (file__endoffile(thefile)) .
+        ->
+C1:    keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state) .
+C2:    true .
+C3:    certno >= positive__first .
+C4:    certno <= positive__last .
+ 
+
+For path(s) from assertion of line 151 to assertion of line 151:
+
+procedure_validateandaddkey_2.
+H1:    keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state~) .
+H2:    true .
+H3:    certno >= positive__first .
+H4:    certno <= positive__last .
+H5:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(thecert__1, [
+           i___1]) >= character__first) and (element(thecert__1, [
+           i___1]) <= character__last))) .
+H6:    stop__1 >= natural__first .
+H7:    stop__1 <= natural__last .
+H8:    stop__1 >= natural__first .
+H9:    stop__1 <= natural__last .
+H10:   stop__1 >= natural__first .
+H11:   stop__1 <= natural__last .
+H12:   true .
+H13:   stop__1 = 0 .
+H14:   not (file__endoffile(thefile__1)) .
+        ->
+C1:    keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state~) .
+C2:    true .
+C3:    certno >= positive__first .
+C4:    certno <= positive__last .
+ 
+
+For path(s) from assertion of line 151 to run-time check associated with statement of line 153:
+
+procedure_validateandaddkey_3.
+H1:    keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state~) .
+H2:    true .
+H3:    certno >= positive__first .
+H4:    certno <= positive__last .
+H5:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(thecert__1, [
+           i___1]) >= character__first) and (element(thecert__1, [
+           i___1]) <= character__last))) .
+H6:    stop__1 >= natural__first .
+H7:    stop__1 <= natural__last .
+        ->
+C1:    stop__1 >= natural__first .
+C2:    stop__1 <= natural__last .
+ 
+
+For path(s) from start to assertion of line 180:
+
+procedure_validateandaddkey_4.
+H1:    true .
+H2:    true .
+H3:    certno >= positive__first .
+H4:    certno <= positive__last .
+H5:    0 >= natural__first .
+H6:    0 <= natural__last .
+H7:    true .
+H8:    not ((0 = 0) and (not (file__endoffile(thefile)))) .
+H9:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(
+           certtypes__nullrawcertificate, [i___1]) >= 
+           character__first) and (element(
+           certtypes__nullrawcertificate, [i___1]) <= 
+           character__last))) .
+H10:   true .
+H11:   true .
+H12:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           cert__id__thesubject(thecontents__2)), [i___1]) >= 
+           character__first) and (element(fld_name(
+           cert__id__thesubject(thecontents__2)), [i___1]) <= 
+           character__last))) .
+H13:   fld_namelength(cert__id__thesubject(thecontents__2)) >= 
+           cryptotypes__namecountt__first .
+H14:   fld_namelength(cert__id__thesubject(thecontents__2)) <= 
+           cryptotypes__namecountt__last .
+H15:   fld_id(cert__id__thesubject(thecontents__2)) >= 
+           cryptotypes__issueridt__first .
+H16:   fld_id(cert__id__thesubject(thecontents__2)) <= 
+           cryptotypes__issueridt__last .
+H17:   true .
+H18:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           cert__theissuer(fld_inherit(thecontents__2))), [
+           i___1]) >= character__first) and (element(fld_name(
+           cert__theissuer(fld_inherit(thecontents__2))), [
+           i___1]) <= character__last))) .
+H19:   fld_namelength(cert__theissuer(fld_inherit(thecontents__2))) >= 
+           cryptotypes__namecountt__first .
+H20:   fld_namelength(cert__theissuer(fld_inherit(thecontents__2))) <= 
+           cryptotypes__namecountt__last .
+H21:   fld_id(cert__theissuer(fld_inherit(thecontents__2))) >= 
+           cryptotypes__issueridt__first .
+H22:   fld_id(cert__theissuer(fld_inherit(thecontents__2))) <= 
+           cryptotypes__issueridt__last .
+H23:   true .
+H24:   fld_keylength(cert__id__thepublickey(thecontents__2)) >= 
+           cryptotypes__keylengtht__first .
+H25:   fld_keylength(cert__id__thepublickey(thecontents__2)) <= 
+           cryptotypes__keylengtht__last .
+H26:   fld_keyid(cert__id__thepublickey(thecontents__2)) >= 
+           cryptotypes__keyidt__first .
+H27:   fld_keyid(cert__id__thepublickey(thecontents__2)) <= 
+           cryptotypes__keyidt__last .
+H28:   fld_algorithmid(cert__id__thepublickey(thecontents__2)) >= 
+           cryptotypes__algorithmt__first .
+H29:   fld_algorithmid(cert__id__thepublickey(thecontents__2)) <= 
+           cryptotypes__algorithmt__last .
+H30:   true .
+H31:   extracted__2 .
+H32:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           cert__id__thesubject(thecontents__2)), [i___1]) >= 
+           character__first) and (element(fld_name(
+           cert__id__thesubject(thecontents__2)), [i___1]) <= 
+           character__last))) .
+H33:   fld_namelength(cert__id__thesubject(thecontents__2)) >= 
+           cryptotypes__namecountt__first .
+H34:   fld_namelength(cert__id__thesubject(thecontents__2)) <= 
+           cryptotypes__namecountt__last .
+H35:   fld_id(cert__id__thesubject(thecontents__2)) >= 
+           cryptotypes__issueridt__first .
+H36:   fld_id(cert__id__thesubject(thecontents__2)) <= 
+           cryptotypes__issueridt__last .
+H37:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           cert__theissuer(fld_inherit(thecontents__2))), [
+           i___1]) >= character__first) and (element(fld_name(
+           cert__theissuer(fld_inherit(thecontents__2))), [
+           i___1]) <= character__last))) .
+H38:   fld_namelength(cert__theissuer(fld_inherit(thecontents__2))) >= 
+           cryptotypes__namecountt__first .
+H39:   fld_namelength(cert__theissuer(fld_inherit(thecontents__2))) <= 
+           cryptotypes__namecountt__last .
+H40:   fld_id(cert__theissuer(fld_inherit(thecontents__2))) >= 
+           cryptotypes__issueridt__first .
+H41:   fld_id(cert__theissuer(fld_inherit(thecontents__2))) <= 
+           cryptotypes__issueridt__last .
+H42:   fld_id(cert__id__thesubject(thecontents__2)) = fld_id(
+           cert__theissuer(fld_inherit(thecontents__2))) .
+H43:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           cert__id__thesubject(thecontents__2)), [i___1]) >= 
+           character__first) and (element(fld_name(
+           cert__id__thesubject(thecontents__2)), [i___1]) <= 
+           character__last))) .
+H44:   fld_namelength(cert__id__thesubject(thecontents__2)) >= 
+           cryptotypes__namecountt__first .
+H45:   fld_namelength(cert__id__thesubject(thecontents__2)) <= 
+           cryptotypes__namecountt__last .
+H46:   fld_id(cert__id__thesubject(thecontents__2)) >= 
+           cryptotypes__issueridt__first .
+H47:   fld_id(cert__id__thesubject(thecontents__2)) <= 
+           cryptotypes__issueridt__last .
+H48:   fld_keylength(cert__id__thepublickey(thecontents__2)) >= 
+           cryptotypes__keylengtht__first .
+H49:   fld_keylength(cert__id__thepublickey(thecontents__2)) <= 
+           cryptotypes__keylengtht__last .
+H50:   fld_keyid(cert__id__thepublickey(thecontents__2)) >= 
+           cryptotypes__keyidt__first .
+H51:   fld_keyid(cert__id__thepublickey(thecontents__2)) <= 
+           cryptotypes__keyidt__last .
+H52:   fld_algorithmid(cert__id__thepublickey(thecontents__2)) >= 
+           cryptotypes__algorithmt__first .
+H53:   fld_algorithmid(cert__id__thepublickey(thecontents__2)) <= 
+           cryptotypes__algorithmt__last .
+H54:   (addedok__3 and (not true)) -> 
+           keystore__privatekeypresent(keystore__state__3) .
+H55:   (not (addedok__3 and (not true))) -> (
+           keystore__privatekeypresent(keystore__state__3) = 
+           keystore__privatekeypresent(keystore__state)) .
+H56:   true .
+        ->
+C1:    keystore__privatekeypresent(keystore__state__3) = 
+           keystore__privatekeypresent(keystore__state) .
+C2:    true .
+C3:    certno >= positive__first .
+C4:    certno <= positive__last .
+ 
+
+procedure_validateandaddkey_5.
+H1:    true .
+H2:    true .
+H3:    certno >= positive__first .
+H4:    certno <= positive__last .
+H5:    0 >= natural__first .
+H6:    0 <= natural__last .
+H7:    true .
+H8:    not ((0 = 0) and (not (file__endoffile(thefile)))) .
+H9:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(
+           certtypes__nullrawcertificate, [i___1]) >= 
+           character__first) and (element(
+           certtypes__nullrawcertificate, [i___1]) <= 
+           character__last))) .
+H10:   true .
+H11:   true .
+H12:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           cert__id__thesubject(thecontents__2)), [i___1]) >= 
+           character__first) and (element(fld_name(
+           cert__id__thesubject(thecontents__2)), [i___1]) <= 
+           character__last))) .
+H13:   fld_namelength(cert__id__thesubject(thecontents__2)) >= 
+           cryptotypes__namecountt__first .
+H14:   fld_namelength(cert__id__thesubject(thecontents__2)) <= 
+           cryptotypes__namecountt__last .
+H15:   fld_id(cert__id__thesubject(thecontents__2)) >= 
+           cryptotypes__issueridt__first .
+H16:   fld_id(cert__id__thesubject(thecontents__2)) <= 
+           cryptotypes__issueridt__last .
+H17:   true .
+H18:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           cert__theissuer(fld_inherit(thecontents__2))), [
+           i___1]) >= character__first) and (element(fld_name(
+           cert__theissuer(fld_inherit(thecontents__2))), [
+           i___1]) <= character__last))) .
+H19:   fld_namelength(cert__theissuer(fld_inherit(thecontents__2))) >= 
+           cryptotypes__namecountt__first .
+H20:   fld_namelength(cert__theissuer(fld_inherit(thecontents__2))) <= 
+           cryptotypes__namecountt__last .
+H21:   fld_id(cert__theissuer(fld_inherit(thecontents__2))) >= 
+           cryptotypes__issueridt__first .
+H22:   fld_id(cert__theissuer(fld_inherit(thecontents__2))) <= 
+           cryptotypes__issueridt__last .
+H23:   true .
+H24:   fld_keylength(cert__id__thepublickey(thecontents__2)) >= 
+           cryptotypes__keylengtht__first .
+H25:   fld_keylength(cert__id__thepublickey(thecontents__2)) <= 
+           cryptotypes__keylengtht__last .
+H26:   fld_keyid(cert__id__thepublickey(thecontents__2)) >= 
+           cryptotypes__keyidt__first .
+H27:   fld_keyid(cert__id__thepublickey(thecontents__2)) <= 
+           cryptotypes__keyidt__last .
+H28:   fld_algorithmid(cert__id__thepublickey(thecontents__2)) >= 
+           cryptotypes__algorithmt__first .
+H29:   fld_algorithmid(cert__id__thepublickey(thecontents__2)) <= 
+           cryptotypes__algorithmt__last .
+H30:   true .
+H31:   extracted__2 .
+H32:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           cert__id__thesubject(thecontents__2)), [i___1]) >= 
+           character__first) and (element(fld_name(
+           cert__id__thesubject(thecontents__2)), [i___1]) <= 
+           character__last))) .
+H33:   fld_namelength(cert__id__thesubject(thecontents__2)) >= 
+           cryptotypes__namecountt__first .
+H34:   fld_namelength(cert__id__thesubject(thecontents__2)) <= 
+           cryptotypes__namecountt__last .
+H35:   fld_id(cert__id__thesubject(thecontents__2)) >= 
+           cryptotypes__issueridt__first .
+H36:   fld_id(cert__id__thesubject(thecontents__2)) <= 
+           cryptotypes__issueridt__last .
+H37:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           cert__theissuer(fld_inherit(thecontents__2))), [
+           i___1]) >= character__first) and (element(fld_name(
+           cert__theissuer(fld_inherit(thecontents__2))), [
+           i___1]) <= character__last))) .
+H38:   fld_namelength(cert__theissuer(fld_inherit(thecontents__2))) >= 
+           cryptotypes__namecountt__first .
+H39:   fld_namelength(cert__theissuer(fld_inherit(thecontents__2))) <= 
+           cryptotypes__namecountt__last .
+H40:   fld_id(cert__theissuer(fld_inherit(thecontents__2))) >= 
+           cryptotypes__issueridt__first .
+H41:   fld_id(cert__theissuer(fld_inherit(thecontents__2))) <= 
+           cryptotypes__issueridt__last .
+H42:   not (fld_id(cert__id__thesubject(thecontents__2)) = fld_id(
+           cert__theissuer(fld_inherit(thecontents__2)))) .
+        ->
+C1:    keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state) .
+C2:    true .
+C3:    certno >= positive__first .
+C4:    certno <= positive__last .
+ 
+
+procedure_validateandaddkey_6.
+H1:    true .
+H2:    true .
+H3:    certno >= positive__first .
+H4:    certno <= positive__last .
+H5:    0 >= natural__first .
+H6:    0 <= natural__last .
+H7:    true .
+H8:    not ((0 = 0) and (not (file__endoffile(thefile)))) .
+H9:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(
+           certtypes__nullrawcertificate, [i___1]) >= 
+           character__first) and (element(
+           certtypes__nullrawcertificate, [i___1]) <= 
+           character__last))) .
+H10:   true .
+H11:   true .
+H12:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           cert__id__thesubject(thecontents__2)), [i___1]) >= 
+           character__first) and (element(fld_name(
+           cert__id__thesubject(thecontents__2)), [i___1]) <= 
+           character__last))) .
+H13:   fld_namelength(cert__id__thesubject(thecontents__2)) >= 
+           cryptotypes__namecountt__first .
+H14:   fld_namelength(cert__id__thesubject(thecontents__2)) <= 
+           cryptotypes__namecountt__last .
+H15:   fld_id(cert__id__thesubject(thecontents__2)) >= 
+           cryptotypes__issueridt__first .
+H16:   fld_id(cert__id__thesubject(thecontents__2)) <= 
+           cryptotypes__issueridt__last .
+H17:   true .
+H18:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           cert__theissuer(fld_inherit(thecontents__2))), [
+           i___1]) >= character__first) and (element(fld_name(
+           cert__theissuer(fld_inherit(thecontents__2))), [
+           i___1]) <= character__last))) .
+H19:   fld_namelength(cert__theissuer(fld_inherit(thecontents__2))) >= 
+           cryptotypes__namecountt__first .
+H20:   fld_namelength(cert__theissuer(fld_inherit(thecontents__2))) <= 
+           cryptotypes__namecountt__last .
+H21:   fld_id(cert__theissuer(fld_inherit(thecontents__2))) >= 
+           cryptotypes__issueridt__first .
+H22:   fld_id(cert__theissuer(fld_inherit(thecontents__2))) <= 
+           cryptotypes__issueridt__last .
+H23:   true .
+H24:   fld_keylength(cert__id__thepublickey(thecontents__2)) >= 
+           cryptotypes__keylengtht__first .
+H25:   fld_keylength(cert__id__thepublickey(thecontents__2)) <= 
+           cryptotypes__keylengtht__last .
+H26:   fld_keyid(cert__id__thepublickey(thecontents__2)) >= 
+           cryptotypes__keyidt__first .
+H27:   fld_keyid(cert__id__thepublickey(thecontents__2)) <= 
+           cryptotypes__keyidt__last .
+H28:   fld_algorithmid(cert__id__thepublickey(thecontents__2)) >= 
+           cryptotypes__algorithmt__first .
+H29:   fld_algorithmid(cert__id__thepublickey(thecontents__2)) <= 
+           cryptotypes__algorithmt__last .
+H30:   true .
+H31:   not extracted__2 .
+        ->
+C1:    keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state) .
+C2:    true .
+C3:    certno >= positive__first .
+C4:    certno <= positive__last .
+ 
+
+For path(s) from assertion of line 151 to assertion of line 180:
+
+procedure_validateandaddkey_7.
+H1:    keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state~) .
+H2:    true .
+H3:    certno >= positive__first .
+H4:    certno <= positive__last .
+H5:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(thecert__1, [
+           i___1]) >= character__first) and (element(thecert__1, [
+           i___1]) <= character__last))) .
+H6:    stop__1 >= natural__first .
+H7:    stop__1 <= natural__last .
+H8:    stop__1 >= natural__first .
+H9:    stop__1 <= natural__last .
+H10:   stop__1 >= natural__first .
+H11:   stop__1 <= natural__last .
+H12:   true .
+H13:   not ((stop__1 = 0) and (not (file__endoffile(thefile__1)))) .
+H14:   for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(thecert__1, [
+           i___1]) >= character__first) and (element(thecert__1, [
+           i___1]) <= character__last))) .
+H15:   true .
+H16:   true .
+H17:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           cert__id__thesubject(thecontents__2)), [i___1]) >= 
+           character__first) and (element(fld_name(
+           cert__id__thesubject(thecontents__2)), [i___1]) <= 
+           character__last))) .
+H18:   fld_namelength(cert__id__thesubject(thecontents__2)) >= 
+           cryptotypes__namecountt__first .
+H19:   fld_namelength(cert__id__thesubject(thecontents__2)) <= 
+           cryptotypes__namecountt__last .
+H20:   fld_id(cert__id__thesubject(thecontents__2)) >= 
+           cryptotypes__issueridt__first .
+H21:   fld_id(cert__id__thesubject(thecontents__2)) <= 
+           cryptotypes__issueridt__last .
+H22:   true .
+H23:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           cert__theissuer(fld_inherit(thecontents__2))), [
+           i___1]) >= character__first) and (element(fld_name(
+           cert__theissuer(fld_inherit(thecontents__2))), [
+           i___1]) <= character__last))) .
+H24:   fld_namelength(cert__theissuer(fld_inherit(thecontents__2))) >= 
+           cryptotypes__namecountt__first .
+H25:   fld_namelength(cert__theissuer(fld_inherit(thecontents__2))) <= 
+           cryptotypes__namecountt__last .
+H26:   fld_id(cert__theissuer(fld_inherit(thecontents__2))) >= 
+           cryptotypes__issueridt__first .
+H27:   fld_id(cert__theissuer(fld_inherit(thecontents__2))) <= 
+           cryptotypes__issueridt__last .
+H28:   true .
+H29:   fld_keylength(cert__id__thepublickey(thecontents__2)) >= 
+           cryptotypes__keylengtht__first .
+H30:   fld_keylength(cert__id__thepublickey(thecontents__2)) <= 
+           cryptotypes__keylengtht__last .
+H31:   fld_keyid(cert__id__thepublickey(thecontents__2)) >= 
+           cryptotypes__keyidt__first .
+H32:   fld_keyid(cert__id__thepublickey(thecontents__2)) <= 
+           cryptotypes__keyidt__last .
+H33:   fld_algorithmid(cert__id__thepublickey(thecontents__2)) >= 
+           cryptotypes__algorithmt__first .
+H34:   fld_algorithmid(cert__id__thepublickey(thecontents__2)) <= 
+           cryptotypes__algorithmt__last .
+H35:   true .
+H36:   extracted__2 .
+H37:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           cert__id__thesubject(thecontents__2)), [i___1]) >= 
+           character__first) and (element(fld_name(
+           cert__id__thesubject(thecontents__2)), [i___1]) <= 
+           character__last))) .
+H38:   fld_namelength(cert__id__thesubject(thecontents__2)) >= 
+           cryptotypes__namecountt__first .
+H39:   fld_namelength(cert__id__thesubject(thecontents__2)) <= 
+           cryptotypes__namecountt__last .
+H40:   fld_id(cert__id__thesubject(thecontents__2)) >= 
+           cryptotypes__issueridt__first .
+H41:   fld_id(cert__id__thesubject(thecontents__2)) <= 
+           cryptotypes__issueridt__last .
+H42:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           cert__theissuer(fld_inherit(thecontents__2))), [
+           i___1]) >= character__first) and (element(fld_name(
+           cert__theissuer(fld_inherit(thecontents__2))), [
+           i___1]) <= character__last))) .
+H43:   fld_namelength(cert__theissuer(fld_inherit(thecontents__2))) >= 
+           cryptotypes__namecountt__first .
+H44:   fld_namelength(cert__theissuer(fld_inherit(thecontents__2))) <= 
+           cryptotypes__namecountt__last .
+H45:   fld_id(cert__theissuer(fld_inherit(thecontents__2))) >= 
+           cryptotypes__issueridt__first .
+H46:   fld_id(cert__theissuer(fld_inherit(thecontents__2))) <= 
+           cryptotypes__issueridt__last .
+H47:   fld_id(cert__id__thesubject(thecontents__2)) = fld_id(
+           cert__theissuer(fld_inherit(thecontents__2))) .
+H48:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           cert__id__thesubject(thecontents__2)), [i___1]) >= 
+           character__first) and (element(fld_name(
+           cert__id__thesubject(thecontents__2)), [i___1]) <= 
+           character__last))) .
+H49:   fld_namelength(cert__id__thesubject(thecontents__2)) >= 
+           cryptotypes__namecountt__first .
+H50:   fld_namelength(cert__id__thesubject(thecontents__2)) <= 
+           cryptotypes__namecountt__last .
+H51:   fld_id(cert__id__thesubject(thecontents__2)) >= 
+           cryptotypes__issueridt__first .
+H52:   fld_id(cert__id__thesubject(thecontents__2)) <= 
+           cryptotypes__issueridt__last .
+H53:   fld_keylength(cert__id__thepublickey(thecontents__2)) >= 
+           cryptotypes__keylengtht__first .
+H54:   fld_keylength(cert__id__thepublickey(thecontents__2)) <= 
+           cryptotypes__keylengtht__last .
+H55:   fld_keyid(cert__id__thepublickey(thecontents__2)) >= 
+           cryptotypes__keyidt__first .
+H56:   fld_keyid(cert__id__thepublickey(thecontents__2)) <= 
+           cryptotypes__keyidt__last .
+H57:   fld_algorithmid(cert__id__thepublickey(thecontents__2)) >= 
+           cryptotypes__algorithmt__first .
+H58:   fld_algorithmid(cert__id__thepublickey(thecontents__2)) <= 
+           cryptotypes__algorithmt__last .
+H59:   (addedok__3 and (not true)) -> 
+           keystore__privatekeypresent(keystore__state__3) .
+H60:   (not (addedok__3 and (not true))) -> (
+           keystore__privatekeypresent(keystore__state__3) = 
+           keystore__privatekeypresent(keystore__state)) .
+H61:   true .
+        ->
+C1:    keystore__privatekeypresent(keystore__state__3) = 
+           keystore__privatekeypresent(keystore__state~) .
+C2:    true .
+C3:    certno >= positive__first .
+C4:    certno <= positive__last .
+ 
+
+procedure_validateandaddkey_8.
+H1:    keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state~) .
+H2:    true .
+H3:    certno >= positive__first .
+H4:    certno <= positive__last .
+H5:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(thecert__1, [
+           i___1]) >= character__first) and (element(thecert__1, [
+           i___1]) <= character__last))) .
+H6:    stop__1 >= natural__first .
+H7:    stop__1 <= natural__last .
+H8:    stop__1 >= natural__first .
+H9:    stop__1 <= natural__last .
+H10:   stop__1 >= natural__first .
+H11:   stop__1 <= natural__last .
+H12:   true .
+H13:   not ((stop__1 = 0) and (not (file__endoffile(thefile__1)))) .
+H14:   for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(thecert__1, [
+           i___1]) >= character__first) and (element(thecert__1, [
+           i___1]) <= character__last))) .
+H15:   true .
+H16:   true .
+H17:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           cert__id__thesubject(thecontents__2)), [i___1]) >= 
+           character__first) and (element(fld_name(
+           cert__id__thesubject(thecontents__2)), [i___1]) <= 
+           character__last))) .
+H18:   fld_namelength(cert__id__thesubject(thecontents__2)) >= 
+           cryptotypes__namecountt__first .
+H19:   fld_namelength(cert__id__thesubject(thecontents__2)) <= 
+           cryptotypes__namecountt__last .
+H20:   fld_id(cert__id__thesubject(thecontents__2)) >= 
+           cryptotypes__issueridt__first .
+H21:   fld_id(cert__id__thesubject(thecontents__2)) <= 
+           cryptotypes__issueridt__last .
+H22:   true .
+H23:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           cert__theissuer(fld_inherit(thecontents__2))), [
+           i___1]) >= character__first) and (element(fld_name(
+           cert__theissuer(fld_inherit(thecontents__2))), [
+           i___1]) <= character__last))) .
+H24:   fld_namelength(cert__theissuer(fld_inherit(thecontents__2))) >= 
+           cryptotypes__namecountt__first .
+H25:   fld_namelength(cert__theissuer(fld_inherit(thecontents__2))) <= 
+           cryptotypes__namecountt__last .
+H26:   fld_id(cert__theissuer(fld_inherit(thecontents__2))) >= 
+           cryptotypes__issueridt__first .
+H27:   fld_id(cert__theissuer(fld_inherit(thecontents__2))) <= 
+           cryptotypes__issueridt__last .
+H28:   true .
+H29:   fld_keylength(cert__id__thepublickey(thecontents__2)) >= 
+           cryptotypes__keylengtht__first .
+H30:   fld_keylength(cert__id__thepublickey(thecontents__2)) <= 
+           cryptotypes__keylengtht__last .
+H31:   fld_keyid(cert__id__thepublickey(thecontents__2)) >= 
+           cryptotypes__keyidt__first .
+H32:   fld_keyid(cert__id__thepublickey(thecontents__2)) <= 
+           cryptotypes__keyidt__last .
+H33:   fld_algorithmid(cert__id__thepublickey(thecontents__2)) >= 
+           cryptotypes__algorithmt__first .
+H34:   fld_algorithmid(cert__id__thepublickey(thecontents__2)) <= 
+           cryptotypes__algorithmt__last .
+H35:   true .
+H36:   extracted__2 .
+H37:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           cert__id__thesubject(thecontents__2)), [i___1]) >= 
+           character__first) and (element(fld_name(
+           cert__id__thesubject(thecontents__2)), [i___1]) <= 
+           character__last))) .
+H38:   fld_namelength(cert__id__thesubject(thecontents__2)) >= 
+           cryptotypes__namecountt__first .
+H39:   fld_namelength(cert__id__thesubject(thecontents__2)) <= 
+           cryptotypes__namecountt__last .
+H40:   fld_id(cert__id__thesubject(thecontents__2)) >= 
+           cryptotypes__issueridt__first .
+H41:   fld_id(cert__id__thesubject(thecontents__2)) <= 
+           cryptotypes__issueridt__last .
+H42:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           cert__theissuer(fld_inherit(thecontents__2))), [
+           i___1]) >= character__first) and (element(fld_name(
+           cert__theissuer(fld_inherit(thecontents__2))), [
+           i___1]) <= character__last))) .
+H43:   fld_namelength(cert__theissuer(fld_inherit(thecontents__2))) >= 
+           cryptotypes__namecountt__first .
+H44:   fld_namelength(cert__theissuer(fld_inherit(thecontents__2))) <= 
+           cryptotypes__namecountt__last .
+H45:   fld_id(cert__theissuer(fld_inherit(thecontents__2))) >= 
+           cryptotypes__issueridt__first .
+H46:   fld_id(cert__theissuer(fld_inherit(thecontents__2))) <= 
+           cryptotypes__issueridt__last .
+H47:   not (fld_id(cert__id__thesubject(thecontents__2)) = fld_id(
+           cert__theissuer(fld_inherit(thecontents__2)))) .
+        ->
+C1:    keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state~) .
+C2:    true .
+C3:    certno >= positive__first .
+C4:    certno <= positive__last .
+ 
+
+procedure_validateandaddkey_9.
+H1:    keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state~) .
+H2:    true .
+H3:    certno >= positive__first .
+H4:    certno <= positive__last .
+H5:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(thecert__1, [
+           i___1]) >= character__first) and (element(thecert__1, [
+           i___1]) <= character__last))) .
+H6:    stop__1 >= natural__first .
+H7:    stop__1 <= natural__last .
+H8:    stop__1 >= natural__first .
+H9:    stop__1 <= natural__last .
+H10:   stop__1 >= natural__first .
+H11:   stop__1 <= natural__last .
+H12:   true .
+H13:   not ((stop__1 = 0) and (not (file__endoffile(thefile__1)))) .
+H14:   for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(thecert__1, [
+           i___1]) >= character__first) and (element(thecert__1, [
+           i___1]) <= character__last))) .
+H15:   true .
+H16:   true .
+H17:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           cert__id__thesubject(thecontents__2)), [i___1]) >= 
+           character__first) and (element(fld_name(
+           cert__id__thesubject(thecontents__2)), [i___1]) <= 
+           character__last))) .
+H18:   fld_namelength(cert__id__thesubject(thecontents__2)) >= 
+           cryptotypes__namecountt__first .
+H19:   fld_namelength(cert__id__thesubject(thecontents__2)) <= 
+           cryptotypes__namecountt__last .
+H20:   fld_id(cert__id__thesubject(thecontents__2)) >= 
+           cryptotypes__issueridt__first .
+H21:   fld_id(cert__id__thesubject(thecontents__2)) <= 
+           cryptotypes__issueridt__last .
+H22:   true .
+H23:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           cert__theissuer(fld_inherit(thecontents__2))), [
+           i___1]) >= character__first) and (element(fld_name(
+           cert__theissuer(fld_inherit(thecontents__2))), [
+           i___1]) <= character__last))) .
+H24:   fld_namelength(cert__theissuer(fld_inherit(thecontents__2))) >= 
+           cryptotypes__namecountt__first .
+H25:   fld_namelength(cert__theissuer(fld_inherit(thecontents__2))) <= 
+           cryptotypes__namecountt__last .
+H26:   fld_id(cert__theissuer(fld_inherit(thecontents__2))) >= 
+           cryptotypes__issueridt__first .
+H27:   fld_id(cert__theissuer(fld_inherit(thecontents__2))) <= 
+           cryptotypes__issueridt__last .
+H28:   true .
+H29:   fld_keylength(cert__id__thepublickey(thecontents__2)) >= 
+           cryptotypes__keylengtht__first .
+H30:   fld_keylength(cert__id__thepublickey(thecontents__2)) <= 
+           cryptotypes__keylengtht__last .
+H31:   fld_keyid(cert__id__thepublickey(thecontents__2)) >= 
+           cryptotypes__keyidt__first .
+H32:   fld_keyid(cert__id__thepublickey(thecontents__2)) <= 
+           cryptotypes__keyidt__last .
+H33:   fld_algorithmid(cert__id__thepublickey(thecontents__2)) >= 
+           cryptotypes__algorithmt__first .
+H34:   fld_algorithmid(cert__id__thepublickey(thecontents__2)) <= 
+           cryptotypes__algorithmt__last .
+H35:   true .
+H36:   not extracted__2 .
+        ->
+C1:    keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state~) .
+C2:    true .
+C3:    certno >= positive__first .
+C4:    certno <= positive__last .
+ 
+
+For path(s) from assertion of line 180 to assertion of line 199:
+
+procedure_validateandaddkey_10.
+H1:    keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state~) .
+H2:    true .
+H3:    certno >= positive__first .
+H4:    certno <= positive__last .
+H5:    true .
+H6:    true .
+H7:    extracted .
+H8:    addedok .
+H9:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(
+           thecert, [i___1]) >= character__first) and (element(
+           thecert, [i___1]) <= character__last))) .
+H10:   true .
+H11:   true .
+H12:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           thesubject), [i___1]) >= character__first) and (element(
+           fld_name(thesubject), [i___1]) <= character__last))) .
+H13:   fld_namelength(thesubject) >= cryptotypes__namecountt__first .
+H14:   fld_namelength(thesubject) <= cryptotypes__namecountt__last .
+H15:   fld_id(thesubject) >= cryptotypes__issueridt__first .
+H16:   fld_id(thesubject) <= cryptotypes__issueridt__last .
+H17:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           theissuer), [i___1]) >= character__first) and (element(
+           fld_name(theissuer), [i___1]) <= character__last))) .
+H18:   fld_namelength(theissuer) >= cryptotypes__namecountt__first .
+H19:   fld_namelength(theissuer) <= cryptotypes__namecountt__last .
+H20:   fld_id(theissuer) >= cryptotypes__issueridt__first .
+H21:   fld_id(theissuer) <= cryptotypes__issueridt__last .
+H22:   true .
+H23:   verifiedok__4 .
+H24:   fld_id(thesubject) <> fld_id(theissuer) .
+H25:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           thesubject), [i___1]) >= character__first) and (element(
+           fld_name(thesubject), [i___1]) <= character__last))) .
+H26:   fld_namelength(thesubject) >= cryptotypes__namecountt__first .
+H27:   fld_namelength(thesubject) <= cryptotypes__namecountt__last .
+H28:   fld_id(thesubject) >= cryptotypes__issueridt__first .
+H29:   fld_id(thesubject) <= cryptotypes__issueridt__last .
+H30:   fld_keylength(thepublickey) >= cryptotypes__keylengtht__first .
+H31:   fld_keylength(thepublickey) <= cryptotypes__keylengtht__last .
+H32:   fld_keyid(thepublickey) >= cryptotypes__keyidt__first .
+H33:   fld_keyid(thepublickey) <= cryptotypes__keyidt__last .
+H34:   fld_algorithmid(thepublickey) >= 
+           cryptotypes__algorithmt__first .
+H35:   fld_algorithmid(thepublickey) <= 
+           cryptotypes__algorithmt__last .
+H36:   (addedok__5 and (not true)) -> 
+           keystore__privatekeypresent(keystore__state__5) .
+H37:   (not (addedok__5 and (not true))) -> (
+           keystore__privatekeypresent(keystore__state__5) = 
+           keystore__privatekeypresent(keystore__state)) .
+H38:   true .
+        ->
+C1:    keystore__privatekeypresent(keystore__state__5) = 
+           keystore__privatekeypresent(keystore__state~) .
+C2:    true .
+C3:    certno >= positive__first .
+C4:    certno <= positive__last .
+ 
+
+procedure_validateandaddkey_11.
+H1:    keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state~) .
+H2:    true .
+H3:    certno >= positive__first .
+H4:    certno <= positive__last .
+H5:    true .
+H6:    true .
+H7:    not (extracted and addedok) .
+H8:    for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           thesubject), [i___1]) >= character__first) and (element(
+           fld_name(thesubject), [i___1]) <= character__last))) .
+H9:    fld_namelength(thesubject) >= cryptotypes__namecountt__first .
+H10:   fld_namelength(thesubject) <= cryptotypes__namecountt__last .
+H11:   fld_id(thesubject) >= cryptotypes__issueridt__first .
+H12:   fld_id(thesubject) <= cryptotypes__issueridt__last .
+H13:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           theissuer), [i___1]) >= character__first) and (element(
+           fld_name(theissuer), [i___1]) <= character__last))) .
+H14:   fld_namelength(theissuer) >= cryptotypes__namecountt__first .
+H15:   fld_namelength(theissuer) <= cryptotypes__namecountt__last .
+H16:   fld_id(theissuer) >= cryptotypes__issueridt__first .
+H17:   fld_id(theissuer) <= cryptotypes__issueridt__last .
+H18:   true .
+H19:   verifiedok .
+H20:   fld_id(thesubject) <> fld_id(theissuer) .
+H21:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           thesubject), [i___1]) >= character__first) and (element(
+           fld_name(thesubject), [i___1]) <= character__last))) .
+H22:   fld_namelength(thesubject) >= cryptotypes__namecountt__first .
+H23:   fld_namelength(thesubject) <= cryptotypes__namecountt__last .
+H24:   fld_id(thesubject) >= cryptotypes__issueridt__first .
+H25:   fld_id(thesubject) <= cryptotypes__issueridt__last .
+H26:   fld_keylength(thepublickey) >= cryptotypes__keylengtht__first .
+H27:   fld_keylength(thepublickey) <= cryptotypes__keylengtht__last .
+H28:   fld_keyid(thepublickey) >= cryptotypes__keyidt__first .
+H29:   fld_keyid(thepublickey) <= cryptotypes__keyidt__last .
+H30:   fld_algorithmid(thepublickey) >= 
+           cryptotypes__algorithmt__first .
+H31:   fld_algorithmid(thepublickey) <= 
+           cryptotypes__algorithmt__last .
+H32:   (addedok__5 and (not true)) -> 
+           keystore__privatekeypresent(keystore__state__5) .
+H33:   (not (addedok__5 and (not true))) -> (
+           keystore__privatekeypresent(keystore__state__5) = 
+           keystore__privatekeypresent(keystore__state)) .
+H34:   true .
+        ->
+C1:    keystore__privatekeypresent(keystore__state__5) = 
+           keystore__privatekeypresent(keystore__state~) .
+C2:    true .
+C3:    certno >= positive__first .
+C4:    certno <= positive__last .
+ 
+
+procedure_validateandaddkey_12.
+H1:    keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state~) .
+H2:    true .
+H3:    certno >= positive__first .
+H4:    certno <= positive__last .
+H5:    true .
+H6:    true .
+H7:    extracted .
+H8:    addedok .
+H9:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(
+           thecert, [i___1]) >= character__first) and (element(
+           thecert, [i___1]) <= character__last))) .
+H10:   true .
+H11:   true .
+H12:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           thesubject), [i___1]) >= character__first) and (element(
+           fld_name(thesubject), [i___1]) <= character__last))) .
+H13:   fld_namelength(thesubject) >= cryptotypes__namecountt__first .
+H14:   fld_namelength(thesubject) <= cryptotypes__namecountt__last .
+H15:   fld_id(thesubject) >= cryptotypes__issueridt__first .
+H16:   fld_id(thesubject) <= cryptotypes__issueridt__last .
+H17:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           theissuer), [i___1]) >= character__first) and (element(
+           fld_name(theissuer), [i___1]) <= character__last))) .
+H18:   fld_namelength(theissuer) >= cryptotypes__namecountt__first .
+H19:   fld_namelength(theissuer) <= cryptotypes__namecountt__last .
+H20:   fld_id(theissuer) >= cryptotypes__issueridt__first .
+H21:   fld_id(theissuer) <= cryptotypes__issueridt__last .
+H22:   true .
+H23:   not (verifiedok__4 and (fld_id(thesubject) <> fld_id(
+           theissuer))) .
+        ->
+C1:    keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state~) .
+C2:    true .
+C3:    certno >= positive__first .
+C4:    certno <= positive__last .
+ 
+
+procedure_validateandaddkey_13.
+H1:    keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state~) .
+H2:    true .
+H3:    certno >= positive__first .
+H4:    certno <= positive__last .
+H5:    true .
+H6:    true .
+H7:    not (extracted and addedok) .
+H8:    for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           thesubject), [i___1]) >= character__first) and (element(
+           fld_name(thesubject), [i___1]) <= character__last))) .
+H9:    fld_namelength(thesubject) >= cryptotypes__namecountt__first .
+H10:   fld_namelength(thesubject) <= cryptotypes__namecountt__last .
+H11:   fld_id(thesubject) >= cryptotypes__issueridt__first .
+H12:   fld_id(thesubject) <= cryptotypes__issueridt__last .
+H13:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           theissuer), [i___1]) >= character__first) and (element(
+           fld_name(theissuer), [i___1]) <= character__last))) .
+H14:   fld_namelength(theissuer) >= cryptotypes__namecountt__first .
+H15:   fld_namelength(theissuer) <= cryptotypes__namecountt__last .
+H16:   fld_id(theissuer) >= cryptotypes__issueridt__first .
+H17:   fld_id(theissuer) <= cryptotypes__issueridt__last .
+H18:   true .
+H19:   not (verifiedok and (fld_id(thesubject) <> fld_id(
+           theissuer))) .
+        ->
+C1:    keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state~) .
+C2:    true .
+C3:    certno >= positive__first .
+C4:    certno <= positive__last .
+ 
+
+For path(s) from assertion of line 199 to finish:
+
+procedure_validateandaddkey_14.
+H1:    keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state~) .
+H2:    true .
+H3:    certno >= positive__first .
+H4:    certno <= positive__last .
+H5:    true .
+H6:    true .
+H7:    verifiedok .
+H8:    addedok .
+H9:    istis .
+H10:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           thesubject), [i___1]) >= character__first) and (element(
+           fld_name(thesubject), [i___1]) <= character__last))) .
+H11:   fld_namelength(thesubject) >= cryptotypes__namecountt__first .
+H12:   fld_namelength(thesubject) <= cryptotypes__namecountt__last .
+H13:   fld_id(thesubject) >= cryptotypes__issueridt__first .
+H14:   fld_id(thesubject) <= cryptotypes__issueridt__last .
+H15:   fld_keylength(thepublickey) >= cryptotypes__keylengtht__first .
+H16:   fld_keylength(thepublickey) <= cryptotypes__keylengtht__last .
+H17:   fld_keyid(thepublickey) >= cryptotypes__keyidt__first .
+H18:   fld_keyid(thepublickey) <= cryptotypes__keyidt__last .
+H19:   fld_algorithmid(thepublickey) >= 
+           cryptotypes__algorithmt__first .
+H20:   fld_algorithmid(thepublickey) <= 
+           cryptotypes__algorithmt__last .
+H21:   (addedok__6 and (not false)) -> 
+           keystore__privatekeypresent(keystore__state__6) .
+H22:   (not (addedok__6 and (not false))) -> (
+           keystore__privatekeypresent(keystore__state__6) = 
+           keystore__privatekeypresent(keystore__state)) .
+H23:   true .
+H24:   true .
+H25:   not extracted .
+H26:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(
+           makedescription(mk__string( [1] := 67, [2] := 101, [3] := 
+           114, [4] := 116, [5] := 105, [6] := 102, [7] := 105, [8] := 
+           99, [9] := 97, [10] := 116, [11] := 101, [12] := 32, [13]
+            := 99, [14] := 111, [15] := 110, [16] := 116, [17] := 101, 
+           [18] := 110, [19] := 116, [20] := 115, [21] := 32, [22] := 
+           99, [23] := 111, [24] := 117, [25] := 108, [26] := 100, 
+           [27] := 32, [28] := 110, [29] := 111, [30] := 116, [31] := 
+           32, [32] := 98, [33] := 101, [34] := 32, [35] := 101, [36]
+            := 120, [37] := 116, [38] := 114, [39] := 97, [40] := 99, 
+           [41] := 116, [42] := 101, [43] := 100), certno), [
+           i___1]) >= character__first) and (element(
+           makedescription(mk__string( [1] := 67, [2] := 101, [3] := 
+           114, [4] := 116, [5] := 105, [6] := 102, [7] := 105, [8] := 
+           99, [9] := 97, [10] := 116, [11] := 101, [12] := 32, [13]
+            := 99, [14] := 111, [15] := 110, [16] := 116, [17] := 101, 
+           [18] := 110, [19] := 116, [20] := 115, [21] := 32, [22] := 
+           99, [23] := 111, [24] := 117, [25] := 108, [26] := 100, 
+           [27] := 32, [28] := 110, [29] := 111, [30] := 116, [31] := 
+           32, [32] := 98, [33] := 101, [34] := 32, [35] := 101, [36]
+            := 120, [37] := 116, [38] := 114, [39] := 97, [40] := 99, 
+           [41] := 116, [42] := 101, [43] := 100), certno), [
+           i___1]) <= character__last))) .
+H27:   true .
+H28:   true .
+        ->
+C1:    (istis and (verifiedok and addedok__6)) -> 
+           keystore__privatekeypresent(keystore__state__6) .
+C2:    (not (istis and (verifiedok and addedok__6))) -> (
+           keystore__privatekeypresent(keystore__state__6) = 
+           keystore__privatekeypresent(keystore__state~)) .
+ 
+
+procedure_validateandaddkey_15.
+H1:    keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state~) .
+H2:    true .
+H3:    certno >= positive__first .
+H4:    certno <= positive__last .
+H5:    true .
+H6:    true .
+H7:    not (verifiedok and (addedok and istis)) .
+H8:    true .
+H9:    not extracted .
+H10:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(
+           makedescription(mk__string( [1] := 67, [2] := 101, [3] := 
+           114, [4] := 116, [5] := 105, [6] := 102, [7] := 105, [8] := 
+           99, [9] := 97, [10] := 116, [11] := 101, [12] := 32, [13]
+            := 99, [14] := 111, [15] := 110, [16] := 116, [17] := 101, 
+           [18] := 110, [19] := 116, [20] := 115, [21] := 32, [22] := 
+           99, [23] := 111, [24] := 117, [25] := 108, [26] := 100, 
+           [27] := 32, [28] := 110, [29] := 111, [30] := 116, [31] := 
+           32, [32] := 98, [33] := 101, [34] := 32, [35] := 101, [36]
+            := 120, [37] := 116, [38] := 114, [39] := 97, [40] := 99, 
+           [41] := 116, [42] := 101, [43] := 100), certno), [
+           i___1]) >= character__first) and (element(
+           makedescription(mk__string( [1] := 67, [2] := 101, [3] := 
+           114, [4] := 116, [5] := 105, [6] := 102, [7] := 105, [8] := 
+           99, [9] := 97, [10] := 116, [11] := 101, [12] := 32, [13]
+            := 99, [14] := 111, [15] := 110, [16] := 116, [17] := 101, 
+           [18] := 110, [19] := 116, [20] := 115, [21] := 32, [22] := 
+           99, [23] := 111, [24] := 117, [25] := 108, [26] := 100, 
+           [27] := 32, [28] := 110, [29] := 111, [30] := 116, [31] := 
+           32, [32] := 98, [33] := 101, [34] := 32, [35] := 101, [36]
+            := 120, [37] := 116, [38] := 114, [39] := 97, [40] := 99, 
+           [41] := 116, [42] := 101, [43] := 100), certno), [
+           i___1]) <= character__last))) .
+H11:   true .
+H12:   true .
+        ->
+C1:    (istis and (verifiedok and addedok)) -> 
+           keystore__privatekeypresent(keystore__state) .
+C2:    (not (istis and (verifiedok and addedok))) -> (
+           keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state~)) .
+ 
+
+procedure_validateandaddkey_16.
+H1:    keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state~) .
+H2:    true .
+H3:    certno >= positive__first .
+H4:    certno <= positive__last .
+H5:    true .
+H6:    true .
+H7:    verifiedok .
+H8:    addedok .
+H9:    istis .
+H10:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           thesubject), [i___1]) >= character__first) and (element(
+           fld_name(thesubject), [i___1]) <= character__last))) .
+H11:   fld_namelength(thesubject) >= cryptotypes__namecountt__first .
+H12:   fld_namelength(thesubject) <= cryptotypes__namecountt__last .
+H13:   fld_id(thesubject) >= cryptotypes__issueridt__first .
+H14:   fld_id(thesubject) <= cryptotypes__issueridt__last .
+H15:   fld_keylength(thepublickey) >= cryptotypes__keylengtht__first .
+H16:   fld_keylength(thepublickey) <= cryptotypes__keylengtht__last .
+H17:   fld_keyid(thepublickey) >= cryptotypes__keyidt__first .
+H18:   fld_keyid(thepublickey) <= cryptotypes__keyidt__last .
+H19:   fld_algorithmid(thepublickey) >= 
+           cryptotypes__algorithmt__first .
+H20:   fld_algorithmid(thepublickey) <= 
+           cryptotypes__algorithmt__last .
+H21:   (addedok__6 and (not false)) -> 
+           keystore__privatekeypresent(keystore__state__6) .
+H22:   (not (addedok__6 and (not false))) -> (
+           keystore__privatekeypresent(keystore__state__6) = 
+           keystore__privatekeypresent(keystore__state)) .
+H23:   true .
+H24:   true .
+H25:   not (not extracted) .
+H26:   true .
+H27:   not addedok__6 .
+H28:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(
+           makedescription(mk__string( [1] := 75, [2] := 101, [3] := 
+           121, [4] := 32, [5] := 99, [6] := 111, [7] := 117, [8] := 
+           108, [9] := 100, [10] := 32, [11] := 110, [12] := 111, [13]
+            := 116, [14] := 32, [15] := 98, [16] := 101, [17] := 32, 
+           [18] := 97, [19] := 100, [20] := 100, [21] := 101, [22] := 
+           100, [23] := 32, [24] := 116, [25] := 111, [26] := 32, [27]
+            := 116, [28] := 104, [29] := 101, [30] := 32, [31] := 75, 
+           [32] := 101, [33] := 121, [34] := 32, [35] := 83, [36] := 
+           116, [37] := 111, [38] := 114, [39] := 101), 
+           certno), [i___1]) >= character__first) and (element(
+           makedescription(mk__string( [1] := 75, [2] := 101, [3] := 
+           121, [4] := 32, [5] := 99, [6] := 111, [7] := 117, [8] := 
+           108, [9] := 100, [10] := 32, [11] := 110, [12] := 111, [13]
+            := 116, [14] := 32, [15] := 98, [16] := 101, [17] := 32, 
+           [18] := 97, [19] := 100, [20] := 100, [21] := 101, [22] := 
+           100, [23] := 32, [24] := 116, [25] := 111, [26] := 32, [27]
+            := 116, [28] := 104, [29] := 101, [30] := 32, [31] := 75, 
+           [32] := 101, [33] := 121, [34] := 32, [35] := 83, [36] := 
+           116, [37] := 111, [38] := 114, [39] := 101), 
+           certno), [i___1]) <= character__last))) .
+H29:   true .
+H30:   true .
+        ->
+C1:    (istis and (verifiedok and addedok__6)) -> 
+           keystore__privatekeypresent(keystore__state__6) .
+C2:    (not (istis and (verifiedok and addedok__6))) -> (
+           keystore__privatekeypresent(keystore__state__6) = 
+           keystore__privatekeypresent(keystore__state~)) .
+ 
+
+procedure_validateandaddkey_17.
+H1:    keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state~) .
+H2:    true .
+H3:    certno >= positive__first .
+H4:    certno <= positive__last .
+H5:    true .
+H6:    true .
+H7:    not (verifiedok and (addedok and istis)) .
+H8:    true .
+H9:    not (not extracted) .
+H10:   true .
+H11:   not addedok .
+H12:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(
+           makedescription(mk__string( [1] := 75, [2] := 101, [3] := 
+           121, [4] := 32, [5] := 99, [6] := 111, [7] := 117, [8] := 
+           108, [9] := 100, [10] := 32, [11] := 110, [12] := 111, [13]
+            := 116, [14] := 32, [15] := 98, [16] := 101, [17] := 32, 
+           [18] := 97, [19] := 100, [20] := 100, [21] := 101, [22] := 
+           100, [23] := 32, [24] := 116, [25] := 111, [26] := 32, [27]
+            := 116, [28] := 104, [29] := 101, [30] := 32, [31] := 75, 
+           [32] := 101, [33] := 121, [34] := 32, [35] := 83, [36] := 
+           116, [37] := 111, [38] := 114, [39] := 101), 
+           certno), [i___1]) >= character__first) and (element(
+           makedescription(mk__string( [1] := 75, [2] := 101, [3] := 
+           121, [4] := 32, [5] := 99, [6] := 111, [7] := 117, [8] := 
+           108, [9] := 100, [10] := 32, [11] := 110, [12] := 111, [13]
+            := 116, [14] := 32, [15] := 98, [16] := 101, [17] := 32, 
+           [18] := 97, [19] := 100, [20] := 100, [21] := 101, [22] := 
+           100, [23] := 32, [24] := 116, [25] := 111, [26] := 32, [27]
+            := 116, [28] := 104, [29] := 101, [30] := 32, [31] := 75, 
+           [32] := 101, [33] := 121, [34] := 32, [35] := 83, [36] := 
+           116, [37] := 111, [38] := 114, [39] := 101), 
+           certno), [i___1]) <= character__last))) .
+H13:   true .
+H14:   true .
+        ->
+C1:    (istis and (verifiedok and addedok)) -> 
+           keystore__privatekeypresent(keystore__state) .
+C2:    (not (istis and (verifiedok and addedok))) -> (
+           keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state~)) .
+ 
+
+procedure_validateandaddkey_18.
+H1:    keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state~) .
+H2:    true .
+H3:    certno >= positive__first .
+H4:    certno <= positive__last .
+H5:    true .
+H6:    true .
+H7:    verifiedok .
+H8:    addedok .
+H9:    istis .
+H10:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           thesubject), [i___1]) >= character__first) and (element(
+           fld_name(thesubject), [i___1]) <= character__last))) .
+H11:   fld_namelength(thesubject) >= cryptotypes__namecountt__first .
+H12:   fld_namelength(thesubject) <= cryptotypes__namecountt__last .
+H13:   fld_id(thesubject) >= cryptotypes__issueridt__first .
+H14:   fld_id(thesubject) <= cryptotypes__issueridt__last .
+H15:   fld_keylength(thepublickey) >= cryptotypes__keylengtht__first .
+H16:   fld_keylength(thepublickey) <= cryptotypes__keylengtht__last .
+H17:   fld_keyid(thepublickey) >= cryptotypes__keyidt__first .
+H18:   fld_keyid(thepublickey) <= cryptotypes__keyidt__last .
+H19:   fld_algorithmid(thepublickey) >= 
+           cryptotypes__algorithmt__first .
+H20:   fld_algorithmid(thepublickey) <= 
+           cryptotypes__algorithmt__last .
+H21:   (addedok__6 and (not false)) -> 
+           keystore__privatekeypresent(keystore__state__6) .
+H22:   (not (addedok__6 and (not false))) -> (
+           keystore__privatekeypresent(keystore__state__6) = 
+           keystore__privatekeypresent(keystore__state)) .
+H23:   true .
+H24:   true .
+H25:   not (not extracted) .
+H26:   true .
+H27:   not (not addedok__6) .
+H28:   true .
+H29:   not verifiedok .
+H30:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(
+           makedescription(mk__string( [1] := 67, [2] := 101, [3] := 
+           114, [4] := 116, [5] := 105, [6] := 102, [7] := 105, [8] := 
+           99, [9] := 97, [10] := 116, [11] := 101, [12] := 32, [13]
+            := 99, [14] := 111, [15] := 117, [16] := 108, [17] := 100, 
+           [18] := 32, [19] := 110, [20] := 111, [21] := 116, [22] := 
+           32, [23] := 98, [24] := 101, [25] := 32, [26] := 118, [27]
+            := 101, [28] := 114, [29] := 105, [30] := 102, [31] := 105, 
+           [32] := 101, [33] := 100), certno), [i___1]) >= 
+           character__first) and (element(makedescription(mk__string( 
+           [1] := 67, [2] := 101, [3] := 114, [4] := 116, [5] := 105, 
+           [6] := 102, [7] := 105, [8] := 99, [9] := 97, [10] := 116, 
+           [11] := 101, [12] := 32, [13] := 99, [14] := 111, [15] := 
+           117, [16] := 108, [17] := 100, [18] := 32, [19] := 110, 
+           [20] := 111, [21] := 116, [22] := 32, [23] := 98, [24] := 
+           101, [25] := 32, [26] := 118, [27] := 101, [28] := 114, 
+           [29] := 105, [30] := 102, [31] := 105, [32] := 101, [33] := 
+           100), certno), [i___1]) <= character__last))) .
+H31:   true .
+H32:   true .
+        ->
+C1:    (istis and (verifiedok and addedok__6)) -> 
+           keystore__privatekeypresent(keystore__state__6) .
+C2:    (not (istis and (verifiedok and addedok__6))) -> (
+           keystore__privatekeypresent(keystore__state__6) = 
+           keystore__privatekeypresent(keystore__state~)) .
+ 
+
+procedure_validateandaddkey_19.
+H1:    keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state~) .
+H2:    true .
+H3:    certno >= positive__first .
+H4:    certno <= positive__last .
+H5:    true .
+H6:    true .
+H7:    not (verifiedok and (addedok and istis)) .
+H8:    true .
+H9:    not (not extracted) .
+H10:   true .
+H11:   not (not addedok) .
+H12:   true .
+H13:   not verifiedok .
+H14:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(
+           makedescription(mk__string( [1] := 67, [2] := 101, [3] := 
+           114, [4] := 116, [5] := 105, [6] := 102, [7] := 105, [8] := 
+           99, [9] := 97, [10] := 116, [11] := 101, [12] := 32, [13]
+            := 99, [14] := 111, [15] := 117, [16] := 108, [17] := 100, 
+           [18] := 32, [19] := 110, [20] := 111, [21] := 116, [22] := 
+           32, [23] := 98, [24] := 101, [25] := 32, [26] := 118, [27]
+            := 101, [28] := 114, [29] := 105, [30] := 102, [31] := 105, 
+           [32] := 101, [33] := 100), certno), [i___1]) >= 
+           character__first) and (element(makedescription(mk__string( 
+           [1] := 67, [2] := 101, [3] := 114, [4] := 116, [5] := 105, 
+           [6] := 102, [7] := 105, [8] := 99, [9] := 97, [10] := 116, 
+           [11] := 101, [12] := 32, [13] := 99, [14] := 111, [15] := 
+           117, [16] := 108, [17] := 100, [18] := 32, [19] := 110, 
+           [20] := 111, [21] := 116, [22] := 32, [23] := 98, [24] := 
+           101, [25] := 32, [26] := 118, [27] := 101, [28] := 114, 
+           [29] := 105, [30] := 102, [31] := 105, [32] := 101, [33] := 
+           100), certno), [i___1]) <= character__last))) .
+H15:   true .
+H16:   true .
+        ->
+C1:    (istis and (verifiedok and addedok)) -> 
+           keystore__privatekeypresent(keystore__state) .
+C2:    (not (istis and (verifiedok and addedok))) -> (
+           keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state~)) .
+ 
+
+procedure_validateandaddkey_20.
+H1:    keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state~) .
+H2:    true .
+H3:    certno >= positive__first .
+H4:    certno <= positive__last .
+H5:    true .
+H6:    true .
+H7:    verifiedok .
+H8:    addedok .
+H9:    istis .
+H10:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           thesubject), [i___1]) >= character__first) and (element(
+           fld_name(thesubject), [i___1]) <= character__last))) .
+H11:   fld_namelength(thesubject) >= cryptotypes__namecountt__first .
+H12:   fld_namelength(thesubject) <= cryptotypes__namecountt__last .
+H13:   fld_id(thesubject) >= cryptotypes__issueridt__first .
+H14:   fld_id(thesubject) <= cryptotypes__issueridt__last .
+H15:   fld_keylength(thepublickey) >= cryptotypes__keylengtht__first .
+H16:   fld_keylength(thepublickey) <= cryptotypes__keylengtht__last .
+H17:   fld_keyid(thepublickey) >= cryptotypes__keyidt__first .
+H18:   fld_keyid(thepublickey) <= cryptotypes__keyidt__last .
+H19:   fld_algorithmid(thepublickey) >= 
+           cryptotypes__algorithmt__first .
+H20:   fld_algorithmid(thepublickey) <= 
+           cryptotypes__algorithmt__last .
+H21:   (addedok__6 and (not false)) -> 
+           keystore__privatekeypresent(keystore__state__6) .
+H22:   (not (addedok__6 and (not false))) -> (
+           keystore__privatekeypresent(keystore__state__6) = 
+           keystore__privatekeypresent(keystore__state)) .
+H23:   true .
+H24:   true .
+H25:   not (not extracted) .
+H26:   true .
+H27:   not (not addedok__6) .
+H28:   true .
+H29:   not (not verifiedok) .
+H30:   true .
+H31:   true .
+        ->
+C1:    (istis and (verifiedok and addedok__6)) -> 
+           keystore__privatekeypresent(keystore__state__6) .
+C2:    (not (istis and (verifiedok and addedok__6))) -> (
+           keystore__privatekeypresent(keystore__state__6) = 
+           keystore__privatekeypresent(keystore__state~)) .
+ 
+
+procedure_validateandaddkey_21.
+H1:    keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state~) .
+H2:    true .
+H3:    certno >= positive__first .
+H4:    certno <= positive__last .
+H5:    true .
+H6:    true .
+H7:    not (verifiedok and (addedok and istis)) .
+H8:    true .
+H9:    not (not extracted) .
+H10:   true .
+H11:   not (not addedok) .
+H12:   true .
+H13:   not (not verifiedok) .
+H14:   true .
+H15:   true .
+        ->
+C1:    (istis and (verifiedok and addedok)) -> 
+           keystore__privatekeypresent(keystore__state) .
+C2:    (not (istis and (verifiedok and addedok))) -> (
+           keystore__privatekeypresent(keystore__state) = 
+           keystore__privatekeypresent(keystore__state~)) .
+ 
+

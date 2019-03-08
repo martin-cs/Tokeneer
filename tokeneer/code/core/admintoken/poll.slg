@@ -1,0 +1,175 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:21  SIMPLIFIED 05-SEP-2011, 15:38:35
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure AdminToken.Poll
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/admintoken/admintoken.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_poll_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  basictypes__presencet__first <= 
+          admintoken__interface__thetokenpresence(
+          admintoken__interface__state__1)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  basictypes__presencet__first <= 
+          admintoken__interface__thetokenpresence(
+          admintoken__interface__state__1)
+***  Proved C1:  basictypes__presencet__first <= 
+          admintoken__interface__thetokenpresence(
+          admintoken__interface__state__1)
+     using hypothesis H2.
+***  Proved C2:  admintoken__interface__thetokenpresence(
+          admintoken__interface__state__1) <= basictypes__presencet__last
+     using hypothesis H3.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_poll_2.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_poll_3.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_poll_4.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  admintoken__interface__input~ = fld_admintoken__interface__input(
+          input~)
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  admintoken__interface__status~ = 
+          fld_admintoken__interface__status(status~)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  admintoken__interface__state~ = fld_admintoken__interface__state(
+          state~)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  idcert = fld_idcert(state~)
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  authcert = fld_authcert(state~)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  tokenid = fld_tokenid(state~)
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  tokentry = fld_tokentry(state~)
+%%%  Simplified H18 on reading formula in, to give:
+     %%%  H18:  basictypes__presencet__first <= tokenpresence
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  prf_isgood(state~) <-> prf_isgood(state)
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  prf_authcertvalid(state~) <-> prf_authcertvalid(state)
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  theauthcertrole(state~) = privtypes__guard <-> theauthcertrole(
+          state) = privtypes__guard
+-S-  Applied substitution rule poll_rules(9).
+     This was achieved by replacing all occurrences of 
+          basictypes__presencet__first by:
+          basictypes__present.
+<S>  New H18:  basictypes__present <= tokenpresence
+-S-  Applied substitution rule poll_rules(10).
+     This was achieved by replacing all occurrences of 
+          basictypes__presencet__last by:
+          basictypes__absent.
+<S>  New H19:  tokenpresence <= basictypes__absent
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H2 (true-hypothesis).
+---  Eliminated hypothesis H20 (true-hypothesis).
+---  Eliminated hypothesis H4, which only specifies a value for 
+          admintoken__interface__input.
+     This is not referred to anywhere else in the VC.
+---  Eliminated hypothesis H6, which only specifies a value for 
+          admintoken__interface__status.
+     This is not referred to anywhere else in the VC.
+---  Eliminated hypothesis H8, which only specifies a value for 
+          admintoken__interface__state.
+     This is not referred to anywhere else in the VC.
+-S-  Eliminated hypothesis H9.
+     This was achieved by replacing all occurrences of tokenpresence by:
+          fld_tokenpresence(state).
+<S>  New H18:  basictypes__present <= fld_tokenpresence(state)
+<S>  New H19:  fld_tokenpresence(state) <= basictypes__absent
+-S-  Eliminated hypothesis H10.
+     This was achieved by replacing all occurrences of idcert by:
+          fld_idcert(state~).
+<S>  New H11:  fld_idcert(state~) = fld_idcert(state)
+-S-  Eliminated hypothesis H12.
+     This was achieved by replacing all occurrences of authcert by:
+          fld_authcert(state~).
+<S>  New H13:  fld_authcert(state~) = fld_authcert(state)
+-S-  Eliminated hypothesis H14.
+     This was achieved by replacing all occurrences of tokenid by:
+          fld_tokenid(state~).
+<S>  New H15:  fld_tokenid(state~) = fld_tokenid(state)
+-S-  Eliminated hypothesis H16.
+     This was achieved by replacing all occurrences of tokentry by:
+          fld_tokentry(state~).
+<S>  New H17:  fld_tokentry(state~) = fld_tokentry(state)
+     +++  New H21:  basictypes__unsigned32t__base__first <= 
+          basictypes__unsigned32t__base__last
+     +++  New H22:  basictypes__presencet__size >= 0
+     +++  New H23:  privtypes__privileget__size >= 0
+     +++  New H24:  cert__attr__contentst__size >= 0
+     +++  New H25:  cert__attr__auth__contentst__size >= 0
+     +++  New H26:  cert__id__contentst__size >= 0
+     +++  New H27:  tokentypes__tryt__size >= 0
+     +++  New H28:  validauthcertt__size >= 0
+     +++  New H29:  valididcertt__size >= 0
+     +++  New H30:  basictypes__unsigned32t__base__first <= 0
+     +++  New H31:  basictypes__unsigned32t__base__last >= 4294967295
+***  Proved C1:  prf_isgood(state~) <-> prf_isgood(state)
+     This was achieved by applying the inference rule admintoken_user(2)
+     [from rulefile admintoken.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H11, proved: fld_idcert(state~) = fld_idcert(state)
+***  Proved C2:  prf_authcertvalid(state~) <-> prf_authcertvalid(state)
+     This was achieved by applying the inference rule admintoken_user(4)
+     [from rulefile admintoken.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H13, proved: fld_authcert(state~) = fld_authcert(state)
+***  Proved C3:  theauthcertrole(state~) = privtypes__guard <-> theauthcertrole(
+          state) = privtypes__guard
+     This was achieved by applying the inference rule admintoken_user(6)
+     [from rulefile admintoken.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H13, proved: fld_authcert(state~) = fld_authcert(state)
+***  PROVED VC.
+
+VCN  4: Summary of user rule application.
+FIL  admintoken.rlu
+RUL     admintoken_user(2)
+CON        1
+RUL     admintoken_user(4)
+CON        2
+RUL     admintoken_user(6)
+CON        3
+
+
+OVR  Overall summary of VCs using user rules.
+FIL  admintoken.rlu
+RUL     admintoken_user(2)
+VCS        4
+RUL     admintoken_user(4)
+VCS        4
+RUL     admintoken_user(6)
+VCS        4
+

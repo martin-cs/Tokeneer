@@ -1,0 +1,54 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:28.92*/
+
+             /*procedure ConfigData.ValidateFile.ReadAuthDuration*/
+
+
+rule_family readauthdura_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+readauthdura_rules(1): character__first <= element(maxauthdurationtitle, [I]) may_be_deduced_from [1 <= I, I <= 16].
+readauthdura_rules(2): element(maxauthdurationtitle, [I]) <= 
+     character__last may_be_deduced_from [1 <= I, I <= 16].
+readauthdura_rules(3): integer__size >= 0 may_be_deduced.
+readauthdura_rules(4): integer__first may_be_replaced_by -2147483648.
+readauthdura_rules(5): integer__last may_be_replaced_by 2147483647.
+readauthdura_rules(6): integer__base__first may_be_replaced_by -2147483648.
+readauthdura_rules(7): integer__base__last may_be_replaced_by 2147483647.
+readauthdura_rules(8): character__size >= 0 may_be_deduced.
+readauthdura_rules(9): character__first may_be_replaced_by 0.
+readauthdura_rules(10): character__last may_be_replaced_by 255.
+readauthdura_rules(11): character__base__first may_be_replaced_by 0.
+readauthdura_rules(12): character__base__last may_be_replaced_by 255.
+readauthdura_rules(13): natural__size >= 0 may_be_deduced.
+readauthdura_rules(14): natural__first may_be_replaced_by 0.
+readauthdura_rules(15): natural__last may_be_replaced_by 2147483647.
+readauthdura_rules(16): natural__base__first may_be_replaced_by -2147483648.
+readauthdura_rules(17): natural__base__last may_be_replaced_by 2147483647.
+readauthdura_rules(18): positive__size >= 0 may_be_deduced.
+readauthdura_rules(19): positive__first may_be_replaced_by 1.
+readauthdura_rules(20): positive__last may_be_replaced_by 2147483647.
+readauthdura_rules(21): positive__base__first may_be_replaced_by -2147483648.
+readauthdura_rules(22): positive__base__last may_be_replaced_by 2147483647.
+readauthdura_rules(23): clock__durationt__size >= 0 may_be_deduced.
+readauthdura_rules(24): clock__durationt__first may_be_replaced_by 0.
+readauthdura_rules(25): clock__durationt__last may_be_replaced_by 864000.
+readauthdura_rules(26): clock__durationt__base__first <= 
+     clock__durationt__base__last may_be_deduced.
+readauthdura_rules(27): clock__durationt__base__first <= 
+     clock__durationt__first may_be_deduced.
+readauthdura_rules(28): clock__durationt__base__last >= 
+     clock__durationt__last may_be_deduced.
+readauthdura_rules(29): maxauthdurationtexti__size >= 0 may_be_deduced.
+readauthdura_rules(30): maxauthdurationtexti__first may_be_replaced_by 1.
+readauthdura_rules(31): maxauthdurationtexti__last may_be_replaced_by 16.
+readauthdura_rules(32): maxauthdurationtexti__base__first may_be_replaced_by -2147483648.
+readauthdura_rules(33): maxauthdurationtexti__base__last may_be_replaced_by 2147483647.

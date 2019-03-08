@@ -1,0 +1,150 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:18.04}
+
+                            {procedure Bio.Verify}
+
+
+title procedure verify;
+
+  function round__(real) : integer;
+  type character = integer;
+  type basictypes__unsigned32t = integer;
+  type basictypes__bytet = integer;
+  type audittypes__elementt = (audittypes__startunenrolledtis, 
+     audittypes__startenrolledtis, audittypes__enrolmentcomplete, 
+     audittypes__enrolmentfailed, audittypes__displaychanged, 
+     audittypes__screenchanged, audittypes__doorclosed, 
+     audittypes__dooropened, audittypes__latchlocked, 
+     audittypes__latchunlocked, audittypes__alarmraised, 
+     audittypes__alarmsilenced, audittypes__truncatelog, 
+     audittypes__auditalarmraised, audittypes__auditalarmsilenced, 
+     audittypes__usertokenremoved, audittypes__usertokenpresent, 
+     audittypes__usertokeninvalid, audittypes__authcertvalid, 
+     audittypes__authcertinvalid, audittypes__fingerdetected, 
+     audittypes__fingertimeout, audittypes__fingermatched, 
+     audittypes__fingernotmatched, audittypes__authcertwritten, 
+     audittypes__authcertwritefailed, audittypes__entrypermitted, 
+     audittypes__entrytimeout, audittypes__entrydenied, 
+     audittypes__admintokenpresent, audittypes__admintokenvalid, 
+     audittypes__admintokeninvalid, audittypes__admintokenexpired, 
+     audittypes__admintokenremoved, audittypes__invalidoprequest, 
+     audittypes__operationstart, audittypes__archivelog, 
+     audittypes__archivecomplete, audittypes__archivecheckfailed, 
+     audittypes__updatedconfigdata, audittypes__invalidconfigdata, 
+     audittypes__shutdown, audittypes__overridelock, 
+     audittypes__systemfault);
+  type audittypes__severityt = (audittypes__information, 
+     audittypes__warning, audittypes__critical);
+  type iandatypes__fart = integer;
+  type iandatypes__matchresultt = (iandatypes__match, 
+     iandatypes__nomatch);
+  type iandatypes__templatepadi = integer;
+  type returnt = (bioapiok, internalerror, memoryerror, 
+     functionfailed, invaliddata, bioapinotinitialized, 
+     moduleloadfailed, moduleunloadfailed, bspinternalerror, 
+     bspmemoryerror, bspfunctionfailed, bspinvaliddata, 
+     bspunabletocapture, bsptimeoutexpired, 
+     bspbirsignaturefailure, bspinconsistentpurpose, 
+     devicelevelerror);
+  type string = array [integer] of character;
+  const null__string : string = pending;
+  type iandatypes__templatepadt = array [integer] of integer;
+  type iandatypes__templatet = record
+        length : integer;
+        requiredmaxfar : integer;
+        id : string;
+        pad : iandatypes__templatepadt
+     end;
+  const returnt__base__first : returnt = pending; 
+  const returnt__base__last : returnt = pending; 
+  const iandatypes__templateidi__base__first : integer = pending; 
+  const iandatypes__templateidi__base__last : integer = pending; 
+  const iandatypes__templatelengtht__base__first : integer = pending; 
+  const iandatypes__templatelengtht__base__last : integer = pending; 
+  const iandatypes__templatepadi__base__first : integer = pending; 
+  const iandatypes__templatepadi__base__last : integer = pending; 
+  const iandatypes__matchresultt__base__first : 
+     iandatypes__matchresultt = pending; 
+  const iandatypes__matchresultt__base__last : 
+     iandatypes__matchresultt = pending; 
+  const iandatypes__fart__base__first : integer = pending; 
+  const iandatypes__fart__base__last : integer = pending; 
+  const audittypes__descriptioni__base__first : integer = pending; 
+  const audittypes__descriptioni__base__last : integer = pending; 
+  const audittypes__severityt__base__first : 
+     audittypes__severityt = pending; 
+  const audittypes__severityt__base__last : audittypes__severityt = pending; 
+  const audittypes__elementt__base__first : audittypes__elementt = pending; 
+  const audittypes__elementt__base__last : audittypes__elementt = pending; 
+  const basictypes__bytet__base__first : integer = pending; 
+  const basictypes__bytet__base__last : integer = pending; 
+  const basictypes__unsigned32t__base__first : integer = pending; 
+  const basictypes__unsigned32t__base__last : integer = pending; 
+  const positive__base__first : integer = pending; 
+  const positive__base__last : integer = pending; 
+  const character__base__first : character = pending; 
+  const character__base__last : character = pending; 
+  const integer__base__first : integer = pending; 
+  const integer__base__last : integer = pending; 
+  const returnt__first : returnt = pending; 
+  const returnt__last : returnt = pending; 
+  const returnt__size : integer = pending; 
+  const iandatypes__templatet__size : integer = pending; 
+  const iandatypes__templateidi__first : integer = pending; 
+  const iandatypes__templateidi__last : integer = pending; 
+  const iandatypes__templateidi__size : integer = pending; 
+  const iandatypes__templatelengtht__first : integer = pending; 
+  const iandatypes__templatelengtht__last : integer = pending; 
+  const iandatypes__templatelengtht__size : integer = pending; 
+  const iandatypes__templatepadi__first : integer = pending; 
+  const iandatypes__templatepadi__last : integer = pending; 
+  const iandatypes__templatepadi__size : integer = pending; 
+  const iandatypes__matchresultt__first : 
+     iandatypes__matchresultt = pending; 
+  const iandatypes__matchresultt__last : iandatypes__matchresultt = pending; 
+  const iandatypes__matchresultt__size : integer = pending; 
+  const iandatypes__fart__first : integer = pending; 
+  const iandatypes__fart__last : integer = pending; 
+  const iandatypes__fart__size : integer = pending; 
+  const audittypes__descriptioni__first : integer = pending; 
+  const audittypes__descriptioni__last : integer = pending; 
+  const audittypes__descriptioni__size : integer = pending; 
+  const audittypes__severityt__first : audittypes__severityt = pending; 
+  const audittypes__severityt__last : audittypes__severityt = pending; 
+  const audittypes__severityt__size : integer = pending; 
+  const audittypes__elementt__first : audittypes__elementt = pending; 
+  const audittypes__elementt__last : audittypes__elementt = pending; 
+  const audittypes__elementt__size : integer = pending; 
+  const basictypes__bytet__first : integer = pending; 
+  const basictypes__bytet__last : integer = pending; 
+  const basictypes__bytet__size : integer = pending; 
+  const basictypes__unsigned32t__first : integer = pending; 
+  const basictypes__unsigned32t__last : integer = pending; 
+  const basictypes__unsigned32t__size : integer = pending; 
+  const positive__first : integer = pending; 
+  const positive__last : integer = pending; 
+  const positive__size : integer = pending; 
+  const character__first : character = pending; 
+  const character__last : character = pending; 
+  const character__size : integer = pending; 
+  const integer__first : integer = pending; 
+  const integer__last : integer = pending; 
+  const integer__size : integer = pending; 
+  var template : iandatypes__templatet;
+  var maxfar : integer;
+  var matchresult : iandatypes__matchresultt;
+  var achievedfar : integer;
+  var numericreturn : integer;
+  function valueof(returnt) : integer;
+  function makedescription(string, integer) : string;
+  var numericreturn__1 : integer;
+  var achievedfar__1 : integer;
+  var matchresult__1 : iandatypes__matchresultt;
+
+end;

@@ -1,0 +1,43 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:10.94}
+
+                        {procedure Alarm.UpdateDevice}
+
+
+title procedure updatedevice;
+
+  function round__(real) : integer;
+  type alarmtypes__statust = (alarmtypes__alarming, 
+     alarmtypes__silent);
+  type auditlog__state__type = pending;
+  type door__statetype = pending;
+  type alarm__interface__outtype = pending;
+  type outtype = record
+        alarm__interface__output : alarm__interface__outtype
+     end;
+  const alarmtypes__statust__base__first : alarmtypes__statust = pending; 
+  const alarmtypes__statust__base__last : alarmtypes__statust = pending; 
+  const alarmtypes__statust__first : alarmtypes__statust = pending; 
+  const alarmtypes__statust__last : alarmtypes__statust = pending; 
+  const alarmtypes__statust__size : integer = pending; 
+  var auditlog__state : auditlog__state__type;
+  var door__state : door__statetype;
+  var output : outtype;
+  var alarm__interface__output : alarm__interface__outtype;
+  function auditlog__theauditalarm(auditlog__state__type) : 
+     alarmtypes__statust;
+  function door__thedooralarm(door__statetype) : 
+     alarmtypes__statust;
+  function prf_isalarming(outtype) : boolean;
+  function alarm__interface__prf_isalarming(
+     alarm__interface__outtype) : boolean;
+  var alarm__interface__output__2 : alarm__interface__outtype;
+  var alarm__interface__output__1 : alarm__interface__outtype;
+
+end;

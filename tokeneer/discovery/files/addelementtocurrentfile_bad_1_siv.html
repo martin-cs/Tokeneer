@@ -1,0 +1,88 @@
+<pre>
+     1	*****************************************************************************
+     2	                       Semantic Analysis of SPARK Text
+     3	 SPARK Examiner Pro Edition, Version 8.1.0, Build Date 20090416, Build 13003
+     4	      Copyright (C) 2009 Praxis High Integrity Systems Ltd., Bath, U.K.
+     5	*****************************************************************************
+     6	
+     7	
+     8	CREATED 08-MAY-2009, 14:10:23  SIMPLIFIED 08-MAY-2009, 14:10:55
+     9	
+    10	SPARK Simplifier Pro Edition, Version 8.1.0, Build Date 20090424, Build 
+    11	Copyright (C) 2009 Praxis High Integrity Systems Ltd., Bath, U.K.
+    12	
+    13	procedure AuditLog.AddElementToLogFile.AddElementToCurrentFile
+    14	
+    15	
+    16	
+    17	
+    18	For path(s) from start to run-time check associated with statement of line 781:
+    19	
+    20	procedure_addelementtocurrentfile_1.
+    21	*** true .          /* all conclusions proved */
+    22	
+    23	
+    24	For path(s) from start to run-time check associated with statement of line 782:
+    25	
+    26	procedure_addelementtocurrentfile_2.
+    27	*** true .          /* all conclusions proved */
+    28	
+    29	
+    30	For path(s) from start to run-time check associated with statement of line 788:
+    31	
+    32	procedure_addelementtocurrentfile_3.
+    33	*** true .          /* all conclusions proved */
+    34	
+    35	
+    36	For path(s) from start to run-time check associated with statement of line 790:
+    37	
+    38	procedure_addelementtocurrentfile_4.
+    39	*** true .          /* all conclusions proved */
+    40	
+    41	
+    42	For path(s) from start to finish:
+    43	
+    44	procedure_addelementtocurrentfile_5.
+    45	H1:    element(logfileentries, [currentlogfile]) < 1024 .
+    46	H2:    audittypes__startunenrolledtis <= elementid .
+    47	H3:    elementid <= audittypes__systemfault .
+    48	H4:    audittypes__information <= severity .
+    49	H5:    severity <= audittypes__critical .
+    50	H6:    for_all(i___1 : integer, 1 <= i___1 and i___1 <= 50 -> 0 <= element(
+    51	          user, [i___1]) and element(user, [i___1]) <= 255) .
+    52	H7:    for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= element(
+    53	          description, [i___1]) and element(description, [i___1]) <= 255) .
+    54	H8:    currentlogfile >= 1 .
+    55	H9:    currentlogfile <= 17 .
+    56	H10:   for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> 0 <= element(
+    57	          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 1024)
+    58	           .
+    59	H11:   element(logfileentries, [currentlogfile]) >= - 1 .
+    60	H12:   integer__size >= 0 .
+    61	H13:   character__size >= 0 .
+    62	H14:   positive__size >= 0 .
+    63	H15:   audittypes__elementt__size >= 0 .
+    64	H16:   audittypes__severityt__size >= 0 .
+    65	H17:   audittypes__descriptioni__size >= 0 .
+    66	H18:   audittypes__usertexti__size >= 0 .
+    67	H19:   logfilecountt__size >= 0 .
+    68	H20:   logfilecountt__base__first <= logfilecountt__base__last .
+    69	H21:   logfileindext__size >= 0 .
+    70	H22:   logfileindext__base__first <= logfileindext__base__last .
+    71	H23:   logentrycountt__size >= 0 .
+    72	H24:   logentrycountt__base__first <= logentrycountt__base__last .
+    73	H25:   fileentrycountt__size >= 0 .
+    74	H26:   fileentrycountt__base__first <= fileentrycountt__base__last .
+    75	H27:   logfilecountt__base__first <= 0 .
+    76	H28:   logfilecountt__base__last >= 17 .
+    77	H29:   logfileindext__base__first <= 1 .
+    78	H30:   logfileindext__base__last >= 17 .
+    79	H31:   logentrycountt__base__first <= 0 .
+    80	H32:   logentrycountt__base__last >= 17408 .
+    81	H33:   fileentrycountt__base__first <= 0 .
+    82	H34:   fileentrycountt__base__last >= 1024 .
+    83	       ->
+    84	C1:    false .
+    85	
+    86	
+</pre>

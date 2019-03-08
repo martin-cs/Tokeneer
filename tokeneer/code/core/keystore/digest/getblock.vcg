@@ -1,0 +1,356 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:11.10
+
+                     function KeyStore.Digest.GetBlock
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 192:
+
+function_getblock_1.
+H1:    1 <= blockno .
+H2:    blockno <= 41 .
+H3:    1 <= blocksize .
+H4:    blocksize <= 100 .
+H5:    blocksize + (blockno - 1) * 100 <= 
+           certtypes__rawcertificatei__last .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(
+           data, [i___1]) >= character__first) and (element(
+           data, [i___1]) <= character__last))) .
+H7:    blockno >= positive__first .
+H8:    blockno <= positive__last .
+H9:    blocksize >= basictypes__unsigned32t__first .
+H10:   blocksize <= basictypes__unsigned32t__last .
+        ->
+C1:    100 >= integer__first .
+C2:    100 <= integer__last .
+C3:    1 >= integer__first .
+C4:    1 <= integer__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 192:
+
+function_getblock_2.
+H1:    1 <= blockno .
+H2:    blockno <= 41 .
+H3:    1 <= blocksize .
+H4:    blocksize <= 100 .
+H5:    blocksize + (blockno - 1) * 100 <= 
+           certtypes__rawcertificatei__last .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(
+           data, [i___1]) >= character__first) and (element(
+           data, [i___1]) <= character__last))) .
+H7:    blockno >= positive__first .
+H8:    blockno <= positive__last .
+H9:    blocksize >= basictypes__unsigned32t__first .
+H10:   blocksize <= basictypes__unsigned32t__last .
+H11:   100 >= integer__first .
+H12:   100 <= integer__last .
+H13:   1 >= integer__first .
+H14:   1 <= integer__last .
+        ->
+C1:    (1 <= 100) -> ((100 >= certtypes__rawcertificatei__first) and (
+           100 <= certtypes__rawcertificatei__last)) .
+C2:    (1 <= 100) -> ((1 >= certtypes__rawcertificatei__first) and (1 <= 
+           certtypes__rawcertificatei__last)) .
+ 
+
+For path(s) from start to assertion of line 193:
+
+function_getblock_3.
+H1:    1 <= blockno .
+H2:    blockno <= 41 .
+H3:    1 <= blocksize .
+H4:    blocksize <= 100 .
+H5:    blocksize + (blockno - 1) * 100 <= 
+           certtypes__rawcertificatei__last .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(
+           data, [i___1]) >= character__first) and (element(
+           data, [i___1]) <= character__last))) .
+H7:    blockno >= positive__first .
+H8:    blockno <= positive__last .
+H9:    blocksize >= basictypes__unsigned32t__first .
+H10:   blocksize <= basictypes__unsigned32t__last .
+H11:   100 >= integer__first .
+H12:   100 <= integer__last .
+H13:   1 >= integer__first .
+H14:   1 <= integer__last .
+H15:   (1 <= 100) -> ((100 >= certtypes__rawcertificatei__first) and (
+           100 <= certtypes__rawcertificatei__last)) .
+H16:   (1 <= 100) -> ((1 >= certtypes__rawcertificatei__first) and (1 <= 
+           certtypes__rawcertificatei__last)) .
+H17:   1 <= 100 .
+        ->
+C1:    1 <= blockno .
+C2:    blockno <= 41 .
+C3:    1 <= blocksize .
+C4:    blocksize <= 100 .
+C5:    1 <= 1 .
+C6:    1 <= 100 .
+C7:    1 <= blocksize .
+C8:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(
+           data, [i___1]) >= character__first) and (element(
+           data, [i___1]) <= character__last))) .
+C9:    blockno >= positive__first .
+C10:   blockno <= positive__last .
+C11:   blocksize >= basictypes__unsigned32t__first .
+C12:   blocksize <= basictypes__unsigned32t__last .
+C13:   1 <= blockno .
+C14:   blockno <= 41 .
+C15:   1 <= blocksize .
+C16:   blocksize <= 100 .
+C17:   blocksize + (blockno - 1) * 100 <= 
+           certtypes__rawcertificatei__last .
+C18:   1 >= certtypes__rawcertificatei__first .
+C19:   1 <= certtypes__rawcertificatei__last .
+C20:   1 >= 1 .
+C21:   1 <= 100 .
+ 
+
+For path(s) from assertion of line 193 to assertion of line 193:
+
+function_getblock_4.
+H1:    1 <= blockno .
+H2:    blockno <= 41 .
+H3:    1 <= blocksize .
+H4:    blocksize <= 100 .
+H5:    1 <= loop__1__i .
+H6:    loop__1__i <= 100 .
+H7:    loop__1__i <= blocksize .
+H8:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(
+           data, [i___1]) >= character__first) and (element(
+           data, [i___1]) <= character__last))) .
+H9:    blockno >= positive__first .
+H10:   blockno <= positive__last .
+H11:   blocksize >= basictypes__unsigned32t__first .
+H12:   blocksize <= basictypes__unsigned32t__last .
+H13:   1 <= blockno .
+H14:   blockno <= 41 .
+H15:   1 <= blocksize .
+H16:   blocksize <= 100 .
+H17:   blocksize + (blockno - 1) * 100 <= 
+           certtypes__rawcertificatei__last .
+H18:   loop__1__i >= certtypes__rawcertificatei__first .
+H19:   loop__1__i <= certtypes__rawcertificatei__last .
+H20:   loop__1__i >= 1 .
+H21:   loop__1__i <= 100 .
+H22:   loop__1__i + (blockno - 1) * 100 >= 1 .
+H23:   loop__1__i + (blockno - 1) * 100 <= 4096 .
+H24:   element(data, [loop__1__i + (blockno - 1) * 100]) >= 
+           character__first .
+H25:   element(data, [loop__1__i + (blockno - 1) * 100]) <= 
+           character__last .
+H26:   loop__1__i + (blockno - 1) * 100 >= 
+           certtypes__rawcertificatei__first .
+H27:   loop__1__i + (blockno - 1) * 100 <= 
+           certtypes__rawcertificatei__last .
+H28:   loop__1__i + (blockno - 1) * 100 >= integer__base__first .
+H29:   loop__1__i + (blockno - 1) * 100 <= integer__base__last .
+H30:   (blockno - 1) * 100 >= integer__base__first .
+H31:   (blockno - 1) * 100 <= integer__base__last .
+H32:   blockno - 1 >= integer__base__first .
+H33:   blockno - 1 <= integer__base__last .
+H34:   loop__1__i >= keystore__interface__hundredbyteindext__first .
+H35:   loop__1__i <= keystore__interface__hundredbyteindext__last .
+H36:   loop__1__i >= basictypes__unsigned32t__first .
+H37:   loop__1__i <= basictypes__unsigned32t__last .
+H38:   not (loop__1__i = blocksize) .
+H39:   not (loop__1__i = 100) .
+        ->
+C1:    1 <= blockno .
+C2:    blockno <= 41 .
+C3:    1 <= blocksize .
+C4:    blocksize <= 100 .
+C5:    1 <= loop__1__i + 1 .
+C6:    loop__1__i + 1 <= 100 .
+C7:    loop__1__i + 1 <= blocksize .
+C8:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(
+           data, [i___1]) >= character__first) and (element(
+           data, [i___1]) <= character__last))) .
+C9:    blockno >= positive__first .
+C10:   blockno <= positive__last .
+C11:   blocksize >= basictypes__unsigned32t__first .
+C12:   blocksize <= basictypes__unsigned32t__last .
+C13:   1 <= blockno .
+C14:   blockno <= 41 .
+C15:   1 <= blocksize .
+C16:   blocksize <= 100 .
+C17:   blocksize + (blockno - 1) * 100 <= 
+           certtypes__rawcertificatei__last .
+C18:   loop__1__i + 1 >= certtypes__rawcertificatei__first .
+C19:   loop__1__i + 1 <= certtypes__rawcertificatei__last .
+C20:   loop__1__i + 1 >= 1 .
+C21:   loop__1__i + 1 <= 100 .
+ 
+
+For path(s) from assertion of line 193 to check associated with statement of line 200:
+
+function_getblock_5.
+H1:    1 <= blockno .
+H2:    blockno <= 41 .
+H3:    1 <= blocksize .
+H4:    blocksize <= 100 .
+H5:    1 <= loop__1__i .
+H6:    loop__1__i <= 100 .
+H7:    loop__1__i <= blocksize .
+H8:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(
+           data, [i___1]) >= character__first) and (element(
+           data, [i___1]) <= character__last))) .
+H9:    blockno >= positive__first .
+H10:   blockno <= positive__last .
+H11:   blocksize >= basictypes__unsigned32t__first .
+H12:   blocksize <= basictypes__unsigned32t__last .
+H13:   1 <= blockno .
+H14:   blockno <= 41 .
+H15:   1 <= blocksize .
+H16:   blocksize <= 100 .
+H17:   blocksize + (blockno - 1) * 100 <= 
+           certtypes__rawcertificatei__last .
+H18:   loop__1__i >= certtypes__rawcertificatei__first .
+H19:   loop__1__i <= certtypes__rawcertificatei__last .
+H20:   loop__1__i >= 1 .
+H21:   loop__1__i <= 100 .
+        ->
+C1:    loop__1__i + (blockno - 1) * 100 >= 1 .
+C2:    loop__1__i + (blockno - 1) * 100 <= 4096 .
+ 
+
+For path(s) from assertion of line 193 to run-time check associated with statement of line 201:
+
+function_getblock_6.
+H1:    1 <= blockno .
+H2:    blockno <= 41 .
+H3:    1 <= blocksize .
+H4:    blocksize <= 100 .
+H5:    1 <= loop__1__i .
+H6:    loop__1__i <= 100 .
+H7:    loop__1__i <= blocksize .
+H8:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(
+           data, [i___1]) >= character__first) and (element(
+           data, [i___1]) <= character__last))) .
+H9:    blockno >= positive__first .
+H10:   blockno <= positive__last .
+H11:   blocksize >= basictypes__unsigned32t__first .
+H12:   blocksize <= basictypes__unsigned32t__last .
+H13:   1 <= blockno .
+H14:   blockno <= 41 .
+H15:   1 <= blocksize .
+H16:   blocksize <= 100 .
+H17:   blocksize + (blockno - 1) * 100 <= 
+           certtypes__rawcertificatei__last .
+H18:   loop__1__i >= certtypes__rawcertificatei__first .
+H19:   loop__1__i <= certtypes__rawcertificatei__last .
+H20:   loop__1__i >= 1 .
+H21:   loop__1__i <= 100 .
+H22:   loop__1__i + (blockno - 1) * 100 >= 1 .
+H23:   loop__1__i + (blockno - 1) * 100 <= 4096 .
+        ->
+C1:    element(data, [loop__1__i + (blockno - 1) * 100]) >= 
+           character__first .
+C2:    element(data, [loop__1__i + (blockno - 1) * 100]) <= 
+           character__last .
+C3:    loop__1__i + (blockno - 1) * 100 >= 
+           certtypes__rawcertificatei__first .
+C4:    loop__1__i + (blockno - 1) * 100 <= 
+           certtypes__rawcertificatei__last .
+C5:    loop__1__i + (blockno - 1) * 100 >= integer__base__first .
+C6:    loop__1__i + (blockno - 1) * 100 <= integer__base__last .
+C7:    (blockno - 1) * 100 >= integer__base__first .
+C8:    (blockno - 1) * 100 <= integer__base__last .
+C9:    blockno - 1 >= integer__base__first .
+C10:   blockno - 1 <= integer__base__last .
+C11:   loop__1__i >= keystore__interface__hundredbyteindext__first .
+C12:   loop__1__i <= keystore__interface__hundredbyteindext__last .
+ 
+
+For path(s) from assertion of line 193 to run-time check associated with statement of line 202:
+
+function_getblock_7.
+H1:    1 <= blockno .
+H2:    blockno <= 41 .
+H3:    1 <= blocksize .
+H4:    blocksize <= 100 .
+H5:    1 <= loop__1__i .
+H6:    loop__1__i <= 100 .
+H7:    loop__1__i <= blocksize .
+H8:    for_all(i___1: integer, ((i___1 >= 
+           certtypes__rawcertificatei__first) and (i___1 <= 
+           certtypes__rawcertificatei__last)) -> ((element(
+           data, [i___1]) >= character__first) and (element(
+           data, [i___1]) <= character__last))) .
+H9:    blockno >= positive__first .
+H10:   blockno <= positive__last .
+H11:   blocksize >= basictypes__unsigned32t__first .
+H12:   blocksize <= basictypes__unsigned32t__last .
+H13:   1 <= blockno .
+H14:   blockno <= 41 .
+H15:   1 <= blocksize .
+H16:   blocksize <= 100 .
+H17:   blocksize + (blockno - 1) * 100 <= 
+           certtypes__rawcertificatei__last .
+H18:   loop__1__i >= certtypes__rawcertificatei__first .
+H19:   loop__1__i <= certtypes__rawcertificatei__last .
+H20:   loop__1__i >= 1 .
+H21:   loop__1__i <= 100 .
+H22:   loop__1__i + (blockno - 1) * 100 >= 1 .
+H23:   loop__1__i + (blockno - 1) * 100 <= 4096 .
+H24:   element(data, [loop__1__i + (blockno - 1) * 100]) >= 
+           character__first .
+H25:   element(data, [loop__1__i + (blockno - 1) * 100]) <= 
+           character__last .
+H26:   loop__1__i + (blockno - 1) * 100 >= 
+           certtypes__rawcertificatei__first .
+H27:   loop__1__i + (blockno - 1) * 100 <= 
+           certtypes__rawcertificatei__last .
+H28:   loop__1__i + (blockno - 1) * 100 >= integer__base__first .
+H29:   loop__1__i + (blockno - 1) * 100 <= integer__base__last .
+H30:   (blockno - 1) * 100 >= integer__base__first .
+H31:   (blockno - 1) * 100 <= integer__base__last .
+H32:   blockno - 1 >= integer__base__first .
+H33:   blockno - 1 <= integer__base__last .
+H34:   loop__1__i >= keystore__interface__hundredbyteindext__first .
+H35:   loop__1__i <= keystore__interface__hundredbyteindext__last .
+        ->
+C1:    loop__1__i >= basictypes__unsigned32t__first .
+C2:    loop__1__i <= basictypes__unsigned32t__last .
+ 
+
+For path(s) from start to finish:
+
+function_getblock_8.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+For path(s) from assertion of line 193 to finish:
+
+function_getblock_9.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+function_getblock_10.
+*** true .          /* trivially true VC removed by Examiner */
+
+

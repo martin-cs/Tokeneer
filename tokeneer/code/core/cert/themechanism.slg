@@ -1,0 +1,41 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:13  SIMPLIFIED 05-SEP-2011, 15:39:02
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+function Cert.TheMechanism
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/cert/cert.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: function_themechanism_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  cryptotypes__algorithmt__first <= fld_mechanism(contents)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(fld_id(contents))), [i___1]) and element(fld_name(
+          fld_issuer(fld_id(contents))), [i___1]) <= character__last)
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  cryptotypes__algorithmt__first <= fld_mechanism(contents)
+***  Proved C1:  true
+***  Proved C2:  cryptotypes__algorithmt__first <= fld_mechanism(contents)
+     using hypothesis H2.
+***  Proved C3:  fld_mechanism(contents) <= cryptotypes__algorithmt__last
+     using hypothesis H3.
+***  PROVED VC.
+

@@ -1,0 +1,320 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:14  SIMPLIFIED 05-SEP-2011, 15:39:09
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure Auth.Construct
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/cert_/attr_/auth/auth.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_construct_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  privtypes__classt__first <= fld_class(fld_clearance(contents))
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  privtypes__privileget__first <= fld_role(contents)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___2 : integer, cryptotypes__namei__first <= i___2 and 
+          i___2 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(fld_basecertid(fld_inherit(contents)))), [i___2]) 
+          and element(fld_name(fld_issuer(fld_basecertid(fld_inherit(contents)))
+          ), [i___2]) <= character__last)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  cryptotypes__algorithmt__first <= fld_mechanism(fld_inherit(
+          fld_inherit(contents)))
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(fld_id(fld_inherit(fld_inherit(contents))))), [
+          i___1]) and element(fld_name(fld_issuer(fld_id(fld_inherit(
+          fld_inherit(contents))))), [i___1]) <= character__last)
+-S-  Applied substitution rule construct_rules(18).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__first by:
+          0.
+<S>  New C1:  fld_serialnumber(fld_id(fld_inherit(fld_inherit(contents)))) >= 0
+<S>  New C3:  fld_serialnumber(fld_id(fld_inherit(fld_inherit(contents)))) >= 0
+-S-  Applied substitution rule construct_rules(19).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__last by:
+          4294967295.
+<S>  New C2:  fld_serialnumber(fld_id(fld_inherit(fld_inherit(contents)))) <= 
+          4294967295
+<S>  New C4:  fld_serialnumber(fld_id(fld_inherit(fld_inherit(contents)))) <= 
+          4294967295
+-S-  Applied substitution rule construct_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H8:  for_all(i___2 : integer, cryptotypes__namei__first <= i___2 and 
+          i___2 <= cryptotypes__namei__last -> 0 <= element(fld_name(fld_issuer(
+          fld_basecertid(fld_inherit(contents)))), [i___2]) and element(
+          fld_name(fld_issuer(fld_basecertid(fld_inherit(contents)))), [i___2]) 
+          <= character__last)
+<S>  New H19:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(fld_issuer(
+          fld_id(fld_inherit(fld_inherit(contents))))), [i___1]) and element(
+          fld_name(fld_issuer(fld_id(fld_inherit(fld_inherit(contents))))), [
+          i___1]) <= character__last)
+-S-  Applied substitution rule construct_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H8:  for_all(i___2 : integer, cryptotypes__namei__first <= i___2 and 
+          i___2 <= cryptotypes__namei__last -> 0 <= element(fld_name(fld_issuer(
+          fld_basecertid(fld_inherit(contents)))), [i___2]) and element(
+          fld_name(fld_issuer(fld_basecertid(fld_inherit(contents)))), [i___2]) 
+          <= 255)
+<S>  New H19:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(fld_issuer(
+          fld_id(fld_inherit(fld_inherit(contents))))), [i___1]) and element(
+          fld_name(fld_issuer(fld_id(fld_inherit(fld_inherit(contents))))), [
+          i___1]) <= 255)
+-S-  Applied substitution rule construct_rules(24).
+     This was achieved by replacing all occurrences of 
+          privtypes__privileget__first by:
+          privtypes__useronly.
+<S>  New H4:  privtypes__useronly <= fld_role(contents)
+-S-  Applied substitution rule construct_rules(25).
+     This was achieved by replacing all occurrences of 
+          privtypes__privileget__last by:
+          privtypes__securityofficer.
+<S>  New H5:  fld_role(contents) <= privtypes__securityofficer
+-S-  Applied substitution rule construct_rules(51).
+     This was achieved by replacing all occurrences of privtypes__classt__first 
+          by:
+          privtypes__unmarked.
+<S>  New H2:  privtypes__unmarked <= fld_class(fld_clearance(contents))
+-S-  Applied substitution rule construct_rules(52).
+     This was achieved by replacing all occurrences of privtypes__classt__last 
+          by:
+          privtypes__topsecret.
+<S>  New H3:  fld_class(fld_clearance(contents)) <= privtypes__topsecret
+-S-  Applied substitution rule construct_rules(84).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namecountt__first by:
+          0.
+<S>  New H9:  fld_namelength(fld_issuer(fld_basecertid(fld_inherit(contents)))) 
+          >= 0
+<S>  New H20:  fld_namelength(fld_issuer(fld_id(fld_inherit(fld_inherit(
+          contents))))) >= 0
+-S-  Applied substitution rule construct_rules(85).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namecountt__last by:
+          40.
+<S>  New H10:  fld_namelength(fld_issuer(fld_basecertid(fld_inherit(contents))))
+           <= 40
+<S>  New H21:  fld_namelength(fld_issuer(fld_id(fld_inherit(fld_inherit(
+          contents))))) <= 40
+-S-  Applied substitution rule construct_rules(89).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namei__first by:
+          1.
+<S>  New H8:  for_all(i___2 : integer, 1 <= i___2 and i___2 <= 
+          cryptotypes__namei__last -> 0 <= element(fld_name(fld_issuer(
+          fld_basecertid(fld_inherit(contents)))), [i___2]) and element(
+          fld_name(fld_issuer(fld_basecertid(fld_inherit(contents)))), [i___2]) 
+          <= 255)
+<S>  New H19:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          cryptotypes__namei__last -> 0 <= element(fld_name(fld_issuer(fld_id(
+          fld_inherit(fld_inherit(contents))))), [i___1]) and element(fld_name(
+          fld_issuer(fld_id(fld_inherit(fld_inherit(contents))))), [i___1]) <= 
+          255)
+-S-  Applied substitution rule construct_rules(90).
+     This was achieved by replacing all occurrences of cryptotypes__namei__last 
+          by:
+          40.
+<S>  New H8:  for_all(i___2 : integer, 1 <= i___2 and i___2 <= 40 -> 0 <= 
+          element(fld_name(fld_issuer(fld_basecertid(fld_inherit(contents)))), [
+          i___2]) and element(fld_name(fld_issuer(fld_basecertid(fld_inherit(
+          contents)))), [i___2]) <= 255)
+<S>  New H19:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 40 -> 0 <= 
+          element(fld_name(fld_issuer(fld_id(fld_inherit(fld_inherit(contents)))
+          )), [i___1]) and element(fld_name(fld_issuer(fld_id(fld_inherit(
+          fld_inherit(contents))))), [i___1]) <= 255)
+-S-  Applied substitution rule construct_rules(94).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__issueridt__first by:
+          0.
+<S>  New H11:  fld_id(fld_issuer(fld_basecertid(fld_inherit(contents)))) >= 0
+<S>  New H22:  fld_id(fld_issuer(fld_id(fld_inherit(fld_inherit(contents))))) 
+          >= 0
+-S-  Applied substitution rule construct_rules(95).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__issueridt__last by:
+          4294967295.
+<S>  New H12:  fld_id(fld_issuer(fld_basecertid(fld_inherit(contents)))) <= 
+          4294967295
+<S>  New H23:  fld_id(fld_issuer(fld_id(fld_inherit(fld_inherit(contents))))) 
+          <= 4294967295
+-S-  Applied substitution rule construct_rules(102).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__algorithmt__first by:
+          cryptotypes__rsa.
+<S>  New H13:  cryptotypes__rsa <= fld_mechanism(fld_inherit(fld_inherit(
+          contents)))
+-S-  Applied substitution rule construct_rules(103).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__algorithmt__last by:
+          cryptotypes__ripemd160_rsa.
+<S>  New H14:  fld_mechanism(fld_inherit(fld_inherit(contents))) <= 
+          cryptotypes__ripemd160_rsa
+-S-  Applied substitution rule construct_rules(143).
+     This was achieved by replacing all occurrences of 
+          certtypes__serialnumbert__first by:
+          0.
+<S>  New H6:  fld_serialnumber(fld_basecertid(fld_inherit(contents))) >= 0
+<S>  New H17:  fld_serialnumber(fld_id(fld_inherit(fld_inherit(contents)))) >= 0
+-S-  Applied substitution rule construct_rules(144).
+     This was achieved by replacing all occurrences of 
+          certtypes__serialnumbert__last by:
+          4294967295.
+<S>  New H7:  fld_serialnumber(fld_basecertid(fld_inherit(contents))) <= 
+          4294967295
+<S>  New H18:  fld_serialnumber(fld_id(fld_inherit(fld_inherit(contents)))) <= 
+          4294967295
+***  Proved C1:  fld_serialnumber(fld_id(fld_inherit(fld_inherit(contents)))) 
+          >= 0
+     using hypothesis H17.
+***  Proved C3:  fld_serialnumber(fld_id(fld_inherit(fld_inherit(contents)))) 
+          >= 0
+     using hypothesis H17.
+***  Proved C2:  fld_serialnumber(fld_id(fld_inherit(fld_inherit(contents)))) 
+          <= 4294967295
+     using hypothesis H18.
+***  Proved C4:  fld_serialnumber(fld_id(fld_inherit(fld_inherit(contents)))) 
+          <= 4294967295
+     using hypothesis H18.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_construct_2.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  privtypes__classt__first <= fld_class(fld_clearance(contents))
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  privtypes__privileget__first <= fld_role(contents)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___2 : integer, cryptotypes__namei__first <= i___2 and 
+          i___2 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(fld_basecertid(fld_inherit(contents)))), [i___2]) 
+          and element(fld_name(fld_issuer(fld_basecertid(fld_inherit(contents)))
+          ), [i___2]) <= character__last)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  cryptotypes__algorithmt__first <= fld_mechanism(fld_inherit(
+          fld_inherit(contents)))
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(fld_id(fld_inherit(fld_inherit(contents))))), [
+          i___1]) and element(fld_name(fld_issuer(fld_id(fld_inherit(
+          fld_inherit(contents))))), [i___1]) <= character__last)
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H25).
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  cryptotypes__algorithmt__first <= fld_mechanism(fld_inherit(
+          fld_inherit(contents)))
+***  Proved C1:  cryptotypes__algorithmt__first <= fld_mechanism(fld_inherit(
+          fld_inherit(contents)))
+     using hypothesis H13.
+***  Proved C2:  fld_mechanism(fld_inherit(fld_inherit(contents))) <= 
+          cryptotypes__algorithmt__last
+     using hypothesis H14.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_construct_3.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  privtypes__classt__first <= fld_class(fld_clearance(contents))
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  privtypes__privileget__first <= fld_role(contents)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___2 : integer, cryptotypes__namei__first <= i___2 and 
+          i___2 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(fld_basecertid(fld_inherit(contents)))), [i___2]) 
+          and element(fld_name(fld_issuer(fld_basecertid(fld_inherit(contents)))
+          ), [i___2]) <= character__last)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  cryptotypes__algorithmt__first <= fld_mechanism(fld_inherit(
+          fld_inherit(contents)))
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(fld_id(fld_inherit(fld_inherit(contents))))), [
+          i___1]) and element(fld_name(fld_issuer(fld_id(fld_inherit(
+          fld_inherit(contents))))), [i___1]) <= character__last)
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H28 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as 
+          H14).
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  privtypes__privileget__first <= fld_role(contents)
+***  Proved C1:  privtypes__privileget__first <= fld_role(contents)
+     using hypothesis H4.
+***  Proved C2:  fld_role(contents) <= privtypes__privileget__last
+     using hypothesis H5.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_construct_4.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  privtypes__classt__first <= fld_class(fld_clearance(contents))
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  privtypes__privileget__first <= fld_role(contents)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___2 : integer, cryptotypes__namei__first <= i___2 and 
+          i___2 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(fld_basecertid(fld_inherit(contents)))), [i___2]) 
+          and element(fld_name(fld_issuer(fld_basecertid(fld_inherit(contents)))
+          ), [i___2]) <= character__last)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  cryptotypes__algorithmt__first <= fld_mechanism(fld_inherit(
+          fld_inherit(contents)))
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(fld_id(fld_inherit(fld_inherit(contents))))), [
+          i___1]) and element(fld_name(fld_issuer(fld_id(fld_inherit(
+          fld_inherit(contents))))), [i___1]) <= character__last)
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H28 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as H4)
+          .
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as H5)
+          .
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  privtypes__classt__first <= fld_class(fld_clearance(contents))
+***  Proved C1:  privtypes__classt__first <= fld_class(fld_clearance(contents))
+     using hypothesis H2.
+***  Proved C2:  fld_class(fld_clearance(contents)) <= privtypes__classt__last
+     using hypothesis H3.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_construct_5.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+

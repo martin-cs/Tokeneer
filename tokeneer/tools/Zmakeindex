@@ -1,0 +1,474 @@
+# Praxis Z styles and tools
+#
+# Copyright (c) 2008, Praxis High Integrity Systems Limited
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+#
+#  * Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+#  * Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in
+#    the documentation and/or other materials provided with the distribution.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+# PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+# OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+# PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+# LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+# NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+# SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+#------------------------------------------------------------------------------
+# Command     : Zmakeindex
+#
+# Generates index files from Z documents.
+# Input is an idx file produced by LaTeXing a file containing
+#   Z index entries (produced by running zlat2 before LaTeX), and
+#   traceunits.
+#------------------------------------------------------------------------------
+
+
+#------------------------------------------------------------------------------
+# Defaults
+#------------------------------------------------------------------------------
+
+# output file names
+$Zindexfile = 'z-index.tex';
+$tracefile = 'trace-index.tex';
+$reqfile = 'req-index.tex';
+$xreffile = 'xref-index.tex';
+
+$thorn_trace = 1;
+
+#------------------------------------------------------------------------------
+# User options
+#------------------------------------------------------------------------------
+
+require "getopts.pl";
+
+$usage = "
+Usage: Zmakeindex [-v] filename
+
+          -v     verbose output
+";
+
+( &Getopts('v') && @ARGV ) || die "$usage";
+
+$verbose = $opt_v;
+
+#------------------------------------------------------------------------------
+# Read index file, and collect references
+#------------------------------------------------------------------------------
+
+open(IDX, $ARGV[0]) || die "File $tmp.idx not opened: $!\n";
+$verbose && print STDERR "Reading index file $ARGV[0]\n";
+
+while (<IDX>) {
+  # Z names
+  if (/^\\indexentry{ZI:(.+)}{(\d+)}/o) {$z_index{$1} = $2;}
+
+  # Process a traceunit. Saving the index for the cross-reference index.
+  if (/^\\indexentry{TRACE UNIT (.+)}{(\d+)}/) { 
+    $index = $1;
+    $current_traceunit = $index;
+    $page = $2;
+
+    $index =~ s/\\unhbox \\voidb(\@x) \\kern 0.06em\\vbox {\\hrule width0.5em}/\\_/g;
+    $index =~ s/\\(\@lb) /\\\{/g;
+    $index =~ s/\\(\@rb)/\\\}/g;
+
+    if ($trace_index{$index} eq "")
+    {
+      $trace_index{$index} = $page; 
+    }
+    else {
+      die "Duplicate traceunit $index found\n";
+    }
+  }
+
+  # Process a trace to, use the last traceunit for the cross-reference index.
+  if (/^\\indexentry{TRACE TO (.*)}{(\d+)}/) { 
+    $index = $1;
+    $page = $2;
+
+    $index =~ s/\\unhbox \\voidb(\@x) \\kern 0.06em\\vbox {\\hrule width0.5em}/\\_/g;
+    $index =~ s/\\(\@lb) /\\\{/g;
+    $index =~ s/\\(\@rb)/\\\}/g;
+
+    if (/^\\indexentry{TRACE TO TA.*}{(\d+)}/) {  
+      if( /^\\indexentry{TRACE TO TA\s*([\d|\.]{5,})\s*(.+)}{(\d+)}/) {
+	($section, $subsection, $open_bracket, $number, $close_bracket) = &unpack_requirement ($index);
+	$index = "TA " . $section . $subsection . " " . $open_bracket . $number . $close_bracket; 
+      }
+      }
+    else {
+      warn "Non THORN style \\traceto found  - $index\n";
+    }
+
+    if ($requirements_index{$index} eq "") {
+      $requirements_index{$index} = $page;
+      $cross_reference_index{$index} = $current_traceunit;
+    }
+    elsif ($requirements_index{$index} ne $not_traced &&
+	   $requirements_index{$index} ne $deferred_trace) {
+      if  ($requirements_index{$index} eq "") {
+	$requirements_index{$index} = $page;
+	$cross_reference_index{$index} = $current_traceunit;
+      }    
+      else {
+	$requirements_index{$index} .= ", " . $page;
+	$cross_reference_index{$index} .= ", " . $current_traceunit;
+      }
+    }
+    else {
+      die "Error found at $index\nThe item is both traced to and not traced to or deferred\n";
+    }	
+  }
+
+  # Process a no trace unit.
+  if (/^\\indexentry{NO TRACE (.*)}{(\d+)}/) { 
+    $index = $1;
+    
+    $index =~ s/\\unhbox \\voidb\@x \\kern 0.06em\\vbox {\\hrule width0.5em}/\\_/g;
+    $index =~ s/\\\@lb /\\\{/g;
+    $index =~ s/\\\@rb/\\\}/g;
+    
+    if (/^\\indexentry{NO TRACE TA.*}{(\d+)}/) {  
+      if( /^\\indexentry{NO TRACE TA\s*([\d|\.]{5,})\s*(.+)}{(\d+)}/) {
+	($section, $subsection, $open_bracket, $number, $close_bracket) = &unpack_requirement ($index);
+	$index = "TA " . $section . $subsection . " " . $open_bracket . $number . $close_bracket;
+      }				# 
+      else {			# 
+	die "Non THORN style \\notrace found  - $index\n";
+      }     
+    }
+
+    if ($requirements_index{$index} eq "") {
+      $requirements_index{$index} = $not_traced;
+      $cross_reference_index{$index} = $not_traced;
+    }
+    elsif ($requirements_index{$index} eq $not_traced) {
+    # OK already
+    } 
+    elsif ($requirements_index{$index} eq $deferred_trace) {
+      die "Error found at $index\nThe item is both trace deferred and not traced to\n";
+    }
+    else {
+      die "Error found at $index\nThe item is both traced to and not traced to\n";
+    } 
+  }
+
+  # Process a deferred trace unit.
+  if (/^\\indexentry{DEFERRED TRACE (.*)}{(\d+)}/) { 
+    $index = $1;
+
+    $index =~ s/\\unhbox \\voidb\@x \\kern 0.06em\\vbox {\\hrule width0.5em}/\\_/g;
+    $index =~ s/\\\@lb /\\\{/g;
+    $index =~ s/\\\@rb/\\\}/g;
+    
+    if (/^\\indexentry{DEFERRED TRACE TA.*}{(\d+)}/) {  
+      if( /^\\indexentry{DEFERRED TRACE TA\s*([\d|\.]{5,})\s*(.+)}{(\d+)}/) {
+	($section, $subsection, $open_bracket, $number, $close_bracket) = &unpack_requirement ($index);
+	$index = "TA " . $section . $subsection . " " . $open_bracket . $number . $close_bracket;
+      }
+    }
+    else {
+      die "Non THORN style \\deferredtrace found  - $index\n";
+    }
+
+    if ($requirements_index{$index} eq "") {
+      $requirements_index{$index} = $deferred_trace;
+      $cross_reference_index{$index} = $deferred_trace;
+    }
+    elsif ($requirements_index{$index} eq $deferred_trace) {
+  # OK already
+    } 
+    elsif ($requirements_index{$index} eq $not_traced) {
+      die "Error found at $index\nThe item is both trace deferred and not traced to\n";
+    }
+    else {
+      die "Error found at $index\nThe item is both traced to and trace deferred\n";
+    } 
+  } 
+};
+
+close(IDX);
+
+#------------------------------------------------------------------------------
+# Write index ( Z name -> page no )
+#------------------------------------------------------------------------------
+
+print STDERR "Writing Z index to $Zindexfile ...\n";
+open(ZIND,">$Zindexfile") || die "Can't open $Zindexfile for writing\n";
+$verbose && print STDERR "Writing (Z->page) index to $Zindexfile\n";
+
+foreach $sch (sort(znocase_sort keys(%z_index))) {
+  print ZIND '\item $',"$sch",'$ \dotfill '," $z_index{$sch}\n";
+} # foreach
+
+close(ZIND);
+
+#------------------------------------------------------------------------------
+# Write index ( traceunit -> page no )
+#------------------------------------------------------------------------------
+
+print STDERR "Writing traceunit index to $tracefile ...\n";
+open(TRACEIND, ">$tracefile") || die "Can't open $tracefile for writing\n";
+$verbose && print STDERR "Writing (traceunit->page) index to $tracefile\n";
+
+foreach $tr (sort(nocase_sort keys(%trace_index)))
+{
+  print TRACEIND '\item ',"$tr",' \dotfill '," $trace_index{$tr}\n";
+}
+
+close(TRACEIND);
+
+#------------------------------------------------------------------------------
+# Write index ( requirement -> page no )
+#------------------------------------------------------------------------------
+
+print STDERR "Writing requirements index to $reqfile ...\n";
+open(REQIND, ">$reqfile") || die "Can't open $reqfile for writing\n";
+$verbose && print STDERR "Writing (requirement->page) index to $reqfile\n";
+
+if ($thorn_trace) {
+  $current_section = "0.0.0.0.0";
+  foreach $req (sort(requirement_sort keys(%requirements_index))) {
+    $new_section = &get_section($req) . &get_subsection($req);
+    if ($new_section ne $current_section) {
+      #print REQIND '\indexspace',"\n";
+      $current_section = $new_section;
+    }
+    print REQIND '\item ',"$req",' \dotfill '," $requirements_index{$req}\n";
+  } # foreach
+}
+else {
+  foreach $req (sort(nocase_sort keys(%requirements_index))) {
+    print REQIND '\item ',"$req",' \dotfill ',"$requirements_index{$req}\n";
+  } # foreach
+}
+
+close(REQIND);
+
+#------------------------------------------------------------------------------
+# End of processing
+#------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------
+# Subroutine: nocase_sort
+#
+# Description: Sorts an index in a case insensitive way
+#
+#------------------------------------------------------------------------------
+
+sub nocase_sort {
+  local($nocase_a, $nocase_b, $result);
+
+  $nocase_a = $a; $nocase_b = $b;
+
+  $nocase_a =~ tr/A-Z/a-z/;  # we remove '\\' from names before comparison
+  $nocase_b =~ tr/A-Z/a-z/;
+
+  $result = $nocase_a cmp $nocase_b;
+}
+
+#------------------------------------------------------------------------------
+# Subroutine: znocase_sort
+#
+# Description: Sorts a Z index in a case insensitive way
+#
+#------------------------------------------------------------------------------
+
+sub znocase_sort {
+  local($nocase_a, $nocase_b, $result);
+
+  $nocase_a = $a; $nocase_b = $b;
+
+  # Z name may be prefix, infix, or postfix so strip off '\_' argument
+  # placeholders for comparison of operator names
+  ($a =~ /(\\_[~\s]*)?([\w\\]+)([~\s]*\\_)?/o) && ($nocase_a = $2);
+  ($b =~ /(\\_[~\s]*)?([\w\\]+)([~\s]*\\_)?/o) && ($nocase_b = $2);
+
+  $nocase_a =~ tr/A-Z\\/a-z/d;  # we remove '\\' from names before comparison
+  $nocase_b =~ tr/A-Z\\/a-z/d;
+
+  $result = $nocase_a cmp $nocase_b;
+}
+
+#------------------------------------------------------------------------------
+# Various functions for unpacking the thorn requirements into section,
+# subsection and number.
+#
+# The format of each string is "TA <section>.<subsection> <lb><number><rb>" 
+# and <rb> are any of [,\{,( and ],\},) respectively. 
+#
+#------------------------------------------------------------------------------
+
+sub get_section {
+  local ($req) = @_;
+
+  local($section);
+
+  ($section) = ($req =~ /TA\s*([\d|\.]{5,}).*/);
+
+  if (length($section) > 7) {
+    ($section) = ($section =~ /(.{7}).*/);
+  }
+  elsif ($section eq "") {
+    $section = $req;
+  }
+
+  return ($section);
+}
+
+sub get_subsection {
+  local ($req) = @_;
+
+  local($section,$sub_section,$number,$dummy1,$dummy2);
+
+  ($section) = ($req =~ /TA\s*([\d|\.]{5,})\s*.*/);
+
+  if (length($section) > 7) {
+    ($subsection) = ($section =~ /.{7}(.*)/);
+  }
+  else {
+    $subsection = "";
+  }
+
+  return ($subsection);
+}
+
+sub get_number {
+  local ($req) = @_;
+
+  local($section,$number,$dummy1,$dummy2);
+
+  ($section,$dummy1,$number,$dummy2) = ($req =~ /TA\s*([\d|\.]*)\s*(\\\{|[\[\(])(\d+)(\\\}|[\]\)])/);
+
+  return ($number);
+}
+
+sub get_brackets {
+ local ($req) = @_;
+
+  local($section,$number,$open_bracket,$close_bracket);
+
+  ($section,$open_bracket,$number,$close_bracket) = ($req =~ /TA\s*([\d|\.]*)\s*(\\\{|[\[\(])(\d+)(\\\}|[\]\)])/);
+
+  return ($open_bracket,$close_bracket);
+}
+
+sub unpack_requirement {
+  local($req) = @_;
+
+  local($section,$subsection,$number,$open_bracket,$close_bracket);
+
+  $section = &get_section ($req);
+  $subsection = &get_subsection ($req);
+  $number = &get_number ($req);
+  ($open_bracket,$close_bracket) = &get_brackets($req);
+
+  # Check if expressions matched. If not then it must be an odd style.
+  if ($section eq "") {
+    $section = $req;
+    $subsection = "";
+    $open_bracket = "";
+    $close_bracket = "";
+    $number = 0;
+  }
+
+  return($section,$subsection,$open_bracket,$number,$close_bracket);  
+}
+
+#------------------------------------------------------------------------------
+# Subroutine: requirement_sort
+#
+# Description: Sorts the requirements list into the correct order. They are 
+#              ordered primarily by <section>, then by <subsection>,
+#              then by bracket, and then by <number>.  This assumes that only
+#              subsections will ever enter double figures. subsections may
+#              also be missing.
+#------------------------------------------------------------------------------
+
+sub requirement_sort {
+  local($a_section,$a_sub_section,$a_number,$b_section,$b_sub_section,$b_number,
+        $result,$a_open_bracket,$a_close_bracket,$b_open_bracket,$b_close_bracket);
+   
+  local ($a_subs,$b_subs);
+        
+  ($a_section,$a_subsection,$a_open_bracket,$a_number,$a_close_bracket) = &unpack_requirement($a);
+  ($b_section,$b_subsection,$b_open_bracket,$b_number,$b_close_bracket) = &unpack_requirement($b);
+
+  if ($a_section eq $b_section) {
+    if ($a_subsection eq $b_subsection) {
+      if ($a_open_bracket eq $b_open_bracket) {
+        $result = $a_number <=> $b_number;
+      }
+      else {
+        $result = $a_open_bracket cmp $b_open_bracket;
+      }
+    }
+    else {
+      # Get rid of the dot so we can compare as numbers
+      ($a_subs) = ($a_subsection =~ /[\.](\d*)/);
+      ($b_subs) = ($b_subsection =~ /[\.](\d*)/);
+
+      if ($a_subs eq "") {
+        $result = 0 <=> $b_subs;
+      }
+      elsif ($b_subs eq "") {
+        $result = $a_subs <=> 0;
+      }
+      else {
+        $result = $a_subs <=> $b_subs;
+      }
+    }
+  }
+  else {
+    $result = $a_section cmp $b_section;
+  }
+}
+
+#------------------------------------------------------------------------------
+# Subroutine: print_cross_ref
+#
+# Description: prints a list of trace cross references for the index. The cross 
+#              references are sorted alphabetically.
+#------------------------------------------------------------------------------
+
+sub print_cross_ref {
+  local ($filehandle,$ref,$cross_refs) = @_;
+
+  local (@traces,$new_traces,$first);
+
+  @traces = split(/,\s*/,$cross_refs);	
+
+  # Shove them all into an array so we can sort them
+  $tr = shift @traces;
+  %new_traces = ();
+  while ($tr ne "") {
+    $new_traces{$tr} = $ref;
+    $tr = shift @traces;  
+  } 
+  
+  # Sort and print them
+  $first = 1;
+  foreach $tr (sort(nocase_sort keys(%new_traces))) {
+    if ($first) {
+      print $filehandle '\item ',"$ref",' \dotfill '," $tr\n";
+      $first = 0;
+    }
+    else {
+      print $filehandle '\item \hfill '," $tr\n"; 
+    }
+  }
+}
+

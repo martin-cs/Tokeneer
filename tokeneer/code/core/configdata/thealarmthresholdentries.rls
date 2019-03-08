@@ -1,0 +1,32 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:30.78*/
+
+                /*function ConfigData.TheAlarmThresholdEntries*/
+
+
+rule_family thealarmthre_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+thealarmthre_rules(1): audittypes__sizeauditelement may_be_replaced_by 256.
+thealarmthre_rules(2): audittypes__filesizet__size >= 0 may_be_deduced.
+thealarmthre_rules(3): audittypes__filesizet__first may_be_replaced_by 0.
+thealarmthre_rules(4): audittypes__filesizet__last may_be_replaced_by 4194304.
+thealarmthre_rules(5): audittypes__filesizet__base__first may_be_replaced_by -2147483648.
+thealarmthre_rules(6): audittypes__filesizet__base__last may_be_replaced_by 2147483647.
+thealarmthre_rules(7): audittypes__auditentrycountt__size >= 0 may_be_deduced.
+thealarmthre_rules(8): audittypes__auditentrycountt__first may_be_replaced_by 0.
+thealarmthre_rules(9): audittypes__auditentrycountt__last may_be_replaced_by 16384.
+thealarmthre_rules(10): audittypes__auditentrycountt__base__first <= 
+     audittypes__auditentrycountt__base__last may_be_deduced.
+thealarmthre_rules(11): audittypes__auditentrycountt__base__first <= 
+     audittypes__auditentrycountt__first may_be_deduced.
+thealarmthre_rules(12): audittypes__auditentrycountt__base__last >= 
+     audittypes__auditentrycountt__last may_be_deduced.

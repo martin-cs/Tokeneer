@@ -1,0 +1,70 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:08.08
+
+                      function AuditLog.NextListIndex
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 194:
+
+function_nextlistindex_1.
+H1:    true .
+H2:    value >= logfileindext__first .
+H3:    value <= logfileindext__last .
+H4:    value = logfileindext__last .
+        ->
+C1:    logfileindext__first >= logfileindext__first .
+C2:    logfileindext__first <= logfileindext__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 196:
+
+function_nextlistindex_2.
+H1:    true .
+H2:    value >= logfileindext__first .
+H3:    value <= logfileindext__last .
+H4:    not (value = logfileindext__last) .
+        ->
+C1:    value + 1 >= logfileindext__first .
+C2:    value + 1 <= logfileindext__last .
+ 
+
+For path(s) from start to finish:
+
+function_nextlistindex_3.
+H1:    true .
+H2:    value >= logfileindext__first .
+H3:    value <= logfileindext__last .
+H4:    value = logfileindext__last .
+H5:    logfileindext__first >= logfileindext__first .
+H6:    logfileindext__first <= logfileindext__last .
+H7:    logfileindext__first >= logfileindext__first .
+H8:    logfileindext__first <= logfileindext__last .
+        ->
+C1:    true .
+C2:    logfileindext__first >= logfileindext__first .
+C3:    logfileindext__first <= logfileindext__last .
+ 
+
+function_nextlistindex_4.
+H1:    true .
+H2:    value >= logfileindext__first .
+H3:    value <= logfileindext__last .
+H4:    not (value = logfileindext__last) .
+H5:    value + 1 >= logfileindext__first .
+H6:    value + 1 <= logfileindext__last .
+H7:    value + 1 >= logfileindext__first .
+H8:    value + 1 <= logfileindext__last .
+        ->
+C1:    true .
+C2:    value + 1 >= logfileindext__first .
+C3:    value + 1 <= logfileindext__last .
+ 
+

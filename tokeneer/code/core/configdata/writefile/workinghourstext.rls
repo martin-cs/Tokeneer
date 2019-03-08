@@ -1,0 +1,41 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:29.46*/
+
+               /*function ConfigData.WriteFile.WorkingHoursText*/
+
+
+rule_family workinghours_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+workinghours_rules(1): integer__size >= 0 may_be_deduced.
+workinghours_rules(2): integer__first may_be_replaced_by -2147483648.
+workinghours_rules(3): integer__last may_be_replaced_by 2147483647.
+workinghours_rules(4): integer__base__first may_be_replaced_by -2147483648.
+workinghours_rules(5): integer__base__last may_be_replaced_by 2147483647.
+workinghours_rules(6): character__size >= 0 may_be_deduced.
+workinghours_rules(7): character__first may_be_replaced_by 0.
+workinghours_rules(8): character__last may_be_replaced_by 255.
+workinghours_rules(9): character__base__first may_be_replaced_by 0.
+workinghours_rules(10): character__base__last may_be_replaced_by 255.
+workinghours_rules(11): clock__durationt__size >= 0 may_be_deduced.
+workinghours_rules(12): clock__durationt__first may_be_replaced_by 0.
+workinghours_rules(13): clock__durationt__last may_be_replaced_by 864000.
+workinghours_rules(14): clock__durationt__base__first <= 
+     clock__durationt__base__last may_be_deduced.
+workinghours_rules(15): clock__durationt__base__first <= 
+     clock__durationt__first may_be_deduced.
+workinghours_rules(16): clock__durationt__base__last >= 
+     clock__durationt__last may_be_deduced.
+workinghours_rules(17): string5i__size >= 0 may_be_deduced.
+workinghours_rules(18): string5i__first may_be_replaced_by 1.
+workinghours_rules(19): string5i__last may_be_replaced_by 5.
+workinghours_rules(20): string5i__base__first may_be_replaced_by -2147483648.
+workinghours_rules(21): string5i__base__last may_be_replaced_by 2147483647.

@@ -1,0 +1,85 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:24.76}
+
+                        {procedure UserEntry.Progress}
+
+
+title procedure progress;
+
+  function round__(real) : integer;
+  type clock__currenttime__type = pending;
+  type clock__timet = pending;
+  type alarmtypes__statust = (alarmtypes__alarming, 
+     alarmtypes__silent);
+  type latch__statetype = pending;
+  type door__statetype = pending;
+  type door__t = (door__open, door__closed);
+  type keystore__state__type = pending;
+  type usertoken__state__type = pending;
+  type statust = (quiescent, gotusertoken, waitingfinger, 
+     gotfinger, waitingupdatetoken, waitingentry, 
+     waitingremovetokensuccess, waitingremovetokenfail);
+  type prf_statet = record
+        tokenremovaltimeout : clock__timet;
+        fingertimeout : clock__timet;
+        status : statust
+     end;
+  const activestatust__base__first : statust = pending; 
+  const activestatust__base__last : statust = pending; 
+  const statust__base__first : statust = pending; 
+  const statust__base__last : statust = pending; 
+  const door__t__base__first : door__t = pending; 
+  const door__t__base__last : door__t = pending; 
+  const alarmtypes__statust__base__first : alarmtypes__statust = pending; 
+  const alarmtypes__statust__base__last : alarmtypes__statust = pending; 
+  const activestatust__first : statust = pending; 
+  const activestatust__last : statust = pending; 
+  const activestatust__size : integer = pending; 
+  const statust__first : statust = pending; 
+  const statust__last : statust = pending; 
+  const statust__size : integer = pending; 
+  const door__t__first : door__t = pending; 
+  const door__t__last : door__t = pending; 
+  const door__t__size : integer = pending; 
+  const alarmtypes__statust__first : alarmtypes__statust = pending; 
+  const alarmtypes__statust__last : alarmtypes__statust = pending; 
+  const alarmtypes__statust__size : integer = pending; 
+  var clock__currenttime : clock__currenttime__type;
+  var latch__state : latch__statetype;
+  var door__state : door__statetype;
+  var keystore__state : keystore__state__type;
+  var usertoken__state : usertoken__state__type;
+  var state : prf_statet;
+  var status : statust;
+  var fingertimeout : clock__timet;
+  var tokenremovaltimeout : clock__timet;
+  function clock__thecurrenttime(clock__currenttime__type) : 
+     clock__timet;
+  function clock__greaterthanorequal(clock__timet, clock__timet) : boolean;
+  function latch__islocked(latch__statetype) : boolean;
+  function door__prf_alarmtimeout(door__statetype) : clock__timet;
+  function door__thecurrentdoor(door__statetype) : door__t;
+  function door__thedooralarm(door__statetype) : 
+     alarmtypes__statust;
+  function keystore__privatekeypresent(keystore__state__type) : boolean;
+  function usertoken__ispresent(usertoken__state__type) : boolean;
+  function prf_userentryunlockdoor : boolean;
+  function userentry__currentactivitypossible(prf_statet, 
+     usertoken__state__type) : boolean;
+  var status__7 : statust;
+  var status__6 : statust;
+  var door__state__6 : door__statetype;
+  var latch__state__6 : latch__statetype;
+  var status__5 : statust;
+  var status__4 : statust;
+  var status__3 : statust;
+  var status__2 : statust;
+  var status__1 : statust;
+
+end;

@@ -1,0 +1,87 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:16.05
+
+                      procedure CertificateStore.Init
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 288:
+
+procedure_init_1.
+H1:    true .
+H2:    true .
+H3:    file__exists(storefile__1) .
+H4:    nextserialnumber__2 >= certtypes__serialnumbert__first .
+H5:    nextserialnumber__2 <= certtypes__serialnumbert__last .
+H6:    true .
+H7:    true .
+        ->
+C1:    nextserialnumber__2 >= certtypes__serialnumbert__first .
+C2:    nextserialnumber__2 <= certtypes__serialnumbert__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 293:
+
+procedure_init_2.
+H1:    true .
+H2:    true .
+H3:    file__exists(storefile__1) .
+H4:    nextserialnumber__2 >= certtypes__serialnumbert__first .
+H5:    nextserialnumber__2 <= certtypes__serialnumbert__last .
+H6:    true .
+H7:    true .
+H8:    nextserialnumber__2 >= certtypes__serialnumbert__first .
+H9:    nextserialnumber__2 <= certtypes__serialnumbert__last .
+H10:   true .
+H11:   not readok__2 .
+        ->
+C1:    audittypes__warning >= audittypes__severityt__first .
+C2:    audittypes__warning <= audittypes__severityt__last .
+C3:    audittypes__systemfault >= audittypes__elementt__first .
+C4:    audittypes__systemfault <= audittypes__elementt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 303:
+
+procedure_init_3.
+H1:    true .
+H2:    true .
+H3:    not (file__exists(storefile__1)) .
+        ->
+C1:    certtypes__serialnumbert__first >= 
+           certtypes__serialnumbert__first .
+C2:    certtypes__serialnumbert__first <= 
+           certtypes__serialnumbert__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_init_4.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_init_5.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_init_6.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+For checks of refinement integrity: 
+
+procedure_init_7.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_init_8.
+*** true .          /* trivially true VC removed by Examiner */
+
+

@@ -1,0 +1,998 @@
+
+%==========================================================================
+\chapter{The Token ID Station}
+\label{sec:TIS}
+%==========================================================================
+TIS maintains various state components, these are described and
+elaborated within this section. 
+
+%----------------------------------------------------------------------
+\section{Configuration Data}
+%----------------------------------------------------------------------
+
+\begin{traceunit}{FD.ConfigData.State}
+\traceto{FS.ConfigData.State}
+\end{traceunit}
+
+$ConfigData$ will be a structure with all the configuration data. 
+Configuration data can only be modified by an administrator.
+This data includes:
+\begin{itemize}
+\item 
+Durations for internal timeouts, these effect
+\begin{itemize}
+\item
+how long the
+system waits before raising an audible (door) alarm;
+\item
+how long the system
+leaves the door unlocked for;
+\item
+how long the system waits for a token to be removed before unloading
+the door; and
+\item
+how long the system attempts to capture a matching fingerprint.
+\end{itemize}
+\item
+The security classification of the enclave. For this implementation
+only the $CLASS$ is considered.
+\item
+A definition of the current working hours, this is in terms of the
+start and end of the working day. All days are considered working
+days, so there is no special treatment of weekends.
+\item 
+A definition of the current maximum authorisation period applied to an
+authorisation certificate if ``all hours'' access is given.
+\item
+The access policy used to determine the entry conditions and the 
+authorisation period. 
+\begin{itemize}
+\item
+The access policy is either ``working hours only'' or
+``all hours''.
+\item
+When the access policy is ``working hours only'' the authorisation
+period will be from the current time to the end of the current working
+day. This may be empty if the current time is after the end of the
+working day. The user will only be admitted to the enclave if the
+current time is within working hours.
+\item
+When the access policy is ``all hours'' the authorisation period will
+be from the current time for the maximum authorisation duration.
+The user will always be allowed into the enclave if all identification
+checks are satisified.
+\end{itemize}
+\item
+The lowest security classification a user must hold to gain entry to
+the enclave. If this condition is not met then entry will be denied.
+\item
+$minPreservedLogSizeC$ gives the minimum size of audit log that must be supported without
+truncation.  A slightly smaller
+value, $alarmThresholdSizeC$,
+sets the number of audit entries at which an alarm is raised, 
+with the intension that the
+audit log will be archived and cleared before the maximum size is
+reached.
+\item
+$minEntryClass$ must be no higher class than $enclaveClearanceC$. This
+ensures that any authorisation certificate issued with this
+configuration data will also permit entry.
+\item
+$systemMaxFAR$ gives the system minimum acceptable false accept rate. This
+will override the FAR provided within a template where the template
+FAR exceeds this system limit.
+\end{itemize}
+
+\begin{zed}
+        ACCESS\_POLICY ::=workingHours | allHours
+\end{zed}
+
+\begin{schema}{ConfigData}
+	alarmSilentDurationC, latchUnlockDurationC : TIME
+\\      tokenRemovalDurationC : TIME
+\\      fingerWaitDuration : TIME
+\\      enclaveClearanceC : CLASS
+\also
+        workingHoursStart : DAYTIME
+\\      workingHoursEnd : DAYTIME
+\\      maxAuthDuration : DAYTIME
+\\      accessPolicy : ACCESS\_POLICY
+\\      minEntryClass : CLASS 
+\also
+        minPreservedLogSizeC : \nat
+\\      alarmThresholdSizeC : \nat
+\also
+        systemMaxFar : INTEGER32
+\where
+        alarmThresholdSizeC < minPreservedLogSizeC   
+\\      minPreservedLogSizeC \leq maxSupportedLogSize
+\\      minEntryClass = minClass\{ minEntryClass, enclaveClearanceC \}
+\end{schema}
+\begin{Zcomment}
+\item
+The upper bound on the $minPreservedLogSizeC$ ensures that the system can
+support the selected value for this.
+\end{Zcomment}
+
+Notice that the concrete configuration data is simplified so that
+authorisation periods and entry criteria do not depend on the user's
+privilege. This is a design decision to simplify
+these. 
+
+The authorisation period is always a contiguous range of times. This
+is necessary due to the way that the authorisation period is encoded
+in the authorisation certificate.
+
+The entry period is the same for each day. 
+
+$ConfigData$ defines the data that must be provided in order to
+perform a configuration. $ConfigC$ contains
+extra components which are derived from $ConfigData$.
+
+\begin{schema}{ConfigC}
+        ConfigData
+\also
+        authPeriodC : TIME \fun \power TIME
+\\      entryPeriodC : CLASS \fun \power TIME
+\\      authPeriodIsEmpty : \power TIME
+\\      getAuthPeriod : TIME \pfun TIME \cross TIME
+\\      alarmThresholdEntries : \nat
+\where
+        accessPolicy = allHours 
+\\ \t1  \land 
+        authPeriodC = \{ t : TIME @ t \mapsto t \upto max~ \{0, t +
+        maxAuthDuration - 1 \} \}
+\\ \t1  \land 
+        entryPeriodC = 
+        \{ c : CLASS | maxClass \{ c, minEntryClass \} = c @ c
+        \mapsto TIME \}
+\\ \t2        \cup \{ c : CLASS | maxClass \{ c, minEntryClass \} \neq
+        c @ c \mapsto \emptyset \}
+\\      \lor 
+\\      accessPolicy = workingHours 
+\\ \t1  \land authPeriodC = \{ t :
+        TIME @ t \mapsto (t \div dayLength) * dayLength +
+        workingHoursStart \upto  
+\\ \t4  (t \div dayLength) * dayLength + workingHoursEnd \}
+\\ \t1  \land entryPeriodC = 
+\\ \t2        \{ c : CLASS | maxClass \{ c, minEntryClass \} = c 
+\\ \t3  @ c \mapsto
+        \{ t : TIME | t \mod dayLength \in
+        workingHoursStart \upto workingHoursEnd \} \}          
+\\ \t2  \cup \{ c : CLASS | maxClass \{ c, minEntryClass \} \neq c @ c
+        \mapsto \emptyset \}
+\also
+        authPeriodIsEmpty = \{ t : TIME | authPeriodC~ t = \emptyset
+        \}
+\\      getAuthPeriod = \{ t : TIME | authPeriodC~ t \neq \emptyset @
+        t \mapsto (min~ (authPeriodC~ t), max~ (authPeriodC~ t)) \}   
+\also
+\\      (alarmThresholdEntries - 1) * sizeAuditElement < alarmThresholdSizeC
+\\      alarmThresholdEntries * sizeAuditElement \geq alarmThresholdSizeC 
+\end{schema}
+\begin{Zcomment}
+\item
+Invarients on $authPeriodC$ and $entryPeriodC$ define these functions
+in terms of the other configuration items. These values will not be
+supplied as part of configuration data.
+\item
+Invarients on  $alarmThresholdEntries$ define this
+values in terms of other configuration items. 
+$alarmThresholdEntries$ is the number of elements in the log after
+which the audit alarm will be raised.
+\item
+$getAuthPeriod$ and $authPeriodIsEmpty$ are completely determined by
+invarients relating these entities to other configuration items.
+\end{Zcomment}
+
+%--------------------------------------------------------------------------
+\section{Audit Log}
+%--------------------------------------------------------------------------
+
+\begin{traceunit}{FD.AuditLog.State}
+\traceto{FS.AuditLog.State}
+\traceto{FAU\_GEN.1.1}
+\traceto{FAU\_GEN.1.2}
+\end{traceunit}
+
+TIS maintains an audit log. This is a log of all auditable events and
+actions performed or monitored by TIS. The audit log will be used to
+analyse the interactions with the TIS.
+
+$Audit$ will be a structure for each audit record, 
+recording at least time of event, type of event, user if known, the
+user is identified from the ID Certificate on the token and a free
+text description. The free text may contain additional information
+relating to the specific type of event.
+
+\begin{zed}
+	AUDIT\_ELEMENT ::= 
+\\ \t1        startUnenrolledTISElement
+        | startEnrolledTISElement
+        | enrolmentCompleteElement
+        | enrolmentFailedElement
+\\ \t1       | displayChangedElement
+        | screenChangedElement
+        | doorClosedElement
+        | doorOpenedElement
+\\ \t1        | latchLockedElement
+        | latchUnlockedElement
+        | alarmRaisedElement
+        | alarmSilencedElement
+\\ \t1        | truncateLogElement
+        | auditAlarmRaisedElement
+        | auditAlarmSilencedElement
+\\ \t1        | userTokenRemovedElement
+        | userTokenPresentElement
+        | userTokenInvalidElement
+\\ \t1        | authCertValidElement
+        | authCertInvalidElement
+\\ \t1        | fingerDetectedElement
+        | fingerTimeoutElement
+        | fingerMatchedElement
+        | fingerNotMatchedElement
+\\ \t1        | authCertWrittenElement
+        | authCertWriteFailedElement
+\\ \t1        | entryPermittedElement
+        | entryTimeoutElement
+        | entryDeniedElement
+\\ \t1        | adminTokenPresentElement
+        | adminTokenValidElement
+        | adminTokenInvalidElement
+\\ \t1  | adminTokenExpiredElement
+        | adminTokenRemovedElement
+\\ \t1        | invalidOpRequestElement
+        | operationStartElement
+\\ \t1        | archiveLogElement
+        | archiveCompleteElement
+        | archiveCheckFailedElement
+        | updatedConfigDataElement
+\\ \t1        | invalidConfigDataElement
+        | shutdownElement
+        | overrideLockElement
+        | systemFaultElement
+\also
+        AUDIT\_SEVERITY ::= information | warning | critical
+\end{zed}
+
+\begin{zed}
+        USER\_INDEPENDENT\_ELEMENTS == \{ systemFaultElement,
+        displayChangedElement,
+        screenChangedElement,
+\\ \t1  doorClosedElement,
+        doorOpenedElement,
+        latchLockedElement,
+        latchUnlockedElement,
+\\ \t1  alarmRaisedElement,
+        alarmSilencedElement,
+        auditAlarmRaisedElement,
+        auditAlarmSilencedElement,
+        truncateLogElement \}
+
+\also
+        USER\_ENTRY\_ELEMENTS == \{ 
+        userTokenRemovedElement,
+        userTokenPresentElement,
+\\ \t1        userTokenInvalidElement,
+         authCertValidElement,
+        authCertInvalidElement,
+        fingerDetectedElement,
+\\ \t1  fingerTimeoutElement,
+         fingerMatchedElement,
+         fingerNotMatchedElement,
+\\ \t1   authCertWrittenElement,
+         authCertWriteFailedElement,
+\\ \t1   entryPermittedElement,
+         entryTimeoutElement,
+         entryDeniedElement \}
+
+\also
+        ADMIN\_ELEMENTS == \{ 
+        adminTokenPresentElement,
+        adminTokenValidElement,
+\\ \t1         adminTokenInvalidElement,
+        adminTokenExpiredElement,
+         adminTokenRemovedElement,
+\\ \t1   invalidOpRequestElement,
+         operationStartElement,
+\\ \t1         archiveLogElement,
+        archiveCompleteElement,
+         archiveCheckFailedElement,
+         updatedConfigDataElement,
+\\ \t1   invalidConfigDataElement,
+        shutdownElement,
+        overrideLockElement \}
+\also
+        ENROL\_ELEMENTS == \{ 
+         enrolmentCompleteElement,
+         enrolmentFailedElement \}
+
+\also
+        STARTUP\_ELEMENTS == \{ 
+       startUnenrolledTISElement,
+         startEnrolledTISElement \}
+
+        
+\also
+        INFO\_ELEMENTS == \{ 
+        startUnenrolledTISElement,
+        startEnrolledTISElement,
+        enrolmentCompleteElement,
+\\ \t1        displayChangedElement,
+        screenChangedElement,
+        doorClosedElement,
+        doorOpenedElement,
+\\ \t1        latchLockedElement,
+        latchUnlockedElement,
+        alarmSilencedElement,
+        auditAlarmSilencedElement,
+\\ \t1      userTokenRemovedElement,
+        userTokenPresentElement,
+        authCertValidElement,
+\\ \t1        authCertInvalidElement,
+      fingerDetectedElement,
+        fingerMatchedElement,
+        fingerNotMatchedElement,
+\\ \t1      authCertWrittenElement,
+      entryPermittedElement,
+      adminTokenPresentElement,
+        adminTokenValidElement,
+\\ \t1        adminTokenRemovedElement,
+        operationStartElement,
+      archiveLogElement,
+        archiveCompleteElement,
+\\ \t1        updatedConfigDataElement,
+        shutdownElement,
+        overrideLockElement
+        \} 
+\also
+	WARNING\_ELEMENTS == 
+        \{
+         enrolmentFailedElement,
+        auditAlarmRaisedElement,
+        userTokenRemovedElement,
+\\ \t1         userTokenInvalidElement,
+        fingerTimeoutElement,
+         authCertWriteFailedElement,
+         entryDeniedElement,
+\\ \t1        entryTimeoutElement,
+         adminTokenInvalidElement,
+\\ \t1   adminTokenExpiredElement,
+         adminTokenRemovedElement,
+       invalidOpRequestElement,
+\\ \t1         archiveCheckFailedElement,
+        invalidConfigDataElement, 
+        systemFaultElement
+        \}
+\also
+	CRITICAL\_ELEMENTS == 
+        \{
+         alarmRaisedElement,
+         truncateLogElement,
+         systemFaultElement
+        \}
+\end{zed}
+
+\begin{traceunit}{FD.AuditLog.ExtractUser}
+\end{traceunit}
+
+Each audit element has an associated user, if the user is not relevant
+or not available then the $noUser$ value is used.
+
+\begin{zed}
+        USERTEXT ::= noUser | thisUser \ldata CertificateIdC \rdata
+\end{zed}
+
+There is an extraction function which obtains the user from the
+current token. This will extract the CertificateIdC from any token
+sufficiently valid to contain one or return $noUser$.
+
+\begin{axdef}
+        extractUser : TOKENTRYC \fun USERTEXT
+\end{axdef}
+
+Each audit element has a free text field. This is an informal
+description of the entry and may contain no text.
+
+\begin{zed}
+        [ TEXT ]
+\end{zed}
+
+\begin{axdef}
+        noDescription : TEXT
+\end{axdef}
+
+
+\begin{schema}{AuditC}
+        logTime : TIME
+\\      elementId : AUDIT\_ELEMENT
+\\      severity : AUDIT\_SEVERITY
+\\      user : USERTEXT
+\\      description : TEXT  
+\end{schema}
+Most audit elements have a user associated with them, where this can
+be determined it will be supplied.
+
+Some audit elements have different severities depending on their
+context. A token removal is erroneous during an operation but not at
+the end of an operation for instance.
+
+We define a function that gives the set of $AUDIT\_ELEMENT$s captured
+within a set of Audit elements. 
+\begin{axdef}
+        auditType :  AuditC \fun  AUDIT\_ELEMENT
+\\      auditTypes : \finset AuditC \fun \finset AUDIT\_ELEMENT
+\where
+        auditType = (\lambda AuditC @ elementId )
+\\      auditTypes = \{ A : \finset AuditC @ A \mapsto auditType \limg
+A \rimg \}
+\end{axdef}
+
+
+In this implementation the size of each audit element is fixed, we
+also note that the capacity of a floppy is fixed.
+\begin{axdef}
+        sizeAuditElement : \nat
+\\      floppyCapacity : \nat
+\end{axdef}
+
+The Audit log consists of a number of $Audit$ elements. 
+An audit error alarm will be raised if the audit log becomes full and
+needs to be archived and cleared.
+
+The Audit log will be implemented as a number of files with a fixed
+maximum capacity. 
+The intention is to distribute the log across the these files, this should
+enable truncation to be implemented simply. 
+There will be an internal upper limit to the number of files
+supported. The size of each file is fixed in terms of the number of
+audit elements it holds.
+
+\begin{axdef}
+        maxNumberLogFiles : \nat
+\\      maxLogFileEntries : \nat
+\\      maxNumberArchivableFiles : \nat
+\where
+        maxNumberLogFiles > 2
+\\      maxLogFileEntries \geq 100
+\\      maxSupportedLogSize \leq sizeAuditElement * (maxNumberLogFiles -1)
+* maxLogFileEntries
+\\      maxNumberArchivableFiles > 1
+\\      maxNumberArchivableFiles * maxLogFileEntries *
+sizeAuditElement \leq floppyCapacity
+\end{axdef}
+\begin{Zcomment}
+\item
+The system supports at least three files.
+\item
+Each file can hold at least 100 elements.
+\item 
+The files have sufficient capacity to support the maximum supported
+log size defined in the specification, even when one file is empty. 
+This will ensure that truncation preserves the conditions within the
+specification. 
+\item
+At least one file can be archived onto a floppy.
+\end{Zcomment}
+
+In order to simplify the implementation we make a number of
+assumptions about the internal implementation of the log file.
+\begin{itemize}
+\item
+When data is archived only full logFiles are removed.
+\end{itemize}
+
+
+\begin{zed}
+        LOGFILEINDEX == 1 \upto maxNumberLogFiles
+\end{zed}        
+
+All audit elements have associated with them a timestamp so it is
+possible to determine the times of the newest and oldest entries in the
+log.
+
+\begin{axdef}
+        oldestLogTimeC : \finset_1 AuditC \fun TIME 
+\\      newestLogTimeC : \finset_1 AuditC \fun TIME
+\where
+        \forall A, B : \finset AuditC @
+\\  \t1 newestLogTimeC (A \cup B) \geq newestLogTimeC~ A
+\\  \t1 \land oldestLogTimeC (A \cup B) \leq oldestLogTimeC~ A
+\also
+\\  \t1 \land A \neq \emptyset \implies oldestLogTimeC~ A = min~ \{ audit
+: A @ audit.logTime \} 
+
+\\  \t1 \land A \neq \emptyset \implies newestLogTimeC~ A = max~ \{ audit
+: A @ audit.logTime \} 
+\end{axdef}
+\begin{Zcomment}
+\item 
+Both these functions are monotonic. 
+\end{Zcomment}
+
+At any time each log file will either be empty and $free$ for use,
+$used$ (or in use) or $archived$, in that an attempt has been made to
+archive the data.
+
+\begin{zed}
+        LOGFILESTATUS ::= free | archived | used
+\end{zed}
+
+As all log entries are time stamped there is no requirement to impose
+an ordering on the entries in an audit file, however we do insist that
+the log files can be ordered such that the all the elements in the
+oldest file are older than all the elements in the other files. 
+
+\begin{schema}{AuditLogC}
+        logFiles : LOGFILEINDEX \fun \finset AuditC
+\\      currentLogFile : LOGFILEINDEX
+\\      usedLogFiles : \iseq LOGFILEINDEX
+\\      freeLogFiles : \power LOGFILEINDEX
+\\      logFilesStatus : LOGFILEINDEX \fun LOGFILESTATUS
+\\      numberLogEntries : \nat
+\also 
+        auditAlarmC : ALARM
+\where
+        freeLogFiles = \dom (logFiles \rres \{ \emptyset \} )
+\\      freeLogFiles = \dom (logFilesStatus \rres \{ free \} )
+\\      \ran usedLogFiles = \dom (logFilesStatus \rres \{ archived,
+used \} )
+\also
+      \forall file1, file2 : \ran usedLogFiles @
+\\ \t1  usedLogFiles \inv file1 < usedLogFiles \inv file2 \implies
+\\ \t2   newestLogTimeC~ (logFiles~ file1) \leq oldestLogTimeC~
+(logFiles~ file2) 
+\also
+      usedLogFiles \neq \langle \rangle 
+\\ \t1 \implies (\forall file : LOGFILEINDEX | file \in \ran
+      (front~usedLogFiles) @ \# (logFiles~ file) = maxLogFileEntries)
+ 
+\also
+        usedLogFiles \neq \langle \rangle 
+\\ \t2  \land currentLogFile = last~ usedLogFiles
+\\ \t2  \land numberLogEntries = (\# usedLogFiles -1) *
+                maxLogFileEntries 
+                + \# (logFiles~ currentLogFile)
+\\ \t1 \lor
+\\      usedLogFiles = \langle \rangle 
+        \land numberLogEntries = 0
+\end{schema}
+\begin{Zcomment}
+\item
+The $freeLogFiles$ are exactly those which are empty.
+\item
+The $usedLogFiles$ is a sequence of log files which are non-empty.
+\item
+The $usedLogFiles$ are ordered such that the oldest entries appear in
+the first log file in the sequence.
+\item
+All but the last $usedLogFiles$ are filled to their maximum capacity.
+\item
+The $numberLogEntries$ is completely derived and is maintained for
+convenience. 
+\end{Zcomment}
+
+%----------------------------------------------------------------------
+\section{Key Store}
+%----------------------------------------------------------------------
+
+\begin{traceunit}{FD.KeyStore.State}
+\traceto{FS.KeyStore.State}
+\end{traceunit}
+
+
+TIS maintains a key store, this is managed by the Crypto Library. 
+It contains all Issuer keys relevant to
+its function. This will include known CAs, AAs and its own key. 
+
+The only private key part held will be for TIS's own key. Having a
+private key within the set of keys indicates that the TIS knows who it is.
+
+TIS will generate its key at the first start-up and request an Id
+certificate from a CA. This activity is not modelled here and will not
+be implemented. We model the private part of the TIS key as
+$theTISKey$. This will be inserted into the keystore at enrolment. The
+private part of the TIS key is used subsequently to sign authorisation
+certificates.  
+
+Only one public key is held for each Issuer.
+
+\begin{schema}{KeyStoreC}
+        keys : \finset KeyPart
+\\      theTISKey : KEYPART
+\also
+        keyMatchingIssuer : USERID \fun \Optional KEYPART 
+\\      privateKey : \Optional KeyPart
+\where
+        \{ key : keys | key.keyType = private @ key.keyData \}
+\subseteq \{ theTISKey \}         
+\also
+        privateKey \neq \Nil  \implies 
+\\ \t1  (\exists ownPub : keys @ ownPub.keyType = public 
+\\ \t2          \land ownPub.keyOwner = (\The privateKey).keyOwner)
+\also
+        \# \{ key : keys | key.keyType = public \} =
+        \# \{ key : keys | key.keyType = public @ key.keyOwner \}
+\also
+        keyMatchingIssuer = (USERID \cross \{ \emptyset \})
+        \oplus \{ key : keys | key.keyType = public @  key.keyOwner.id
+        \mapsto \{ key.keyData \} \}   
+\\
+        privateKey = \{ key : keys | key.keyType = private \}      
+\end{schema}
+\begin{Zcomment}
+\item
+The Crypto Library provides facilities to query information, these are
+modelled by $keysMatchingIssuer$ and $privateKeys$.
+\item
+$keysMatchingIssuer$ and $privateKeys$ are completely defined by invarients.
+\end{Zcomment}
+
+%----------------------------------------------------------------------
+\section{Certificate Store}
+%----------------------------------------------------------------------
+
+\begin{traceunit}{FD.CertificateStore.State}
+
+\end{traceunit}
+
+TIS issues certificates, these certificates have a unique identifier,
+which is composed of the unique $USERID$ identification given to TIS
+and a serial number.
+
+TIS must maintain knowlege of the serial numbers already issued to
+ensure that new certificates are issued with a unique serial number.
+
+\begin{schema}{CertificateStore}
+        nextSerialNumber : \nat
+\end{schema} 
+
+%--------------------------------------------------------------------
+\section{System Statistics}
+%--------------------------------------------------------------------
+
+\begin{traceunit}{FD.Stats.State}
+\traceto{FS.Stats.State}
+\end{traceunit}
+
+The system statistics recorded are as defined in the formal
+specification \cite{FS}.
+
+TIS keeps track of the number of times that a entry to the
+enclave has been attempted (and denied) and the number of times it has succeeded. It
+also records the number of times that a biometric comparison has been
+made (and failed) and the number of times it succeeded.
+
+By retaining these statistics it is possible for the performance of
+the system to be monitored.
+
+\begin{schema}{StatsC} 
+        successEntryC : \nat
+\\      failEntryC : \nat
+\\      successBioC : \nat
+\\      failBioC : \nat
+\end{schema}
+
+%--------------------------------------------------------------------
+\section{Administration}
+%--------------------------------------------------------------------
+
+\begin{traceunit}{FD.Admin.State}
+\traceto{FS.Admin.State}
+\end{traceunit}
+
+This component of TIS is not refined from the specification.
+
+In addition to its role of authorising entry to the enclave, TIS 
+supports a number of administrative operations. 
+
+\begin{itemize}
+\item ArchiveLog - writes the archive log to floppy and truncates the
+internally held archive log.
+\item UpdateConfiguration - accepts new configuration data from a floppy. 
+\item OverrideDoorLock - unlocks the enclave door. 
+\item Shutdown - stops TIS, leaving the protected entry to the enclave secure.
+\end{itemize}
+
+%%unchecked
+\begin{syntax}
+        ADMINOP ::=  archiveLog | updateConfigData |
+        overrideLock | shutdownOp 
+\end{syntax}
+\begin{Zcomment}
+\item Definition repeated from Formal Specification \cite{FS}
+\end{Zcomment}
+
+Only users with administrator privileges can make use of the TIS to
+perform administrative functions. There are a number of different
+administrator privileges that may be held.
+
+%%unchecked
+\begin{zed}
+        ADMINPRIVILEGE == \{ guard, auditManager, securityOfficer \}
+\end{zed}
+\begin{Zcomment}
+\item Definition repeated from Formal Specification \cite{FS}
+\end{Zcomment}
+
+The role held by the administrator will determine the operations
+available to the administrator. For security reasons an administrator
+can only hold one role.
+
+\begin{schema}{AdminC}
+        rolePresentC : \Optional ADMINPRIVILEGE
+\\      availableOpsC : \power ADMINOP
+\\      currentAdminOpC : \Optional ADMINOP
+\where
+        rolePresentC = \Nil \implies availableOpsC = \emptyset 
+\\      (rolePresentC \neq \Nil \land \The rolePresentC = guard) \implies availableOpsC = 
+        \{ overrideLock \}
+\\      (rolePresentC \neq \Nil \land \The rolePresentC = auditManager) \implies availableOpsC = 
+        \{ archiveLog \}
+\\      (rolePresentC \neq \Nil \land \The rolePresentC = securityOfficer) \implies availableOpsC = 
+        \{ updateConfigData, shutdownOp \}
+\\      currentAdminOpC \neq \Nil \implies 
+\\ \t1 (\The currentAdminOpC \in availableOpsC \land rolePresentC \neq \Nil )
+\end{schema}
+\begin{Zcomment}
+\item
+The $availableOpsC$ are completely determined by the roles present and
+will be implemented using a constant table.
+\end{Zcomment}
+
+In order to perform an administrative operation an administrator must
+be present. Presence will be determined by an appropriate token being
+present in the administrator's card reader.
+
+%-----------------------------------------------------------------------
+\section{Real World Entities}
+%-----------------------------------------------------------------------
+%The real world entities are internally modelled identically to their external model.
+
+\begin{traceunit}{FD.RealWorld.State}
+\traceto{FS.RealWorld.State}
+\end{traceunit}
+
+
+The latch is allowed to be in two states:
+$locked$ and $unlocked$.
+When the latch is unlocked,
+$latchTimeoutC$ will be set to the time at which the lock must again be $locked$.
+
+
+The alarm is similar to the latch, 
+in that it has a $silent$, and $alarming$,
+with an $alarmTimeoutC$.
+Once the door and latch move into a potentially insecure state
+(door $open$ and latch $locked$)
+then the $alarmTimeoutC$ is set to the time at which the alarm will sound.
+
+Within the implementation the $currentLatchC$ and $doorAlarmC$ will
+be explicitly calculated athough they can be entirely derived.
+
+\begin{schema}{DoorLatchAlarmC}
+	currentTimeC: TIME
+\\	currentDoorC: DOOR
+\\	currentLatchC: LATCH
+\\	doorAlarmC: ALARM
+\\	latchTimeoutC: TIME
+\\	alarmTimeoutC: TIME
+\end{schema}
+
+
+The ID Station holds internal representations of all of the Real World,
+plus its own data.
+It holds separate indications of the presence of input in the real world peripherals
+of the User Token, Admin Token, Fingerprint reader, and Floppy disk.
+This is so that once the input has been read,
+and the card, finger or disk removed,
+the ID Station can continue to know what the value was,
+even if it later detects that the real world entity has been removed.
+
+\begin{schema}{UserTokenC}
+	currentUserTokenC: TOKENTRYC
+\\	userTokenPresenceC: PRESENCE
+\end{schema}
+
+\begin{schema}{AdminTokenC}
+	currentAdminTokenC: TOKENTRYC
+\\	adminTokenPresenceC: PRESENCE
+\end{schema}
+
+The core TIS does not need to know what the current fingerprint is
+since it is always read directly from the real world by the 
+Biometrics Library.
+
+\begin{schema}{FingerC}
+	fingerPresenceC: PRESENCE
+\end{schema}
+
+The core TIS does not need to preserve the value of the current keyed
+data since it is always read directly from the real world and the
+information does not need to be persistent.
+
+\begin{schema}{KeyboardC}
+      keyedDataPresenceC : PRESENCE
+\end{schema}  
+
+
+We need to retain an internal view of the last data written to the
+floppy as well as the current data on the floppy, this is because we
+need to check that writing to floppy works when we archive the log.
+
+\begin{schema}{FloppyC}
+	currentFloppyC: FLOPPYC
+\\      writtenFloppyC: FLOPPYC
+\\	floppyPresenceC: PRESENCE
+\end{schema}
+
+The ID Station screen within the enclave may display many pieces of
+information. The majority of this data will be determined by state
+invarients.
+In addition to those identified in the specification we now identify
+the alarm states as being necessary display elements.
+
+\begin{schema}{ScreenC}
+        screenStatsC : SCREENTEXTC
+\\      screenMsgC : SCREENTEXTC
+\\      screenConfigC : SCREENTEXTC
+\\      screenDoorAlarm : SCREENTEXTC
+\\      screenLogAlarm : SCREENTEXTC 
+\end{schema}
+
+%-----------------------------------------------------------------------
+\section{Internal State}
+%-----------------------------------------------------------------------
+
+\begin{traceunit}{FD.Internal.State}
+\traceto{FD.Internal.State}
+\end{traceunit}
+
+
+$STATUS$ and $ENCLAVESTATUS$ are a purely internal records of the progress through 
+processing. $STATUS$ tracks progress through user entry, while
+$ENCLAVESTATUS$ tracks progress through all activities performed
+within the enclave. 
+
+%%unchecked
+\begin{zed}
+	STATUS ::= quiescent | 
+\also \t2          gotUserToken |  waitingFinger | gotFinger | waitingUpdateToken | waitingEntry |
+\\ \t2          waitingRemoveTokenSuccess | waitingRemoveTokenFail 
+\also
+        ENCLAVESTATUS ::= notEnrolled | waitingEnrol | waitingEndEnrol |
+\also \t2          enclaveQuiescent |
+\also \t2          gotAdminToken | waitingRemoveAdminTokenFail |
+waitingStartAdminOp | waitingFinishAdminOp |
+\also \t2          shutdown 
+\end{zed}
+\begin{Zcomment}
+\item Definitions repeated from Formal Specification \cite{FS}
+\end{Zcomment}
+
+The states $quiescent$ and $enclaveQuiescent$ represent the enclave
+interface and the user entry interface being quiescent.
+
+The states $gotUserToken$, .. 
+$waitingRemoveTokenFail$ are all associated with the process of user
+authentication and entry. These are described futher in Section \ref{sec:userEntry}.
+
+The states $notEnrolled$, .. $waitingEnrolEnd$ reflect
+enrolment activity that must be performed before TIS can offer any of
+its normal operations. Once the TIS is successfully enrolled it
+becomes $quiescent$.
+
+The states $gotAdminToken$, .. $waitingFinishAdminOp$ 
+reflect activity at the TIS console relating to administrator use of TIS. 
+
+The state $shutdown$ models the system when it is shutdown.
+
+There are two timeouts held internally, one of these controls 
+the system wait for the user to remove their token before opening the
+door in a successful user entry scenario. 
+The other controls the system wait for the user to provide a good
+fingerprint for verification before giving up on this part of the
+authentication process.
+
+\begin{schema}{InternalC}
+        statusC : STATUS
+\\      enclaveStatusC : ENCLAVESTATUS
+\\      tokenRemovalTimeoutC : TIME
+\\      fingerTimeout : TIME
+\end{schema}
+
+
+%-----------------------------------------------------------------------
+\section{The whole Token ID Station}
+%-----------------------------------------------------------------------
+
+\begin{traceunit}{FD.TIS.State}
+\traceto{FS.TIS.State}
+\end{traceunit}
+
+
+The whole Token ID Station is constructed from combining the described
+state components. 
+
+In addition there is a display outside the enclave and and screen
+within the enclave. The ID Station screen within the enclave may
+display many pieces of 
+information. The majority of this data will be determined by state invariants.
+
+If the authentication protocol has moved on to requesting a fingerprint,
+then the User Token will have passed its validation checks.
+
+Similarly if the system considers there to be an administrator present
+then the Admin Token will have passed its validation checks.
+
+Once the ID station has been enrolled it has a private key, its own key.
+
+TIS is only ever in the two states $waitingStartAdminOp$ or
+$waitingFinishAdminOp$ when then there is a current admin operation in
+progress. For single phase operations the state
+$waitingFinishAdminOp$ is not used.
+
+TIS will only read the Admin Token to log on an administrator if there
+is not an administrator role currently present.
+ 
+\begin{schema}{IDStationC}
+	UserTokenC
+\\	AdminTokenC
+\\	FingerC
+\\	DoorLatchAlarmC
+\\      FloppyC
+\\      KeyboardC
+\\      ConfigC
+\\      StatsC
+\\      KeyStoreC
+\\      CertificateStore
+\\      AdminC
+\\      AuditLogC
+\\      InternalC
+\also
+	currentDisplayC: DISPLAYMESSAGE
+\\      currentScreenC: ScreenC
+\where
+	statusC \in \{~ gotFinger, waitingFinger, waitingUpdateToken, waitingEntry~\} \implies
+\\ \t1		 (( \exists ValidTokenC @ 
+			goodTC(\theta ValidTokenC) = currentUserTokenC)
+\\ \t2  \lor ( \exists TokenWithValidAuthC @ 
+			goodTC(\theta TokenWithValidAuthC) = currentUserTokenC))
+\also
+        rolePresentC \neq \Nil \implies       
+\\ \t1		 ( \exists TokenWithValidAuthC @ 
+			goodTC(\theta TokenWithValidAuthC) =
+ currentAdminTokenC )
+\also
+        enclaveStatusC \notin \{~notEnrolled, waitingEnrol, waitingEndEnrol ~\} \implies       
+\\ \t1         \# \{ key : keys | key.keyType = private \} = 1
+\also
+        enclaveStatusC \in \{~ waitingStartAdminOp, waitingFinishAdminOp ~\} \iff currentAdminOpC \neq \Nil
+\also
+       (currentAdminOpC \neq \Nil \land \The currentAdminOpC \in \{~
+shutdownOp, overrideLock ~\}) 
+\\ \t2          \implies enclaveStatusC = waitingStartAdminOp
+\also
+        enclaveStatusC = gotAdminToken \implies rolePresentC = \Nil
+\also   % invarients that define the screen
+        currentScreenC.screenStatsC = displayStatsC (\theta
+        StatsC)
+\\      currentScreenC.screenConfigC = displayConfigDataC (\theta ConfigC)
+\\      currentScreenC.screenDoorAlarm = displayAlarm~ doorAlarmC
+\\      currentScreenC.screenLogAlarm = displayAlarm~ auditAlarmC
+\end{schema}
+\begin{Zcomment}
+\item
+Note that the token may not still be current since time will have
+moved on since the checks were performed.
+\item
+Operations that can be performed in a single phase do not result in
+TIS entering the state $waitingFinishAdminOp$ as they are finished
+when they are started. 
+\item
+TIS only enters the state $gotAdminToken$ when there is no
+administrator present.
+\item
+Invarients define many of the screen components.
+\end{Zcomment}
+

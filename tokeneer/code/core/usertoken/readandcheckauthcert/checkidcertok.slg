@@ -1,0 +1,766 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:20  SIMPLIFIED 05-SEP-2011, 15:42:36
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure UserToken.ReadAndCheckAuthCert.CheckIDCertOK
+
+
+
+
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_1.  @@@@@@@@@@
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  certtypes__certificatet__first <= certtypes__idcert
+-S-  Applied substitution rule checkidcerto_rules(47).
+     This was achieved by replacing all occurrences of 
+          certtypes__certificatet__first by:
+          certtypes__idcert.
+<S>  New C1:  true
+-S-  Applied substitution rule checkidcerto_rules(48).
+     This was achieved by replacing all occurrences of 
+          certtypes__certificatet__last by:
+          certtypes__iandacert.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_2.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  certtypes__certificatet__first <= certtypes__idcert
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(rawcert__2, [i___1]) and element(
+          rawcert__2, [i___1]) <= character__last)
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H6)
+          .
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))), [
+          i___1]) and element(fld_name(fld_issuer(cert__theid(fld_inherit(
+          idcertcontents__3)))), [i___1]) <= character__last)
+-S-  Applied substitution rule checkidcerto_rules(84).
+     This was achieved by replacing all occurrences of 
+          tokentypes__tokenidt__first by:
+          0.
+<S>  New H2:  tokenid >= 0
+<S>  New C1:  fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) >= 0
+-S-  Applied substitution rule checkidcerto_rules(85).
+     This was achieved by replacing all occurrences of 
+          tokentypes__tokenidt__last by:
+          4294967295.
+<S>  New H3:  tokenid <= 4294967295
+<S>  New C2:  fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) <= 
+          4294967295
+-S-  Applied substitution rule checkidcerto_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 0 <= element(
+          rawcert__2, [i___1]) and element(rawcert__2, [i___1]) <= 
+          character__last)
+<S>  New H17:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(fld_issuer(
+          cert__theid(fld_inherit(idcertcontents__3)))), [i___1]) and element(
+          fld_name(fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))), [
+          i___1]) <= character__last)
+-S-  Applied substitution rule checkidcerto_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 0 <= element(
+          rawcert__2, [i___1]) and element(rawcert__2, [i___1]) <= 255)
+<S>  New H17:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(fld_issuer(
+          cert__theid(fld_inherit(idcertcontents__3)))), [i___1]) and element(
+          fld_name(fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))), [
+          i___1]) <= 255)
+-S-  Applied substitution rule checkidcerto_rules(24).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namecountt__first by:
+          0.
+<S>  New H18:  fld_namelength(fld_issuer(cert__theid(fld_inherit(
+          idcertcontents__3)))) >= 0
+-S-  Applied substitution rule checkidcerto_rules(25).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namecountt__last by:
+          40.
+<S>  New H19:  fld_namelength(fld_issuer(cert__theid(fld_inherit(
+          idcertcontents__3)))) <= 40
+-S-  Applied substitution rule checkidcerto_rules(29).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namei__first by:
+          1.
+<S>  New H17:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          cryptotypes__namei__last -> 0 <= element(fld_name(fld_issuer(
+          cert__theid(fld_inherit(idcertcontents__3)))), [i___1]) and element(
+          fld_name(fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))), [
+          i___1]) <= 255)
+-S-  Applied substitution rule checkidcerto_rules(30).
+     This was achieved by replacing all occurrences of cryptotypes__namei__last 
+          by:
+          40.
+<S>  New H17:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 40 -> 0 <= 
+          element(fld_name(fld_issuer(cert__theid(fld_inherit(idcertcontents__3)
+          ))), [i___1]) and element(fld_name(fld_issuer(cert__theid(fld_inherit(
+          idcertcontents__3)))), [i___1]) <= 255)
+-S-  Applied substitution rule checkidcerto_rules(34).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__issueridt__first by:
+          0.
+<S>  New H20:  fld_id(fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))) 
+          >= 0
+-S-  Applied substitution rule checkidcerto_rules(35).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__issueridt__last by:
+          4294967295.
+<S>  New H21:  fld_id(fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))) 
+          <= 4294967295
+-S-  Applied substitution rule checkidcerto_rules(42).
+     This was achieved by replacing all occurrences of 
+          certtypes__rawcertificatei__first by:
+          1.
+<S>  New H6:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          certtypes__rawcertificatei__last -> 0 <= element(rawcert__2, [i___1]) 
+          and element(rawcert__2, [i___1]) <= 255)
+-S-  Applied substitution rule checkidcerto_rules(43).
+     This was achieved by replacing all occurrences of 
+          certtypes__rawcertificatei__last by:
+          4096.
+<S>  New H6:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 4096 -> 0 <= 
+          element(rawcert__2, [i___1]) and element(rawcert__2, [i___1]) <= 255)
+-S-  Applied substitution rule checkidcerto_rules(47).
+     This was achieved by replacing all occurrences of 
+          certtypes__certificatet__first by:
+          certtypes__idcert.
+<S>  New H4:  true
+-S-  Applied substitution rule checkidcerto_rules(48).
+     This was achieved by replacing all occurrences of 
+          certtypes__certificatet__last by:
+          certtypes__iandacert.
+<S>  New H5:  true
+-S-  Applied substitution rule checkidcerto_rules(74).
+     This was achieved by replacing all occurrences of 
+          certtypes__serialnumbert__first by:
+          0.
+<S>  New H15:  fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) >= 
+          0
+-S-  Applied substitution rule checkidcerto_rules(75).
+     This was achieved by replacing all occurrences of 
+          certtypes__serialnumbert__last by:
+          4294967295.
+<S>  New H16:  fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) <= 
+          4294967295
+***  Proved C1:  fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) 
+          >= 0
+     using hypothesis H15.
+***  Proved C2:  fld_serialnumber(cert__theid(fld_inherit(idcertcontents__3))) 
+          <= 4294967295
+     using hypothesis H16.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_3.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  certtypes__certificatet__first <= certtypes__idcert
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(rawcert__2, [i___1]) and element(
+          rawcert__2, [i___1]) <= character__last)
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H6)
+          .
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))), [
+          i___1]) and element(fld_name(fld_issuer(cert__theid(fld_inherit(
+          idcertcontents__3)))), [i___1]) <= character__last)
+---  Hypothesis H24 has been replaced by "true".  (It is already present, as H6)
+          .
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  certificatestatus__first <= bad
+-S-  Applied substitution rule checkidcerto_rules(90).
+     This was achieved by replacing all occurrences of certificatestatus__first 
+          by:
+          bad.
+<S>  New C1:  true
+-S-  Applied substitution rule checkidcerto_rules(91).
+     This was achieved by replacing all occurrences of certificatestatus__last 
+          by:
+          validcert.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_4.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  certtypes__certificatet__first <= certtypes__idcert
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(rawcert__2, [i___1]) and element(
+          rawcert__2, [i___1]) <= character__last)
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H6)
+          .
+%%%  Simplified H21 on reading formula in, to give:
+     %%%  H21:  true
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  certificatestatus__first <= bad
+-S-  Applied substitution rule checkidcerto_rules(90).
+     This was achieved by replacing all occurrences of certificatestatus__first 
+          by:
+          bad.
+<S>  New C1:  true
+-S-  Applied substitution rule checkidcerto_rules(91).
+     This was achieved by replacing all occurrences of certificatestatus__last 
+          by:
+          validcert.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_5.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  certtypes__certificatet__first <= certtypes__idcert
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(rawcert__2, [i___1]) and element(
+          rawcert__2, [i___1]) <= character__last)
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  true
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  certificatestatus__first <= bad
+-S-  Applied substitution rule checkidcerto_rules(90).
+     This was achieved by replacing all occurrences of certificatestatus__first 
+          by:
+          bad.
+<S>  New C1:  true
+-S-  Applied substitution rule checkidcerto_rules(91).
+     This was achieved by replacing all occurrences of certificatestatus__last 
+          by:
+          validcert.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_6.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  certtypes__certificatet__first <= certtypes__idcert
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(rawcert__2, [i___1]) and element(
+          rawcert__2, [i___1]) <= character__last)
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H6)
+          .
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))), [
+          i___1]) and element(fld_name(fld_issuer(cert__theid(fld_inherit(
+          idcertcontents__3)))), [i___1]) <= character__last)
+---  Hypothesis H24 has been replaced by "true".  (It is already present, as H6)
+          .
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  certificatestatus__first <= notverified
+-S-  Applied substitution rule checkidcerto_rules(90).
+     This was achieved by replacing all occurrences of certificatestatus__first 
+          by:
+          bad.
+<S>  New C1:  true
+-S-  Applied substitution rule checkidcerto_rules(91).
+     This was achieved by replacing all occurrences of certificatestatus__last 
+          by:
+          validcert.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_7.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  certtypes__certificatet__first <= certtypes__idcert
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(rawcert__2, [i___1]) and element(
+          rawcert__2, [i___1]) <= character__last)
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H6)
+          .
+%%%  Simplified H21 on reading formula in, to give:
+     %%%  H21:  false
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  true
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  certificatestatus__first <= notverified
+-S-  Applied substitution rule checkidcerto_rules(90).
+     This was achieved by replacing all occurrences of certificatestatus__first 
+          by:
+          bad.
+<S>  New C1:  true
+-S-  Applied substitution rule checkidcerto_rules(91).
+     This was achieved by replacing all occurrences of certificatestatus__last 
+          by:
+          validcert.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_8.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  certtypes__certificatet__first <= certtypes__idcert
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(rawcert__2, [i___1]) and element(
+          rawcert__2, [i___1]) <= character__last)
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  false
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  true
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  certificatestatus__first <= notverified
+-S-  Applied substitution rule checkidcerto_rules(90).
+     This was achieved by replacing all occurrences of certificatestatus__first 
+          by:
+          bad.
+<S>  New C1:  true
+-S-  Applied substitution rule checkidcerto_rules(91).
+     This was achieved by replacing all occurrences of certificatestatus__last 
+          by:
+          validcert.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_9.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  certtypes__certificatet__first <= certtypes__idcert
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(rawcert__2, [i___1]) and element(
+          rawcert__2, [i___1]) <= character__last)
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H6)
+          .
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))), [
+          i___1]) and element(fld_name(fld_issuer(cert__theid(fld_inherit(
+          idcertcontents__3)))), [i___1]) <= character__last)
+---  Hypothesis H24 has been replaced by "true".  (It is already present, as H6)
+          .
+%%%  Simplified H36 on reading formula in, to give:
+     %%%  H36:  verified__4
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  certificatestatus__first <= validcert
+-S-  Applied substitution rule checkidcerto_rules(90).
+     This was achieved by replacing all occurrences of certificatestatus__first 
+          by:
+          bad.
+<S>  New C1:  true
+-S-  Applied substitution rule checkidcerto_rules(91).
+     This was achieved by replacing all occurrences of certificatestatus__last 
+          by:
+          validcert.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_10.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  certtypes__certificatet__first <= certtypes__idcert
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(rawcert__2, [i___1]) and element(
+          rawcert__2, [i___1]) <= character__last)
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H6)
+          .
+%%%  Simplified H21 on reading formula in, to give:
+     %%%  H21:  false
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  false
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  certificatestatus__first <= validcert
+-S-  Applied substitution rule checkidcerto_rules(90).
+     This was achieved by replacing all occurrences of certificatestatus__first 
+          by:
+          bad.
+<S>  New C1:  true
+-S-  Applied substitution rule checkidcerto_rules(91).
+     This was achieved by replacing all occurrences of certificatestatus__last 
+          by:
+          validcert.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_11.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  certtypes__certificatet__first <= certtypes__idcert
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(rawcert__2, [i___1]) and element(
+          rawcert__2, [i___1]) <= character__last)
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  false
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  false
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  certificatestatus__first <= validcert
+-S-  Applied substitution rule checkidcerto_rules(90).
+     This was achieved by replacing all occurrences of certificatestatus__first 
+          by:
+          bad.
+<S>  New C1:  true
+-S-  Applied substitution rule checkidcerto_rules(91).
+     This was achieved by replacing all occurrences of certificatestatus__last 
+          by:
+          validcert.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_12.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  certtypes__certificatet__first <= certtypes__idcert
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(rawcert__2, [i___1]) and element(
+          rawcert__2, [i___1]) <= character__last)
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H6)
+          .
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))), [
+          i___1]) and element(fld_name(fld_issuer(cert__theid(fld_inherit(
+          idcertcontents__3)))), [i___1]) <= character__last)
+---  Hypothesis H24 has been replaced by "true".  (It is already present, as H6)
+          .
+%%%  Simplified H35 on reading formula in, to give:
+     %%%  H35:  certificatestatus__first <= bad
+---  Hypothesis H38 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H39 has been replaced by "true".  (It is already present, as 
+          H36).
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  certificatestatus__first <= bad
+***  Proved C1:  certificatestatus__first <= bad
+     using hypothesis H35.
+***  Proved C2:  bad <= certificatestatus__last
+     using hypothesis H36.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_13.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  certtypes__certificatet__first <= certtypes__idcert
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(rawcert__2, [i___1]) and element(
+          rawcert__2, [i___1]) <= character__last)
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H6)
+          .
+%%%  Simplified H21 on reading formula in, to give:
+     %%%  H21:  true
+%%%  Simplified H22 on reading formula in, to give:
+     %%%  H22:  certificatestatus__first <= bad
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as 
+          H23).
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  certificatestatus__first <= bad
+***  Proved C1:  certificatestatus__first <= bad
+     using hypothesis H22.
+***  Proved C2:  bad <= certificatestatus__last
+     using hypothesis H23.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_14.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  certtypes__certificatet__first <= certtypes__idcert
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(rawcert__2, [i___1]) and element(
+          rawcert__2, [i___1]) <= character__last)
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  true
+%%%  Simplified H18 on reading formula in, to give:
+     %%%  H18:  certificatestatus__first <= bad
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H22 has been replaced by "true".  (It is already present, as 
+          H19).
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  certificatestatus__first <= bad
+***  Proved C1:  certificatestatus__first <= bad
+     using hypothesis H18.
+***  Proved C2:  bad <= certificatestatus__last
+     using hypothesis H19.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_15.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  certtypes__certificatet__first <= certtypes__idcert
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(rawcert__2, [i___1]) and element(
+          rawcert__2, [i___1]) <= character__last)
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H6)
+          .
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))), [
+          i___1]) and element(fld_name(fld_issuer(cert__theid(fld_inherit(
+          idcertcontents__3)))), [i___1]) <= character__last)
+---  Hypothesis H24 has been replaced by "true".  (It is already present, as H6)
+          .
+%%%  Simplified H37 on reading formula in, to give:
+     %%%  H37:  certificatestatus__first <= notverified
+---  Hypothesis H40 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H41 has been replaced by "true".  (It is already present, as 
+          H38).
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  certificatestatus__first <= notverified
+***  Proved C1:  certificatestatus__first <= notverified
+     using hypothesis H37.
+***  Proved C2:  notverified <= certificatestatus__last
+     using hypothesis H38.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_16.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  certtypes__certificatet__first <= certtypes__idcert
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(rawcert__2, [i___1]) and element(
+          rawcert__2, [i___1]) <= character__last)
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H6)
+          .
+%%%  Simplified H21 on reading formula in, to give:
+     %%%  H21:  false
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  true
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  certificatestatus__first <= notverified
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H28 has been replaced by "true".  (It is already present, as 
+          H25).
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  certificatestatus__first <= notverified
+***  Proved C1:  certificatestatus__first <= notverified
+     using hypothesis H24.
+***  Proved C2:  notverified <= certificatestatus__last
+     using hypothesis H25.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_17.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  certtypes__certificatet__first <= certtypes__idcert
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(rawcert__2, [i___1]) and element(
+          rawcert__2, [i___1]) <= character__last)
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  false
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  true
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  certificatestatus__first <= notverified
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H24 has been replaced by "true".  (It is already present, as 
+          H21).
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  certificatestatus__first <= notverified
+***  Proved C1:  certificatestatus__first <= notverified
+     using hypothesis H20.
+***  Proved C2:  notverified <= certificatestatus__last
+     using hypothesis H21.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_18.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  certtypes__certificatet__first <= certtypes__idcert
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(rawcert__2, [i___1]) and element(
+          rawcert__2, [i___1]) <= character__last)
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H6)
+          .
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(cert__theid(fld_inherit(idcertcontents__3)))), [
+          i___1]) and element(fld_name(fld_issuer(cert__theid(fld_inherit(
+          idcertcontents__3)))), [i___1]) <= character__last)
+---  Hypothesis H24 has been replaced by "true".  (It is already present, as H6)
+          .
+%%%  Simplified H36 on reading formula in, to give:
+     %%%  H36:  verified__4
+%%%  Simplified H37 on reading formula in, to give:
+     %%%  H37:  certificatestatus__first <= validcert
+---  Hypothesis H40 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H41 has been replaced by "true".  (It is already present, as 
+          H38).
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  certificatestatus__first <= validcert
+***  Proved C1:  certificatestatus__first <= validcert
+     using hypothesis H37.
+***  Proved C2:  validcert <= certificatestatus__last
+     using hypothesis H38.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_19.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  certtypes__certificatet__first <= certtypes__idcert
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(rawcert__2, [i___1]) and element(
+          rawcert__2, [i___1]) <= character__last)
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H6)
+          .
+%%%  Simplified H21 on reading formula in, to give:
+     %%%  H21:  false
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  false
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  certificatestatus__first <= validcert
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H28 has been replaced by "true".  (It is already present, as 
+          H25).
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  certificatestatus__first <= validcert
+***  Proved C1:  certificatestatus__first <= validcert
+     using hypothesis H24.
+***  Proved C2:  validcert <= certificatestatus__last
+     using hypothesis H25.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_20.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  certtypes__certificatet__first <= certtypes__idcert
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(rawcert__2, [i___1]) and element(
+          rawcert__2, [i___1]) <= character__last)
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  false
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  false
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  certificatestatus__first <= validcert
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H24 has been replaced by "true".  (It is already present, as 
+          H21).
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  certificatestatus__first <= validcert
+***  Proved C1:  certificatestatus__first <= validcert
+     using hypothesis H20.
+***  Proved C2:  validcert <= certificatestatus__last
+     using hypothesis H21.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_21.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_22.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_23.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_24.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_25.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_26.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_27.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_28.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_checkidcertok_29.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+

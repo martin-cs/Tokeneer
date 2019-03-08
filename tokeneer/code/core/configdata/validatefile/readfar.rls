@@ -1,0 +1,42 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:28.35*/
+
+                 /*procedure ConfigData.ValidateFile.ReadFar*/
+
+
+rule_family readfar_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+readfar_rules(1): integer__size >= 0 may_be_deduced.
+readfar_rules(2): integer__first may_be_replaced_by -2147483648.
+readfar_rules(3): integer__last may_be_replaced_by 2147483647.
+readfar_rules(4): integer__base__first may_be_replaced_by -2147483648.
+readfar_rules(5): integer__base__last may_be_replaced_by 2147483647.
+readfar_rules(6): natural__size >= 0 may_be_deduced.
+readfar_rules(7): natural__first may_be_replaced_by 0.
+readfar_rules(8): natural__last may_be_replaced_by 2147483647.
+readfar_rules(9): natural__base__first may_be_replaced_by -2147483648.
+readfar_rules(10): natural__base__last may_be_replaced_by 2147483647.
+readfar_rules(11): positive__size >= 0 may_be_deduced.
+readfar_rules(12): positive__first may_be_replaced_by 1.
+readfar_rules(13): positive__last may_be_replaced_by 2147483647.
+readfar_rules(14): positive__base__first may_be_replaced_by -2147483648.
+readfar_rules(15): positive__base__last may_be_replaced_by 2147483647.
+readfar_rules(16): iandatypes__fart__size >= 0 may_be_deduced.
+readfar_rules(17): iandatypes__fart__size may_be_replaced_by 32.
+readfar_rules(18): iandatypes__fart__first may_be_replaced_by 0.
+readfar_rules(19): iandatypes__fart__last may_be_replaced_by 2147483647.
+readfar_rules(20): iandatypes__fart__base__first <= 
+     iandatypes__fart__base__last may_be_deduced.
+readfar_rules(21): iandatypes__fart__base__first <= 
+     iandatypes__fart__first may_be_deduced.
+readfar_rules(22): iandatypes__fart__base__last >= 
+     iandatypes__fart__last may_be_deduced.

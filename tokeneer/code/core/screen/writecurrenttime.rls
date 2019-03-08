@@ -1,0 +1,143 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:23.31*/
+
+                     /*procedure Screen.WriteCurrentTime*/
+
+
+rule_family writecurrent_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+writecurrent_rules(1): integer__size >= 0 may_be_deduced.
+writecurrent_rules(2): integer__first may_be_replaced_by -2147483648.
+writecurrent_rules(3): integer__last may_be_replaced_by 2147483647.
+writecurrent_rules(4): integer__base__first may_be_replaced_by -2147483648.
+writecurrent_rules(5): integer__base__last may_be_replaced_by 2147483647.
+writecurrent_rules(6): character__size >= 0 may_be_deduced.
+writecurrent_rules(7): character__first may_be_replaced_by 0.
+writecurrent_rules(8): character__last may_be_replaced_by 255.
+writecurrent_rules(9): character__base__first may_be_replaced_by 0.
+writecurrent_rules(10): character__base__last may_be_replaced_by 255.
+writecurrent_rules(11): positive__size >= 0 may_be_deduced.
+writecurrent_rules(12): positive__first may_be_replaced_by 1.
+writecurrent_rules(13): positive__last may_be_replaced_by 2147483647.
+writecurrent_rules(14): positive__base__first may_be_replaced_by -2147483648.
+writecurrent_rules(15): positive__base__last may_be_replaced_by 2147483647.
+writecurrent_rules(16): clock__timetexti__size >= 0 may_be_deduced.
+writecurrent_rules(17): clock__timetexti__first may_be_replaced_by 1.
+writecurrent_rules(18): clock__timetexti__last may_be_replaced_by 21.
+writecurrent_rules(19): clock__timetexti__base__first may_be_replaced_by -2147483648.
+writecurrent_rules(20): clock__timetexti__base__last may_be_replaced_by 2147483647.
+writecurrent_rules(21): screen__interface__colours__size >= 0 may_be_deduced.
+writecurrent_rules(22): screen__interface__colours__first may_be_replaced_by screen__interface__brightwhite.
+writecurrent_rules(23): screen__interface__colours__last may_be_replaced_by screen__interface__black.
+writecurrent_rules(24): screen__interface__colours__base__first may_be_replaced_by screen__interface__brightwhite.
+writecurrent_rules(25): screen__interface__colours__base__last may_be_replaced_by screen__interface__black.
+writecurrent_rules(26): screen__interface__colours__pos(
+     screen__interface__colours__first) may_be_replaced_by 0.
+writecurrent_rules(27): screen__interface__colours__pos(
+     screen__interface__brightwhite) may_be_replaced_by 0.
+writecurrent_rules(28): screen__interface__colours__val(0) may_be_replaced_by 
+     screen__interface__brightwhite.
+writecurrent_rules(29): screen__interface__colours__pos(
+     screen__interface__white) may_be_replaced_by 1.
+writecurrent_rules(30): screen__interface__colours__val(1) may_be_replaced_by 
+     screen__interface__white.
+writecurrent_rules(31): screen__interface__colours__pos(
+     screen__interface__red) may_be_replaced_by 2.
+writecurrent_rules(32): screen__interface__colours__val(2) may_be_replaced_by 
+     screen__interface__red.
+writecurrent_rules(33): screen__interface__colours__pos(
+     screen__interface__green) may_be_replaced_by 3.
+writecurrent_rules(34): screen__interface__colours__val(3) may_be_replaced_by 
+     screen__interface__green.
+writecurrent_rules(35): screen__interface__colours__pos(
+     screen__interface__black) may_be_replaced_by 4.
+writecurrent_rules(36): screen__interface__colours__val(4) may_be_replaced_by 
+     screen__interface__black.
+writecurrent_rules(37): screen__interface__colours__pos(
+     screen__interface__colours__last) may_be_replaced_by 4.
+writecurrent_rules(38): screen__interface__colours__pos(succ(X)) may_be_replaced_by 
+     screen__interface__colours__pos(X) + 1
+     if [X <=screen__interface__black, X <> 
+     screen__interface__black].
+writecurrent_rules(39): screen__interface__colours__pos(pred(X)) may_be_replaced_by 
+     screen__interface__colours__pos(X) - 1
+     if [X >=screen__interface__brightwhite, X <> 
+     screen__interface__brightwhite].
+writecurrent_rules(40): screen__interface__colours__pos(X) >= 0 may_be_deduced_from
+     [screen__interface__brightwhite <= X, X <= 
+     screen__interface__black].
+writecurrent_rules(41): screen__interface__colours__pos(X) <= 4 may_be_deduced_from
+     [screen__interface__brightwhite <= X, X <= 
+     screen__interface__black].
+writecurrent_rules(42): screen__interface__colours__val(X) >= 
+     screen__interface__brightwhite may_be_deduced_from
+     [0 <= X, X <= 4].
+writecurrent_rules(43): screen__interface__colours__val(X) <= 
+     screen__interface__black may_be_deduced_from
+     [0 <= X, X <= 4].
+writecurrent_rules(44): succ(screen__interface__colours__val(X)) may_be_replaced_by 
+     screen__interface__colours__val(X+1)
+     if [0 <= X, X < 4].
+writecurrent_rules(45): pred(screen__interface__colours__val(X)) may_be_replaced_by 
+     screen__interface__colours__val(X-1)
+     if [0 < X, X <= 4].
+writecurrent_rules(46): screen__interface__colours__pos(
+     screen__interface__colours__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 4].
+writecurrent_rules(47): screen__interface__colours__val(
+     screen__interface__colours__pos(X)) may_be_replaced_by X
+     if [screen__interface__brightwhite <= X, X <= 
+     screen__interface__black].
+writecurrent_rules(48): screen__interface__colours__pos(X) <= 
+     screen__interface__colours__pos(Y) & X <= Y are_interchangeable 
+     if [screen__interface__brightwhite <= X, X <= 
+     screen__interface__black, screen__interface__brightwhite <= Y, Y <= 
+     screen__interface__black].
+writecurrent_rules(49): screen__interface__colours__val(X) <= 
+     screen__interface__colours__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 4, 0 <= Y, Y <= 4].
+writecurrent_rules(50): screen__interface__screenwidtht__size >= 0 may_be_deduced.
+writecurrent_rules(51): screen__interface__screenwidtht__first may_be_replaced_by 0.
+writecurrent_rules(52): screen__interface__screenwidtht__last may_be_replaced_by 80.
+writecurrent_rules(53): screen__interface__screenwidtht__base__first <= 
+     screen__interface__screenwidtht__base__last may_be_deduced.
+writecurrent_rules(54): screen__interface__screenwidtht__base__first <= 
+     screen__interface__screenwidtht__first may_be_deduced.
+writecurrent_rules(55): screen__interface__screenwidtht__base__last >= 
+     screen__interface__screenwidtht__last may_be_deduced.
+writecurrent_rules(56): screen__interface__screenheightt__size >= 0 may_be_deduced.
+writecurrent_rules(57): screen__interface__screenheightt__first may_be_replaced_by 0.
+writecurrent_rules(58): screen__interface__screenheightt__last may_be_replaced_by 30.
+writecurrent_rules(59): screen__interface__screenheightt__base__first <= 
+     screen__interface__screenheightt__base__last may_be_deduced.
+writecurrent_rules(60): screen__interface__screenheightt__base__first <= 
+     screen__interface__screenheightt__first may_be_deduced.
+writecurrent_rules(61): screen__interface__screenheightt__base__last >= 
+     screen__interface__screenheightt__last may_be_deduced.
+writecurrent_rules(62): screen__interface__screenxcoordt__size >= 0 may_be_deduced.
+writecurrent_rules(63): screen__interface__screenxcoordt__first may_be_replaced_by 0.
+writecurrent_rules(64): screen__interface__screenxcoordt__last may_be_replaced_by 79.
+writecurrent_rules(65): screen__interface__screenxcoordt__base__first <= 
+     screen__interface__screenxcoordt__base__last may_be_deduced.
+writecurrent_rules(66): screen__interface__screenxcoordt__base__first <= 
+     screen__interface__screenxcoordt__first may_be_deduced.
+writecurrent_rules(67): screen__interface__screenxcoordt__base__last >= 
+     screen__interface__screenxcoordt__last may_be_deduced.
+writecurrent_rules(68): screen__interface__screenycoordt__size >= 0 may_be_deduced.
+writecurrent_rules(69): screen__interface__screenycoordt__first may_be_replaced_by 0.
+writecurrent_rules(70): screen__interface__screenycoordt__last may_be_replaced_by 29.
+writecurrent_rules(71): screen__interface__screenycoordt__base__first <= 
+     screen__interface__screenycoordt__base__last may_be_deduced.
+writecurrent_rules(72): screen__interface__screenycoordt__base__first <= 
+     screen__interface__screenycoordt__first may_be_deduced.
+writecurrent_rules(73): screen__interface__screenycoordt__base__last >= 
+     screen__interface__screenycoordt__last may_be_deduced.

@@ -1,0 +1,269 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:21  SIMPLIFIED 05-SEP-2011, 15:38:32
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure AdminToken.Clear
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/admintoken/admintoken.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_clear_1.  @@@@@@@@@@
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  basictypes__presencet__first <= basictypes__absent
+-S-  Applied substitution rule clear_rules(9).
+     This was achieved by replacing all occurrences of 
+          basictypes__presencet__first by:
+          basictypes__present.
+<S>  New C1:  true
+-S-  Applied substitution rule clear_rules(10).
+     This was achieved by replacing all occurrences of 
+          basictypes__presencet__last by:
+          basictypes__absent.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_clear_2.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  basictypes__presencet__first <= basictypes__absent
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  tokentypes__tryt__first <= tokentypes__notoken
+-S-  Applied substitution rule clear_rules(76).
+     This was achieved by replacing all occurrences of tokentypes__tryt__first 
+          by:
+          tokentypes__notoken.
+<S>  New C1:  true
+-S-  Applied substitution rule clear_rules(77).
+     This was achieved by replacing all occurrences of tokentypes__tryt__last 
+          by:
+          tokentypes__goodtoken.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_clear_3.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  basictypes__presencet__first <= basictypes__absent
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  tokentypes__tryt__first <= tokentypes__notoken
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  true
+***  Proved C1:  true
+-S-  Applied substitution rule clear_rules(70).
+     This was achieved by replacing all occurrences of 
+          tokentypes__tokenidt__first by:
+          0.
+<S>  New C2:  0 <= tokentypes__tokenidt__last
+-S-  Applied substitution rule clear_rules(71).
+     This was achieved by replacing all occurrences of 
+          tokentypes__tokenidt__last by:
+          4294967295.
+<S>  New C2:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_clear_4.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  basictypes__presencet__first <= basictypes__absent
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  tokentypes__tryt__first <= tokentypes__notoken
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  true
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  true
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  true
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  cert__attr__auth__therole(authcertcontents__1) = 
+          privtypes__privileget__first
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  cert__attr__auth__therole(authcertcontents__1) = 
+          privtypes__privileget__first
+     using hypothesis H8.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_clear_5.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_clear_6.  @@@@@@@@@@
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  admintoken__interface__state = fld_admintoken__interface__state(
+          state~)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  basictypes__presencet__first <= tokenpresence
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  tokentypes__tryt__first <= tokentry
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  not (privtypes__adminprivileget__first <= theauthcertrole(state) 
+          and theauthcertrole(state) <= privtypes__adminprivileget__last)
+-S-  Applied substitution rule clear_rules(9).
+     This was achieved by replacing all occurrences of 
+          basictypes__presencet__first by:
+          basictypes__present.
+<S>  New H10:  basictypes__present <= tokenpresence
+-S-  Applied substitution rule clear_rules(10).
+     This was achieved by replacing all occurrences of 
+          basictypes__presencet__last by:
+          basictypes__absent.
+<S>  New H11:  tokenpresence <= basictypes__absent
+-S-  Applied substitution rule clear_rules(32).
+     This was achieved by replacing all occurrences of 
+          privtypes__privileget__first by:
+          privtypes__useronly.
+<S>  New H22:  cert__attr__auth__therole(fld_contents(authcert)) = 
+          privtypes__useronly
+-S-  Applied substitution rule clear_rules(59).
+     This was achieved by replacing all occurrences of 
+          privtypes__adminprivileget__first by:
+          privtypes__guard.
+<S>  New C3:  not (privtypes__guard <= theauthcertrole(state) and 
+          theauthcertrole(state) <= privtypes__adminprivileget__last)
+-S-  Applied substitution rule clear_rules(60).
+     This was achieved by replacing all occurrences of 
+          privtypes__adminprivileget__last by:
+          privtypes__securityofficer.
+<S>  New C3:  not (privtypes__guard <= theauthcertrole(state) and 
+          theauthcertrole(state) <= privtypes__securityofficer)
+-S-  Applied substitution rule clear_rules(70).
+     This was achieved by replacing all occurrences of 
+          tokentypes__tokenidt__first by:
+          0.
+<S>  New H14:  tokenid >= 0
+-S-  Applied substitution rule clear_rules(71).
+     This was achieved by replacing all occurrences of 
+          tokentypes__tokenidt__last by:
+          4294967295.
+<S>  New H15:  tokenid <= 4294967295
+-S-  Applied substitution rule clear_rules(76).
+     This was achieved by replacing all occurrences of tokentypes__tryt__first 
+          by:
+          tokentypes__notoken.
+<S>  New H12:  tokentypes__notoken <= tokentry
+-S-  Applied substitution rule clear_rules(77).
+     This was achieved by replacing all occurrences of tokentypes__tryt__last 
+          by:
+          tokentypes__goodtoken.
+<S>  New H13:  tokentry <= tokentypes__goodtoken
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H2 (true-hypothesis).
+---  Eliminated hypothesis H16 (true-hypothesis).
+---  Eliminated hypothesis H17 (true-hypothesis).
+---  Eliminated hypothesis H18 (true-hypothesis).
+---  Eliminated hypothesis H19 (true-hypothesis).
+-S-  Eliminated hypothesis H3.
+     This was achieved by replacing all occurrences of tokenpresence by:
+          fld_tokenpresence(state).
+<S>  New H10:  basictypes__present <= fld_tokenpresence(state)
+<S>  New H11:  fld_tokenpresence(state) <= basictypes__absent
+-S-  Eliminated hypothesis H4.
+     This was achieved by replacing all occurrences of tokentry by:
+          fld_tokentry(state).
+<S>  New H12:  tokentypes__notoken <= fld_tokentry(state)
+<S>  New H13:  fld_tokentry(state) <= tokentypes__goodtoken
+-S-  Eliminated hypothesis H5.
+     This was achieved by replacing all occurrences of tokenid by:
+          fld_tokenid(state).
+<S>  New H14:  fld_tokenid(state) >= 0
+<S>  New H15:  fld_tokenid(state) <= 4294967295
+-S-  Eliminated hypothesis H6.
+     This was achieved by replacing all occurrences of authcert by:
+          fld_authcert(state).
+<S>  New H21:  not fld_valid(fld_authcert(state))
+<S>  New H22:  cert__attr__auth__therole(fld_contents(fld_authcert(state))) = 
+          privtypes__useronly
+-S-  Eliminated hypothesis H7.
+     This was achieved by replacing all occurrences of idcert by:
+          fld_idcert(state).
+<S>  New H20:  not fld_valid(fld_idcert(state))
+-S-  Eliminated hypothesis H8.
+     This was achieved by replacing all occurrences of 
+          admintoken__interface__state by:
+          fld_admintoken__interface__state(state~).
+<S>  New H9:  fld_admintoken__interface__state(state~) = 
+          fld_admintoken__interface__state(state)
+     +++  New H23:  basictypes__unsigned32t__base__first <= 
+          basictypes__unsigned32t__base__last
+     +++  New H24:  basictypes__presencet__size >= 0
+     +++  New H25:  privtypes__privileget__size >= 0
+     +++  New H26:  privtypes__adminprivileget__size >= 0
+     +++  New H27:  cert__attr__contentst__size >= 0
+     +++  New H28:  cert__attr__auth__contentst__size >= 0
+     +++  New H29:  cert__id__contentst__size >= 0
+     +++  New H30:  tokentypes__tokenidt__size >= 0
+     +++  New H31:  tokentypes__tokenidt__base__first <= 
+          tokentypes__tokenidt__base__last
+     +++  New H32:  tokentypes__tryt__size >= 0
+     +++  New H33:  validauthcertt__size >= 0
+     +++  New H34:  valididcertt__size >= 0
+     +++  New H35:  basictypes__unsigned32t__base__first <= 0
+     +++  New H36:  basictypes__unsigned32t__base__last >= 4294967295
+     +++  New H37:  tokentypes__tokenidt__base__first <= 0
+     +++  New H38:  tokentypes__tokenidt__base__last >= 4294967295
+***  Proved C1:  not prf_isgood(state)
+     This was achieved by applying the rewrite rule admintoken_user(1)
+     [from rulefile admintoken.rlu] to rewrite this conclusion to:
+<S>  C1:  not fld_valid(fld_idcert(state))
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  From H20, proved: not fld_valid(fld_idcert(state))
+***  Proved C2:  not prf_authcertvalid(state)
+     This was achieved by applying the rewrite rule admintoken_user(3)
+     [from rulefile admintoken.rlu] to rewrite this conclusion to:
+<S>  C2:  not fld_valid(fld_authcert(state))
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  From H21, proved: not fld_valid(fld_authcert(state))
+***  Proved C3:  not (privtypes__guard <= theauthcertrole(state) and 
+          theauthcertrole(state) <= privtypes__securityofficer)
+     This was achieved by applying the rewrite rule admintoken_user(5)
+     [from rulefile admintoken.rlu] to rewrite this conclusion to:
+<S>  C3:  not (privtypes__guard <= cert__attr__auth__therole(fld_contents(
+          fld_authcert(state))) and theauthcertrole(state) <= 
+          privtypes__securityofficer)
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  From H22, proved: not (privtypes__guard <= cert__attr__auth__therole(
+          fld_contents(fld_authcert(state))) and theauthcertrole(state) <= 
+          privtypes__securityofficer)
+***  PROVED VC.
+
+VCN  6: Summary of user rule application.
+FIL  admintoken.rlu
+RUL     admintoken_user(1)
+CON        1
+RUL     admintoken_user(3)
+CON        2
+RUL     admintoken_user(5)
+CON        3
+
+
+OVR  Overall summary of VCs using user rules.
+FIL  admintoken.rlu
+RUL     admintoken_user(1)
+VCS        6
+RUL     admintoken_user(3)
+VCS        6
+RUL     admintoken_user(5)
+VCS        6
+

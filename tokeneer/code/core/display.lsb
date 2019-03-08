@@ -1,0 +1,372 @@
+           *******************************************************
+                            Listing of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:17.93
+
+Line
+   1  ------------------------------------------------------------------
+   2  -- Tokeneer ID Station Core Software
+   3  --
+   4  -- Copyright (2003) United States Government, as represented
+   5  -- by the Director, National Security Agency. All rights reserved.
+   6  --
+   7  -- This material was originally developed by Praxis High Integrity
+   8  -- Systems Ltd. under contract to the National Security Agency.
+   9  ------------------------------------------------------------------
+  10  
+  11  ------------------------------------------------------------------
+  12  -- Display
+  13  --
+  14  -- Implementation Notes:
+  15  --    This package also keeps the sizes of the two lines
+  16  --    on the display. This is used to determine whether the
+  17  --    text fits on the screen or whether the text should be
+  18  --    scrolled.
+  19  --
+  20  ------------------------------------------------------------------
+  21  
+  22  with AuditLog,
+  23       AuditTypes,
+  24       BasicTypes,
+  25       Display.Interface;
+  26  
+  27  use type BasicTypes.Unsigned32T;
+  28  
+  29  package body Display
+  30  --# own State  is CurrentDisplay,
+  31  --#               CurrentlyDisplayed,
+  32  --#               Sizes &
+  33  --#     Output is out Display.Interface.Output;
+  34  is
+  35  
+  36     ------------------------------------------------------------------
+  37     -- Types
+  38     ------------------------------------------------------------------
+  39     type MsgToStringT is array (MsgT) of MsgStrT;
+  40  
+  41     MsgToStrings : constant MsgToStringT := MsgToStringT'(
+  42           Blank =>
+  43              MsgStrT'(Top    => MsgLineT'(
+  44                                    Text => "SYSTEM NOT OPERATIONAL ",
+  45                                    Len  => 22),
+  46                       Bottom => BlankLine),
+  47           Welcome =>
+  48              MsgStrT'(Top    => MsgLineT'(
+  49                                    Text => "WELCOME TO TIS         ",
+  50                                    Len  => 14),
+  51                       Bottom => MsgLineT'(
+  52                                    Text => "ENTER TOKEN            ",
+  53                                    Len  => 11)),
+  54           InsertFinger =>
+  55              MsgStrT'(Top    => MsgLineT'(
+  56                                    Text => "AUTHENTICATING USER    ",
+  57                                    Len  => 19),
+  58                       Bottom => MsgLineT'(
+  59                                    Text => "INSERT FINGER          ",
+  60                                    Len  => 13)),
+  61           OpenDoor =>
+  62              MsgStrT'(Top    => BlankLine,
+  63                       Bottom => MsgLineT'(
+  64                                    Text => "REMOVE TOKEN AND ENTER ",
+  65                                    Len  => 22)),
+  66           Wait =>
+  67              MsgStrT'(Top    => MsgLineT'(
+  68                                    Text => "AUTHENTICATING USER    ",
+  69                                    Len  => 19),
+  70                       Bottom => MsgLineT'(
+  71                                    Text => "PLEASE WAIT            ",
+  72                                    Len  => 11)),
+  73           RemoveToken =>
+  74              MsgStrT'(Top    => MsgLineT'(
+  75                                    Text => "ENTRY DENIED           ",
+  76                                    Len  => 12),
+  77                       Bottom => MsgLineT'(
+  78                                    Text => "REMOVE TOKEN           ",
+  79                                    Len  => 12)),
+  80           TokenUpdateFailed =>
+  81              MsgStrT'(Top    => BlankLine,
+  82                       Bottom => MsgLineT'(
+  83                                    Text => "TOKEN UPDATE FAILED    ",
+  84                                    Len  => 19)),
+  85           DoorUnlocked =>
+  86              MsgStrT'(Top    => BlankLine,
+  87                       Bottom => MsgLineT'(
+  88                                    Text => "ENTER ENCLAVE          ",
+  89                                    Len  => 13))
+  90           );
+  91  
+  92     type SizesT is record
+  93        Top    : BasicTypes.Unsigned32T;
+  94        Bottom : BasicTypes.Unsigned32T;
+  95     end record;
+  96  
+  97  
+  98     ------------------------------------------------------------------
+  99     -- State
+ 100     ------------------------------------------------------------------
+ 101     CurrentDisplay : MsgT;
+ 102     CurrentlyDisplayed : MsgT;
+ 103     Sizes : SizesT;
+ 104  
+ 105  
+ 106     ------------------------------------------------------------------
+ 107     -- Local Subprograms
+ 108     ------------------------------------------------------------------
+ 109     ------------------------------------------------------------------
+ 110     -- CombineLines
+ 111     --
+ 112     -- Description:
+ 113     --    Combines the two lines of text to make a scrollable string
+ 114     --
+ 115     -- Implementation Notes:
+ 116     --    None
+ 117     --
+ 118     ------------------------------------------------------------------
+ 119     function CombineLines(TheMsg : MsgStrT) return ScrollStrT
+ 120     is
+ 121        Result : ScrollStrT :=
+ 122                    ScrollStrT'(Text => ScrollTextT'(others => ' '),
+ 123                                Len  => 0);
+ 124     begin
+ 125  
+ 126        -- Add the top text...
+ 127        for I in ScrollTextI range 1..TheMsg.Top.Len loop
+ 128           --# assert 1 <= I and
+ 129           --#        I <= TheMsg.Top.Len and
+ 130           --#        TheMsg = TheMsg%;
+ 131           Result.Text(I) := TheMsg.Top.Text(I);
+ 132        end loop;
+ 133        Result.Len := TheMsg.Top.Len;
+ 134  
+ 135        -- ...and a divider...
+ 136        Result.Text(Result.Len + 1) := ' ';
+ 137        Result.Text(Result.Len + 2) := '/';
+ 138        Result.Text(Result.Len + 3) := ' ';
+ 139        Result.Len := Result.Len + 3;
+ 140  
+ 141        -- ...and the bottom text.
+ 142        for I in ScrollTextI range 1..TheMsg.Bottom.Len loop
+ 143           --# assert 1 <= I and
+ 144           --#        I <= TheMsg.Bottom.Len and
+ 145           --#        TheMsg = TheMsg% and
+ 146           --#        Result.Len = TheMsg.Top.Len + 3;
+ 147           Result.Text(Result.Len + I) := TheMsg.Bottom.Text(I);
+ 148        end loop;
+ 149        Result.Len := Result.Len + TheMsg.Bottom.Len;
+ 150  
+ 151        return Result;
+ 152     end CombineLines;
+
++++        Flow analysis of subprogram CombineLines 
+           performed: no errors found.
+
+ 153  
+ 154  
+ 155     ------------------------------------------------------------------
+ 156     -- Exported Subprograms
+ 157     ------------------------------------------------------------------
+ 158     ------------------------------------------------------------------
+ 159     -- SetValue
+ 160     --
+ 161     -- Implementation Notes:
+ 162     --    None
+ 163     --
+ 164     ------------------------------------------------------------------
+ 165  
+ 166     procedure SetValue(Msg : in     MsgT)
+ 167     --# global in     Clock.Now;
+ 168     --#        in     ConfigData.State;
+ 169     --#        in out AuditLog.State;
+ 170     --#        in out AuditLog.FileState;
+ 171     --#        in out CurrentDisplay;
+ 172     --# derives AuditLog.State,
+ 173     --#         AuditLog.FileState from AuditLog.State,
+ 174     --#                                 AuditLog.FileState,
+ 175     --#                                 Msg,
+ 176     --#                                 Clock.Now,
+ 177     --#                                 ConfigData.State,
+ 178     --#                                 CurrentDisplay &
+ 179     --#         CurrentDisplay     from Msg;
+ 180     is
+ 181     begin
+ 182  
+ 183        if Msg /= CurrentDisplay then
+ 184           AuditLog.AddElementToLog(
+ 185                  ElementID   => AuditTypes.DisplayChanged,
+ 186                  Severity    => AuditTypes.Information,
+ 187                  User        => AuditTypes.NoUser,
+ 188                  Description => CombineLines(MsgToStrings(Msg)).Text
+ 189                  );
+ 190        end if;
+ 191        CurrentDisplay := Msg;
+ 192  
+ 193     end SetValue;
+
++++        Flow analysis of subprogram SetValue performed: 
+           no errors found.
+
+ 194  
+ 195     ------------------------------------------------------------------
+ 196     -- ChangeDoorUnlockedMsg
+ 197     --
+ 198     -- Implementation Notes:
+ 199     --    None
+ 200     --
+ 201     ------------------------------------------------------------------
+ 202  
+ 203     procedure ChangeDoorUnlockedMsg(Msg : in     MsgT)
+ 204     --# global in     Clock.Now;
+ 205     --#        in     ConfigData.State;
+ 206     --#        in out AuditLog.State;
+ 207     --#        in out AuditLog.FileState;
+ 208     --#        in out CurrentDisplay;
+ 209     --# derives AuditLog.State,
+ 210     --#         AuditLog.FileState from AuditLog.State,
+ 211     --#                                 AuditLog.FileState,
+ 212     --#                                 Msg,
+ 213     --#                                 Clock.Now,
+ 214     --#                                 ConfigData.State,
+ 215     --#                                 CurrentDisplay &
+ 216     --#         CurrentDisplay     from *,
+ 217     --#                                 Msg;
+ 218     is
+ 219     begin
+ 220  
+ 221        if CurrentDisplay = DoorUnlocked then
+ 222           SetValue( Msg => Msg);
+ 223        end if;
+ 224  
+ 225     end ChangeDoorUnlockedMsg;
+
++++        Flow analysis of subprogram 
+           ChangeDoorUnlockedMsg performed: no errors found.
+
+ 226  
+ 227  
+ 228  
+ 229     ------------------------------------------------------------------
+ 230     -- UpdateDevice
+ 231     --
+ 232     -- Implemenation Notes:
+ 233     --    None
+ 234     --
+ 235     ------------------------------------------------------------------
+ 236  
+ 237     procedure UpdateDevice
+ 238     --# global in     Clock.Now;
+ 239     --#        in     ConfigData.State;
+ 240     --#        in     CurrentDisplay;
+ 241     --#        in     Sizes;
+ 242     --#        in out CurrentlyDisplayed;
+ 243     --#        in out AuditLog.State;
+ 244     --#        in out AuditLog.FileState;
+ 245     --#           out Interface.Output;
+ 246     --# derives AuditLog.State,
+ 247     --#         AuditLog.FileState from AuditLog.State,
+ 248     --#                                 AuditLog.FileState,
+ 249     --#                                 Clock.Now,
+ 250     --#                                 ConfigData.State,
+ 251     --#                                 CurrentlyDisplayed,
+ 252     --#                                 CurrentDisplay,
+ 253     --#                                 Sizes &
+ 254     --#         CurrentlyDisplayed from *,
+ 255     --#                                 CurrentDisplay &
+ 256     --#         Interface.Output   from CurrentDisplay,
+ 257     --#                                 CurrentlyDisplayed,
+ 258     --#                                 Sizes;
+ 259     is
+ 260        TheMsg    : MsgStrT;
+ 261        Written   : Boolean;
+ 262  
+ 263        TopWritten,
+ 264        BottomWritten : Boolean;
+ 265  
+ 266     begin
+ 267        if CurrentDisplay /= CurrentlyDisplayed then
+ 268           CurrentlyDisplayed := CurrentDisplay;
+ 269  
+ 270        TheMsg := MsgToStrings(CurrentDisplay);
+ 271        -- Reset the screen
+ 272        Interface.Reset;
+ 273  
+ 274        if BasicTypes.Unsigned32T(TheMsg.Top.Len) <= Sizes.Top and
+ 275           BasicTypes.Unsigned32T(TheMsg.Bottom.Len) <= Sizes.Bottom then
+ 276  
+ 277           -- Top and Bottom text fit --> Write Top, Bottom
+ 278           Interface.SetTopText(TopText => TheMsg.Top,
+ 279                                Written => TopWritten);
+ 280           Interface.SetBottomText(BottomText => TheMsg.Bottom,
+ 281                                   Written    => BottomWritten);
+ 282           Written := TopWritten and BottomWritten;
+ 283  
+ 284        else
+ 285  
+ 286           -- Top or Bottom text doesn't fit --> Scroll Top+Bottom
+ 287           Interface.SetTopTextScrollable(
+ 288              ScrollText => CombineLines(TheMsg),
+ 289              Written    => Written);
+ 290  
+ 291        end if;
+ 292  
+ 293        if not Written then
+ 294           AuditLog.AddElementToLog(
+ 295                  ElementID   => AuditTypes.SystemFault,
+ 296                  Severity    => AuditTypes.Warning,
+ 297                  User        => AuditTypes.NoUser,
+ 298                  Description => "Could not update Display"
+ 299                  );
+ 300        end if;
+ 301  
+ 302        end if;
+ 303  
+ 304     end UpdateDevice;
+
++++        Flow analysis of subprogram UpdateDevice 
+           performed: no errors found.
+
+ 305  
+ 306  
+ 307     ------------------------------------------------------------------
+ 308     -- Init
+ 309     --
+ 310     -- Implementation Notes:
+ 311     --    Determine the size of the display lines
+ 312     --
+ 313     ------------------------------------------------------------------
+ 314  
+ 315     procedure Init(IsEnrolled : in     Boolean)
+ 316     --# global    out CurrentDisplay;
+ 317     --#           out CurrentlyDisplayed;
+ 318     --#           out Sizes;
+ 319     --# derives CurrentDisplay,
+ 320     --#         CurrentlyDisplayed from IsEnrolled &
+ 321     --#         Sizes              from ;
+ 322     is
+ 323     begin
+ 324        Sizes := SizesT'(Top    => Interface.GetMaxTextSizeTop,
+ 325                         Bottom => Interface.GetMaxTextSizeBottom);
+ 326        if IsEnrolled then
+ 327           CurrentDisplay     := Welcome;
+ 328           CurrentlyDisplayed := Blank;
+ 329        else
+ 330           CurrentDisplay     := Blank;
+ 331           CurrentlyDisplayed := Welcome;
+ 332        end if;
+ 333     end Init;
+
++++        Flow analysis of subprogram Init performed: no 
+           errors found.
+
+ 334  
+ 335  
+ 336  end Display;
+10 summarized warning(s), comprising:
+    10 use(s) of Ada2005 reserved words
+
+
+
+--End of file--------------------------------------------------

@@ -1,0 +1,176 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:16  SIMPLIFIED 05-SEP-2011, 15:38:27
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure Admin.Logon
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/admin/admin.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_logon_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  privtypes__adminprivileget__first <= role
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  privtypes__privileget__first <= role
+-S-  Applied substitution rule logon_rules(2).
+     This was achieved by replacing all occurrences of 
+          privtypes__privileget__first by:
+          privtypes__useronly.
+<S>  New C1:  privtypes__useronly <= role
+-S-  Applied substitution rule logon_rules(3).
+     This was achieved by replacing all occurrences of 
+          privtypes__privileget__last by:
+          privtypes__securityofficer.
+<S>  New C2:  role <= privtypes__securityofficer
+-S-  Applied substitution rule logon_rules(29).
+     This was achieved by replacing all occurrences of 
+          privtypes__adminprivileget__first by:
+          privtypes__guard.
+<S>  New H2:  privtypes__guard <= role
+-S-  Applied substitution rule logon_rules(30).
+     This was achieved by replacing all occurrences of 
+          privtypes__adminprivileget__last by:
+          privtypes__securityofficer.
+<S>  New H3:  role <= privtypes__securityofficer
+***  Proved C1:  privtypes__useronly <= role
+     using hypothesis H2.
+***  Proved C2:  role <= privtypes__securityofficer
+     using hypothesis H3.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_logon_2.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  privtypes__adminprivileget__first <= role
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  privtypes__privileget__first <= role
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  opandnullt__first <= nullop
+-S-  Applied substitution rule logon_rules(34).
+     This was achieved by replacing all occurrences of opandnullt__first by:
+          nullop.
+<S>  New C1:  true
+-S-  Applied substitution rule logon_rules(35).
+     This was achieved by replacing all occurrences of opandnullt__last by:
+          shutdownop.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_logon_3.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  privtypes__adminprivileget__first <= role
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  privtypes__privileget__first <= role
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  opandnullt__first <= nullop
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  role = privtypes__guard <-> prf_rolepresent(upf_rolepresent(
+          upf_currentop(theadmin, nullop), role)) = privtypes__guard
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  not isdoingop(upf_rolepresent(upf_currentop(theadmin, nullop), 
+          role))
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  ispresent(upf_rolepresent(upf_currentop(theadmin, nullop), role))
+-S-  Applied substitution rule logon_rules(2).
+     This was achieved by replacing all occurrences of 
+          privtypes__privileget__first by:
+          privtypes__useronly.
+<S>  New H4:  privtypes__useronly <= role
+-S-  Applied substitution rule logon_rules(3).
+     This was achieved by replacing all occurrences of 
+          privtypes__privileget__last by:
+          privtypes__securityofficer.
+<S>  New H5:  role <= privtypes__securityofficer
+-S-  Applied substitution rule logon_rules(29).
+     This was achieved by replacing all occurrences of 
+          privtypes__adminprivileget__first by:
+          privtypes__guard.
+<S>  New H2:  privtypes__guard <= role
+-S-  Applied substitution rule logon_rules(30).
+     This was achieved by replacing all occurrences of 
+          privtypes__adminprivileget__last by:
+          privtypes__securityofficer.
+<S>  New H3:  role <= privtypes__securityofficer
+-S-  Applied substitution rule logon_rules(34).
+     This was achieved by replacing all occurrences of opandnullt__first by:
+          nullop.
+<S>  New H6:  true
+-S-  Applied substitution rule logon_rules(35).
+     This was achieved by replacing all occurrences of opandnullt__last by:
+          shutdownop.
+<S>  New H7:  true
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H6 (true-hypothesis).
+---  Eliminated hypothesis H7 (true-hypothesis).
+---  Eliminated hypothesis H5 (duplicate of H3).
+     +++  New H8:  privtypes__privileget__size >= 0
+     +++  New H9:  privtypes__adminprivileget__size >= 0
+     +++  New H10:  opandnullt__size >= 0
+     +++  New H11:  t__size >= 0
+***  Proved C3:  ispresent(upf_rolepresent(upf_currentop(theadmin, nullop), 
+          role))
+     This was achieved by applying the inference rule admin_user(4)
+     [from rulefile admin.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H2, proved: role <> privtypes__useronly
+***  Proved C1:  role = privtypes__guard <-> prf_rolepresent(upf_rolepresent(
+          upf_currentop(theadmin, nullop), role)) = privtypes__guard
+     This was achieved by applying the rewrite rule admin_user(8)
+     [from rulefile admin.rlu] to rewrite this conclusion to:
+<S>  C1:  role = privtypes__guard <-> fld_rolepresent(upf_rolepresent(
+          upf_currentop(theadmin, nullop), role)) = privtypes__guard
+     This rule could be applied because its side-conditions hold, as follows:
+     <<<  By simple reasoning, proved: role = privtypes__guard <-> 
+          fld_rolepresent(upf_rolepresent(upf_currentop(theadmin, nullop), role)
+          ) = privtypes__guard
+     <<<  Immediate condition checktype(upf_rolepresent(upf_currentop(theadmin, 
+          nullop), role), t) evaluated successfully
+***  Proved C2:  not isdoingop(upf_rolepresent(upf_currentop(theadmin, nullop), 
+          role))
+     This was achieved by applying the rewrite rule admin_user(1)
+     [from rulefile admin.rlu] to rewrite this conclusion to:
+<S>  C2:  not fld_currentop(upf_rolepresent(upf_currentop(theadmin, nullop), 
+          role)) <> nullop
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  By simple reasoning, proved: not fld_currentop(upf_rolepresent(
+          upf_currentop(theadmin, nullop), role)) <> nullop
+***  PROVED VC.
+
+VCN  3: Summary of user rule application.
+FIL  admin.rlu
+RUL     admin_user(4)
+CON        3
+RUL     admin_user(8)
+CON        1
+RUL     admin_user(1)
+CON        2
+
+
+OVR  Overall summary of VCs using user rules.
+FIL  admin.rlu
+RUL     admin_user(4)
+VCS        3
+RUL     admin_user(8)
+VCS        3
+RUL     admin_user(1)
+VCS        3
+

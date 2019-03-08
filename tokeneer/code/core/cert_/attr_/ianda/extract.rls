@@ -1,0 +1,270 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:14.91*/
+
+                          /*procedure IandA.Extract*/
+
+
+rule_family extract_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+extract_rules(1): integer__size >= 0 may_be_deduced.
+extract_rules(2): integer__first may_be_replaced_by -2147483648.
+extract_rules(3): integer__last may_be_replaced_by 2147483647.
+extract_rules(4): integer__base__first may_be_replaced_by -2147483648.
+extract_rules(5): integer__base__last may_be_replaced_by 2147483647.
+extract_rules(6): character__size >= 0 may_be_deduced.
+extract_rules(7): character__first may_be_replaced_by 0.
+extract_rules(8): character__last may_be_replaced_by 255.
+extract_rules(9): character__base__first may_be_replaced_by 0.
+extract_rules(10): character__base__last may_be_replaced_by 255.
+extract_rules(11): positive__size >= 0 may_be_deduced.
+extract_rules(12): positive__first may_be_replaced_by 1.
+extract_rules(13): positive__last may_be_replaced_by 2147483647.
+extract_rules(14): positive__base__first may_be_replaced_by -2147483648.
+extract_rules(15): positive__base__last may_be_replaced_by 2147483647.
+extract_rules(16): basictypes__unsigned32t__size >= 0 may_be_deduced.
+extract_rules(17): basictypes__unsigned32t__size may_be_replaced_by 32.
+extract_rules(18): basictypes__unsigned32t__first may_be_replaced_by 0.
+extract_rules(19): basictypes__unsigned32t__last may_be_replaced_by 4294967295.
+extract_rules(20): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__base__last may_be_deduced.
+extract_rules(21): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__first may_be_deduced.
+extract_rules(22): basictypes__unsigned32t__base__last >= 
+     basictypes__unsigned32t__last may_be_deduced.
+extract_rules(23): basictypes__bytet__size >= 0 may_be_deduced.
+extract_rules(24): basictypes__bytet__size may_be_replaced_by 8.
+extract_rules(25): basictypes__bytet__first may_be_replaced_by 0.
+extract_rules(26): basictypes__bytet__last may_be_replaced_by 255.
+extract_rules(27): basictypes__bytet__base__first <= 
+     basictypes__bytet__base__last may_be_deduced.
+extract_rules(28): basictypes__bytet__base__first <= 
+     basictypes__bytet__first may_be_deduced.
+extract_rules(29): basictypes__bytet__base__last >= 
+     basictypes__bytet__last may_be_deduced.
+extract_rules(30): cryptotypes__namecountt__size >= 0 may_be_deduced.
+extract_rules(31): cryptotypes__namecountt__first may_be_replaced_by 0.
+extract_rules(32): cryptotypes__namecountt__last may_be_replaced_by 40.
+extract_rules(33): cryptotypes__namecountt__base__first may_be_replaced_by -2147483648.
+extract_rules(34): cryptotypes__namecountt__base__last may_be_replaced_by 2147483647.
+extract_rules(35): cryptotypes__namei__size >= 0 may_be_deduced.
+extract_rules(36): cryptotypes__namei__first may_be_replaced_by 1.
+extract_rules(37): cryptotypes__namei__last may_be_replaced_by 40.
+extract_rules(38): cryptotypes__namei__base__first may_be_replaced_by -2147483648.
+extract_rules(39): cryptotypes__namei__base__last may_be_replaced_by 2147483647.
+extract_rules(40): cryptotypes__issueridt__size >= 0 may_be_deduced.
+extract_rules(41): cryptotypes__issueridt__first may_be_replaced_by 0.
+extract_rules(42): cryptotypes__issueridt__last may_be_replaced_by 4294967295.
+extract_rules(43): cryptotypes__issueridt__base__first <= 
+     cryptotypes__issueridt__base__last may_be_deduced.
+extract_rules(44): cryptotypes__issueridt__base__first <= 
+     cryptotypes__issueridt__first may_be_deduced.
+extract_rules(45): cryptotypes__issueridt__base__last >= 
+     cryptotypes__issueridt__last may_be_deduced.
+extract_rules(46): cryptotypes__issuert__size >= 0 may_be_deduced.
+extract_rules(47): A = B may_be_deduced_from
+     [goal(checktype(A,cryptotypes__issuert)),
+      goal(checktype(B,cryptotypes__issuert)),
+      fld_id(A) = fld_id(B),
+      fld_namelength(A) = fld_namelength(B),
+      fld_name(A) = fld_name(B)].
+extract_rules(48): cryptotypes__algorithmt__size >= 0 may_be_deduced.
+extract_rules(49): cryptotypes__algorithmt__first may_be_replaced_by cryptotypes__rsa.
+extract_rules(50): cryptotypes__algorithmt__last may_be_replaced_by cryptotypes__ripemd160_rsa.
+extract_rules(51): cryptotypes__algorithmt__base__first may_be_replaced_by cryptotypes__rsa.
+extract_rules(52): cryptotypes__algorithmt__base__last may_be_replaced_by cryptotypes__ripemd160_rsa.
+extract_rules(53): cryptotypes__algorithmt__pos(
+     cryptotypes__algorithmt__first) may_be_replaced_by 0.
+extract_rules(54): cryptotypes__algorithmt__pos(cryptotypes__rsa) may_be_replaced_by 0.
+extract_rules(55): cryptotypes__algorithmt__val(0) may_be_replaced_by 
+     cryptotypes__rsa.
+extract_rules(56): cryptotypes__algorithmt__pos(cryptotypes__md2) may_be_replaced_by 1.
+extract_rules(57): cryptotypes__algorithmt__val(1) may_be_replaced_by 
+     cryptotypes__md2.
+extract_rules(58): cryptotypes__algorithmt__pos(cryptotypes__md5) may_be_replaced_by 2.
+extract_rules(59): cryptotypes__algorithmt__val(2) may_be_replaced_by 
+     cryptotypes__md5.
+extract_rules(60): cryptotypes__algorithmt__pos(
+     cryptotypes__sha_1) may_be_replaced_by 3.
+extract_rules(61): cryptotypes__algorithmt__val(3) may_be_replaced_by 
+     cryptotypes__sha_1.
+extract_rules(62): cryptotypes__algorithmt__pos(
+     cryptotypes__ripemd128) may_be_replaced_by 4.
+extract_rules(63): cryptotypes__algorithmt__val(4) may_be_replaced_by 
+     cryptotypes__ripemd128.
+extract_rules(64): cryptotypes__algorithmt__pos(
+     cryptotypes__ripemd160) may_be_replaced_by 5.
+extract_rules(65): cryptotypes__algorithmt__val(5) may_be_replaced_by 
+     cryptotypes__ripemd160.
+extract_rules(66): cryptotypes__algorithmt__pos(
+     cryptotypes__md2_rsa) may_be_replaced_by 6.
+extract_rules(67): cryptotypes__algorithmt__val(6) may_be_replaced_by 
+     cryptotypes__md2_rsa.
+extract_rules(68): cryptotypes__algorithmt__pos(
+     cryptotypes__md5_rsa) may_be_replaced_by 7.
+extract_rules(69): cryptotypes__algorithmt__val(7) may_be_replaced_by 
+     cryptotypes__md5_rsa.
+extract_rules(70): cryptotypes__algorithmt__pos(
+     cryptotypes__sha1_rsa) may_be_replaced_by 8.
+extract_rules(71): cryptotypes__algorithmt__val(8) may_be_replaced_by 
+     cryptotypes__sha1_rsa.
+extract_rules(72): cryptotypes__algorithmt__pos(
+     cryptotypes__ripemd128_rsa) may_be_replaced_by 9.
+extract_rules(73): cryptotypes__algorithmt__val(9) may_be_replaced_by 
+     cryptotypes__ripemd128_rsa.
+extract_rules(74): cryptotypes__algorithmt__pos(
+     cryptotypes__ripemd160_rsa) may_be_replaced_by 10.
+extract_rules(75): cryptotypes__algorithmt__val(10) may_be_replaced_by 
+     cryptotypes__ripemd160_rsa.
+extract_rules(76): cryptotypes__algorithmt__pos(
+     cryptotypes__algorithmt__last) may_be_replaced_by 10.
+extract_rules(77): cryptotypes__algorithmt__pos(succ(X)) may_be_replaced_by 
+     cryptotypes__algorithmt__pos(X) + 1
+     if [X <=cryptotypes__ripemd160_rsa, X <> 
+     cryptotypes__ripemd160_rsa].
+extract_rules(78): cryptotypes__algorithmt__pos(pred(X)) may_be_replaced_by 
+     cryptotypes__algorithmt__pos(X) - 1
+     if [X >=cryptotypes__rsa, X <> cryptotypes__rsa].
+extract_rules(79): cryptotypes__algorithmt__pos(X) >= 0 may_be_deduced_from
+     [cryptotypes__rsa <= X, X <= cryptotypes__ripemd160_rsa].
+extract_rules(80): cryptotypes__algorithmt__pos(X) <= 10 may_be_deduced_from
+     [cryptotypes__rsa <= X, X <= cryptotypes__ripemd160_rsa].
+extract_rules(81): cryptotypes__algorithmt__val(X) >= 
+     cryptotypes__rsa may_be_deduced_from
+     [0 <= X, X <= 10].
+extract_rules(82): cryptotypes__algorithmt__val(X) <= 
+     cryptotypes__ripemd160_rsa may_be_deduced_from
+     [0 <= X, X <= 10].
+extract_rules(83): succ(cryptotypes__algorithmt__val(X)) may_be_replaced_by 
+     cryptotypes__algorithmt__val(X+1)
+     if [0 <= X, X < 10].
+extract_rules(84): pred(cryptotypes__algorithmt__val(X)) may_be_replaced_by 
+     cryptotypes__algorithmt__val(X-1)
+     if [0 < X, X <= 10].
+extract_rules(85): cryptotypes__algorithmt__pos(
+     cryptotypes__algorithmt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 10].
+extract_rules(86): cryptotypes__algorithmt__val(
+     cryptotypes__algorithmt__pos(X)) may_be_replaced_by X
+     if [cryptotypes__rsa <= X, X <= cryptotypes__ripemd160_rsa].
+extract_rules(87): cryptotypes__algorithmt__pos(X) <= 
+     cryptotypes__algorithmt__pos(Y) & X <= Y are_interchangeable 
+     if [cryptotypes__rsa <= X, X <= cryptotypes__ripemd160_rsa, 
+     cryptotypes__rsa <= Y, Y <= cryptotypes__ripemd160_rsa].
+extract_rules(88): cryptotypes__algorithmt__val(X) <= 
+     cryptotypes__algorithmt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 10, 0 <= Y, Y <= 10].
+extract_rules(89): iandatypes__fart__size >= 0 may_be_deduced.
+extract_rules(90): iandatypes__fart__size may_be_replaced_by 32.
+extract_rules(91): iandatypes__fart__first may_be_replaced_by 0.
+extract_rules(92): iandatypes__fart__last may_be_replaced_by 2147483647.
+extract_rules(93): iandatypes__fart__base__first <= 
+     iandatypes__fart__base__last may_be_deduced.
+extract_rules(94): iandatypes__fart__base__first <= 
+     iandatypes__fart__first may_be_deduced.
+extract_rules(95): iandatypes__fart__base__last >= 
+     iandatypes__fart__last may_be_deduced.
+extract_rules(96): iandatypes__templatepadi__size >= 0 may_be_deduced.
+extract_rules(97): iandatypes__templatepadi__first may_be_replaced_by 1.
+extract_rules(98): iandatypes__templatepadi__last may_be_replaced_by 452.
+extract_rules(99): iandatypes__templatepadi__base__first <= 
+     iandatypes__templatepadi__base__last may_be_deduced.
+extract_rules(100): iandatypes__templatepadi__base__first <= 
+     iandatypes__templatepadi__first may_be_deduced.
+extract_rules(101): iandatypes__templatepadi__base__last >= 
+     iandatypes__templatepadi__last may_be_deduced.
+extract_rules(102): iandatypes__templatelengtht__size >= 0 may_be_deduced.
+extract_rules(103): iandatypes__templatelengtht__first may_be_replaced_by 0.
+extract_rules(104): iandatypes__templatelengtht__last may_be_replaced_by 4294967295.
+extract_rules(105): iandatypes__templatelengtht__base__first <= 
+     iandatypes__templatelengtht__base__last may_be_deduced.
+extract_rules(106): iandatypes__templatelengtht__base__first <= 
+     iandatypes__templatelengtht__first may_be_deduced.
+extract_rules(107): iandatypes__templatelengtht__base__last >= 
+     iandatypes__templatelengtht__last may_be_deduced.
+extract_rules(108): iandatypes__templateidi__size >= 0 may_be_deduced.
+extract_rules(109): iandatypes__templateidi__first may_be_replaced_by 1.
+extract_rules(110): iandatypes__templateidi__last may_be_replaced_by 40.
+extract_rules(111): iandatypes__templateidi__base__first may_be_replaced_by -2147483648.
+extract_rules(112): iandatypes__templateidi__base__last may_be_replaced_by 2147483647.
+extract_rules(113): iandatypes__templatet__size >= 0 may_be_deduced.
+extract_rules(114): A = B may_be_deduced_from
+     [goal(checktype(A,iandatypes__templatet)),
+      goal(checktype(B,iandatypes__templatet)),
+      fld_length(A) = fld_length(B),
+      fld_requiredmaxfar(A) = fld_requiredmaxfar(B),
+      fld_id(A) = fld_id(B),
+      fld_pad(A) = fld_pad(B)].
+extract_rules(115): certtypes__rawcertificatei__size >= 0 may_be_deduced.
+extract_rules(116): certtypes__rawcertificatei__first may_be_replaced_by 1.
+extract_rules(117): certtypes__rawcertificatei__last may_be_replaced_by 4096.
+extract_rules(118): certtypes__rawcertificatei__base__first may_be_replaced_by -2147483648.
+extract_rules(119): certtypes__rawcertificatei__base__last may_be_replaced_by 2147483647.
+extract_rules(120): certtypes__serialnumbert__size >= 0 may_be_deduced.
+extract_rules(121): certtypes__serialnumbert__first may_be_replaced_by 0.
+extract_rules(122): certtypes__serialnumbert__last may_be_replaced_by 4294967295.
+extract_rules(123): certtypes__serialnumbert__base__first <= 
+     certtypes__serialnumbert__base__last may_be_deduced.
+extract_rules(124): certtypes__serialnumbert__base__first <= 
+     certtypes__serialnumbert__first may_be_deduced.
+extract_rules(125): certtypes__serialnumbert__base__last >= 
+     certtypes__serialnumbert__last may_be_deduced.
+extract_rules(126): certtypes__idt__size >= 0 may_be_deduced.
+extract_rules(127): A = B may_be_deduced_from
+     [goal(checktype(A,certtypes__idt)),
+      goal(checktype(B,certtypes__idt)),
+      fld_issuer(A) = fld_issuer(B),
+      fld_serialnumber(A) = fld_serialnumber(B)].
+extract_rules(128): certprocessing__timet__size >= 0 may_be_deduced.
+extract_rules(129): A = B may_be_deduced_from
+     [goal(checktype(A,certprocessing__timet)),
+      goal(checktype(B,certprocessing__timet)),
+      fld_year(A) = fld_year(B),
+      fld_month(A) = fld_month(B),
+      fld_day(A) = fld_day(B),
+      fld_hour(A) = fld_hour(B),
+      fld_minute(A) = fld_minute(B)].
+extract_rules(130): certprocessing__validityt__size >= 0 may_be_deduced.
+extract_rules(131): A = B may_be_deduced_from
+     [goal(checktype(A,certprocessing__validityt)),
+      goal(checktype(B,certprocessing__validityt)),
+      fld_notbefore(A) = fld_notbefore(B),
+      fld_notafter(A) = fld_notafter(B)].
+extract_rules(132): certprocessing__iacertdatat__size >= 0 may_be_deduced.
+extract_rules(133): A = B may_be_deduced_from
+     [goal(checktype(A,certprocessing__iacertdatat)),
+      goal(checktype(B,certprocessing__iacertdatat)),
+      fld_holder(A) = fld_holder(B),
+      fld_issuer(A) = fld_issuer(B),
+      fld_sigalgid(A) = fld_sigalgid(B),
+      fld_serialnumber(A) = fld_serialnumber(B),
+      fld_attcertvalidity(A) = fld_attcertvalidity(B),
+      fld_template(A) = fld_template(B)].
+extract_rules(134): cert__contentst__size >= 0 may_be_deduced.
+extract_rules(135): A = B may_be_deduced_from
+     [goal(checktype(A,cert__contentst)),
+      goal(checktype(B,cert__contentst)),
+      fld_id(A) = fld_id(B),
+      fld_notbefore(A) = fld_notbefore(B),
+      fld_notafter(A) = fld_notafter(B),
+      fld_mechanism(A) = fld_mechanism(B)].
+extract_rules(136): cert__attr__contentst__size >= 0 may_be_deduced.
+extract_rules(137): A = B may_be_deduced_from
+     [goal(checktype(A,cert__attr__contentst)),
+      goal(checktype(B,cert__attr__contentst)),
+      fld_inherit(A) = fld_inherit(B),
+      fld_basecertid(A) = fld_basecertid(B)].
+extract_rules(138): contentst__size >= 0 may_be_deduced.
+extract_rules(139): A = B may_be_deduced_from
+     [goal(checktype(A,contentst)),
+      goal(checktype(B,contentst)),
+      fld_inherit(A) = fld_inherit(B),
+      fld_template(A) = fld_template(B)].

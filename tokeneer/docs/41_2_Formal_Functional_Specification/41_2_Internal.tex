@@ -1,0 +1,613 @@
+
+%=======================================================================
+\chapter{Internal Operations}
+\label{sec:Internal}
+%=======================================================================
+In this section we present a number of operations performed internally
+by the TIS. These operations are combined to create the operations
+available to the user.
+
+%-------------------------------------------------------------------------
+\section{Updating the Audit Log}
+%-------------------------------------------------------------------------
+
+%.....................................
+\subsection{Adding elements to the Log}
+%.....................................
+
+\begin{traceunit}{FS.AuditLog.AddElementsToLog}
+\traceto{ScGeneral.Fail.Audit}
+\traceto{ScGainInitial.Fail.AuditPreserve}
+\traceto{ScProhibitInitial.Fail.AuditPreserve}
+\traceto{ScGainRepeat.Fail.AuditPreserve}
+\traceto{ScStart.Fail.AuditPreserve}
+\traceto{ScShutdown.Fail.AuditPreserve}
+\traceto{ScConfig.Fail.AuditPreserve}
+\traceto{ScUnlock.Fail.AuditPreserve}
+\traceto{ScLogOn.Fail.AuditPreserve}
+\traceto{ScLogOff.Fail.AuditPreserve}
+\traceto{FAU\_ARP.1.1}
+\traceto{FAU\_SAA.1.1}
+\traceto{FAU\_SAA.1.2}
+\traceto{FAU\_STG.2.3}
+\traceto{FAU\_STG.4.1}
+\end{traceunit}
+
+
+When we add a set of entries to the log, either there is sufficient
+room in the log for the new entries, in which case the new entries are
+added to the log, or there is insufficient room in the log to add the
+new entries and the oldest part of the log is truncated to make room
+for the new log entries. 
+We don't specify here how much of the log is truncated
+although it is likely to be sufficient to continue adding some data
+without further truncations.
+If the log is truncated or is close to its maximum size, an alarm is raised 
+to notify the administrator that the log is full. 
+
+\begin{schema}{AddElementsToLog}
+        Config
+\\      \Delta AuditLog
+\where
+        \exists newElements : \finset_1 Audit @
+\\ \t1        oldestLogTime~ newElements \geq newestLogTime~ auditLog
+\also
+\\ \t1 \land  (auditLog' = auditLog \cup newElements
+\\ \t2  \land (sizeLog~ auditLog' < alarmThresholdSize \land
+auditAlarm' = auditAlarm   
+\\ \t3  \lor  sizeLog~ auditLog' \geq alarmThresholdSize \land
+auditAlarm' = alarming)
+\\ \t4  \lor
+\\ \t1    sizeLog~ auditLog + sizeLog~ newElements > minPreservedLogSize 
+\\ \t2  \land (\exists oldElements : \finset Audit  @ 
+\\ \t3  oldElements \cup auditLog' = auditLog \cup newElements 
+\\ \t3  \land oldestLogTime~ auditLog' \geq newestLogTime~ oldElements)
+\\ \t3  \land sizeLog~ auditLog' \geq minPreservedLogSize
+\\ \t3  \land auditAlarm' = alarming  )            
+\end{schema}
+\begin{Zcomment}
+\item
+We make an assuption that all data added to the log is no older than
+the data already in the log. 
+\item
+This operation is non-deterministic when the addition of the set of
+$newElements$ will make the log larger than the
+$minPreservedLogSize$. At this point the log may, or may not be
+truncated.
+\item
+If the configuration data changes it is possible that the $minPreservedLogSize$
+becomes larger or smaller, any new value for this configurable item
+will not take effect until configuration is complete.
+\end{Zcomment}
+
+%..............................
+\subsection{Archiving the Log}
+%..............................
+
+\begin{traceunit}{FS.AuditLog.ArchiveLog}
+\end{traceunit}
+
+When we archive the log an audit element is added to the log and an
+archive is generated which can be written to floppy. 
+
+This activity does not clear the log since a check will be made to
+ensure the archive was successful before clearing the log.
+
+\begin{schema}{ArchiveLog}
+        Config
+\\      \Delta AuditLog
+\\      archive : \finset Audit
+\where
+        \exists  notArchived,
+        newElements : \finset Audit @
+\\ \t1           archive \subseteq auditLog \cup newElements
+\\ \t1          \land auditLog' \subseteq archive \cup notArchived
+\\ \t1          \land newestLogTime~ archive \leq oldestLogTime~ notArchived 
+\\ \t1          \land AddElementsToLog
+\end{schema}
+\begin{Zcomment}
+\item
+The explicit contraints on this schema define the component of the
+audit log that will be the $archive$. The constraints ensure that the
+$archive$ includes the oldest elements and has no gaps in it.
+\item
+This operation is used in the total operation that writes the archive
+log to floppy. $archive$ is the audit log that is written to floppy.
+\item
+The $archive$ only contains some of the final log. The part of the log that is
+not archived is represented by $notArchived$.
+\end{Zcomment}
+
+%..............................
+\subsection{Clearing the Log}
+%..............................
+
+\begin{traceunit}{FS.AuditLog.ClearLog}
+\traceto{FAU\_ARP.1.1}
+\end{traceunit}
+
+The log should only be cleared if it can be verified that an archive
+has been created of the data that is about to be cleared.
+
+When the log is cleared the component that has been archived is
+eliminated from the log. There may still be some elements in the log,
+these will have been added since the archive. Where the log has
+overflowed since the time of the archive the archive may contain
+entries older than those in the log.
+
+If the log is cleared successfully then the $auditAlarm$ is cancelled
+(provided that the size of the audit log is not larger than the alarm threshold size).
+
+\begin{schema}{ClearLog}
+        Config
+\\      \Delta AuditLog
+\\      archive : \finset Audit
+\where
+      (\exists sinceArchive,
+        lostSinceArchive : \finset Audit @  
+\\ \t1    archive \cup sinceArchive = lostSinceArchive \cup auditLog 
+\\ \t1    \land oldestLogTime~ sinceArchive \geq newestLogTime~ archive
+\\ \t1    \land newestLogTime~ lostSinceArchive \leq oldestLogTime~ auditLog
+\\ \t1    \land auditLog' = sinceArchive )
+\also
+        (sizeLog~ auditLog' < alarmThresholdSize \land auditAlarm' = silent
+\\ \t1  \lor sizeLog~ auditLog' \geq alarmThresholdSize \land auditAlarm' = alarming)
+
+\end{schema}
+\begin{Zcomment}
+\item
+This operation is not total, it will only be used to construct a total
+operation that makes $archive$  the value read back successfully from
+the floppy. Thus $archive$ will have been the whole audit log at some
+point in the past.
+\end{Zcomment}
+
+%.....................................................
+\subsection{Auditing Changes}
+%.....................................................
+
+\begin{traceunit}{FS.AuditLog.LogChange}
+\traceto{ScGainInitial.Suc.Audit}
+\traceto{ScProhibitInitial.Suc.Audit}
+\traceto{ScGainRepeat.Suc.Audit}
+\traceto{ScUnlock.Suc.Audit}
+\traceto{FAU\_ARP.1.1}
+\traceto{FAU\_SAA.1.1}
+\traceto{FAU\_SAA.1.2}
+\end{traceunit}
+
+
+TIS adds audit entries whenever any of the following changes occurs:
+\begin{itemize}
+\item
+The door is opened or closed.
+\item
+The door is latched or unlatched.
+\item
+The alarm  starts alarming or becomes silenced.
+\item
+The audit alarm  starts alarming or becomes silenced.
+\item
+The text displayed on the display changes.
+\item
+The text displayed on the screen changes.
+\end{itemize}
+
+\begin{schema}{AuditDoor}
+        \Delta DoorLatchAlarm
+\\        AddElementsToLog
+\where
+        currentDoor \neq currentDoor'
+\end{schema}
+
+\begin{schema}{AuditLatch}
+        \Delta DoorLatchAlarm
+\\        AddElementsToLog
+\where
+        currentLatch' \neq currentLatch 
+\end{schema}
+
+\begin{schema}{AuditAlarm}
+        \Delta DoorLatchAlarm
+\\      AddElementsToLog
+\where
+        doorAlarm \neq doorAlarm' 
+\also
+\end{schema}
+
+\begin{schema}{AuditLogAlarm}
+        AddElementsToLog
+\where
+        auditAlarm \neq auditAlarm'
+\end{schema}
+
+\begin{schema}{AuditDisplay}
+        AddElementsToLog
+\\      \Delta IDStation 
+\where
+        currentDisplay' \neq currentDisplay
+\end{schema}
+
+\begin{schema}{AuditScreen}
+        \Delta IDStation 
+\\      AddElementsToLog
+\where
+        currentScreen'.screenMsg \neq currentScreen.screenMsg 
+\end{schema}
+
+If none of these changes occur then the audit log may still be updated due
+to the operation being executed; if no operation driven events
+occur it will not change.
+
+\begin{schema}{NoChange}
+      \Delta IDStation
+\where
+        currentDoor = currentDoor'
+\\      currentLatch' = currentLatch 
+\\      doorAlarm = doorAlarm' 
+\\      auditAlarm = auditAlarm'
+\\      currentDisplay' = currentDisplay
+\\      currentScreen'.screenMsg = currentScreen.screenMsg 
+\also
+        AddElementsToLog \lor \Xi AuditLog
+\end{schema}
+\begin{Zcomment}
+\item
+This is a very weak statement in the specification, because we are
+postponing elaboration of $Audit$ elements until the design.
+\end{Zcomment}
+
+
+\begin{zed}
+        LogChange \defs AuditAlarm \lor AuditLatch \lor AuditDoor
+        \lor AuditLogAlarm \lor AuditScreen \lor AuditDisplay 
+\\ \t3 \lor NoChange
+\end{zed}
+%-------------------------------------------------------------------------
+\section{Updating System Statistics}
+%-------------------------------------------------------------------------
+
+\begin{traceunit}{FS.Stats.Update}
+\end{traceunit}
+
+System statistics are updated as actions that are being monitored for
+the statistics occur.
+
+We provide operations to increment the count of each of the events
+being monitored.
+
+\begin{schema}{AddSuccessfulEntryToStats}
+        \Delta Stats
+\where
+        failEntry' = failEntry 
+\\      successEntry' = successEntry + 1
+\\      failBio' = failBio
+\\      successBio' = successBio 
+\end{schema}
+
+\begin{schema}{AddFailedEntryToStats}
+        \Delta Stats
+\where
+        failEntry' = failEntry + 1
+\\      successEntry' = successEntry
+\\      failBio' = failBio
+\\      successBio' = successBio 
+\end{schema}
+
+\begin{schema}{AddSuccessfulBioCheckToStats}
+        \Delta Stats
+\where
+        failEntry' = failEntry 
+\\      successEntry' = successEntry
+\\      failBio' = failBio
+\\      successBio' = successBio + 1
+\end{schema}
+
+\begin{schema}{AddFailedBioCheckToStats}
+        \Delta Stats
+\where
+        failEntry' = failEntry 
+\\      successEntry' = successEntry
+\\      failBio' = failBio + 1
+\\      successBio' = successBio
+\end{schema}
+
+
+%------------------------------------------------------------------------
+\section{Operating the Door}
+%------------------------------------------------------------------------
+
+\begin{traceunit}{FS.Door.UnlockDoor}
+\end{traceunit}
+
+
+The door is unlatched by updating the timeouts on the door
+latch and alarm. 
+
+\begin{schema}{UnlockDoor}
+        \Delta DoorLatchAlarm
+\\      Config
+\where
+        latchTimeout' = currentTime + latchUnlockDuration
+\\      alarmTimeout' = currentTime + latchUnlockDuration + alarmSilentDuration
+\\      currentTime' = currentTime
+\\      currentDoor' = currentDoor
+\end{schema}
+
+
+\begin{traceunit}{FS.Door.LockDoor}
+\end{traceunit}
+
+The door is explicitly latched and timeouts on the door
+latch and alarm are reset. 
+Resetting the timeouts to the current time will ensure that the door
+will be latched directly and the alarm sound if there is a breach of security.
+
+\begin{schema}{LockDoor}
+        \Delta DoorLatchAlarm
+\where
+        currentLatch' = locked
+\\      latchTimeout' = currentTime
+\\      alarmTimeout' = currentTime 
+\\      currentTime' = currentTime
+\\      currentDoor' = currentDoor
+\end{schema}
+
+
+%------------------------------------------------------------------------
+\section{Certificate Operations}
+%------------------------------------------------------------------------
+
+%.....................................
+\subsection{Validating Certificates}
+%.....................................
+
+\begin{traceunit}{FS.Certificate.CertificateOK}
+\end{traceunit}
+
+When a certificate is checked in the context of a key store it is
+only acceptable if the certificate issuer is known to the key store
+and the signature can be verified by the key store.
+
+A certificate must have been issued by a known issuer.
+
+\begin{schema}{CertIssuerKnown}
+        KeyStore
+\\      Certificate
+\where
+        id.issuer \in \dom issuerKey
+\end{schema}
+
+A certificate must have been signed by the issuer. 
+
+\begin{schema}{CertOK}
+        CertIssuerKnown
+\where
+        issuerKey(id.issuer) \in isValidatedBy
+\end{schema}
+
+%........................................
+
+\begin{traceunit}{FS.Certificate.AuthCertificateOK}
+\end{traceunit}
+
+
+In addition the Authorisation certificate must have been issued by this ID
+station; we make the assumption that a single ID station protects an enclave.
+
+\begin{schema}{CertIssuerIsThisTIS}
+        KeyStore
+\\      Certificate
+\where
+        ownName \neq \Nil
+\\      id.issuer = \The ownName
+\end{schema}
+
+\begin{zed}
+        AuthCertOK \defs CertIssuerIsThisTIS \land CertOK
+\end{zed}
+
+%...............................................
+\subsection{Generating Authorisation Certificates}
+%...............................................
+
+\begin{traceunit}{FS.Certificate.NewAuthCert}
+\traceto{FDP\_UIT.1.1}
+\traceto{FDP\_UIT.1.2}
+\traceto{FIA\_UAU.3.2}
+\end{traceunit}
+
+An authorisation certificate can be constructed using information from
+a valid token and the current configuration of TIS.
+TIS can only generate the authorisation certificate if it has its own
+key to perform the signing with; this is modelled as the TIS knowing
+its own name.
+
+\begin{schema}{NewAuthCert}
+        ValidToken
+\\      KeyStore
+\\      Config
+\\      newAuthCert : AuthCert
+\\      currentTime : TIME
+\where
+        ownName \neq \Nil
+\also
+        newAuthCert.id.issuer = \The ownName
+\\      newAuthCert.validityPeriod = authPeriod~ privCert.role~
+currentTime
+\\      newAuthCert.baseCertId = idCert.id
+\\      newAuthCert.tokenID = tokenID
+\\      newAuthCert.role = privCert.role
+\\      newAuthCert.clearance = minClearance ( enclaveClearance ,
+privCert.clearance)
+\\      newAuthCert.isValidatedBy = \{~ issuerKey (\The ownName) ~\} 
+\end{schema}
+
+
+
+%..................................
+\subsection{Adding Authorisation Certificates to User Token}
+%..................................
+
+\begin{traceunit}{FS.UserToken.AddAuthCertToUserToken}
+\end{traceunit}
+
+
+If a valid user token is present in the system then an authorisation
+certificate can be added to it.
+
+
+\begin{schema}{AddAuthCertToUserToken}
+        \Delta UserToken
+\\      KeyStore
+\\      Config
+\\      currentTime : TIME
+\where
+        userTokenPresence = present
+\\      currentUserToken \in \ran goodT
+\also
+      \exists ValidToken; ValidToken' @ \theta ValidToken = (goodT \inv
+currentUserToken) 
+\\ \t1  \land \theta ValidToken' = (goodT \inv currentUserToken')
+\\ \t1  \land (\exists newAuthCert : AuthCert @ \The authCert' = newAuthCert
+        \land NewAuthCert)
+\\ \t1  \land tokenID' = tokenID
+\\ \t1  \land idCert' = idCert
+\\ \t1  \land privCert' = privCert
+\\ \t1  \land iandACert' = iandACert
+\also
+        userTokenPresence' = userTokenPresence
+\end{schema}
+
+
+%------------------------------------------------------------------------
+\section{Updating the Key Store}
+%------------------------------------------------------------------------
+
+\begin{traceunit}{FS.KeyStore.UpdateKeyStore}
+\end{traceunit}
+
+
+The key store is updated using the supplied enrolment data 
+to add issuers and their public keys.
+
+\begin{schema}{UpdateKeyStore}
+        \Delta KeyStore
+\\      ValidEnrol
+\where
+        \The ownName' = idStationCert.subject
+\\      issuerKey' = issuerKey \oplus\{ c : issuerCerts @ c.subject \mapsto c.subjectPubK
+        \}
+\\      \t1     \oplus ~\{ \The ownName \mapsto idStationCert.subjectPubK \} 
+\end{schema}
+\begin{Zcomment}
+\item
+This operation uses union and override so that it can be used to add
+issuers as well as initial enrolment. 
+\end{Zcomment}
+
+The enrolment data will always be supplied on a floppy disk.
+
+\begin{schema}{UpdateKeyStoreFromFloppy}
+        \Delta KeyStore
+\\      Floppy
+\where
+        currentFloppy \in \ran enrolmentFile
+\\
+        (\exists ValidEnrol @ \theta ValidEnrol = enrolmentFile \inv
+currentFloppy
+\\ \t1  \land UpdateKeyStore)   
+\also
+\end{schema}
+
+%------------------------------------------------------------------------
+\section{Administrator Changes}
+%------------------------------------------------------------------------
+An administrator may log on to the TIS console, logoff, or start an
+operation.
+
+%........................
+\subsection{Logon Administrator}
+%........................
+
+\begin{traceunit}{FS.Admin.AdminLogon}
+\end{traceunit}
+
+An administrator can only log on if there is no-one currently logged on.
+
+\begin{schema}{AdminLogon}
+        \Delta Admin
+\\      AdminToken
+\where
+        rolePresent = \Nil
+\also
+        \exists ValidToken @
+\\ \t1  (goodT(\theta ValidToken )  = currentAdminToken
+\\ \t1  \land \The rolePresent' = (\The authCert).role)
+\also
+        currentAdminOp' = \Nil
+\end{schema}
+
+%........................
+\subsection{Logout Administrator}
+%........................
+
+\begin{traceunit}{FS.Admin.AdminLogout}
+\end{traceunit}
+
+An adminstrator, who is currently logged on can always log off.
+This will terminate the current operation.
+
+\begin{schema}{AdminLogout}
+        \Delta Admin
+\where
+        rolePresent \neq \Nil
+\also
+        rolePresent' = \Nil
+\\      currentAdminOp' = \Nil
+\end{schema}
+
+%........................
+\subsection{Administrator Starts Operation}
+%........................
+
+\begin{traceunit}{FS.Admin.AdminStartOp}
+\end{traceunit}
+
+An adminstrator, who is currently logged on, can start any of the
+operations that he is allowed to perform. An operation can only be
+started if there is no operation currently in progress.
+
+\begin{schema}{AdminStartOp}
+        \Delta Admin
+\\      Keyboard
+\where
+        rolePresent \neq \Nil
+\\      currentAdminOp = \Nil
+\\      currentKeyedData \in keyedOps \limg availableOps \rimg
+\also
+        rolePresent' = rolePresent
+\\      \The currentAdminOp' = keyedOps \inv currentKeyedData
+\end{schema}
+
+%........................
+\subsection{Administrator Finishes Operation}
+%........................
+
+\begin{traceunit}{FS.Admin.AdminFinishOp}
+\end{traceunit}
+
+An adminstrator, who is currently logged on, can finish an operation.
+
+\begin{schema}{AdminFinishOp}
+        \Delta Admin
+\where
+        rolePresent \neq \Nil
+\\      currentAdminOp \neq \Nil
+\also
+        rolePresent' = rolePresent
+\\      currentAdminOp' = \Nil 
+\end{schema}
+
+
+

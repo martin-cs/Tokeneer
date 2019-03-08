@@ -1,0 +1,277 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:26.97
+
+                       procedure Enclave.AdminLogout
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 1769:
+
+procedure_adminlogout_1.
+H1:    not (enrolmentisinprogress(status)) .
+H2:    ((status = waitingstartadminop) or (status = 
+           waitingfinishadminop)) -> (admin__isdoingop(
+           theadmin) and admin__ispresent(theadmin)) .
+H3:    status >= statust__first .
+H4:    status <= statust__last .
+H5:    true .
+H6:    presentadminhasdeparted(theadmin, admintoken__state) .
+H7:    status = enclavequiescent .
+H8:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state), [
+           i___1]) <= character__last))) .
+        ->
+C1:    audittypes__information >= audittypes__severityt__first .
+C2:    audittypes__information <= audittypes__severityt__last .
+C3:    audittypes__admintokenremoved >= audittypes__elementt__first .
+C4:    audittypes__admintokenremoved <= audittypes__elementt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 1788:
+
+procedure_adminlogout_2.
+H1:    not (enrolmentisinprogress(status)) .
+H2:    ((status = waitingstartadminop) or (status = 
+           waitingfinishadminop)) -> (admin__isdoingop(
+           theadmin) and admin__ispresent(theadmin)) .
+H3:    status >= statust__first .
+H4:    status <= statust__last .
+H5:    true .
+H6:    not (presentadminhasdeparted(theadmin, 
+           admintoken__state)) .
+H7:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state), [
+           i___1]) <= character__last))) .
+        ->
+C1:    audittypes__warning >= audittypes__severityt__first .
+C2:    audittypes__warning <= audittypes__severityt__last .
+C3:    audittypes__admintokenexpired >= audittypes__elementt__first .
+C4:    audittypes__admintokenexpired <= audittypes__elementt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 1795:
+
+procedure_adminlogout_3.
+H1:    not (enrolmentisinprogress(status)) .
+H2:    ((status = waitingstartadminop) or (status = 
+           waitingfinishadminop)) -> (admin__isdoingop(
+           theadmin) and admin__ispresent(theadmin)) .
+H3:    status >= statust__first .
+H4:    status <= statust__last .
+H5:    true .
+H6:    not (presentadminhasdeparted(theadmin, 
+           admintoken__state)) .
+H7:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state), [
+           i___1]) <= character__last))) .
+H8:    audittypes__warning >= audittypes__severityt__first .
+H9:    audittypes__warning <= audittypes__severityt__last .
+H10:   audittypes__admintokenexpired >= audittypes__elementt__first .
+H11:   audittypes__admintokenexpired <= audittypes__elementt__last .
+        ->
+C1:    waitingremoveadmintokenfail >= statust__first .
+C2:    waitingremoveadmintokenfail <= statust__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_adminlogout_4.
+H1:    not (enrolmentisinprogress(status)) .
+H2:    ((status = waitingstartadminop) or (status = 
+           waitingfinishadminop)) -> (admin__isdoingop(
+           theadmin) and admin__ispresent(theadmin)) .
+H3:    status >= statust__first .
+H4:    status <= statust__last .
+H5:    true .
+H6:    presentadminhasdeparted(theadmin, admintoken__state) .
+H7:    status = enclavequiescent .
+H8:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state), [
+           i___1]) <= character__last))) .
+H9:    audittypes__information >= audittypes__severityt__first .
+H10:   audittypes__information <= audittypes__severityt__last .
+H11:   audittypes__admintokenremoved >= audittypes__elementt__first .
+H12:   audittypes__admintokenremoved <= audittypes__elementt__last .
+H13:   not (admin__ispresent(theadmin__5)) .
+H14:   not (admin__isdoingop(theadmin__5)) .
+        ->
+C1:    not (enrolmentisinprogress(status)) .
+C2:    admin__prf_rolepresent(theadmin__5) = 
+           privtypes__useronly .
+C3:    not (admin__isdoingop(theadmin__5)) .
+C4:    (status = enclavequiescent) or ((status = 
+           waitingremoveadmintokenfail) or (status = status)) .
+C5:    not ((status = waitingstartadminop) or (status = 
+           waitingfinishadminop)) .
+ 
+
+procedure_adminlogout_5.
+H1:    not (enrolmentisinprogress(status)) .
+H2:    ((status = waitingstartadminop) or (status = 
+           waitingfinishadminop)) -> (admin__isdoingop(
+           theadmin) and admin__ispresent(theadmin)) .
+H3:    status >= statust__first .
+H4:    status <= statust__last .
+H5:    true .
+H6:    presentadminhasdeparted(theadmin, admintoken__state) .
+H7:    not (status = enclavequiescent) .
+H8:    (status = waitingstartadminop) or (status = 
+           waitingfinishadminop) .
+H9:    status__3 = enclavequiescent .
+H10:   status__3 >= statust__first .
+H11:   status__3 <= statust__last .
+H12:   not (admin__ispresent(theadmin__5)) .
+H13:   not (admin__isdoingop(theadmin__5)) .
+        ->
+C1:    not (enrolmentisinprogress(status__3)) .
+C2:    admin__prf_rolepresent(theadmin__5) = 
+           privtypes__useronly .
+C3:    not (admin__isdoingop(theadmin__5)) .
+C4:    (status__3 = enclavequiescent) or ((status__3 = 
+           waitingremoveadmintokenfail) or (status__3 = 
+           status)) .
+C5:    not ((status__3 = waitingstartadminop) or (status__3 = 
+           waitingfinishadminop)) .
+ 
+
+procedure_adminlogout_6.
+H1:    not (enrolmentisinprogress(status)) .
+H2:    ((status = waitingstartadminop) or (status = 
+           waitingfinishadminop)) -> (admin__isdoingop(
+           theadmin) and admin__ispresent(theadmin)) .
+H3:    status >= statust__first .
+H4:    status <= statust__last .
+H5:    true .
+H6:    presentadminhasdeparted(theadmin, admintoken__state) .
+H7:    not (status = enclavequiescent) .
+H8:    not ((status = waitingstartadminop) or (status = 
+           waitingfinishadminop)) .
+H9:    not (admin__ispresent(theadmin__5)) .
+H10:   not (admin__isdoingop(theadmin__5)) .
+        ->
+C1:    not (enrolmentisinprogress(status)) .
+C2:    admin__prf_rolepresent(theadmin__5) = 
+           privtypes__useronly .
+C3:    not (admin__isdoingop(theadmin__5)) .
+C4:    (status = enclavequiescent) or ((status = 
+           waitingremoveadmintokenfail) or (status = status)) .
+C5:    not ((status = waitingstartadminop) or (status = 
+           waitingfinishadminop)) .
+ 
+
+procedure_adminlogout_7.
+H1:    not (enrolmentisinprogress(status)) .
+H2:    ((status = waitingstartadminop) or (status = 
+           waitingfinishadminop)) -> (admin__isdoingop(
+           theadmin) and admin__ispresent(theadmin)) .
+H3:    status >= statust__first .
+H4:    status <= statust__last .
+H5:    true .
+H6:    not (presentadminhasdeparted(theadmin, 
+           admintoken__state)) .
+H7:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state), [
+           i___1]) <= character__last))) .
+H8:    audittypes__warning >= audittypes__severityt__first .
+H9:    audittypes__warning <= audittypes__severityt__last .
+H10:   audittypes__admintokenexpired >= audittypes__elementt__first .
+H11:   audittypes__admintokenexpired <= audittypes__elementt__last .
+H12:   waitingremoveadmintokenfail >= statust__first .
+H13:   waitingremoveadmintokenfail <= statust__last .
+H14:   not (admin__ispresent(theadmin__5)) .
+H15:   not (admin__isdoingop(theadmin__5)) .
+        ->
+C1:    not (enrolmentisinprogress(
+           waitingremoveadmintokenfail)) .
+C2:    admin__prf_rolepresent(theadmin__5) = 
+           privtypes__useronly .
+C3:    not (admin__isdoingop(theadmin__5)) .
+C4:    (waitingremoveadmintokenfail = enclavequiescent) or ((
+           waitingremoveadmintokenfail = 
+           waitingremoveadmintokenfail) or (
+           waitingremoveadmintokenfail = status)) .
+C5:    not ((waitingremoveadmintokenfail = 
+           waitingstartadminop) or (
+           waitingremoveadmintokenfail = 
+           waitingfinishadminop)) .
+ 
+
+For checks of refinement integrity: 
+
+procedure_adminlogout_8.
+H1:    not (enclave__enrolmentisinprogress(state)) .
+H2:    (prf_statusiswaitingstartadminop(state) or 
+           prf_statusiswaitingfinishadminop(state)) -> (
+           admin__isdoingop(theadmin) and admin__ispresent(
+           theadmin)) .
+H3:    status = fld_status(state) .
+H4:    status >= statust__first .
+H5:    status <= statust__last .
+        ->
+C1:    not (enrolmentisinprogress(status)) .
+C2:    ((status = waitingstartadminop) or (status = 
+           waitingfinishadminop)) -> (admin__isdoingop(
+           theadmin) and admin__ispresent(theadmin)) .
+ 
+
+procedure_adminlogout_9.
+H1:    not (enclave__enrolmentisinprogress(state~)) .
+H2:    (prf_statusiswaitingstartadminop(state~) or 
+           prf_statusiswaitingfinishadminop(state~)) -> (
+           admin__isdoingop(theadmin~) and admin__ispresent(
+           theadmin~)) .
+H3:    not (enrolmentisinprogress(status~)) .
+H4:    ((status~ = waitingstartadminop) or (status~ = 
+           waitingfinishadminop)) -> (admin__isdoingop(
+           theadmin~) and admin__ispresent(theadmin~)) .
+H5:    status~ = fld_status(state~) .
+H6:    status = fld_status(state) .
+H7:    status~ >= statust__first .
+H8:    status~ <= statust__last .
+H9:    status >= statust__first .
+H10:   status <= statust__last .
+H11:   not (enrolmentisinprogress(status)) .
+H12:   admin__prf_rolepresent(theadmin) = privtypes__useronly .
+H13:   not (admin__isdoingop(theadmin)) .
+H14:   (status = enclavequiescent) or ((status = 
+           waitingremoveadmintokenfail) or (status = status~)) .
+H15:   not ((status = waitingstartadminop) or (status = 
+           waitingfinishadminop)) .
+        ->
+C1:    not (enclave__enrolmentisinprogress(state)) .
+C2:    admin__prf_rolepresent(theadmin) = privtypes__useronly .
+C3:    not (admin__isdoingop(theadmin)) .
+C4:    prf_statusisenclavequiescent(state) or (
+           prf_statusiswaitingremoveadmintokenfail(state) or (
+           state = state~)) .
+C5:    not (prf_statusiswaitingstartadminop(state) or 
+           prf_statusiswaitingfinishadminop(state)) .
+ 
+

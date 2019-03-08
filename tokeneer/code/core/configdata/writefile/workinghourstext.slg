@@ -1,0 +1,588 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:29  SIMPLIFIED 05-SEP-2011, 15:40:05
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+function ConfigData.WriteFile.WorkingHoursText
+
+
+
+
+
+
+@@@@@@@@@@  VC: function_workinghourstext_1.  @@@@@@@@@@
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  true
+***  Proved C3:  true
+-S-  Applied substitution rule workinghours_rules(12).
+     This was achieved by replacing all occurrences of clock__durationt__first 
+          by:
+          0.
+<S>  New H2:  value >= 0
+<S>  New C1:  value div 36000 >= 0
+-S-  Applied substitution rule workinghours_rules(13).
+     This was achieved by replacing all occurrences of clock__durationt__last 
+          by:
+          864000.
+<S>  New H3:  value <= 864000
+<S>  New C2:  value div 36000 <= 864000
+---  Eliminated hypothesis H1 (true-hypothesis).
+***  Proved C1:  value div 36000 >= 0
+     using hypothesis H2.
+***  Proved C2:  value div 36000 <= 864000
+     using hypothesis H3.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_workinghourstext_2.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  true
+---  Hypothesis H7 has been replaced by "true".  (It is already present, as H4).
+---  Hypothesis H8 has been replaced by "true".  (It is already present, as H5).
+%%%  Simplified C9 on reading formula in, to give:
+     %%%  C9:  true
+***  Proved C9:  true
+-S-  Applied substitution rule workinghours_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New C1:  value div 36000 div 10 >= - 48
+<S>  New C3:  value div 36000 div 10 >= - 48
+-S-  Applied substitution rule workinghours_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New C2:  value div 36000 div 10 <= 207
+<S>  New C4:  value div 36000 div 10 <= 207
+-S-  Applied substitution rule workinghours_rules(18).
+     This was achieved by replacing all occurrences of string5i__first by:
+          1.
+<S>  New C10:  true
+-S-  Applied substitution rule workinghours_rules(19).
+     This was achieved by replacing all occurrences of string5i__last by:
+          5.
+<S>  New C11:  true
+***  Proved C10:  true
+***  Proved C11:  true
+-S-  Applied substitution rule workinghours_rules(12).
+     This was achieved by replacing all occurrences of clock__durationt__first 
+          by:
+          0.
+<S>  New H2:  value >= 0
+<S>  New H4:  value div 36000 >= 0
+-S-  Applied substitution rule workinghours_rules(13).
+     This was achieved by replacing all occurrences of clock__durationt__last 
+          by:
+          864000.
+<S>  New H3:  value <= 864000
+<S>  New H5:  value div 36000 <= 864000
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H6 (true-hypothesis).
+---  Eliminated hypothesis H7 (true-hypothesis).
+---  Eliminated hypothesis H8 (true-hypothesis).
+---  Eliminated conclusion C3, which is a duplicate of C1.
+---  Eliminated conclusion C4, which is a duplicate of C2.
+***  Proved C7:  value div 36000 div 10 >= clock__durationt__base__first
+     using hypothesis H4.
+***  Proved C1:  value div 36000 div 10 >= - 48
+     using hypothesis H4.
+***  Proved C2:  value div 36000 div 10 <= 207
+     using hypothesis H3.
+     +++  New H9:  integer__size >= 0
+     +++  New H10:  character__size >= 0
+     +++  New H11:  clock__durationt__size >= 0
+     +++  New H12:  clock__durationt__base__first <= 
+          clock__durationt__base__last
+     +++  New H13:  string5i__size >= 0
+     +++  New H14:  clock__durationt__base__first <= 0
+     +++  New H15:  clock__durationt__base__last >= 864000
+***  Proved C5:  48 + value div 36000 div 10 >= clock__durationt__base__first
+     via its standard form, which is:
+     Std.Fm C5:  - clock__durationt__base__first + value div 360000 > - 49
+     using hypotheses H2 & H14.
+***  Proved C6:  48 + value div 36000 div 10 <= clock__durationt__base__last
+     via its standard form, which is:
+     Std.Fm C6:  clock__durationt__base__last - value div 360000 > 47
+     using hypotheses H3 & H15.
+***  Proved C8:  value div 36000 div 10 <= clock__durationt__base__last
+     using hypotheses H5 & H15.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_workinghourstext_3.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  true
+---  Hypothesis H7 has been replaced by "true".  (It is already present, as H4).
+---  Hypothesis H8 has been replaced by "true".  (It is already present, as H5).
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H12 has been replaced by "true".  (It is already present, as 
+          H10).
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  true
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as H4)
+          .
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as H5)
+          .
+%%%  Simplified C9 on reading formula in, to give:
+     %%%  C9:  true
+***  Proved C9:  true
+***  Proved C10:  2 >= string5i__first
+     using hypothesis H18.
+-S-  Applied substitution rule workinghours_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H9:  value div 36000 div 10 >= - 48
+<S>  New C1:  value div 36000 mod 10 >= - 48
+<S>  New C3:  value div 36000 mod 10 >= - 48
+-S-  Applied substitution rule workinghours_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H10:  value div 36000 div 10 <= 207
+<S>  New C2:  value div 36000 mod 10 <= 207
+<S>  New C4:  value div 36000 mod 10 <= 207
+-S-  Applied substitution rule workinghours_rules(19).
+     This was achieved by replacing all occurrences of string5i__last by:
+          5.
+<S>  New H19:  true
+<S>  New C11:  true
+***  Proved C1:  value div 36000 mod 10 >= - 48
+***  Proved C3:  value div 36000 mod 10 >= - 48
+***  Proved C2:  value div 36000 mod 10 <= 207
+***  Proved C4:  value div 36000 mod 10 <= 207
+***  Proved C11:  true
+-S-  Applied substitution rule workinghours_rules(12).
+     This was achieved by replacing all occurrences of clock__durationt__first 
+          by:
+          0.
+<S>  New H2:  value >= 0
+<S>  New H4:  value div 36000 >= 0
+-S-  Applied substitution rule workinghours_rules(13).
+     This was achieved by replacing all occurrences of clock__durationt__last 
+          by:
+          864000.
+<S>  New H3:  value <= 864000
+<S>  New H5:  value div 36000 <= 864000
+-S-  Applied substitution rule workinghours_rules(18).
+     This was achieved by replacing all occurrences of string5i__first by:
+          1.
+<S>  New H18:  true
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H6 (true-hypothesis).
+---  Eliminated hypothesis H7 (true-hypothesis).
+---  Eliminated hypothesis H8 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H17 (true-hypothesis).
+---  Eliminated hypothesis H19 (true-hypothesis).
+---  Eliminated hypothesis H20 (true-hypothesis).
+---  Eliminated hypothesis H21 (true-hypothesis).
+---  Eliminated hypothesis H18 (true-hypothesis).
+---  Eliminated hypothesis H13 (redundant, given H15).
+---  Eliminated hypothesis H16 (redundant, given H14).
+     +++  New H22:  integer__size >= 0
+     +++  New H23:  character__size >= 0
+     +++  New H24:  clock__durationt__size >= 0
+     +++  New H25:  clock__durationt__base__first <= 
+          clock__durationt__base__last
+     +++  New H26:  string5i__size >= 0
+     +++  New H27:  clock__durationt__base__first <= 0
+     +++  New H28:  clock__durationt__base__last >= 864000
+***  Proved C5:  48 + value div 36000 mod 10 >= clock__durationt__base__first
+     using hypothesis H27.
+***  Proved C6:  48 + value div 36000 mod 10 <= clock__durationt__base__last
+     via its standard form, which is:
+     Std.Fm C6:  clock__durationt__base__last - value div 36000 mod 10 > 47
+     using hypothesis H28.
+***  Proved C7:  value div 36000 mod 10 >= clock__durationt__base__first
+     using hypothesis H27.
+***  Proved C8:  value div 36000 mod 10 <= clock__durationt__base__last
+     using hypothesis H28.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_workinghourstext_4.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  true
+---  Hypothesis H7 has been replaced by "true".  (It is already present, as H4).
+---  Hypothesis H8 has been replaced by "true".  (It is already present, as H5).
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H12 has been replaced by "true".  (It is already present, as 
+          H10).
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  true
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as H4)
+          .
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as H5)
+          .
+---  Hypothesis H24 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as 
+          H17).
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  true
+%%%  Simplified C6 on reading formula in, to give:
+     %%%  C6:  true
+***  Proved C3:  true
+***  Proved C6:  true
+-S-  Applied substitution rule workinghours_rules(12).
+     This was achieved by replacing all occurrences of clock__durationt__first 
+          by:
+          0.
+<S>  New H2:  value >= 0
+<S>  New H4:  value div 36000 >= 0
+<S>  New C1:  value mod 36000 div 600 >= 0
+-S-  Applied substitution rule workinghours_rules(13).
+     This was achieved by replacing all occurrences of clock__durationt__last 
+          by:
+          864000.
+<S>  New H3:  value <= 864000
+<S>  New H5:  value div 36000 <= 864000
+<S>  New C2:  value mod 36000 div 600 <= 864000
+-S-  Applied substitution rule workinghours_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H9:  value div 36000 div 10 >= - 48
+<S>  New H22:  value div 36000 mod 10 >= - 48
+-S-  Applied substitution rule workinghours_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H10:  value div 36000 div 10 <= 207
+<S>  New H23:  value div 36000 mod 10 <= 207
+-S-  Applied substitution rule workinghours_rules(18).
+     This was achieved by replacing all occurrences of string5i__first by:
+          1.
+<S>  New H18:  true
+<S>  New H31:  true
+-S-  Applied substitution rule workinghours_rules(19).
+     This was achieved by replacing all occurrences of string5i__last by:
+          5.
+<S>  New H19:  true
+<S>  New H32:  true
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H6 (true-hypothesis).
+---  Eliminated hypothesis H7 (true-hypothesis).
+---  Eliminated hypothesis H8 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H17 (true-hypothesis).
+---  Eliminated hypothesis H20 (true-hypothesis).
+---  Eliminated hypothesis H21 (true-hypothesis).
+---  Eliminated hypothesis H24 (true-hypothesis).
+---  Eliminated hypothesis H25 (true-hypothesis).
+---  Eliminated hypothesis H30 (true-hypothesis).
+---  Eliminated hypothesis H18 (true-hypothesis).
+---  Eliminated hypothesis H31 (true-hypothesis).
+---  Eliminated hypothesis H19 (true-hypothesis).
+---  Eliminated hypothesis H32 (true-hypothesis).
+---  Eliminated hypothesis H13 (redundant, given H15).
+---  Eliminated hypothesis H16 (redundant, given H14).
+---  Eliminated hypothesis H26 (redundant, given H28).
+---  Eliminated hypothesis H29 (redundant, given H27).
+***  Proved C1:  value mod 36000 div 600 >= 0
+***  Proved C2:  value mod 36000 div 600 <= 864000
+     +++  New H33:  integer__size >= 0
+     +++  New H34:  character__size >= 0
+     +++  New H35:  clock__durationt__size >= 0
+     +++  New H36:  clock__durationt__base__first <= 
+          clock__durationt__base__last
+     +++  New H37:  string5i__size >= 0
+     +++  New H38:  clock__durationt__base__first <= 0
+     +++  New H39:  clock__durationt__base__last >= 864000
+***  Proved C4:  value mod 36000 >= clock__durationt__base__first
+     using hypothesis H38.
+***  Proved C5:  value mod 36000 <= clock__durationt__base__last
+     using hypothesis H39.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_workinghourstext_5.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  true
+---  Hypothesis H7 has been replaced by "true".  (It is already present, as H4).
+---  Hypothesis H8 has been replaced by "true".  (It is already present, as H5).
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H12 has been replaced by "true".  (It is already present, as 
+          H10).
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  true
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as H4)
+          .
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as H5)
+          .
+---  Hypothesis H24 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as 
+          H17).
+%%%  Simplified H35 on reading formula in, to give:
+     %%%  H35:  true
+---  Hypothesis H38 has been replaced by "true".  (It is already present, as H6)
+          .
+---  Hypothesis H39 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H40 has been replaced by "true".  (It is already present, as 
+          H34).
+%%%  Simplified C9 on reading formula in, to give:
+     %%%  C9:  true
+***  Proved C9:  true
+***  Proved C10:  4 >= string5i__first
+     using hypothesis H18.
+-S-  Applied substitution rule workinghours_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H9:  value div 36000 div 10 >= - 48
+<S>  New H22:  value div 36000 mod 10 >= - 48
+<S>  New C1:  value mod 36000 div 600 div 10 >= - 48
+<S>  New C3:  value mod 36000 div 600 div 10 >= - 48
+-S-  Applied substitution rule workinghours_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H10:  value div 36000 div 10 <= 207
+<S>  New H23:  value div 36000 mod 10 <= 207
+<S>  New C2:  value mod 36000 div 600 div 10 <= 207
+<S>  New C4:  value mod 36000 div 600 div 10 <= 207
+-S-  Applied substitution rule workinghours_rules(19).
+     This was achieved by replacing all occurrences of string5i__last by:
+          5.
+<S>  New H19:  true
+<S>  New H32:  true
+<S>  New C11:  true
+***  Proved C11:  true
+-S-  Applied substitution rule workinghours_rules(12).
+     This was achieved by replacing all occurrences of clock__durationt__first 
+          by:
+          0.
+<S>  New H2:  value >= 0
+<S>  New H4:  value div 36000 >= 0
+<S>  New H33:  value mod 36000 div 600 >= 0
+-S-  Applied substitution rule workinghours_rules(13).
+     This was achieved by replacing all occurrences of clock__durationt__last 
+          by:
+          864000.
+<S>  New H3:  value <= 864000
+<S>  New H5:  value div 36000 <= 864000
+<S>  New H34:  value mod 36000 div 600 <= 864000
+-S-  Applied substitution rule workinghours_rules(18).
+     This was achieved by replacing all occurrences of string5i__first by:
+          1.
+<S>  New H18:  true
+<S>  New H31:  true
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H6 (true-hypothesis).
+---  Eliminated hypothesis H7 (true-hypothesis).
+---  Eliminated hypothesis H8 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H17 (true-hypothesis).
+---  Eliminated hypothesis H19 (true-hypothesis).
+---  Eliminated hypothesis H20 (true-hypothesis).
+---  Eliminated hypothesis H21 (true-hypothesis).
+---  Eliminated hypothesis H24 (true-hypothesis).
+---  Eliminated hypothesis H25 (true-hypothesis).
+---  Eliminated hypothesis H30 (true-hypothesis).
+---  Eliminated hypothesis H32 (true-hypothesis).
+---  Eliminated hypothesis H35 (true-hypothesis).
+---  Eliminated hypothesis H38 (true-hypothesis).
+---  Eliminated hypothesis H39 (true-hypothesis).
+---  Eliminated hypothesis H40 (true-hypothesis).
+---  Eliminated hypothesis H18 (true-hypothesis).
+---  Eliminated hypothesis H31 (true-hypothesis).
+---  Eliminated hypothesis H13 (redundant, given H15).
+---  Eliminated hypothesis H16 (redundant, given H14).
+---  Eliminated hypothesis H26 (redundant, given H28).
+---  Eliminated hypothesis H29 (redundant, given H27).
+---  Eliminated conclusion C3, which is a duplicate of C1.
+---  Eliminated conclusion C4, which is a duplicate of C2.
+***  Proved C7:  value mod 36000 div 600 div 10 >= clock__durationt__base__first
+     using hypothesis H33.
+***  Proved C8:  value mod 36000 div 600 div 10 <= clock__durationt__base__last
+     using hypotheses H9, H14 & H37.
+***  Proved C1:  value mod 36000 div 600 div 10 >= - 48
+     using hypothesis H33.
+***  Proved C2:  value mod 36000 div 600 div 10 <= 207
+     +++  New H41:  integer__size >= 0
+     +++  New H42:  character__size >= 0
+     +++  New H43:  clock__durationt__size >= 0
+     +++  New H44:  clock__durationt__base__first <= 
+          clock__durationt__base__last
+     +++  New H45:  string5i__size >= 0
+     +++  New H46:  clock__durationt__base__first <= 0
+     +++  New H47:  clock__durationt__base__last >= 864000
+***  Proved C5:  48 + value mod 36000 div 600 div 10 >= 
+          clock__durationt__base__first
+     via its standard form, which is:
+     Std.Fm C5:  - clock__durationt__base__first + value mod 36000 div 6000 > - 
+          49
+     using hypothesis H46.
+***  Proved C6:  48 + value mod 36000 div 600 div 10 <= 
+          clock__durationt__base__last
+     via its standard form, which is:
+     Std.Fm C6:  clock__durationt__base__last - value mod 36000 div 6000 > 47
+     using hypothesis H47.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_workinghourstext_6.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  true
+---  Hypothesis H7 has been replaced by "true".  (It is already present, as H4).
+---  Hypothesis H8 has been replaced by "true".  (It is already present, as H5).
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H12 has been replaced by "true".  (It is already present, as 
+          H10).
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  true
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as H4)
+          .
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as H5)
+          .
+---  Hypothesis H24 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as 
+          H17).
+%%%  Simplified H35 on reading formula in, to give:
+     %%%  H35:  true
+---  Hypothesis H38 has been replaced by "true".  (It is already present, as H6)
+          .
+---  Hypothesis H39 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H40 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H43 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H44 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H53 has been replaced by "true".  (It is already present, as 
+          H34).
+%%%  Simplified C9 on reading formula in, to give:
+     %%%  C9:  true
+***  Proved C8:  value mod 36000 div 600 mod 10 <= clock__durationt__base__last
+     using hypothesis H27.
+***  Proved C9:  true
+***  Proved C10:  5 >= string5i__first
+     using hypothesis H18.
+-S-  Applied substitution rule workinghours_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H9:  value div 36000 div 10 >= - 48
+<S>  New H22:  value div 36000 mod 10 >= - 48
+<S>  New H41:  value mod 36000 div 600 div 10 >= - 48
+<S>  New C1:  value mod 36000 div 600 mod 10 >= - 48
+<S>  New C3:  value mod 36000 div 600 mod 10 >= - 48
+-S-  Applied substitution rule workinghours_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H10:  value div 36000 div 10 <= 207
+<S>  New H23:  value div 36000 mod 10 <= 207
+<S>  New H42:  value mod 36000 div 600 div 10 <= 207
+<S>  New C2:  value mod 36000 div 600 mod 10 <= 207
+<S>  New C4:  value mod 36000 div 600 mod 10 <= 207
+-S-  Applied substitution rule workinghours_rules(19).
+     This was achieved by replacing all occurrences of string5i__last by:
+          5.
+<S>  New H19:  true
+<S>  New H32:  true
+<S>  New H51:  true
+<S>  New C11:  true
+***  Proved C1:  value mod 36000 div 600 mod 10 >= - 48
+***  Proved C3:  value mod 36000 div 600 mod 10 >= - 48
+***  Proved C2:  value mod 36000 div 600 mod 10 <= 207
+***  Proved C4:  value mod 36000 div 600 mod 10 <= 207
+***  Proved C11:  true
+-S-  Applied substitution rule workinghours_rules(12).
+     This was achieved by replacing all occurrences of clock__durationt__first 
+          by:
+          0.
+<S>  New H2:  value >= 0
+<S>  New H4:  value div 36000 >= 0
+<S>  New H33:  value mod 36000 div 600 >= 0
+-S-  Applied substitution rule workinghours_rules(13).
+     This was achieved by replacing all occurrences of clock__durationt__last 
+          by:
+          864000.
+<S>  New H3:  value <= 864000
+<S>  New H5:  value div 36000 <= 864000
+<S>  New H34:  value mod 36000 div 600 <= 864000
+-S-  Applied substitution rule workinghours_rules(18).
+     This was achieved by replacing all occurrences of string5i__first by:
+          1.
+<S>  New H18:  true
+<S>  New H31:  true
+<S>  New H50:  true
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H6 (true-hypothesis).
+---  Eliminated hypothesis H7 (true-hypothesis).
+---  Eliminated hypothesis H8 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H17 (true-hypothesis).
+---  Eliminated hypothesis H19 (true-hypothesis).
+---  Eliminated hypothesis H20 (true-hypothesis).
+---  Eliminated hypothesis H21 (true-hypothesis).
+---  Eliminated hypothesis H24 (true-hypothesis).
+---  Eliminated hypothesis H25 (true-hypothesis).
+---  Eliminated hypothesis H30 (true-hypothesis).
+---  Eliminated hypothesis H32 (true-hypothesis).
+---  Eliminated hypothesis H35 (true-hypothesis).
+---  Eliminated hypothesis H38 (true-hypothesis).
+---  Eliminated hypothesis H39 (true-hypothesis).
+---  Eliminated hypothesis H40 (true-hypothesis).
+---  Eliminated hypothesis H43 (true-hypothesis).
+---  Eliminated hypothesis H44 (true-hypothesis).
+---  Eliminated hypothesis H49 (true-hypothesis).
+---  Eliminated hypothesis H51 (true-hypothesis).
+---  Eliminated hypothesis H52 (true-hypothesis).
+---  Eliminated hypothesis H53 (true-hypothesis).
+---  Eliminated hypothesis H18 (true-hypothesis).
+---  Eliminated hypothesis H31 (true-hypothesis).
+---  Eliminated hypothesis H50 (true-hypothesis).
+---  Eliminated hypothesis H13 (redundant, given H15).
+---  Eliminated hypothesis H16 (redundant, given H14).
+---  Eliminated hypothesis H26 (redundant, given H28).
+---  Eliminated hypothesis H29 (redundant, given H27).
+---  Eliminated hypothesis H45 (redundant, given H47).
+---  Eliminated hypothesis H48 (redundant, given H46).
+     +++  New H54:  integer__size >= 0
+     +++  New H55:  character__size >= 0
+     +++  New H56:  clock__durationt__size >= 0
+     +++  New H57:  clock__durationt__base__first <= 
+          clock__durationt__base__last
+     +++  New H58:  string5i__size >= 0
+     +++  New H59:  clock__durationt__base__first <= 0
+     +++  New H60:  clock__durationt__base__last >= 864000
+***  Proved C5:  48 + value mod 36000 div 600 mod 10 >= 
+          clock__durationt__base__first
+     using hypothesis H59.
+***  Proved C6:  48 + value mod 36000 div 600 mod 10 <= 
+          clock__durationt__base__last
+     via its standard form, which is:
+     Std.Fm C6:  clock__durationt__base__last - value mod 36000 div 600 mod 10 
+          > 47
+     using hypothesis H60.
+***  Proved C7:  value mod 36000 div 600 mod 10 >= clock__durationt__base__first
+     using hypothesis H59.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_workinghourstext_7.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+

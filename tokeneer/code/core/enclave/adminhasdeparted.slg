@@ -1,0 +1,79 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:25  SIMPLIFIED 05-SEP-2011, 15:40:24
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+function Enclave.AdminHasDeparted
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/enclave/enclave.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: function_adminhasdeparted_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  statust__first <= status
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  not admintoken__ispresent(admintoken__state) and (
+          nonquiescentstates__first <= status and status <= 
+          nonquiescentstates__last) -> nonquiescentstates__first <= status and 
+          status <= nonquiescentstates__last
+-S-  Applied substitution rule adminhasdepa_rules(2).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H2:  notenrolled <= status
+-S-  Applied substitution rule adminhasdepa_rules(3).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H3:  status <= shutdown
+-S-  Applied substitution rule adminhasdepa_rules(39).
+     This was achieved by replacing all occurrences of 
+          nonquiescentstates__first by:
+          waitingremoveadmintokenfail.
+<S>  New C1:  not admintoken__ispresent(admintoken__state) and (
+          waitingremoveadmintokenfail <= status and status <= 
+          nonquiescentstates__last) -> waitingremoveadmintokenfail <= status 
+          and status <= nonquiescentstates__last
+-S-  Applied substitution rule adminhasdepa_rules(40).
+     This was achieved by replacing all occurrences of nonquiescentstates__last 
+          by:
+          shutdown.
+<S>  New C1:  not admintoken__ispresent(admintoken__state) and (
+          waitingremoveadmintokenfail <= status and status <= shutdown) -> 
+          waitingremoveadmintokenfail <= status and status <= shutdown
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H4 (true-hypothesis).
+     +++  New H5:  statust__size >= 0
+     +++  New H6:  nonquiescentstates__size >= 0
+>>>  Conclusion C1 is an implication formula [P->Q].
+     Attempting to prove this by proving Q while adding P to the hypotheses.
++++  Added new hypotheses (in proving an implication formula).
+     +++  New H7:  not admintoken__ispresent(admintoken__state)
+     +++  New H8:  waitingremoveadmintokenfail <= status
++++  New subgoal C1:  waitingremoveadmintokenfail <= status and status <= 
+          shutdown
+>>>  Conclusion C1 has now been split into two, giving:
+     >>>  C1:  waitingremoveadmintokenfail <= status
+     >>>  C2:  status <= shutdown
+***  Proved subgoal C1
+     using hypothesis H8.
+***  Proved subgoal C2
+     using hypothesis H3.
+***  Proved C1:  not admintoken__ispresent(admintoken__state) and (
+          waitingremoveadmintokenfail <= status and status <= shutdown) -> 
+          waitingremoveadmintokenfail <= status and status <= shutdown
+     by implication.
+***  PROVED VC.
+

@@ -1,0 +1,131 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:21  SIMPLIFIED 05-SEP-2011, 15:38:33
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+function AdminToken.GetRole
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/admintoken/admintoken.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: function_getrole_1.  @@@@@@@@@@
+%%%  Simplified H1 on reading formula in, to give:
+     %%%  H1:  privtypes__adminprivileget__first <= cert__attr__auth__therole(
+          fld_contents(authcert))
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  privtypes__privileget__first <= cert__attr__auth__therole(
+          fld_contents(authcert))
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  privtypes__adminprivileget__first <= cert__attr__auth__therole(
+          fld_contents(authcert))
+***  Proved C1:  true
+***  Proved C2:  privtypes__adminprivileget__first <= cert__attr__auth__therole(
+          fld_contents(authcert))
+     using hypothesis H1.
+***  Proved C3:  cert__attr__auth__therole(fld_contents(authcert)) <= 
+          privtypes__adminprivileget__last
+     using hypothesis H2.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_getrole_2.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  privtypes__adminprivileget__first <= theauthcertrole(state)
+---  Hypothesis H8 has been replaced by "true".  (It is already present, as H5).
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  privtypes__adminprivileget__first <= cert__attr__auth__therole(
+          fld_contents(authcert))
+-S-  Applied substitution rule getrole_rules(59).
+     This was achieved by replacing all occurrences of 
+          privtypes__adminprivileget__first by:
+          privtypes__guard.
+<S>  New H3:  privtypes__guard <= theauthcertrole(state)
+<S>  New C1:  privtypes__guard <= cert__attr__auth__therole(fld_contents(
+          authcert))
+-S-  Applied substitution rule getrole_rules(60).
+     This was achieved by replacing all occurrences of 
+          privtypes__adminprivileget__last by:
+          privtypes__securityofficer.
+<S>  New H4:  theauthcertrole(state) <= privtypes__securityofficer
+<S>  New C2:  cert__attr__auth__therole(fld_contents(authcert)) <= 
+          privtypes__securityofficer
+---  Eliminated hypothesis H8 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H13 (true-hypothesis).
+-S-  Eliminated hypothesis H5.
+     This was achieved by replacing all occurrences of authcert by:
+          fld_authcert(state).
+<S>  New C1:  privtypes__guard <= cert__attr__auth__therole(fld_contents(
+          fld_authcert(state)))
+<S>  New C2:  cert__attr__auth__therole(fld_contents(fld_authcert(state))) <= 
+          privtypes__securityofficer
+---  Eliminated hypothesis H6, which only specifies a value for 
+          admintoken__interface__state.
+     This is not referred to anywhere else in the VC.
+---  Eliminated hypothesis H7, which only specifies a value for idcert.
+     This is not referred to anywhere else in the VC.
+---  Eliminated hypothesis H9, which only specifies a value for tokenid.
+     This is not referred to anywhere else in the VC.
+---  Eliminated hypothesis H10, which only specifies a value for tokentry.
+     This is not referred to anywhere else in the VC.
+---  Eliminated hypothesis H11, which only specifies a value for tokenpresence.
+     This is not referred to anywhere else in the VC.
+     +++  New H14:  basictypes__unsigned32t__base__first <= 
+          basictypes__unsigned32t__base__last
+     +++  New H15:  basictypes__presencet__size >= 0
+     +++  New H16:  privtypes__privileget__size >= 0
+     +++  New H17:  privtypes__adminprivileget__size >= 0
+     +++  New H18:  cert__attr__contentst__size >= 0
+     +++  New H19:  cert__attr__auth__contentst__size >= 0
+     +++  New H20:  cert__id__contentst__size >= 0
+     +++  New H21:  tokentypes__tryt__size >= 0
+     +++  New H22:  validauthcertt__size >= 0
+     +++  New H23:  valididcertt__size >= 0
+     +++  New H24:  basictypes__unsigned32t__base__first <= 0
+     +++  New H25:  basictypes__unsigned32t__base__last >= 4294967295
+***  Proved C1:  privtypes__guard <= cert__attr__auth__therole(fld_contents(
+          fld_authcert(state)))
+     This was achieved by applying the rewrite rule admintoken_user(5)
+     [from rulefile admintoken.rlu] to rewrite this conclusion to:
+<S>  C1:  privtypes__guard <= theauthcertrole(state)
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  From H3, proved: privtypes__guard <= theauthcertrole(state)
+***  Proved C2:  cert__attr__auth__therole(fld_contents(fld_authcert(state))) 
+          <= privtypes__securityofficer
+     This was achieved by applying the rewrite rule admintoken_user(5)
+     [from rulefile admintoken.rlu] to rewrite this conclusion to:
+<S>  C2:  theauthcertrole(state) <= privtypes__securityofficer
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  From H4, proved: theauthcertrole(state) <= privtypes__securityofficer
+***  PROVED VC.
+
+VCN  2: Summary of user rule application.
+FIL  admintoken.rlu
+RUL     admintoken_user(5)
+CON        1, 2
+
+
+@@@@@@@@@@  VC: function_getrole_3.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+OVR  Overall summary of VCs using user rules.
+FIL  admintoken.rlu
+RUL     admintoken_user(5)
+VCS        2
+

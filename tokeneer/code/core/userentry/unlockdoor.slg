@@ -1,0 +1,383 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:24  SIMPLIFIED 05-SEP-2011, 15:42:21
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure UserEntry.UnlockDoor
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/userentry/userentry.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_unlockdoor_1.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  statust__first <= status
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  display__msgt__first <= display__doorunlocked
+-S-  Applied substitution rule unlockdoor_rules(200).
+     This was achieved by replacing all occurrences of display__msgt__first by:
+          display__blank.
+<S>  New C1:  true
+-S-  Applied substitution rule unlockdoor_rules(201).
+     This was achieved by replacing all occurrences of display__msgt__last by:
+          display__doorunlocked.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_unlockdoor_2.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  statust__first <= status
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  display__msgt__first <= display__doorunlocked
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  statust__first <= quiescent
+***  Proved C2:  quiescent <= statust__last
+     using hypotheses H1 & H4.
+-S-  Applied substitution rule unlockdoor_rules(235).
+     This was achieved by replacing all occurrences of statust__first by:
+          quiescent.
+<S>  New H3:  quiescent <= status
+<S>  New C1:  true
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_unlockdoor_3.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  statust__first <= status
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  usertoken__ispresent(usertoken__state)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(usertoken__extractuser(usertoken__state), [i___1]) and 
+          element(usertoken__extractuser(usertoken__state), [i___1]) <= 
+          character__last)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__entrytimeout
+-S-  Applied substitution rule unlockdoor_rules(124).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule unlockdoor_rules(125).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule unlockdoor_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule unlockdoor_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_unlockdoor_4.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  statust__first <= status
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  usertoken__ispresent(usertoken__state)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(usertoken__extractuser(usertoken__state), [i___1]) and 
+          element(usertoken__extractuser(usertoken__state), [i___1]) <= 
+          character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  audittypes__elementt__first <= audittypes__entrytimeout
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  display__msgt__first <= display__removetoken
+-S-  Applied substitution rule unlockdoor_rules(200).
+     This was achieved by replacing all occurrences of display__msgt__first by:
+          display__blank.
+<S>  New C1:  true
+-S-  Applied substitution rule unlockdoor_rules(201).
+     This was achieved by replacing all occurrences of display__msgt__last by:
+          display__doorunlocked.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_unlockdoor_5.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  statust__first <= status
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  usertoken__ispresent(usertoken__state)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(usertoken__extractuser(usertoken__state), [i___1]) and 
+          element(usertoken__extractuser(usertoken__state), [i___1]) <= 
+          character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  audittypes__elementt__first <= audittypes__entrytimeout
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  display__msgt__first <= display__removetoken
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  statust__first <= waitingremovetokenfail
+***  Proved C1:  statust__first <= waitingremovetokenfail
+     using hypotheses H1 & H3.
+-S-  Applied substitution rule unlockdoor_rules(236).
+     This was achieved by replacing all occurrences of statust__last by:
+          waitingremovetokenfail.
+<S>  New H4:  status <= waitingremovetokenfail
+<S>  New C2:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_unlockdoor_6.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  statust__first <= status
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  display__msgt__first <= display__doorunlocked
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  statust__first <= quiescent
+***  Proved C1:  latch__islocked(latch__state__1) and (door__thecurrentdoor(
+          door__state__1) = door__open and clock__greaterthanorequal(
+          clock__thecurrenttime(clock__currenttime), door__prf_alarmtimeout(
+          door__state__1))) <-> door__thedooralarm(door__state__1) = 
+          alarmtypes__alarming
+     using hypothesis H7.
+-S-  Applied substitution rule unlockdoor_rules(200).
+     This was achieved by replacing all occurrences of display__msgt__first by:
+          display__blank.
+<S>  New H9:  true
+-S-  Applied substitution rule unlockdoor_rules(201).
+     This was achieved by replacing all occurrences of display__msgt__last by:
+          display__doorunlocked.
+<S>  New H10:  true
+-S-  Applied substitution rule unlockdoor_rules(235).
+     This was achieved by replacing all occurrences of statust__first by:
+          quiescent.
+<S>  New H3:  quiescent <= status
+<S>  New H11:  true
+-S-  Applied substitution rule unlockdoor_rules(236).
+     This was achieved by replacing all occurrences of statust__last by:
+          waitingremovetokenfail.
+<S>  New H4:  status <= waitingremovetokenfail
+<S>  New H12:  true
+---  Eliminated hypothesis H5 (true-hypothesis).
+---  Eliminated hypothesis H9 (true-hypothesis).
+---  Eliminated hypothesis H10 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+-S-  Eliminated hypothesis H1.
+     This was achieved by replacing all occurrences of status by:
+          waitingremovetokensuccess.
+<S>  New H3:  true
+<S>  New H4:  true
+---  Eliminated hypothesis H3 (true-hypothesis).
+---  Eliminated hypothesis H4 (true-hypothesis).
+     +++  New H13:  integer__size >= 0
+     +++  New H14:  character__size >= 0
+     +++  New H15:  positive__size >= 0
+     +++  New H16:  audittypes__elementt__size >= 0
+     +++  New H17:  audittypes__severityt__size >= 0
+     +++  New H18:  audittypes__usertexti__size >= 0
+     +++  New H19:  alarmtypes__statust__size >= 0
+     +++  New H20:  door__t__size >= 0
+     +++  New H21:  display__msgt__size >= 0
+     +++  New H22:  statust__size >= 0
+
+
+@@@@@@@@@@  VC: procedure_unlockdoor_7.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  statust__first <= status
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  usertoken__ispresent(usertoken__state)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(usertoken__extractuser(usertoken__state), [i___1]) and 
+          element(usertoken__extractuser(usertoken__state), [i___1]) <= 
+          character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  audittypes__elementt__first <= audittypes__entrytimeout
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  display__msgt__first <= display__removetoken
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  statust__first <= waitingremovetokenfail
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  not prf_userentryunlockdoor
+***  Proved C1:  latch__islocked(latch__state) and (door__thecurrentdoor(
+          door__state) = door__open and clock__greaterthanorequal(
+          clock__thecurrenttime(clock__currenttime), door__prf_alarmtimeout(
+          door__state))) <-> door__thedooralarm(door__state) = 
+          alarmtypes__alarming
+     using hypothesis H2.
+-S-  Applied substitution rule unlockdoor_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H10:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> 0 <= element(
+          usertoken__extractuser(usertoken__state), [i___1]) and element(
+          usertoken__extractuser(usertoken__state), [i___1]) <= character__last)
+-S-  Applied substitution rule unlockdoor_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H10:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> 0 <= element(
+          usertoken__extractuser(usertoken__state), [i___1]) and element(
+          usertoken__extractuser(usertoken__state), [i___1]) <= 255)
+-S-  Applied substitution rule unlockdoor_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New H13:  true
+-S-  Applied substitution rule unlockdoor_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New H14:  true
+-S-  Applied substitution rule unlockdoor_rules(124).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New H11:  true
+-S-  Applied substitution rule unlockdoor_rules(125).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New H12:  true
+-S-  Applied substitution rule unlockdoor_rules(149).
+     This was achieved by replacing all occurrences of 
+          audittypes__usertexti__first by:
+          1.
+<S>  New H10:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__usertexti__last -> 0 <= element(usertoken__extractuser(
+          usertoken__state), [i___1]) and element(usertoken__extractuser(
+          usertoken__state), [i___1]) <= 255)
+-S-  Applied substitution rule unlockdoor_rules(150).
+     This was achieved by replacing all occurrences of 
+          audittypes__usertexti__last by:
+          50.
+<S>  New H10:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 50 -> 0 <= 
+          element(usertoken__extractuser(usertoken__state), [i___1]) and 
+          element(usertoken__extractuser(usertoken__state), [i___1]) <= 255)
+-S-  Applied substitution rule unlockdoor_rules(200).
+     This was achieved by replacing all occurrences of display__msgt__first by:
+          display__blank.
+<S>  New H15:  true
+-S-  Applied substitution rule unlockdoor_rules(201).
+     This was achieved by replacing all occurrences of display__msgt__last by:
+          display__doorunlocked.
+<S>  New H16:  true
+-S-  Applied substitution rule unlockdoor_rules(235).
+     This was achieved by replacing all occurrences of statust__first by:
+          quiescent.
+<S>  New H3:  quiescent <= status
+<S>  New H17:  true
+-S-  Applied substitution rule unlockdoor_rules(236).
+     This was achieved by replacing all occurrences of statust__last by:
+          waitingremovetokenfail.
+<S>  New H4:  status <= waitingremovetokenfail
+<S>  New H18:  true
+---  Eliminated hypothesis H5 (true-hypothesis).
+---  Eliminated hypothesis H7 (true-hypothesis).
+---  Eliminated hypothesis H8 (true-hypothesis).
+---  Eliminated hypothesis H13 (true-hypothesis).
+---  Eliminated hypothesis H14 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H15 (true-hypothesis).
+---  Eliminated hypothesis H16 (true-hypothesis).
+---  Eliminated hypothesis H17 (true-hypothesis).
+---  Eliminated hypothesis H18 (true-hypothesis).
+-S-  Eliminated hypothesis H1.
+     This was achieved by replacing all occurrences of status by:
+          waitingremovetokensuccess.
+<S>  New H3:  true
+<S>  New H4:  true
+---  Eliminated hypothesis H3 (true-hypothesis).
+---  Eliminated hypothesis H4 (true-hypothesis).
+     +++  New H19:  integer__size >= 0
+     +++  New H20:  character__size >= 0
+     +++  New H21:  positive__size >= 0
+     +++  New H22:  audittypes__elementt__size >= 0
+     +++  New H23:  audittypes__severityt__size >= 0
+     +++  New H24:  audittypes__usertexti__size >= 0
+     +++  New H25:  alarmtypes__statust__size >= 0
+     +++  New H26:  door__t__size >= 0
+     +++  New H27:  display__msgt__size >= 0
+     +++  New H28:  statust__size >= 0
+
+
+@@@@@@@@@@  VC: procedure_unlockdoor_8.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  statust__first <= status
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  usertoken__ispresent(usertoken__state)
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  not prf_userentryunlockdoor
+***  Proved C1:  latch__islocked(latch__state) and (door__thecurrentdoor(
+          door__state) = door__open and clock__greaterthanorequal(
+          clock__thecurrenttime(clock__currenttime), door__prf_alarmtimeout(
+          door__state))) <-> door__thedooralarm(door__state) = 
+          alarmtypes__alarming
+     using hypothesis H2.
+-S-  Applied substitution rule unlockdoor_rules(235).
+     This was achieved by replacing all occurrences of statust__first by:
+          quiescent.
+<S>  New H3:  quiescent <= status
+-S-  Applied substitution rule unlockdoor_rules(236).
+     This was achieved by replacing all occurrences of statust__last by:
+          waitingremovetokenfail.
+<S>  New H4:  status <= waitingremovetokenfail
+---  Eliminated hypothesis H5 (true-hypothesis).
+---  Eliminated hypothesis H7 (true-hypothesis).
+---  Eliminated hypothesis H8 (true-hypothesis).
+-S-  Eliminated hypothesis H1.
+     This was achieved by replacing all occurrences of status by:
+          waitingremovetokensuccess.
+<S>  New H3:  true
+<S>  New H4:  true
+---  Eliminated hypothesis H3 (true-hypothesis).
+---  Eliminated hypothesis H4 (true-hypothesis).
+     +++  New H10:  integer__size >= 0
+     +++  New H11:  character__size >= 0
+     +++  New H12:  positive__size >= 0
+     +++  New H13:  audittypes__elementt__size >= 0
+     +++  New H14:  audittypes__severityt__size >= 0
+     +++  New H15:  audittypes__usertexti__size >= 0
+     +++  New H16:  alarmtypes__statust__size >= 0
+     +++  New H17:  door__t__size >= 0
+     +++  New H18:  display__msgt__size >= 0
+     +++  New H19:  statust__size >= 0
+

@@ -1,0 +1,100 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:24.70
+
+                   procedure UserEntry.DisplayPollUpdate
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 1091:
+
+procedure_displaypollupdate_1.
+H1:    true .
+H2:    status >= statust__first .
+H3:    status <= statust__last .
+H4:    true .
+H5:    latch__islocked(latch__state) .
+H6:    status = waitingremovetokenfail .
+        ->
+C1:    display__removetoken >= display__msgt__first .
+C2:    display__removetoken <= display__msgt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 1093:
+
+procedure_displaypollupdate_2.
+H1:    true .
+H2:    status >= statust__first .
+H3:    status <= statust__last .
+H4:    true .
+H5:    latch__islocked(latch__state) .
+H6:    not (status = waitingremovetokenfail) .
+        ->
+C1:    display__welcome >= display__msgt__first .
+C2:    display__welcome <= display__msgt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 1095:
+
+procedure_displaypollupdate_3.
+H1:    true .
+H2:    status >= statust__first .
+H3:    status <= statust__last .
+H4:    true .
+H5:    latch__islocked(latch__state) .
+H6:    status = waitingremovetokenfail .
+H7:    display__removetoken >= display__msgt__first .
+H8:    display__removetoken <= display__msgt__last .
+H9:    display__removetoken >= display__msgt__first .
+H10:   display__removetoken <= display__msgt__last .
+        ->
+C1:    display__removetoken >= display__msgt__first .
+C2:    display__removetoken <= display__msgt__last .
+ 
+
+procedure_displaypollupdate_4.
+H1:    true .
+H2:    status >= statust__first .
+H3:    status <= statust__last .
+H4:    true .
+H5:    latch__islocked(latch__state) .
+H6:    not (status = waitingremovetokenfail) .
+H7:    display__welcome >= display__msgt__first .
+H8:    display__welcome <= display__msgt__last .
+H9:    display__welcome >= display__msgt__first .
+H10:   display__welcome <= display__msgt__last .
+        ->
+C1:    display__welcome >= display__msgt__first .
+C2:    display__welcome <= display__msgt__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_displaypollupdate_5.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_displaypollupdate_6.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_displaypollupdate_7.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+For checks of refinement integrity: 
+
+procedure_displaypollupdate_8.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_displaypollupdate_9.
+*** true .          /* trivially true VC removed by Examiner */
+
+

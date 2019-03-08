@@ -1,0 +1,660 @@
+           *******************************************************
+                            Listing of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:21.45
+
+Line
+   1  ------------------------------------------------------------------
+   2  -- Tokeneer ID Station Core Software
+   3  --
+   4  -- Copyright (2003) United States Government, as represented
+   5  -- by the Director, National Security Agency. All rights reserved.
+   6  --
+   7  -- This material was originally developed by Praxis High Integrity
+   8  -- Systems Ltd. under contract to the National Security Agency.
+   9  --
+  10  -- Modifications to proof annotations by Phil Thornley, April 2009
+  11  ------------------------------------------------------------------
+  12  
+  13  ------------------------------------------------------------------
+  14  -- AdminToken
+  15  --
+  16  -- Implementation Notes:
+  17  --    None.
+  18  --
+  19  ------------------------------------------------------------------
+  20  
+  21  with BasicTypes;
+  22  use type BasicTypes.PresenceT;
+  23  
+  24  with TokenTypes;
+  25  use type TokenTypes.TryT;
+  26  use type TokenTypes.TokenIDT;
+  27  
+  28  with CertTypes;
+  29  use type CertTypes.IDT;
+  30  
+  31  with Cert.Attr.Auth;
+  32  with Cert.ID;
+  33  with AdminToken.Interface;
+  34  with Clock;
+  35  with ConfigData;
+  36  
+  37  package body AdminToken
+  38  --# own State  is TokenPresence,
+  39  --#               TokenTry,
+  40  --#               TokenID,
+  41  --#               AuthCert,
+  42  --#               IDCert,
+  43  --#               AdminToken.Interface.State &
+  44  --#     Status is AdminToken.Interface.Status &
+  45  --#     Input  is in AdminToken.Interface.Input;
+  46  is
+  47  
+  48  
+  49     ------------------------------------------------------------------
+  50     -- Types
+  51     --
+  52     ------------------------------------------------------------------
+  53     type ValidAuthCertT is record
+  54        Valid : Boolean;
+  55        Contents : Cert.Attr.Auth.ContentsT;
+  56     end record;
+  57  
+  58     type ValidIDCertT is record
+  59        Valid : Boolean;
+  60        Contents : Cert.ID.ContentsT;
+  61     end record;
+  62  
+  63     ------------------------------------------------------------------
+  64     -- State
+  65     --
+  66     ------------------------------------------------------------------
+  67     TokenPresence : BasicTypes.PresenceT;
+  68  
+  69     TokenTry  : TokenTypes.TryT;
+  70  
+  71     TokenID   : TokenTypes.TokenIDT;
+  72  
+  73     AuthCert  : ValidAuthCertT;
+  74     IDCert    : ValidIDCertT;
+  75  
+  76     ------------------------------------------------------------------
+  77     -- Public Operations
+  78     --
+  79     ------------------------------------------------------------------
+  80  
+  81     ------------------------------------------------------------------
+  82     -- Clear
+  83     --
+  84     -- Implementation Notes:
+  85     --    None.
+  86     ------------------------------------------------------------------
+  87     procedure Clear
+  88     --# global out TokenPresence;
+  89     --#        out TokenTry;
+  90     --#        out TokenID;
+  91     --#        out AuthCert;
+  92     --#        out IDCert;
+  93     --# derives TokenPresence,
+  94     --#         TokenTry,
+  95     --#         TokenID,
+  96     --#         AuthCert,
+  97     --#         IDCert        from ;
+  98     --# post not IDCert.Valid and
+  99     --#      not AuthCert.Valid and
+ 100     --#      Cert.Attr.Auth.TheRole(AuthCert.Contents) =
+ 101     --#        PrivTypes.PrivilegeT'First;
+ 102     is
+ 103  
+ 104        AuthCertContents : Cert.Attr.Auth.ContentsT;
+ 105        IDCertContents    : Cert.ID.ContentsT;
+ 106  
+ 107     begin
+ 108        TokenPresence := BasicTypes.Absent;
+ 109        TokenTry      := TokenTypes.NoToken;
+ 110        TokenID       := TokenTypes.TokenIDT'First;
+ 111  
+ 112        Cert.Attr.Auth.Clear(AuthCertContents);
+ 113        AuthCert := ValidAuthCertT'(Valid    => False,
+ 114                                    Contents => AuthCertContents);
+ 115  
+ 116        Cert.ID.Clear(IDCertContents);
+ 117        IDCert := ValidIDCertT'(Valid    => False,
+ 118                                Contents => IDCertContents);
+ 119  
+ 120     end Clear;
+
++++        Flow analysis of subprogram Clear performed: no 
+           errors found.
+
+ 121  
+ 122     ------------------------------------------------------------------
+ 123     -- Init
+ 124     --
+ 125     -- Implementation Notes:
+ 126     --    None.
+ 127     ------------------------------------------------------------------
+ 128  
+ 129     procedure Init
+ 130     --# global in out Interface.Status;
+ 131     --#           out TokenPresence;
+ 132     --#           out TokenTry;
+ 133     --#           out TokenID;
+ 134     --#           out AuthCert;
+ 135     --#           out IDCert;
+ 136     --#           out Interface.State;
+ 137     --# derives TokenPresence,
+ 138     --#         TokenTry,
+ 139     --#         TokenID,
+ 140     --#         AuthCert,
+ 141     --#         IDCert           from  &
+ 142     --#         Interface.Status,
+ 143     --#         Interface.State  from Interface.Status;
+ 144     --# post not IDCert.Valid and
+ 145     --#      not AuthCert.Valid and
+ 146     --#      Cert.Attr.Auth.TheRole(AuthCert.Contents) =
+ 147     --#        PrivTypes.PrivilegeT'First;
+ 148     is
+ 149     begin
+ 150        Interface.Init;
+ 151        Clear;
+ 152     end Init;
+
++++        Flow analysis of subprogram Init performed: no 
+           errors found.
+
+ 153  
+ 154     ------------------------------------------------------------------
+ 155     -- Poll
+ 156     --
+ 157     -- Implementation Notes:
+ 158     --    None.
+ 159     ------------------------------------------------------------------
+ 160     procedure Poll
+ 161     --# global in     Interface.Input;
+ 162     --#        in     ConfigData.State;
+ 163     --#        in     Clock.Now;
+ 164     --#        in out Interface.Status;
+ 165     --#        in out Interface.State;
+ 166     --#        in out AuditLog.State;
+ 167     --#        in out AuditLog.FileState;
+ 168     --#           out TokenPresence;
+ 169     --# derives TokenPresence,
+ 170     --#         Interface.State    from Interface.Status,
+ 171     --#                                 Interface.State,
+ 172     --#                                 Interface.Input &
+ 173     --#         Interface.Status   from * &
+ 174     --#         AuditLog.State,
+ 175     --#         AuditLog.FileState from *,
+ 176     --#                                 Interface.Status,
+ 177     --#                                 Interface.State,
+ 178     --#                                 AuditLog.State,
+ 179     --#                                 AuditLog.FileState,
+ 180     --#                                 ConfigData.State,
+ 181     --#                                 Clock.Now;
+ 182     is
+ 183     begin
+ 184        Interface.Poll;
+ 185        TokenPresence := Interface.TheTokenPresence;
+ 186     end Poll;
+
++++        Flow analysis of subprogram Poll performed: no 
+           errors found.
+
+ 187  
+ 188  
+ 189  
+ 190     ------------------------------------------------------------------
+ 191     -- ReadAndCheck
+ 192     --
+ 193     -- Implementation Notes:
+ 194     --    None.
+ 195     ------------------------------------------------------------------
+ 196     procedure ReadAndCheck
+ 197       (Description :    out AuditTypes.DescriptionT;
+ 198        TokenOK     :    out Boolean)
+ 199     --# global in     Interface.State;
+ 200     --#        in     Interface.Input;
+ 201     --#        in     ConfigData.State;
+ 202     --#        in     Clock.Now;
+ 203     --#        in     KeyStore.Store;
+ 204     --#        in     Clock.CurrentTime;
+ 205     --#        in     KeyStore.State;
+ 206     --#        in out TokenID;
+ 207     --#        in out Interface.Status;
+ 208     --#        in out AuditLog.State;
+ 209     --#        in out AuditLog.FileState;
+ 210     --#           out TokenTry;
+ 211     --#           out AuthCert;
+ 212     --#           out IDCert;
+ 213     --# derives TokenID,
+ 214     --#         Interface.Status   from *,
+ 215     --#                                 Interface.State &
+ 216     --#         AuthCert,
+ 217     --#         TokenOK,
+ 218     --#         Description        from Interface.Status,
+ 219     --#                                 Interface.State,
+ 220     --#                                 Interface.Input,
+ 221     --#                                 KeyStore.Store,
+ 222     --#                                 Clock.CurrentTime,
+ 223     --#                                 KeyStore.State &
+ 224     --#         AuditLog.State,
+ 225     --#         AuditLog.FileState from Interface.Status,
+ 226     --#                                 Interface.State,
+ 227     --#                                 Interface.Input,
+ 228     --#                                 AuditLog.State,
+ 229     --#                                 AuditLog.FileState,
+ 230     --#                                 ConfigData.State,
+ 231     --#                                 Clock.Now,
+ 232     --#                                 KeyStore.Store &
+ 233     --#         TokenTry           from Interface.State &
+ 234     --#         IDCert             from Interface.Status,
+ 235     --#                                 Interface.State,
+ 236     --#                                 Interface.Input,
+ 237     --#                                 KeyStore.Store;
+ 238     --# post TokenOk <-> ( IDCert.Valid and AuthCert.Valid and
+ 239     --#                    Cert.Attr.Auth.TheRole(AuthCert.Contents) in
+ 240     --#                        PrivTypes.AdminPrivilegeT );
+ 241     is
+ 242        AuthValid, IDValid, RoleOK : Boolean;
+ 243  
+ 244        AuthCertContents : Cert.Attr.Auth.ContentsT;
+ 245        IDCertContents : Cert.ID.ContentsT;
+ 246  
+ 247        ------------------------------------------------------------------
+ 248        -- MakeDescription
+ 249        --
+ 250        -- Description:
+ 251        --    Constructs a description from a piece of text,
+ 252        --    truncating if required.
+ 253        --
+ 254        -- Implementation Notes:
+ 255        --    Hidden from SPARK because of use of slicing.
+ 256        ------------------------------------------------------------------
+ 257        function MakeDescription (Text : in String)
+ 258                                  return AuditTypes.DescriptionT
+ 259        is
+ 260           --# hide MakeDescription;
+ 261           Result : AuditTypes.DescriptionT := AuditTypes.NoDescription;
+ 262        begin
+ 263           if Text'Last < Result'Last then
+ 264              Result( 1 .. Text'Last) := Text;
+ 265           else
+ 266              Result := Text( 1 .. Result'Last);
+ 267           end if;
+ 268           return Result;
+ 269  
+ 270        end MakeDescription;
+ 271  
+ 272     ------------------------------------------------------------------
+ 273     -- CheckIDCertOK
+ 274     --
+ 275     -- Description:
+ 276     --    Checks that the ID Cert is present and valid.
+ 277     --
+ 278     -- Implementation Notes:
+ 279     --    None.
+ 280     ------------------------------------------------------------------
+ 281     procedure CheckIDCertOK
+ 282       --# global in     TokenID;
+ 283       --#        in     Interface.State;
+ 284       --#        in     Interface.Input;
+ 285       --#        in     ConfigData.State;
+ 286       --#        in     Clock.Now;
+ 287       --#        in     KeyStore.Store;
+ 288       --#        in out Interface.Status;
+ 289       --#        in out AuditLog.State;
+ 290       --#        in out AuditLog.FileState;
+ 291       --#        in out IDCertContents;
+ 292       --#           out Description;
+ 293       --#           out IDValid;
+ 294       --# derives AuditLog.State,
+ 295       --#         AuditLog.FileState from Interface.Status,
+ 296       --#                                 Interface.State,
+ 297       --#                                 Interface.Input,
+ 298       --#                                 AuditLog.State,
+ 299       --#                                 AuditLog.FileState,
+ 300       --#                                 ConfigData.State,
+ 301       --#                                 Clock.Now,
+ 302       --#                                 KeyStore.Store &
+ 303       --#         Description,
+ 304       --#         IDValid            from TokenID,
+ 305       --#                                 Interface.Status,
+ 306       --#                                 Interface.State,
+ 307       --#                                 Interface.Input,
+ 308       --#                                 KeyStore.Store &
+ 309       --#         Interface.Status   from * &
+ 310       --#         IDCertContents     from *,
+ 311       --#                                 Interface.Status,
+ 312       --#                                 Interface.State,
+ 313       --#                                 Interface.Input;
+ 314     is
+ 315        RawCert   : CertTypes.RawCertificateT;
+ 316  
+ 317        CertFound : Boolean;
+ 318        ExtractOK,
+ 319          Verified,
+ 320          TokenIDMatches : Boolean := False;
+ 321  
+ 322     begin
+ 323  
+ 324        Interface.GetCertificate
+ 325          (CertType => CertTypes.IDCert,
+ 326           RawCert  => RawCert,
+ 327           Found    => CertFound);
+ 328  
+ 329        if CertFound then
+ 330  
+ 331           Cert.ID.Extract
+ 332             (RawCert  => RawCert,
+ 333              Contents => IDCertContents,
+ 334              Success  => ExtractOK);
+ 335  
+ 336           if ExtractOK then
+ 337  
+ 338              TokenIDMatches :=
+ 339                (TokenID =
+ 340                 TokenTypes.TokenIDT(Cert.ID.TheID
+ 341                  (Contents => IDCertContents).SerialNumber));
+ 342  
+ 343              Cert.ID.IsOK
+ 344                ( RawCert => RawCert,
+ 345                  Contents => IDCertContents,
+ 346                  IsVerified => Verified);
+ 347  
+ 348           end if;
+ 349        end if;
+ 350  
+ 351        IDValid := CertFound and ExtractOK
+ 352          and TokenIDMatches and Verified;
+ 353  
+ 354           if not CertFound or not ExtractOK or not TokenIDMatches then
+ 355              Description := MakeDescription("ID Certificate Bad");
+ 356           elsif not Verified then
+ 357              Description :=
+ 358                MakeDescription("ID Certificate Not Verifiable");
+ 359           else
+ 360              Description := AuditTypes.NoDescription;
+ 361           end if;
+ 362  
+ 363     end CheckIDCertOK;
+
++++        Flow analysis of subprogram CheckIDCertOK 
+           performed: no errors found.
+
+ 364  
+ 365  
+ 366        ------------------------------------------------------------------
+ 367        -- CheckAuthCert
+ 368        --
+ 369        -- Description:
+ 370        --    Performs the checks on an Auth Cert.
+ 371        --
+ 372        -- Implementation Notes:
+ 373        --    None.
+ 374        ------------------------------------------------------------------
+ 375        procedure CheckAuthCert
+ 376          --# global in     Interface.State;
+ 377          --#        in     Interface.Input;
+ 378          --#        in     ConfigData.State;
+ 379          --#        in     Clock.Now;
+ 380          --#        in     KeyStore.Store;
+ 381          --#        in     Clock.CurrentTime;
+ 382          --#        in     KeyStore.State;
+ 383          --#        in     IDCertContents;
+ 384          --#        in out Interface.Status;
+ 385          --#        in out AuditLog.State;
+ 386          --#        in out AuditLog.FileState;
+ 387          --#        in out Description;
+ 388          --#        in out AuthCertContents;
+ 389          --#           out AuthValid;
+ 390          --# derives AuditLog.State,
+ 391          --#         AuditLog.FileState from Interface.Status,
+ 392          --#                                 Interface.State,
+ 393          --#                                 Interface.Input,
+ 394          --#                                 AuditLog.State,
+ 395          --#                                 AuditLog.FileState,
+ 396          --#                                 ConfigData.State,
+ 397          --#                                 Clock.Now,
+ 398          --#                                 KeyStore.Store &
+ 399          --#         Interface.Status   from * &
+ 400          --#         Description        from *,
+ 401          --#                                 Interface.Status,
+ 402          --#                                 Interface.State,
+ 403          --#                                 Interface.Input,
+ 404          --#                                 KeyStore.Store,
+ 405          --#                                 Clock.CurrentTime,
+ 406          --#                                 KeyStore.State,
+ 407          --#                                 IDCertContents &
+ 408          --#         AuthValid          from Interface.Status,
+ 409          --#                                 Interface.State,
+ 410          --#                                 Interface.Input,
+ 411          --#                                 KeyStore.Store,
+ 412          --#                                 Clock.CurrentTime,
+ 413          --#                                 KeyStore.State,
+ 414          --#                                 IDCertContents &
+ 415          --#         AuthCertContents   from *,
+ 416          --#                                 Interface.Status,
+ 417          --#                                 Interface.State,
+ 418          --#                                 Interface.Input;
+ 419        is
+ 420           RawCert : CertTypes.RawCertificateT;
+ 421  
+ 422           CertFound : Boolean;
+ 423           ExtractOK,
+ 424             Verified,
+ 425             Current,
+ 426             BaseIDMatches : Boolean := False;
+ 427  
+ 428        begin
+ 429           Interface.GetCertificate
+ 430             (RawCert  => RawCert,
+ 431              CertType => CertTypes.AuthCert,
+ 432              Found    => CertFound);
+ 433  
+ 434           if CertFound then
+ 435              Cert.Attr.Auth.Extract
+ 436                (RawCert  => RawCert,
+ 437                 Contents => AuthCertContents,
+ 438                 Success  => ExtractOK);
+ 439  
+ 440              if ExtractOK then
+ 441  
+ 442                 BaseIDMatches :=
+ 443                   (Cert.ID.TheID(Contents => IDCertContents) =
+ 444                    Cert.Attr.Auth.TheBaseCert
+ 445                     (Contents => AuthCertContents));
+ 446  
+ 447                 Cert.Attr.Auth.IsOK
+ 448                   ( RawCert => RawCert,
+ 449                     Contents => AuthCertContents,
+ 450                     IsVerified => Verified);
+ 451  
+ 452                 Current := Cert.Attr.Auth.IsCurrent
+ 453                   (Contents => AuthCertContents);
+ 454  
+ 455              end if;
+ 456  
+ 457           end if;
+ 458  
+ 459           AuthValid := CertFound and ExtractOK
+ 460                          and BaseIDMatches and Verified and Current;
+ 461  
+ 462           if Description = AuditTypes.NoDescription then
+ 463              if not CertFound or not ExtractOK
+ 464                or not BaseIDMatches then
+ 465                 Description := MakeDescription("Authorisation Certificate Bad");
+ 466              elsif not Verified then
+ 467                 Description :=
+ 468                    MakeDescription("Authorisation Certificate Not Verifiable");
+ 469              elsif not Current then
+ 470                 Description :=
+ 471                    MakeDescription("Authorisation Certificate Not Current");
+ 472              end if;
+ 473           end if;
+ 474  
+ 475        end CheckAuthCert;
+
++++        Flow analysis of subprogram CheckAuthCert 
+           performed: no errors found.
+
+ 476  
+ 477  
+ 478     -----------------------------------------------------------------
+ 479     -- begin ReadAndCheck
+ 480     -----------------------------------------------------------------
+ 481     begin
+ 482  
+ 483        TokenTry := Interface.TheTokenTry;
+ 484  
+ 485        Cert.Attr.Auth.Clear(Contents => AuthCertContents);
+ 486        Cert.ID.Clear(Contents => IDCertContents);
+ 487  
+ 488        if TokenTry = TokenTypes.GoodToken then
+ 489           TokenID  := Interface.TheTokenID;
+ 490  
+ 491           CheckIDCertOK;
+ 492  
+ 493           CheckAuthCert;
+ 494  
+ 495           -- Check the role on the auth certificate.
+ 496           if IDValid and AuthValid then
+ 497              if Cert.Attr.Auth.TheRole(Contents => AuthCertContents) in
+ 498                PrivTypes.AdminPrivilegeT then
+ 499                 RoleOK := True;
+ 500              else
+ 501                 Description := MakeDescription
+ 502                   ("Authorisation Certificate not for Administrator");
+ 503                 RoleOK := False;
+ 504              end if;
+ 505           else
+ 506              RoleOK := False;
+ 507           end if;
+ 508  
+ 509        else
+ 510           AuthValid   := False;
+ 511           IDValid     := False;
+ 512           RoleOK      := False;
+ 513           Description := MakeDescription("Token Bad");
+ 514  
+ 515        end if;
+ 516  
+ 517        TokenOK := AuthValid and IDValid and RoleOK;
+ 518  
+ 519        IDCert := ValidIDCertT'( Valid    => IDValid,
+ 520                                 Contents => IDCertContents);
+ 521  
+ 522        AuthCert := ValidAuthCertT'
+ 523          (Valid    => AuthValid,
+ 524           Contents => AuthCertContents);
+ 525  
+ 526     end ReadAndCheck;
+
++++        Flow analysis of subprogram ReadAndCheck 
+           performed: no errors found.
+
+ 527  
+ 528  
+ 529     ------------------------------------------------------------------
+ 530     -- IsPresent
+ 531     --
+ 532     -- Implementation Notes:
+ 533     --    None.
+ 534     ------------------------------------------------------------------
+ 535     function IsPresent return Boolean
+ 536     --# global TokenPresence;
+ 537     is
+ 538     begin
+ 539        return TokenPresence = BasicTypes.Present;
+ 540     end IsPresent;
+
++++        Flow analysis of subprogram IsPresent performed: 
+           no errors found.
+
+ 541  
+ 542     ------------------------------------------------------------------
+ 543     -- IsCurrent
+ 544     --
+ 545     -- Implementation Notes:
+ 546     --    None.
+ 547     ------------------------------------------------------------------
+ 548     function IsCurrent return Boolean
+ 549     --# global AuthCert,
+ 550     --#        Clock.CurrentTime;
+ 551     is
+ 552     begin
+ 553        return Cert.Attr.Auth.IsCurrent(Contents => AuthCert.Contents);
+ 554     end IsCurrent;
+
++++        Flow analysis of subprogram IsCurrent performed: 
+           no errors found.
+
+ 555  
+ 556  
+ 557     ------------------------------------------------------------------
+ 558     -- ExtractUser
+ 559     --
+ 560     -- Implementation Notes:
+ 561     --    None.
+ 562     ------------------------------------------------------------------
+ 563     function ExtractUser return AuditTypes.UserTextT
+ 564     --# global TokenTry,
+ 565     --#        AuthCert,
+ 566     --#        IDCert;
+ 567     is
+ 568        Result : AuditTypes.UserTextT;
+ 569     begin
+ 570        if TokenTry = TokenTypes.GoodToken then
+ 571           if IDCert.Valid then
+ 572              Result := Cert.ID.ExtractUser(IDCert.Contents);
+ 573           elsif AuthCert.Valid then
+ 574              Result := Cert.Attr.Auth.ExtractUser(AuthCert.Contents);
+ 575           else
+ 576              Result := AuditTypes.NoUser;
+ 577           end if;
+ 578        else
+ 579           Result := AuditTypes.NoUser;
+ 580        end if;
+ 581        return Result;
+ 582     end ExtractUser;
+
++++        Flow analysis of subprogram ExtractUser 
+           performed: no errors found.
+
+ 583  
+ 584     ------------------------------------------------------------------
+ 585     -- GetRole
+ 586     --
+ 587     -- Description:
+ 588     --    obtains the role value for the Auth certificate.
+ 589     --
+ 590     -- Traceunit : C.AdminToken.GetRole
+ 591     -- Traceto :
+ 592     ------------------------------------------------------------------
+ 593     function GetRole return PrivTypes.AdminPrivilegeT
+ 594     --# global AuthCert;
+ 595     --# pre Cert.Attr.Auth.TheRole(AuthCert.Contents) in
+ 596     --#           PrivTypes.AdminPrivilegeT;
+ 597     is
+ 598     begin
+ 599        return Cert.Attr.Auth.TheRole(Contents => AuthCert.Contents);
+ 600     end GetRole;
+
++++        Flow analysis of subprogram GetRole performed: 
+           no errors found.
+
+ 601  
+ 602  end AdminToken;
+71 summarized warning(s), comprising:
+     1 hidden part(s)*
+    70 use(s) of Ada2005 reserved words
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+
+--End of file--------------------------------------------------

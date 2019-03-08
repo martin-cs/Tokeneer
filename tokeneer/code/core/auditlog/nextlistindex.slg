@@ -1,0 +1,66 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:08  SIMPLIFIED 05-SEP-2011, 15:38:51
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+function AuditLog.NextListIndex
+
+
+
+
+
+
+@@@@@@@@@@  VC: function_nextlistindex_1.  @@@@@@@@@@
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  true
+***  Proved C1:  true
+***  Proved C2:  logfileindext__first <= logfileindext__last
+     using hypotheses H2 & H3.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_nextlistindex_2.  @@@@@@@@@@
+***  Proved C1:  value + 1 >= logfileindext__first
+     using hypothesis H2.
+-S-  Applied substitution rule nextlistinde_rules(9).
+     This was achieved by replacing all occurrences of logfileindext__last by:
+          17.
+<S>  New H3:  value <= 17
+<S>  New H4:  not value = 17
+<S>  New C2:  value <= 16
+***  Proved C2:  value <= 16
+     using hypotheses H3 & H4.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_nextlistindex_3.  @@@@@@@@@@
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  true
+---  Hypothesis H7 has been replaced by "true".  (It is already present, as H5).
+---  Hypothesis H8 has been replaced by "true".  (It is already present, as H6).
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  logfileindext__first <= logfileindext__last
+     using hypothesis H6.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_nextlistindex_4.  @@@@@@@@@@
+---  Hypothesis H7 has been replaced by "true".  (It is already present, as H5).
+---  Hypothesis H8 has been replaced by "true".  (It is already present, as H6).
+***  Proved C1:  true
+***  Proved C2:  value + 1 >= logfileindext__first
+     using hypothesis H5.
+***  Proved C3:  value + 1 <= logfileindext__last
+     using hypothesis H6.
+***  PROVED VC.
+

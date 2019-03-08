@@ -1,0 +1,166 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:27.35}
+
+             {procedure Enclave.StartAdminActivity.StartAdminOp}
+
+
+title procedure startadminop;
+
+  function round__(real) : integer;
+  type character = integer;
+  type basictypes__presencet = (basictypes__present, 
+     basictypes__absent);
+  type audittypes__elementt = (audittypes__startunenrolledtis, 
+     audittypes__startenrolledtis, audittypes__enrolmentcomplete, 
+     audittypes__enrolmentfailed, audittypes__displaychanged, 
+     audittypes__screenchanged, audittypes__doorclosed, 
+     audittypes__dooropened, audittypes__latchlocked, 
+     audittypes__latchunlocked, audittypes__alarmraised, 
+     audittypes__alarmsilenced, audittypes__truncatelog, 
+     audittypes__auditalarmraised, audittypes__auditalarmsilenced, 
+     audittypes__usertokenremoved, audittypes__usertokenpresent, 
+     audittypes__usertokeninvalid, audittypes__authcertvalid, 
+     audittypes__authcertinvalid, audittypes__fingerdetected, 
+     audittypes__fingertimeout, audittypes__fingermatched, 
+     audittypes__fingernotmatched, audittypes__authcertwritten, 
+     audittypes__authcertwritefailed, audittypes__entrypermitted, 
+     audittypes__entrytimeout, audittypes__entrydenied, 
+     audittypes__admintokenpresent, audittypes__admintokenvalid, 
+     audittypes__admintokeninvalid, audittypes__admintokenexpired, 
+     audittypes__admintokenremoved, audittypes__invalidoprequest, 
+     audittypes__operationstart, audittypes__archivelog, 
+     audittypes__archivecomplete, audittypes__archivecheckfailed, 
+     audittypes__updatedconfigdata, audittypes__invalidconfigdata, 
+     audittypes__shutdown, audittypes__overridelock, 
+     audittypes__systemfault);
+  type audittypes__severityt = (audittypes__information, 
+     audittypes__warning, audittypes__critical);
+  type privtypes__privileget = (privtypes__useronly, 
+     privtypes__guard, privtypes__auditmanager, 
+     privtypes__securityofficer);
+  type admin__opandnullt = (admin__nullop, admin__archivelog, 
+     admin__updateconfigdata, admin__overridelock, 
+     admin__shutdownop);
+  type admin__t = pending;
+  type admintoken__statetype = pending;
+  type screen__msgtextt = (screen__clear, screen__welcomeadmin, 
+     screen__busy, screen__removeadmintoken, screen__closedoor, 
+     screen__requestadminop, screen__doingop, 
+     screen__invalidrequest, screen__invaliddata, 
+     screen__archivefailed, screen__insertenrolmentdata, 
+     screen__validatingenrolmentdata, screen__enrolmentfailed, 
+     screen__insertblankfloppy, screen__insertconfigdata);
+  type statust = (notenrolled, waitingenrol, waitingendenrol, 
+     enclavequiescent, waitingremoveadmintokenfail, gotadmintoken, 
+     waitingstartadminop, waitingfinishadminop, shutdown);
+  type string = array [integer] of character;
+  const null__string : string = pending;
+  type keyboard__datat = record
+        length : integer;
+        text : string
+     end;
+  const statust__base__first : statust = pending; 
+  const statust__base__last : statust = pending; 
+  const screen__msgtextt__base__first : screen__msgtextt = pending; 
+  const screen__msgtextt__base__last : screen__msgtextt = pending; 
+  const admin__opt__base__first : admin__opandnullt = pending; 
+  const admin__opt__base__last : admin__opandnullt = pending; 
+  const admin__opandnullt__base__first : admin__opandnullt = pending; 
+  const admin__opandnullt__base__last : admin__opandnullt = pending; 
+  const keyboard__datai__base__first : integer = pending; 
+  const keyboard__datai__base__last : integer = pending; 
+  const keyboard__datalengtht__base__first : integer = pending; 
+  const keyboard__datalengtht__base__last : integer = pending; 
+  const privtypes__privileget__base__first : 
+     privtypes__privileget = pending; 
+  const privtypes__privileget__base__last : privtypes__privileget = pending; 
+  const audittypes__usertexti__base__first : integer = pending; 
+  const audittypes__usertexti__base__last : integer = pending; 
+  const audittypes__severityt__base__first : 
+     audittypes__severityt = pending; 
+  const audittypes__severityt__base__last : audittypes__severityt = pending; 
+  const audittypes__elementt__base__first : audittypes__elementt = pending; 
+  const audittypes__elementt__base__last : audittypes__elementt = pending; 
+  const basictypes__presencet__base__first : 
+     basictypes__presencet = pending; 
+  const basictypes__presencet__base__last : basictypes__presencet = pending; 
+  const positive__base__first : integer = pending; 
+  const positive__base__last : integer = pending; 
+  const character__base__first : character = pending; 
+  const character__base__last : character = pending; 
+  const integer__base__first : integer = pending; 
+  const integer__base__last : integer = pending; 
+  const statust__first : statust = pending; 
+  const statust__last : statust = pending; 
+  const statust__size : integer = pending; 
+  const screen__msgtextt__first : screen__msgtextt = pending; 
+  const screen__msgtextt__last : screen__msgtextt = pending; 
+  const screen__msgtextt__size : integer = pending; 
+  const admin__opt__first : admin__opandnullt = pending; 
+  const admin__opt__last : admin__opandnullt = pending; 
+  const admin__opt__size : integer = pending; 
+  const admin__opandnullt__first : admin__opandnullt = pending; 
+  const admin__opandnullt__last : admin__opandnullt = pending; 
+  const admin__opandnullt__size : integer = pending; 
+  const keyboard__datat__size : integer = pending; 
+  const keyboard__datai__first : integer = pending; 
+  const keyboard__datai__last : integer = pending; 
+  const keyboard__datai__size : integer = pending; 
+  const keyboard__datalengtht__first : integer = pending; 
+  const keyboard__datalengtht__last : integer = pending; 
+  const keyboard__datalengtht__size : integer = pending; 
+  const privtypes__privileget__first : privtypes__privileget = pending; 
+  const privtypes__privileget__last : privtypes__privileget = pending; 
+  const privtypes__privileget__size : integer = pending; 
+  const audittypes__usertexti__first : integer = pending; 
+  const audittypes__usertexti__last : integer = pending; 
+  const audittypes__usertexti__size : integer = pending; 
+  const audittypes__severityt__first : audittypes__severityt = pending; 
+  const audittypes__severityt__last : audittypes__severityt = pending; 
+  const audittypes__severityt__size : integer = pending; 
+  const audittypes__elementt__first : audittypes__elementt = pending; 
+  const audittypes__elementt__last : audittypes__elementt = pending; 
+  const audittypes__elementt__size : integer = pending; 
+  const basictypes__presencet__first : basictypes__presencet = pending; 
+  const basictypes__presencet__last : basictypes__presencet = pending; 
+  const basictypes__presencet__size : integer = pending; 
+  const positive__first : integer = pending; 
+  const positive__last : integer = pending; 
+  const positive__size : integer = pending; 
+  const character__first : character = pending; 
+  const character__last : character = pending; 
+  const character__size : integer = pending; 
+  const integer__first : integer = pending; 
+  const integer__last : integer = pending; 
+  const integer__size : integer = pending; 
+  var admintoken__state : admintoken__statetype;
+  var theadmin : admin__t;
+  var status : statust;
+  var keyeddatapresence : basictypes__presencet;
+  var keyeddata : keyboard__datat;
+  function admin__prf_rolepresent(admin__t) : 
+     privtypes__privileget;
+  function admin__isdoingop(admin__t) : boolean;
+  function admin__thecurrentop(admin__t) : admin__opandnullt;
+  function admin__ispresent(admin__t) : boolean;
+  function admin__opisavailable(admin__t, keyboard__datat) : 
+     admin__opandnullt;
+  function admintoken__theauthcertrole(admintoken__statetype) : 
+     privtypes__privileget;
+  function admintoken__prf_isgood(admintoken__statetype) : boolean;
+  function admintoken__prf_authcertvalid(admintoken__statetype) : boolean;
+  function admintoken__extractuser(admintoken__statetype) : 
+     string;
+  function adminopcanstart(admintoken__statetype, statust, 
+     admin__t) : boolean;
+  var theadmin__3 : admin__t;
+  var keyeddata__1 : keyboard__datat;
+  var keyeddatapresence__1 : basictypes__presencet;
+
+end;

@@ -1,0 +1,3049 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:14  SIMPLIFIED 05-SEP-2011, 15:39:13
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure IandA.Extract
+
+
+
+
+
+
+@@@@@@@@@@  VC: procedure_extract_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(rawcert, [i___1]) and element(rawcert, [
+          i___1]) <= character__last)
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  for_all(i___4 : integer, iandatypes__templatepadi__first <= 
+          i___4 and i___4 <= iandatypes__templatepadi__last -> 
+          basictypes__bytet__first <= element(fld_pad(fld_template(
+          localcontents__1)), [i___4]) and element(fld_pad(fld_template(
+          localcontents__1)), [i___4]) <= basictypes__bytet__last)
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  for_all(i___3 : integer, iandatypes__templateidi__first <= i___3 
+          and i___3 <= iandatypes__templateidi__last -> character__first <= 
+          element(fld_id(fld_template(localcontents__1)), [i___3]) and element(
+          fld_id(fld_template(localcontents__1)), [i___3]) <= character__last)
+%%%  Simplified H31 on reading formula in, to give:
+     %%%  H31:  cryptotypes__algorithmt__first <= fld_sigalgid(localcontents__1)
+%%%  Simplified H33 on reading formula in, to give:
+     %%%  H33:  for_all(i___2 : integer, cryptotypes__namei__first <= i___2 and 
+          i___2 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(localcontents__1)), [i___2]) and element(fld_name(
+          fld_issuer(localcontents__1)), [i___2]) <= character__last)
+%%%  Simplified H40 on reading formula in, to give:
+     %%%  H40:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(fld_holder(localcontents__1))), [i___1]) and 
+          element(fld_name(fld_issuer(fld_holder(localcontents__1))), [i___1]) 
+          <= character__last)
+---  Hypothesis H46 has been replaced by "true".  (It is already present, as H3)
+          .
+---  Hypothesis H47 has been replaced by "true".  (It is already present, as H4)
+          .
+---  Hypothesis H48 has been replaced by "true".  (It is already present, as H5)
+          .
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as H6)
+          .
+---  Hypothesis H50 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H53 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H54 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H55 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H56 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H57 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H58 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H59 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H60 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H61 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H62 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H63 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H64 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H65 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H66 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H67 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H68 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H69 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H70 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H71 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H72 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H73 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H74 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H75 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H76 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H77 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H78 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H79 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H80 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H81 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H82 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H83 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H84 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H85 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H86 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H87 has been replaced by "true".  (It is already present, as 
+          H44).
+---  Hypothesis H88 has been replaced by "true".  (It is already present, as H3)
+          .
+---  Hypothesis H89 has been replaced by "true".  (It is already present, as H4)
+          .
+---  Hypothesis H90 has been replaced by "true".  (It is already present, as H5)
+          .
+---  Hypothesis H91 has been replaced by "true".  (It is already present, as H6)
+          .
+---  Hypothesis H92 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H93 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H94 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H95 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H96 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H97 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H98 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H99 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H100 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H101 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H102 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H103 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H104 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H105 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H106 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H107 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H108 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H109 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H110 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H111 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H112 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H113 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H114 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H115 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H116 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H117 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H118 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H119 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H120 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H121 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H122 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H123 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H124 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H125 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H126 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H127 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H128 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H129 has been replaced by "true".  (It is already present, as 
+          H44).
+-S-  Applied substitution rule extract_rules(121).
+     This was achieved by replacing all occurrences of 
+          certtypes__serialnumbert__first by:
+          0.
+<S>  New H38:  fld_serialnumber(fld_holder(localcontents__1)) >= 0
+<S>  New C1:  fld_serialnumber(localcontents__1) >= 0
+<S>  New C3:  fld_serialnumber(localcontents__1) >= 0
+-S-  Applied substitution rule extract_rules(122).
+     This was achieved by replacing all occurrences of 
+          certtypes__serialnumbert__last by:
+          4294967295.
+<S>  New H39:  fld_serialnumber(fld_holder(localcontents__1)) <= 4294967295
+<S>  New C2:  fld_serialnumber(localcontents__1) <= 4294967295
+<S>  New C4:  fld_serialnumber(localcontents__1) <= 4294967295
+-S-  Applied substitution rule extract_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H2:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 0 <= element(
+          rawcert, [i___1]) and element(rawcert, [i___1]) <= character__last)
+<S>  New H4:  for_all(i___3 : integer, iandatypes__templateidi__first <= i___3 
+          and i___3 <= iandatypes__templateidi__last -> 0 <= element(fld_id(
+          fld_template(localcontents__1)), [i___3]) and element(fld_id(
+          fld_template(localcontents__1)), [i___3]) <= character__last)
+<S>  New H33:  for_all(i___2 : integer, cryptotypes__namei__first <= i___2 and 
+          i___2 <= cryptotypes__namei__last -> 0 <= element(fld_name(fld_issuer(
+          localcontents__1)), [i___2]) and element(fld_name(fld_issuer(
+          localcontents__1)), [i___2]) <= character__last)
+<S>  New H40:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(fld_issuer(
+          fld_holder(localcontents__1))), [i___1]) and element(fld_name(
+          fld_issuer(fld_holder(localcontents__1))), [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule extract_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H2:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 0 <= element(
+          rawcert, [i___1]) and element(rawcert, [i___1]) <= 255)
+<S>  New H4:  for_all(i___3 : integer, iandatypes__templateidi__first <= i___3 
+          and i___3 <= iandatypes__templateidi__last -> 0 <= element(fld_id(
+          fld_template(localcontents__1)), [i___3]) and element(fld_id(
+          fld_template(localcontents__1)), [i___3]) <= 255)
+<S>  New H33:  for_all(i___2 : integer, cryptotypes__namei__first <= i___2 and 
+          i___2 <= cryptotypes__namei__last -> 0 <= element(fld_name(fld_issuer(
+          localcontents__1)), [i___2]) and element(fld_name(fld_issuer(
+          localcontents__1)), [i___2]) <= 255)
+<S>  New H40:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(fld_issuer(
+          fld_holder(localcontents__1))), [i___1]) and element(fld_name(
+          fld_issuer(fld_holder(localcontents__1))), [i___1]) <= 255)
+-S-  Applied substitution rule extract_rules(18).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__first by:
+          0.
+<S>  New H9:  fld_minute(fld_notafter(fld_attcertvalidity(localcontents__1))) 
+          >= 0
+<S>  New H11:  fld_hour(fld_notafter(fld_attcertvalidity(localcontents__1))) >= 
+          0
+<S>  New H13:  fld_day(fld_notafter(fld_attcertvalidity(localcontents__1))) >= 0
+<S>  New H15:  fld_month(fld_notafter(fld_attcertvalidity(localcontents__1))) 
+          >= 0
+<S>  New H17:  fld_year(fld_notafter(fld_attcertvalidity(localcontents__1))) >= 
+          0
+<S>  New H19:  fld_minute(fld_notbefore(fld_attcertvalidity(localcontents__1))) 
+          >= 0
+<S>  New H21:  fld_hour(fld_notbefore(fld_attcertvalidity(localcontents__1))) 
+          >= 0
+<S>  New H23:  fld_day(fld_notbefore(fld_attcertvalidity(localcontents__1))) >= 
+          0
+<S>  New H25:  fld_month(fld_notbefore(fld_attcertvalidity(localcontents__1))) 
+          >= 0
+<S>  New H27:  fld_year(fld_notbefore(fld_attcertvalidity(localcontents__1))) 
+          >= 0
+<S>  New H29:  fld_serialnumber(localcontents__1) >= 0
+-S-  Applied substitution rule extract_rules(19).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__last by:
+          4294967295.
+<S>  New H10:  fld_minute(fld_notafter(fld_attcertvalidity(localcontents__1))) 
+          <= 4294967295
+<S>  New H12:  fld_hour(fld_notafter(fld_attcertvalidity(localcontents__1))) <= 
+          4294967295
+<S>  New H14:  fld_day(fld_notafter(fld_attcertvalidity(localcontents__1))) <= 
+          4294967295
+<S>  New H16:  fld_month(fld_notafter(fld_attcertvalidity(localcontents__1))) 
+          <= 4294967295
+<S>  New H18:  fld_year(fld_notafter(fld_attcertvalidity(localcontents__1))) <= 
+          4294967295
+<S>  New H20:  fld_minute(fld_notbefore(fld_attcertvalidity(localcontents__1))) 
+          <= 4294967295
+<S>  New H22:  fld_hour(fld_notbefore(fld_attcertvalidity(localcontents__1))) 
+          <= 4294967295
+<S>  New H24:  fld_day(fld_notbefore(fld_attcertvalidity(localcontents__1))) <= 
+          4294967295
+<S>  New H26:  fld_month(fld_notbefore(fld_attcertvalidity(localcontents__1))) 
+          <= 4294967295
+<S>  New H28:  fld_year(fld_notbefore(fld_attcertvalidity(localcontents__1))) 
+          <= 4294967295
+<S>  New H30:  fld_serialnumber(localcontents__1) <= 4294967295
+-S-  Applied substitution rule extract_rules(25).
+     This was achieved by replacing all occurrences of basictypes__bytet__first 
+          by:
+          0.
+<S>  New H3:  for_all(i___4 : integer, iandatypes__templatepadi__first <= i___4 
+          and i___4 <= iandatypes__templatepadi__last -> 0 <= element(fld_pad(
+          fld_template(localcontents__1)), [i___4]) and element(fld_pad(
+          fld_template(localcontents__1)), [i___4]) <= basictypes__bytet__last)
+-S-  Applied substitution rule extract_rules(26).
+     This was achieved by replacing all occurrences of basictypes__bytet__last 
+          by:
+          255.
+<S>  New H3:  for_all(i___4 : integer, iandatypes__templatepadi__first <= i___4 
+          and i___4 <= iandatypes__templatepadi__last -> 0 <= element(fld_pad(
+          fld_template(localcontents__1)), [i___4]) and element(fld_pad(
+          fld_template(localcontents__1)), [i___4]) <= 255)
+-S-  Applied substitution rule extract_rules(31).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namecountt__first by:
+          0.
+<S>  New H34:  fld_namelength(fld_issuer(localcontents__1)) >= 0
+<S>  New H41:  fld_namelength(fld_issuer(fld_holder(localcontents__1))) >= 0
+-S-  Applied substitution rule extract_rules(32).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namecountt__last by:
+          40.
+<S>  New H35:  fld_namelength(fld_issuer(localcontents__1)) <= 40
+<S>  New H42:  fld_namelength(fld_issuer(fld_holder(localcontents__1))) <= 40
+-S-  Applied substitution rule extract_rules(36).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namei__first by:
+          1.
+<S>  New H33:  for_all(i___2 : integer, 1 <= i___2 and i___2 <= 
+          cryptotypes__namei__last -> 0 <= element(fld_name(fld_issuer(
+          localcontents__1)), [i___2]) and element(fld_name(fld_issuer(
+          localcontents__1)), [i___2]) <= 255)
+<S>  New H40:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          cryptotypes__namei__last -> 0 <= element(fld_name(fld_issuer(
+          fld_holder(localcontents__1))), [i___1]) and element(fld_name(
+          fld_issuer(fld_holder(localcontents__1))), [i___1]) <= 255)
+-S-  Applied substitution rule extract_rules(37).
+     This was achieved by replacing all occurrences of cryptotypes__namei__last 
+          by:
+          40.
+<S>  New H33:  for_all(i___2 : integer, 1 <= i___2 and i___2 <= 40 -> 0 <= 
+          element(fld_name(fld_issuer(localcontents__1)), [i___2]) and element(
+          fld_name(fld_issuer(localcontents__1)), [i___2]) <= 255)
+<S>  New H40:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 40 -> 0 <= 
+          element(fld_name(fld_issuer(fld_holder(localcontents__1))), [i___1]) 
+          and element(fld_name(fld_issuer(fld_holder(localcontents__1))), [
+          i___1]) <= 255)
+-S-  Applied substitution rule extract_rules(41).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__issueridt__first by:
+          0.
+<S>  New H36:  fld_id(fld_issuer(localcontents__1)) >= 0
+<S>  New H43:  fld_id(fld_issuer(fld_holder(localcontents__1))) >= 0
+-S-  Applied substitution rule extract_rules(42).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__issueridt__last by:
+          4294967295.
+<S>  New H37:  fld_id(fld_issuer(localcontents__1)) <= 4294967295
+<S>  New H44:  fld_id(fld_issuer(fld_holder(localcontents__1))) <= 4294967295
+-S-  Applied substitution rule extract_rules(49).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__algorithmt__first by:
+          cryptotypes__rsa.
+<S>  New H31:  cryptotypes__rsa <= fld_sigalgid(localcontents__1)
+-S-  Applied substitution rule extract_rules(50).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__algorithmt__last by:
+          cryptotypes__ripemd160_rsa.
+<S>  New H32:  fld_sigalgid(localcontents__1) <= cryptotypes__ripemd160_rsa
+-S-  Applied substitution rule extract_rules(91).
+     This was achieved by replacing all occurrences of iandatypes__fart__first 
+          by:
+          0.
+<S>  New H5:  fld_requiredmaxfar(fld_template(localcontents__1)) >= 0
+-S-  Applied substitution rule extract_rules(92).
+     This was achieved by replacing all occurrences of iandatypes__fart__last 
+          by:
+          2147483647.
+<S>  New H6:  fld_requiredmaxfar(fld_template(localcontents__1)) <= 2147483647
+-S-  Applied substitution rule extract_rules(97).
+     This was achieved by replacing all occurrences of 
+          iandatypes__templatepadi__first by:
+          1.
+<S>  New H3:  for_all(i___4 : integer, 1 <= i___4 and i___4 <= 
+          iandatypes__templatepadi__last -> 0 <= element(fld_pad(fld_template(
+          localcontents__1)), [i___4]) and element(fld_pad(fld_template(
+          localcontents__1)), [i___4]) <= 255)
+-S-  Applied substitution rule extract_rules(98).
+     This was achieved by replacing all occurrences of 
+          iandatypes__templatepadi__last by:
+          452.
+<S>  New H3:  for_all(i___4 : integer, 1 <= i___4 and i___4 <= 452 -> 0 <= 
+          element(fld_pad(fld_template(localcontents__1)), [i___4]) and element(
+          fld_pad(fld_template(localcontents__1)), [i___4]) <= 255)
+-S-  Applied substitution rule extract_rules(103).
+     This was achieved by replacing all occurrences of 
+          iandatypes__templatelengtht__first by:
+          0.
+<S>  New H7:  fld_length(fld_template(localcontents__1)) >= 0
+-S-  Applied substitution rule extract_rules(104).
+     This was achieved by replacing all occurrences of 
+          iandatypes__templatelengtht__last by:
+          4294967295.
+<S>  New H8:  fld_length(fld_template(localcontents__1)) <= 4294967295
+-S-  Applied substitution rule extract_rules(109).
+     This was achieved by replacing all occurrences of 
+          iandatypes__templateidi__first by:
+          1.
+<S>  New H4:  for_all(i___3 : integer, 1 <= i___3 and i___3 <= 
+          iandatypes__templateidi__last -> 0 <= element(fld_id(fld_template(
+          localcontents__1)), [i___3]) and element(fld_id(fld_template(
+          localcontents__1)), [i___3]) <= 255)
+-S-  Applied substitution rule extract_rules(110).
+     This was achieved by replacing all occurrences of 
+          iandatypes__templateidi__last by:
+          40.
+<S>  New H4:  for_all(i___3 : integer, 1 <= i___3 and i___3 <= 40 -> 0 <= 
+          element(fld_id(fld_template(localcontents__1)), [i___3]) and element(
+          fld_id(fld_template(localcontents__1)), [i___3]) <= 255)
+-S-  Applied substitution rule extract_rules(116).
+     This was achieved by replacing all occurrences of 
+          certtypes__rawcertificatei__first by:
+          1.
+<S>  New H2:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          certtypes__rawcertificatei__last -> 0 <= element(rawcert, [i___1]) 
+          and element(rawcert, [i___1]) <= 255)
+-S-  Applied substitution rule extract_rules(117).
+     This was achieved by replacing all occurrences of 
+          certtypes__rawcertificatei__last by:
+          4096.
+<S>  New H2:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 4096 -> 0 <= 
+          element(rawcert, [i___1]) and element(rawcert, [i___1]) <= 255)
+***  Proved C1:  fld_serialnumber(localcontents__1) >= 0
+     using hypothesis H29.
+***  Proved C3:  fld_serialnumber(localcontents__1) >= 0
+     using hypothesis H29.
+***  Proved C2:  fld_serialnumber(localcontents__1) <= 4294967295
+     using hypothesis H30.
+***  Proved C4:  fld_serialnumber(localcontents__1) <= 4294967295
+     using hypothesis H30.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_extract_2.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(rawcert, [i___1]) and element(rawcert, [
+          i___1]) <= character__last)
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  for_all(i___4 : integer, iandatypes__templatepadi__first <= 
+          i___4 and i___4 <= iandatypes__templatepadi__last -> 
+          basictypes__bytet__first <= element(fld_pad(fld_template(
+          localcontents__1)), [i___4]) and element(fld_pad(fld_template(
+          localcontents__1)), [i___4]) <= basictypes__bytet__last)
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  for_all(i___3 : integer, iandatypes__templateidi__first <= i___3 
+          and i___3 <= iandatypes__templateidi__last -> character__first <= 
+          element(fld_id(fld_template(localcontents__1)), [i___3]) and element(
+          fld_id(fld_template(localcontents__1)), [i___3]) <= character__last)
+%%%  Simplified H31 on reading formula in, to give:
+     %%%  H31:  cryptotypes__algorithmt__first <= fld_sigalgid(localcontents__1)
+%%%  Simplified H33 on reading formula in, to give:
+     %%%  H33:  for_all(i___2 : integer, cryptotypes__namei__first <= i___2 and 
+          i___2 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(localcontents__1)), [i___2]) and element(fld_name(
+          fld_issuer(localcontents__1)), [i___2]) <= character__last)
+%%%  Simplified H40 on reading formula in, to give:
+     %%%  H40:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(fld_holder(localcontents__1))), [i___1]) and 
+          element(fld_name(fld_issuer(fld_holder(localcontents__1))), [i___1]) 
+          <= character__last)
+---  Hypothesis H46 has been replaced by "true".  (It is already present, as H3)
+          .
+---  Hypothesis H47 has been replaced by "true".  (It is already present, as H4)
+          .
+---  Hypothesis H48 has been replaced by "true".  (It is already present, as H5)
+          .
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as H6)
+          .
+---  Hypothesis H50 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H53 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H54 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H55 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H56 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H57 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H58 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H59 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H60 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H61 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H62 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H63 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H64 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H65 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H66 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H67 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H68 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H69 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H70 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H71 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H72 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H73 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H74 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H75 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H76 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H77 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H78 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H79 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H80 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H81 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H82 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H83 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H84 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H85 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H86 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H87 has been replaced by "true".  (It is already present, as 
+          H44).
+---  Hypothesis H88 has been replaced by "true".  (It is already present, as H3)
+          .
+---  Hypothesis H89 has been replaced by "true".  (It is already present, as H4)
+          .
+---  Hypothesis H90 has been replaced by "true".  (It is already present, as H5)
+          .
+---  Hypothesis H91 has been replaced by "true".  (It is already present, as H6)
+          .
+---  Hypothesis H92 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H93 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H94 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H95 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H96 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H97 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H98 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H99 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H100 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H101 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H102 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H103 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H104 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H105 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H106 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H107 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H108 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H109 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H110 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H111 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H112 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H113 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H114 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H115 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H116 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H117 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H118 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H119 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H120 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H121 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H122 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H123 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H124 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H125 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H126 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H127 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H128 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H129 has been replaced by "true".  (It is already present, as 
+          H44).
+---  Hypothesis H132 has been replaced by "true".  (It is already present, as 
+          H130).
+---  Hypothesis H133 has been replaced by "true".  (It is already present, as 
+          H131).
+---  Hypothesis H134 has been replaced by "true".  (It is already present, as 
+          H3).
+---  Hypothesis H135 has been replaced by "true".  (It is already present, as 
+          H4).
+---  Hypothesis H136 has been replaced by "true".  (It is already present, as 
+          H5).
+---  Hypothesis H137 has been replaced by "true".  (It is already present, as 
+          H6).
+---  Hypothesis H138 has been replaced by "true".  (It is already present, as 
+          H7).
+---  Hypothesis H139 has been replaced by "true".  (It is already present, as 
+          H8).
+---  Hypothesis H140 has been replaced by "true".  (It is already present, as 
+          H9).
+---  Hypothesis H141 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H142 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H143 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H144 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H145 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H146 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H147 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H148 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H149 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H150 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H151 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H152 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H153 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H154 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H155 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H156 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H157 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H158 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H159 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H160 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H161 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H162 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H163 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H164 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H165 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H166 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H167 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H168 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H169 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H170 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H171 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H172 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H173 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H174 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H175 has been replaced by "true".  (It is already present, as 
+          H44).
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  cryptotypes__algorithmt__first <= fld_sigalgid(localcontents__1)
+***  Proved C1:  cryptotypes__algorithmt__first <= fld_sigalgid(
+          localcontents__1)
+     using hypothesis H31.
+***  Proved C2:  fld_sigalgid(localcontents__1) <= cryptotypes__algorithmt__last
+     using hypothesis H32.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_extract_3.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(rawcert, [i___1]) and element(rawcert, [
+          i___1]) <= character__last)
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  for_all(i___4 : integer, iandatypes__templatepadi__first <= 
+          i___4 and i___4 <= iandatypes__templatepadi__last -> 
+          basictypes__bytet__first <= element(fld_pad(fld_template(
+          localcontents__1)), [i___4]) and element(fld_pad(fld_template(
+          localcontents__1)), [i___4]) <= basictypes__bytet__last)
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  for_all(i___3 : integer, iandatypes__templateidi__first <= i___3 
+          and i___3 <= iandatypes__templateidi__last -> character__first <= 
+          element(fld_id(fld_template(localcontents__1)), [i___3]) and element(
+          fld_id(fld_template(localcontents__1)), [i___3]) <= character__last)
+%%%  Simplified H31 on reading formula in, to give:
+     %%%  H31:  cryptotypes__algorithmt__first <= fld_sigalgid(localcontents__1)
+%%%  Simplified H33 on reading formula in, to give:
+     %%%  H33:  for_all(i___2 : integer, cryptotypes__namei__first <= i___2 and 
+          i___2 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(localcontents__1)), [i___2]) and element(fld_name(
+          fld_issuer(localcontents__1)), [i___2]) <= character__last)
+%%%  Simplified H40 on reading formula in, to give:
+     %%%  H40:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(fld_holder(localcontents__1))), [i___1]) and 
+          element(fld_name(fld_issuer(fld_holder(localcontents__1))), [i___1]) 
+          <= character__last)
+---  Hypothesis H46 has been replaced by "true".  (It is already present, as H3)
+          .
+---  Hypothesis H47 has been replaced by "true".  (It is already present, as H4)
+          .
+---  Hypothesis H48 has been replaced by "true".  (It is already present, as H5)
+          .
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as H6)
+          .
+---  Hypothesis H50 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H53 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H54 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H55 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H56 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H57 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H58 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H59 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H60 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H61 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H62 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H63 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H64 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H65 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H66 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H67 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H68 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H69 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H70 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H71 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H72 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H73 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H74 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H75 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H76 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H77 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H78 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H79 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H80 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H81 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H82 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H83 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H84 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H85 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H86 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H87 has been replaced by "true".  (It is already present, as 
+          H44).
+---  Hypothesis H88 has been replaced by "true".  (It is already present, as H3)
+          .
+---  Hypothesis H89 has been replaced by "true".  (It is already present, as H4)
+          .
+---  Hypothesis H90 has been replaced by "true".  (It is already present, as H5)
+          .
+---  Hypothesis H91 has been replaced by "true".  (It is already present, as H6)
+          .
+---  Hypothesis H92 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H93 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H94 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H95 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H96 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H97 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H98 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H99 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H100 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H101 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H102 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H103 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H104 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H105 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H106 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H107 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H108 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H109 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H110 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H111 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H112 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H113 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H114 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H115 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H116 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H117 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H118 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H119 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H120 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H121 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H122 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H123 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H124 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H125 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H126 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H127 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H128 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H129 has been replaced by "true".  (It is already present, as 
+          H44).
+---  Hypothesis H132 has been replaced by "true".  (It is already present, as 
+          H130).
+---  Hypothesis H133 has been replaced by "true".  (It is already present, as 
+          H131).
+---  Hypothesis H134 has been replaced by "true".  (It is already present, as 
+          H3).
+---  Hypothesis H135 has been replaced by "true".  (It is already present, as 
+          H4).
+---  Hypothesis H136 has been replaced by "true".  (It is already present, as 
+          H5).
+---  Hypothesis H137 has been replaced by "true".  (It is already present, as 
+          H6).
+---  Hypothesis H138 has been replaced by "true".  (It is already present, as 
+          H7).
+---  Hypothesis H139 has been replaced by "true".  (It is already present, as 
+          H8).
+---  Hypothesis H140 has been replaced by "true".  (It is already present, as 
+          H9).
+---  Hypothesis H141 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H142 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H143 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H144 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H145 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H146 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H147 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H148 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H149 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H150 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H151 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H152 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H153 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H154 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H155 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H156 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H157 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H158 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H159 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H160 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H161 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H162 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H163 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H164 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H165 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H166 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H167 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H168 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H169 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H170 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H171 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H172 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H173 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H174 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H175 has been replaced by "true".  (It is already present, as 
+          H44).
+---  Hypothesis H176 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H177 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H178 has been replaced by "true".  (It is already present, as 
+          H3).
+---  Hypothesis H179 has been replaced by "true".  (It is already present, as 
+          H4).
+---  Hypothesis H180 has been replaced by "true".  (It is already present, as 
+          H5).
+---  Hypothesis H181 has been replaced by "true".  (It is already present, as 
+          H6).
+---  Hypothesis H182 has been replaced by "true".  (It is already present, as 
+          H7).
+---  Hypothesis H183 has been replaced by "true".  (It is already present, as 
+          H8).
+---  Hypothesis H184 has been replaced by "true".  (It is already present, as 
+          H9).
+---  Hypothesis H185 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H186 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H187 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H188 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H189 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H190 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H191 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H192 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H193 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H194 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H195 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H196 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H197 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H198 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H199 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H200 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H201 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H202 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H203 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H204 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H205 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H206 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H207 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H208 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H209 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H210 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H211 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H212 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H213 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H214 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H215 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H216 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H217 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H218 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H219 has been replaced by "true".  (It is already present, as 
+          H44).
+---  Hypothesis H220 has been replaced by "true".  (It is already present, as 
+          H3).
+---  Hypothesis H221 has been replaced by "true".  (It is already present, as 
+          H4).
+---  Hypothesis H222 has been replaced by "true".  (It is already present, as 
+          H5).
+---  Hypothesis H223 has been replaced by "true".  (It is already present, as 
+          H6).
+---  Hypothesis H224 has been replaced by "true".  (It is already present, as 
+          H7).
+---  Hypothesis H225 has been replaced by "true".  (It is already present, as 
+          H8).
+---  Hypothesis H226 has been replaced by "true".  (It is already present, as 
+          H9).
+---  Hypothesis H227 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H228 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H229 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H230 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H231 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H232 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H233 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H234 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H235 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H236 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H237 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H238 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H239 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H240 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H241 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H242 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H243 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H244 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H245 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H246 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H247 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H248 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H249 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H250 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H251 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H252 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H253 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H254 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H255 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H256 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H257 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H258 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H259 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H260 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H261 has been replaced by "true".  (It is already present, as 
+          H44).
+---  Hypothesis H262 has been replaced by "true".  (It is already present, as 
+          H3).
+---  Hypothesis H263 has been replaced by "true".  (It is already present, as 
+          H4).
+---  Hypothesis H264 has been replaced by "true".  (It is already present, as 
+          H5).
+---  Hypothesis H265 has been replaced by "true".  (It is already present, as 
+          H6).
+---  Hypothesis H266 has been replaced by "true".  (It is already present, as 
+          H7).
+---  Hypothesis H267 has been replaced by "true".  (It is already present, as 
+          H8).
+---  Hypothesis H268 has been replaced by "true".  (It is already present, as 
+          H9).
+---  Hypothesis H269 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H270 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H271 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H272 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H273 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H274 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H275 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H276 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H277 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H278 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H279 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H280 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H281 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H282 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H283 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H284 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H285 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H286 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H287 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H288 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H289 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H290 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H291 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H292 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H293 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H294 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H295 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H296 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H297 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H298 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H299 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H300 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H301 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H302 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H303 has been replaced by "true".  (It is already present, as 
+          H44).
+---  Hypothesis H304 has been replaced by "true".  (It is already present, as 
+          H3).
+---  Hypothesis H305 has been replaced by "true".  (It is already present, as 
+          H4).
+---  Hypothesis H306 has been replaced by "true".  (It is already present, as 
+          H5).
+---  Hypothesis H307 has been replaced by "true".  (It is already present, as 
+          H6).
+---  Hypothesis H308 has been replaced by "true".  (It is already present, as 
+          H7).
+---  Hypothesis H309 has been replaced by "true".  (It is already present, as 
+          H8).
+---  Hypothesis H310 has been replaced by "true".  (It is already present, as 
+          H9).
+---  Hypothesis H311 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H312 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H313 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H314 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H315 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H316 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H317 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H318 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H319 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H320 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H321 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H322 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H323 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H324 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H325 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H326 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H327 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H328 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H329 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H330 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H331 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H332 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H333 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H334 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H335 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H336 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H337 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H338 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H339 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H340 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H341 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H342 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H343 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H344 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H345 has been replaced by "true".  (It is already present, as 
+          H44).
+---  Hypothesis H346 has been replaced by "true".  (It is already present, as 
+          H3).
+---  Hypothesis H347 has been replaced by "true".  (It is already present, as 
+          H4).
+---  Hypothesis H348 has been replaced by "true".  (It is already present, as 
+          H5).
+---  Hypothesis H349 has been replaced by "true".  (It is already present, as 
+          H6).
+---  Hypothesis H350 has been replaced by "true".  (It is already present, as 
+          H7).
+---  Hypothesis H351 has been replaced by "true".  (It is already present, as 
+          H8).
+---  Hypothesis H352 has been replaced by "true".  (It is already present, as 
+          H9).
+---  Hypothesis H353 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H354 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H355 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H356 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H357 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H358 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H359 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H360 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H361 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H362 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H363 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H364 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H365 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H366 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H367 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H368 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H369 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H370 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H371 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H372 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H373 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H374 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H375 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H376 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H377 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H378 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H379 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H380 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H381 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H382 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H383 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H384 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H385 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H386 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H387 has been replaced by "true".  (It is already present, as 
+          H44).
+---  Hypothesis H388 has been replaced by "true".  (It is already present, as 
+          H3).
+---  Hypothesis H389 has been replaced by "true".  (It is already present, as 
+          H4).
+---  Hypothesis H390 has been replaced by "true".  (It is already present, as 
+          H5).
+---  Hypothesis H391 has been replaced by "true".  (It is already present, as 
+          H6).
+---  Hypothesis H392 has been replaced by "true".  (It is already present, as 
+          H7).
+---  Hypothesis H393 has been replaced by "true".  (It is already present, as 
+          H8).
+---  Hypothesis H394 has been replaced by "true".  (It is already present, as 
+          H9).
+---  Hypothesis H395 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H396 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H397 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H398 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H399 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H400 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H401 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H402 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H403 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H404 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H405 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H406 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H407 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H408 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H409 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H410 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H411 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H412 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H413 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H414 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H415 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H416 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H417 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H418 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H419 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H420 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H421 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H422 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H423 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H424 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H425 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H426 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H427 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H428 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H429 has been replaced by "true".  (It is already present, as 
+          H44).
+---  Hypothesis H430 has been replaced by "true".  (It is already present, as 
+          H3).
+---  Hypothesis H431 has been replaced by "true".  (It is already present, as 
+          H4).
+---  Hypothesis H432 has been replaced by "true".  (It is already present, as 
+          H5).
+---  Hypothesis H433 has been replaced by "true".  (It is already present, as 
+          H6).
+---  Hypothesis H434 has been replaced by "true".  (It is already present, as 
+          H7).
+---  Hypothesis H435 has been replaced by "true".  (It is already present, as 
+          H8).
+---  Hypothesis H436 has been replaced by "true".  (It is already present, as 
+          H9).
+---  Hypothesis H437 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H438 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H439 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H440 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H441 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H442 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H443 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H444 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H445 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H446 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H447 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H448 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H449 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H450 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H451 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H452 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H453 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H454 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H455 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H456 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H457 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H458 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H459 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H460 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H461 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H462 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H463 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H464 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H465 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H466 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H467 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H468 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H469 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H470 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H471 has been replaced by "true".  (It is already present, as 
+          H44).
+***  Proved C1:  fld_minute(fld_notbefore(fld_attcertvalidity(localcontents__1))
+          ) >= basictypes__unsigned32t__first
+     using hypothesis H19.
+***  Proved C2:  fld_minute(fld_notbefore(fld_attcertvalidity(localcontents__1))
+          ) <= basictypes__unsigned32t__last
+     using hypothesis H20.
+***  Proved C3:  fld_hour(fld_notbefore(fld_attcertvalidity(localcontents__1))) 
+          >= basictypes__unsigned32t__first
+     using hypothesis H21.
+***  Proved C4:  fld_hour(fld_notbefore(fld_attcertvalidity(localcontents__1))) 
+          <= basictypes__unsigned32t__last
+     using hypothesis H22.
+***  Proved C5:  fld_day(fld_notbefore(fld_attcertvalidity(localcontents__1))) 
+          >= basictypes__unsigned32t__first
+     using hypothesis H23.
+***  Proved C6:  fld_day(fld_notbefore(fld_attcertvalidity(localcontents__1))) 
+          <= basictypes__unsigned32t__last
+     using hypothesis H24.
+***  Proved C7:  fld_month(fld_notbefore(fld_attcertvalidity(localcontents__1)))
+           >= basictypes__unsigned32t__first
+     using hypothesis H25.
+***  Proved C8:  fld_month(fld_notbefore(fld_attcertvalidity(localcontents__1)))
+           <= basictypes__unsigned32t__last
+     using hypothesis H26.
+***  Proved C9:  fld_year(fld_notbefore(fld_attcertvalidity(localcontents__1))) 
+          >= basictypes__unsigned32t__first
+     using hypothesis H27.
+***  Proved C10:  fld_year(fld_notbefore(fld_attcertvalidity(localcontents__1)))
+           <= basictypes__unsigned32t__last
+     using hypothesis H28.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_extract_4.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(rawcert, [i___1]) and element(rawcert, [
+          i___1]) <= character__last)
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  for_all(i___4 : integer, iandatypes__templatepadi__first <= 
+          i___4 and i___4 <= iandatypes__templatepadi__last -> 
+          basictypes__bytet__first <= element(fld_pad(fld_template(
+          localcontents__1)), [i___4]) and element(fld_pad(fld_template(
+          localcontents__1)), [i___4]) <= basictypes__bytet__last)
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  for_all(i___3 : integer, iandatypes__templateidi__first <= i___3 
+          and i___3 <= iandatypes__templateidi__last -> character__first <= 
+          element(fld_id(fld_template(localcontents__1)), [i___3]) and element(
+          fld_id(fld_template(localcontents__1)), [i___3]) <= character__last)
+%%%  Simplified H31 on reading formula in, to give:
+     %%%  H31:  cryptotypes__algorithmt__first <= fld_sigalgid(localcontents__1)
+%%%  Simplified H33 on reading formula in, to give:
+     %%%  H33:  for_all(i___2 : integer, cryptotypes__namei__first <= i___2 and 
+          i___2 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(localcontents__1)), [i___2]) and element(fld_name(
+          fld_issuer(localcontents__1)), [i___2]) <= character__last)
+%%%  Simplified H40 on reading formula in, to give:
+     %%%  H40:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_issuer(fld_holder(localcontents__1))), [i___1]) and 
+          element(fld_name(fld_issuer(fld_holder(localcontents__1))), [i___1]) 
+          <= character__last)
+---  Hypothesis H46 has been replaced by "true".  (It is already present, as H3)
+          .
+---  Hypothesis H47 has been replaced by "true".  (It is already present, as H4)
+          .
+---  Hypothesis H48 has been replaced by "true".  (It is already present, as H5)
+          .
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as H6)
+          .
+---  Hypothesis H50 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H53 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H54 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H55 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H56 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H57 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H58 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H59 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H60 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H61 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H62 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H63 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H64 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H65 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H66 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H67 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H68 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H69 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H70 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H71 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H72 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H73 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H74 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H75 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H76 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H77 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H78 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H79 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H80 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H81 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H82 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H83 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H84 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H85 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H86 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H87 has been replaced by "true".  (It is already present, as 
+          H44).
+---  Hypothesis H88 has been replaced by "true".  (It is already present, as H3)
+          .
+---  Hypothesis H89 has been replaced by "true".  (It is already present, as H4)
+          .
+---  Hypothesis H90 has been replaced by "true".  (It is already present, as H5)
+          .
+---  Hypothesis H91 has been replaced by "true".  (It is already present, as H6)
+          .
+---  Hypothesis H92 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H93 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H94 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H95 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H96 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H97 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H98 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H99 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H100 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H101 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H102 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H103 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H104 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H105 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H106 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H107 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H108 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H109 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H110 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H111 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H112 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H113 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H114 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H115 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H116 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H117 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H118 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H119 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H120 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H121 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H122 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H123 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H124 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H125 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H126 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H127 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H128 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H129 has been replaced by "true".  (It is already present, as 
+          H44).
+---  Hypothesis H132 has been replaced by "true".  (It is already present, as 
+          H130).
+---  Hypothesis H133 has been replaced by "true".  (It is already present, as 
+          H131).
+---  Hypothesis H134 has been replaced by "true".  (It is already present, as 
+          H3).
+---  Hypothesis H135 has been replaced by "true".  (It is already present, as 
+          H4).
+---  Hypothesis H136 has been replaced by "true".  (It is already present, as 
+          H5).
+---  Hypothesis H137 has been replaced by "true".  (It is already present, as 
+          H6).
+---  Hypothesis H138 has been replaced by "true".  (It is already present, as 
+          H7).
+---  Hypothesis H139 has been replaced by "true".  (It is already present, as 
+          H8).
+---  Hypothesis H140 has been replaced by "true".  (It is already present, as 
+          H9).
+---  Hypothesis H141 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H142 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H143 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H144 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H145 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H146 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H147 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H148 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H149 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H150 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H151 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H152 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H153 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H154 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H155 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H156 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H157 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H158 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H159 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H160 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H161 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H162 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H163 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H164 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H165 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H166 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H167 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H168 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H169 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H170 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H171 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H172 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H173 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H174 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H175 has been replaced by "true".  (It is already present, as 
+          H44).
+---  Hypothesis H176 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H177 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H178 has been replaced by "true".  (It is already present, as 
+          H3).
+---  Hypothesis H179 has been replaced by "true".  (It is already present, as 
+          H4).
+---  Hypothesis H180 has been replaced by "true".  (It is already present, as 
+          H5).
+---  Hypothesis H181 has been replaced by "true".  (It is already present, as 
+          H6).
+---  Hypothesis H182 has been replaced by "true".  (It is already present, as 
+          H7).
+---  Hypothesis H183 has been replaced by "true".  (It is already present, as 
+          H8).
+---  Hypothesis H184 has been replaced by "true".  (It is already present, as 
+          H9).
+---  Hypothesis H185 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H186 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H187 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H188 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H189 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H190 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H191 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H192 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H193 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H194 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H195 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H196 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H197 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H198 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H199 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H200 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H201 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H202 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H203 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H204 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H205 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H206 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H207 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H208 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H209 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H210 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H211 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H212 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H213 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H214 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H215 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H216 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H217 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H218 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H219 has been replaced by "true".  (It is already present, as 
+          H44).
+---  Hypothesis H220 has been replaced by "true".  (It is already present, as 
+          H3).
+---  Hypothesis H221 has been replaced by "true".  (It is already present, as 
+          H4).
+---  Hypothesis H222 has been replaced by "true".  (It is already present, as 
+          H5).
+---  Hypothesis H223 has been replaced by "true".  (It is already present, as 
+          H6).
+---  Hypothesis H224 has been replaced by "true".  (It is already present, as 
+          H7).
+---  Hypothesis H225 has been replaced by "true".  (It is already present, as 
+          H8).
+---  Hypothesis H226 has been replaced by "true".  (It is already present, as 
+          H9).
+---  Hypothesis H227 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H228 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H229 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H230 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H231 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H232 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H233 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H234 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H235 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H236 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H237 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H238 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H239 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H240 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H241 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H242 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H243 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H244 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H245 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H246 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H247 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H248 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H249 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H250 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H251 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H252 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H253 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H254 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H255 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H256 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H257 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H258 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H259 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H260 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H261 has been replaced by "true".  (It is already present, as 
+          H44).
+---  Hypothesis H262 has been replaced by "true".  (It is already present, as 
+          H3).
+---  Hypothesis H263 has been replaced by "true".  (It is already present, as 
+          H4).
+---  Hypothesis H264 has been replaced by "true".  (It is already present, as 
+          H5).
+---  Hypothesis H265 has been replaced by "true".  (It is already present, as 
+          H6).
+---  Hypothesis H266 has been replaced by "true".  (It is already present, as 
+          H7).
+---  Hypothesis H267 has been replaced by "true".  (It is already present, as 
+          H8).
+---  Hypothesis H268 has been replaced by "true".  (It is already present, as 
+          H9).
+---  Hypothesis H269 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H270 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H271 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H272 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H273 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H274 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H275 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H276 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H277 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H278 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H279 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H280 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H281 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H282 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H283 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H284 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H285 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H286 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H287 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H288 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H289 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H290 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H291 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H292 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H293 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H294 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H295 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H296 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H297 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H298 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H299 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H300 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H301 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H302 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H303 has been replaced by "true".  (It is already present, as 
+          H44).
+---  Hypothesis H304 has been replaced by "true".  (It is already present, as 
+          H3).
+---  Hypothesis H305 has been replaced by "true".  (It is already present, as 
+          H4).
+---  Hypothesis H306 has been replaced by "true".  (It is already present, as 
+          H5).
+---  Hypothesis H307 has been replaced by "true".  (It is already present, as 
+          H6).
+---  Hypothesis H308 has been replaced by "true".  (It is already present, as 
+          H7).
+---  Hypothesis H309 has been replaced by "true".  (It is already present, as 
+          H8).
+---  Hypothesis H310 has been replaced by "true".  (It is already present, as 
+          H9).
+---  Hypothesis H311 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H312 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H313 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H314 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H315 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H316 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H317 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H318 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H319 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H320 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H321 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H322 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H323 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H324 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H325 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H326 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H327 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H328 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H329 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H330 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H331 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H332 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H333 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H334 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H335 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H336 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H337 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H338 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H339 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H340 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H341 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H342 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H343 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H344 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H345 has been replaced by "true".  (It is already present, as 
+          H44).
+---  Hypothesis H346 has been replaced by "true".  (It is already present, as 
+          H3).
+---  Hypothesis H347 has been replaced by "true".  (It is already present, as 
+          H4).
+---  Hypothesis H348 has been replaced by "true".  (It is already present, as 
+          H5).
+---  Hypothesis H349 has been replaced by "true".  (It is already present, as 
+          H6).
+---  Hypothesis H350 has been replaced by "true".  (It is already present, as 
+          H7).
+---  Hypothesis H351 has been replaced by "true".  (It is already present, as 
+          H8).
+---  Hypothesis H352 has been replaced by "true".  (It is already present, as 
+          H9).
+---  Hypothesis H353 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H354 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H355 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H356 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H357 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H358 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H359 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H360 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H361 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H362 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H363 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H364 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H365 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H366 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H367 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H368 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H369 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H370 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H371 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H372 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H373 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H374 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H375 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H376 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H377 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H378 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H379 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H380 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H381 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H382 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H383 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H384 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H385 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H386 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H387 has been replaced by "true".  (It is already present, as 
+          H44).
+---  Hypothesis H388 has been replaced by "true".  (It is already present, as 
+          H3).
+---  Hypothesis H389 has been replaced by "true".  (It is already present, as 
+          H4).
+---  Hypothesis H390 has been replaced by "true".  (It is already present, as 
+          H5).
+---  Hypothesis H391 has been replaced by "true".  (It is already present, as 
+          H6).
+---  Hypothesis H392 has been replaced by "true".  (It is already present, as 
+          H7).
+---  Hypothesis H393 has been replaced by "true".  (It is already present, as 
+          H8).
+---  Hypothesis H394 has been replaced by "true".  (It is already present, as 
+          H9).
+---  Hypothesis H395 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H396 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H397 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H398 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H399 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H400 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H401 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H402 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H403 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H404 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H405 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H406 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H407 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H408 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H409 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H410 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H411 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H412 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H413 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H414 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H415 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H416 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H417 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H418 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H419 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H420 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H421 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H422 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H423 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H424 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H425 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H426 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H427 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H428 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H429 has been replaced by "true".  (It is already present, as 
+          H44).
+---  Hypothesis H430 has been replaced by "true".  (It is already present, as 
+          H3).
+---  Hypothesis H431 has been replaced by "true".  (It is already present, as 
+          H4).
+---  Hypothesis H432 has been replaced by "true".  (It is already present, as 
+          H5).
+---  Hypothesis H433 has been replaced by "true".  (It is already present, as 
+          H6).
+---  Hypothesis H434 has been replaced by "true".  (It is already present, as 
+          H7).
+---  Hypothesis H435 has been replaced by "true".  (It is already present, as 
+          H8).
+---  Hypothesis H436 has been replaced by "true".  (It is already present, as 
+          H9).
+---  Hypothesis H437 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H438 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H439 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H440 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H441 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H442 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H443 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H444 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H445 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H446 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H447 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H448 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H449 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H450 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H451 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H452 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H453 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H454 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H455 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H456 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H457 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H458 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H459 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H460 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H461 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H462 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H463 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H464 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H465 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H466 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H467 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H468 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H469 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H470 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H471 has been replaced by "true".  (It is already present, as 
+          H44).
+---  Hypothesis H472 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H473 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H474 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H475 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H476 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H477 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H478 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H479 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H480 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H481 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified H483 on reading formula in, to give:
+     %%%  H483:  fld_id(fld_inherit(fld_inherit(contents__2))) = upf_issuer(
+          upf_serialnumber(fld_id(fld_inherit(fld_inherit(contents))), 
+          fld_serialnumber(localcontents__1)), fld_issuer(localcontents__1))
+%%%  Simplified H484 on reading formula in, to give:
+     %%%  H484:  fld_notafter(fld_inherit(fld_inherit(contents__2))) = 
+          fld_notafter(fld_inherit(fld_inherit(contents)))
+%%%  Simplified H485 on reading formula in, to give:
+     %%%  H485:  fld_mechanism(fld_inherit(fld_inherit(contents__2))) = 
+          fld_sigalgid(localcontents__1)
+%%%  Simplified H486 on reading formula in, to give:
+     %%%  H486:  fld_basecertid(fld_inherit(contents__2)) = fld_holder(
+          localcontents__1)
+%%%  Simplified H487 on reading formula in, to give:
+     %%%  H487:  fld_template(contents__2) = fld_template(localcontents__1)
+%%%  Simplified H488 on reading formula in, to give:
+     %%%  H488:  contents__2 = upf_inherit(upf_template(contents, fld_template(
+          localcontents__1)), upf_inherit(upf_basecertid(fld_inherit(contents), 
+          fld_holder(localcontents__1)), upf_id(upf_notbefore(upf_mechanism(
+          fld_inherit(fld_inherit(contents)), fld_sigalgid(localcontents__1)), 
+          fld_notbefore(fld_inherit(fld_inherit(contents__2)))), upf_issuer(
+          upf_serialnumber(fld_id(fld_inherit(fld_inherit(contents))), 
+          fld_serialnumber(localcontents__1)), fld_issuer(localcontents__1)))))
+---  Hypothesis H489 has been replaced by "true".  (It is already present, as 
+          H3).
+---  Hypothesis H490 has been replaced by "true".  (It is already present, as 
+          H4).
+---  Hypothesis H491 has been replaced by "true".  (It is already present, as 
+          H5).
+---  Hypothesis H492 has been replaced by "true".  (It is already present, as 
+          H6).
+---  Hypothesis H493 has been replaced by "true".  (It is already present, as 
+          H7).
+---  Hypothesis H494 has been replaced by "true".  (It is already present, as 
+          H8).
+---  Hypothesis H495 has been replaced by "true".  (It is already present, as 
+          H9).
+---  Hypothesis H496 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H497 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H498 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H499 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H500 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H501 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H502 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H503 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H504 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H505 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H506 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H507 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H508 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H509 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H510 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H511 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H512 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H513 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H514 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H515 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H516 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H517 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H518 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H519 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H520 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H521 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H522 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H523 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H524 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H525 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H526 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H527 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H528 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H529 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H530 has been replaced by "true".  (It is already present, as 
+          H44).
+---  Hypothesis H531 has been replaced by "true".  (It is already present, as 
+          H3).
+---  Hypothesis H532 has been replaced by "true".  (It is already present, as 
+          H4).
+---  Hypothesis H533 has been replaced by "true".  (It is already present, as 
+          H5).
+---  Hypothesis H534 has been replaced by "true".  (It is already present, as 
+          H6).
+---  Hypothesis H535 has been replaced by "true".  (It is already present, as 
+          H7).
+---  Hypothesis H536 has been replaced by "true".  (It is already present, as 
+          H8).
+---  Hypothesis H537 has been replaced by "true".  (It is already present, as 
+          H9).
+---  Hypothesis H538 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H539 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H540 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H541 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H542 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H543 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H544 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H545 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H546 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H547 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H548 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H549 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H550 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H551 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H552 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H553 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H554 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H555 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H556 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H557 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H558 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H559 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H560 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H561 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H562 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H563 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H564 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H565 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H566 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H567 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H568 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H569 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H570 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H571 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H572 has been replaced by "true".  (It is already present, as 
+          H44).
+---  Hypothesis H573 has been replaced by "true".  (It is already present, as 
+          H3).
+---  Hypothesis H574 has been replaced by "true".  (It is already present, as 
+          H4).
+---  Hypothesis H575 has been replaced by "true".  (It is already present, as 
+          H5).
+---  Hypothesis H576 has been replaced by "true".  (It is already present, as 
+          H6).
+---  Hypothesis H577 has been replaced by "true".  (It is already present, as 
+          H7).
+---  Hypothesis H578 has been replaced by "true".  (It is already present, as 
+          H8).
+---  Hypothesis H579 has been replaced by "true".  (It is already present, as 
+          H9).
+---  Hypothesis H580 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H581 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H582 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H583 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H584 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H585 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H586 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H587 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H588 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H589 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H590 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H591 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H592 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H593 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H594 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H595 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H596 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H597 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H598 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H599 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H600 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H601 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H602 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H603 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H604 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H605 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H606 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H607 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H608 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H609 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H610 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H611 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H612 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H613 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H614 has been replaced by "true".  (It is already present, as 
+          H44).
+---  Hypothesis H615 has been replaced by "true".  (It is already present, as 
+          H3).
+---  Hypothesis H616 has been replaced by "true".  (It is already present, as 
+          H4).
+---  Hypothesis H617 has been replaced by "true".  (It is already present, as 
+          H5).
+---  Hypothesis H618 has been replaced by "true".  (It is already present, as 
+          H6).
+---  Hypothesis H619 has been replaced by "true".  (It is already present, as 
+          H7).
+---  Hypothesis H620 has been replaced by "true".  (It is already present, as 
+          H8).
+---  Hypothesis H621 has been replaced by "true".  (It is already present, as 
+          H9).
+---  Hypothesis H622 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H623 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H624 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H625 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H626 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H627 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H628 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H629 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H630 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H631 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H632 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H633 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H634 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H635 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H636 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H637 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H638 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H639 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H640 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H641 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H642 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H643 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H644 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H645 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H646 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H647 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H648 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H649 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H650 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H651 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H652 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H653 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H654 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H655 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H656 has been replaced by "true".  (It is already present, as 
+          H44).
+---  Hypothesis H657 has been replaced by "true".  (It is already present, as 
+          H3).
+---  Hypothesis H658 has been replaced by "true".  (It is already present, as 
+          H4).
+---  Hypothesis H659 has been replaced by "true".  (It is already present, as 
+          H5).
+---  Hypothesis H660 has been replaced by "true".  (It is already present, as 
+          H6).
+---  Hypothesis H661 has been replaced by "true".  (It is already present, as 
+          H7).
+---  Hypothesis H662 has been replaced by "true".  (It is already present, as 
+          H8).
+---  Hypothesis H663 has been replaced by "true".  (It is already present, as 
+          H9).
+---  Hypothesis H664 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H665 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H666 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H667 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H668 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H669 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H670 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H671 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H672 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H673 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H674 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H675 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H676 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H677 has been replaced by "true".  (It is already present, as 
+          H23).
+---  Hypothesis H678 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H679 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H680 has been replaced by "true".  (It is already present, as 
+          H26).
+---  Hypothesis H681 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H682 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H683 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H684 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H685 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H686 has been replaced by "true".  (It is already present, as 
+          H32).
+---  Hypothesis H687 has been replaced by "true".  (It is already present, as 
+          H33).
+---  Hypothesis H688 has been replaced by "true".  (It is already present, as 
+          H34).
+---  Hypothesis H689 has been replaced by "true".  (It is already present, as 
+          H35).
+---  Hypothesis H690 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H691 has been replaced by "true".  (It is already present, as 
+          H37).
+---  Hypothesis H692 has been replaced by "true".  (It is already present, as 
+          H38).
+---  Hypothesis H693 has been replaced by "true".  (It is already present, as 
+          H39).
+---  Hypothesis H694 has been replaced by "true".  (It is already present, as 
+          H40).
+---  Hypothesis H695 has been replaced by "true".  (It is already present, as 
+          H41).
+---  Hypothesis H696 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H697 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H698 has been replaced by "true".  (It is already present, as 
+          H44).
+***  Proved C1:  fld_minute(fld_notafter(fld_attcertvalidity(localcontents__1)))
+           >= basictypes__unsigned32t__first
+     using hypothesis H9.
+***  Proved C2:  fld_minute(fld_notafter(fld_attcertvalidity(localcontents__1)))
+           <= basictypes__unsigned32t__last
+     using hypothesis H10.
+***  Proved C3:  fld_hour(fld_notafter(fld_attcertvalidity(localcontents__1))) 
+          >= basictypes__unsigned32t__first
+     using hypothesis H11.
+***  Proved C4:  fld_hour(fld_notafter(fld_attcertvalidity(localcontents__1))) 
+          <= basictypes__unsigned32t__last
+     using hypothesis H12.
+***  Proved C5:  fld_day(fld_notafter(fld_attcertvalidity(localcontents__1))) 
+          >= basictypes__unsigned32t__first
+     using hypothesis H13.
+***  Proved C6:  fld_day(fld_notafter(fld_attcertvalidity(localcontents__1))) 
+          <= basictypes__unsigned32t__last
+     using hypothesis H14.
+***  Proved C7:  fld_month(fld_notafter(fld_attcertvalidity(localcontents__1))) 
+          >= basictypes__unsigned32t__first
+     using hypothesis H15.
+***  Proved C8:  fld_month(fld_notafter(fld_attcertvalidity(localcontents__1))) 
+          <= basictypes__unsigned32t__last
+     using hypothesis H16.
+***  Proved C9:  fld_year(fld_notafter(fld_attcertvalidity(localcontents__1))) 
+          >= basictypes__unsigned32t__first
+     using hypothesis H17.
+***  Proved C10:  fld_year(fld_notafter(fld_attcertvalidity(localcontents__1))) 
+          <= basictypes__unsigned32t__last
+     using hypothesis H18.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_extract_5.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+

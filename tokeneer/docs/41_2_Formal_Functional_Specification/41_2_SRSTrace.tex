@@ -1,0 +1,450 @@
+\chapter{Tracing of SRS Requirements}
+\label{sec:SRSTrace}
+
+One of the scenarios has been mapped to the Formal Functional Specification to show the type of mapping that would normally be done for high integrity development. The remaining will be completed if time allows, and if errors found through the mapping process and subsequently suggest it will be cost effective.
+
+\section{Mapping of: User gains allowed initial access to Enclave}
+
+{\footnotesize \sf
+{\bf Description}
+
+A User who should be allowed access to the enclave is given access, making use of biometric authentication.
+
+{\bf Stimulus}
+
+User inserts a smartcard into the smartcard reader.
+
+{\bf Assumptions}
+
+ScGainInitial.Ass.ValidStart
+\newline {\sl 
+The ID Station has valid start-up data.
+}}
+
+This cannot be false, as there is no concept in the specification of
+non-valid start-up (enrolment) data. In practice, 
+\[
+\pre TISUserEntryOp
+\implies enclaveStatus \notin \{notEnrolled, waitingEnrolled,
+waitingEndEnrol\} 
+\] 
+which implies that enrolment has been carried out successfully.
+
+{\footnotesize \sf
+ScGainInitial.Ass.ValidConfig
+\newline {\sl 
+The ID Station has a valid data configuration.
+}}
+
+This cannot be false, as there is no concept in the specification of
+non-valid start-up (enrolment) data. In practice, 
+\[
+\pre TISUserEntryOp \implies enclaveStatus \notin \{notEnrolled,
+waitingEnrolled, waitingEndEnrol\} 
+\]
+which implies that enrolment has been carried out successfully.
+
+{\footnotesize \sf
+ScGainInitial.Ass.Quiescent
+\newline {\sl 
+The ID Station is quiescent (no other access attempts, configuration changes or start-up activities are in progress).}
+}
+
+\[
+\pre TISUserEntryOp \implies enclaveStatus \in \{quiescent,
+waitingRemoveAdminTokenFail\}
+\]
+which is a state from which no other access attempts can be in progress, or configuration or start-up activities.
+
+{\footnotesize \sf
+ScGainInitial.Ass.Secure
+\newline {\sl
+The User is outside the enclave; the door is closed and locked.
+}}
+
+The implementation does not need to make this assumption.
+
+{\footnotesize \sf
+ScGainInitial.Ass.ValidUser
+\newline {\sl
+The card inserted by the User has a valid ID Certificate, I\&A Certificate, and Privilege Certificate, and the card inserted by the User has a valid fingerprint template that matches the fingerprint of the User's finger.
+}}
+
+This, together with the next condition, are both met by:
+\[
+status = waitingRemoveTokenSuccess
+\\ \land 
+\\ \pre BioCheckRequired \implies {\rm post} BioCheckRequired \land {\rm
+ post} ValidateFingerOK
+\]
+
+{\footnotesize \sf
+ScGainInitial.Ass.PoorAC
+\newline {\sl
+ The card inserted by the User does not have a valid, current
+Authorisation Certificate.} 
+}
+
+See condition above.
+
+{\footnotesize \sf
+{\bf Success End-conditions}
+
+ScGainInitial.Suc.UserCard
+\newline {\sl
+The User has possession of the card he originally inserted.
+}}
+
+\[
+{\rm post}~ UnlockDoor \implies userTokenPresence = absent
+\]
+
+{\footnotesize \sf
+ScGainInitial.Suc.GoodAC
+\newline {\sl
+The card inserted by the User contains a current, valid Authorisation
+Certificate with
+\begin{itemize}
+\item	validity time: from now until now+(length of timespecified in ID Station configuration data)
+\item	security level: equal to the minimum of (the security level
+defined in the ID Station configuration data) and (the security level
+in the Permission Certificate on the card inserted by the User)
+\end{itemize}
+}}
+
+\[ 
+status = waitingRemoveTokenSuccess \land \pre BioCheckRequired
+\implies {\rm post} WriteUserTokenOK 
+\]
+
+{\footnotesize \sf
+ScGainInitial.Suc.PersistCerts
+\newline {\sl
+The card inserted by the User contains the same, unchanged ID Certificate, I\&A Certificate, and Privilege Certificate it had at the beginning of the scenario.
+}}
+
+All possible sequences of operations to achieve this scenario have Xi UserToken at each stage, except in WriteUserToken, where there are explicit predicates to preserve these certificates.
+
+{\footnotesize \sf
+ScGainInitial.Suc.UserIn
+\newline {\sl
+The User is in the Enclave.
+}}
+
+post $UnlockDoor$ leaves a time interval after the door has been
+opened. This time interval will only be completed (and the door
+latched again) as part of $Poll$, and the passage of time. This will
+allow a user that chooses to, to enter the enclave. 
+
+{\footnotesize \sf
+ScGainInitial.Suc.Locked
+\newline {\sl
+The Enclave door is closed and locked.
+}}
+
+$Poll$ occurs frequently and regularly, and given sufficient time,
+this will force the timeout on the door ($currentTime$ to exceed
+$latchTimeout$), causing the door to lock (invariant in $DoorLatchAlarm$,
+and updating the real latch in $TISEarlyUpdate$ and $TISUpdate$). The
+value of latchTimeout is only ever set to currentTime +
+$latchUnlockDuration$, (in $UnlockDoor$) or currentTime (in $LockDoor$), and
+so the definition of "sufficient time" is the value of
+$latchUnlockDuration$.
+
+{\footnotesize \sf
+ScGainInitial.Suc.Audit
+\newline {\sl
+The following events have been recorded in the Audit Log (in any order), and the existing audit records are preserved:
+}}
+
+$AddElementsToLog$ is the schema that adds audit events, and it
+preserves the logs (except when there is an overflow, in which case it
+conforms to the failure condition
+SCGainInitial.Fail.AuditPreserve). The occurrences of the individual
+audit events are given below.
+
+{\footnotesize \sf
+\begin{itemize}
+\item	Insertion of card
+\newline {\normalsize \rm $ReadUserToken$}
+\item	Removal of card
+\newline {\normalsize \rm $UserTokenTear$, $UnlockDoor$,
+$FailedAccessTokenRemoved$ }
+\item	Reading data from card (possibly multiple failures, but at least one success)
+\newline {\normalsize \rm $ReadUserToken$ }
+\item	Writing data to the card (possibly multiple failures, but at least one success)
+\newline {\normalsize \rm $WriteUserTokenOK$ }
+\item	Reading fingerprint image
+\newline {\normalsize \rm $ReadFingerOK$ }
+\item	Setting the door to locked.
+\newline {\normalsize \rm $AuditLatch$ }
+\item	Setting the door to unlocked.
+\newline {\normalsize \rm $Auditlatch$ }
+\item	Door opening
+\newline {\normalsize \rm $AuditDoor$ }
+\item	Door closing
+\newline {\normalsize \rm $AuditDoor$ }
+\item	Writing data to the display.
+\newline {\normalsize \rm $AuditDisplay$ }
+\item	Validation of any certificate (possibly multiple failures, but at least one success)
+\newline {\normalsize \rm This is not visible at this level, although
+the success or failure of parts of the process are audited, and there
+is room in the refinement to add explicit auditing of certificate
+operations. }
+\item	Creation or modification of signed Authorisation certificate
+\newline {\normalsize \rm $WriteUserTokenOK$ }
+\item	Comparison of fingerprint image and template (possibly multiple failures, but at least one success)
+\newline {\normalsize \rm $ValidateFingerOK$ }
+\end{itemize}
+}
+
+{\footnotesize \sf
+{\bf Failure Conditions}
+}
+
+All error conditions in the formal functional specification explicitly state Xi on the state (except for the audit part of the state)
+
+{\footnotesize \sf
+ScGainInitial.Fail.ReadCard
+\newline {\sl
+The card inserted by the User does not allow all its data to be
+successfully read, possibly due to being incorrectly inserted in the
+first place; being a faulty card; having the incorrect information on
+it; or being removed before all the information has been read. The set
+of data to be read is at least:
+\begin{itemize}
+\item 
+	ID Certificate
+\item	I\&A Certificate
+\item	Privilege Certificate
+\item	Authorisation Certificate
+\item	Fingerprint Template (contained in the I\&A Certificate)
+\end{itemize}
+}}
+
+{\footnotesize \sf
+ScGainInitial.Fail.Fingerprint
+\newline {\sl
+A matching fingerprint has not been read, possibly due to no finger
+being presented to the fingerprint reader within X seconds of the
+display requesting a fingerprint; or the fingerprint not being
+successfully read within X seconds of the display requesting a
+fingerprint; or the fingerprint that was successfully read not being
+successfully matched to the template read from the card. The value X
+shall be taken from configuration data of the ID Station. 
+}}
+
+{\footnotesize \sf
+ScGainInitial.Fail.WriteCard
+\newline {\sl
+The card originally inserted by the User does not allow a new
+Authorisation Certificate to be successfully written, possibly due to
+being incorrectly inserted in the first place; being a faulty card; or
+being removed before all the information has been written. 
+}}
+
+{\footnotesize \sf
+ScGainInitial.Fail.UserSlow
+\newline {\sl
+The User is too slow in opening the door, so the door locks with the
+user still outside the enclave. Or the user opens the door, but
+chooses not to pass through, closing the door again. 
+}}
+
+Not implemented.
+
+{\footnotesize \sf
+ScGainInitial.Fail.DoorPropped
+\newline {\sl
+Once the door has been opened, it is not allowed to close (it is propped open).
+}}
+
+Not implemented.
+
+{\footnotesize \sf
+ScGainInitial.Fail.Audit
+\newline {\sl
+Audit files cannot be successfully written. Result: the Door is locked and the system is shutdown.
+}}
+
+Not currently in the formal specification.
+
+{\footnotesize \sf
+ScGainInitial.Fail.AuditPreserve
+\newline {\sl
+Space for audit files has been exhausted. Result: the oldest audit records are overwritten with the new audit records, and an alarm is raised to the Guard.
+}}
+
+$AddElementsToLog$
+
+{\footnotesize \sf
+{\bf Constraints}
+
+\sf
+ScGainInitial.Con.NoInterleave
+\newline {\sl
+No ID Station restart or Configuration data changes will be allowed during this scenario.
+}}
+
+\[ 
+status \neq quiescent \implies \lnot \pre ValidateOpRequestOK
+\]
+
+\section{Requirements out of scope}
+This section lists the requirements from the SRS \cite{SRS} that are
+not referenced from this 
+document, with a justification for their omission.
+
+\subsection{Not Implemented}
+
+The following requirements have not been implemented within this
+formal specification.
+
+These requirements all relate to the action following failure to write 
+to the audit log.
+
+\begin{traceunit}{FS.NotInScope.NotImplemented}
+\traceto{ScGainInitial.Fail.Audit}
+\traceto{ScProhibitInitial.Fail.Audit}
+\traceto{ScGainRepeat.Fail.Audit}
+\traceto{ScStart.Fail.Audit}
+\traceto{ScShutdown.Fail.Audit}
+\traceto{ScConfig.Fail.Audit}
+\traceto{ScAudit.Fail.Audit}
+\traceto{ScUnlock.Fail.Audit}
+\traceto{ScLogOn.Fail.Audit}
+\traceto{ScLogOff.Fail.Audit}
+\end{traceunit}%NotImplemented
+
+\subsection{User behaviour}
+
+The following requirements have not been captured within the formal
+specification of the software software since
+they are the result of human behaviour alone.
+
+\begin{traceunit}{FS.NotInScope.UserBehaviour}
+\traceto{ScGainInitial.Fail.DoorPropped}
+\traceto{ScGainInitial.Fail.UserSlow}
+\traceto{ScGainRepeat.Fail.DoorPropped}
+\traceto{ScGainRepeat.Fail.UserSlow}
+\traceto{ScUnlock.Fail.DoorPropped}
+\traceto{ScUnlock.Fail.UserSlow}
+\end{traceunit}%UserBehaviour
+
+\subsection{Assumption of Secure Enclave}
+
+The following assumptions are not enforced within the Formal
+Specification. It was felt unnecessarily restrictive to enforce the
+assumption that the door was closed and locked prior to commencement
+of an operation. 
+However guarantees of the resulting security of the enclave
+following an operation can only be made within the context of the
+state of the environment at the start of the operation. For example,
+if the door is open there is nothing to stop a user who does not have
+a valid token from entering the enclave.
+
+\begin{traceunit}{FS.NotInScope.SecureAssumption}
+\traceto{ScGainInitial.Ass.Secure}
+\traceto{ScProhibitInitial.Ass.Secure}
+\traceto{ScGainRepeat.Ass.Secure}
+\traceto{ScStart.Ass.Secure}
+\traceto{ScShutdown.Ass.Secure}
+\traceto{ScConfig.Ass.Secure}
+\traceto{ScAudit.Ass.Secure}
+\traceto{ScUnlock.Ass.Secure}
+\traceto{ScLogOn.Ass.Secure}
+\traceto{ScLogOff.Ass.Secure}
+\end{traceunit}%SecureAssumption
+
+%...................................
+\subsection{Performance Limitations}
+%....................................
+
+Due to performance limitations the system does not read back the user
+token after writing data to it so we cannot be sure whether the write
+was successful or not.
+
+\begin{traceunit}{FS.NotInScope.PerformanceLimitations}
+\traceto{ScGainInitial.Fail.WriteCard}
+\end{traceunit}%PerformanceLimitations
+
+
+%------------------------------------------------------------------------
+\section{General Requirements}
+%------------------------------------------------------------------------
+Several of the requirements are of a general nature and demonstration
+of their satisfaction by this specification requires analysis of the
+whole specification rather than reference to a single (or small number
+of) operation schemas. These are detailed in the following sections.
+
+%.........................
+\subsection{Valid Start}
+%.........................
+
+This cannot be false, there is no concept in
+this specification of non-valid start-up data. In practice all
+operations other than enrolment have a precondition which implies
+\[
+enclaveStatus \notin \{ notEnrolled, waitingEnrolled, waitingEndEnrol
+\}
+\] 
+from this we can deduce that enrolment has been carried out successfully.
+
+\begin{traceunit}{FS.General.ValidStart}
+\traceto{ScGainInitial.Ass.ValidStart}
+\traceto{ScProhibitInitial.Ass.ValidStart}
+\traceto{ScGainRepeat.Ass.ValidStart}
+\end{traceunit}%ValidStart
+
+%...........................
+\subsection{Valid Config}
+%...........................
+
+This cannot be false, there is no concept in
+this specification of non-valid start-up data. In practice all
+operations other than enrolment have a precondition which implies
+\[
+enclaveStatus \notin \{ notEnrolled, waitingEnrolled, waitingEndEnrol
+\}
+\] 
+from this we can deduce that enrolment has been carried out successfully.
+
+\begin{traceunit}{FS.General.ValidConfig}
+\traceto{ScGainInitial.Ass.ValidConfig}
+\traceto{ScProhibitInitial.Ass.ValidConfig}
+\traceto{ScGainRepeat.Ass.ValidConfig}
+\end{traceunit}%ValidConfig
+
+\subsection{Persistent Certificates}
+
+The formal specification indicates that it does not change the user
+token by the presence of the $\Xi UserToken$ on the majority of the
+operations. The only operation that does not have this constraint is
+$WriteUserToken$, this operation does not form part of any of the
+scenarios traced below.
+
+\begin{traceunit}{FS.Gereral.PersistCertificates}
+\traceto{ScProhibitInitial.Suc.PersistCerts}
+\traceto{ScGainRepeat.Suc.PersistCerts}
+\end{traceunit}%PersistCertificates
+
+\subsection{Enclave Security}
+
+The formal specification indicates that it does not modify the timer
+that controls the latch unless the conditions for the partial
+operations $UnlockDoorOK$ or $OverrideDoorLockOK$ are satisfied. So if the
+system was secure prior to the start of a senario then it will be
+secure at the end for all senarios that do not permit these
+operations.
+The following scenarios do not satisfy the preconditions of
+$UnlockDoorOK$ or $OverrideDoorLockOK$. 
+
+\begin{traceunit}{FS.General.DoorRemainsLocked}
+\traceto{ScProhibitInitial.Suc.UserOut}
+\traceto{ScProbibitInitial.Suc.Locked}
+\traceto{ScStart.Suc.Secure}
+\traceto{ScConfig.Suc.Secure}
+\traceto{ScLogOn.Suc.Secure}
+\traceto{ScLogOff.Suc.Secure}
+\end{traceunit}%DoorRemainsLocked
+

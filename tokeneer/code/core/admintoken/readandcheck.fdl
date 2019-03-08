@@ -1,0 +1,160 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:21.32}
+
+                     {procedure AdminToken.ReadAndCheck}
+
+
+title procedure readandcheck;
+
+  function round__(real) : integer;
+  type character = integer;
+  type basictypes__unsigned32t = integer;
+  type basictypes__presencet = (basictypes__present, 
+     basictypes__absent);
+  type privtypes__privileget = (privtypes__useronly, 
+     privtypes__guard, privtypes__auditmanager, 
+     privtypes__securityofficer);
+  type cert__contentst = pending;
+  type tokentypes__tryt = (tokentypes__notoken, 
+     tokentypes__badtoken, tokentypes__goodtoken);
+  type admintoken__interface__state__type = pending;
+  type admintoken__interface__status__type = pending;
+  type admintoken__interface__input__type = pending;
+  type string = array [integer] of character;
+  const null__string : string = pending;
+  type cert__attr__contentst = record
+        inherit : cert__contentst
+     end;
+  type cert__id__contentst = record
+        inherit : cert__contentst
+     end;
+  type status__type = record
+        admintoken__interface__status : 
+     admintoken__interface__status__type
+     end;
+  type input__type = record
+        admintoken__interface__input : 
+     admintoken__interface__input__type
+     end;
+  type cert__attr__auth__contentst = record
+        inherit : cert__attr__contentst
+     end;
+  type valididcertt = record
+        valid : boolean;
+        contents : cert__id__contentst
+     end;
+  type validauthcertt = record
+        valid : boolean;
+        contents : cert__attr__auth__contentst
+     end;
+  type statetype = record
+        admintoken__interface__state : 
+     admintoken__interface__state__type;
+        idcert : valididcertt;
+        authcert : validauthcertt;
+        tokenid : integer;
+        tokentry : tokentypes__tryt;
+        tokenpresence : basictypes__presencet
+     end;
+  const tokentypes__tryt__base__first : tokentypes__tryt = pending; 
+  const tokentypes__tryt__base__last : tokentypes__tryt = pending; 
+  const tokentypes__tokenidt__base__first : integer = pending; 
+  const tokentypes__tokenidt__base__last : integer = pending; 
+  const privtypes__adminprivileget__base__first : 
+     privtypes__privileget = pending; 
+  const privtypes__adminprivileget__base__last : 
+     privtypes__privileget = pending; 
+  const privtypes__privileget__base__first : 
+     privtypes__privileget = pending; 
+  const privtypes__privileget__base__last : privtypes__privileget = pending; 
+  const audittypes__descriptioni__base__first : integer = pending; 
+  const audittypes__descriptioni__base__last : integer = pending; 
+  const basictypes__presencet__base__first : 
+     basictypes__presencet = pending; 
+  const basictypes__presencet__base__last : basictypes__presencet = pending; 
+  const basictypes__unsigned32t__base__first : integer = pending; 
+  const basictypes__unsigned32t__base__last : integer = pending; 
+  const positive__base__first : integer = pending; 
+  const positive__base__last : integer = pending; 
+  const character__base__first : character = pending; 
+  const character__base__last : character = pending; 
+  const integer__base__first : integer = pending; 
+  const integer__base__last : integer = pending; 
+  const valididcertt__size : integer = pending; 
+  const validauthcertt__size : integer = pending; 
+  const tokentypes__tryt__first : tokentypes__tryt = pending; 
+  const tokentypes__tryt__last : tokentypes__tryt = pending; 
+  const tokentypes__tryt__size : integer = pending; 
+  const tokentypes__tokenidt__first : integer = pending; 
+  const tokentypes__tokenidt__last : integer = pending; 
+  const tokentypes__tokenidt__size : integer = pending; 
+  const privtypes__adminprivileget__first : privtypes__privileget = pending; 
+  const privtypes__adminprivileget__last : privtypes__privileget = pending; 
+  const privtypes__adminprivileget__size : integer = pending; 
+  const privtypes__privileget__first : privtypes__privileget = pending; 
+  const privtypes__privileget__last : privtypes__privileget = pending; 
+  const privtypes__privileget__size : integer = pending; 
+  const audittypes__descriptioni__first : integer = pending; 
+  const audittypes__descriptioni__last : integer = pending; 
+  const audittypes__descriptioni__size : integer = pending; 
+  const basictypes__presencet__first : basictypes__presencet = pending; 
+  const basictypes__presencet__last : basictypes__presencet = pending; 
+  const basictypes__presencet__size : integer = pending; 
+  const basictypes__unsigned32t__first : integer = pending; 
+  const basictypes__unsigned32t__last : integer = pending; 
+  const basictypes__unsigned32t__size : integer = pending; 
+  const positive__first : integer = pending; 
+  const positive__last : integer = pending; 
+  const positive__size : integer = pending; 
+  const character__first : character = pending; 
+  const character__last : character = pending; 
+  const character__size : integer = pending; 
+  const integer__first : integer = pending; 
+  const integer__last : integer = pending; 
+  const integer__size : integer = pending; 
+  var state : statetype;
+  var status : status__type;
+  var input : input__type;
+  var description : string;
+  var tokenok : boolean;
+  var admintoken__interface__state : 
+     admintoken__interface__state__type;
+  var admintoken__interface__status : 
+     admintoken__interface__status__type;
+  var admintoken__interface__input : 
+     admintoken__interface__input__type;
+  var tokenpresence : basictypes__presencet;
+  var tokentry : tokentypes__tryt;
+  var tokenid : integer;
+  var authcert : validauthcertt;
+  var idcert : valididcertt;
+  var authvalid : boolean;
+  var idvalid : boolean;
+  var authcertcontents : cert__attr__auth__contentst;
+  var idcertcontents : cert__id__contentst;
+  function cert__attr__auth__therole(cert__attr__auth__contentst) : 
+     privtypes__privileget;
+  function theauthcertrole(statetype) : privtypes__privileget;
+  function prf_isgood(statetype) : boolean;
+  function prf_authcertvalid(statetype) : boolean;
+  function admintoken__interface__thetokenid(
+     admintoken__interface__state__type) : integer;
+  function admintoken__interface__thetokentry(
+     admintoken__interface__state__type) : tokentypes__tryt;
+  function makedescription(string) : string;
+  var idcertcontents__2 : cert__id__contentst;
+  var idcertcontents__3 : cert__id__contentst;
+  var authcertcontents__4 : cert__attr__auth__contentst;
+  var authvalid__4 : boolean;
+  var idvalid__3 : boolean;
+  var description__4 : string;
+  var description__3 : string;
+  var authcertcontents__1 : cert__attr__auth__contentst;
+
+end;

@@ -1,0 +1,134 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:16  SIMPLIFIED 05-SEP-2011, 15:39:05
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure CertificateStore.PutNextSerialNumber
+
+
+
+
+
+
+@@@@@@@@@@  VC: procedure_putnextserialnumber_1.  @@@@@@@@@@
+-S-  Applied substitution rule putnextseria_rules(12).
+     This was achieved by replacing all occurrences of natural__first by:
+          0.
+<S>  New C1:  true
+-S-  Applied substitution rule putnextseria_rules(13).
+     This was achieved by replacing all occurrences of natural__last by:
+          2147483647.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_putnextserialnumber_2.  @@@@@@@@@@
+***  Proved C1:  next >= certtypes__serialnumbert__first
+     using hypothesis H2.
+***  Proved C2:  next <= certtypes__serialnumbert__last
+     using hypothesis H3.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_putnextserialnumber_3.  @@@@@@@@@@
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H2).
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H3)
+          .
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  for_all(i___1 : integer, rawnexti__first <= i___1 and i___1 <= 
+          rawnexti__last -> character__first <= element(rawnext__3, [i___1]) 
+          and element(rawnext__3, [i___1]) <= character__last)
+-S-  Applied substitution rule putnextseria_rules(12).
+     This was achieved by replacing all occurrences of natural__first by:
+          0.
+<S>  New C1:  stop__3 >= 0
+-S-  Applied substitution rule putnextseria_rules(13).
+     This was achieved by replacing all occurrences of natural__last by:
+          2147483647.
+<S>  New C2:  stop__3 <= 2147483647
+-S-  Applied substitution rule putnextseria_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H11:  for_all(i___1 : integer, rawnexti__first <= i___1 and i___1 <= 
+          rawnexti__last -> 0 <= element(rawnext__3, [i___1]) and element(
+          rawnext__3, [i___1]) <= character__last)
+-S-  Applied substitution rule putnextseria_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H11:  for_all(i___1 : integer, rawnexti__first <= i___1 and i___1 <= 
+          rawnexti__last -> 0 <= element(rawnext__3, [i___1]) and element(
+          rawnext__3, [i___1]) <= 255)
+-S-  Applied substitution rule putnextseria_rules(22).
+     This was achieved by replacing all occurrences of 
+          certtypes__serialnumbert__first by:
+          0.
+<S>  New H2:  next >= 0
+-S-  Applied substitution rule putnextseria_rules(23).
+     This was achieved by replacing all occurrences of 
+          certtypes__serialnumbert__last by:
+          4294967295.
+<S>  New H3:  next <= 4294967295
+-S-  Applied substitution rule putnextseria_rules(28).
+     This was achieved by replacing all occurrences of rawnexti__first by:
+          1.
+<S>  New H12:  stop__3 >= 1
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= rawnexti__last 
+          -> 0 <= element(rawnext__3, [i___1]) and element(rawnext__3, [i___1]) 
+          <= 255)
+-S-  Applied substitution rule putnextseria_rules(29).
+     This was achieved by replacing all occurrences of rawnexti__last by:
+          10.
+<S>  New H13:  stop__3 <= 10
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 0 <= 
+          element(rawnext__3, [i___1]) and element(rawnext__3, [i___1]) <= 255)
+***  Proved C1:  stop__3 >= 0
+     using hypothesis H12.
+***  Proved C2:  stop__3 <= 2147483647
+     using hypothesis H13.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_putnextserialnumber_4.  @@@@@@@@@@
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H2).
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H3)
+          .
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  for_all(i___1 : integer, rawnexti__first <= i___1 and i___1 <= 
+          rawnexti__last -> character__first <= element(rawnext__3, [i___1]) 
+          and element(rawnext__3, [i___1]) <= character__last)
+---  Hypothesis H16 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H17 has been replaced by "true".  (It is already present, as 
+          H14).
+---  Hypothesis H18 has been replaced by "true".  (It is already present, as 
+          H15).
+***  Proved C1:  stop__3 >= natural__first
+     using hypothesis H14.
+***  Proved C2:  stop__3 <= natural__last
+     using hypothesis H15.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_putnextserialnumber_5.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_putnextserialnumber_6.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_putnextserialnumber_7.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+

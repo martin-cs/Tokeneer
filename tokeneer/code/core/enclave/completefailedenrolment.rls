@@ -1,0 +1,237 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:25.86*/
+
+                 /*procedure Enclave.CompleteFailedEnrolment*/
+
+
+rule_family completefail_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+completefail_rules(1): display__msgt__size >= 0 may_be_deduced.
+completefail_rules(2): display__msgt__first may_be_replaced_by display__blank.
+completefail_rules(3): display__msgt__last may_be_replaced_by display__doorunlocked.
+completefail_rules(4): display__msgt__base__first may_be_replaced_by display__blank.
+completefail_rules(5): display__msgt__base__last may_be_replaced_by display__doorunlocked.
+completefail_rules(6): display__msgt__pos(display__msgt__first) may_be_replaced_by 0.
+completefail_rules(7): display__msgt__pos(display__blank) may_be_replaced_by 0.
+completefail_rules(8): display__msgt__val(0) may_be_replaced_by 
+     display__blank.
+completefail_rules(9): display__msgt__pos(display__welcome) may_be_replaced_by 1.
+completefail_rules(10): display__msgt__val(1) may_be_replaced_by 
+     display__welcome.
+completefail_rules(11): display__msgt__pos(display__insertfinger) may_be_replaced_by 2.
+completefail_rules(12): display__msgt__val(2) may_be_replaced_by 
+     display__insertfinger.
+completefail_rules(13): display__msgt__pos(display__opendoor) may_be_replaced_by 3.
+completefail_rules(14): display__msgt__val(3) may_be_replaced_by 
+     display__opendoor.
+completefail_rules(15): display__msgt__pos(display__wait) may_be_replaced_by 4.
+completefail_rules(16): display__msgt__val(4) may_be_replaced_by 
+     display__wait.
+completefail_rules(17): display__msgt__pos(display__removetoken) may_be_replaced_by 5.
+completefail_rules(18): display__msgt__val(5) may_be_replaced_by 
+     display__removetoken.
+completefail_rules(19): display__msgt__pos(
+     display__tokenupdatefailed) may_be_replaced_by 6.
+completefail_rules(20): display__msgt__val(6) may_be_replaced_by 
+     display__tokenupdatefailed.
+completefail_rules(21): display__msgt__pos(display__doorunlocked) may_be_replaced_by 7.
+completefail_rules(22): display__msgt__val(7) may_be_replaced_by 
+     display__doorunlocked.
+completefail_rules(23): display__msgt__pos(display__msgt__last) may_be_replaced_by 7.
+completefail_rules(24): display__msgt__pos(succ(X)) may_be_replaced_by 
+     display__msgt__pos(X) + 1
+     if [X <=display__doorunlocked, X <> display__doorunlocked].
+completefail_rules(25): display__msgt__pos(pred(X)) may_be_replaced_by 
+     display__msgt__pos(X) - 1
+     if [X >=display__blank, X <> display__blank].
+completefail_rules(26): display__msgt__pos(X) >= 0 may_be_deduced_from
+     [display__blank <= X, X <= display__doorunlocked].
+completefail_rules(27): display__msgt__pos(X) <= 7 may_be_deduced_from
+     [display__blank <= X, X <= display__doorunlocked].
+completefail_rules(28): display__msgt__val(X) >= display__blank may_be_deduced_from
+     [0 <= X, X <= 7].
+completefail_rules(29): display__msgt__val(X) <= 
+     display__doorunlocked may_be_deduced_from
+     [0 <= X, X <= 7].
+completefail_rules(30): succ(display__msgt__val(X)) may_be_replaced_by 
+     display__msgt__val(X+1)
+     if [0 <= X, X < 7].
+completefail_rules(31): pred(display__msgt__val(X)) may_be_replaced_by 
+     display__msgt__val(X-1)
+     if [0 < X, X <= 7].
+completefail_rules(32): display__msgt__pos(display__msgt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 7].
+completefail_rules(33): display__msgt__val(display__msgt__pos(X)) may_be_replaced_by X
+     if [display__blank <= X, X <= display__doorunlocked].
+completefail_rules(34): display__msgt__pos(X) <= display__msgt__pos(Y) & X <= Y are_interchangeable 
+     if [display__blank <= X, X <= display__doorunlocked, 
+     display__blank <= Y, Y <= display__doorunlocked].
+completefail_rules(35): display__msgt__val(X) <= display__msgt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 7, 0 <= Y, Y <= 7].
+completefail_rules(36): screen__msgtextt__size >= 0 may_be_deduced.
+completefail_rules(37): screen__msgtextt__first may_be_replaced_by screen__clear.
+completefail_rules(38): screen__msgtextt__last may_be_replaced_by screen__insertconfigdata.
+completefail_rules(39): screen__msgtextt__base__first may_be_replaced_by screen__clear.
+completefail_rules(40): screen__msgtextt__base__last may_be_replaced_by screen__insertconfigdata.
+completefail_rules(41): screen__msgtextt__pos(screen__msgtextt__first) may_be_replaced_by 0.
+completefail_rules(42): screen__msgtextt__pos(screen__clear) may_be_replaced_by 0.
+completefail_rules(43): screen__msgtextt__val(0) may_be_replaced_by 
+     screen__clear.
+completefail_rules(44): screen__msgtextt__pos(
+     screen__welcomeadmin) may_be_replaced_by 1.
+completefail_rules(45): screen__msgtextt__val(1) may_be_replaced_by 
+     screen__welcomeadmin.
+completefail_rules(46): screen__msgtextt__pos(screen__busy) may_be_replaced_by 2.
+completefail_rules(47): screen__msgtextt__val(2) may_be_replaced_by 
+     screen__busy.
+completefail_rules(48): screen__msgtextt__pos(
+     screen__removeadmintoken) may_be_replaced_by 3.
+completefail_rules(49): screen__msgtextt__val(3) may_be_replaced_by 
+     screen__removeadmintoken.
+completefail_rules(50): screen__msgtextt__pos(screen__closedoor) may_be_replaced_by 4.
+completefail_rules(51): screen__msgtextt__val(4) may_be_replaced_by 
+     screen__closedoor.
+completefail_rules(52): screen__msgtextt__pos(
+     screen__requestadminop) may_be_replaced_by 5.
+completefail_rules(53): screen__msgtextt__val(5) may_be_replaced_by 
+     screen__requestadminop.
+completefail_rules(54): screen__msgtextt__pos(screen__doingop) may_be_replaced_by 6.
+completefail_rules(55): screen__msgtextt__val(6) may_be_replaced_by 
+     screen__doingop.
+completefail_rules(56): screen__msgtextt__pos(
+     screen__invalidrequest) may_be_replaced_by 7.
+completefail_rules(57): screen__msgtextt__val(7) may_be_replaced_by 
+     screen__invalidrequest.
+completefail_rules(58): screen__msgtextt__pos(screen__invaliddata) may_be_replaced_by 8.
+completefail_rules(59): screen__msgtextt__val(8) may_be_replaced_by 
+     screen__invaliddata.
+completefail_rules(60): screen__msgtextt__pos(
+     screen__archivefailed) may_be_replaced_by 9.
+completefail_rules(61): screen__msgtextt__val(9) may_be_replaced_by 
+     screen__archivefailed.
+completefail_rules(62): screen__msgtextt__pos(
+     screen__insertenrolmentdata) may_be_replaced_by 10.
+completefail_rules(63): screen__msgtextt__val(10) may_be_replaced_by 
+     screen__insertenrolmentdata.
+completefail_rules(64): screen__msgtextt__pos(
+     screen__validatingenrolmentdata) may_be_replaced_by 11.
+completefail_rules(65): screen__msgtextt__val(11) may_be_replaced_by 
+     screen__validatingenrolmentdata.
+completefail_rules(66): screen__msgtextt__pos(
+     screen__enrolmentfailed) may_be_replaced_by 12.
+completefail_rules(67): screen__msgtextt__val(12) may_be_replaced_by 
+     screen__enrolmentfailed.
+completefail_rules(68): screen__msgtextt__pos(
+     screen__insertblankfloppy) may_be_replaced_by 13.
+completefail_rules(69): screen__msgtextt__val(13) may_be_replaced_by 
+     screen__insertblankfloppy.
+completefail_rules(70): screen__msgtextt__pos(
+     screen__insertconfigdata) may_be_replaced_by 14.
+completefail_rules(71): screen__msgtextt__val(14) may_be_replaced_by 
+     screen__insertconfigdata.
+completefail_rules(72): screen__msgtextt__pos(screen__msgtextt__last) may_be_replaced_by 14.
+completefail_rules(73): screen__msgtextt__pos(succ(X)) may_be_replaced_by 
+     screen__msgtextt__pos(X) + 1
+     if [X <=screen__insertconfigdata, X <> 
+     screen__insertconfigdata].
+completefail_rules(74): screen__msgtextt__pos(pred(X)) may_be_replaced_by 
+     screen__msgtextt__pos(X) - 1
+     if [X >=screen__clear, X <> screen__clear].
+completefail_rules(75): screen__msgtextt__pos(X) >= 0 may_be_deduced_from
+     [screen__clear <= X, X <= screen__insertconfigdata].
+completefail_rules(76): screen__msgtextt__pos(X) <= 14 may_be_deduced_from
+     [screen__clear <= X, X <= screen__insertconfigdata].
+completefail_rules(77): screen__msgtextt__val(X) >= screen__clear may_be_deduced_from
+     [0 <= X, X <= 14].
+completefail_rules(78): screen__msgtextt__val(X) <= 
+     screen__insertconfigdata may_be_deduced_from
+     [0 <= X, X <= 14].
+completefail_rules(79): succ(screen__msgtextt__val(X)) may_be_replaced_by 
+     screen__msgtextt__val(X+1)
+     if [0 <= X, X < 14].
+completefail_rules(80): pred(screen__msgtextt__val(X)) may_be_replaced_by 
+     screen__msgtextt__val(X-1)
+     if [0 < X, X <= 14].
+completefail_rules(81): screen__msgtextt__pos(screen__msgtextt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 14].
+completefail_rules(82): screen__msgtextt__val(screen__msgtextt__pos(X)) may_be_replaced_by X
+     if [screen__clear <= X, X <= screen__insertconfigdata].
+completefail_rules(83): screen__msgtextt__pos(X) <= 
+     screen__msgtextt__pos(Y) & X <= Y are_interchangeable 
+     if [screen__clear <= X, X <= screen__insertconfigdata, 
+     screen__clear <= Y, Y <= screen__insertconfigdata].
+completefail_rules(84): screen__msgtextt__val(X) <= 
+     screen__msgtextt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 14, 0 <= Y, Y <= 14].
+completefail_rules(85): statust__size >= 0 may_be_deduced.
+completefail_rules(86): statust__first may_be_replaced_by notenrolled.
+completefail_rules(87): statust__last may_be_replaced_by shutdown.
+completefail_rules(88): statust__base__first may_be_replaced_by notenrolled.
+completefail_rules(89): statust__base__last may_be_replaced_by shutdown.
+completefail_rules(90): statust__pos(statust__first) may_be_replaced_by 0.
+completefail_rules(91): statust__pos(notenrolled) may_be_replaced_by 0.
+completefail_rules(92): statust__val(0) may_be_replaced_by 
+     notenrolled.
+completefail_rules(93): statust__pos(waitingenrol) may_be_replaced_by 1.
+completefail_rules(94): statust__val(1) may_be_replaced_by 
+     waitingenrol.
+completefail_rules(95): statust__pos(waitingendenrol) may_be_replaced_by 2.
+completefail_rules(96): statust__val(2) may_be_replaced_by 
+     waitingendenrol.
+completefail_rules(97): statust__pos(enclavequiescent) may_be_replaced_by 3.
+completefail_rules(98): statust__val(3) may_be_replaced_by 
+     enclavequiescent.
+completefail_rules(99): statust__pos(waitingremoveadmintokenfail) may_be_replaced_by 4.
+completefail_rules(100): statust__val(4) may_be_replaced_by 
+     waitingremoveadmintokenfail.
+completefail_rules(101): statust__pos(gotadmintoken) may_be_replaced_by 5.
+completefail_rules(102): statust__val(5) may_be_replaced_by 
+     gotadmintoken.
+completefail_rules(103): statust__pos(waitingstartadminop) may_be_replaced_by 6.
+completefail_rules(104): statust__val(6) may_be_replaced_by 
+     waitingstartadminop.
+completefail_rules(105): statust__pos(waitingfinishadminop) may_be_replaced_by 7.
+completefail_rules(106): statust__val(7) may_be_replaced_by 
+     waitingfinishadminop.
+completefail_rules(107): statust__pos(shutdown) may_be_replaced_by 8.
+completefail_rules(108): statust__val(8) may_be_replaced_by 
+     shutdown.
+completefail_rules(109): statust__pos(statust__last) may_be_replaced_by 8.
+completefail_rules(110): statust__pos(succ(X)) may_be_replaced_by 
+     statust__pos(X) + 1
+     if [X <=shutdown, X <> shutdown].
+completefail_rules(111): statust__pos(pred(X)) may_be_replaced_by 
+     statust__pos(X) - 1
+     if [X >=notenrolled, X <> notenrolled].
+completefail_rules(112): statust__pos(X) >= 0 may_be_deduced_from
+     [notenrolled <= X, X <= shutdown].
+completefail_rules(113): statust__pos(X) <= 8 may_be_deduced_from
+     [notenrolled <= X, X <= shutdown].
+completefail_rules(114): statust__val(X) >= notenrolled may_be_deduced_from
+     [0 <= X, X <= 8].
+completefail_rules(115): statust__val(X) <= shutdown may_be_deduced_from
+     [0 <= X, X <= 8].
+completefail_rules(116): succ(statust__val(X)) may_be_replaced_by 
+     statust__val(X+1)
+     if [0 <= X, X < 8].
+completefail_rules(117): pred(statust__val(X)) may_be_replaced_by 
+     statust__val(X-1)
+     if [0 < X, X <= 8].
+completefail_rules(118): statust__pos(statust__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 8].
+completefail_rules(119): statust__val(statust__pos(X)) may_be_replaced_by X
+     if [notenrolled <= X, X <= shutdown].
+completefail_rules(120): statust__pos(X) <= statust__pos(Y) & X <= Y are_interchangeable 
+     if [notenrolled <= X, X <= shutdown, notenrolled <= Y, Y <= 
+     shutdown].
+completefail_rules(121): statust__val(X) <= statust__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 8, 0 <= Y, Y <= 8].

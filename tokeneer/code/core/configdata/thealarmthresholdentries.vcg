@@ -1,0 +1,213 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:30.78
+
+                function ConfigData.TheAlarmThresholdEntries
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 1760:
+
+function_thealarmthresholdentries_1.
+H1:    true .
+H2:    alarmthresholdsize >= audittypes__filesizet__first .
+H3:    alarmthresholdsize <= audittypes__filesizet__last .
+        ->
+C1:    audittypes__sizeauditelement - 1 >= 
+           audittypes__filesizet__base__first .
+C2:    audittypes__sizeauditelement - 1 <= 
+           audittypes__filesizet__base__last .
+C3:    audittypes__sizeauditelement >= audittypes__filesizet__first .
+C4:    audittypes__sizeauditelement <= audittypes__filesizet__last .
+C5:    audittypes__filesizet__last - alarmthresholdsize >= 
+           audittypes__filesizet__base__first .
+C6:    audittypes__filesizet__last - alarmthresholdsize <= 
+           audittypes__filesizet__base__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 1762:
+
+function_thealarmthresholdentries_2.
+H1:    true .
+H2:    alarmthresholdsize >= audittypes__filesizet__first .
+H3:    alarmthresholdsize <= audittypes__filesizet__last .
+H4:    audittypes__sizeauditelement - 1 >= 
+           audittypes__filesizet__base__first .
+H5:    audittypes__sizeauditelement - 1 <= 
+           audittypes__filesizet__base__last .
+H6:    audittypes__sizeauditelement >= audittypes__filesizet__first .
+H7:    audittypes__sizeauditelement <= audittypes__filesizet__last .
+H8:    audittypes__filesizet__last - alarmthresholdsize >= 
+           audittypes__filesizet__base__first .
+H9:    audittypes__filesizet__last - alarmthresholdsize <= 
+           audittypes__filesizet__base__last .
+H10:   audittypes__filesizet__last - alarmthresholdsize < 
+           audittypes__sizeauditelement - 1 .
+        ->
+C1:    audittypes__auditentrycountt__last >= 
+           audittypes__auditentrycountt__first .
+C2:    audittypes__auditentrycountt__last <= 
+           audittypes__auditentrycountt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 1764:
+
+function_thealarmthresholdentries_3.
+H1:    true .
+H2:    alarmthresholdsize >= audittypes__filesizet__first .
+H3:    alarmthresholdsize <= audittypes__filesizet__last .
+H4:    audittypes__sizeauditelement - 1 >= 
+           audittypes__filesizet__base__first .
+H5:    audittypes__sizeauditelement - 1 <= 
+           audittypes__filesizet__base__last .
+H6:    audittypes__sizeauditelement >= audittypes__filesizet__first .
+H7:    audittypes__sizeauditelement <= audittypes__filesizet__last .
+H8:    audittypes__filesizet__last - alarmthresholdsize >= 
+           audittypes__filesizet__base__first .
+H9:    audittypes__filesizet__last - alarmthresholdsize <= 
+           audittypes__filesizet__base__last .
+H10:   not (audittypes__filesizet__last - 
+           alarmthresholdsize < audittypes__sizeauditelement - 1) .
+        ->
+C1:    (alarmthresholdsize + audittypes__sizeauditelement - 1) div 
+           audittypes__sizeauditelement >= 
+           audittypes__auditentrycountt__first .
+C2:    (alarmthresholdsize + audittypes__sizeauditelement - 1) div 
+           audittypes__sizeauditelement <= 
+           audittypes__auditentrycountt__last .
+C3:    (alarmthresholdsize + audittypes__sizeauditelement - 1) div 
+           audittypes__sizeauditelement >= 
+           audittypes__auditentrycountt__first .
+C4:    (alarmthresholdsize + audittypes__sizeauditelement - 1) div 
+           audittypes__sizeauditelement <= 
+           audittypes__auditentrycountt__last .
+C5:    (alarmthresholdsize + audittypes__sizeauditelement - 1) div 
+           audittypes__sizeauditelement >= 
+           audittypes__filesizet__base__first .
+C6:    (alarmthresholdsize + audittypes__sizeauditelement - 1) div 
+           audittypes__sizeauditelement <= 
+           audittypes__filesizet__base__last .
+C7:    audittypes__sizeauditelement <> 0 .
+C8:    alarmthresholdsize + audittypes__sizeauditelement - 1 >= 
+           audittypes__filesizet__base__first .
+C9:    alarmthresholdsize + audittypes__sizeauditelement - 1 <= 
+           audittypes__filesizet__base__last .
+C10:   alarmthresholdsize + audittypes__sizeauditelement >= 
+           audittypes__filesizet__base__first .
+C11:   alarmthresholdsize + audittypes__sizeauditelement <= 
+           audittypes__filesizet__base__last .
+C12:   audittypes__sizeauditelement >= audittypes__filesizet__first .
+C13:   audittypes__sizeauditelement <= audittypes__filesizet__last .
+ 
+
+For path(s) from start to finish:
+
+function_thealarmthresholdentries_4.
+H1:    true .
+H2:    alarmthresholdsize >= audittypes__filesizet__first .
+H3:    alarmthresholdsize <= audittypes__filesizet__last .
+H4:    audittypes__sizeauditelement - 1 >= 
+           audittypes__filesizet__base__first .
+H5:    audittypes__sizeauditelement - 1 <= 
+           audittypes__filesizet__base__last .
+H6:    audittypes__sizeauditelement >= audittypes__filesizet__first .
+H7:    audittypes__sizeauditelement <= audittypes__filesizet__last .
+H8:    audittypes__filesizet__last - alarmthresholdsize >= 
+           audittypes__filesizet__base__first .
+H9:    audittypes__filesizet__last - alarmthresholdsize <= 
+           audittypes__filesizet__base__last .
+H10:   audittypes__filesizet__last - alarmthresholdsize < 
+           audittypes__sizeauditelement - 1 .
+H11:   audittypes__auditentrycountt__last >= 
+           audittypes__auditentrycountt__first .
+H12:   audittypes__auditentrycountt__last <= 
+           audittypes__auditentrycountt__last .
+H13:   audittypes__auditentrycountt__last >= 
+           audittypes__auditentrycountt__first .
+H14:   audittypes__auditentrycountt__last <= 
+           audittypes__auditentrycountt__last .
+        ->
+C1:    true .
+C2:    audittypes__auditentrycountt__last >= 
+           audittypes__auditentrycountt__first .
+C3:    audittypes__auditentrycountt__last <= 
+           audittypes__auditentrycountt__last .
+ 
+
+function_thealarmthresholdentries_5.
+H1:    true .
+H2:    alarmthresholdsize >= audittypes__filesizet__first .
+H3:    alarmthresholdsize <= audittypes__filesizet__last .
+H4:    audittypes__sizeauditelement - 1 >= 
+           audittypes__filesizet__base__first .
+H5:    audittypes__sizeauditelement - 1 <= 
+           audittypes__filesizet__base__last .
+H6:    audittypes__sizeauditelement >= audittypes__filesizet__first .
+H7:    audittypes__sizeauditelement <= audittypes__filesizet__last .
+H8:    audittypes__filesizet__last - alarmthresholdsize >= 
+           audittypes__filesizet__base__first .
+H9:    audittypes__filesizet__last - alarmthresholdsize <= 
+           audittypes__filesizet__base__last .
+H10:   not (audittypes__filesizet__last - 
+           alarmthresholdsize < audittypes__sizeauditelement - 1) .
+H11:   (alarmthresholdsize + audittypes__sizeauditelement - 1) div 
+           audittypes__sizeauditelement >= 
+           audittypes__auditentrycountt__first .
+H12:   (alarmthresholdsize + audittypes__sizeauditelement - 1) div 
+           audittypes__sizeauditelement <= 
+           audittypes__auditentrycountt__last .
+H13:   (alarmthresholdsize + audittypes__sizeauditelement - 1) div 
+           audittypes__sizeauditelement >= 
+           audittypes__auditentrycountt__first .
+H14:   (alarmthresholdsize + audittypes__sizeauditelement - 1) div 
+           audittypes__sizeauditelement <= 
+           audittypes__auditentrycountt__last .
+H15:   (alarmthresholdsize + audittypes__sizeauditelement - 1) div 
+           audittypes__sizeauditelement >= 
+           audittypes__filesizet__base__first .
+H16:   (alarmthresholdsize + audittypes__sizeauditelement - 1) div 
+           audittypes__sizeauditelement <= 
+           audittypes__filesizet__base__last .
+H17:   audittypes__sizeauditelement <> 0 .
+H18:   alarmthresholdsize + audittypes__sizeauditelement - 1 >= 
+           audittypes__filesizet__base__first .
+H19:   alarmthresholdsize + audittypes__sizeauditelement - 1 <= 
+           audittypes__filesizet__base__last .
+H20:   alarmthresholdsize + audittypes__sizeauditelement >= 
+           audittypes__filesizet__base__first .
+H21:   alarmthresholdsize + audittypes__sizeauditelement <= 
+           audittypes__filesizet__base__last .
+H22:   audittypes__sizeauditelement >= audittypes__filesizet__first .
+H23:   audittypes__sizeauditelement <= audittypes__filesizet__last .
+H24:   (alarmthresholdsize + audittypes__sizeauditelement - 1) div 
+           audittypes__sizeauditelement >= 
+           audittypes__auditentrycountt__first .
+H25:   (alarmthresholdsize + audittypes__sizeauditelement - 1) div 
+           audittypes__sizeauditelement <= 
+           audittypes__auditentrycountt__last .
+        ->
+C1:    true .
+C2:    (alarmthresholdsize + audittypes__sizeauditelement - 1) div 
+           audittypes__sizeauditelement >= 
+           audittypes__auditentrycountt__first .
+C3:    (alarmthresholdsize + audittypes__sizeauditelement - 1) div 
+           audittypes__sizeauditelement <= 
+           audittypes__auditentrycountt__last .
+ 
+
+For checks of refinement integrity: 
+
+function_thealarmthresholdentries_6.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+function_thealarmthresholdentries_7.
+*** true .          /* trivially true VC removed by Examiner */
+
+

@@ -1,0 +1,134 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:16.68*/
+
+                          /*procedure Admin.FinishOp*/
+
+
+rule_family finishop_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+finishop_rules(1): privtypes__privileget__size >= 0 may_be_deduced.
+finishop_rules(2): privtypes__privileget__first may_be_replaced_by privtypes__useronly.
+finishop_rules(3): privtypes__privileget__last may_be_replaced_by privtypes__securityofficer.
+finishop_rules(4): privtypes__privileget__base__first may_be_replaced_by privtypes__useronly.
+finishop_rules(5): privtypes__privileget__base__last may_be_replaced_by privtypes__securityofficer.
+finishop_rules(6): privtypes__privileget__pos(
+     privtypes__privileget__first) may_be_replaced_by 0.
+finishop_rules(7): privtypes__privileget__pos(privtypes__useronly) may_be_replaced_by 0.
+finishop_rules(8): privtypes__privileget__val(0) may_be_replaced_by 
+     privtypes__useronly.
+finishop_rules(9): privtypes__privileget__pos(privtypes__guard) may_be_replaced_by 1.
+finishop_rules(10): privtypes__privileget__val(1) may_be_replaced_by 
+     privtypes__guard.
+finishop_rules(11): privtypes__privileget__pos(
+     privtypes__auditmanager) may_be_replaced_by 2.
+finishop_rules(12): privtypes__privileget__val(2) may_be_replaced_by 
+     privtypes__auditmanager.
+finishop_rules(13): privtypes__privileget__pos(
+     privtypes__securityofficer) may_be_replaced_by 3.
+finishop_rules(14): privtypes__privileget__val(3) may_be_replaced_by 
+     privtypes__securityofficer.
+finishop_rules(15): privtypes__privileget__pos(
+     privtypes__privileget__last) may_be_replaced_by 3.
+finishop_rules(16): privtypes__privileget__pos(succ(X)) may_be_replaced_by 
+     privtypes__privileget__pos(X) + 1
+     if [X <=privtypes__securityofficer, X <> 
+     privtypes__securityofficer].
+finishop_rules(17): privtypes__privileget__pos(pred(X)) may_be_replaced_by 
+     privtypes__privileget__pos(X) - 1
+     if [X >=privtypes__useronly, X <> privtypes__useronly].
+finishop_rules(18): privtypes__privileget__pos(X) >= 0 may_be_deduced_from
+     [privtypes__useronly <= X, X <= privtypes__securityofficer].
+finishop_rules(19): privtypes__privileget__pos(X) <= 3 may_be_deduced_from
+     [privtypes__useronly <= X, X <= privtypes__securityofficer].
+finishop_rules(20): privtypes__privileget__val(X) >= 
+     privtypes__useronly may_be_deduced_from
+     [0 <= X, X <= 3].
+finishop_rules(21): privtypes__privileget__val(X) <= 
+     privtypes__securityofficer may_be_deduced_from
+     [0 <= X, X <= 3].
+finishop_rules(22): succ(privtypes__privileget__val(X)) may_be_replaced_by 
+     privtypes__privileget__val(X+1)
+     if [0 <= X, X < 3].
+finishop_rules(23): pred(privtypes__privileget__val(X)) may_be_replaced_by 
+     privtypes__privileget__val(X-1)
+     if [0 < X, X <= 3].
+finishop_rules(24): privtypes__privileget__pos(
+     privtypes__privileget__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 3].
+finishop_rules(25): privtypes__privileget__val(
+     privtypes__privileget__pos(X)) may_be_replaced_by X
+     if [privtypes__useronly <= X, X <= 
+     privtypes__securityofficer].
+finishop_rules(26): privtypes__privileget__pos(X) <= 
+     privtypes__privileget__pos(Y) & X <= Y are_interchangeable 
+     if [privtypes__useronly <= X, X <= 
+     privtypes__securityofficer, privtypes__useronly <= Y, Y <= 
+     privtypes__securityofficer].
+finishop_rules(27): privtypes__privileget__val(X) <= 
+     privtypes__privileget__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 3, 0 <= Y, Y <= 3].
+finishop_rules(28): opandnullt__size >= 0 may_be_deduced.
+finishop_rules(29): opandnullt__first may_be_replaced_by nullop.
+finishop_rules(30): opandnullt__last may_be_replaced_by shutdownop.
+finishop_rules(31): opandnullt__base__first may_be_replaced_by nullop.
+finishop_rules(32): opandnullt__base__last may_be_replaced_by shutdownop.
+finishop_rules(33): opandnullt__pos(opandnullt__first) may_be_replaced_by 0.
+finishop_rules(34): opandnullt__pos(nullop) may_be_replaced_by 0.
+finishop_rules(35): opandnullt__val(0) may_be_replaced_by nullop.
+finishop_rules(36): opandnullt__pos(archivelog) may_be_replaced_by 1.
+finishop_rules(37): opandnullt__val(1) may_be_replaced_by 
+     archivelog.
+finishop_rules(38): opandnullt__pos(updateconfigdata) may_be_replaced_by 2.
+finishop_rules(39): opandnullt__val(2) may_be_replaced_by 
+     updateconfigdata.
+finishop_rules(40): opandnullt__pos(overridelock) may_be_replaced_by 3.
+finishop_rules(41): opandnullt__val(3) may_be_replaced_by 
+     overridelock.
+finishop_rules(42): opandnullt__pos(shutdownop) may_be_replaced_by 4.
+finishop_rules(43): opandnullt__val(4) may_be_replaced_by 
+     shutdownop.
+finishop_rules(44): opandnullt__pos(opandnullt__last) may_be_replaced_by 4.
+finishop_rules(45): opandnullt__pos(succ(X)) may_be_replaced_by 
+     opandnullt__pos(X) + 1
+     if [X <=shutdownop, X <> shutdownop].
+finishop_rules(46): opandnullt__pos(pred(X)) may_be_replaced_by 
+     opandnullt__pos(X) - 1
+     if [X >=nullop, X <> nullop].
+finishop_rules(47): opandnullt__pos(X) >= 0 may_be_deduced_from
+     [nullop <= X, X <= shutdownop].
+finishop_rules(48): opandnullt__pos(X) <= 4 may_be_deduced_from
+     [nullop <= X, X <= shutdownop].
+finishop_rules(49): opandnullt__val(X) >= nullop may_be_deduced_from
+     [0 <= X, X <= 4].
+finishop_rules(50): opandnullt__val(X) <= shutdownop may_be_deduced_from
+     [0 <= X, X <= 4].
+finishop_rules(51): succ(opandnullt__val(X)) may_be_replaced_by 
+     opandnullt__val(X+1)
+     if [0 <= X, X < 4].
+finishop_rules(52): pred(opandnullt__val(X)) may_be_replaced_by 
+     opandnullt__val(X-1)
+     if [0 < X, X <= 4].
+finishop_rules(53): opandnullt__pos(opandnullt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 4].
+finishop_rules(54): opandnullt__val(opandnullt__pos(X)) may_be_replaced_by X
+     if [nullop <= X, X <= shutdownop].
+finishop_rules(55): opandnullt__pos(X) <= opandnullt__pos(Y) & X <= Y are_interchangeable 
+     if [nullop <= X, X <= shutdownop, nullop <= Y, Y <= 
+     shutdownop].
+finishop_rules(56): opandnullt__val(X) <= opandnullt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 4, 0 <= Y, Y <= 4].
+finishop_rules(57): t__size >= 0 may_be_deduced.
+finishop_rules(58): A = B may_be_deduced_from
+     [goal(checktype(A,t)),
+      goal(checktype(B,t)),
+      fld_rolepresent(A) = fld_rolepresent(B),
+      fld_currentop(A) = fld_currentop(B)].

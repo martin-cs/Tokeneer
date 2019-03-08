@@ -1,0 +1,133 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:18.00*/
+
+                        /*function Bio.MakeDescription*/
+
+
+rule_family makedescript_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+makedescript_rules(1): integer__size >= 0 may_be_deduced.
+makedescript_rules(2): integer__first may_be_replaced_by -2147483648.
+makedescript_rules(3): integer__last may_be_replaced_by 2147483647.
+makedescript_rules(4): integer__base__first may_be_replaced_by -2147483648.
+makedescript_rules(5): integer__base__last may_be_replaced_by 2147483647.
+makedescript_rules(6): character__size >= 0 may_be_deduced.
+makedescript_rules(7): character__first may_be_replaced_by 0.
+makedescript_rules(8): character__last may_be_replaced_by 255.
+makedescript_rules(9): character__base__first may_be_replaced_by 0.
+makedescript_rules(10): character__base__last may_be_replaced_by 255.
+makedescript_rules(11): positive__size >= 0 may_be_deduced.
+makedescript_rules(12): positive__first may_be_replaced_by 1.
+makedescript_rules(13): positive__last may_be_replaced_by 2147483647.
+makedescript_rules(14): positive__base__first may_be_replaced_by -2147483648.
+makedescript_rules(15): positive__base__last may_be_replaced_by 2147483647.
+makedescript_rules(16): basictypes__unsigned32t__size >= 0 may_be_deduced.
+makedescript_rules(17): basictypes__unsigned32t__size may_be_replaced_by 32.
+makedescript_rules(18): basictypes__unsigned32t__first may_be_replaced_by 0.
+makedescript_rules(19): basictypes__unsigned32t__last may_be_replaced_by 4294967295.
+makedescript_rules(20): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__base__last may_be_deduced.
+makedescript_rules(21): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__first may_be_deduced.
+makedescript_rules(22): basictypes__unsigned32t__base__last >= 
+     basictypes__unsigned32t__last may_be_deduced.
+makedescript_rules(23): returnt__size >= 0 may_be_deduced.
+makedescript_rules(24): returnt__size may_be_replaced_by 32.
+makedescript_rules(25): returnt__first may_be_replaced_by bioapiok.
+makedescript_rules(26): returnt__last may_be_replaced_by devicelevelerror.
+makedescript_rules(27): returnt__base__first may_be_replaced_by bioapiok.
+makedescript_rules(28): returnt__base__last may_be_replaced_by devicelevelerror.
+makedescript_rules(29): returnt__pos(returnt__first) may_be_replaced_by 0.
+makedescript_rules(30): returnt__pos(bioapiok) may_be_replaced_by 0.
+makedescript_rules(31): returnt__val(0) may_be_replaced_by 
+     bioapiok.
+makedescript_rules(32): returnt__pos(internalerror) may_be_replaced_by 1.
+makedescript_rules(33): returnt__val(1) may_be_replaced_by 
+     internalerror.
+makedescript_rules(34): returnt__pos(memoryerror) may_be_replaced_by 2.
+makedescript_rules(35): returnt__val(2) may_be_replaced_by 
+     memoryerror.
+makedescript_rules(36): returnt__pos(functionfailed) may_be_replaced_by 3.
+makedescript_rules(37): returnt__val(3) may_be_replaced_by 
+     functionfailed.
+makedescript_rules(38): returnt__pos(invaliddata) may_be_replaced_by 4.
+makedescript_rules(39): returnt__val(4) may_be_replaced_by 
+     invaliddata.
+makedescript_rules(40): returnt__pos(bioapinotinitialized) may_be_replaced_by 5.
+makedescript_rules(41): returnt__val(5) may_be_replaced_by 
+     bioapinotinitialized.
+makedescript_rules(42): returnt__pos(moduleloadfailed) may_be_replaced_by 6.
+makedescript_rules(43): returnt__val(6) may_be_replaced_by 
+     moduleloadfailed.
+makedescript_rules(44): returnt__pos(moduleunloadfailed) may_be_replaced_by 7.
+makedescript_rules(45): returnt__val(7) may_be_replaced_by 
+     moduleunloadfailed.
+makedescript_rules(46): returnt__pos(bspinternalerror) may_be_replaced_by 8.
+makedescript_rules(47): returnt__val(8) may_be_replaced_by 
+     bspinternalerror.
+makedescript_rules(48): returnt__pos(bspmemoryerror) may_be_replaced_by 9.
+makedescript_rules(49): returnt__val(9) may_be_replaced_by 
+     bspmemoryerror.
+makedescript_rules(50): returnt__pos(bspfunctionfailed) may_be_replaced_by 10.
+makedescript_rules(51): returnt__val(10) may_be_replaced_by 
+     bspfunctionfailed.
+makedescript_rules(52): returnt__pos(bspinvaliddata) may_be_replaced_by 11.
+makedescript_rules(53): returnt__val(11) may_be_replaced_by 
+     bspinvaliddata.
+makedescript_rules(54): returnt__pos(bspunabletocapture) may_be_replaced_by 12.
+makedescript_rules(55): returnt__val(12) may_be_replaced_by 
+     bspunabletocapture.
+makedescript_rules(56): returnt__pos(bsptimeoutexpired) may_be_replaced_by 13.
+makedescript_rules(57): returnt__val(13) may_be_replaced_by 
+     bsptimeoutexpired.
+makedescript_rules(58): returnt__pos(bspbirsignaturefailure) may_be_replaced_by 14.
+makedescript_rules(59): returnt__val(14) may_be_replaced_by 
+     bspbirsignaturefailure.
+makedescript_rules(60): returnt__pos(bspinconsistentpurpose) may_be_replaced_by 15.
+makedescript_rules(61): returnt__val(15) may_be_replaced_by 
+     bspinconsistentpurpose.
+makedescript_rules(62): returnt__pos(devicelevelerror) may_be_replaced_by 16.
+makedescript_rules(63): returnt__val(16) may_be_replaced_by 
+     devicelevelerror.
+makedescript_rules(64): returnt__pos(returnt__last) may_be_replaced_by 16.
+makedescript_rules(65): returnt__pos(succ(X)) may_be_replaced_by 
+     returnt__pos(X) + 1
+     if [X <=devicelevelerror, X <> devicelevelerror].
+makedescript_rules(66): returnt__pos(pred(X)) may_be_replaced_by 
+     returnt__pos(X) - 1
+     if [X >=bioapiok, X <> bioapiok].
+makedescript_rules(67): returnt__pos(X) >= 0 may_be_deduced_from
+     [bioapiok <= X, X <= devicelevelerror].
+makedescript_rules(68): returnt__pos(X) <= 16 may_be_deduced_from
+     [bioapiok <= X, X <= devicelevelerror].
+makedescript_rules(69): returnt__val(X) >= bioapiok may_be_deduced_from
+     [0 <= X, X <= 16].
+makedescript_rules(70): returnt__val(X) <= devicelevelerror may_be_deduced_from
+     [0 <= X, X <= 16].
+makedescript_rules(71): succ(returnt__val(X)) may_be_replaced_by 
+     returnt__val(X+1)
+     if [0 <= X, X < 16].
+makedescript_rules(72): pred(returnt__val(X)) may_be_replaced_by 
+     returnt__val(X-1)
+     if [0 < X, X <= 16].
+makedescript_rules(73): returnt__pos(returnt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 16].
+makedescript_rules(74): returnt__val(returnt__pos(X)) may_be_replaced_by X
+     if [bioapiok <= X, X <= devicelevelerror].
+makedescript_rules(75): returnt__pos(X) <= returnt__pos(Y) & X <= Y are_interchangeable 
+     if [bioapiok <= X, X <= devicelevelerror, bioapiok <= Y, Y <= 
+     devicelevelerror].
+makedescript_rules(76): returnt__val(X) <= returnt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 16, 0 <= Y, Y <= 16].
+makedescript_rules(77): text__index__subtype__1__first may_be_replaced_by 1.
+makedescript_rules(78): text__index__subtype__1__last <= positive__last may_be_deduced.
+makedescript_rules(79): text__index__subtype__1__last >= 0 may_be_deduced.

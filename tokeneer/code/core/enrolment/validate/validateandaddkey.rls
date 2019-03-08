@@ -1,0 +1,195 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:25.18*/
+
+               /*procedure Enrolment.Validate.ValidateAndAddKey*/
+
+
+rule_family validateanda_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+validateanda_rules(1): character__first <= element(certtypes__nullrawcertificate, [I]) may_be_deduced_from [1 <= I, I <= 4096].
+validateanda_rules(2): element(certtypes__nullrawcertificate, [I]) <= 
+     character__last may_be_deduced_from [1 <= I, I <= 4096].
+validateanda_rules(3): integer__size >= 0 may_be_deduced.
+validateanda_rules(4): integer__first may_be_replaced_by -2147483648.
+validateanda_rules(5): integer__last may_be_replaced_by 2147483647.
+validateanda_rules(6): integer__base__first may_be_replaced_by -2147483648.
+validateanda_rules(7): integer__base__last may_be_replaced_by 2147483647.
+validateanda_rules(8): character__size >= 0 may_be_deduced.
+validateanda_rules(9): character__first may_be_replaced_by 0.
+validateanda_rules(10): character__last may_be_replaced_by 255.
+validateanda_rules(11): character__base__first may_be_replaced_by 0.
+validateanda_rules(12): character__base__last may_be_replaced_by 255.
+validateanda_rules(13): natural__size >= 0 may_be_deduced.
+validateanda_rules(14): natural__first may_be_replaced_by 0.
+validateanda_rules(15): natural__last may_be_replaced_by 2147483647.
+validateanda_rules(16): natural__base__first may_be_replaced_by -2147483648.
+validateanda_rules(17): natural__base__last may_be_replaced_by 2147483647.
+validateanda_rules(18): positive__size >= 0 may_be_deduced.
+validateanda_rules(19): positive__first may_be_replaced_by 1.
+validateanda_rules(20): positive__last may_be_replaced_by 2147483647.
+validateanda_rules(21): positive__base__first may_be_replaced_by -2147483648.
+validateanda_rules(22): positive__base__last may_be_replaced_by 2147483647.
+validateanda_rules(23): audittypes__descriptioni__size >= 0 may_be_deduced.
+validateanda_rules(24): audittypes__descriptioni__first may_be_replaced_by 1.
+validateanda_rules(25): audittypes__descriptioni__last may_be_replaced_by 150.
+validateanda_rules(26): audittypes__descriptioni__base__first may_be_replaced_by -2147483648.
+validateanda_rules(27): audittypes__descriptioni__base__last may_be_replaced_by 2147483647.
+validateanda_rules(28): cryptotypes__namecountt__size >= 0 may_be_deduced.
+validateanda_rules(29): cryptotypes__namecountt__first may_be_replaced_by 0.
+validateanda_rules(30): cryptotypes__namecountt__last may_be_replaced_by 40.
+validateanda_rules(31): cryptotypes__namecountt__base__first may_be_replaced_by -2147483648.
+validateanda_rules(32): cryptotypes__namecountt__base__last may_be_replaced_by 2147483647.
+validateanda_rules(33): cryptotypes__namei__size >= 0 may_be_deduced.
+validateanda_rules(34): cryptotypes__namei__first may_be_replaced_by 1.
+validateanda_rules(35): cryptotypes__namei__last may_be_replaced_by 40.
+validateanda_rules(36): cryptotypes__namei__base__first may_be_replaced_by -2147483648.
+validateanda_rules(37): cryptotypes__namei__base__last may_be_replaced_by 2147483647.
+validateanda_rules(38): cryptotypes__issueridt__size >= 0 may_be_deduced.
+validateanda_rules(39): cryptotypes__issueridt__first may_be_replaced_by 0.
+validateanda_rules(40): cryptotypes__issueridt__last may_be_replaced_by 4294967295.
+validateanda_rules(41): cryptotypes__issueridt__base__first <= 
+     cryptotypes__issueridt__base__last may_be_deduced.
+validateanda_rules(42): cryptotypes__issueridt__base__first <= 
+     cryptotypes__issueridt__first may_be_deduced.
+validateanda_rules(43): cryptotypes__issueridt__base__last >= 
+     cryptotypes__issueridt__last may_be_deduced.
+validateanda_rules(44): cryptotypes__issuert__size >= 0 may_be_deduced.
+validateanda_rules(45): A = B may_be_deduced_from
+     [goal(checktype(A,cryptotypes__issuert)),
+      goal(checktype(B,cryptotypes__issuert)),
+      fld_id(A) = fld_id(B),
+      fld_namelength(A) = fld_namelength(B),
+      fld_name(A) = fld_name(B)].
+validateanda_rules(46): cryptotypes__algorithmt__size >= 0 may_be_deduced.
+validateanda_rules(47): cryptotypes__algorithmt__first may_be_replaced_by cryptotypes__rsa.
+validateanda_rules(48): cryptotypes__algorithmt__last may_be_replaced_by cryptotypes__ripemd160_rsa.
+validateanda_rules(49): cryptotypes__algorithmt__base__first may_be_replaced_by cryptotypes__rsa.
+validateanda_rules(50): cryptotypes__algorithmt__base__last may_be_replaced_by cryptotypes__ripemd160_rsa.
+validateanda_rules(51): cryptotypes__algorithmt__pos(
+     cryptotypes__algorithmt__first) may_be_replaced_by 0.
+validateanda_rules(52): cryptotypes__algorithmt__pos(
+     cryptotypes__rsa) may_be_replaced_by 0.
+validateanda_rules(53): cryptotypes__algorithmt__val(0) may_be_replaced_by 
+     cryptotypes__rsa.
+validateanda_rules(54): cryptotypes__algorithmt__pos(
+     cryptotypes__md2) may_be_replaced_by 1.
+validateanda_rules(55): cryptotypes__algorithmt__val(1) may_be_replaced_by 
+     cryptotypes__md2.
+validateanda_rules(56): cryptotypes__algorithmt__pos(
+     cryptotypes__md5) may_be_replaced_by 2.
+validateanda_rules(57): cryptotypes__algorithmt__val(2) may_be_replaced_by 
+     cryptotypes__md5.
+validateanda_rules(58): cryptotypes__algorithmt__pos(
+     cryptotypes__sha_1) may_be_replaced_by 3.
+validateanda_rules(59): cryptotypes__algorithmt__val(3) may_be_replaced_by 
+     cryptotypes__sha_1.
+validateanda_rules(60): cryptotypes__algorithmt__pos(
+     cryptotypes__ripemd128) may_be_replaced_by 4.
+validateanda_rules(61): cryptotypes__algorithmt__val(4) may_be_replaced_by 
+     cryptotypes__ripemd128.
+validateanda_rules(62): cryptotypes__algorithmt__pos(
+     cryptotypes__ripemd160) may_be_replaced_by 5.
+validateanda_rules(63): cryptotypes__algorithmt__val(5) may_be_replaced_by 
+     cryptotypes__ripemd160.
+validateanda_rules(64): cryptotypes__algorithmt__pos(
+     cryptotypes__md2_rsa) may_be_replaced_by 6.
+validateanda_rules(65): cryptotypes__algorithmt__val(6) may_be_replaced_by 
+     cryptotypes__md2_rsa.
+validateanda_rules(66): cryptotypes__algorithmt__pos(
+     cryptotypes__md5_rsa) may_be_replaced_by 7.
+validateanda_rules(67): cryptotypes__algorithmt__val(7) may_be_replaced_by 
+     cryptotypes__md5_rsa.
+validateanda_rules(68): cryptotypes__algorithmt__pos(
+     cryptotypes__sha1_rsa) may_be_replaced_by 8.
+validateanda_rules(69): cryptotypes__algorithmt__val(8) may_be_replaced_by 
+     cryptotypes__sha1_rsa.
+validateanda_rules(70): cryptotypes__algorithmt__pos(
+     cryptotypes__ripemd128_rsa) may_be_replaced_by 9.
+validateanda_rules(71): cryptotypes__algorithmt__val(9) may_be_replaced_by 
+     cryptotypes__ripemd128_rsa.
+validateanda_rules(72): cryptotypes__algorithmt__pos(
+     cryptotypes__ripemd160_rsa) may_be_replaced_by 10.
+validateanda_rules(73): cryptotypes__algorithmt__val(10) may_be_replaced_by 
+     cryptotypes__ripemd160_rsa.
+validateanda_rules(74): cryptotypes__algorithmt__pos(
+     cryptotypes__algorithmt__last) may_be_replaced_by 10.
+validateanda_rules(75): cryptotypes__algorithmt__pos(succ(X)) may_be_replaced_by 
+     cryptotypes__algorithmt__pos(X) + 1
+     if [X <=cryptotypes__ripemd160_rsa, X <> 
+     cryptotypes__ripemd160_rsa].
+validateanda_rules(76): cryptotypes__algorithmt__pos(pred(X)) may_be_replaced_by 
+     cryptotypes__algorithmt__pos(X) - 1
+     if [X >=cryptotypes__rsa, X <> cryptotypes__rsa].
+validateanda_rules(77): cryptotypes__algorithmt__pos(X) >= 0 may_be_deduced_from
+     [cryptotypes__rsa <= X, X <= cryptotypes__ripemd160_rsa].
+validateanda_rules(78): cryptotypes__algorithmt__pos(X) <= 10 may_be_deduced_from
+     [cryptotypes__rsa <= X, X <= cryptotypes__ripemd160_rsa].
+validateanda_rules(79): cryptotypes__algorithmt__val(X) >= 
+     cryptotypes__rsa may_be_deduced_from
+     [0 <= X, X <= 10].
+validateanda_rules(80): cryptotypes__algorithmt__val(X) <= 
+     cryptotypes__ripemd160_rsa may_be_deduced_from
+     [0 <= X, X <= 10].
+validateanda_rules(81): succ(cryptotypes__algorithmt__val(X)) may_be_replaced_by 
+     cryptotypes__algorithmt__val(X+1)
+     if [0 <= X, X < 10].
+validateanda_rules(82): pred(cryptotypes__algorithmt__val(X)) may_be_replaced_by 
+     cryptotypes__algorithmt__val(X-1)
+     if [0 < X, X <= 10].
+validateanda_rules(83): cryptotypes__algorithmt__pos(
+     cryptotypes__algorithmt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 10].
+validateanda_rules(84): cryptotypes__algorithmt__val(
+     cryptotypes__algorithmt__pos(X)) may_be_replaced_by X
+     if [cryptotypes__rsa <= X, X <= cryptotypes__ripemd160_rsa].
+validateanda_rules(85): cryptotypes__algorithmt__pos(X) <= 
+     cryptotypes__algorithmt__pos(Y) & X <= Y are_interchangeable 
+     if [cryptotypes__rsa <= X, X <= cryptotypes__ripemd160_rsa, 
+     cryptotypes__rsa <= Y, Y <= cryptotypes__ripemd160_rsa].
+validateanda_rules(86): cryptotypes__algorithmt__val(X) <= 
+     cryptotypes__algorithmt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 10, 0 <= Y, Y <= 10].
+validateanda_rules(87): cryptotypes__keyidt__size >= 0 may_be_deduced.
+validateanda_rules(88): cryptotypes__keyidt__first may_be_replaced_by 0.
+validateanda_rules(89): cryptotypes__keyidt__last may_be_replaced_by 4294967295.
+validateanda_rules(90): cryptotypes__keyidt__base__first <= 
+     cryptotypes__keyidt__base__last may_be_deduced.
+validateanda_rules(91): cryptotypes__keyidt__base__first <= 
+     cryptotypes__keyidt__first may_be_deduced.
+validateanda_rules(92): cryptotypes__keyidt__base__last >= 
+     cryptotypes__keyidt__last may_be_deduced.
+validateanda_rules(93): cryptotypes__keylengtht__size >= 0 may_be_deduced.
+validateanda_rules(94): cryptotypes__keylengtht__first may_be_replaced_by 0.
+validateanda_rules(95): cryptotypes__keylengtht__last may_be_replaced_by 128.
+validateanda_rules(96): cryptotypes__keylengtht__base__first <= 
+     cryptotypes__keylengtht__base__last may_be_deduced.
+validateanda_rules(97): cryptotypes__keylengtht__base__first <= 
+     cryptotypes__keylengtht__first may_be_deduced.
+validateanda_rules(98): cryptotypes__keylengtht__base__last >= 
+     cryptotypes__keylengtht__last may_be_deduced.
+validateanda_rules(99): cryptotypes__keypartt__size >= 0 may_be_deduced.
+validateanda_rules(100): A = B may_be_deduced_from
+     [goal(checktype(A,cryptotypes__keypartt)),
+      goal(checktype(B,cryptotypes__keypartt)),
+      fld_algorithmid(A) = fld_algorithmid(B),
+      fld_keyid(A) = fld_keyid(B),
+      fld_keylength(A) = fld_keylength(B)].
+validateanda_rules(101): certtypes__rawcertificatei__size >= 0 may_be_deduced.
+validateanda_rules(102): certtypes__rawcertificatei__first may_be_replaced_by 1.
+validateanda_rules(103): certtypes__rawcertificatei__last may_be_replaced_by 4096.
+validateanda_rules(104): certtypes__rawcertificatei__base__first may_be_replaced_by -2147483648.
+validateanda_rules(105): certtypes__rawcertificatei__base__last may_be_replaced_by 2147483647.
+validateanda_rules(106): cert__id__contentst__size >= 0 may_be_deduced.
+validateanda_rules(107): A = B may_be_deduced_from
+     [goal(checktype(A,cert__id__contentst)),
+      goal(checktype(B,cert__id__contentst)),
+      fld_inherit(A) = fld_inherit(B)].

@@ -1,0 +1,27 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:30.76*/
+
+                    /*function ConfigData.TheSystemMaxFar*/
+
+
+rule_family thesystemmax_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+thesystemmax_rules(1): iandatypes__fart__size >= 0 may_be_deduced.
+thesystemmax_rules(2): iandatypes__fart__size may_be_replaced_by 32.
+thesystemmax_rules(3): iandatypes__fart__first may_be_replaced_by 0.
+thesystemmax_rules(4): iandatypes__fart__last may_be_replaced_by 2147483647.
+thesystemmax_rules(5): iandatypes__fart__base__first <= 
+     iandatypes__fart__base__last may_be_deduced.
+thesystemmax_rules(6): iandatypes__fart__base__first <= 
+     iandatypes__fart__first may_be_deduced.
+thesystemmax_rules(7): iandatypes__fart__base__last >= 
+     iandatypes__fart__last may_be_deduced.

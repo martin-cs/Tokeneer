@@ -1,0 +1,32 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:30.72*/
+
+                /*function ConfigData.TheTokenRemovalDuration*/
+
+
+rule_family thetokenremo_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+thetokenremo_rules(1): clock__durationt__size >= 0 may_be_deduced.
+thetokenremo_rules(2): clock__durationt__first may_be_replaced_by 0.
+thetokenremo_rules(3): clock__durationt__last may_be_replaced_by 864000.
+thetokenremo_rules(4): clock__durationt__base__first <= 
+     clock__durationt__base__last may_be_deduced.
+thetokenremo_rules(5): clock__durationt__base__first <= 
+     clock__durationt__first may_be_deduced.
+thetokenremo_rules(6): clock__durationt__base__last >= 
+     clock__durationt__last may_be_deduced.
+thetokenremo_rules(7): durationt__size >= 0 may_be_deduced.
+thetokenremo_rules(8): durationt__first may_be_replaced_by 0.
+thetokenremo_rules(9): durationt__last may_be_replaced_by 2000.
+thetokenremo_rules(10): durationt__base__first <= durationt__base__last may_be_deduced.
+thetokenremo_rules(11): durationt__base__first <= durationt__first may_be_deduced.
+thetokenremo_rules(12): durationt__base__last >= durationt__last may_be_deduced.

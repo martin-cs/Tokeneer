@@ -1,0 +1,212 @@
+\documentclass{pxcsdoc}
+\usepackage{praxfuzz}
+\usepackage{parskip}
+\usepackage{multicol}
+\usepackage{enumerate}
+\usepackage{proof}
+
+
+\newcommand{\true}{\mathrel{\sf true}}
+\newcommand{\false}{\mathrel{\sf false}}
+
+\makeindex
+\usepackage{trace}
+
+\documentset{Tokeneer ID Station}
+
+\reference{S.P1229.41.2}
+
+\title{Formal Specification}
+
+\synopsis{
+This document is the formal specification of the core
+Token ID Station (TIS), which forms part of Tokeneer. 
+}
+
+\contentsinside
+
+\status{Definitive}
+
+\issuenumber{1.4}
+
+\date{14th August 2008}
+
+\copiedto{%
+\begin{minipage}[t]{100mm}%
+\vspace{-\abovedisplayskip}%
+\begin{multicols}{2}%
+\raggedright%
+{\bfseries NSA}\\
+Randolph Johnson \\[1ex]
+{\bfseries SPRE Inc.}\\
+\newpage
+{\bfseries Praxis High Integrity Systems}\\
+Project Team \\[4ex]
+~\\
+\end{multicols}\end{minipage}
+}
+\frontsheet{%
+Quality
+}
+
+\originators{%
+Janet Barnes}
+
+\approverA{Approver}{David Cooper}
+
+\confidentiality{}
+
+\begin{document}
+
+\maketitle
+%\include{renames}
+
+%=========================================================================
+
+\documentcontrol
+Copyright \copyright (2003) United States Government, as represented by the
+Director, National Security Agency. All rights reserved.
+This material was originally developed by Praxis High Integrity
+Systems Ltd. under contract to the National Security Agency.
+\section*{Changes History}
+\textit{All issues of this document have been type-checked with \fuzz~and have
+  given no errors.}
+\begin{description}
+\item [Issue 0.1] 
+(28th March 2003) First draft issued for comments within Praxis.
+\item [Issue 0.2]
+(5th April 2003) Draft incorporating comments from David Cooper.
+\item [Issue 0.3]
+(14th April 2003) Draft sent to Randolph Johnson (NSA).
+\item [Issue 0.4]
+(8th May 2003) Final Draft for formal review.
+\item [Issue 1.0]
+(9th May 2003) Provisional issue to client following internal review.
+\item [Issue 1.1]
+(27th June 2003) Definitive issue incorporating client feedback and
+correction to faults S.P1229.6.1-5. 
+\item [Issue 1.2]
+(22nd July 2003) Definitive issue correcting faults 
+\begin{itemize}
+\item S.P1229.6.6 - Tearing a user token mid-entry should constitute a
+failed entry and be logged as such within the statistics.
+\item S.P1229.6.7 - Remove the ability to retry fingerprint validation
+following a failure.
+\item S.P1229.6.19 - Correct typographical error on page 51.
+\end{itemize}
+\item [Issue 1.3]
+(22nd August 2003) Definitive issue correcting faults.
+\begin{itemize}
+\item S.P1229.6.32 - Improve poor text messages on screen.
+\item S.P1229.6.33 - Make initial configuration realistic.
+\item S.P1229.6.36 - Screen should show busy message when a user entry
+is in progress.
+\item S.P1229.6.38 - Operation failures not reported on screen.
+\end{itemize}
+\item [Issue 1.4]
+(14th August 2008) Updated for public release.
+\end{description}
+
+\section*{Changes Forecast}
+
+None. This document is now under change control.
+
+\section*{References}
+\begin{thebibliography}{99}
+\bibitem{Spivey}
+The Z Notation: A Reference Manual, J.M Spivey, Prentice Hall, Second Edition,
+1992
+\bibitem{SRS}
+TIS Software Requirements Specification, Version 2.0, S.P1229.41.1.
+\bibitem{PP}
+TIS Kernel Protection Profile, SPRE Inc, Version 1.0, 5 February 2003.
+\bibitem{ST}
+TIS Security Target, S.P1229.40.1.
+\end{thebibliography}
+
+\section*{Abbreviations}
+{\footnotesize\begin{tabular}{ll}
+AA           & Attribute Authority \\
+ATR          & Answer-to-Reset \\
+CA           & Certification Authority \\
+I\&A         & Identification and Authentication \\
+RSA          & Rivest Shamir Adelman algorithm \\   
+SPARK        & SPADE Ada Kernel (analysable Ada subset from Praxis) \\
+SRS          & Software Requirements Specification \\
+TIS          & Token ID Station \\
+\end{tabular}}
+
+%==========================================================================
+
+
+\tableofcontents
+
+
+\include{41_2_Intro}
+
+\include{41_2_TIS}
+
+\include{41_2_Interfaces}
+
+\include{41_2_Internal}
+
+\include{41_2_UserEntry}
+
+\include{41_2_Enclave}
+
+\include{41_2_Start}
+
+\include{41_2_Whole}
+
+\appendix
+
+\input{41_2_Zbasics}
+
+\input{41_2_Summary}
+
+\input{41_2_Pre}
+
+\input{41_2_SRSTrace}
+
+\input{41_2_STTrace}
+
+\chapter{Z index}
+
+This section contains an index of Z terms.
+This contains all the Z schemas, types and functions
+defined in the specification. 
+
+\begin{multicols}{2}\scriptsize
+\begin{theindex}
+\input{z-index}
+\end{theindex}
+\end{multicols}
+
+\chapter{Traceunit index}
+
+An index of traceunits. This contains all the traceunits placed in the
+specification to enable the elements of the specification to be traced to
+the design.
+
+\begin{multicols}{2}\scriptsize
+\begin{theindex}
+\input{trace-index}
+\end{theindex}
+\end{multicols}
+
+\chapter{Requirements index}
+
+An index of traceunits. This contains all the traceunits in the 
+requirements documents . All requirements are listed with the pages
+from which they are referenced. 
+
+\begin{multicols}{2}\scriptsize
+\begin{theindex}
+\input{req-index}
+\end{theindex}
+\end{multicols}
+
+%===========================================================================
+
+
+\end{document}

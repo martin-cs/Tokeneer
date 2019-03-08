@@ -1,0 +1,87 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:16  SIMPLIFIED 05-SEP-2011, 15:38:31
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+function Admin.TheCurrentOp
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/admin/admin.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: function_thecurrentop_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  opandnullt__first <= fld_currentop(theadmin)
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  privtypes__privileget__first <= fld_rolepresent(theadmin)
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  opt__first <= fld_currentop(theadmin)
+***  Proved C1:  true
+-S-  Applied substitution rule thecurrentop_rules(58).
+     This was achieved by replacing all occurrences of opt__first by:
+          archivelog.
+<S>  New C2:  archivelog <= fld_currentop(theadmin)
+-S-  Applied substitution rule thecurrentop_rules(59).
+     This was achieved by replacing all occurrences of opt__last by:
+          shutdownop.
+<S>  New C3:  fld_currentop(theadmin) <= shutdownop
+-S-  Applied substitution rule thecurrentop_rules(2).
+     This was achieved by replacing all occurrences of 
+          privtypes__privileget__first by:
+          privtypes__useronly.
+<S>  New H4:  privtypes__useronly <= fld_rolepresent(theadmin)
+-S-  Applied substitution rule thecurrentop_rules(3).
+     This was achieved by replacing all occurrences of 
+          privtypes__privileget__last by:
+          privtypes__securityofficer.
+<S>  New H5:  fld_rolepresent(theadmin) <= privtypes__securityofficer
+-S-  Applied substitution rule thecurrentop_rules(29).
+     This was achieved by replacing all occurrences of opandnullt__first by:
+          nullop.
+<S>  New H2:  nullop <= fld_currentop(theadmin)
+-S-  Applied substitution rule thecurrentop_rules(30).
+     This was achieved by replacing all occurrences of opandnullt__last by:
+          shutdownop.
+<S>  New H3:  fld_currentop(theadmin) <= shutdownop
+***  Proved C3:  fld_currentop(theadmin) <= shutdownop
+     using hypothesis H3.
+     +++  New H6:  privtypes__privileget__size >= 0
+     +++  New H7:  opandnullt__size >= 0
+     +++  New H8:  opt__size >= 0
+     +++  New H9:  t__size >= 0
+***  Proved C2:  archivelog <= fld_currentop(theadmin)
+     This was achieved by applying the inference rule admin_user(2)
+     [from rulefile admin.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  By simple reasoning, proved: archivelog = succ(nullop)
+     <<<  From H1, proved: isdoingop(theadmin)
+     <<<  By simple reasoning, proved: nullop = nullop
+     <<<  From H2, proved: fld_currentop(theadmin) >= nullop
+     <<<  From H3, proved: fld_currentop(theadmin) <= shutdownop
+***  PROVED VC.
+
+VCN  1: Summary of user rule application.
+FIL  admin.rlu
+RUL     admin_user(2)
+CON        2
+
+
+OVR  Overall summary of VCs using user rules.
+FIL  admin.rlu
+RUL     admin_user(2)
+VCS        1
+

@@ -1,0 +1,138 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:20.25*/
+
+           /*procedure UserToken.ReadAndCheckAuthCert.CheckAuthCert*/
+
+
+rule_family checkauthcer_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+checkauthcer_rules(1): certtypes__certificatet__size >= 0 may_be_deduced.
+checkauthcer_rules(2): certtypes__certificatet__first may_be_replaced_by certtypes__idcert.
+checkauthcer_rules(3): certtypes__certificatet__last may_be_replaced_by certtypes__iandacert.
+checkauthcer_rules(4): certtypes__certificatet__base__first may_be_replaced_by certtypes__idcert.
+checkauthcer_rules(5): certtypes__certificatet__base__last may_be_replaced_by certtypes__iandacert.
+checkauthcer_rules(6): certtypes__certificatet__pos(
+     certtypes__certificatet__first) may_be_replaced_by 0.
+checkauthcer_rules(7): certtypes__certificatet__pos(
+     certtypes__idcert) may_be_replaced_by 0.
+checkauthcer_rules(8): certtypes__certificatet__val(0) may_be_replaced_by 
+     certtypes__idcert.
+checkauthcer_rules(9): certtypes__certificatet__pos(
+     certtypes__authcert) may_be_replaced_by 1.
+checkauthcer_rules(10): certtypes__certificatet__val(1) may_be_replaced_by 
+     certtypes__authcert.
+checkauthcer_rules(11): certtypes__certificatet__pos(
+     certtypes__privcert) may_be_replaced_by 2.
+checkauthcer_rules(12): certtypes__certificatet__val(2) may_be_replaced_by 
+     certtypes__privcert.
+checkauthcer_rules(13): certtypes__certificatet__pos(
+     certtypes__iandacert) may_be_replaced_by 3.
+checkauthcer_rules(14): certtypes__certificatet__val(3) may_be_replaced_by 
+     certtypes__iandacert.
+checkauthcer_rules(15): certtypes__certificatet__pos(
+     certtypes__certificatet__last) may_be_replaced_by 3.
+checkauthcer_rules(16): certtypes__certificatet__pos(succ(X)) may_be_replaced_by 
+     certtypes__certificatet__pos(X) + 1
+     if [X <=certtypes__iandacert, X <> certtypes__iandacert].
+checkauthcer_rules(17): certtypes__certificatet__pos(pred(X)) may_be_replaced_by 
+     certtypes__certificatet__pos(X) - 1
+     if [X >=certtypes__idcert, X <> certtypes__idcert].
+checkauthcer_rules(18): certtypes__certificatet__pos(X) >= 0 may_be_deduced_from
+     [certtypes__idcert <= X, X <= certtypes__iandacert].
+checkauthcer_rules(19): certtypes__certificatet__pos(X) <= 3 may_be_deduced_from
+     [certtypes__idcert <= X, X <= certtypes__iandacert].
+checkauthcer_rules(20): certtypes__certificatet__val(X) >= 
+     certtypes__idcert may_be_deduced_from
+     [0 <= X, X <= 3].
+checkauthcer_rules(21): certtypes__certificatet__val(X) <= 
+     certtypes__iandacert may_be_deduced_from
+     [0 <= X, X <= 3].
+checkauthcer_rules(22): succ(certtypes__certificatet__val(X)) may_be_replaced_by 
+     certtypes__certificatet__val(X+1)
+     if [0 <= X, X < 3].
+checkauthcer_rules(23): pred(certtypes__certificatet__val(X)) may_be_replaced_by 
+     certtypes__certificatet__val(X-1)
+     if [0 < X, X <= 3].
+checkauthcer_rules(24): certtypes__certificatet__pos(
+     certtypes__certificatet__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 3].
+checkauthcer_rules(25): certtypes__certificatet__val(
+     certtypes__certificatet__pos(X)) may_be_replaced_by X
+     if [certtypes__idcert <= X, X <= certtypes__iandacert].
+checkauthcer_rules(26): certtypes__certificatet__pos(X) <= 
+     certtypes__certificatet__pos(Y) & X <= Y are_interchangeable 
+     if [certtypes__idcert <= X, X <= certtypes__iandacert, 
+     certtypes__idcert <= Y, Y <= certtypes__iandacert].
+checkauthcer_rules(27): certtypes__certificatet__val(X) <= 
+     certtypes__certificatet__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 3, 0 <= Y, Y <= 3].
+checkauthcer_rules(28): cert__id__contentst__size >= 0 may_be_deduced.
+checkauthcer_rules(29): A = B may_be_deduced_from
+     [goal(checktype(A,cert__id__contentst)),
+      goal(checktype(B,cert__id__contentst)),
+      fld_inherit(A) = fld_inherit(B)].
+checkauthcer_rules(30): certificatestatus__size >= 0 may_be_deduced.
+checkauthcer_rules(31): certificatestatus__first may_be_replaced_by bad.
+checkauthcer_rules(32): certificatestatus__last may_be_replaced_by validcert.
+checkauthcer_rules(33): certificatestatus__base__first may_be_replaced_by bad.
+checkauthcer_rules(34): certificatestatus__base__last may_be_replaced_by validcert.
+checkauthcer_rules(35): certificatestatus__pos(certificatestatus__first) may_be_replaced_by 0.
+checkauthcer_rules(36): certificatestatus__pos(bad) may_be_replaced_by 0.
+checkauthcer_rules(37): certificatestatus__val(0) may_be_replaced_by 
+     bad.
+checkauthcer_rules(38): certificatestatus__pos(notverified) may_be_replaced_by 1.
+checkauthcer_rules(39): certificatestatus__val(1) may_be_replaced_by 
+     notverified.
+checkauthcer_rules(40): certificatestatus__pos(notcurrent) may_be_replaced_by 2.
+checkauthcer_rules(41): certificatestatus__val(2) may_be_replaced_by 
+     notcurrent.
+checkauthcer_rules(42): certificatestatus__pos(validcert) may_be_replaced_by 3.
+checkauthcer_rules(43): certificatestatus__val(3) may_be_replaced_by 
+     validcert.
+checkauthcer_rules(44): certificatestatus__pos(certificatestatus__last) may_be_replaced_by 3.
+checkauthcer_rules(45): certificatestatus__pos(succ(X)) may_be_replaced_by 
+     certificatestatus__pos(X) + 1
+     if [X <=validcert, X <> validcert].
+checkauthcer_rules(46): certificatestatus__pos(pred(X)) may_be_replaced_by 
+     certificatestatus__pos(X) - 1
+     if [X >=bad, X <> bad].
+checkauthcer_rules(47): certificatestatus__pos(X) >= 0 may_be_deduced_from
+     [bad <= X, X <= validcert].
+checkauthcer_rules(48): certificatestatus__pos(X) <= 3 may_be_deduced_from
+     [bad <= X, X <= validcert].
+checkauthcer_rules(49): certificatestatus__val(X) >= bad may_be_deduced_from
+     [0 <= X, X <= 3].
+checkauthcer_rules(50): certificatestatus__val(X) <= validcert may_be_deduced_from
+     [0 <= X, X <= 3].
+checkauthcer_rules(51): succ(certificatestatus__val(X)) may_be_replaced_by 
+     certificatestatus__val(X+1)
+     if [0 <= X, X < 3].
+checkauthcer_rules(52): pred(certificatestatus__val(X)) may_be_replaced_by 
+     certificatestatus__val(X-1)
+     if [0 < X, X <= 3].
+checkauthcer_rules(53): certificatestatus__pos(certificatestatus__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 3].
+checkauthcer_rules(54): certificatestatus__val(certificatestatus__pos(X)) may_be_replaced_by X
+     if [bad <= X, X <= validcert].
+checkauthcer_rules(55): certificatestatus__pos(X) <= 
+     certificatestatus__pos(Y) & X <= Y are_interchangeable 
+     if [bad <= X, X <= validcert, bad <= Y, Y <= validcert].
+checkauthcer_rules(56): certificatestatus__val(X) <= 
+     certificatestatus__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 3, 0 <= Y, Y <= 3].
+checkauthcer_rules(57): valididcertt__size >= 0 may_be_deduced.
+checkauthcer_rules(58): A = B may_be_deduced_from
+     [goal(checktype(A,valididcertt)),
+      goal(checktype(B,valididcertt)),
+      fld_valid(A) = fld_valid(B),
+      fld_idstatus(A) = fld_idstatus(B),
+      fld_contents(A) = fld_contents(B)].

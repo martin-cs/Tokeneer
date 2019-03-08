@@ -1,0 +1,435 @@
+\chapter{Tracing of ST Requirements}
+\label{sec:STTrace}
+\section{Mapping of Functional Security Requirements}
+\label{sec:mapST}
+This section justifies the manner in which this specification
+satisifies the security requirements presented in the Security Target
+\cite{ST}. 
+
+
+{\footnotesize \sf 
+SFP.DAC (new table):
+} 
+\newline
+	$Admin$ invariants define available Ops for each
+role. $ValidateOpRequestOK$ checks the requested op against the
+role. $ValidateAdminTokenOK$ logs the user on based on their
+Authorisation Certificate. 
+Viewing is controlled by $UpdateScreen$, which defines the information
+displayed on the screen. It displays configuration data only if the
+security officer is present. System statistics are deamed non-secure,
+and are displayed when any administrator is logged on.
+
+{\footnotesize \sf 
+FAU\_ARP.1.1:
+} 
+\newline
+	Defined class of alarms are: door
+	open, latched, too long; audit files truncating with loss. 
+\newline
+	$DoorLatchAlarm$ invariant defines the internal decision to
+	alarm the door. This is effected in the real world with
+	$UpdateAlarm$, done twice on each main loop. 
+\newline
+	$AddElementsToLog$ and $ClearLog$ modify the audit alarm
+	internally.  This is effected in the real world with
+	$UpdateAlarm$, done twice on each main loop. 
+\newline
+	Alarming is audited in $AuditAlarm$ and $AuditLogAlarm$, part of
+	$LogChange$. invoked once every main loop. 
+
+{\footnotesize \sf 
+FAU\_GEN.1.1:
+}
+\newline
+	Every significant schema audits. A check will need to be done
+	at the code level that the actual collection of events is as
+	desired. 
+	Confirm necessary list of audit events only once the other
+	exclusions are in place. 
+
+{\footnotesize \sf 
+FAU\_GEN.1.2:
+}
+\newline
+	Free type Audit is not elaborated in this specification. Will
+	need to be checked when elaborated in the design. 
+
+{\footnotesize \sf 
+FAU\_GEN.2.1:
+}
+\newline
+	See FAU\_GEN.1.2
+
+{\footnotesize \sf 
+FAU\_SAA.1.1:
+}
+\newline
+	Alarming is the mechanism for responding immediately to
+	audited events, and so this requirement is met by the
+	FAU\_ARP.1.1 above. 
+
+{\footnotesize \sf 
+FAU\_SAA.1.2:
+}
+\newline
+	See FAU\_SAA.1.1
+
+{\footnotesize \sf 
+FAU\_STG.2.3:
+}
+\newline
+	$AddElementsToLog$
+
+{\footnotesize \sf 
+FAU\_STG.4.1:
+}
+\newline
+	$AddElementsToLog$
+
+{\footnotesize \sf 
+FCO\_NRO.2.1:
+}
+\newline
+	$ValidToken$ defines some of the checks on all the
+	certificates, $TokenWithValidAuthCert$ including the
+	Authorisation Certificate. This is invoked in $UserTokenOK$
+	and $UserTokenWithOKAuthCert$, which add the remaining
+	checks. 
+
+{\footnotesize \sf 
+FCO\_NRO.2.2:
+}
+\newline
+	See FCO\_NRO.2.1
+
+{\footnotesize \sf 
+FCO\_NRO.2.3:
+}
+\newline
+	See FCO\_NRO.2.1
+
+{\footnotesize \sf 
+FDP\_ACC.1.1:
+}
+\newline
+	Access to system objects is controlled by giving admin users
+	roles, and controlling which operations they have access
+	to. This is covered in SFP\_DAC. Access to user objects
+	(certificates on tokens) is restricted by the basic design of
+	the system: certificates are read and validated during user
+	entry ($TISUserEntryOp$) for a single user at a time, and then
+	discarded. There is no opportunity for any other user or
+	administrator to access these objects. 
+
+{\footnotesize \sf 
+FDP\_ACF.1.1:
+}
+\newline
+	see FDP\_ACC.1.1
+
+{\footnotesize \sf 
+FDP\_ACF.1.2:
+}
+\newline
+	see FDP\_ACC.1.1
+
+{\footnotesize \sf 
+FDP\_ACF.1.3:
+}
+\newline
+	see FDP\_ACC.1.1
+
+{\footnotesize \sf 
+FDP\_ACF.1.4:
+}
+\newline
+	see FDP\_ACC.1.1
+	
+{\footnotesize \sf 
+FDP\_DAU.2.1:
+}
+\newline
+	This refers to ensuring validity of the users' credentials,
+	i.e. the cryptographic processes that ensure the certificates
+	are signed correctly. This is therefore covered in
+	$ValidToken$, and $TokenWithValidAuthCert$
+	which define some of the checks on all the certificates,
+	including the Authorisation Certificate, and the invoking
+	$UserTokenOK$ and $UserTokenWithOKAuthCert$, which add the
+	remaining checks. Ensuring the Authorisation Certificate is
+	valid is carried out in $TISWriteUserToken$. But note that as
+	the cryto is simulated, this validity checking and guarantee
+	is not real. 
+
+{\footnotesize \sf 
+FDP\_DAU.2.2:
+}
+\newline
+	See FDP\_DAU.2.1
+
+{\footnotesize \sf 
+FDP\_RIP.2.1:
+}
+\newline
+	Not really a functional requirement. But the specification
+	overall does not provide any function to access the previous
+	information in a resource. This requirement is deferred.
+
+{\footnotesize \sf 
+FDP\_UIT.1.1:
+}
+\newline
+	Authorisation Certificates are created by $NewAuthCert$, which
+	ensures they can be validated by the key of the ID Station. 
+
+{\footnotesize \sf 
+FDP\_UIT.1.2:
+}
+\newline
+	See FDP\_UIT.1.1.
+
+
+{\footnotesize \sf 
+FIA\_UAU.2.1:
+}
+\newline
+	This is the basic operation of the TIS, and is implemented by
+	the whole behaviour - not permitting user entry until
+	authorisation and not letting administrators carry out
+	operations until they have logged on. This cannot be mapped to
+	any specific part of the specification, but the property is
+	captured in the formal security policy, and the proof follows
+	from there. 
+
+{\footnotesize \sf 
+FIA\_UAU.3.1:
+}
+\newline
+	Only detection of forgery of token information is in
+	scope. This maps to $ValidToken$ and the cryptographic check
+	implied by this. 
+
+{\footnotesize \sf 
+FIA\_UAU.3.2:
+}
+\newline
+	The design choice of using biometric data means that copying
+	the token is not an effective attack, because it is not
+	possible to copy the other person's actual biometric object
+	(e.g. their finger). Copying the authorisation certificate
+	without copying the token is prevented by $ValidToken$, which
+	checks the token ID in the certificate is the same as on the
+	Token, and $NewAuthCert$, which constructs auth certs with the
+	correct token ID in them. This does depend on the token ID
+	being unique. 
+
+{\footnotesize \sf 
+FIA\_UAU.7.1:
+}
+\newline
+	The series of updates to the display given in the
+	$TISUserEntryOp$ operation presents information to the user only
+	at major milestones in the authentication process, and so
+	leaks no useful information to the user. 
+
+{\footnotesize \sf 
+FIA\_UID.2.1:
+}
+\newline
+	The first action a user must carry out is to present their
+	token, from which the certificates are extracted
+	($ReadUserToken$ and $ReadAdminToken$). These certificates
+	identify the user to the system before they can do anything
+	else. 
+
+{\footnotesize \sf 
+FIA\_USB.1.1:
+}
+\newline
+	For user entry, no operation is possible other than to unlock
+	the door, which is done only if the user is allowed entry, so
+	this requirement does not really apply. For administrators,
+	the actions allowed to a user are based on their role, as
+	covered by SFP.DAC. 
+
+{\footnotesize \sf 
+FMT\_MOF.1.1:
+}
+\newline
+	This table has been modified by the ST, making it clear that
+	only configuration data will be modifiable, and then only by
+	the security officer. The allocation of operations to the
+	security officer is covered in the Admin invariant, which
+	gives him (and only him) only
+	$updateConfigData$. $ValidateOpRequest$ will therefore limit him
+	to modification of the configuration data. 
+
+{\footnotesize \sf 
+FMT\_MSA.1.1:
+}
+\newline
+	See SFP.DAC.
+
+{\footnotesize \sf 
+FMT\_MSA.2.1:
+}
+\newline
+	Configuration data and enrolment data, the only security
+	information, is entered via a floppy. The definition of the
+	possible content of a floppy includes 
+	$enrolmentFile \ldata ValidEnrol \rdata$, $configFile \ldata
+	Config \rdata$ and $badFloppy$. The invariants on
+	$ValidEnrol$ and $Config$ ensure that if the floppy is regarded as
+	having enrolment or configuration data, it will be correctly
+	constructed (secure). If the data is not correct, the floppy
+	will be regarded as having $badFloppy$ data, and $EnrolmentDataOK$
+	and $FinishUpdateConfigDataOK$ will not read it. (Invariants
+	will need to be defined for all security values in $Config$
+	and $ValidEnrol$ in discussion with the client).
+
+{\footnotesize \sf 
+FMT\_MSA.3.1:
+}
+\newline
+	InitIDStation
+
+{\footnotesize \sf 
+FMT\_MSA.3.2:
+}
+\newline
+	No information is created by the Security Officer, and so this requirement does not need to be implemented.
+
+{\footnotesize \sf 
+FMT\_MTD.1.1:
+}
+\newline
+	See SFP.DAC
+
+{\footnotesize \sf 
+FMT\_MTD.3.1:
+}
+\newline
+	See FMT\_MSA.2.1
+
+{\footnotesize \sf 
+FMT\_SAE.1.1:
+}
+\newline
+        See SFP.DAC.
+
+{\footnotesize \sf 
+FMT\_SAE.1.2:
+}
+\newline
+	Not implemented. Behaviourally, whether the authorisation cert is there and out of validity, or not there, is invisible to the user.
+
+{\footnotesize \sf 
+FMT\_SMR.2.1:
+}
+\newline
+	See SFP.DAC
+
+{\footnotesize \sf 
+FMT\_SMR.2.2:
+}
+\newline
+	$ValidateAdminTokenOK$ associates a user with the role given to them in their authorisation certificate.
+
+{\footnotesize \sf 
+FMT\_SMR.3.1:
+}
+\newline
+	The Administrator must insert their admin token and have it read by the system ($ReadAdminTokenOK$) before they are given any admin role.
+
+{\footnotesize \sf 
+FPT\_FLS.1.1:
+}
+\newline
+	Power failure or crash will require the system to be re-started. There is no persistent state, and a re-start will require the system to be re-started in a secure state, as with any start-up.
+
+{\footnotesize \sf 
+FPT\_RVM.1.1:
+}
+\newline
+	The invariant in $DoorLatchAlarm$ ensures that the latch never
+	remains unlocked beyond the time set by the TIS. It also
+	ensures that the alarm will sound if the door remains open for
+	too long. 
+	The variables $status$ and $enclaveStatus$ act as state-machine
+	controls, and ensure that each operation can only be performed
+	when the system is in the correct state. 
+
+{\footnotesize \sf 
+FPT\_STM.1.1:
+}
+\newline
+	$PollTime$ reads the time from an external source (assumed
+	reliable). This is done once per main loop. 
+
+{\footnotesize \sf 
+FRU\_PRS.1.1:
+}
+\newline
+	The variables $status$ and $enclaveStatus$ act as state-machine
+	controls and ensure that once User Entry or Admin validation
+	have started, they continue to appropriate points, ignoring
+	other accesses. This in effect assures that an action in hand
+	has priority over new actions - new subjects have lower
+	priority to old subjects. 
+
+{\footnotesize \sf 
+FRU\_PRS.1.2:
+}
+\newline
+	See FRU\_PRS.1.1
+
+
+
+
+\section{Requirements out of scope}
+This section lists the requirements that are not referenced from this
+document, with a justification for their omission.
+
+\subsection{Deferred}
+
+The following requirements have been deferred to the design due to their
+detailed nature.
+
+\begin{traceunit}{FS.NotInScope.Deferred}
+\traceto{FAU\_GEN.1.2}
+\traceto{FAU\_GEN.2.1}
+\traceto{FDP\_RIP.2.1}
+
+\end{traceunit}%Deferred
+
+\subsection{NotImplemented}
+
+The following requirements have not been implemented, the
+justification for their non-implementation is covered in section \ref{sec:mapST}.
+
+\begin{traceunit}{FS.NotInScope.STNotImplemented}
+\traceto{FMT\_SAE.1.2}
+\end{traceunit}%Deferred
+
+%------------------------------------------------------------------------
+\section{General Requirements}
+%------------------------------------------------------------------------
+Several of the security requirements are of a general nature and demonstration
+of their satisfaction by this specification requires analysis of the
+whole specification rather than reference to a single (or small number
+of) operation schemas. The justification of satisfaction of each of
+these requirements is presented in section \ref{sec:mapST}.
+
+\begin{traceunit}{FS.General.STRequirements}
+\traceto{FRU\_PRS.1.1}
+\traceto{FRU\_PRS.1.2}
+\end{traceunit}%STRequirements
+
+
+
+
+
+
+
+

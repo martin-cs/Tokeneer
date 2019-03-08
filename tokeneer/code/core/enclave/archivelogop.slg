@@ -1,0 +1,237 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:26  SIMPLIFIED 05-SEP-2011, 15:40:31
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure Enclave.ArchiveLogOp
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/enclave/enclave.rlu
+&&&  d:/sparkdev/tis2011/code/core/enclave/archivelogop.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_archivelogop_1.  @@@@@@@@@@
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  statust__first <= status
+***  Proved C1:  status = waitingstartadminop
+     using hypothesis H10.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelogop_2.  @@@@@@@@@@
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  statust__first <= status
+***  Proved C1:  admin__ispresent(theadmin)
+     using hypothesis H2.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelogop_3.  @@@@@@@@@@
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  statust__first <= status
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as 
+          H10).
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  statust__first <= status__1
+%%%  Simplified C8 on reading formula in, to give:
+     %%%  C8:  true
+***  Proved C2:  admin__ispresent(theadmin)
+     using hypothesis H2.
+***  Proved C3:  status__1 = waitingstartadminop or status__1 = 
+          waitingfinishadminop -> admin__isdoingop(theadmin) and (
+          admin__ispresent(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__archivelog)
+     using hypotheses H2, H3 & H4.
+***  Proved C5:  admin__prf_rolepresent(theadmin) = privtypes__guard -> 
+          admintoken__prf_isgood(admintoken__state) and (
+          admintoken__prf_authcertvalid(admintoken__state) and 
+          admintoken__theauthcertrole(admintoken__state) = privtypes__guard)
+     using hypothesis H5.
+***  Proved C6:  admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__overridelock -> admin__prf_rolepresent(theadmin) = 
+          privtypes__guard
+     using hypothesis H6.
+***  Proved C7:  admin__prf_rolepresent(theadmin) = privtypes__guard -> 
+          admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__overridelock or not admin__isdoingop(theadmin)
+     using hypothesis H7.
+***  Proved C8:  true
+-S-  Applied substitution rule archivelogop_rules(58).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H8:  notenrolled <= status
+<S>  New H13:  notenrolled <= status__1
+-S-  Applied substitution rule archivelogop_rules(59).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H9:  status <= shutdown
+<S>  New H14:  status__1 <= shutdown
+---  Eliminated hypothesis H11 (true-hypothesis).
+---  Eliminated hypothesis H1 (true-disjunction).
+-S-  Eliminated hypothesis H10.
+     This was achieved by replacing all occurrences of status by:
+          waitingstartadminop.
+<S>  New H8:  true
+<S>  New H9:  true
+---  Eliminated hypothesis H8 (true-hypothesis).
+---  Eliminated hypothesis H9 (true-hypothesis).
+     +++  New H15:  privtypes__privileget__size >= 0
+     +++  New H16:  admin__opandnullt__size >= 0
+     +++  New H17:  statust__size >= 0
+>>>  Conclusion C4 is an implication formula [P->Q].
+     Attempting to prove this by proving Q while adding P to the hypotheses.
++++  Added new hypotheses (in proving an implication formula).
+     +++  New H18:  status__1 = enclavequiescent
++++  New subgoal C1:  not admin__isdoingop(theadmin)
+-S-  Eliminated hypothesis H18.
+     This was achieved by replacing all occurrences of status__1 by:
+          enclavequiescent.
+<S>  New H12:  false
+<S>  New H13:  true
+<S>  New H14:  true
+***  Proved subgoal C1
+     using hypothesis H12.
+***  Proved C4:  status__1 = enclavequiescent -> not admin__isdoingop(theadmin)
+     by implication.
+***  Proved C1:  status__1 = waitingstartadminop or (status__1 = 
+          waitingfinishadminop or status__1 = enclavequiescent)
+     This was achieved by applying the inference rule archivelogop_user(1)
+     [from rulefile archivelogop.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H12, proved: status__1 = waitingstartadminop or status__1 = 
+          waitingfinishadminop
+***  PROVED VC.
+
+VCN  3: Summary of user rule application.
+FIL  archivelogop.rlu
+RUL     archivelogop_user(1)
+CON        1
+
+
+@@@@@@@@@@  VC: procedure_archivelogop_4.  @@@@@@@@@@
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  statust__first <= status
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H2)
+          .
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  statust__first <= status__2
+***  Proved C1:  status__2 = waitingstartadminop or (status__2 = 
+          waitingfinishadminop or status__2 = enclavequiescent)
+     using hypothesis H12.
+***  Proved C2:  admin__ispresent(theadmin__2)
+     using hypothesis H13.
+***  Proved C3:  status__2 = waitingstartadminop or status__2 = 
+          waitingfinishadminop -> admin__isdoingop(theadmin__2) and (
+          admin__ispresent(theadmin__2) and admin__thecurrentop(theadmin__2) = 
+          admin__archivelog)
+     using hypothesis H12.
+***  Proved C4:  status__2 = enclavequiescent -> not admin__isdoingop(
+          theadmin__2)
+     using hypothesis H14.
+***  Proved C6:  admin__isdoingop(theadmin__2) and admin__thecurrentop(
+          theadmin__2) = admin__overridelock -> admin__prf_rolepresent(
+          theadmin__2) = privtypes__guard
+     using hypothesis H14.
+***  Proved C7:  admin__prf_rolepresent(theadmin__2) = privtypes__guard -> 
+          admin__isdoingop(theadmin__2) and admin__thecurrentop(theadmin__2) = 
+          admin__overridelock or not admin__isdoingop(theadmin__2)
+     using hypothesis H14.
+***  Proved C8:  admin__prf_rolepresent(theadmin__2) = admin__prf_rolepresent(
+          theadmin)
+     using hypothesis H15.
+>>>  Restructured hypothesis H10 into:
+     >>>  H10:  status <> waitingstartadminop
+-S-  Applied substitution rule archivelogop_rules(58).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H8:  notenrolled <= status
+<S>  New H16:  notenrolled <= status__2
+-S-  Applied substitution rule archivelogop_rules(59).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H9:  status <= shutdown
+<S>  New H17:  status__2 <= shutdown
+---  Eliminated hypothesis H11 (true-hypothesis).
+%%%  Simplified H1 further (given H10), to give:
+     %%%  H1:  status = waitingfinishadminop
+-S-  Eliminated hypothesis H12.
+     This was achieved by replacing all occurrences of status__2 by:
+          enclavequiescent.
+<S>  New H16:  true
+<S>  New H17:  true
+-S-  Eliminated hypothesis H1.
+     This was achieved by replacing all occurrences of status by:
+          waitingfinishadminop.
+<S>  New H10:  true
+<S>  New H8:  true
+<S>  New H9:  true
+---  Eliminated hypothesis H16 (true-hypothesis).
+---  Eliminated hypothesis H17 (true-hypothesis).
+---  Eliminated hypothesis H10 (true-hypothesis).
+---  Eliminated hypothesis H8 (true-hypothesis).
+---  Eliminated hypothesis H9 (true-hypothesis).
+     +++  New H18:  privtypes__privileget__size >= 0
+     +++  New H19:  admin__opandnullt__size >= 0
+     +++  New H20:  statust__size >= 0
+>>>  Conclusion C5 is an implication formula [P->Q].
+     Attempting to prove this by proving Q while adding P to the hypotheses.
++++  Added new hypotheses (in proving an implication formula).
+     +++  New H21:  admin__prf_rolepresent(theadmin__2) = privtypes__guard
+>>>  Using "A->B, A |- B" on H5, given H15 & H21, we simplify the former to:
+     >>>  H5:  admintoken__prf_isgood(admintoken__state) and (
+          admintoken__prf_authcertvalid(admintoken__state) and 
+          admintoken__theauthcertrole(admintoken__state) = privtypes__guard)
+>>>  Using "A->B, A |- B" on H7, given H15 & H21, we simplify the former to:
+     >>>  H7:  admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__overridelock or not admin__isdoingop(theadmin)
+>>>  Hypothesis H5 has now been split into two, giving:
+     >>>  H22:  admintoken__prf_isgood(admintoken__state)
+     >>>  H23:  admintoken__prf_authcertvalid(admintoken__state) and 
+          admintoken__theauthcertrole(admintoken__state) = privtypes__guard
+>>>  Hypothesis H23 has now been split into two, giving:
+     >>>  H24:  admintoken__prf_authcertvalid(admintoken__state)
+     >>>  H25:  admintoken__theauthcertrole(admintoken__state) = 
+          privtypes__guard
++++  New subgoal C1:  admintoken__prf_isgood(admintoken__state) and (
+          admintoken__prf_authcertvalid(admintoken__state) and 
+          admintoken__theauthcertrole(admintoken__state) = privtypes__guard)
+>>>  Conclusion C1 has now been split into two, giving:
+     >>>  C1:  admintoken__prf_isgood(admintoken__state)
+     >>>  C2:  admintoken__prf_authcertvalid(admintoken__state) and 
+          admintoken__theauthcertrole(admintoken__state) = privtypes__guard
+>>>  Conclusion C2 has now been split into two, giving:
+     >>>  C2:  admintoken__prf_authcertvalid(admintoken__state)
+     >>>  C3:  admintoken__theauthcertrole(admintoken__state) = privtypes__guard
+***  Proved subgoal C1
+     using hypothesis H22.
+***  Proved subgoal C2
+     using hypothesis H24.
+***  Proved subgoal C3
+     using hypothesis H25.
+***  Proved C5:  admin__prf_rolepresent(theadmin__2) = privtypes__guard -> 
+          admintoken__prf_isgood(admintoken__state) and (
+          admintoken__prf_authcertvalid(admintoken__state) and 
+          admintoken__theauthcertrole(admintoken__state) = privtypes__guard)
+     by implication.
+***  PROVED VC.
+
+
+OVR  Overall summary of VCs using user rules.
+FIL  archivelogop.rlu
+RUL     archivelogop_user(1)
+VCS        3
+

@@ -1,0 +1,39 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:20.38}
+
+                {procedure UserToken.ReadAndCheck.CheckIDCert}
+
+
+title procedure checkidcert;
+
+  function round__(real) : integer;
+  type clock__currenttime__type = pending;
+  type cert__contentst = pending;
+  type certificatestatus = (bad, notverified, notcurrent, 
+     validcert);
+  type cert__id__contentst = record
+        inherit : cert__contentst
+     end;
+  type valididcertt = record
+        valid : boolean;
+        idstatus : certificatestatus;
+        contents : cert__id__contentst
+     end;
+  const certificatestatus__base__first : certificatestatus = pending; 
+  const certificatestatus__base__last : certificatestatus = pending; 
+  const valididcertt__size : integer = pending; 
+  const certificatestatus__first : certificatestatus = pending; 
+  const certificatestatus__last : certificatestatus = pending; 
+  const certificatestatus__size : integer = pending; 
+  var clock__currenttime : clock__currenttime__type;
+  var idcert : valididcertt;
+  function cert__iscurrent(cert__contentst, 
+     clock__currenttime__type) : boolean;
+
+end;

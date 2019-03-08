@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"> <head>
+    <title>Tokeneer Discovery</title>
+	<style type="text/css" media="screen">
+		@import "styles.css";
+	</style>
+	
+</head>
+<body>
+
+<div class="head">
+	<h1>Tokeneer Discovery - A SPARK Tutorial</h1>
+</div>
+
+<div class="sidebar">
+	<ul class="lesson_menu"> 
+	    <li><a id="intro" href="index.html"><strong>Introduction</strong></a>
+	    <li><a id="lesson_contracts" href="lesson_contracts.html"><strong>Contracts</strong>What is Special About SPARK Contracts?</a>
+	    <li><a id="lesson_intro" href="lesson_intro.html"><strong>Preamble</strong>Getting Started</a>
+	    <li><a id="lesson1" href="lesson1.html"><strong>Lesson 1</strong> Dealing with Improper Initialization</a>
+	    <li><a id="lesson2" href="lesson2.html"><strong>Lesson 2</strong> Identifying Ineffective Statements</a>
+	    <li><a id="lesson3" href="lesson3.html"><strong>Lesson 3</strong> Validating Input</a>
+	    <li><a id="lesson4" href="lesson4.html"><strong>Lesson 4</strong> SPARK Contracts</a>
+	    <li><a id="lesson5" href="lesson5.html"><strong>Lesson 5</strong> Dealing with Overflow Errors</a>
+	    <li><a id="lesson6" href="lesson6.html"><strong>Lesson 6</strong> Ensuring Secure Information Flow</a>
+	    <li><a id="lesson_summary" href="lesson_summary.html"><strong>Summary and Finding More Information</strong></a>
+	    <li><a id="install" href="installation.html">Installing SPARK and GPS</a>
+	    <li><a id="start_gps" href="start_gps.html">Starting GPS</a>
+	    <li><a id="examiner" href="spark_examine.html">Running the Examiner</a>
+	    <li><a id="analyse" href="spark_analyse.html">Analyse Tokeneer</a>
+    </ul> 
+
+</div>
+
+<div id="content">	
+    
+    <!-- Specific Course html right here -->
+<a name="buffer_overflow">
+<h2>Lesson 5: Dealing with Overflow Errors</h2></a> 
+
+     <p>
+    An <em>overflow error</em> occurs when the capacity of a device is
+    exceeded. Overflow errors are a source of quality and security
+    concerns. For instance, when an
+    <em>arithmetic overflow</em> occurs, a calculated value does not
+    fit in its specified size, and the calculation (and the program)
+    just stops. <em><a
+    href="http://cwe.mitre.org/data/definitions/119.html">Buffer
+    overflow</a></em> 
+    happens when a process stores data in a buffer
+    outside of the memory that the programmer set aside for it. Buffer
+    overflow errors are widely known to present a vulnerability to
+    malicious hackers, who might exploit the error to sneak their own
+    code onto a victim&#8217;s disk, storing it outside of the intended
+    buffer. 
+    </p>
+
+    <p>
+    The SPARK tools detect all potential arithmetic and buffer overflow
+    errors. In the <a href="lesson3.html">lesson about input
+    validation</a>, we saw an example of an 
+    <a href="http://cwe.mitre.org/data/definitions/190.html">
+    arithmetic overflow</a>. In
+    this lesson, we will study how the SPARK tools find a buffer
+    overflow error that we have injected into the Tokeneer code.
+    </p>
+    
+<h3>Step-by-Step Instructions</h3>
+    <p>
+    We will introduce a buffer overflow error into
+    <a href="files/auditlog_adb.html">auditlog.adb</a> and show how the 
+    SPARK Toolset detects it.
+    </p>
+
+   <h4>Step 1: Inject a Buffer Overflow Error</h4>
+
+    <p>Start with a fresh copy of the file <tt>auditlog.adb</tt> by copying
+    the file <tt>auditlog_copy.adb</tt> in <tt>tokeneer/code/core</tt> 
+    to <tt>auditlog.adb</tt>.
+    </p>
+
+    <p>The procedure <tt>AddElementToCurrentFile</tt> increments
+    the element indexed by <tt>CurrentLogFile</tt> in the array
+    <tt>LogFileEntries</tt> - see below.
+    
+    <pre>
+
+       775  &#8211;&#8211;# <b>post</b> LogFileEntries(CurrentLogFile) =
+       776  &#8211;&#8211;#             LogFileEntries~(CurrentLogFile) + 1;
+               &#8230;
+       790     LogFileEntries(CurrentLogFile) := LogFileEntries(CurrentLogFile) + 1;
+    
+</pre>
+
+    </p>
+    
+    <p>Change the code on line 790 and the postcondition on 775 to 776
+    so the procedure copies the value in the
+    <tt>CurrentLogFile+1</tt><sup>th</sup> element into the
+    <tt>CurrentLogFile</tt><sup>th</sup> element of the array.
+    The modified code is shown below.
+    
+    <pre>
+
+       774  &#8211;&#8211;# <b>pre</b> LogFileEntries(CurrentLogFile) &lt; MaxLogFileEntries;
+       775  <span class="highlight">&#8211;&#8211;# <b>post</b> LogFileEntries(CurrentLogFile) =</span>
+       776  <span class="highlight">&#8211;&#8211;#             LogFileEntries&tilde;(CurrentLogFile+1);</span>
+            &#8230;
+       790  <span class="highlight">LogFileEntries(CurrentLogFile) := LogFileEntries(CurrentLogFile+1) ;</span>
+    
+</pre>
+
+    </p>
+
+  <h4>Step 2: Analyse and Study the Verification Output</h4>
+
+    <p><a href="spark_analyse.html">Analyse Tokeneer</a> and open the file
+    <a href="files/core_sum_buffer_overflow.html">core.sum</a>.  The
+    SPARK Toolset identifies, on lines 587 to 597 (see below), that
+    there is a potential problem with the procedure
+    <tt>AddElementToCurrentFile</tt>.
+
+    <pre>
+  659	VCs for procedure_addelementtocurrentfile :
+  660	----------------------------------------------------------------------------
+  661	      |       |                     |  -----Proved In-----  |       |       |
+  662	 #    | From  | To                  | vcg | siv | plg | prv | False | TO DO |
+  663	----------------------------------------------------------------------------
+  664	 1    | start | rtc check @ 781     |     | YES |     |     |       |       | 
+  665	 2    | start | rtc check @ 782     |     | YES |     |     |       |       | 
+  666	 3    | start | rtc check @ 788     |     | YES |     |     |       |       | 
+  667	 4    | start | rtc check @ 790     |     |     |     |     |       |<span class="highlight">  YES  </span>|
+  668	 5    | start |    assert @ finish  |     | YES |     |     |       |       | 
+  669	&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;-
+    </pre>
+    </p>
+    
+    <p>The details of the problem are described on line 79 in 
+    <a
+    href="files/addelementtocurrentfile_bad_1_siv.html">addelementtocurrentfile.siv</a>.
+    The Simplifier failed to show that <tt>CurrentLogFile+1</tt>
+    is <em>always</em> within range of the index type because it is
+    not true - it goes outside its range when
+    <tt>CurrentLogFile = LogFileIndexType&#8217;Last</tt> which then
+    causes a buffer overflow.
+    </p>
+
+  <h3>Summary</h3>
+
+    <p>
+     Buffer overflow errors are common and present a security
+    vulnerability. The SPARK Toolset can verify that a SPARK program
+    is free from arithmetic as well as buffer overflow errors. In this
+    lesson we have seen how the SPARK tools can be used to detect a
+    buffer overflow error. In the next lesson, we will see how SPARK can be
+    used in <a href="lesson6.html">Ensuring Secure Information Flow</a>.
+    </p>
+
+</div>

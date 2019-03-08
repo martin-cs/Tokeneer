@@ -1,0 +1,338 @@
+
+%=========================================================================
+\chapter{Operations interfacing to the ID Station}
+\label{sec:Interfaces}
+%=========================================================================
+
+%-------------------------------------------------------------------------
+\section{Real World Changes}
+%-------------------------------------------------------------------------
+\label{sec:ReadWorld}
+The monitored components of the real world can change at any time.
+The only assumption we make of the real world is that the time
+supplied by the external time source increases. If the external time
+source does not supply increasing times then our system is not
+guaranteed to work.
+
+\begin{schema}{RealWorldChanges}
+        \Delta RealWorld
+\where
+        now' \geq now
+\end{schema}
+
+%-------------------------------------------------------------------------
+\section{Obtaining inputs from the real world}
+%-------------------------------------------------------------------------
+
+In this model all data is polled from the real world on a periodic
+basis. 
+
+%.................................
+\subsection{Polling the real world}
+%.................................
+
+\begin{traceunit}{FS.Interface.TISPoll}
+\traceto{FPT\_STM.1.1}
+\end{traceunit}
+
+We poll all of the real world entities.
+
+Changes to the time, may affect the state of the latch. 
+
+\begin{schema}{PollTime}
+	\Delta DoorLatchAlarm
+\\       RealWorld
+
+\where
+	currentTime' = now
+\end{schema}
+
+
+When polling the door, we do not change the alarm timeout or latch
+timeout. The internal representation of the latch or the alarm may
+change as a result of changes to the attributes that influence their
+values. 
+
+\begin{schema}{PollDoor}
+	\Delta DoorLatchAlarm
+\\	RealWorld
+\where
+	currentDoor' = door
+\\	latchTimeout' = latchTimeout
+\\	alarmTimeout' = alarmTimeout
+\end{schema}
+
+The system polls the tokens, finger, floppy and keyboard and the last
+present value is stored. This allows the 
+peripheral to be removed before TIS has completed use of the data.
+
+\begin{schema}{PollUserToken}
+        \Delta UserToken
+\\	RealWorld
+\where
+	userTokenPresence' = present \iff userToken \neq noT
+\\	currentUserToken' =  \IF userToken \neq noT \THEN userToken \ELSE currentUserToken
+\end{schema}
+
+\begin{schema}{PollAdminToken}
+	\Delta AdminToken
+\\      RealWorld
+\where
+	adminTokenPresence' = present \iff adminToken \neq noT
+\\	currentAdminToken' = \IF adminToken \neq noT \THEN
+adminToken \ELSE currentAdminToken
+\end{schema}
+
+\begin{schema}{PollFinger}
+	\Delta Finger
+\\	RealWorld
+\where
+	fingerPresence' = present \iff finger \neq noFP
+\\	currentFinger' = \IF finger \neq noFP \THEN finger \ELSE currentFinger
+\end{schema}
+
+\begin{schema}{PollFloppy}
+        \Delta Floppy
+\\      RealWorld
+\where
+	floppyPresence' = present \iff floppy \neq noFloppy
+\\      currentFloppy' = \IF floppy \neq noFloppy \THEN floppy \ELSE currentFloppy
+\\      writtenFloppy' = writtenFloppy
+\end{schema}
+
+\begin{schema}{PollKeyboard}
+        \Delta Keyboard
+\\      RealWorld
+\where
+        keyedDataPresence = present \iff keyboard \neq noKB
+\\        currentKeyedData' = \IF keyboard \neq noKB \THEN keyboard
+        \ELSE currentKeyedData
+\end{schema}
+
+As a result of polling the time and door the alarm may become raised
+or cleared and the latch locked or unlocked. Both of these events
+should be recorded in the audit.
+The opening and shutting of the door is also audited (auditing is
+defined later in the specification).
+
+So the overall poll operation is obtained by combining all the
+individual polling actions.
+
+If the user is
+currently being invited to enter the enclave on the display and the 
+door becomes latched then the display will change to indicate that the
+system is no longer offering entry.
+
+We assume that while polling occurs the $RealWorld$ does not change. 
+
+\begin{schema}{TISPoll}
+	\Delta IDStation
+\\      \Xi RealWorld
+\also
+	PollTime
+\\      PollDoor
+\\	PollUserToken
+\\	PollAdminToken
+\\	PollFinger
+\\      PollFloppy
+\\      PollKeyboard
+\\      LogChange
+\also
+        \Xi Config
+\\      \Xi KeyStore
+\\      \Xi Admin
+\\      \Xi Stats
+\\      \Xi Internal
+\where
+        currentScreen' = currentScreen
+\also
+        currentDisplay = doorUnlocked \land
+        currentLatch' = locked
+\\ \t1 \land        (status \neq waitingRemoveTokenFail \land
+        currentDisplay' = welcome
+\\ \t2 \lor status = waitingRemoveTokenFail \land currentDisplay' =
+removeToken)
+\\      \lor
+        \lnot (currentDisplay = doorUnlocked \land currentLatch' =
+        locked)
+\\ \t1  \land currentDisplay' = currentDisplay
+\end{schema}
+
+%-------------------------------------------------------------------------
+\section{The ID Station changes the world}
+%-------------------------------------------------------------------------
+
+%..........................
+\subsection{Periodic Updates}
+%..........................
+
+We consider the process of updating the real world with the current
+internal 
+representation, one variable at a time.
+
+\begin{schema}{UpdateLatch}
+	\Xi DoorLatchAlarm
+\\	RealWorldChanges
+\where
+	latch' = currentLatch
+\end{schema}
+
+\begin{schema}{UpdateAlarm}
+	\Xi DoorLatchAlarm
+\\      AuditLog
+\\	RealWorldChanges
+\where
+        alarm' = alarming \iff doorAlarm = alarming \lor auditAlarm = alarming 
+\end{schema}
+
+\begin{schema}{UpdateDisplay}
+	\Delta IDStation
+\\	RealWorldChanges
+\where
+	display' = currentDisplay
+\\      currentDisplay' = currentDisplay
+\end{schema}
+
+Configuration Data is only displayed if the security officer is
+present.  System statistics are only displayed if an administrator is present.
+
+\begin{schema}{UpdateScreen}
+        \Delta IDStation
+\\      \Xi Admin
+\\      RealWorldChanges
+\where
+           screen'.screenMsg = currentScreen.screenMsg
+\\           screen'.screenConfig = \IF \The rolePresent =
+securityOfficer \THEN currentScreen.screenConfig \ELSE clear 
+\\            screen'.screenStats = \IF rolePresent \neq \Nil
+\THEN currentScreen.screenStats \ELSE clear
+\end{schema}
+
+All these can be combined, along with no change in the remaining
+real world variables,
+to represent the regular updating of the world. 
+ 
+When updates to the real world occur it is possible that interfacing
+with external devices will result in a system fault that is
+audited. Not other aspects of TIS will change during updates of the
+real world.
+
+\begin{traceunit}{FS.Interface.TISEarlyUpdate}
+\traceto{ScGainInitial.Suc.Locked}
+\traceto{ScGainRepeat.Suc.Locked}
+\traceto{ScUnlock.Suc.Locked}
+\traceto{FAU\_ARP.1.1}
+\traceto{FAU\_SAA.1.1}
+\end{traceunit}
+
+
+The alarm and the door latch will need to be updated as soon as
+possible after polling the real world, this ensures that the system is
+kept secure.
+
+\begin{zed}
+        TISEarlyUpdate \defs UpdateLatch \land UpdateAlarm 
+\\ \t3        \land [~ RealWorldChanges | screen' = screen \land
+        display' = display ~]
+\\ \t3   \land [\Delta IDStation | currentDisplay = currentDisplay' ]
+\\ \t3 \land \Xi UserToken \land \Xi AdminToken \land \Xi Finger \land
+\Xi Floppy \land 
+\\ \t3  \Xi Keyboard \land \Xi Config \land
+\Xi Stats  
+\\ \t3 \land \Xi KeyStore \land \Xi Admin \land \Xi Internal
+\\ \t3 \land ( AddElementsToLog \lor \Xi AuditLog ) 
+\end{zed}
+
+\begin{traceunit}{FS.Interface.TISUpdate}
+\traceto{ScGainInitial.Suc.Locked}
+\traceto{ScGainRepeat.Suc.Locked}
+\traceto{ScUnlock.Suc.Locked}
+\traceto{FAU\_ARP.1.1}
+\traceto{FAU\_SAA.1.1}
+\traceto{FAU\_SAA.1.2}
+\traceto{SFP.DAC}
+\traceto{FMT\_MSA.1.1}
+\traceto{FMT\_SMR.2.2}
+\traceto{FMT\_SAE.1.1}
+\end{traceunit}
+
+
+
+The alarm, door latch, display and TIS screen will be updated after performing any
+calculations. 
+
+\begin{zed}
+        TISUpdate \defs UpdateLatch \land UpdateAlarm \land UpdateDisplay \land UpdateScreen
+\\ \t3 \land \Xi UserToken \land \Xi AdminToken \land \Xi Finger \land
+\Xi Floppy \land 
+\\ \t3  \Xi Keyboard \land \Xi Config \land
+\Xi Stats  
+\\ \t3 \land \Xi KeyStore \land \Xi Admin \land \Xi Internal
+\\ \t3 \land (AddElementsToLog \lor \Xi AuditLog) 
+\end{zed}
+
+%......................
+\subsection{Updating the user Token}
+%......................
+
+\begin{traceunit}{FS.Interface.UpdateToken}
+\end{traceunit}
+
+We have a further operation, which writes to the User Token only.
+We treat this separately because we expect to update the other devices
+regularly and frequently,
+but we will only be updating the User Token when we have something to
+write. 
+
+\begin{schema}{UpdateUserToken}
+	\Xi IDStation
+\\	RealWorldChanges
+\also
+        \Xi TISControlledRealWorld
+\where
+	userToken' = currentUserToken
+\end{schema}
+
+%......................
+\subsection{Updating the Floppy}
+%......................
+
+\begin{traceunit}{FS.Interface.UpdateFloppy}
+\end{traceunit}
+
+
+We have an operation which writes to the Floppy only.
+We will only be updating the Floppy disk when we have something to write.
+
+\begin{schema}{UpdateFloppy}
+        \Delta IDStation
+\\      RealWorldChanges
+\also
+        \Xi UserToken
+\\      \Xi AdminToken
+\\      \Xi Finger
+\\      \Xi DoorLatchAlarm
+\\      \Xi Keyboard
+\\      \Xi Config
+\\      \Xi Stats
+\\      \Xi KeyStore
+\\      \Xi Admin      
+\\      \Xi AuditLog
+\\      \Xi Internal
+\also
+	\Xi TISControlledRealWorld
+\where
+	floppy' = writtenFloppy
+\also
+        currentFloppy' = badFloppy
+\\      floppyPresence' = floppyPresence
+\\      currentDisplay' = currentDisplay
+\\      currentScreen' = currentScreen
+\end{schema}
+\begin{Zcomment}
+\item
+Having written the floppy we can assume nothing about the $currentFloppy$
+until we next poll. We do not know what data is on the floppy as it
+may have been corrupted during the write. This ensures that the
+readback we do is forced to be effective. 
+\end{Zcomment}

@@ -1,0 +1,157 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:13.24}
+
+                            {procedure ID.Extract}
+
+
+title procedure extract;
+
+  function round__(real) : integer;
+  type character = integer;
+  type basictypes__unsigned32t = integer;
+  type clock__timet = pending;
+  type cryptotypes__issueridt = integer;
+  type cryptotypes__algorithmt = (cryptotypes__rsa, 
+     cryptotypes__md2, cryptotypes__md5, cryptotypes__sha_1, 
+     cryptotypes__ripemd128, cryptotypes__ripemd160, 
+     cryptotypes__md2_rsa, cryptotypes__md5_rsa, 
+     cryptotypes__sha1_rsa, cryptotypes__ripemd128_rsa, 
+     cryptotypes__ripemd160_rsa);
+  type cryptotypes__keyidt = integer;
+  type cryptotypes__keylengtht = integer;
+  type certtypes__serialnumbert = integer;
+  type string = array [integer] of character;
+  const null__string : string = pending;
+  type cryptotypes__keypartt = record
+        algorithmid : cryptotypes__algorithmt;
+        keyid : integer;
+        keylength : integer
+     end;
+  type certprocessing__timet = record
+        year : integer;
+        month : integer;
+        day : integer;
+        hour : integer;
+        minute : integer
+     end;
+  type certprocessing__publickeyinfot = record
+        algorithmid : cryptotypes__algorithmt;
+        keyid : integer;
+        keylength : integer
+     end;
+  type cryptotypes__issuert = record
+        id : integer;
+        namelength : integer;
+        name : string
+     end;
+  type certprocessing__validityt = record
+        notbefore : certprocessing__timet;
+        notafter : certprocessing__timet
+     end;
+  type certtypes__idt = record
+        issuer : cryptotypes__issuert;
+        serialnumber : integer
+     end;
+  type certprocessing__idcertdatat = record
+        serialnumber : integer;
+        sigalgid : cryptotypes__algorithmt;
+        issuer : cryptotypes__issuert;
+        validity : certprocessing__validityt;
+        subject : cryptotypes__issuert;
+        subjectpublickeyinfo : certprocessing__publickeyinfot
+     end;
+  type cert__contentst = record
+        id : certtypes__idt;
+        notbefore : clock__timet;
+        notafter : clock__timet;
+        mechanism : cryptotypes__algorithmt
+     end;
+  type contentst = record
+        inherit : cert__contentst;
+        subject : cryptotypes__issuert;
+        subjectpublickey : cryptotypes__keypartt
+     end;
+  const certtypes__serialnumbert__base__first : integer = pending; 
+  const certtypes__serialnumbert__base__last : integer = pending; 
+  const certtypes__rawcertificatei__base__first : integer = pending; 
+  const certtypes__rawcertificatei__base__last : integer = pending; 
+  const cryptotypes__keylengtht__base__first : integer = pending; 
+  const cryptotypes__keylengtht__base__last : integer = pending; 
+  const cryptotypes__keyidt__base__first : integer = pending; 
+  const cryptotypes__keyidt__base__last : integer = pending; 
+  const cryptotypes__algorithmt__base__first : 
+     cryptotypes__algorithmt = pending; 
+  const cryptotypes__algorithmt__base__last : 
+     cryptotypes__algorithmt = pending; 
+  const cryptotypes__issueridt__base__first : integer = pending; 
+  const cryptotypes__issueridt__base__last : integer = pending; 
+  const cryptotypes__namei__base__first : integer = pending; 
+  const cryptotypes__namei__base__last : integer = pending; 
+  const cryptotypes__namecountt__base__first : integer = pending; 
+  const cryptotypes__namecountt__base__last : integer = pending; 
+  const basictypes__unsigned32t__base__first : integer = pending; 
+  const basictypes__unsigned32t__base__last : integer = pending; 
+  const positive__base__first : integer = pending; 
+  const positive__base__last : integer = pending; 
+  const character__base__first : character = pending; 
+  const character__base__last : character = pending; 
+  const integer__base__first : integer = pending; 
+  const integer__base__last : integer = pending; 
+  const contentst__size : integer = pending; 
+  const cert__contentst__size : integer = pending; 
+  const certprocessing__idcertdatat__size : integer = pending; 
+  const certprocessing__publickeyinfot__size : integer = pending; 
+  const certprocessing__validityt__size : integer = pending; 
+  const certprocessing__timet__size : integer = pending; 
+  const certtypes__idt__size : integer = pending; 
+  const certtypes__serialnumbert__first : integer = pending; 
+  const certtypes__serialnumbert__last : integer = pending; 
+  const certtypes__serialnumbert__size : integer = pending; 
+  const certtypes__rawcertificatei__first : integer = pending; 
+  const certtypes__rawcertificatei__last : integer = pending; 
+  const certtypes__rawcertificatei__size : integer = pending; 
+  const cryptotypes__keypartt__size : integer = pending; 
+  const cryptotypes__keylengtht__first : integer = pending; 
+  const cryptotypes__keylengtht__last : integer = pending; 
+  const cryptotypes__keylengtht__size : integer = pending; 
+  const cryptotypes__keyidt__first : integer = pending; 
+  const cryptotypes__keyidt__last : integer = pending; 
+  const cryptotypes__keyidt__size : integer = pending; 
+  const cryptotypes__algorithmt__first : cryptotypes__algorithmt = pending; 
+  const cryptotypes__algorithmt__last : cryptotypes__algorithmt = pending; 
+  const cryptotypes__algorithmt__size : integer = pending; 
+  const cryptotypes__issuert__size : integer = pending; 
+  const cryptotypes__issueridt__first : integer = pending; 
+  const cryptotypes__issueridt__last : integer = pending; 
+  const cryptotypes__issueridt__size : integer = pending; 
+  const cryptotypes__namei__first : integer = pending; 
+  const cryptotypes__namei__last : integer = pending; 
+  const cryptotypes__namei__size : integer = pending; 
+  const cryptotypes__namecountt__first : integer = pending; 
+  const cryptotypes__namecountt__last : integer = pending; 
+  const cryptotypes__namecountt__size : integer = pending; 
+  const basictypes__unsigned32t__first : integer = pending; 
+  const basictypes__unsigned32t__last : integer = pending; 
+  const basictypes__unsigned32t__size : integer = pending; 
+  const positive__first : integer = pending; 
+  const positive__last : integer = pending; 
+  const positive__size : integer = pending; 
+  const character__first : character = pending; 
+  const character__last : character = pending; 
+  const character__size : integer = pending; 
+  const integer__first : integer = pending; 
+  const integer__last : integer = pending; 
+  const integer__size : integer = pending; 
+  var rawcert : string;
+  var contents : contentst;
+  var localcontents : certprocessing__idcertdatat;
+  var contents__2 : contentst;
+  var localcontents__1 : certprocessing__idcertdatat;
+
+end;

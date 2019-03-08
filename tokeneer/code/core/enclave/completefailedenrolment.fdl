@@ -1,0 +1,50 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:25.86}
+
+                 {procedure Enclave.CompleteFailedEnrolment}
+
+
+title procedure completefailedenrolment;
+
+  function round__(real) : integer;
+  type display__msgt = (display__blank, display__welcome, 
+     display__insertfinger, display__opendoor, display__wait, 
+     display__removetoken, display__tokenupdatefailed, 
+     display__doorunlocked);
+  type screen__msgtextt = (screen__clear, screen__welcomeadmin, 
+     screen__busy, screen__removeadmintoken, screen__closedoor, 
+     screen__requestadminop, screen__doingop, 
+     screen__invalidrequest, screen__invaliddata, 
+     screen__archivefailed, screen__insertenrolmentdata, 
+     screen__validatingenrolmentdata, screen__enrolmentfailed, 
+     screen__insertblankfloppy, screen__insertconfigdata);
+  type floppy__state__type = pending;
+  type statust = (notenrolled, waitingenrol, waitingendenrol, 
+     enclavequiescent, waitingremoveadmintokenfail, gotadmintoken, 
+     waitingstartadminop, waitingfinishadminop, shutdown);
+  const statust__base__first : statust = pending; 
+  const statust__base__last : statust = pending; 
+  const screen__msgtextt__base__first : screen__msgtextt = pending; 
+  const screen__msgtextt__base__last : screen__msgtextt = pending; 
+  const display__msgt__base__first : display__msgt = pending; 
+  const display__msgt__base__last : display__msgt = pending; 
+  const statust__first : statust = pending; 
+  const statust__last : statust = pending; 
+  const statust__size : integer = pending; 
+  const screen__msgtextt__first : screen__msgtextt = pending; 
+  const screen__msgtextt__last : screen__msgtextt = pending; 
+  const screen__msgtextt__size : integer = pending; 
+  const display__msgt__first : display__msgt = pending; 
+  const display__msgt__last : display__msgt = pending; 
+  const display__msgt__size : integer = pending; 
+  var floppy__state : floppy__state__type;
+  var status : statust;
+  function floppy__ispresent(floppy__state__type) : boolean;
+
+end;

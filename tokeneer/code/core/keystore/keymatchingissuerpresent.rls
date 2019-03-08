@@ -1,0 +1,68 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:12.37*/
+
+                /*procedure KeyStore.KeyMatchingIssuerPresent*/
+
+
+rule_family keymatchingi_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+keymatchingi_rules(1): integer__size >= 0 may_be_deduced.
+keymatchingi_rules(2): integer__first may_be_replaced_by -2147483648.
+keymatchingi_rules(3): integer__last may_be_replaced_by 2147483647.
+keymatchingi_rules(4): integer__base__first may_be_replaced_by -2147483648.
+keymatchingi_rules(5): integer__base__last may_be_replaced_by 2147483647.
+keymatchingi_rules(6): character__size >= 0 may_be_deduced.
+keymatchingi_rules(7): character__first may_be_replaced_by 0.
+keymatchingi_rules(8): character__last may_be_replaced_by 255.
+keymatchingi_rules(9): character__base__first may_be_replaced_by 0.
+keymatchingi_rules(10): character__base__last may_be_replaced_by 255.
+keymatchingi_rules(11): positive__size >= 0 may_be_deduced.
+keymatchingi_rules(12): positive__first may_be_replaced_by 1.
+keymatchingi_rules(13): positive__last may_be_replaced_by 2147483647.
+keymatchingi_rules(14): positive__base__first may_be_replaced_by -2147483648.
+keymatchingi_rules(15): positive__base__last may_be_replaced_by 2147483647.
+keymatchingi_rules(16): basictypes__unsigned32t__size >= 0 may_be_deduced.
+keymatchingi_rules(17): basictypes__unsigned32t__size may_be_replaced_by 32.
+keymatchingi_rules(18): basictypes__unsigned32t__first may_be_replaced_by 0.
+keymatchingi_rules(19): basictypes__unsigned32t__last may_be_replaced_by 4294967295.
+keymatchingi_rules(20): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__base__last may_be_deduced.
+keymatchingi_rules(21): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__first may_be_deduced.
+keymatchingi_rules(22): basictypes__unsigned32t__base__last >= 
+     basictypes__unsigned32t__last may_be_deduced.
+keymatchingi_rules(23): cryptotypes__namecountt__size >= 0 may_be_deduced.
+keymatchingi_rules(24): cryptotypes__namecountt__first may_be_replaced_by 0.
+keymatchingi_rules(25): cryptotypes__namecountt__last may_be_replaced_by 40.
+keymatchingi_rules(26): cryptotypes__namecountt__base__first may_be_replaced_by -2147483648.
+keymatchingi_rules(27): cryptotypes__namecountt__base__last may_be_replaced_by 2147483647.
+keymatchingi_rules(28): cryptotypes__namei__size >= 0 may_be_deduced.
+keymatchingi_rules(29): cryptotypes__namei__first may_be_replaced_by 1.
+keymatchingi_rules(30): cryptotypes__namei__last may_be_replaced_by 40.
+keymatchingi_rules(31): cryptotypes__namei__base__first may_be_replaced_by -2147483648.
+keymatchingi_rules(32): cryptotypes__namei__base__last may_be_replaced_by 2147483647.
+keymatchingi_rules(33): cryptotypes__issueridt__size >= 0 may_be_deduced.
+keymatchingi_rules(34): cryptotypes__issueridt__first may_be_replaced_by 0.
+keymatchingi_rules(35): cryptotypes__issueridt__last may_be_replaced_by 4294967295.
+keymatchingi_rules(36): cryptotypes__issueridt__base__first <= 
+     cryptotypes__issueridt__base__last may_be_deduced.
+keymatchingi_rules(37): cryptotypes__issueridt__base__first <= 
+     cryptotypes__issueridt__first may_be_deduced.
+keymatchingi_rules(38): cryptotypes__issueridt__base__last >= 
+     cryptotypes__issueridt__last may_be_deduced.
+keymatchingi_rules(39): cryptotypes__issuert__size >= 0 may_be_deduced.
+keymatchingi_rules(40): A = B may_be_deduced_from
+     [goal(checktype(A,cryptotypes__issuert)),
+      goal(checktype(B,cryptotypes__issuert)),
+      fld_id(A) = fld_id(B),
+      fld_namelength(A) = fld_namelength(B),
+      fld_name(A) = fld_name(B)].

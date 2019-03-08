@@ -1,0 +1,53 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:28.90*/
+
+              /*procedure ConfigData.ValidateFile.ReadWorkingEnd*/
+
+
+rule_family readworkinge_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+readworkinge_rules(1): character__first <= element(workingendtitle, [I]) may_be_deduced_from [1 <= I, I <= 16].
+readworkinge_rules(2): element(workingendtitle, [I]) <= character__last may_be_deduced_from [1 <= I, I <= 16].
+readworkinge_rules(3): integer__size >= 0 may_be_deduced.
+readworkinge_rules(4): integer__first may_be_replaced_by -2147483648.
+readworkinge_rules(5): integer__last may_be_replaced_by 2147483647.
+readworkinge_rules(6): integer__base__first may_be_replaced_by -2147483648.
+readworkinge_rules(7): integer__base__last may_be_replaced_by 2147483647.
+readworkinge_rules(8): character__size >= 0 may_be_deduced.
+readworkinge_rules(9): character__first may_be_replaced_by 0.
+readworkinge_rules(10): character__last may_be_replaced_by 255.
+readworkinge_rules(11): character__base__first may_be_replaced_by 0.
+readworkinge_rules(12): character__base__last may_be_replaced_by 255.
+readworkinge_rules(13): natural__size >= 0 may_be_deduced.
+readworkinge_rules(14): natural__first may_be_replaced_by 0.
+readworkinge_rules(15): natural__last may_be_replaced_by 2147483647.
+readworkinge_rules(16): natural__base__first may_be_replaced_by -2147483648.
+readworkinge_rules(17): natural__base__last may_be_replaced_by 2147483647.
+readworkinge_rules(18): positive__size >= 0 may_be_deduced.
+readworkinge_rules(19): positive__first may_be_replaced_by 1.
+readworkinge_rules(20): positive__last may_be_replaced_by 2147483647.
+readworkinge_rules(21): positive__base__first may_be_replaced_by -2147483648.
+readworkinge_rules(22): positive__base__last may_be_replaced_by 2147483647.
+readworkinge_rules(23): clock__durationt__size >= 0 may_be_deduced.
+readworkinge_rules(24): clock__durationt__first may_be_replaced_by 0.
+readworkinge_rules(25): clock__durationt__last may_be_replaced_by 864000.
+readworkinge_rules(26): clock__durationt__base__first <= 
+     clock__durationt__base__last may_be_deduced.
+readworkinge_rules(27): clock__durationt__base__first <= 
+     clock__durationt__first may_be_deduced.
+readworkinge_rules(28): clock__durationt__base__last >= 
+     clock__durationt__last may_be_deduced.
+readworkinge_rules(29): workingendtexti__size >= 0 may_be_deduced.
+readworkinge_rules(30): workingendtexti__first may_be_replaced_by 1.
+readworkinge_rules(31): workingendtexti__last may_be_replaced_by 16.
+readworkinge_rules(32): workingendtexti__base__first may_be_replaced_by -2147483648.
+readworkinge_rules(33): workingendtexti__base__last may_be_replaced_by 2147483647.

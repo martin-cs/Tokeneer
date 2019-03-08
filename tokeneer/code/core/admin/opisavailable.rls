@@ -1,0 +1,234 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:16.36*/
+
+                        /*function Admin.OpIsAvailable*/
+
+
+rule_family opisavailabl_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+opisavailabl_rules(1): isavailable may_be_replaced_by 
+           mk__privtoavailopst([privtypes__guard] := 
+           mk__availopst(false, [overridelock] := true), [
+           privtypes__auditmanager] := mk__availopst(false, [
+           archivelog] := true), [privtypes__securityofficer] := 
+           mk__availopst(false, [updateconfigdata] := true, [
+           shutdownop] := true)).
+opisavailabl_rules(2): datalengtht__first <= fld_length(element(optokeyed, [I])) may_be_deduced_from [archivelog <= I, I <= shutdownop].
+opisavailabl_rules(3): fld_length(element(optokeyed, [I])) <= 
+     datalengtht__last may_be_deduced_from [archivelog <= I, I <= shutdownop].
+opisavailabl_rules(4): datai__first <= fld_minmatchlength(element(optokeyed, [I])) may_be_deduced_from [archivelog <= I, I <= shutdownop].
+opisavailabl_rules(5): fld_minmatchlength(element(optokeyed, [I])) <= 
+     datai__last may_be_deduced_from [archivelog <= I, I <= shutdownop].
+opisavailabl_rules(6): character__first <= element(fld_text(element(optokeyed, [I])), [J]) may_be_deduced_from [archivelog <= I, I <= shutdownop, 1 <= J, J <= 18].
+opisavailabl_rules(7): element(fld_text(element(optokeyed, [I])), [J]) <= 
+     character__last may_be_deduced_from [archivelog <= I, I <= shutdownop, 1 <= J, J <= 18].
+opisavailabl_rules(8): optokeyed may_be_replaced_by 
+           mk__optokeyedt([archivelog] := mk__datat(length := 11, 
+           minmatchlength := 7, text := mk__string( [1] := 65, [2] := 
+           82, [3] := 67, [4] := 72, [5] := 73, [6] := 86, [7] := 69, 
+           [8] := 32, [9] := 76, [10] := 79, [11] := 71, [12] := 32, 
+           [13] := 32, [14] := 32, [15] := 32, [16] := 32, [17] := 32, 
+           [18] := 32)), [updateconfigdata] := mk__datat(
+           length := 18, minmatchlength := 6, text := mk__string( [1]
+            := 85, [2] := 80, [3] := 68, [4] := 65, [5] := 84, [6] := 
+           69, [7] := 32, [8] := 67, [9] := 79, [10] := 78, [11] := 70, 
+           [12] := 73, [13] := 71, [14] := 32, [15] := 68, [16] := 65, 
+           [17] := 84, [18] := 65)), [overridelock] := 
+           mk__datat(length := 13, minmatchlength := 8, 
+           text := mk__string( [1] := 79, [2] := 86, [3] := 69, [4] := 
+           82, [5] := 82, [6] := 73, [7] := 68, [8] := 69, [9] := 32, 
+           [10] := 76, [11] := 79, [12] := 67, [13] := 75, [14] := 32, 
+           [15] := 32, [16] := 32, [17] := 32, [18] := 32)), [
+           shutdownop] := mk__datat(length := 8, 
+           minmatchlength := 8, text := mk__string( [1] := 83, [2] := 
+           72, [3] := 85, [4] := 84, [5] := 68, [6] := 79, [7] := 87, 
+           [8] := 78, [9] := 32, [10] := 32, [11] := 32, [12] := 32, 
+           [13] := 32, [14] := 32, [15] := 32, [16] := 32, [17] := 32, 
+           [18] := 32))).
+opisavailabl_rules(9): integer__size >= 0 may_be_deduced.
+opisavailabl_rules(10): integer__first may_be_replaced_by -2147483648.
+opisavailabl_rules(11): integer__last may_be_replaced_by 2147483647.
+opisavailabl_rules(12): integer__base__first may_be_replaced_by -2147483648.
+opisavailabl_rules(13): integer__base__last may_be_replaced_by 2147483647.
+opisavailabl_rules(14): character__size >= 0 may_be_deduced.
+opisavailabl_rules(15): character__first may_be_replaced_by 0.
+opisavailabl_rules(16): character__last may_be_replaced_by 255.
+opisavailabl_rules(17): character__base__first may_be_replaced_by 0.
+opisavailabl_rules(18): character__base__last may_be_replaced_by 255.
+opisavailabl_rules(19): positive__size >= 0 may_be_deduced.
+opisavailabl_rules(20): positive__first may_be_replaced_by 1.
+opisavailabl_rules(21): positive__last may_be_replaced_by 2147483647.
+opisavailabl_rules(22): positive__base__first may_be_replaced_by -2147483648.
+opisavailabl_rules(23): positive__base__last may_be_replaced_by 2147483647.
+opisavailabl_rules(24): privtypes__privileget__size >= 0 may_be_deduced.
+opisavailabl_rules(25): privtypes__privileget__first may_be_replaced_by privtypes__useronly.
+opisavailabl_rules(26): privtypes__privileget__last may_be_replaced_by privtypes__securityofficer.
+opisavailabl_rules(27): privtypes__privileget__base__first may_be_replaced_by privtypes__useronly.
+opisavailabl_rules(28): privtypes__privileget__base__last may_be_replaced_by privtypes__securityofficer.
+opisavailabl_rules(29): privtypes__privileget__pos(
+     privtypes__privileget__first) may_be_replaced_by 0.
+opisavailabl_rules(30): privtypes__privileget__pos(
+     privtypes__useronly) may_be_replaced_by 0.
+opisavailabl_rules(31): privtypes__privileget__val(0) may_be_replaced_by 
+     privtypes__useronly.
+opisavailabl_rules(32): privtypes__privileget__pos(
+     privtypes__guard) may_be_replaced_by 1.
+opisavailabl_rules(33): privtypes__privileget__val(1) may_be_replaced_by 
+     privtypes__guard.
+opisavailabl_rules(34): privtypes__privileget__pos(
+     privtypes__auditmanager) may_be_replaced_by 2.
+opisavailabl_rules(35): privtypes__privileget__val(2) may_be_replaced_by 
+     privtypes__auditmanager.
+opisavailabl_rules(36): privtypes__privileget__pos(
+     privtypes__securityofficer) may_be_replaced_by 3.
+opisavailabl_rules(37): privtypes__privileget__val(3) may_be_replaced_by 
+     privtypes__securityofficer.
+opisavailabl_rules(38): privtypes__privileget__pos(
+     privtypes__privileget__last) may_be_replaced_by 3.
+opisavailabl_rules(39): privtypes__privileget__pos(succ(X)) may_be_replaced_by 
+     privtypes__privileget__pos(X) + 1
+     if [X <=privtypes__securityofficer, X <> 
+     privtypes__securityofficer].
+opisavailabl_rules(40): privtypes__privileget__pos(pred(X)) may_be_replaced_by 
+     privtypes__privileget__pos(X) - 1
+     if [X >=privtypes__useronly, X <> privtypes__useronly].
+opisavailabl_rules(41): privtypes__privileget__pos(X) >= 0 may_be_deduced_from
+     [privtypes__useronly <= X, X <= privtypes__securityofficer].
+opisavailabl_rules(42): privtypes__privileget__pos(X) <= 3 may_be_deduced_from
+     [privtypes__useronly <= X, X <= privtypes__securityofficer].
+opisavailabl_rules(43): privtypes__privileget__val(X) >= 
+     privtypes__useronly may_be_deduced_from
+     [0 <= X, X <= 3].
+opisavailabl_rules(44): privtypes__privileget__val(X) <= 
+     privtypes__securityofficer may_be_deduced_from
+     [0 <= X, X <= 3].
+opisavailabl_rules(45): succ(privtypes__privileget__val(X)) may_be_replaced_by 
+     privtypes__privileget__val(X+1)
+     if [0 <= X, X < 3].
+opisavailabl_rules(46): pred(privtypes__privileget__val(X)) may_be_replaced_by 
+     privtypes__privileget__val(X-1)
+     if [0 < X, X <= 3].
+opisavailabl_rules(47): privtypes__privileget__pos(
+     privtypes__privileget__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 3].
+opisavailabl_rules(48): privtypes__privileget__val(
+     privtypes__privileget__pos(X)) may_be_replaced_by X
+     if [privtypes__useronly <= X, X <= 
+     privtypes__securityofficer].
+opisavailabl_rules(49): privtypes__privileget__pos(X) <= 
+     privtypes__privileget__pos(Y) & X <= Y are_interchangeable 
+     if [privtypes__useronly <= X, X <= 
+     privtypes__securityofficer, privtypes__useronly <= Y, Y <= 
+     privtypes__securityofficer].
+opisavailabl_rules(50): privtypes__privileget__val(X) <= 
+     privtypes__privileget__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 3, 0 <= Y, Y <= 3].
+opisavailabl_rules(51): privtypes__adminprivileget__size >= 0 may_be_deduced.
+opisavailabl_rules(52): privtypes__adminprivileget__first may_be_replaced_by privtypes__guard.
+opisavailabl_rules(53): privtypes__adminprivileget__last may_be_replaced_by privtypes__securityofficer.
+opisavailabl_rules(54): privtypes__adminprivileget__base__first may_be_replaced_by privtypes__useronly.
+opisavailabl_rules(55): privtypes__adminprivileget__base__last may_be_replaced_by privtypes__securityofficer.
+opisavailabl_rules(56): keyboard__datalengtht__size >= 0 may_be_deduced.
+opisavailabl_rules(57): keyboard__datalengtht__first may_be_replaced_by 0.
+opisavailabl_rules(58): keyboard__datalengtht__last may_be_replaced_by 78.
+opisavailabl_rules(59): keyboard__datalengtht__base__first may_be_replaced_by -2147483648.
+opisavailabl_rules(60): keyboard__datalengtht__base__last may_be_replaced_by 2147483647.
+opisavailabl_rules(61): keyboard__datai__size >= 0 may_be_deduced.
+opisavailabl_rules(62): keyboard__datai__first may_be_replaced_by 1.
+opisavailabl_rules(63): keyboard__datai__last may_be_replaced_by 78.
+opisavailabl_rules(64): keyboard__datai__base__first may_be_replaced_by -2147483648.
+opisavailabl_rules(65): keyboard__datai__base__last may_be_replaced_by 2147483647.
+opisavailabl_rules(66): keyboard__datat__size >= 0 may_be_deduced.
+opisavailabl_rules(67): A = B may_be_deduced_from
+     [goal(checktype(A,keyboard__datat)),
+      goal(checktype(B,keyboard__datat)),
+      fld_length(A) = fld_length(B),
+      fld_text(A) = fld_text(B)].
+opisavailabl_rules(68): opandnullt__size >= 0 may_be_deduced.
+opisavailabl_rules(69): opandnullt__first may_be_replaced_by nullop.
+opisavailabl_rules(70): opandnullt__last may_be_replaced_by shutdownop.
+opisavailabl_rules(71): opandnullt__base__first may_be_replaced_by nullop.
+opisavailabl_rules(72): opandnullt__base__last may_be_replaced_by shutdownop.
+opisavailabl_rules(73): opandnullt__pos(opandnullt__first) may_be_replaced_by 0.
+opisavailabl_rules(74): opandnullt__pos(nullop) may_be_replaced_by 0.
+opisavailabl_rules(75): opandnullt__val(0) may_be_replaced_by 
+     nullop.
+opisavailabl_rules(76): opandnullt__pos(archivelog) may_be_replaced_by 1.
+opisavailabl_rules(77): opandnullt__val(1) may_be_replaced_by 
+     archivelog.
+opisavailabl_rules(78): opandnullt__pos(updateconfigdata) may_be_replaced_by 2.
+opisavailabl_rules(79): opandnullt__val(2) may_be_replaced_by 
+     updateconfigdata.
+opisavailabl_rules(80): opandnullt__pos(overridelock) may_be_replaced_by 3.
+opisavailabl_rules(81): opandnullt__val(3) may_be_replaced_by 
+     overridelock.
+opisavailabl_rules(82): opandnullt__pos(shutdownop) may_be_replaced_by 4.
+opisavailabl_rules(83): opandnullt__val(4) may_be_replaced_by 
+     shutdownop.
+opisavailabl_rules(84): opandnullt__pos(opandnullt__last) may_be_replaced_by 4.
+opisavailabl_rules(85): opandnullt__pos(succ(X)) may_be_replaced_by 
+     opandnullt__pos(X) + 1
+     if [X <=shutdownop, X <> shutdownop].
+opisavailabl_rules(86): opandnullt__pos(pred(X)) may_be_replaced_by 
+     opandnullt__pos(X) - 1
+     if [X >=nullop, X <> nullop].
+opisavailabl_rules(87): opandnullt__pos(X) >= 0 may_be_deduced_from
+     [nullop <= X, X <= shutdownop].
+opisavailabl_rules(88): opandnullt__pos(X) <= 4 may_be_deduced_from
+     [nullop <= X, X <= shutdownop].
+opisavailabl_rules(89): opandnullt__val(X) >= nullop may_be_deduced_from
+     [0 <= X, X <= 4].
+opisavailabl_rules(90): opandnullt__val(X) <= shutdownop may_be_deduced_from
+     [0 <= X, X <= 4].
+opisavailabl_rules(91): succ(opandnullt__val(X)) may_be_replaced_by 
+     opandnullt__val(X+1)
+     if [0 <= X, X < 4].
+opisavailabl_rules(92): pred(opandnullt__val(X)) may_be_replaced_by 
+     opandnullt__val(X-1)
+     if [0 < X, X <= 4].
+opisavailabl_rules(93): opandnullt__pos(opandnullt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 4].
+opisavailabl_rules(94): opandnullt__val(opandnullt__pos(X)) may_be_replaced_by X
+     if [nullop <= X, X <= shutdownop].
+opisavailabl_rules(95): opandnullt__pos(X) <= opandnullt__pos(Y) & X <= Y are_interchangeable 
+     if [nullop <= X, X <= shutdownop, nullop <= Y, Y <= 
+     shutdownop].
+opisavailabl_rules(96): opandnullt__val(X) <= opandnullt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 4, 0 <= Y, Y <= 4].
+opisavailabl_rules(97): opt__size >= 0 may_be_deduced.
+opisavailabl_rules(98): opt__first may_be_replaced_by archivelog.
+opisavailabl_rules(99): opt__last may_be_replaced_by shutdownop.
+opisavailabl_rules(100): opt__base__first may_be_replaced_by nullop.
+opisavailabl_rules(101): opt__base__last may_be_replaced_by shutdownop.
+opisavailabl_rules(102): t__size >= 0 may_be_deduced.
+opisavailabl_rules(103): A = B may_be_deduced_from
+     [goal(checktype(A,t)),
+      goal(checktype(B,t)),
+      fld_rolepresent(A) = fld_rolepresent(B),
+      fld_currentop(A) = fld_currentop(B)].
+opisavailabl_rules(104): datalengtht__size >= 0 may_be_deduced.
+opisavailabl_rules(105): datalengtht__first may_be_replaced_by 0.
+opisavailabl_rules(106): datalengtht__last may_be_replaced_by 18.
+opisavailabl_rules(107): datalengtht__base__first may_be_replaced_by -2147483648.
+opisavailabl_rules(108): datalengtht__base__last may_be_replaced_by 2147483647.
+opisavailabl_rules(109): datai__size >= 0 may_be_deduced.
+opisavailabl_rules(110): datai__first may_be_replaced_by 1.
+opisavailabl_rules(111): datai__last may_be_replaced_by 18.
+opisavailabl_rules(112): datai__base__first may_be_replaced_by -2147483648.
+opisavailabl_rules(113): datai__base__last may_be_replaced_by 2147483647.
+opisavailabl_rules(114): datat__size >= 0 may_be_deduced.
+opisavailabl_rules(115): A = B may_be_deduced_from
+     [goal(checktype(A,datat)),
+      goal(checktype(B,datat)),
+      fld_length(A) = fld_length(B),
+      fld_minmatchlength(A) = fld_minmatchlength(B),
+      fld_text(A) = fld_text(B)].
