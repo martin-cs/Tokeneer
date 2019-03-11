@@ -1,0 +1,362 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:08.45*/
+
+       /*procedure AuditLog.AddElementToLogFile.AddElementToCurrentFile*/
+
+
+rule_family addelementto_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+addelementto_rules(1): maxlogfileentries may_be_replaced_by 1024.
+addelementto_rules(2): integer__size >= 0 may_be_deduced.
+addelementto_rules(3): integer__first may_be_replaced_by -2147483648.
+addelementto_rules(4): integer__last may_be_replaced_by 2147483647.
+addelementto_rules(5): integer__base__first may_be_replaced_by -2147483648.
+addelementto_rules(6): integer__base__last may_be_replaced_by 2147483647.
+addelementto_rules(7): character__size >= 0 may_be_deduced.
+addelementto_rules(8): character__first may_be_replaced_by 0.
+addelementto_rules(9): character__last may_be_replaced_by 255.
+addelementto_rules(10): character__base__first may_be_replaced_by 0.
+addelementto_rules(11): character__base__last may_be_replaced_by 255.
+addelementto_rules(12): positive__size >= 0 may_be_deduced.
+addelementto_rules(13): positive__first may_be_replaced_by 1.
+addelementto_rules(14): positive__last may_be_replaced_by 2147483647.
+addelementto_rules(15): positive__base__first may_be_replaced_by -2147483648.
+addelementto_rules(16): positive__base__last may_be_replaced_by 2147483647.
+addelementto_rules(17): audittypes__elementt__size >= 0 may_be_deduced.
+addelementto_rules(18): audittypes__elementt__first may_be_replaced_by audittypes__startunenrolledtis.
+addelementto_rules(19): audittypes__elementt__last may_be_replaced_by audittypes__systemfault.
+addelementto_rules(20): audittypes__elementt__base__first may_be_replaced_by audittypes__startunenrolledtis.
+addelementto_rules(21): audittypes__elementt__base__last may_be_replaced_by audittypes__systemfault.
+addelementto_rules(22): audittypes__elementt__pos(
+     audittypes__elementt__first) may_be_replaced_by 0.
+addelementto_rules(23): audittypes__elementt__pos(
+     audittypes__startunenrolledtis) may_be_replaced_by 0.
+addelementto_rules(24): audittypes__elementt__val(0) may_be_replaced_by 
+     audittypes__startunenrolledtis.
+addelementto_rules(25): audittypes__elementt__pos(
+     audittypes__startenrolledtis) may_be_replaced_by 1.
+addelementto_rules(26): audittypes__elementt__val(1) may_be_replaced_by 
+     audittypes__startenrolledtis.
+addelementto_rules(27): audittypes__elementt__pos(
+     audittypes__enrolmentcomplete) may_be_replaced_by 2.
+addelementto_rules(28): audittypes__elementt__val(2) may_be_replaced_by 
+     audittypes__enrolmentcomplete.
+addelementto_rules(29): audittypes__elementt__pos(
+     audittypes__enrolmentfailed) may_be_replaced_by 3.
+addelementto_rules(30): audittypes__elementt__val(3) may_be_replaced_by 
+     audittypes__enrolmentfailed.
+addelementto_rules(31): audittypes__elementt__pos(
+     audittypes__displaychanged) may_be_replaced_by 4.
+addelementto_rules(32): audittypes__elementt__val(4) may_be_replaced_by 
+     audittypes__displaychanged.
+addelementto_rules(33): audittypes__elementt__pos(
+     audittypes__screenchanged) may_be_replaced_by 5.
+addelementto_rules(34): audittypes__elementt__val(5) may_be_replaced_by 
+     audittypes__screenchanged.
+addelementto_rules(35): audittypes__elementt__pos(
+     audittypes__doorclosed) may_be_replaced_by 6.
+addelementto_rules(36): audittypes__elementt__val(6) may_be_replaced_by 
+     audittypes__doorclosed.
+addelementto_rules(37): audittypes__elementt__pos(
+     audittypes__dooropened) may_be_replaced_by 7.
+addelementto_rules(38): audittypes__elementt__val(7) may_be_replaced_by 
+     audittypes__dooropened.
+addelementto_rules(39): audittypes__elementt__pos(
+     audittypes__latchlocked) may_be_replaced_by 8.
+addelementto_rules(40): audittypes__elementt__val(8) may_be_replaced_by 
+     audittypes__latchlocked.
+addelementto_rules(41): audittypes__elementt__pos(
+     audittypes__latchunlocked) may_be_replaced_by 9.
+addelementto_rules(42): audittypes__elementt__val(9) may_be_replaced_by 
+     audittypes__latchunlocked.
+addelementto_rules(43): audittypes__elementt__pos(
+     audittypes__alarmraised) may_be_replaced_by 10.
+addelementto_rules(44): audittypes__elementt__val(10) may_be_replaced_by 
+     audittypes__alarmraised.
+addelementto_rules(45): audittypes__elementt__pos(
+     audittypes__alarmsilenced) may_be_replaced_by 11.
+addelementto_rules(46): audittypes__elementt__val(11) may_be_replaced_by 
+     audittypes__alarmsilenced.
+addelementto_rules(47): audittypes__elementt__pos(
+     audittypes__truncatelog) may_be_replaced_by 12.
+addelementto_rules(48): audittypes__elementt__val(12) may_be_replaced_by 
+     audittypes__truncatelog.
+addelementto_rules(49): audittypes__elementt__pos(
+     audittypes__auditalarmraised) may_be_replaced_by 13.
+addelementto_rules(50): audittypes__elementt__val(13) may_be_replaced_by 
+     audittypes__auditalarmraised.
+addelementto_rules(51): audittypes__elementt__pos(
+     audittypes__auditalarmsilenced) may_be_replaced_by 14.
+addelementto_rules(52): audittypes__elementt__val(14) may_be_replaced_by 
+     audittypes__auditalarmsilenced.
+addelementto_rules(53): audittypes__elementt__pos(
+     audittypes__usertokenremoved) may_be_replaced_by 15.
+addelementto_rules(54): audittypes__elementt__val(15) may_be_replaced_by 
+     audittypes__usertokenremoved.
+addelementto_rules(55): audittypes__elementt__pos(
+     audittypes__usertokenpresent) may_be_replaced_by 16.
+addelementto_rules(56): audittypes__elementt__val(16) may_be_replaced_by 
+     audittypes__usertokenpresent.
+addelementto_rules(57): audittypes__elementt__pos(
+     audittypes__usertokeninvalid) may_be_replaced_by 17.
+addelementto_rules(58): audittypes__elementt__val(17) may_be_replaced_by 
+     audittypes__usertokeninvalid.
+addelementto_rules(59): audittypes__elementt__pos(
+     audittypes__authcertvalid) may_be_replaced_by 18.
+addelementto_rules(60): audittypes__elementt__val(18) may_be_replaced_by 
+     audittypes__authcertvalid.
+addelementto_rules(61): audittypes__elementt__pos(
+     audittypes__authcertinvalid) may_be_replaced_by 19.
+addelementto_rules(62): audittypes__elementt__val(19) may_be_replaced_by 
+     audittypes__authcertinvalid.
+addelementto_rules(63): audittypes__elementt__pos(
+     audittypes__fingerdetected) may_be_replaced_by 20.
+addelementto_rules(64): audittypes__elementt__val(20) may_be_replaced_by 
+     audittypes__fingerdetected.
+addelementto_rules(65): audittypes__elementt__pos(
+     audittypes__fingertimeout) may_be_replaced_by 21.
+addelementto_rules(66): audittypes__elementt__val(21) may_be_replaced_by 
+     audittypes__fingertimeout.
+addelementto_rules(67): audittypes__elementt__pos(
+     audittypes__fingermatched) may_be_replaced_by 22.
+addelementto_rules(68): audittypes__elementt__val(22) may_be_replaced_by 
+     audittypes__fingermatched.
+addelementto_rules(69): audittypes__elementt__pos(
+     audittypes__fingernotmatched) may_be_replaced_by 23.
+addelementto_rules(70): audittypes__elementt__val(23) may_be_replaced_by 
+     audittypes__fingernotmatched.
+addelementto_rules(71): audittypes__elementt__pos(
+     audittypes__authcertwritten) may_be_replaced_by 24.
+addelementto_rules(72): audittypes__elementt__val(24) may_be_replaced_by 
+     audittypes__authcertwritten.
+addelementto_rules(73): audittypes__elementt__pos(
+     audittypes__authcertwritefailed) may_be_replaced_by 25.
+addelementto_rules(74): audittypes__elementt__val(25) may_be_replaced_by 
+     audittypes__authcertwritefailed.
+addelementto_rules(75): audittypes__elementt__pos(
+     audittypes__entrypermitted) may_be_replaced_by 26.
+addelementto_rules(76): audittypes__elementt__val(26) may_be_replaced_by 
+     audittypes__entrypermitted.
+addelementto_rules(77): audittypes__elementt__pos(
+     audittypes__entrytimeout) may_be_replaced_by 27.
+addelementto_rules(78): audittypes__elementt__val(27) may_be_replaced_by 
+     audittypes__entrytimeout.
+addelementto_rules(79): audittypes__elementt__pos(
+     audittypes__entrydenied) may_be_replaced_by 28.
+addelementto_rules(80): audittypes__elementt__val(28) may_be_replaced_by 
+     audittypes__entrydenied.
+addelementto_rules(81): audittypes__elementt__pos(
+     audittypes__admintokenpresent) may_be_replaced_by 29.
+addelementto_rules(82): audittypes__elementt__val(29) may_be_replaced_by 
+     audittypes__admintokenpresent.
+addelementto_rules(83): audittypes__elementt__pos(
+     audittypes__admintokenvalid) may_be_replaced_by 30.
+addelementto_rules(84): audittypes__elementt__val(30) may_be_replaced_by 
+     audittypes__admintokenvalid.
+addelementto_rules(85): audittypes__elementt__pos(
+     audittypes__admintokeninvalid) may_be_replaced_by 31.
+addelementto_rules(86): audittypes__elementt__val(31) may_be_replaced_by 
+     audittypes__admintokeninvalid.
+addelementto_rules(87): audittypes__elementt__pos(
+     audittypes__admintokenexpired) may_be_replaced_by 32.
+addelementto_rules(88): audittypes__elementt__val(32) may_be_replaced_by 
+     audittypes__admintokenexpired.
+addelementto_rules(89): audittypes__elementt__pos(
+     audittypes__admintokenremoved) may_be_replaced_by 33.
+addelementto_rules(90): audittypes__elementt__val(33) may_be_replaced_by 
+     audittypes__admintokenremoved.
+addelementto_rules(91): audittypes__elementt__pos(
+     audittypes__invalidoprequest) may_be_replaced_by 34.
+addelementto_rules(92): audittypes__elementt__val(34) may_be_replaced_by 
+     audittypes__invalidoprequest.
+addelementto_rules(93): audittypes__elementt__pos(
+     audittypes__operationstart) may_be_replaced_by 35.
+addelementto_rules(94): audittypes__elementt__val(35) may_be_replaced_by 
+     audittypes__operationstart.
+addelementto_rules(95): audittypes__elementt__pos(
+     audittypes__archivelog) may_be_replaced_by 36.
+addelementto_rules(96): audittypes__elementt__val(36) may_be_replaced_by 
+     audittypes__archivelog.
+addelementto_rules(97): audittypes__elementt__pos(
+     audittypes__archivecomplete) may_be_replaced_by 37.
+addelementto_rules(98): audittypes__elementt__val(37) may_be_replaced_by 
+     audittypes__archivecomplete.
+addelementto_rules(99): audittypes__elementt__pos(
+     audittypes__archivecheckfailed) may_be_replaced_by 38.
+addelementto_rules(100): audittypes__elementt__val(38) may_be_replaced_by 
+     audittypes__archivecheckfailed.
+addelementto_rules(101): audittypes__elementt__pos(
+     audittypes__updatedconfigdata) may_be_replaced_by 39.
+addelementto_rules(102): audittypes__elementt__val(39) may_be_replaced_by 
+     audittypes__updatedconfigdata.
+addelementto_rules(103): audittypes__elementt__pos(
+     audittypes__invalidconfigdata) may_be_replaced_by 40.
+addelementto_rules(104): audittypes__elementt__val(40) may_be_replaced_by 
+     audittypes__invalidconfigdata.
+addelementto_rules(105): audittypes__elementt__pos(
+     audittypes__shutdown) may_be_replaced_by 41.
+addelementto_rules(106): audittypes__elementt__val(41) may_be_replaced_by 
+     audittypes__shutdown.
+addelementto_rules(107): audittypes__elementt__pos(
+     audittypes__overridelock) may_be_replaced_by 42.
+addelementto_rules(108): audittypes__elementt__val(42) may_be_replaced_by 
+     audittypes__overridelock.
+addelementto_rules(109): audittypes__elementt__pos(
+     audittypes__systemfault) may_be_replaced_by 43.
+addelementto_rules(110): audittypes__elementt__val(43) may_be_replaced_by 
+     audittypes__systemfault.
+addelementto_rules(111): audittypes__elementt__pos(
+     audittypes__elementt__last) may_be_replaced_by 43.
+addelementto_rules(112): audittypes__elementt__pos(succ(X)) may_be_replaced_by 
+     audittypes__elementt__pos(X) + 1
+     if [X <=audittypes__systemfault, X <> 
+     audittypes__systemfault].
+addelementto_rules(113): audittypes__elementt__pos(pred(X)) may_be_replaced_by 
+     audittypes__elementt__pos(X) - 1
+     if [X >=audittypes__startunenrolledtis, X <> 
+     audittypes__startunenrolledtis].
+addelementto_rules(114): audittypes__elementt__pos(X) >= 0 may_be_deduced_from
+     [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+addelementto_rules(115): audittypes__elementt__pos(X) <= 43 may_be_deduced_from
+     [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+addelementto_rules(116): audittypes__elementt__val(X) >= 
+     audittypes__startunenrolledtis may_be_deduced_from
+     [0 <= X, X <= 43].
+addelementto_rules(117): audittypes__elementt__val(X) <= 
+     audittypes__systemfault may_be_deduced_from
+     [0 <= X, X <= 43].
+addelementto_rules(118): succ(audittypes__elementt__val(X)) may_be_replaced_by 
+     audittypes__elementt__val(X+1)
+     if [0 <= X, X < 43].
+addelementto_rules(119): pred(audittypes__elementt__val(X)) may_be_replaced_by 
+     audittypes__elementt__val(X-1)
+     if [0 < X, X <= 43].
+addelementto_rules(120): audittypes__elementt__pos(
+     audittypes__elementt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 43].
+addelementto_rules(121): audittypes__elementt__val(
+     audittypes__elementt__pos(X)) may_be_replaced_by X
+     if [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+addelementto_rules(122): audittypes__elementt__pos(X) <= 
+     audittypes__elementt__pos(Y) & X <= Y are_interchangeable 
+     if [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault, audittypes__startunenrolledtis <= Y, Y <= 
+     audittypes__systemfault].
+addelementto_rules(123): audittypes__elementt__val(X) <= 
+     audittypes__elementt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 43, 0 <= Y, Y <= 43].
+addelementto_rules(124): audittypes__severityt__size >= 0 may_be_deduced.
+addelementto_rules(125): audittypes__severityt__first may_be_replaced_by audittypes__information.
+addelementto_rules(126): audittypes__severityt__last may_be_replaced_by audittypes__critical.
+addelementto_rules(127): audittypes__severityt__base__first may_be_replaced_by audittypes__information.
+addelementto_rules(128): audittypes__severityt__base__last may_be_replaced_by audittypes__critical.
+addelementto_rules(129): audittypes__severityt__pos(
+     audittypes__severityt__first) may_be_replaced_by 0.
+addelementto_rules(130): audittypes__severityt__pos(
+     audittypes__information) may_be_replaced_by 0.
+addelementto_rules(131): audittypes__severityt__val(0) may_be_replaced_by 
+     audittypes__information.
+addelementto_rules(132): audittypes__severityt__pos(
+     audittypes__warning) may_be_replaced_by 1.
+addelementto_rules(133): audittypes__severityt__val(1) may_be_replaced_by 
+     audittypes__warning.
+addelementto_rules(134): audittypes__severityt__pos(
+     audittypes__critical) may_be_replaced_by 2.
+addelementto_rules(135): audittypes__severityt__val(2) may_be_replaced_by 
+     audittypes__critical.
+addelementto_rules(136): audittypes__severityt__pos(
+     audittypes__severityt__last) may_be_replaced_by 2.
+addelementto_rules(137): audittypes__severityt__pos(succ(X)) may_be_replaced_by 
+     audittypes__severityt__pos(X) + 1
+     if [X <=audittypes__critical, X <> audittypes__critical].
+addelementto_rules(138): audittypes__severityt__pos(pred(X)) may_be_replaced_by 
+     audittypes__severityt__pos(X) - 1
+     if [X >=audittypes__information, X <> 
+     audittypes__information].
+addelementto_rules(139): audittypes__severityt__pos(X) >= 0 may_be_deduced_from
+     [audittypes__information <= X, X <= audittypes__critical].
+addelementto_rules(140): audittypes__severityt__pos(X) <= 2 may_be_deduced_from
+     [audittypes__information <= X, X <= audittypes__critical].
+addelementto_rules(141): audittypes__severityt__val(X) >= 
+     audittypes__information may_be_deduced_from
+     [0 <= X, X <= 2].
+addelementto_rules(142): audittypes__severityt__val(X) <= 
+     audittypes__critical may_be_deduced_from
+     [0 <= X, X <= 2].
+addelementto_rules(143): succ(audittypes__severityt__val(X)) may_be_replaced_by 
+     audittypes__severityt__val(X+1)
+     if [0 <= X, X < 2].
+addelementto_rules(144): pred(audittypes__severityt__val(X)) may_be_replaced_by 
+     audittypes__severityt__val(X-1)
+     if [0 < X, X <= 2].
+addelementto_rules(145): audittypes__severityt__pos(
+     audittypes__severityt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 2].
+addelementto_rules(146): audittypes__severityt__val(
+     audittypes__severityt__pos(X)) may_be_replaced_by X
+     if [audittypes__information <= X, X <= audittypes__critical].
+addelementto_rules(147): audittypes__severityt__pos(X) <= 
+     audittypes__severityt__pos(Y) & X <= Y are_interchangeable 
+     if [audittypes__information <= X, X <= audittypes__critical, 
+     audittypes__information <= Y, Y <= audittypes__critical].
+addelementto_rules(148): audittypes__severityt__val(X) <= 
+     audittypes__severityt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 2, 0 <= Y, Y <= 2].
+addelementto_rules(149): audittypes__descriptioni__size >= 0 may_be_deduced.
+addelementto_rules(150): audittypes__descriptioni__first may_be_replaced_by 1.
+addelementto_rules(151): audittypes__descriptioni__last may_be_replaced_by 150.
+addelementto_rules(152): audittypes__descriptioni__base__first may_be_replaced_by -2147483648.
+addelementto_rules(153): audittypes__descriptioni__base__last may_be_replaced_by 2147483647.
+addelementto_rules(154): audittypes__usertexti__size >= 0 may_be_deduced.
+addelementto_rules(155): audittypes__usertexti__first may_be_replaced_by 1.
+addelementto_rules(156): audittypes__usertexti__last may_be_replaced_by 50.
+addelementto_rules(157): audittypes__usertexti__base__first may_be_replaced_by -2147483648.
+addelementto_rules(158): audittypes__usertexti__base__last may_be_replaced_by 2147483647.
+addelementto_rules(159): logfilecountt__size >= 0 may_be_deduced.
+addelementto_rules(160): logfilecountt__first may_be_replaced_by 0.
+addelementto_rules(161): logfilecountt__last may_be_replaced_by 17.
+addelementto_rules(162): logfilecountt__base__first <= 
+     logfilecountt__base__last may_be_deduced.
+addelementto_rules(163): logfilecountt__base__first <= 
+     logfilecountt__first may_be_deduced.
+addelementto_rules(164): logfilecountt__base__last >= 
+     logfilecountt__last may_be_deduced.
+addelementto_rules(165): logfileindext__size >= 0 may_be_deduced.
+addelementto_rules(166): logfileindext__first may_be_replaced_by 1.
+addelementto_rules(167): logfileindext__last may_be_replaced_by 17.
+addelementto_rules(168): logfileindext__base__first <= 
+     logfileindext__base__last may_be_deduced.
+addelementto_rules(169): logfileindext__base__first <= 
+     logfileindext__first may_be_deduced.
+addelementto_rules(170): logfileindext__base__last >= 
+     logfileindext__last may_be_deduced.
+addelementto_rules(171): logentrycountt__size >= 0 may_be_deduced.
+addelementto_rules(172): logentrycountt__first may_be_replaced_by 0.
+addelementto_rules(173): logentrycountt__last may_be_replaced_by 17408.
+addelementto_rules(174): logentrycountt__base__first <= 
+     logentrycountt__base__last may_be_deduced.
+addelementto_rules(175): logentrycountt__base__first <= 
+     logentrycountt__first may_be_deduced.
+addelementto_rules(176): logentrycountt__base__last >= 
+     logentrycountt__last may_be_deduced.
+addelementto_rules(177): fileentrycountt__size >= 0 may_be_deduced.
+addelementto_rules(178): fileentrycountt__first may_be_replaced_by 0.
+addelementto_rules(179): fileentrycountt__last may_be_replaced_by 1024.
+addelementto_rules(180): fileentrycountt__base__first <= 
+     fileentrycountt__base__last may_be_deduced.
+addelementto_rules(181): fileentrycountt__base__first <= 
+     fileentrycountt__first may_be_deduced.
+addelementto_rules(182): fileentrycountt__base__last >= 
+     fileentrycountt__last may_be_deduced.

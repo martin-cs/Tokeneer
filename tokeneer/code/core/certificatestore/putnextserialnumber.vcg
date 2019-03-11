@@ -1,0 +1,116 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:16.02
+
+               procedure CertificateStore.PutNextSerialNumber
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 230:
+
+procedure_putnextserialnumber_1.
+H1:    true .
+H2:    next >= certtypes__serialnumbert__first .
+H3:    next <= certtypes__serialnumbert__last .
+H4:    true .
+H5:    true .
+H6:    true .
+H7:    opened__1 .
+H8:    oflow .
+        ->
+C1:    0 >= natural__first .
+C2:    0 <= natural__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 235:
+
+procedure_putnextserialnumber_2.
+H1:    true .
+H2:    next >= certtypes__serialnumbert__first .
+H3:    next <= certtypes__serialnumbert__last .
+H4:    true .
+H5:    true .
+H6:    true .
+H7:    opened__1 .
+H8:    not oflow .
+        ->
+C1:    next >= certtypes__serialnumbert__first .
+C2:    next <= certtypes__serialnumbert__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 235:
+
+procedure_putnextserialnumber_3.
+H1:    true .
+H2:    next >= certtypes__serialnumbert__first .
+H3:    next <= certtypes__serialnumbert__last .
+H4:    true .
+H5:    true .
+H6:    true .
+H7:    opened__1 .
+H8:    not oflow .
+H9:    next >= certtypes__serialnumbert__first .
+H10:   next <= certtypes__serialnumbert__last .
+H11:   for_all(i___1: integer, ((i___1 >= rawnexti__first) and (
+           i___1 <= rawnexti__last)) -> ((element(rawnext__3, [
+           i___1]) >= character__first) and (element(rawnext__3, [
+           i___1]) <= character__last))) .
+H12:   stop__3 >= rawnexti__first .
+H13:   stop__3 <= rawnexti__last .
+        ->
+C1:    stop__3 >= natural__first .
+C2:    stop__3 <= natural__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 238:
+
+procedure_putnextserialnumber_4.
+H1:    true .
+H2:    next >= certtypes__serialnumbert__first .
+H3:    next <= certtypes__serialnumbert__last .
+H4:    true .
+H5:    true .
+H6:    true .
+H7:    opened__1 .
+H8:    not oflow .
+H9:    next >= certtypes__serialnumbert__first .
+H10:   next <= certtypes__serialnumbert__last .
+H11:   for_all(i___1: integer, ((i___1 >= rawnexti__first) and (
+           i___1 <= rawnexti__last)) -> ((element(rawnext__3, [
+           i___1]) >= character__first) and (element(rawnext__3, [
+           i___1]) <= character__last))) .
+H12:   stop__3 >= rawnexti__first .
+H13:   stop__3 <= rawnexti__last .
+H14:   stop__3 >= natural__first .
+H15:   stop__3 <= natural__last .
+H16:   for_all(i___1: integer, ((i___1 >= rawnexti__first) and (
+           i___1 <= rawnexti__last)) -> ((element(rawnext__3, [
+           i___1]) >= character__first) and (element(rawnext__3, [
+           i___1]) <= character__last))) .
+H17:   stop__3 >= natural__first .
+H18:   stop__3 <= natural__last .
+        ->
+C1:    stop__3 >= natural__first .
+C2:    stop__3 <= natural__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_putnextserialnumber_5.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_putnextserialnumber_6.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_putnextserialnumber_7.
+*** true .          /* trivially true VC removed by Examiner */
+
+

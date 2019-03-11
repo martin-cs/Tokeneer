@@ -1,0 +1,310 @@
+           *******************************************************
+                            Listing of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:16.72
+
+Line
+   1  ------------------------------------------------------------------
+   2  -- Tokeneer ID Station Core Software
+   3  --
+   4  -- Copyright (2003) United States Government, as represented
+   5  -- by the Director, National Security Agency. All rights reserved.
+   6  --
+   7  -- This material was originally developed by Praxis High Integrity
+   8  -- Systems Ltd. under contract to the National Security Agency.
+   9  --
+  10  -- Modifications to proof annotations by Phil Thornley, April 2009
+  11  ------------------------------------------------------------------
+  12  
+  13  ------------------------------------------------------------------
+  14  -- Admin
+  15  --
+  16  -- Description:
+  17  --
+  18  --
+  19  ------------------------------------------------------------------
+  20  with PrivTypes;
+  21  use type PrivTypes.PrivilegeT;
+  22  
+  23  package body Admin
+  24  is
+  25  
+  26     MaxDataLength : constant Positive := 18;
+  27     subtype DataLengthT is Natural range 0 .. MaxDataLength;
+  28     subtype DataI is Positive range 1..MaxDataLength;
+  29     subtype DataTextT is String(DataI);
+  30  
+  31     type DataT is
+  32        record
+  33           Length : DataLengthT;
+  34           MinMatchLength : DataI;
+  35           Text   : DataTextT;
+  36        end record;
+  37  
+  38     type OpToKeyedT is array(OpT) of DataT;
+  39     OpToKeyed : constant OpToKeyedT := OpToKeyedT'
+  40       (ArchiveLog       =>
+  41          DataT'(Length         => 11,
+  42                 MinMatchLength => 7,
+  43                 Text           => "ARCHIVE LOG       "),
+  44        UpdateConfigData =>
+  45          DataT'(Length         => 18,
+  46                 MinMatchLength => 6,
+  47                 Text           => "UPDATE CONFIG DATA"),
+  48        OverrideLock     =>
+  49          DataT'(Length         => 13,
+  50                 MinMatchLength => 8,
+  51                 Text           =>"OVERRIDE LOCK     "),
+  52        ShutdownOp       =>
+  53          DataT'(Length         => 8,
+  54                 MinMatchLength => 8,
+  55                 Text           => "SHUTDOWN          "));
+  56  
+  57  
+  58     ------------------------------------------------------------------
+  59     -- Init
+  60     --
+  61     -- Implementation Notes:
+  62     --    None.
+  63     --
+  64     ------------------------------------------------------------------
+  65  
+  66     procedure Init (TheAdmin :    out T)
+  67     is
+  68     begin
+  69        TheAdmin := T'(RolePresent => PrivTypes.UserOnly,
+  70                       CurrentOp   => NullOp);
+  71     end Init;
+
++++        Flow analysis of subprogram Init performed: no 
+           errors found.
+
+  72  
+  73  
+  74     ------------------------------------------------------------------
+  75     -- IsPresent
+  76     --
+  77     -- Implementation Notes:
+  78     --    None.
+  79     --
+  80     ------------------------------------------------------------------
+  81  
+  82     function IsPresent (TheAdmin : T) return Boolean
+  83     is
+  84     begin
+  85        return TheAdmin.RolePresent /= PrivTypes.UserOnly;
+  86     end IsPresent;
+
++++        Flow analysis of subprogram IsPresent performed: 
+           no errors found.
+
+  87  
+  88  
+  89     ------------------------------------------------------------------
+  90     -- OpIsAvailable
+  91     --
+  92     -- Implementation Notes:
+  93     --    None.
+  94     --
+  95     ------------------------------------------------------------------
+  96  
+  97     function OpIsAvailable (TheAdmin : T;
+  98                             KeyedOp  : Keyboard.DataT) return OpAndNullT
+  99     is
+ 100        TheOp   : OpAndNullT := NullOp;
+ 101        Matched : Boolean;
+ 102        --# for OpToKeyed declare Rule;
+ 103        --# for IsAvailable declare Rule;
+ 104     begin
+ 105        for Op in OpT loop
+ 106           --# assert TheOp = NullOp;
+ 107           if KeyedOp.Length >= OpToKeyed(Op).MinMatchLength and
+ 108             KeyedOp.Length <=  OpToKeyed(Op).Length then
+ 109              --# check KeyedOp.Length in DataI;
+ 110              -- could have a match
+ 111              -- check to point of match
+ 112              Matched := True;
+ 113              for I in DataI range 1 .. KeyedOp.Length loop
+ 114                 --# assert KeyedOp.Length in DataI and
+ 115                 --#        KeyedOp = KeyedOp% and
+ 116                 --#        TheOp = NullOp;
+ 117                 if OpToKeyed(Op).Text(I) /= KeyedOp.Text(I) then
+ 118                    Matched := False;
+ 119                    exit;
+ 120                 end if;
+ 121              end loop;
+ 122           else
+ 123              Matched := False;
+ 124           end if;
+ 125           if Matched then
+ 126  
+ 127              -- Matched the KeyedOp - determine if it is
+ 128              -- available, then exit
+ 129              --# check TheAdmin.RolePresent in PrivTypes.AdminPrivilegeT and
+ 130              --#       (IsAvailable(TheAdmin.RolePresent)(Op) ->
+ 131              --#          (Op = OverrideLock <-> TheAdmin.RolePresent = PrivTypes.Guard));
+ 132              if IsAvailable(TheAdmin.RolePresent)(Op) then
+ 133                 --# check Op = OverrideLock <-> prf_rolePresent(TheAdmin) = PrivTypes.Guard;
+ 134                 TheOp := Op;
+ 135              end if;
+ 136              exit;
+ 137  
+ 138           end if;
+ 139        end loop;
+ 140        return TheOp;
+ 141     end OpIsAvailable;
+
++++        Flow analysis of subprogram OpIsAvailable 
+           performed: no errors found.
+
+ 142  
+ 143  
+ 144     ------------------------------------------------------------------
+ 145     -- IsDoingOp
+ 146     --
+ 147     -- Implementation Notes:
+ 148     --    None.
+ 149     --
+ 150     ------------------------------------------------------------------
+ 151  
+ 152     function IsDoingOp (TheAdmin : T) return Boolean
+ 153     is
+ 154     begin
+ 155        return TheAdmin.CurrentOp /= NullOp;
+ 156     end IsDoingOp;
+
++++        Flow analysis of subprogram IsDoingOp performed: 
+           no errors found.
+
+ 157  
+ 158  
+ 159     ------------------------------------------------------------------
+ 160     -- Logon
+ 161     --
+ 162     -- Implementation Notes:
+ 163     --    None
+ 164     --
+ 165     ------------------------------------------------------------------
+ 166  
+ 167     procedure Logon (TheAdmin :    out T;
+ 168                      Role     : in     PrivTypes.AdminPrivilegeT)
+ 169     is
+ 170     begin
+ 171        TheAdmin.RolePresent := Role;
+ 172        TheAdmin.CurrentOp   := NullOp;
+ 173     end Logon;
+
++++        Flow analysis of subprogram Logon performed: no 
+           errors found.
+
+ 174  
+ 175  
+ 176     ------------------------------------------------------------------
+ 177     -- Logout
+ 178     --
+ 179     -- Implementation Notes:
+ 180     --    None.
+ 181     --
+ 182     ------------------------------------------------------------------
+ 183  
+ 184     procedure Logout (TheAdmin :    out T)
+ 185     is
+ 186     begin
+ 187        Init(TheAdmin);
+ 188  
+ 189     end Logout;
+
++++        Flow analysis of subprogram Logout performed: no 
+           errors found.
+
+ 190  
+ 191  
+ 192     ------------------------------------------------------------------
+ 193     -- StartOp
+ 194     --
+ 195     -- Implementation Notes:
+ 196     --    None.
+ 197     --
+ 198     ------------------------------------------------------------------
+ 199  
+ 200     procedure StartOp (TheAdmin : in out T;
+ 201                        Op       : in     OpT)
+ 202     is
+ 203     begin
+ 204        TheAdmin.CurrentOp := Op;
+ 205     end StartOp;
+
++++        Flow analysis of subprogram StartOp performed: 
+           no errors found.
+
+ 206  
+ 207  
+ 208     ------------------------------------------------------------------
+ 209     -- FinishOp
+ 210     --
+ 211     -- Implementation Notes:
+ 212     --    None.
+ 213     --
+ 214     ------------------------------------------------------------------
+ 215  
+ 216     procedure FinishOp (TheAdmin : in out T)
+ 217     is
+ 218     begin
+ 219        TheAdmin.CurrentOp := NullOp;
+ 220     end FinishOp;
+
++++        Flow analysis of subprogram FinishOp performed: 
+           no errors found.
+
+ 221  
+ 222  
+ 223     ------------------------------------------------------------------
+ 224     -- TheCurrentOp
+ 225     --
+ 226     -- Implementation Notes:
+ 227     --    None.
+ 228     --
+ 229     ------------------------------------------------------------------
+ 230  
+ 231     function TheCurrentOp (TheAdmin : T) return OpT
+ 232     is
+ 233     begin
+ 234        return TheAdmin.CurrentOp;
+ 235     end TheCurrentOp;
+
++++        Flow analysis of subprogram TheCurrentOp 
+           performed: no errors found.
+
+ 236  
+ 237  
+ 238     ------------------------------------------------------------------
+ 239     -- SecurityOfficerIsPresent
+ 240     --
+ 241     -- Description:
+ 242     --    Returns true if a Security Officer is present
+ 243     --
+ 244     -- traceunit : C.Admin.SecurityOfficerIsPresent
+ 245     -- traceto   : FD.Interface.UpdateScreen
+ 246     ------------------------------------------------------------------
+ 247  
+ 248     function SecurityOfficerIsPresent (TheAdmin : T) return Boolean
+ 249     is
+ 250     begin
+ 251        return TheAdmin.RolePresent = PrivTypes.SecurityOfficer;
+ 252     end SecurityOfficerIsPresent;
+
++++        Flow analysis of subprogram 
+           SecurityOfficerIsPresent performed: no errors found.
+
+ 253  
+ 254  
+ 255  end Admin;
+No summarized warnings
+
+
+
+--End of file--------------------------------------------------

@@ -1,0 +1,147 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:18  SIMPLIFIED 05-SEP-2011, 15:42:01
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+function TokenReader.GetResponseCode
+
+
+
+
+
+
+@@@@@@@@@@  VC: function_getresponsecode_1.  @@@@@@@@@@
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  tokenreader__interface__responsecodet__first <= 
+          tokenreader__interface__responsecodet__val(responsecode)
+***  Proved C3:  responsecode >= tokenreader__interface__responsecodet__pos(
+          tokenreader__interface__responsecodet__first)
+     using hypothesis H4.
+***  Proved C4:  responsecode <= tokenreader__interface__responsecodet__pos(
+          tokenreader__interface__responsecodet__last)
+     using hypothesis H5.
+-S-  Applied substitution rule getresponsec_rules(9).
+     This was achieved by replacing all occurrences of 
+          tokenreader__interface__responsecodet__first by:
+          tokenreader__interface__success.
+<S>  New H4:  responsecode >= tokenreader__interface__responsecodet__pos(
+          tokenreader__interface__success)
+<S>  New C1:  tokenreader__interface__success <= 
+          tokenreader__interface__responsecodet__val(responsecode)
+-S-  Applied substitution rule getresponsec_rules(10).
+     This was achieved by replacing all occurrences of 
+          tokenreader__interface__responsecodet__last by:
+          tokenreader__interface__invalidresponsecode.
+<S>  New H5:  responsecode <= tokenreader__interface__responsecodet__pos(
+          tokenreader__interface__invalidresponsecode)
+<S>  New C2:  tokenreader__interface__responsecodet__val(responsecode) <= 
+          tokenreader__interface__invalidresponsecode
+-S-  Applied substitution rule getresponsec_rules(3).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__first by:
+          0.
+<S>  New H2:  responsecode >= 0
+-S-  Applied substitution rule getresponsec_rules(4).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__last by:
+          4294967295.
+<S>  New H3:  responsecode <= 4294967295
+-S-  Applied substitution rule getresponsec_rules(14).
+     This was achieved by replacing all occurrences of 
+          tokenreader__interface__responsecodet__pos(
+          tokenreader__interface__success) by:
+          0.
+<S>  New H4:  responsecode >= 0
+-S-  Applied substitution rule getresponsec_rules(54).
+     This was achieved by replacing all occurrences of 
+          tokenreader__interface__responsecodet__pos(
+          tokenreader__interface__invalidresponsecode) by:
+          20.
+<S>  New H5:  responsecode <= 20
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H4 (duplicate of H2).
+---  Eliminated hypothesis H3 (redundant, given H5).
+***  Proved C1:  tokenreader__interface__success <= 
+          tokenreader__interface__responsecodet__val(responsecode)
+     using hypotheses H2 & H5.
+***  Proved C2:  tokenreader__interface__responsecodet__val(responsecode) <= 
+          tokenreader__interface__invalidresponsecode
+     using hypotheses H2 & H5.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_getresponsecode_2.  @@@@@@@@@@
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  tokenreader__interface__responsecodet__first <= 
+          tokenreader__interface__invalidresponsecode
+-S-  Applied substitution rule getresponsec_rules(9).
+     This was achieved by replacing all occurrences of 
+          tokenreader__interface__responsecodet__first by:
+          tokenreader__interface__success.
+<S>  New H4:  not (responsecode >= tokenreader__interface__responsecodet__pos(
+          tokenreader__interface__success) and responsecode <= 
+          tokenreader__interface__responsecodet__pos(
+          tokenreader__interface__responsecodet__last))
+<S>  New C1:  true
+-S-  Applied substitution rule getresponsec_rules(10).
+     This was achieved by replacing all occurrences of 
+          tokenreader__interface__responsecodet__last by:
+          tokenreader__interface__invalidresponsecode.
+<S>  New H4:  not (responsecode >= tokenreader__interface__responsecodet__pos(
+          tokenreader__interface__success) and responsecode <= 
+          tokenreader__interface__responsecodet__pos(
+          tokenreader__interface__invalidresponsecode))
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_getresponsecode_3.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  tokenreader__interface__responsecodet__first <= 
+          tokenreader__interface__responsecodet__val(responsecode)
+---  Hypothesis H8 has been replaced by "true".  (It is already present, as H4).
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H5).
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H6)
+          .
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H7)
+          .
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  tokenreader__interface__responsecodet__first <= 
+          tokenreader__interface__responsecodet__val(responsecode)
+***  Proved C1:  true
+***  Proved C2:  tokenreader__interface__responsecodet__first <= 
+          tokenreader__interface__responsecodet__val(responsecode)
+     using hypothesis H6.
+***  Proved C3:  tokenreader__interface__responsecodet__val(responsecode) <= 
+          tokenreader__interface__responsecodet__last
+     using hypothesis H7.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_getresponsecode_4.  @@@@@@@@@@
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  tokenreader__interface__responsecodet__first <= 
+          tokenreader__interface__invalidresponsecode
+---  Hypothesis H7 has been replaced by "true".  (It is already present, as H5).
+---  Hypothesis H8 has been replaced by "true".  (It is already present, as H6).
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  tokenreader__interface__responsecodet__first <= 
+          tokenreader__interface__invalidresponsecode
+***  Proved C1:  true
+***  Proved C2:  tokenreader__interface__responsecodet__first <= 
+          tokenreader__interface__invalidresponsecode
+     using hypothesis H5.
+***  Proved C3:  tokenreader__interface__invalidresponsecode <= 
+          tokenreader__interface__responsecodet__last
+     using hypothesis H6.
+***  PROVED VC.
+

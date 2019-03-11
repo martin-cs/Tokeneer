@@ -1,0 +1,70 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:16.81*/
+
+                       /*function Display.CombineLines*/
+
+
+rule_family combinelines_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+combinelines_rules(1): integer__size >= 0 may_be_deduced.
+combinelines_rules(2): integer__first may_be_replaced_by -2147483648.
+combinelines_rules(3): integer__last may_be_replaced_by 2147483647.
+combinelines_rules(4): integer__base__first may_be_replaced_by -2147483648.
+combinelines_rules(5): integer__base__last may_be_replaced_by 2147483647.
+combinelines_rules(6): character__size >= 0 may_be_deduced.
+combinelines_rules(7): character__first may_be_replaced_by 0.
+combinelines_rules(8): character__last may_be_replaced_by 255.
+combinelines_rules(9): character__base__first may_be_replaced_by 0.
+combinelines_rules(10): character__base__last may_be_replaced_by 255.
+combinelines_rules(11): positive__size >= 0 may_be_deduced.
+combinelines_rules(12): positive__first may_be_replaced_by 1.
+combinelines_rules(13): positive__last may_be_replaced_by 2147483647.
+combinelines_rules(14): positive__base__first may_be_replaced_by -2147483648.
+combinelines_rules(15): positive__base__last may_be_replaced_by 2147483647.
+combinelines_rules(16): msgtextcount__size >= 0 may_be_deduced.
+combinelines_rules(17): msgtextcount__first may_be_replaced_by 0.
+combinelines_rules(18): msgtextcount__last may_be_replaced_by 23.
+combinelines_rules(19): msgtextcount__base__first may_be_replaced_by -2147483648.
+combinelines_rules(20): msgtextcount__base__last may_be_replaced_by 2147483647.
+combinelines_rules(21): msgtexti__size >= 0 may_be_deduced.
+combinelines_rules(22): msgtexti__first may_be_replaced_by 1.
+combinelines_rules(23): msgtexti__last may_be_replaced_by 23.
+combinelines_rules(24): msgtexti__base__first may_be_replaced_by -2147483648.
+combinelines_rules(25): msgtexti__base__last may_be_replaced_by 2147483647.
+combinelines_rules(26): msglinet__size >= 0 may_be_deduced.
+combinelines_rules(27): A = B may_be_deduced_from
+     [goal(checktype(A,msglinet)),
+      goal(checktype(B,msglinet)),
+      fld_text(A) = fld_text(B),
+      fld_len(A) = fld_len(B)].
+combinelines_rules(28): msgstrt__size >= 0 may_be_deduced.
+combinelines_rules(29): A = B may_be_deduced_from
+     [goal(checktype(A,msgstrt)),
+      goal(checktype(B,msgstrt)),
+      fld_top(A) = fld_top(B),
+      fld_bottom(A) = fld_bottom(B)].
+combinelines_rules(30): scrolltextcount__size >= 0 may_be_deduced.
+combinelines_rules(31): scrolltextcount__first may_be_replaced_by 0.
+combinelines_rules(32): scrolltextcount__last may_be_replaced_by 50.
+combinelines_rules(33): scrolltextcount__base__first may_be_replaced_by -2147483648.
+combinelines_rules(34): scrolltextcount__base__last may_be_replaced_by 2147483647.
+combinelines_rules(35): scrolltexti__size >= 0 may_be_deduced.
+combinelines_rules(36): scrolltexti__first may_be_replaced_by 1.
+combinelines_rules(37): scrolltexti__last may_be_replaced_by 50.
+combinelines_rules(38): scrolltexti__base__first may_be_replaced_by -2147483648.
+combinelines_rules(39): scrolltexti__base__last may_be_replaced_by 2147483647.
+combinelines_rules(40): scrollstrt__size >= 0 may_be_deduced.
+combinelines_rules(41): A = B may_be_deduced_from
+     [goal(checktype(A,scrollstrt)),
+      goal(checktype(B,scrollstrt)),
+      fld_text(A) = fld_text(B),
+      fld_len(A) = fld_len(B)].

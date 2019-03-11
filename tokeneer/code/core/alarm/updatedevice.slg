@@ -1,0 +1,112 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:10  SIMPLIFIED 05-SEP-2011, 15:38:38
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure Alarm.UpdateDevice
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/alarm/alarm.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_updatedevice_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  alarmtypes__statust__first <= door__thedooralarm(door__state)
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  alarmtypes__statust__first <= auditlog__theauditalarm(
+          auditlog__state)
+***  Proved C1:  door__thedooralarm(door__state) = alarmtypes__alarming -> 
+          alarm__interface__prf_isalarming(alarm__interface__output__1)
+     using hypothesis H7.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatedevice_2.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  alarmtypes__statust__first <= door__thedooralarm(door__state)
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  alarmtypes__statust__first <= auditlog__theauditalarm(
+          auditlog__state)
+>>>  Restructured hypothesis H6 into:
+     >>>  H6:  door__thedooralarm(door__state) <> alarmtypes__alarming and 
+          auditlog__theauditalarm(auditlog__state) <> alarmtypes__alarming
+>>>  Hypothesis H6 has now been split into two, giving:
+     >>>  H8:  door__thedooralarm(door__state) <> alarmtypes__alarming
+     >>>  H9:  auditlog__theauditalarm(auditlog__state) <> alarmtypes__alarming
+-S-  Applied substitution rule updatedevice_rules(2).
+     This was achieved by replacing all occurrences of 
+          alarmtypes__statust__first by:
+          alarmtypes__alarming.
+<S>  New H2:  alarmtypes__alarming <= door__thedooralarm(door__state)
+<S>  New H4:  alarmtypes__alarming <= auditlog__theauditalarm(auditlog__state)
+-S-  Applied substitution rule updatedevice_rules(3).
+     This was achieved by replacing all occurrences of 
+          alarmtypes__statust__last by:
+          alarmtypes__silent.
+<S>  New H3:  door__thedooralarm(door__state) <= alarmtypes__silent
+<S>  New H5:  auditlog__theauditalarm(auditlog__state) <= alarmtypes__silent
+%%%  Hypotheses H2 & H8 together imply that
+          alarmtypes__alarming < door__thedooralarm(door__state).
+     H2 & H8 have therefore been deleted and a new H10 added to this effect.
+%%%  Hypotheses H4 & H9 together imply that
+          alarmtypes__alarming < auditlog__theauditalarm(auditlog__state).
+     H4 & H9 have therefore been deleted and a new H11 added to this effect.
+***  Proved C1:  door__thedooralarm(door__state) = alarmtypes__alarming -> 
+          alarm__interface__prf_isalarming(alarm__interface__output__2)
+     using hypothesis H10.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatedevice_3.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatedevice_4.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  alarm__interface__output~ = fld_alarm__interface__output(output~)
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H2 (true-hypothesis).
+-S-  Eliminated hypothesis H4.
+     This was achieved by replacing all occurrences of alarm__interface__output 
+          by:
+          fld_alarm__interface__output(output).
+<S>  New H5:  door__thedooralarm(door__state) = alarmtypes__alarming -> 
+          alarm__interface__prf_isalarming(fld_alarm__interface__output(output))
+     +++  New H6:  alarmtypes__statust__size >= 0
+***  Proved C1:  door__thedooralarm(door__state) = alarmtypes__alarming -> 
+          prf_isalarming(output)
+     This was achieved by applying the rewrite rule alarm_user(1)
+     [from rulefile alarm.rlu] to rewrite this conclusion to:
+<S>  C1:  door__thedooralarm(door__state) = alarmtypes__alarming -> 
+          alarm__interface__prf_isalarming(fld_alarm__interface__output(output))
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  From H5, proved: door__thedooralarm(door__state) = 
+          alarmtypes__alarming -> alarm__interface__prf_isalarming(
+          fld_alarm__interface__output(output))
+***  PROVED VC.
+
+VCN  4: Summary of user rule application.
+FIL  alarm.rlu
+RUL     alarm_user(1)
+CON        1
+
+
+OVR  Overall summary of VCs using user rules.
+FIL  alarm.rlu
+RUL     alarm_user(1)
+VCS        4
+

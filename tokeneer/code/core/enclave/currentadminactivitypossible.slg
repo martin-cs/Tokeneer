@@ -1,0 +1,96 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:26  SIMPLIFIED 05-SEP-2011, 15:40:34
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+function Enclave.CurrentAdminActivityPossible
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/enclave/enclave.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: function_currentadminactivitypossible_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  statust__first <= status
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  adminhasdeparted(admintoken__state, status) -> 
+          nonquiescentstates__first <= status and status <= 
+          nonquiescentstates__last
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  adminhasdeparted(admintoken__state, status) or 
+          adminactivityinprogress(status) -> nonquiescentstates__first <= 
+          status and status <= nonquiescentstates__last
+-S-  Applied substitution rule currentadmin_rules(2).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H2:  notenrolled <= status
+-S-  Applied substitution rule currentadmin_rules(3).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H3:  status <= shutdown
+-S-  Applied substitution rule currentadmin_rules(39).
+     This was achieved by replacing all occurrences of 
+          nonquiescentstates__first by:
+          waitingremoveadmintokenfail.
+<S>  New H5:  adminhasdeparted(admintoken__state, status) -> 
+          waitingremoveadmintokenfail <= status and status <= 
+          nonquiescentstates__last
+<S>  New C1:  adminhasdeparted(admintoken__state, status) or 
+          adminactivityinprogress(status) -> waitingremoveadmintokenfail <= 
+          status and status <= nonquiescentstates__last
+-S-  Applied substitution rule currentadmin_rules(40).
+     This was achieved by replacing all occurrences of nonquiescentstates__last 
+          by:
+          shutdown.
+<S>  New H5:  adminhasdeparted(admintoken__state, status) -> 
+          waitingremoveadmintokenfail <= status and status <= shutdown
+<S>  New C1:  adminhasdeparted(admintoken__state, status) or 
+          adminactivityinprogress(status) -> waitingremoveadmintokenfail <= 
+          status and status <= shutdown
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H4 (true-hypothesis).
+---  Eliminated hypothesis H6 (true-hypothesis).
+     +++  New H7:  statust__size >= 0
+     +++  New H8:  nonquiescentstates__size >= 0
+***  Proved C1:  adminhasdeparted(admintoken__state, status) or 
+          adminactivityinprogress(status) -> waitingremoveadmintokenfail <= 
+          status and status <= shutdown
+     This was achieved by applying the inference rule enclave_user(15)
+     [from rulefile enclave.rlu] to infer this conclusion directly (rule has no 
+          side-conditions).
+***  PROVED VC.
+
+VCN  1: Summary of user rule application.
+FIL  enclave.rlu
+RUL     enclave_user(15)
+CON        1
+
+
+@@@@@@@@@@  VC: function_currentadminactivitypossible_2.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_currentadminactivitypossible_3.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+OVR  Overall summary of VCs using user rules.
+FIL  enclave.rlu
+RUL     enclave_user(15)
+VCS        1
+

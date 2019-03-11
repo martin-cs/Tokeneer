@@ -1,0 +1,69 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:27.81*/
+
+                      /*procedure Updates.EarlyActivity*/
+
+
+rule_family earlyactivit_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+earlyactivit_rules(1): alarmtypes__statust__size >= 0 may_be_deduced.
+earlyactivit_rules(2): alarmtypes__statust__first may_be_replaced_by alarmtypes__alarming.
+earlyactivit_rules(3): alarmtypes__statust__last may_be_replaced_by alarmtypes__silent.
+earlyactivit_rules(4): alarmtypes__statust__base__first may_be_replaced_by alarmtypes__alarming.
+earlyactivit_rules(5): alarmtypes__statust__base__last may_be_replaced_by alarmtypes__silent.
+earlyactivit_rules(6): alarmtypes__statust__pos(
+     alarmtypes__statust__first) may_be_replaced_by 0.
+earlyactivit_rules(7): alarmtypes__statust__pos(
+     alarmtypes__alarming) may_be_replaced_by 0.
+earlyactivit_rules(8): alarmtypes__statust__val(0) may_be_replaced_by 
+     alarmtypes__alarming.
+earlyactivit_rules(9): alarmtypes__statust__pos(
+     alarmtypes__silent) may_be_replaced_by 1.
+earlyactivit_rules(10): alarmtypes__statust__val(1) may_be_replaced_by 
+     alarmtypes__silent.
+earlyactivit_rules(11): alarmtypes__statust__pos(
+     alarmtypes__statust__last) may_be_replaced_by 1.
+earlyactivit_rules(12): alarmtypes__statust__pos(succ(X)) may_be_replaced_by 
+     alarmtypes__statust__pos(X) + 1
+     if [X <=alarmtypes__silent, X <> alarmtypes__silent].
+earlyactivit_rules(13): alarmtypes__statust__pos(pred(X)) may_be_replaced_by 
+     alarmtypes__statust__pos(X) - 1
+     if [X >=alarmtypes__alarming, X <> alarmtypes__alarming].
+earlyactivit_rules(14): alarmtypes__statust__pos(X) >= 0 may_be_deduced_from
+     [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+earlyactivit_rules(15): alarmtypes__statust__pos(X) <= 1 may_be_deduced_from
+     [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+earlyactivit_rules(16): alarmtypes__statust__val(X) >= 
+     alarmtypes__alarming may_be_deduced_from
+     [0 <= X, X <= 1].
+earlyactivit_rules(17): alarmtypes__statust__val(X) <= 
+     alarmtypes__silent may_be_deduced_from
+     [0 <= X, X <= 1].
+earlyactivit_rules(18): succ(alarmtypes__statust__val(X)) may_be_replaced_by 
+     alarmtypes__statust__val(X+1)
+     if [0 <= X, X < 1].
+earlyactivit_rules(19): pred(alarmtypes__statust__val(X)) may_be_replaced_by 
+     alarmtypes__statust__val(X-1)
+     if [0 < X, X <= 1].
+earlyactivit_rules(20): alarmtypes__statust__pos(
+     alarmtypes__statust__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+earlyactivit_rules(21): alarmtypes__statust__val(
+     alarmtypes__statust__pos(X)) may_be_replaced_by X
+     if [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+earlyactivit_rules(22): alarmtypes__statust__pos(X) <= 
+     alarmtypes__statust__pos(Y) & X <= Y are_interchangeable 
+     if [alarmtypes__alarming <= X, X <= alarmtypes__silent, 
+     alarmtypes__alarming <= Y, Y <= alarmtypes__silent].
+earlyactivit_rules(23): alarmtypes__statust__val(X) <= 
+     alarmtypes__statust__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].

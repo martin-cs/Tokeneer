@@ -1,0 +1,259 @@
+
+%=========================================================================
+\chapter{The Initial System and Startup}
+\label{sec:Start}
+%=========================================================================
+\section{The Initial System}
+%----------------------------------
+
+\begin{traceunit}{FD.TIS.InitIDStation}
+\traceto{FS.TIS.InitIDStation}
+\end{traceunit}
+
+After initial installation the system has the following properties
+\begin{itemize}
+\item
+an empty key store, which means it is unable to authorise entry to anyone;
+\item
+default configuration data, which does not permit entry to anyone;
+\item
+the door latched;
+\item
+an empty audit log;
+\item
+the internal times all set to zero (a time before the current time).
+\end{itemize}
+
+The door is assumed closed at initialisation, this ensures that the alarm
+will not sound before the first time that data is polled.
+
+\begin{schema}{InitDoorLatchAlarmC}
+        DoorLatchAlarmC
+\where
+	currentTimeC = zeroTime
+\\	currentDoorC = closed
+\\	latchTimeoutC = zeroTime
+\\	alarmTimeoutC = zeroTime
+\\      doorAlarmC = silent
+\\      currentLatchC = locked
+\end{schema}
+
+There are no keys held by the system.
+
+\begin{schema}{InitKeyStoreC}
+        KeyStoreC
+\where
+        keys = \emptyset
+\end{schema}
+
+The initial certificate store has the 0 as the available serial number.
+
+\begin{schema}{InitCertificateStore}
+        CertificateStore
+\where
+        nextSerialNumber = 0
+\end{schema}        
+
+
+This default configuration assumes the lowest classification possible
+for the enclave. This ensures that it does not give inadvertently
+high clearance to the authorisation certificate. The parameters that
+define the $authPeriod$
+and $entryPeriod$ functions are set to enable entry into the enclave
+to re-configure the TIS. This configuration will
+allow Auth Certificates to be generated with a validity of 2 hours
+from the point of issue.
+\begin{schema}{InitConfigC}
+        ConfigC
+\where
+	alarmSilentDurationC = 10
+\\      latchUnlockDurationC = 150
+\\      tokenRemovalDurationC = 100
+\\      fingerWaitDuration = 100
+\\      enclaveClearanceC = unmarked
+\\      minEntryClass = unmarked
+\also   
+        maxAuthDuration = 72000
+\\      accessPolicy = allHours
+\\      systemMaxFar = 1000
+\end{schema}
+\begin{Zcomment}
+\item 
+The initial values of $workingHoursStart$, $workingHoursEnd$ will not
+impact the entry or authorisation periods so are not defined here,
+they are free to be implemented with any value.
+\end{Zcomment} 
+
+Initially no administrator is logged on and no administator operations
+are taking place.
+\begin{schema}{InitAdminC}
+        AdminC
+\where
+        rolePresentC = \Nil
+\\      currentAdminOpC = \Nil
+\end{schema}
+
+Initially the statistics are set to zero, indicating no use of the
+system to date.
+\begin{schema}{InitStatsC}
+        StatsC
+\where
+        successEntryC = 0
+\\      failEntryC = 0
+\\      successBioC = 0
+\\      failBioC = 0
+\end{schema}        
+
+The initial audit Log is empty and there is no audit alarm.
+
+\begin{schema}{InitAuditLogC}
+        AuditLogC
+\where
+        logFiles = LOGFILEINDEX \cross \{ \emptyset \}
+\\      auditAlarmC = silent
+\end{schema}        
+
+Initially the internal state
+is $notEnrolled$.
+
+\begin{schema}{InitInternalC}
+        InternalC
+\where
+	enclaveStatusC = notEnrolled
+\\      statusC = quiescent
+\end{schema}
+\begin{Zcomment}
+\item
+In the above states the timeouts $fingerTimeout$ and
+$tokenRemovalTimeoutC$ are not used so their values are not
+important. The implementation is free to set their initial value to
+any valid value. 
+\end{Zcomment}
+
+Entities that model the real world and are polled and have no security
+implications are not set 
+at initialisation, these will be updated at the first poll of the real
+world entities.
+
+Initially the screen and the display are clear. 
+
+\begin{schema}{InitIDStationC}
+        IDStationC
+\also
+	InitDoorLatchAlarmC
+\\	InitConfigC
+\\      InitKeyStoreC
+\\      InitStatsC
+\\      InitAuditLogC
+\\      InitAdminC
+\\      InitInternalC
+\\      InitCertificateStore
+\where
+        currentScreenC.screenMsgC = clearC
+\also
+	currentDisplayC = blank
+\end{schema}
+
+%-------------------------------------------------------------------------
+\section{Starting the ID Station}
+%-------------------------------------------------------------------------
+\begin{traceunit}{FD.TIS.TISStartup}
+\traceto{FS.TIS.TISStartup}
+\end{traceunit}
+
+
+We assume that some of the state within TIS is persistent through
+shutdown and some is not. 
+The persistent items are $ConfigC$, $KeyStoreC$, $CertificateStore$  and $AuditLogC$ all other state
+components are set at startup. Those values that are polled can take
+any valid value, we assume for simplicity that they remain unchanged.
+
+\begin{schema}{StartContextC}
+        \Delta IDStationC
+\\      RealWorldChangesC
+\also
+\\      \Xi ConfigC
+\\      \Xi KeyStoreC
+\also
+	InitDoorLatchAlarmC'
+\\      InitStatsC'
+\\      InitAdminC'
+\\      AddElementsToLogC
+\\      LogChangeC
+\also
+        \Xi UserTokenC  
+\\      \Xi AdminTokenC 
+\\      \Xi FingerC
+\\      \Xi FloppyC 
+\\      \Xi KeyboardC 
+\where
+        auditTypes~newElements? \subseteq STARTUP\_ELEMENTS \cup USER\_INDEPENDENT\_ELEMENTS
+\end{schema}
+
+In the case that TIS does not have any private keys in the $KeyStoreC$ 
+the ID station is assumed to require enrolment.
+
+\begin{schema}{StartNonEnrolledStationC}
+        StartContextC
+\also
+        InitCertificateStore'
+\where 
+        privateKey = \Nil
+\also
+        currentScreenC'.screenMsgC = clearC
+\also
+	currentDisplayC' = blank
+\\	enclaveStatusC' = notEnrolled
+\\      statusC' = quiescent
+\also
+        auditTypes~ newElements? \cap STARTUP\_ELEMENTS = 
+        \{ startUnenrolledTISElement \} 
+\also
+        \exists_1 element : AuditC @ element \in newElements? 
+\\ \t1  \land element.elementId = startUnenrolledTISElement
+\\ \t1  \land element.logTime \in nowC \upto nowC'
+\\ \t1  \land element.user = noUser
+\\ \t1  \land element.severity = information
+\\ \t1  \land element.description = noDescription
+\end{schema}
+
+In the case that TIS does have a private key the ID station is
+assumed to have been previously enrolled.
+
+\begin{schema}{StartEnrolledStationC}
+        StartContextC
+\also
+        \Xi CertificateStore
+\where 
+        privateKey \neq \Nil
+\also
+        currentScreenC'.screenMsgC = welcomeAdminC
+\also
+	currentDisplayC' = welcome
+\\	enclaveStatusC' = enclaveQuiescent
+\\      statusC' = quiescent
+\also
+        auditTypes~ newElements? \cap STARTUP\_ELEMENTS = 
+        \{ startEnrolledTISElement \} 
+\also
+        \exists_1 element : AuditC @ element \in newElements? 
+\\ \t1  \land element.elementId = startEnrolledTISElement
+\\ \t1  \land element.logTime \in nowC \upto nowC'
+\\ \t1  \land element.user = noUser
+\\ \t1  \land element.severity = information
+\\ \t1  \land element.description = noDescription
+\end{schema}
+
+The complete startup operation is given by:
+
+\begin{zed}
+        TISStartupC \defs (StartEnrolledStationC \lor
+        StartNonEnrolledStationC ) \hide (newElements?)
+\end{zed}
+
+
+
+
+
+
+

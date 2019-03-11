@@ -1,0 +1,195 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:26.17*/
+
+               /*procedure Enclave.ArchiveLogOp.StartArchiveLog*/
+
+
+rule_family startarchive_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+startarchive_rules(1): integer__size >= 0 may_be_deduced.
+startarchive_rules(2): integer__first may_be_replaced_by -2147483648.
+startarchive_rules(3): integer__last may_be_replaced_by 2147483647.
+startarchive_rules(4): integer__base__first may_be_replaced_by -2147483648.
+startarchive_rules(5): integer__base__last may_be_replaced_by 2147483647.
+startarchive_rules(6): character__size >= 0 may_be_deduced.
+startarchive_rules(7): character__first may_be_replaced_by 0.
+startarchive_rules(8): character__last may_be_replaced_by 255.
+startarchive_rules(9): character__base__first may_be_replaced_by 0.
+startarchive_rules(10): character__base__last may_be_replaced_by 255.
+startarchive_rules(11): positive__size >= 0 may_be_deduced.
+startarchive_rules(12): positive__first may_be_replaced_by 1.
+startarchive_rules(13): positive__last may_be_replaced_by 2147483647.
+startarchive_rules(14): positive__base__first may_be_replaced_by -2147483648.
+startarchive_rules(15): positive__base__last may_be_replaced_by 2147483647.
+startarchive_rules(16): audittypes__usertexti__size >= 0 may_be_deduced.
+startarchive_rules(17): audittypes__usertexti__first may_be_replaced_by 1.
+startarchive_rules(18): audittypes__usertexti__last may_be_replaced_by 50.
+startarchive_rules(19): audittypes__usertexti__base__first may_be_replaced_by -2147483648.
+startarchive_rules(20): audittypes__usertexti__base__last may_be_replaced_by 2147483647.
+startarchive_rules(21): screen__msgtextt__size >= 0 may_be_deduced.
+startarchive_rules(22): screen__msgtextt__first may_be_replaced_by screen__clear.
+startarchive_rules(23): screen__msgtextt__last may_be_replaced_by screen__insertconfigdata.
+startarchive_rules(24): screen__msgtextt__base__first may_be_replaced_by screen__clear.
+startarchive_rules(25): screen__msgtextt__base__last may_be_replaced_by screen__insertconfigdata.
+startarchive_rules(26): screen__msgtextt__pos(screen__msgtextt__first) may_be_replaced_by 0.
+startarchive_rules(27): screen__msgtextt__pos(screen__clear) may_be_replaced_by 0.
+startarchive_rules(28): screen__msgtextt__val(0) may_be_replaced_by 
+     screen__clear.
+startarchive_rules(29): screen__msgtextt__pos(
+     screen__welcomeadmin) may_be_replaced_by 1.
+startarchive_rules(30): screen__msgtextt__val(1) may_be_replaced_by 
+     screen__welcomeadmin.
+startarchive_rules(31): screen__msgtextt__pos(screen__busy) may_be_replaced_by 2.
+startarchive_rules(32): screen__msgtextt__val(2) may_be_replaced_by 
+     screen__busy.
+startarchive_rules(33): screen__msgtextt__pos(
+     screen__removeadmintoken) may_be_replaced_by 3.
+startarchive_rules(34): screen__msgtextt__val(3) may_be_replaced_by 
+     screen__removeadmintoken.
+startarchive_rules(35): screen__msgtextt__pos(screen__closedoor) may_be_replaced_by 4.
+startarchive_rules(36): screen__msgtextt__val(4) may_be_replaced_by 
+     screen__closedoor.
+startarchive_rules(37): screen__msgtextt__pos(
+     screen__requestadminop) may_be_replaced_by 5.
+startarchive_rules(38): screen__msgtextt__val(5) may_be_replaced_by 
+     screen__requestadminop.
+startarchive_rules(39): screen__msgtextt__pos(screen__doingop) may_be_replaced_by 6.
+startarchive_rules(40): screen__msgtextt__val(6) may_be_replaced_by 
+     screen__doingop.
+startarchive_rules(41): screen__msgtextt__pos(
+     screen__invalidrequest) may_be_replaced_by 7.
+startarchive_rules(42): screen__msgtextt__val(7) may_be_replaced_by 
+     screen__invalidrequest.
+startarchive_rules(43): screen__msgtextt__pos(screen__invaliddata) may_be_replaced_by 8.
+startarchive_rules(44): screen__msgtextt__val(8) may_be_replaced_by 
+     screen__invaliddata.
+startarchive_rules(45): screen__msgtextt__pos(
+     screen__archivefailed) may_be_replaced_by 9.
+startarchive_rules(46): screen__msgtextt__val(9) may_be_replaced_by 
+     screen__archivefailed.
+startarchive_rules(47): screen__msgtextt__pos(
+     screen__insertenrolmentdata) may_be_replaced_by 10.
+startarchive_rules(48): screen__msgtextt__val(10) may_be_replaced_by 
+     screen__insertenrolmentdata.
+startarchive_rules(49): screen__msgtextt__pos(
+     screen__validatingenrolmentdata) may_be_replaced_by 11.
+startarchive_rules(50): screen__msgtextt__val(11) may_be_replaced_by 
+     screen__validatingenrolmentdata.
+startarchive_rules(51): screen__msgtextt__pos(
+     screen__enrolmentfailed) may_be_replaced_by 12.
+startarchive_rules(52): screen__msgtextt__val(12) may_be_replaced_by 
+     screen__enrolmentfailed.
+startarchive_rules(53): screen__msgtextt__pos(
+     screen__insertblankfloppy) may_be_replaced_by 13.
+startarchive_rules(54): screen__msgtextt__val(13) may_be_replaced_by 
+     screen__insertblankfloppy.
+startarchive_rules(55): screen__msgtextt__pos(
+     screen__insertconfigdata) may_be_replaced_by 14.
+startarchive_rules(56): screen__msgtextt__val(14) may_be_replaced_by 
+     screen__insertconfigdata.
+startarchive_rules(57): screen__msgtextt__pos(screen__msgtextt__last) may_be_replaced_by 14.
+startarchive_rules(58): screen__msgtextt__pos(succ(X)) may_be_replaced_by 
+     screen__msgtextt__pos(X) + 1
+     if [X <=screen__insertconfigdata, X <> 
+     screen__insertconfigdata].
+startarchive_rules(59): screen__msgtextt__pos(pred(X)) may_be_replaced_by 
+     screen__msgtextt__pos(X) - 1
+     if [X >=screen__clear, X <> screen__clear].
+startarchive_rules(60): screen__msgtextt__pos(X) >= 0 may_be_deduced_from
+     [screen__clear <= X, X <= screen__insertconfigdata].
+startarchive_rules(61): screen__msgtextt__pos(X) <= 14 may_be_deduced_from
+     [screen__clear <= X, X <= screen__insertconfigdata].
+startarchive_rules(62): screen__msgtextt__val(X) >= screen__clear may_be_deduced_from
+     [0 <= X, X <= 14].
+startarchive_rules(63): screen__msgtextt__val(X) <= 
+     screen__insertconfigdata may_be_deduced_from
+     [0 <= X, X <= 14].
+startarchive_rules(64): succ(screen__msgtextt__val(X)) may_be_replaced_by 
+     screen__msgtextt__val(X+1)
+     if [0 <= X, X < 14].
+startarchive_rules(65): pred(screen__msgtextt__val(X)) may_be_replaced_by 
+     screen__msgtextt__val(X-1)
+     if [0 < X, X <= 14].
+startarchive_rules(66): screen__msgtextt__pos(screen__msgtextt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 14].
+startarchive_rules(67): screen__msgtextt__val(screen__msgtextt__pos(X)) may_be_replaced_by X
+     if [screen__clear <= X, X <= screen__insertconfigdata].
+startarchive_rules(68): screen__msgtextt__pos(X) <= 
+     screen__msgtextt__pos(Y) & X <= Y are_interchangeable 
+     if [screen__clear <= X, X <= screen__insertconfigdata, 
+     screen__clear <= Y, Y <= screen__insertconfigdata].
+startarchive_rules(69): screen__msgtextt__val(X) <= 
+     screen__msgtextt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 14, 0 <= Y, Y <= 14].
+startarchive_rules(70): statust__size >= 0 may_be_deduced.
+startarchive_rules(71): statust__first may_be_replaced_by notenrolled.
+startarchive_rules(72): statust__last may_be_replaced_by shutdown.
+startarchive_rules(73): statust__base__first may_be_replaced_by notenrolled.
+startarchive_rules(74): statust__base__last may_be_replaced_by shutdown.
+startarchive_rules(75): statust__pos(statust__first) may_be_replaced_by 0.
+startarchive_rules(76): statust__pos(notenrolled) may_be_replaced_by 0.
+startarchive_rules(77): statust__val(0) may_be_replaced_by 
+     notenrolled.
+startarchive_rules(78): statust__pos(waitingenrol) may_be_replaced_by 1.
+startarchive_rules(79): statust__val(1) may_be_replaced_by 
+     waitingenrol.
+startarchive_rules(80): statust__pos(waitingendenrol) may_be_replaced_by 2.
+startarchive_rules(81): statust__val(2) may_be_replaced_by 
+     waitingendenrol.
+startarchive_rules(82): statust__pos(enclavequiescent) may_be_replaced_by 3.
+startarchive_rules(83): statust__val(3) may_be_replaced_by 
+     enclavequiescent.
+startarchive_rules(84): statust__pos(waitingremoveadmintokenfail) may_be_replaced_by 4.
+startarchive_rules(85): statust__val(4) may_be_replaced_by 
+     waitingremoveadmintokenfail.
+startarchive_rules(86): statust__pos(gotadmintoken) may_be_replaced_by 5.
+startarchive_rules(87): statust__val(5) may_be_replaced_by 
+     gotadmintoken.
+startarchive_rules(88): statust__pos(waitingstartadminop) may_be_replaced_by 6.
+startarchive_rules(89): statust__val(6) may_be_replaced_by 
+     waitingstartadminop.
+startarchive_rules(90): statust__pos(waitingfinishadminop) may_be_replaced_by 7.
+startarchive_rules(91): statust__val(7) may_be_replaced_by 
+     waitingfinishadminop.
+startarchive_rules(92): statust__pos(shutdown) may_be_replaced_by 8.
+startarchive_rules(93): statust__val(8) may_be_replaced_by 
+     shutdown.
+startarchive_rules(94): statust__pos(statust__last) may_be_replaced_by 8.
+startarchive_rules(95): statust__pos(succ(X)) may_be_replaced_by 
+     statust__pos(X) + 1
+     if [X <=shutdown, X <> shutdown].
+startarchive_rules(96): statust__pos(pred(X)) may_be_replaced_by 
+     statust__pos(X) - 1
+     if [X >=notenrolled, X <> notenrolled].
+startarchive_rules(97): statust__pos(X) >= 0 may_be_deduced_from
+     [notenrolled <= X, X <= shutdown].
+startarchive_rules(98): statust__pos(X) <= 8 may_be_deduced_from
+     [notenrolled <= X, X <= shutdown].
+startarchive_rules(99): statust__val(X) >= notenrolled may_be_deduced_from
+     [0 <= X, X <= 8].
+startarchive_rules(100): statust__val(X) <= shutdown may_be_deduced_from
+     [0 <= X, X <= 8].
+startarchive_rules(101): succ(statust__val(X)) may_be_replaced_by 
+     statust__val(X+1)
+     if [0 <= X, X < 8].
+startarchive_rules(102): pred(statust__val(X)) may_be_replaced_by 
+     statust__val(X-1)
+     if [0 < X, X <= 8].
+startarchive_rules(103): statust__pos(statust__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 8].
+startarchive_rules(104): statust__val(statust__pos(X)) may_be_replaced_by X
+     if [notenrolled <= X, X <= shutdown].
+startarchive_rules(105): statust__pos(X) <= statust__pos(Y) & X <= Y are_interchangeable 
+     if [notenrolled <= X, X <= shutdown, notenrolled <= Y, Y <= 
+     shutdown].
+startarchive_rules(106): statust__val(X) <= statust__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 8, 0 <= Y, Y <= 8].

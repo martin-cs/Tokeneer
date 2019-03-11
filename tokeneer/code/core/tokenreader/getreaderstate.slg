@@ -1,0 +1,147 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:18  SIMPLIFIED 05-SEP-2011, 15:42:00
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+function TokenReader.GetReaderState
+
+
+
+
+
+
+@@@@@@@@@@  VC: function_getreaderstate_1.  @@@@@@@@@@
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  tokenreader__interface__readerstatet__first <= 
+          tokenreader__interface__readerstatet__val(readerstate)
+***  Proved C3:  readerstate >= tokenreader__interface__readerstatet__pos(
+          tokenreader__interface__readerstatet__first)
+     using hypothesis H4.
+***  Proved C4:  readerstate <= tokenreader__interface__readerstatet__pos(
+          tokenreader__interface__readerstatet__last)
+     using hypothesis H5.
+-S-  Applied substitution rule getreadersta_rules(9).
+     This was achieved by replacing all occurrences of 
+          tokenreader__interface__readerstatet__first by:
+          tokenreader__interface__invalidreaderstate.
+<S>  New H4:  readerstate >= tokenreader__interface__readerstatet__pos(
+          tokenreader__interface__invalidreaderstate)
+<S>  New C1:  tokenreader__interface__invalidreaderstate <= 
+          tokenreader__interface__readerstatet__val(readerstate)
+-S-  Applied substitution rule getreadersta_rules(10).
+     This was achieved by replacing all occurrences of 
+          tokenreader__interface__readerstatet__last by:
+          tokenreader__interface__mute.
+<S>  New H5:  readerstate <= tokenreader__interface__readerstatet__pos(
+          tokenreader__interface__mute)
+<S>  New C2:  tokenreader__interface__readerstatet__val(readerstate) <= 
+          tokenreader__interface__mute
+-S-  Applied substitution rule getreadersta_rules(3).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__first by:
+          0.
+<S>  New H2:  readerstate >= 0
+-S-  Applied substitution rule getreadersta_rules(4).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__last by:
+          4294967295.
+<S>  New H3:  readerstate <= 4294967295
+-S-  Applied substitution rule getreadersta_rules(14).
+     This was achieved by replacing all occurrences of 
+          tokenreader__interface__readerstatet__pos(
+          tokenreader__interface__invalidreaderstate) by:
+          0.
+<S>  New H4:  readerstate >= 0
+-S-  Applied substitution rule getreadersta_rules(26).
+     This was achieved by replacing all occurrences of 
+          tokenreader__interface__readerstatet__pos(
+          tokenreader__interface__mute) by:
+          6.
+<S>  New H5:  readerstate <= 6
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H4 (duplicate of H2).
+---  Eliminated hypothesis H3 (redundant, given H5).
+***  Proved C1:  tokenreader__interface__invalidreaderstate <= 
+          tokenreader__interface__readerstatet__val(readerstate)
+     using hypotheses H2 & H5.
+***  Proved C2:  tokenreader__interface__readerstatet__val(readerstate) <= 
+          tokenreader__interface__mute
+     using hypotheses H2 & H5.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_getreaderstate_2.  @@@@@@@@@@
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  tokenreader__interface__readerstatet__first <= 
+          tokenreader__interface__invalidreaderstate
+-S-  Applied substitution rule getreadersta_rules(9).
+     This was achieved by replacing all occurrences of 
+          tokenreader__interface__readerstatet__first by:
+          tokenreader__interface__invalidreaderstate.
+<S>  New H4:  not (readerstate >= tokenreader__interface__readerstatet__pos(
+          tokenreader__interface__invalidreaderstate) and readerstate <= 
+          tokenreader__interface__readerstatet__pos(
+          tokenreader__interface__readerstatet__last))
+<S>  New C1:  true
+-S-  Applied substitution rule getreadersta_rules(10).
+     This was achieved by replacing all occurrences of 
+          tokenreader__interface__readerstatet__last by:
+          tokenreader__interface__mute.
+<S>  New H4:  not (readerstate >= tokenreader__interface__readerstatet__pos(
+          tokenreader__interface__invalidreaderstate) and readerstate <= 
+          tokenreader__interface__readerstatet__pos(
+          tokenreader__interface__mute))
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_getreaderstate_3.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  tokenreader__interface__readerstatet__first <= 
+          tokenreader__interface__readerstatet__val(readerstate)
+---  Hypothesis H8 has been replaced by "true".  (It is already present, as H4).
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H5).
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H6)
+          .
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H7)
+          .
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  tokenreader__interface__readerstatet__first <= 
+          tokenreader__interface__readerstatet__val(readerstate)
+***  Proved C1:  true
+***  Proved C2:  tokenreader__interface__readerstatet__first <= 
+          tokenreader__interface__readerstatet__val(readerstate)
+     using hypothesis H6.
+***  Proved C3:  tokenreader__interface__readerstatet__val(readerstate) <= 
+          tokenreader__interface__readerstatet__last
+     using hypothesis H7.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_getreaderstate_4.  @@@@@@@@@@
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  tokenreader__interface__readerstatet__first <= 
+          tokenreader__interface__invalidreaderstate
+---  Hypothesis H7 has been replaced by "true".  (It is already present, as H5).
+---  Hypothesis H8 has been replaced by "true".  (It is already present, as H6).
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  tokenreader__interface__readerstatet__first <= 
+          tokenreader__interface__invalidreaderstate
+***  Proved C1:  true
+***  Proved C2:  tokenreader__interface__readerstatet__first <= 
+          tokenreader__interface__invalidreaderstate
+     using hypothesis H5.
+***  Proved C3:  tokenreader__interface__invalidreaderstate <= 
+          tokenreader__interface__readerstatet__last
+     using hypothesis H6.
+***  PROVED VC.
+

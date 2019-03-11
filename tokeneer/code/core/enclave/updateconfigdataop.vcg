@@ -1,0 +1,357 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:26.35
+
+                    procedure Enclave.UpdateConfigDataOp
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 1019:
+
+procedure_updateconfigdataop_1.
+H1:    (status = waitingstartadminop) or (status = 
+           waitingfinishadminop) .
+H2:    admin__ispresent(theadmin) .
+H3:    admin__isdoingop(theadmin) .
+H4:    admin__thecurrentop(theadmin) = 
+           admin__updateconfigdata .
+H5:    status >= statust__first .
+H6:    status <= statust__last .
+H7:    status = waitingstartadminop .
+H8:    true .
+H9:    floppy__ispresent(floppy__state) .
+        ->
+C1:    screen__doingop >= screen__msgtextt__first .
+C2:    screen__doingop <= screen__msgtextt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 1020:
+
+procedure_updateconfigdataop_2.
+H1:    (status = waitingstartadminop) or (status = 
+           waitingfinishadminop) .
+H2:    admin__ispresent(theadmin) .
+H3:    admin__isdoingop(theadmin) .
+H4:    admin__thecurrentop(theadmin) = 
+           admin__updateconfigdata .
+H5:    status >= statust__first .
+H6:    status <= statust__last .
+H7:    status = waitingstartadminop .
+H8:    true .
+H9:    floppy__ispresent(floppy__state) .
+H10:   screen__doingop >= screen__msgtextt__first .
+H11:   screen__doingop <= screen__msgtextt__last .
+        ->
+C1:    waitingfinishadminop >= statust__first .
+C2:    waitingfinishadminop <= statust__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 1023:
+
+procedure_updateconfigdataop_3.
+H1:    (status = waitingstartadminop) or (status = 
+           waitingfinishadminop) .
+H2:    admin__ispresent(theadmin) .
+H3:    admin__isdoingop(theadmin) .
+H4:    admin__thecurrentop(theadmin) = 
+           admin__updateconfigdata .
+H5:    status >= statust__first .
+H6:    status <= statust__last .
+H7:    status = waitingstartadminop .
+H8:    true .
+H9:    not (floppy__ispresent(floppy__state)) .
+        ->
+C1:    screen__insertconfigdata >= screen__msgtextt__first .
+C2:    screen__insertconfigdata <= screen__msgtextt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 1037:
+
+procedure_updateconfigdataop_4.
+H1:    (status = waitingstartadminop) or (status = 
+           waitingfinishadminop) .
+H2:    admin__ispresent(theadmin) .
+H3:    admin__isdoingop(theadmin) .
+H4:    admin__thecurrentop(theadmin) = 
+           admin__updateconfigdata .
+H5:    status >= statust__first .
+H6:    status <= statust__last .
+H7:    not (status = waitingstartadminop) .
+H8:    true .
+H9:    true .
+H10:   true .
+H11:   true .
+H12:   configdataok__4 .
+        ->
+C1:    screen__requestadminop >= screen__msgtextt__first .
+C2:    screen__requestadminop <= screen__msgtextt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 1039:
+
+procedure_updateconfigdataop_5.
+H1:    (status = waitingstartadminop) or (status = 
+           waitingfinishadminop) .
+H2:    admin__ispresent(theadmin) .
+H3:    admin__isdoingop(theadmin) .
+H4:    admin__thecurrentop(theadmin) = 
+           admin__updateconfigdata .
+H5:    status >= statust__first .
+H6:    status <= statust__last .
+H7:    not (status = waitingstartadminop) .
+H8:    true .
+H9:    true .
+H10:   true .
+H11:   true .
+H12:   not configdataok__4 .
+        ->
+C1:    screen__invaliddata >= screen__msgtextt__first .
+C2:    screen__invaliddata <= screen__msgtextt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 1041:
+
+procedure_updateconfigdataop_6.
+H1:    (status = waitingstartadminop) or (status = 
+           waitingfinishadminop) .
+H2:    admin__ispresent(theadmin) .
+H3:    admin__isdoingop(theadmin) .
+H4:    admin__thecurrentop(theadmin) = 
+           admin__updateconfigdata .
+H5:    status >= statust__first .
+H6:    status <= statust__last .
+H7:    not (status = waitingstartadminop) .
+H8:    true .
+H9:    true .
+H10:   true .
+H11:   true .
+H12:   configdataok__4 .
+H13:   screen__requestadminop >= screen__msgtextt__first .
+H14:   screen__requestadminop <= screen__msgtextt__last .
+        ->
+C1:    enclavequiescent >= statust__first .
+C2:    enclavequiescent <= statust__last .
+ 
+
+procedure_updateconfigdataop_7.
+H1:    (status = waitingstartadminop) or (status = 
+           waitingfinishadminop) .
+H2:    admin__ispresent(theadmin) .
+H3:    admin__isdoingop(theadmin) .
+H4:    admin__thecurrentop(theadmin) = 
+           admin__updateconfigdata .
+H5:    status >= statust__first .
+H6:    status <= statust__last .
+H7:    not (status = waitingstartadminop) .
+H8:    true .
+H9:    true .
+H10:   true .
+H11:   true .
+H12:   not configdataok__4 .
+H13:   screen__invaliddata >= screen__msgtextt__first .
+H14:   screen__invaliddata <= screen__msgtextt__last .
+        ->
+C1:    enclavequiescent >= statust__first .
+C2:    enclavequiescent <= statust__last .
+ 
+
+For path(s) from start to precondition check associated with statement of line 1043:
+
+procedure_updateconfigdataop_8.
+H1:    (status = waitingstartadminop) or (status = 
+           waitingfinishadminop) .
+H2:    admin__ispresent(theadmin) .
+H3:    admin__isdoingop(theadmin) .
+H4:    admin__thecurrentop(theadmin) = 
+           admin__updateconfigdata .
+H5:    status >= statust__first .
+H6:    status <= statust__last .
+H7:    not (status = waitingstartadminop) .
+H8:    true .
+H9:    true .
+H10:   true .
+H11:   true .
+H12:   configdataok__4 .
+H13:   screen__requestadminop >= screen__msgtextt__first .
+H14:   screen__requestadminop <= screen__msgtextt__last .
+H15:   enclavequiescent >= statust__first .
+H16:   enclavequiescent <= statust__last .
+        ->
+C1:    admin__ispresent(theadmin) .
+ 
+
+procedure_updateconfigdataop_9.
+H1:    (status = waitingstartadminop) or (status = 
+           waitingfinishadminop) .
+H2:    admin__ispresent(theadmin) .
+H3:    admin__isdoingop(theadmin) .
+H4:    admin__thecurrentop(theadmin) = 
+           admin__updateconfigdata .
+H5:    status >= statust__first .
+H6:    status <= statust__last .
+H7:    not (status = waitingstartadminop) .
+H8:    true .
+H9:    true .
+H10:   true .
+H11:   true .
+H12:   not configdataok__4 .
+H13:   screen__invaliddata >= screen__msgtextt__first .
+H14:   screen__invaliddata <= screen__msgtextt__last .
+H15:   enclavequiescent >= statust__first .
+H16:   enclavequiescent <= statust__last .
+        ->
+C1:    admin__ispresent(theadmin) .
+ 
+
+For path(s) from start to finish:
+
+procedure_updateconfigdataop_10.
+H1:    (status = waitingstartadminop) or (status = 
+           waitingfinishadminop) .
+H2:    admin__ispresent(theadmin) .
+H3:    admin__isdoingop(theadmin) .
+H4:    admin__thecurrentop(theadmin) = 
+           admin__updateconfigdata .
+H5:    status >= statust__first .
+H6:    status <= statust__last .
+H7:    status = waitingstartadminop .
+H8:    true .
+H9:    floppy__ispresent(floppy__state) .
+H10:   screen__doingop >= screen__msgtextt__first .
+H11:   screen__doingop <= screen__msgtextt__last .
+H12:   waitingfinishadminop >= statust__first .
+H13:   waitingfinishadminop <= statust__last .
+        ->
+C1:    (waitingfinishadminop = waitingstartadminop) or ((
+           waitingfinishadminop = waitingfinishadminop) or (
+           waitingfinishadminop = enclavequiescent)) .
+C2:    admin__ispresent(theadmin) .
+C3:    ((waitingfinishadminop = waitingstartadminop) or (
+           waitingfinishadminop = waitingfinishadminop)) -> (
+           admin__isdoingop(theadmin) and (admin__ispresent(
+           theadmin) and (admin__thecurrentop(theadmin) = 
+           admin__updateconfigdata))) .
+C4:    (waitingfinishadminop = enclavequiescent) -> (not (
+           admin__isdoingop(theadmin))) .
+C5:    admin__prf_rolepresent(theadmin) = 
+           admin__prf_rolepresent(theadmin) .
+ 
+
+procedure_updateconfigdataop_11.
+H1:    (status = waitingstartadminop) or (status = 
+           waitingfinishadminop) .
+H2:    admin__ispresent(theadmin) .
+H3:    admin__isdoingop(theadmin) .
+H4:    admin__thecurrentop(theadmin) = 
+           admin__updateconfigdata .
+H5:    status >= statust__first .
+H6:    status <= statust__last .
+H7:    status = waitingstartadminop .
+H8:    true .
+H9:    not (floppy__ispresent(floppy__state)) .
+H10:   screen__insertconfigdata >= screen__msgtextt__first .
+H11:   screen__insertconfigdata <= screen__msgtextt__last .
+        ->
+C1:    (status = waitingstartadminop) or ((status = 
+           waitingfinishadminop) or (status = 
+           enclavequiescent)) .
+C2:    admin__ispresent(theadmin) .
+C3:    ((status = waitingstartadminop) or (status = 
+           waitingfinishadminop)) -> (admin__isdoingop(
+           theadmin) and (admin__ispresent(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__updateconfigdata))) .
+C4:    (status = enclavequiescent) -> (not (admin__isdoingop(
+           theadmin))) .
+C5:    admin__prf_rolepresent(theadmin) = 
+           admin__prf_rolepresent(theadmin) .
+ 
+
+procedure_updateconfigdataop_12.
+H1:    (status = waitingstartadminop) or (status = 
+           waitingfinishadminop) .
+H2:    admin__ispresent(theadmin) .
+H3:    admin__isdoingop(theadmin) .
+H4:    admin__thecurrentop(theadmin) = 
+           admin__updateconfigdata .
+H5:    status >= statust__first .
+H6:    status <= statust__last .
+H7:    not (status = waitingstartadminop) .
+H8:    true .
+H9:    true .
+H10:   true .
+H11:   true .
+H12:   configdataok__4 .
+H13:   screen__requestadminop >= screen__msgtextt__first .
+H14:   screen__requestadminop <= screen__msgtextt__last .
+H15:   enclavequiescent >= statust__first .
+H16:   enclavequiescent <= statust__last .
+H17:   admin__ispresent(theadmin) .
+H18:   not (admin__isdoingop(theadmin__7)) .
+H19:   admin__prf_rolepresent(theadmin__7) = 
+           admin__prf_rolepresent(theadmin) .
+H20:   admin__ispresent(theadmin__7) .
+        ->
+C1:    (enclavequiescent = waitingstartadminop) or ((
+           enclavequiescent = waitingfinishadminop) or (
+           enclavequiescent = enclavequiescent)) .
+C2:    admin__ispresent(theadmin__7) .
+C3:    ((enclavequiescent = waitingstartadminop) or (
+           enclavequiescent = waitingfinishadminop)) -> (
+           admin__isdoingop(theadmin__7) and (
+           admin__ispresent(theadmin__7) and (
+           admin__thecurrentop(theadmin__7) = 
+           admin__updateconfigdata))) .
+C4:    (enclavequiescent = enclavequiescent) -> (not (
+           admin__isdoingop(theadmin__7))) .
+C5:    admin__prf_rolepresent(theadmin__7) = 
+           admin__prf_rolepresent(theadmin) .
+ 
+
+procedure_updateconfigdataop_13.
+H1:    (status = waitingstartadminop) or (status = 
+           waitingfinishadminop) .
+H2:    admin__ispresent(theadmin) .
+H3:    admin__isdoingop(theadmin) .
+H4:    admin__thecurrentop(theadmin) = 
+           admin__updateconfigdata .
+H5:    status >= statust__first .
+H6:    status <= statust__last .
+H7:    not (status = waitingstartadminop) .
+H8:    true .
+H9:    true .
+H10:   true .
+H11:   true .
+H12:   not configdataok__4 .
+H13:   screen__invaliddata >= screen__msgtextt__first .
+H14:   screen__invaliddata <= screen__msgtextt__last .
+H15:   enclavequiescent >= statust__first .
+H16:   enclavequiescent <= statust__last .
+H17:   admin__ispresent(theadmin) .
+H18:   not (admin__isdoingop(theadmin__7)) .
+H19:   admin__prf_rolepresent(theadmin__7) = 
+           admin__prf_rolepresent(theadmin) .
+H20:   admin__ispresent(theadmin__7) .
+        ->
+C1:    (enclavequiescent = waitingstartadminop) or ((
+           enclavequiescent = waitingfinishadminop) or (
+           enclavequiescent = enclavequiescent)) .
+C2:    admin__ispresent(theadmin__7) .
+C3:    ((enclavequiescent = waitingstartadminop) or (
+           enclavequiescent = waitingfinishadminop)) -> (
+           admin__isdoingop(theadmin__7) and (
+           admin__ispresent(theadmin__7) and (
+           admin__thecurrentop(theadmin__7) = 
+           admin__updateconfigdata))) .
+C4:    (enclavequiescent = enclavequiescent) -> (not (
+           admin__isdoingop(theadmin__7))) .
+C5:    admin__prf_rolepresent(theadmin__7) = 
+           admin__prf_rolepresent(theadmin) .
+ 
+

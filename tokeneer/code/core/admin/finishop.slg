@@ -1,0 +1,120 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:16  SIMPLIFIED 05-SEP-2011, 15:38:25
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure Admin.FinishOp
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/admin/admin.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_finishop_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  opandnullt__first <= fld_currentop(theadmin)
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  privtypes__privileget__first <= fld_rolepresent(theadmin)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  opandnullt__first <= nullop
+-S-  Applied substitution rule finishop_rules(29).
+     This was achieved by replacing all occurrences of opandnullt__first by:
+          nullop.
+<S>  New H2:  nullop <= fld_currentop(theadmin)
+<S>  New C1:  true
+-S-  Applied substitution rule finishop_rules(30).
+     This was achieved by replacing all occurrences of opandnullt__last by:
+          shutdownop.
+<S>  New H3:  fld_currentop(theadmin) <= shutdownop
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_finishop_2.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  opandnullt__first <= fld_currentop(theadmin)
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  privtypes__privileget__first <= fld_rolepresent(theadmin)
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  opandnullt__first <= nullop
+-S-  Applied substitution rule finishop_rules(2).
+     This was achieved by replacing all occurrences of 
+          privtypes__privileget__first by:
+          privtypes__useronly.
+<S>  New H4:  privtypes__useronly <= fld_rolepresent(theadmin)
+-S-  Applied substitution rule finishop_rules(3).
+     This was achieved by replacing all occurrences of 
+          privtypes__privileget__last by:
+          privtypes__securityofficer.
+<S>  New H5:  fld_rolepresent(theadmin) <= privtypes__securityofficer
+-S-  Applied substitution rule finishop_rules(29).
+     This was achieved by replacing all occurrences of opandnullt__first by:
+          nullop.
+<S>  New H2:  nullop <= fld_currentop(theadmin)
+<S>  New H6:  true
+-S-  Applied substitution rule finishop_rules(30).
+     This was achieved by replacing all occurrences of opandnullt__last by:
+          shutdownop.
+<S>  New H3:  fld_currentop(theadmin) <= shutdownop
+<S>  New H7:  true
+---  Eliminated hypothesis H6 (true-hypothesis).
+---  Eliminated hypothesis H7 (true-hypothesis).
+     +++  New H8:  privtypes__privileget__size >= 0
+     +++  New H9:  opandnullt__size >= 0
+     +++  New H10:  t__size >= 0
+***  Proved C1:  not isdoingop(upf_currentop(theadmin, nullop))
+     This was achieved by applying the rewrite rule admin_user(1)
+     [from rulefile admin.rlu] to rewrite this conclusion to:
+<S>  C1:  not fld_currentop(upf_currentop(theadmin, nullop)) <> nullop
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  By simple reasoning, proved: not fld_currentop(upf_currentop(
+          theadmin, nullop)) <> nullop
+***  Proved C2:  prf_rolepresent(upf_currentop(theadmin, nullop)) = 
+          prf_rolepresent(theadmin)
+     This was achieved by applying the rewrite rule admin_user(9)
+     [from rulefile admin.rlu] to rewrite this conclusion to:
+<S>  C2:  prf_rolepresent(theadmin) = prf_rolepresent(theadmin)
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  By simple reasoning, proved: prf_rolepresent(theadmin) = 
+          prf_rolepresent(theadmin)
+***  Proved C3:  ispresent(upf_currentop(theadmin, nullop))
+     This was achieved by applying the rewrite rule admin_user(6)
+     [from rulefile admin.rlu] to rewrite this conclusion to:
+<S>  C3:  ispresent(theadmin)
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  From H1, proved: ispresent(theadmin)
+***  PROVED VC.
+
+VCN  2: Summary of user rule application.
+FIL  admin.rlu
+RUL     admin_user(1)
+CON        1
+RUL     admin_user(9)
+CON        2
+RUL     admin_user(6)
+CON        3
+
+
+OVR  Overall summary of VCs using user rules.
+FIL  admin.rlu
+RUL     admin_user(1)
+VCS        2
+RUL     admin_user(9)
+VCS        2
+RUL     admin_user(6)
+VCS        2
+

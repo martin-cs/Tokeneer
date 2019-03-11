@@ -1,0 +1,420 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:21.32
+
+                     procedure AdminToken.ReadAndCheck
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 483:
+
+procedure_readandcheck_1.
+H1:    true .
+H2:    tokenid >= tokentypes__tokenidt__first .
+H3:    tokenid <= tokentypes__tokenidt__last .
+H4:    admintoken__interface__thetokentry(
+           admintoken__interface__state) >= tokentypes__tryt__first .
+H5:    admintoken__interface__thetokentry(
+           admintoken__interface__state) <= tokentypes__tryt__last .
+        ->
+C1:    admintoken__interface__thetokentry(
+           admintoken__interface__state) >= tokentypes__tryt__first .
+C2:    admintoken__interface__thetokentry(
+           admintoken__interface__state) <= tokentypes__tryt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 489:
+
+procedure_readandcheck_2.
+H1:    true .
+H2:    tokenid >= tokentypes__tokenidt__first .
+H3:    tokenid <= tokentypes__tokenidt__last .
+H4:    admintoken__interface__thetokentry(
+           admintoken__interface__state) >= tokentypes__tryt__first .
+H5:    admintoken__interface__thetokentry(
+           admintoken__interface__state) <= tokentypes__tryt__last .
+H6:    admintoken__interface__thetokentry(
+           admintoken__interface__state) >= tokentypes__tryt__first .
+H7:    admintoken__interface__thetokentry(
+           admintoken__interface__state) <= tokentypes__tryt__last .
+H8:    cert__attr__auth__therole(authcertcontents__1) = 
+           privtypes__privileget__first .
+H9:    admintoken__interface__thetokentry(
+           admintoken__interface__state) = 
+           tokentypes__goodtoken .
+H10:   admintoken__interface__thetokenid(
+           admintoken__interface__state) >= 
+           tokentypes__tokenidt__first .
+H11:   admintoken__interface__thetokenid(
+           admintoken__interface__state) <= 
+           tokentypes__tokenidt__last .
+        ->
+C1:    admintoken__interface__thetokenid(
+           admintoken__interface__state) >= 
+           tokentypes__tokenidt__first .
+C2:    admintoken__interface__thetokenid(
+           admintoken__interface__state) <= 
+           tokentypes__tokenidt__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_readandcheck_3.
+H1:    true .
+H2:    tokenid >= tokentypes__tokenidt__first .
+H3:    tokenid <= tokentypes__tokenidt__last .
+H4:    admintoken__interface__thetokentry(
+           admintoken__interface__state) >= tokentypes__tryt__first .
+H5:    admintoken__interface__thetokentry(
+           admintoken__interface__state) <= tokentypes__tryt__last .
+H6:    admintoken__interface__thetokentry(
+           admintoken__interface__state) >= tokentypes__tryt__first .
+H7:    admintoken__interface__thetokentry(
+           admintoken__interface__state) <= tokentypes__tryt__last .
+H8:    cert__attr__auth__therole(authcertcontents__1) = 
+           privtypes__privileget__first .
+H9:    admintoken__interface__thetokentry(
+           admintoken__interface__state) = 
+           tokentypes__goodtoken .
+H10:   admintoken__interface__thetokenid(
+           admintoken__interface__state) >= 
+           tokentypes__tokenidt__first .
+H11:   admintoken__interface__thetokenid(
+           admintoken__interface__state) <= 
+           tokentypes__tokenidt__last .
+H12:   admintoken__interface__thetokenid(
+           admintoken__interface__state) >= 
+           tokentypes__tokenidt__first .
+H13:   admintoken__interface__thetokenid(
+           admintoken__interface__state) <= 
+           tokentypes__tokenidt__last .
+H14:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__3, [
+           i___1]) >= character__first) and (element(description__3, [
+           i___1]) <= character__last))) .
+H15:   true .
+H16:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__4, [
+           i___1]) >= character__first) and (element(description__4, [
+           i___1]) <= character__last))) .
+H17:   true .
+H18:   true .
+H19:   true .
+H20:   idvalid__3 .
+H21:   authvalid__4 .
+H22:   true .
+H23:   cert__attr__auth__therole(authcertcontents__4) >= 
+           privtypes__privileget__first .
+H24:   cert__attr__auth__therole(authcertcontents__4) <= 
+           privtypes__privileget__last .
+H25:   cert__attr__auth__therole(authcertcontents__4) >= 
+           privtypes__adminprivileget__first .
+H26:   cert__attr__auth__therole(authcertcontents__4) <= 
+           privtypes__adminprivileget__last .
+H27:   true .
+H28:   true .
+H29:   true .
+H30:   true .
+H31:   true .
+H32:   true .
+H33:   true .
+        ->
+C1:    (authvalid__4 and (idvalid__3 and true)) <-> (fld_valid(
+           mk__valididcertt(valid := idvalid__3, contents := 
+           idcertcontents__3)) and (fld_valid(
+           mk__validauthcertt(valid := authvalid__4, 
+           contents := authcertcontents__4)) and ((
+           cert__attr__auth__therole(fld_contents(
+           mk__validauthcertt(valid := authvalid__4, 
+           contents := authcertcontents__4))) >= 
+           privtypes__adminprivileget__first) and (
+           cert__attr__auth__therole(fld_contents(
+           mk__validauthcertt(valid := authvalid__4, 
+           contents := authcertcontents__4))) <= 
+           privtypes__adminprivileget__last)))) .
+ 
+
+procedure_readandcheck_4.
+H1:    true .
+H2:    tokenid >= tokentypes__tokenidt__first .
+H3:    tokenid <= tokentypes__tokenidt__last .
+H4:    admintoken__interface__thetokentry(
+           admintoken__interface__state) >= tokentypes__tryt__first .
+H5:    admintoken__interface__thetokentry(
+           admintoken__interface__state) <= tokentypes__tryt__last .
+H6:    admintoken__interface__thetokentry(
+           admintoken__interface__state) >= tokentypes__tryt__first .
+H7:    admintoken__interface__thetokentry(
+           admintoken__interface__state) <= tokentypes__tryt__last .
+H8:    cert__attr__auth__therole(authcertcontents__1) = 
+           privtypes__privileget__first .
+H9:    admintoken__interface__thetokentry(
+           admintoken__interface__state) = 
+           tokentypes__goodtoken .
+H10:   admintoken__interface__thetokenid(
+           admintoken__interface__state) >= 
+           tokentypes__tokenidt__first .
+H11:   admintoken__interface__thetokenid(
+           admintoken__interface__state) <= 
+           tokentypes__tokenidt__last .
+H12:   admintoken__interface__thetokenid(
+           admintoken__interface__state) >= 
+           tokentypes__tokenidt__first .
+H13:   admintoken__interface__thetokenid(
+           admintoken__interface__state) <= 
+           tokentypes__tokenidt__last .
+H14:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__3, [
+           i___1]) >= character__first) and (element(description__3, [
+           i___1]) <= character__last))) .
+H15:   true .
+H16:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__4, [
+           i___1]) >= character__first) and (element(description__4, [
+           i___1]) <= character__last))) .
+H17:   true .
+H18:   true .
+H19:   true .
+H20:   idvalid__3 .
+H21:   authvalid__4 .
+H22:   true .
+H23:   cert__attr__auth__therole(authcertcontents__4) >= 
+           privtypes__privileget__first .
+H24:   cert__attr__auth__therole(authcertcontents__4) <= 
+           privtypes__privileget__last .
+H25:   not ((cert__attr__auth__therole(authcertcontents__4) >= 
+           privtypes__adminprivileget__first) and (
+           cert__attr__auth__therole(authcertcontents__4) <= 
+           privtypes__adminprivileget__last)) .
+H26:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(
+           makedescription(mk__string( [1] := 65, [2] := 117, [3] := 
+           116, [4] := 104, [5] := 111, [6] := 114, [7] := 105, [8] := 
+           115, [9] := 97, [10] := 116, [11] := 105, [12] := 111, [13]
+            := 110, [14] := 32, [15] := 67, [16] := 101, [17] := 114, 
+           [18] := 116, [19] := 105, [20] := 102, [21] := 105, [22] := 
+           99, [23] := 97, [24] := 116, [25] := 101, [26] := 32, [27]
+            := 110, [28] := 111, [29] := 116, [30] := 32, [31] := 102, 
+           [32] := 111, [33] := 114, [34] := 32, [35] := 65, [36] := 
+           100, [37] := 109, [38] := 105, [39] := 110, [40] := 105, 
+           [41] := 115, [42] := 116, [43] := 114, [44] := 97, [45] := 
+           116, [46] := 111, [47] := 114)), [i___1]) >= 
+           character__first) and (element(makedescription(mk__string( 
+           [1] := 65, [2] := 117, [3] := 116, [4] := 104, [5] := 111, 
+           [6] := 114, [7] := 105, [8] := 115, [9] := 97, [10] := 116, 
+           [11] := 105, [12] := 111, [13] := 110, [14] := 32, [15] := 
+           67, [16] := 101, [17] := 114, [18] := 116, [19] := 105, 
+           [20] := 102, [21] := 105, [22] := 99, [23] := 97, [24] := 
+           116, [25] := 101, [26] := 32, [27] := 110, [28] := 111, 
+           [29] := 116, [30] := 32, [31] := 102, [32] := 111, [33] := 
+           114, [34] := 32, [35] := 65, [36] := 100, [37] := 109, [38]
+            := 105, [39] := 110, [40] := 105, [41] := 115, [42] := 116, 
+           [43] := 114, [44] := 97, [45] := 116, [46] := 111, [47] := 
+           114)), [i___1]) <= character__last))) .
+H27:   true .
+H28:   true .
+H29:   true .
+H30:   true .
+H31:   true .
+H32:   true .
+H33:   true .
+        ->
+C1:    (authvalid__4 and (idvalid__3 and false)) <-> (fld_valid(
+           mk__valididcertt(valid := idvalid__3, contents := 
+           idcertcontents__3)) and (fld_valid(
+           mk__validauthcertt(valid := authvalid__4, 
+           contents := authcertcontents__4)) and ((
+           cert__attr__auth__therole(fld_contents(
+           mk__validauthcertt(valid := authvalid__4, 
+           contents := authcertcontents__4))) >= 
+           privtypes__adminprivileget__first) and (
+           cert__attr__auth__therole(fld_contents(
+           mk__validauthcertt(valid := authvalid__4, 
+           contents := authcertcontents__4))) <= 
+           privtypes__adminprivileget__last)))) .
+ 
+
+procedure_readandcheck_5.
+H1:    true .
+H2:    tokenid >= tokentypes__tokenidt__first .
+H3:    tokenid <= tokentypes__tokenidt__last .
+H4:    admintoken__interface__thetokentry(
+           admintoken__interface__state) >= tokentypes__tryt__first .
+H5:    admintoken__interface__thetokentry(
+           admintoken__interface__state) <= tokentypes__tryt__last .
+H6:    admintoken__interface__thetokentry(
+           admintoken__interface__state) >= tokentypes__tryt__first .
+H7:    admintoken__interface__thetokentry(
+           admintoken__interface__state) <= tokentypes__tryt__last .
+H8:    cert__attr__auth__therole(authcertcontents__1) = 
+           privtypes__privileget__first .
+H9:    admintoken__interface__thetokentry(
+           admintoken__interface__state) = 
+           tokentypes__goodtoken .
+H10:   admintoken__interface__thetokenid(
+           admintoken__interface__state) >= 
+           tokentypes__tokenidt__first .
+H11:   admintoken__interface__thetokenid(
+           admintoken__interface__state) <= 
+           tokentypes__tokenidt__last .
+H12:   admintoken__interface__thetokenid(
+           admintoken__interface__state) >= 
+           tokentypes__tokenidt__first .
+H13:   admintoken__interface__thetokenid(
+           admintoken__interface__state) <= 
+           tokentypes__tokenidt__last .
+H14:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__3, [
+           i___1]) >= character__first) and (element(description__3, [
+           i___1]) <= character__last))) .
+H15:   true .
+H16:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__4, [
+           i___1]) >= character__first) and (element(description__4, [
+           i___1]) <= character__last))) .
+H17:   true .
+H18:   true .
+H19:   true .
+H20:   not (idvalid__3 and authvalid__4) .
+H21:   true .
+H22:   true .
+H23:   true .
+H24:   true .
+H25:   true .
+H26:   true .
+H27:   true .
+        ->
+C1:    (authvalid__4 and (idvalid__3 and false)) <-> (fld_valid(
+           mk__valididcertt(valid := idvalid__3, contents := 
+           idcertcontents__3)) and (fld_valid(
+           mk__validauthcertt(valid := authvalid__4, 
+           contents := authcertcontents__4)) and ((
+           cert__attr__auth__therole(fld_contents(
+           mk__validauthcertt(valid := authvalid__4, 
+           contents := authcertcontents__4))) >= 
+           privtypes__adminprivileget__first) and (
+           cert__attr__auth__therole(fld_contents(
+           mk__validauthcertt(valid := authvalid__4, 
+           contents := authcertcontents__4))) <= 
+           privtypes__adminprivileget__last)))) .
+ 
+
+procedure_readandcheck_6.
+H1:    true .
+H2:    tokenid >= tokentypes__tokenidt__first .
+H3:    tokenid <= tokentypes__tokenidt__last .
+H4:    admintoken__interface__thetokentry(
+           admintoken__interface__state) >= tokentypes__tryt__first .
+H5:    admintoken__interface__thetokentry(
+           admintoken__interface__state) <= tokentypes__tryt__last .
+H6:    admintoken__interface__thetokentry(
+           admintoken__interface__state) >= tokentypes__tryt__first .
+H7:    admintoken__interface__thetokentry(
+           admintoken__interface__state) <= tokentypes__tryt__last .
+H8:    cert__attr__auth__therole(authcertcontents__1) = 
+           privtypes__privileget__first .
+H9:    not (admintoken__interface__thetokentry(
+           admintoken__interface__state) = 
+           tokentypes__goodtoken) .
+H10:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(
+           makedescription(mk__string( [1] := 84, [2] := 111, [3] := 
+           107, [4] := 101, [5] := 110, [6] := 32, [7] := 66, [8] := 97, 
+           [9] := 100)), [i___1]) >= character__first) and (element(
+           makedescription(mk__string( [1] := 84, [2] := 111, [3] := 
+           107, [4] := 101, [5] := 110, [6] := 32, [7] := 66, [8] := 97, 
+           [9] := 100)), [i___1]) <= character__last))) .
+H11:   true .
+H12:   true .
+H13:   true .
+H14:   true .
+H15:   true .
+H16:   true .
+H17:   true .
+        ->
+C1:    (false and (false and false)) <-> (fld_valid(
+           mk__valididcertt(valid := false, contents := 
+           idcertcontents__2)) and (fld_valid(
+           mk__validauthcertt(valid := false, contents := 
+           authcertcontents__1)) and ((
+           cert__attr__auth__therole(fld_contents(
+           mk__validauthcertt(valid := false, contents := 
+           authcertcontents__1))) >= 
+           privtypes__adminprivileget__first) and (
+           cert__attr__auth__therole(fld_contents(
+           mk__validauthcertt(valid := false, contents := 
+           authcertcontents__1))) <= 
+           privtypes__adminprivileget__last)))) .
+ 
+
+For checks of refinement integrity: 
+
+procedure_readandcheck_7.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_readandcheck_8.
+H1:    true .
+H2:    true .
+H3:    admintoken__interface__state = fld_admintoken__interface__state(
+           state~) .
+H4:    admintoken__interface__state = fld_admintoken__interface__state(
+           state) .
+H5:    admintoken__interface__input~ = fld_admintoken__interface__input(
+           input~) .
+H6:    admintoken__interface__input = fld_admintoken__interface__input(
+           input) .
+H7:    tokenid~ = fld_tokenid(state~) .
+H8:    tokenid = fld_tokenid(state) .
+H9:    admintoken__interface__status~ = 
+           fld_admintoken__interface__status(status~) .
+H10:   admintoken__interface__status = 
+           fld_admintoken__interface__status(status) .
+H11:   tokentry = fld_tokentry(state) .
+H12:   authcert = fld_authcert(state) .
+H13:   idcert = fld_idcert(state) .
+H14:   tokenpresence = fld_tokenpresence(state~) .
+H15:   tokenpresence = fld_tokenpresence(state) .
+H16:   tokenid~ >= tokentypes__tokenidt__first .
+H17:   tokenid~ <= tokentypes__tokenidt__last .
+H18:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(
+           description, [i___1]) >= character__first) and (element(
+           description, [i___1]) <= character__last))) .
+H19:   true .
+H20:   tokenid >= tokentypes__tokenidt__first .
+H21:   tokenid <= tokentypes__tokenidt__last .
+H22:   tokentry >= tokentypes__tryt__first .
+H23:   tokentry <= tokentypes__tryt__last .
+H24:   true .
+H25:   true .
+H26:   true .
+H27:   true .
+H28:   tokenok <-> (fld_valid(idcert) and (fld_valid(
+           authcert) and ((cert__attr__auth__therole(fld_contents(
+           authcert)) >= privtypes__adminprivileget__first) and (
+           cert__attr__auth__therole(fld_contents(authcert)) <= 
+           privtypes__adminprivileget__last)))) .
+        ->
+C1:    tokenok <-> (prf_isgood(state) and (
+           prf_authcertvalid(state) and ((theauthcertrole(
+           state) >= privtypes__adminprivileget__first) and (
+           theauthcertrole(state) <= 
+           privtypes__adminprivileget__last)))) .
+ 
+

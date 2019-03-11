@@ -1,0 +1,174 @@
+           *******************************************************
+                            Listing of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:14.10
+
+Line
+   1  ------------------------------------------------------------------
+   2  -- Tokeneer ID Station Core Software
+   3  --
+   4  -- Copyright (2003) United States Government, as represented
+   5  -- by the Director, National Security Agency. All rights reserved.
+   6  --
+   7  -- This material was originally developed by Praxis High Integrity
+   8  -- Systems Ltd. under contract to the National Security Agency.
+   9  ------------------------------------------------------------------
+  10  
+  11  ------------------------------------------------------------------
+  12  -- Cert.ID
+  13  --
+  14  -- Implementation Notes:
+  15  --    None.
+  16  --
+  17  ------------------------------------------------------------------
+  18  with CertProcessing;
+  19  with BasicTypes;
+  20  use type BasicTypes.Unsigned32T;
+  21  with Clock;
+  22  
+  23  package body Cert.ID is
+  24  
+  25     ------------------------------------------------------------------
+  26     -- Types
+  27     --
+  28     ------------------------------------------------------------------
+  29  
+  30     ------------------------------------------------------------------
+  31     -- TheSubject
+  32     --
+  33     --   Implementation Notes:
+  34     --      None
+  35     --
+  36     ------------------------------------------------------------------
+  37  
+  38     function TheSubject (Contents : ContentsT) return CryptoTypes.IssuerT
+  39     is
+  40     begin
+  41        return Contents.Subject;
+  42     end TheSubject;
+
++++        Flow analysis of subprogram TheSubject 
+           performed: no errors found.
+
+  43  
+  44  
+  45     ------------------------------------------------------------------
+  46     -- ThePublicKey
+  47     --
+  48     --   Implementation Notes:
+  49     --      None
+  50     --
+  51     ------------------------------------------------------------------
+  52  
+  53     function ThePublicKey (Contents : ContentsT) return CryptoTypes.KeyPartT
+  54     is
+  55     begin
+  56        return Contents.SubjectPublicKey;
+  57     end ThePublicKey;
+
++++        Flow analysis of subprogram ThePublicKey 
+           performed: no errors found.
+
+  58  
+  59     ------------------------------------------------------------------
+  60     -- Extract
+  61     --
+  62     --   Implementation Notes:
+  63     --      None.
+  64     --
+  65     ------------------------------------------------------------------
+  66     procedure Extract (RawCert  : in     CertTypes.RawCertificateT;
+  67                        Contents :    out ContentsT;
+  68                        Success  :    out Boolean)
+  69     is
+  70        LocalContents : CertProcessing.IDCertDataT;
+  71        Extracted,
+  72        KeyLengthOK,
+  73        NotBeforeOk,
+  74        NotAfterOk    : Boolean;
+  75     begin
+  76        CertProcessing.ExtractIDCertData(RawIDCert    => RawCert,
+  77                                         IDCert       => LocalContents,
+  78                                         ExtractSuccess => Extracted);
+  79  
+  80        Contents.ID.Issuer        := LocalContents.Issuer;
+  81        Contents.ID.SerialNumber  :=
+  82          CertTypes.SerialNumberT(LocalContents.SerialNumber);
+  83        Contents.Mechanism        := LocalContents.SigAlgID;
+  84        Contents.Subject          := LocalContents.Subject;
+  85  
+  86        Contents.SubjectPublicKey.AlgorithmID :=
+  87          LocalContents.SubjectPublicKeyInfo.AlgorithmId;
+  88        Contents.SubjectPublicKey.KeyID :=
+  89          CryptoTypes.KeyIDT(LocalContents.SubjectPublicKeyInfo.KeyID);
+  90        if LocalContents.SubjectPublicKeyInfo.KeyLength >=
+  91          BasicTypes.Unsigned32T(CryptoTypes.KeyLengthT'First)
+  92          and LocalContents.SubjectPublicKeyInfo.KeyLength <=
+  93          BasicTypes.Unsigned32T(CryptoTypes.KeyLengthT'Last) then
+  94           Contents.SubjectPublicKey.KeyLength :=
+  95             CryptoTypes.KeyLengthT
+  96                 (LocalContents.SubjectPublicKeyInfo.KeyLength);
+  97           KeyLengthOK := True;
+  98        else
+  99           Contents.SubjectPublicKey.KeyLength :=
+ 100             CryptoTypes.KeyLengthT'First;
+ 101           KeyLengthOK := False;
+ 102        end if;
+ 103  
+ 104  
+ 105        -- NotBefore and NotAfter are read as unsigned 32 bit words -
+ 106        -- convert to Clock.TimeT
+ 107        Clock.ConstructTime(
+ 108                 Year    => LocalContents.Validity.NotBefore.Year,
+ 109                 Month   => LocalContents.Validity.NotBefore.Month,
+ 110                 Day     => LocalContents.Validity.NotBefore.Day,
+ 111                 Hour    => LocalContents.Validity.NotBefore.Hour,
+ 112                 Min     => LocalContents.Validity.NotBefore.Minute,
+ 113                 TheTime => Contents.NotBefore,
+ 114                 Success => NotBeforeOK);
+ 115  
+ 116        Clock.ConstructTime(
+ 117                 Year    => LocalContents.Validity.NotAfter.Year,
+ 118                 Month   => LocalContents.Validity.NotAfter.Month,
+ 119                 Day     => LocalContents.Validity.NotAfter.Day,
+ 120                 Hour    => LocalContents.Validity.NotAfter.Hour,
+ 121                 Min     => LocalContents.Validity.NotAfter.Minute,
+ 122                 TheTime => Contents.NotAfter,
+ 123                 Success => NotAfterOK);
+ 124  
+ 125        Success := Extracted and NotBeforeOK and NotAfterOK and KeyLengthOK;
+ 126     end Extract;
+
++++        Flow analysis of subprogram Extract performed: 
+           no errors found.
+
+ 127  
+ 128  
+ 129     ------------------------------------------------------------------
+ 130     -- Clear
+ 131     --
+ 132     --   Implementation Notes:
+ 133     --      None
+ 134     --
+ 135     ------------------------------------------------------------------
+ 136     procedure Clear (Contents :    out ContentsT)
+ 137     is
+ 138     begin
+ 139        Contents := NullContents;
+ 140     end Clear;
+
++++        Flow analysis of subprogram Clear performed: no 
+           errors found.
+
+ 141  
+ 142  
+ 143  end Cert.ID;
+No summarized warnings
+
+
+
+--End of file--------------------------------------------------

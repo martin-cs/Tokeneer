@@ -1,0 +1,240 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:19.52*/
+
+                      /*function TokenReader.TheTokenTry*/
+
+
+rule_family thetokentry_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+thetokentry_rules(1): integer__size >= 0 may_be_deduced.
+thetokentry_rules(2): integer__first may_be_replaced_by -2147483648.
+thetokentry_rules(3): integer__last may_be_replaced_by 2147483647.
+thetokentry_rules(4): integer__base__first may_be_replaced_by -2147483648.
+thetokentry_rules(5): integer__base__last may_be_replaced_by 2147483647.
+thetokentry_rules(6): character__size >= 0 may_be_deduced.
+thetokentry_rules(7): character__first may_be_replaced_by 0.
+thetokentry_rules(8): character__last may_be_replaced_by 255.
+thetokentry_rules(9): character__base__first may_be_replaced_by 0.
+thetokentry_rules(10): character__base__last may_be_replaced_by 255.
+thetokentry_rules(11): positive__size >= 0 may_be_deduced.
+thetokentry_rules(12): positive__first may_be_replaced_by 1.
+thetokentry_rules(13): positive__last may_be_replaced_by 2147483647.
+thetokentry_rules(14): positive__base__first may_be_replaced_by -2147483648.
+thetokentry_rules(15): positive__base__last may_be_replaced_by 2147483647.
+thetokentry_rules(16): basictypes__unsigned32t__size >= 0 may_be_deduced.
+thetokentry_rules(17): basictypes__unsigned32t__size may_be_replaced_by 32.
+thetokentry_rules(18): basictypes__unsigned32t__first may_be_replaced_by 0.
+thetokentry_rules(19): basictypes__unsigned32t__last may_be_replaced_by 4294967295.
+thetokentry_rules(20): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__base__last may_be_deduced.
+thetokentry_rules(21): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__first may_be_deduced.
+thetokentry_rules(22): basictypes__unsigned32t__base__last >= 
+     basictypes__unsigned32t__last may_be_deduced.
+thetokentry_rules(23): tokentypes__tokenidt__size >= 0 may_be_deduced.
+thetokentry_rules(24): tokentypes__tokenidt__first may_be_replaced_by 0.
+thetokentry_rules(25): tokentypes__tokenidt__last may_be_replaced_by 4294967295.
+thetokentry_rules(26): tokentypes__tokenidt__base__first <= 
+     tokentypes__tokenidt__base__last may_be_deduced.
+thetokentry_rules(27): tokentypes__tokenidt__base__first <= 
+     tokentypes__tokenidt__first may_be_deduced.
+thetokentry_rules(28): tokentypes__tokenidt__base__last >= 
+     tokentypes__tokenidt__last may_be_deduced.
+thetokentry_rules(29): tokentypes__tryt__size >= 0 may_be_deduced.
+thetokentry_rules(30): tokentypes__tryt__first may_be_replaced_by tokentypes__notoken.
+thetokentry_rules(31): tokentypes__tryt__last may_be_replaced_by tokentypes__goodtoken.
+thetokentry_rules(32): tokentypes__tryt__base__first may_be_replaced_by tokentypes__notoken.
+thetokentry_rules(33): tokentypes__tryt__base__last may_be_replaced_by tokentypes__goodtoken.
+thetokentry_rules(34): tokentypes__tryt__pos(tokentypes__tryt__first) may_be_replaced_by 0.
+thetokentry_rules(35): tokentypes__tryt__pos(tokentypes__notoken) may_be_replaced_by 0.
+thetokentry_rules(36): tokentypes__tryt__val(0) may_be_replaced_by 
+     tokentypes__notoken.
+thetokentry_rules(37): tokentypes__tryt__pos(tokentypes__badtoken) may_be_replaced_by 1.
+thetokentry_rules(38): tokentypes__tryt__val(1) may_be_replaced_by 
+     tokentypes__badtoken.
+thetokentry_rules(39): tokentypes__tryt__pos(
+     tokentypes__goodtoken) may_be_replaced_by 2.
+thetokentry_rules(40): tokentypes__tryt__val(2) may_be_replaced_by 
+     tokentypes__goodtoken.
+thetokentry_rules(41): tokentypes__tryt__pos(tokentypes__tryt__last) may_be_replaced_by 2.
+thetokentry_rules(42): tokentypes__tryt__pos(succ(X)) may_be_replaced_by 
+     tokentypes__tryt__pos(X) + 1
+     if [X <=tokentypes__goodtoken, X <> tokentypes__goodtoken].
+thetokentry_rules(43): tokentypes__tryt__pos(pred(X)) may_be_replaced_by 
+     tokentypes__tryt__pos(X) - 1
+     if [X >=tokentypes__notoken, X <> tokentypes__notoken].
+thetokentry_rules(44): tokentypes__tryt__pos(X) >= 0 may_be_deduced_from
+     [tokentypes__notoken <= X, X <= tokentypes__goodtoken].
+thetokentry_rules(45): tokentypes__tryt__pos(X) <= 2 may_be_deduced_from
+     [tokentypes__notoken <= X, X <= tokentypes__goodtoken].
+thetokentry_rules(46): tokentypes__tryt__val(X) >= 
+     tokentypes__notoken may_be_deduced_from
+     [0 <= X, X <= 2].
+thetokentry_rules(47): tokentypes__tryt__val(X) <= 
+     tokentypes__goodtoken may_be_deduced_from
+     [0 <= X, X <= 2].
+thetokentry_rules(48): succ(tokentypes__tryt__val(X)) may_be_replaced_by 
+     tokentypes__tryt__val(X+1)
+     if [0 <= X, X < 2].
+thetokentry_rules(49): pred(tokentypes__tryt__val(X)) may_be_replaced_by 
+     tokentypes__tryt__val(X-1)
+     if [0 < X, X <= 2].
+thetokentry_rules(50): tokentypes__tryt__pos(tokentypes__tryt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 2].
+thetokentry_rules(51): tokentypes__tryt__val(tokentypes__tryt__pos(X)) may_be_replaced_by X
+     if [tokentypes__notoken <= X, X <= tokentypes__goodtoken].
+thetokentry_rules(52): tokentypes__tryt__pos(X) <= 
+     tokentypes__tryt__pos(Y) & X <= Y are_interchangeable 
+     if [tokentypes__notoken <= X, X <= tokentypes__goodtoken, 
+     tokentypes__notoken <= Y, Y <= tokentypes__goodtoken].
+thetokentry_rules(53): tokentypes__tryt__val(X) <= 
+     tokentypes__tryt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 2, 0 <= Y, Y <= 2].
+thetokentry_rules(54): readert__size >= 0 may_be_deduced.
+thetokentry_rules(55): readert__first may_be_replaced_by user.
+thetokentry_rules(56): readert__last may_be_replaced_by admin.
+thetokentry_rules(57): readert__base__first may_be_replaced_by user.
+thetokentry_rules(58): readert__base__last may_be_replaced_by admin.
+thetokentry_rules(59): readert__pos(readert__first) may_be_replaced_by 0.
+thetokentry_rules(60): readert__pos(user) may_be_replaced_by 0.
+thetokentry_rules(61): readert__val(0) may_be_replaced_by user.
+thetokentry_rules(62): readert__pos(admin) may_be_replaced_by 1.
+thetokentry_rules(63): readert__val(1) may_be_replaced_by admin.
+thetokentry_rules(64): readert__pos(readert__last) may_be_replaced_by 1.
+thetokentry_rules(65): readert__pos(succ(X)) may_be_replaced_by 
+     readert__pos(X) + 1
+     if [X <=admin, X <> admin].
+thetokentry_rules(66): readert__pos(pred(X)) may_be_replaced_by 
+     readert__pos(X) - 1
+     if [X >=user, X <> user].
+thetokentry_rules(67): readert__pos(X) >= 0 may_be_deduced_from
+     [user <= X, X <= admin].
+thetokentry_rules(68): readert__pos(X) <= 1 may_be_deduced_from
+     [user <= X, X <= admin].
+thetokentry_rules(69): readert__val(X) >= user may_be_deduced_from
+     [0 <= X, X <= 1].
+thetokentry_rules(70): readert__val(X) <= admin may_be_deduced_from
+     [0 <= X, X <= 1].
+thetokentry_rules(71): succ(readert__val(X)) may_be_replaced_by 
+     readert__val(X+1)
+     if [0 <= X, X < 1].
+thetokentry_rules(72): pred(readert__val(X)) may_be_replaced_by 
+     readert__val(X-1)
+     if [0 < X, X <= 1].
+thetokentry_rules(73): readert__pos(readert__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+thetokentry_rules(74): readert__val(readert__pos(X)) may_be_replaced_by X
+     if [user <= X, X <= admin].
+thetokentry_rules(75): readert__pos(X) <= readert__pos(Y) & X <= Y are_interchangeable 
+     if [user <= X, X <= admin, user <= Y, Y <= admin].
+thetokentry_rules(76): readert__val(X) <= readert__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].
+thetokentry_rules(77): tokenreader__interface__readernamei__size >= 0 may_be_deduced.
+thetokentry_rules(78): tokenreader__interface__readernamei__first may_be_replaced_by 1.
+thetokentry_rules(79): tokenreader__interface__readernamei__last may_be_replaced_by 8.
+thetokentry_rules(80): tokenreader__interface__readernamei__base__first may_be_replaced_by -2147483648.
+thetokentry_rules(81): tokenreader__interface__readernamei__base__last may_be_replaced_by 2147483647.
+thetokentry_rules(82): tokenreader__interface__readerstatet__size >= 0 may_be_deduced.
+thetokentry_rules(83): tokenreader__interface__readerstatet__first may_be_replaced_by tokenreader__interface__invalidreaderstate.
+thetokentry_rules(84): tokenreader__interface__readerstatet__last may_be_replaced_by tokenreader__interface__mute.
+thetokentry_rules(85): tokenreader__interface__readerstatet__base__first may_be_replaced_by tokenreader__interface__invalidreaderstate.
+thetokentry_rules(86): tokenreader__interface__readerstatet__base__last may_be_replaced_by tokenreader__interface__mute.
+thetokentry_rules(87): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__readerstatet__first) may_be_replaced_by 0.
+thetokentry_rules(88): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__invalidreaderstate) may_be_replaced_by 0.
+thetokentry_rules(89): tokenreader__interface__readerstatet__val(0) may_be_replaced_by 
+     tokenreader__interface__invalidreaderstate.
+thetokentry_rules(90): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__unaware) may_be_replaced_by 1.
+thetokentry_rules(91): tokenreader__interface__readerstatet__val(1) may_be_replaced_by 
+     tokenreader__interface__unaware.
+thetokentry_rules(92): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__ignore) may_be_replaced_by 2.
+thetokentry_rules(93): tokenreader__interface__readerstatet__val(2) may_be_replaced_by 
+     tokenreader__interface__ignore.
+thetokentry_rules(94): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__unavailable) may_be_replaced_by 3.
+thetokentry_rules(95): tokenreader__interface__readerstatet__val(3) may_be_replaced_by 
+     tokenreader__interface__unavailable.
+thetokentry_rules(96): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__empty) may_be_replaced_by 4.
+thetokentry_rules(97): tokenreader__interface__readerstatet__val(4) may_be_replaced_by 
+     tokenreader__interface__empty.
+thetokentry_rules(98): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__cardpresent) may_be_replaced_by 5.
+thetokentry_rules(99): tokenreader__interface__readerstatet__val(5) may_be_replaced_by 
+     tokenreader__interface__cardpresent.
+thetokentry_rules(100): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__mute) may_be_replaced_by 6.
+thetokentry_rules(101): tokenreader__interface__readerstatet__val(6) may_be_replaced_by 
+     tokenreader__interface__mute.
+thetokentry_rules(102): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__readerstatet__last) may_be_replaced_by 6.
+thetokentry_rules(103): tokenreader__interface__readerstatet__pos(succ(X)) may_be_replaced_by 
+     tokenreader__interface__readerstatet__pos(X) + 1
+     if [X <=tokenreader__interface__mute, X <> 
+     tokenreader__interface__mute].
+thetokentry_rules(104): tokenreader__interface__readerstatet__pos(pred(X)) may_be_replaced_by 
+     tokenreader__interface__readerstatet__pos(X) - 1
+     if [X >=tokenreader__interface__invalidreaderstate, X <> 
+     tokenreader__interface__invalidreaderstate].
+thetokentry_rules(105): tokenreader__interface__readerstatet__pos(X) >= 0 may_be_deduced_from
+     [tokenreader__interface__invalidreaderstate <= X, X <= 
+     tokenreader__interface__mute].
+thetokentry_rules(106): tokenreader__interface__readerstatet__pos(X) <= 6 may_be_deduced_from
+     [tokenreader__interface__invalidreaderstate <= X, X <= 
+     tokenreader__interface__mute].
+thetokentry_rules(107): tokenreader__interface__readerstatet__val(X) >= 
+     tokenreader__interface__invalidreaderstate may_be_deduced_from
+     [0 <= X, X <= 6].
+thetokentry_rules(108): tokenreader__interface__readerstatet__val(X) <= 
+     tokenreader__interface__mute may_be_deduced_from
+     [0 <= X, X <= 6].
+thetokentry_rules(109): succ(tokenreader__interface__readerstatet__val(X)) may_be_replaced_by 
+     tokenreader__interface__readerstatet__val(X+1)
+     if [0 <= X, X < 6].
+thetokentry_rules(110): pred(tokenreader__interface__readerstatet__val(X)) may_be_replaced_by 
+     tokenreader__interface__readerstatet__val(X-1)
+     if [0 < X, X <= 6].
+thetokentry_rules(111): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__readerstatet__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 6].
+thetokentry_rules(112): tokenreader__interface__readerstatet__val(
+     tokenreader__interface__readerstatet__pos(X)) may_be_replaced_by X
+     if [tokenreader__interface__invalidreaderstate <= X, X <= 
+     tokenreader__interface__mute].
+thetokentry_rules(113): tokenreader__interface__readerstatet__pos(X) <= 
+     tokenreader__interface__readerstatet__pos(Y) & X <= Y are_interchangeable 
+     if [tokenreader__interface__invalidreaderstate <= X, X <= 
+     tokenreader__interface__mute, 
+     tokenreader__interface__invalidreaderstate <= Y, Y <= 
+     tokenreader__interface__mute].
+thetokentry_rules(114): tokenreader__interface__readerstatet__val(X) <= 
+     tokenreader__interface__readerstatet__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 6, 0 <= Y, Y <= 6].
+thetokentry_rules(115): tokenreader__interface__validreaderstatet__size >= 0 may_be_deduced.
+thetokentry_rules(116): tokenreader__interface__validreaderstatet__first may_be_replaced_by tokenreader__interface__unaware.
+thetokentry_rules(117): tokenreader__interface__validreaderstatet__last may_be_replaced_by tokenreader__interface__mute.
+thetokentry_rules(118): tokenreader__interface__validreaderstatet__base__first may_be_replaced_by tokenreader__interface__invalidreaderstate.
+thetokentry_rules(119): tokenreader__interface__validreaderstatet__base__last may_be_replaced_by tokenreader__interface__mute.
+thetokentry_rules(120): readerinfot__size >= 0 may_be_deduced.
+thetokentry_rules(121): A = B may_be_deduced_from
+     [goal(checktype(A,readerinfot)),
+      goal(checktype(B,readerinfot)),
+      fld_name(A) = fld_name(B),
+      fld_tokentry(A) = fld_tokentry(B),
+      fld_tokenid(A) = fld_tokenid(B),
+      fld_tokenconnected(A) = fld_tokenconnected(B),
+      fld_tokenhandle(A) = fld_tokenhandle(B),
+      fld_currentstatus(A) = fld_currentstatus(B),
+      fld_lastfault(A) = fld_lastfault(B)].

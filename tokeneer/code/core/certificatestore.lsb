@@ -1,0 +1,462 @@
+           *******************************************************
+                            Listing of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:16.17
+
+Line
+   1  ------------------------------------------------------------------
+   2  -- Tokeneer ID Station Core Software
+   3  --
+   4  -- Copyright (2003) United States Government, as represented
+   5  -- by the Director, National Security Agency. All rights reserved.
+   6  --
+   7  -- This material was originally developed by Praxis High Integrity
+   8  -- Systems Ltd. under contract to the National Security Agency.
+   9  ------------------------------------------------------------------
+  10  
+  11  ------------------------------------------------------------------
+  12  -- CertificateStore
+  13  --
+  14  -- Implementation Notes:
+  15  --    ...
+  16  --
+  17  ------------------------------------------------------------------
+  18  with AuditTypes,
+  19       AuditLog,
+  20       CertTypes,
+  21       File;
+  22  use type CertTypes.SerialNumberT;
+  23  
+  24  package body CertificateStore
+  25  --# own State is NextSerialNumber,
+  26  --#              Overflow &
+  27  --#     FileState is StoreFile;
+  28  is
+  29  
+  30     ------------------------------------------------------------------
+  31     -- Types
+  32     --
+  33     ------------------------------------------------------------------
+  34     subtype RawNextI is Positive range 1..10;
+  35     subtype RawNextT is String(RawNextI);
+  36  
+  37     OverflowString : constant RawNextT := "OVERFLOWED";
+  38  
+  39     ------------------------------------------------------------------
+  40     -- State
+  41     --
+  42     ------------------------------------------------------------------
+  43     NextSerialNumber : CertTypes.SerialNumberT;
+  44     Overflow         : Boolean;
+  45     StoreFile        : File.T := File.NullFile;
+  46  
+  47  
+  48     ------------------------------------------------------------------
+  49     -- Local Subprograms
+  50     --
+  51     ------------------------------------------------------------------
+  52     ------------------------------------------------------------------
+  53     -- GetNextSerialNumber
+  54     --
+  55     -- Description:
+  56     --    Attempts To read the next serial number from the Store.
+  57     --    Success is true if the Store is 'good'.
+  58     --    Next is set to the number read from the store, if it is
+  59     --    valid, otherwise it is set to 'Last.
+  60     --    OFlow is False if a valid number is read from the Store,
+  61     --    otherwise it is True.
+  62     --
+  63     -- Implementation Notes:
+  64     --    None.
+  65     --
+  66     ------------------------------------------------------------------
+  67     procedure GetNextSerialNumber(Next    : out CertTypes.SerialNumberT;
+  68                                   OFlow   : out Boolean;
+  69                                   Success : out Boolean)
+  70     --# global in out StoreFile;
+  71     --# derives Next,
+  72     --#         OFlow,
+  73     --#         Success,
+  74     --#         StoreFile from StoreFile;
+  75     is
+  76        RawNext  : RawNextT;
+  77        Stop     : Natural;
+  78  
+  79        NewNext  : CertTypes.SerialNumberT;
+  80  
+  81        Opened,
+  82        Closed   : Boolean;
+  83        ReadOK   : Boolean := True;
+  84  
+  85  
+  86        ------------------------------------------------------------------
+  87        -- StringIsOverflowed
+  88        --
+  89        -- Description:
+  90        --    Compares Text with the "OVERFLOWED" string.
+  91        --
+  92        -- Implementation Notes:
+  93        --    None
+  94        --
+  95        ------------------------------------------------------------------
+  96        function StringIsOverflowed(Text : RawNextT) return Boolean
+  97        is
+  98           Result : Boolean := True;
+  99        begin
+ 100           for i in RawNextI loop
+ 101              if Text(i) /= OverflowString(i) then
+ 102                 Result := False;
+ 103                 exit;
+ 104              end if;
+ 105           end loop;
+ 106  
+ 107           return Result;
+ 108        end StringIsOverflowed;
+
++++        Flow analysis of subprogram StringIsOverflowed 
+           performed: no errors found.
+
+ 109  
+ 110        ------------------------------------------------------------------
+ 111        -- ConvertTo32
+ 112        --
+ 113        -- Description:
+ 114        --    Converts the Text string into the SerialNumber type.
+ 115        --    Ok is false if Text is not the 'Image' of a serial number.
+ 116        --
+ 117        -- Implementation Notes:
+ 118        --    Hidden due to use of the 'Value attribute
+ 119        --
+ 120        ------------------------------------------------------------------
+ 121        procedure ConvertTo32(Text   : in     RawNextT;
+ 122                              Length : in     Natural;
+ 123                              Num    :    out CertTypes.SerialNumberT;
+ 124                              Ok     :    out Boolean)
+ 125        --# derives Num, Ok from Text, Length;
+ 126        is
+ 127        --# hide ConvertTo32
+ 128        begin
+ 129           Num := CertTypes.SerialNumberT'Value(Text(1..Length));
+ 130           Ok  := True;
+ 131        exception
+ 132           when E : others =>
+ 133              Ok  := False;
+ 134              Num := CertTypes.SerialNumberT'First;
+ 135        end ConvertTo32;
+ 136  
+ 137     ----------------------------
+ 138     -- begin NextSerialNumber --
+ 139     ----------------------------
+ 140     begin
+ 141        OFlow := True;
+ 142        Next  := CertTypes.SerialNumberT'Last;
+ 143  
+ 144        File.OpenRead(TheFile => StoreFile,
+ 145                      Success => Opened);
+ 146  
+ 147        if Opened then
+ 148           File.GetString(TheFile => StoreFile,
+ 149                          Text    => RawNext,
+ 150                          Stop    => Stop);
+ 151  
+ 152           if StringIsOverflowed(RawNext) then
+ 153              OFlow   := True;
+ 154              Next    := CertTypes.SerialNumberT'Last;
+ 155           else
+ 156              ConvertTo32(Text   => RawNext,
+ 157                          Length => Stop,
+ 158                          Num    => NewNext,
+ 159                          Ok     => ReadOK);
+ 160              if ReadOK then
+ 161                 OFlow := False;
+ 162                 Next  := NewNext;
+ 163              end if;
+ 164           end if;
+ 165        end if;
+ 166  
+ 167        File.Close(StoreFile,
+ 168                   Closed);
+ 169  
+ 170        Success := Opened and ReadOK and Closed;
+ 171  
+ 172     end GetNextSerialNumber;
+
++++        Flow analysis of subprogram GetNextSerialNumber 
+           performed: no errors found.
+
+ 173  
+ 174  
+ 175     ------------------------------------------------------------------
+ 176     -- PutNextSerialNumber
+ 177     --
+ 178     -- Description:
+ 179     --    Attempts to write the next serial number to the Store.
+ 180     --    Success is set to False if it cannot be written.
+ 181     --
+ 182     -- Implementation Notes:
+ 183     --    None.
+ 184     --
+ 185     ------------------------------------------------------------------
+ 186     procedure PutNextSerialNumber(Next    : in     CertTypes.SerialNumberT;
+ 187                                   OFlow   : in     Boolean;
+ 188                                   Success :    out Boolean)
+ 189     --# global in out StoreFile;
+ 190     --# derives Success,
+ 191     --#         StoreFile from Next,
+ 192     --#                        OFlow,
+ 193     --#                        StoreFile;
+ 194     is
+ 195        RawNext : RawNextT;
+ 196        Stop    : Natural;
+ 197        Opened,
+ 198        Closed  : Boolean;
+ 199  
+ 200        ------------------------------------------------------------------
+ 201        -- ConvertFrom32
+ 202        --
+ 203        -- Description:
+ 204        --    Converts the SerialNumber type into a Text string.
+ 205        --
+ 206        -- Implementation Notes:
+ 207        --    Hidden due to use of the 'Image attribute
+ 208        --
+ 209        ------------------------------------------------------------------
+ 210        procedure ConvertFrom32(Num    : in     CertTypes.SerialNumberT;
+ 211                                Text   :    out RawNextT;
+ 212                                Length :    out RawNextI)
+ 213        --# derives Text, Length from Num;
+ 214        is
+ 215        --# hide ConvertFrom32
+ 216           Str : String := CertTypes.SerialNumberT'Image(Num);
+ 217        begin
+ 218           -- Trim the automatic space at the start of the string
+ 219           Length := Str'Length - 1;
+ 220           Text(1..Length) := Str(2..Length + 1);
+ 221           Text(Length + 1..RawNextI'Last) := (others => ' ');
+ 222        end ConvertFrom32;
+ 223  
+ 224     begin
+ 225        File.OpenWrite(StoreFile, Opened);
+ 226  
+ 227        if Opened then
+ 228  
+ 229           if Oflow then
+ 230              File.PutString (TheFile => StoreFile,
+ 231                              Text    => OverflowString,
+ 232                              Stop    => 0);
+ 233  
+ 234           else
+ 235              ConvertFrom32(Num    => Next,
+ 236                            Text   => RawNext,
+ 237                            Length => Stop);
+ 238              File.PutString (TheFile => StoreFile,
+ 239                              Text    => RawNext,
+ 240                              Stop    => Stop);
+ 241           end if;
+ 242        end if;
+ 243  
+ 244        File.Close(StoreFile,
+ 245                   Closed);
+ 246  
+ 247        Success := Opened and Closed;
+ 248     end PutNextSerialNumber;
+
++++        Flow analysis of subprogram PutNextSerialNumber 
+           performed: no errors found.
+
+ 249  
+ 250  
+ 251     ------------------------------------------------------------------
+ 252     -- Init
+ 253     --
+ 254     -- Implementation Notes:
+ 255     --    None.
+ 256     --
+ 257     ------------------------------------------------------------------
+ 258  
+ 259     procedure Init
+ 260     --# global    out NextSerialNumber;
+ 261     --#           out OverFlow;
+ 262     --#        in out StoreFile;
+ 263     --#        in out AuditLog.State;
+ 264     --#        in out AuditLog.FileState;
+ 265     --#        in     Clock.Now;
+ 266     --#        in     ConfigData.State;
+ 267     --# derives NextSerialNumber,
+ 268     --#         Overflow,
+ 269     --#         StoreFile from StoreFile &
+ 270     --#         AuditLog.State from AuditLog.State,
+ 271     --#                             AuditLog.FileState,
+ 272     --#                             Clock.Now,
+ 273     --#                             ConfigData.State,
+ 274     --#                             StoreFile &
+ 275     --#         AuditLog.FileState from AuditLog.State,
+ 276     --#                             AuditLog.FileState,
+ 277     --#                             ConfigData.State,
+ 278     --#                             Clock.Now,
+ 279     --#                             StoreFile;
+ 280     is
+ 281        ReadOK    : Boolean;
+ 282  
+ 283     begin
+ 284        File.SetName( TheFile => StoreFile,
+ 285                      TheName => "./System/cert.dat");
+ 286  
+ 287        if File.Exists ( TheFile => StoreFile) then
+ 288           GetNextSerialNumber(Next    => NextSerialNumber,
+ 289                               OFlow   => Overflow,
+ 290                               Success => ReadOk);
+ 291  
+ 292           if not ReadOK then
+ 293              AuditLog.AddElementToLog(
+ 294                    ElementID   => AuditTypes.SystemFault,
+ 295                    Severity    => AuditTypes.Warning,
+ 296                    User        => AuditTypes.NoUser,
+ 297                    Description => "Certificate Store read error"
+ 298                    );
+ 299           end if;
+ 300  
+ 301        else
+ 302           -- Store does not exist - set to 'First
+ 303           NextSerialNumber := CertTypes.SerialNumberT'First;
+ 304           Overflow := False;
+ 305        end if;
+ 306  
+ 307     end Init;
+
++++        Flow analysis of subprogram Init performed: no 
+           errors found.
+
+ 308  
+ 309  
+ 310     ------------------------------------------------------------------
+ 311     -- UpdateStore
+ 312     --
+ 313     -- Implementation Notes:
+ 314     --    None
+ 315     --
+ 316     ------------------------------------------------------------------
+ 317  
+ 318     procedure UpdateStore
+ 319     --# global in out NextSerialNumber;
+ 320     --#           out Overflow;
+ 321     --#        in out StoreFile;
+ 322     --#        in out AuditLog.State;
+ 323     --#        in out AuditLog.FileState;
+ 324     --#        in     Clock.Now;
+ 325     --#        in     ConfigData.State;
+ 326     --# derives NextSerialNumber,
+ 327     --#         Overflow from NextSerialNumber &
+ 328     --#         StoreFile from NextSerialNumber,
+ 329     --#                        StoreFile &
+ 330     --#         AuditLog.State from AuditLog.State,
+ 331     --#                             AuditLog.FileState,
+ 332     --#                             Clock.Now,
+ 333     --#                             ConfigData.State,
+ 334     --#                             NextSerialNumber,
+ 335     --#                             StoreFile &
+ 336     --#         AuditLog.FileState from AuditLog.State,
+ 337     --#                             AuditLog.FileState,
+ 338     --#                             ConfigData.State,
+ 339     --#                             Clock.Now,
+ 340     --#                             NextSerialNumber,
+ 341     --#                             StoreFile;
+ 342     is
+ 343  
+ 344        Written : Boolean := False;
+ 345        Exists  : Boolean := True;
+ 346  
+ 347     begin
+ 348        if NextSerialNumber < CertTypes.SerialNumberT'Last then
+ 349           NextSerialNumber := NextSerialNumber + 1;
+ 350           Overflow := False;
+ 351        else
+ 352           Overflow := True;
+ 353        end if;
+ 354  
+ 355        if not File.Exists(TheFile => StoreFile) then
+ 356           File.Create(TheFile => StoreFile,
+ 357                       Success => Exists);
+ 358           if Exists then
+ 359              File.Close(TheFile => StoreFile,
+ 360                         Success => Exists);
+ 361           end if;
+ 362  
+ 363        end if;
+ 364  
+ 365        if Exists then
+ 366           PutNextSerialNumber(Next    => NextSerialNumber,
+ 367                               OFlow   => Overflow,
+ 368                               Success => Written);
+ 369  
+ 370        end if;
+ 371  
+ 372        if not (Exists and Written) then
+ 373              AuditLog.AddElementToLog(
+ 374                    ElementID   => AuditTypes.SystemFault,
+ 375                    Severity    => AuditTypes.Warning,
+ 376                    User        => AuditTypes.NoUser,
+ 377                    Description => "Certificate Store write error - " &
+ 378                                   "state will be lost at Power Down."
+ 379                    );
+ 380        end if;
+ 381  
+ 382     end UpdateStore;
+
++++        Flow analysis of subprogram UpdateStore 
+           performed: no errors found.
+
+ 383  
+ 384  
+ 385     ------------------------------------------------------------------
+ 386     -- SerialNumberHasOverflowed
+ 387     --
+ 388     -- Implementation Notes:
+ 389     --    None
+ 390     --
+ 391     ------------------------------------------------------------------
+ 392  
+ 393     function SerialNumberHasOverflowed return Boolean
+ 394     --# global Overflow;
+ 395     is
+ 396     begin
+ 397        return Overflow;
+ 398     end SerialNumberHasOverflowed;
+
++++        Flow analysis of subprogram 
+           SerialNumberHasOverflowed performed: no errors found.
+
+ 399  
+ 400  
+ 401     ------------------------------------------------------------------
+ 402     -- SerialNumber
+ 403     --
+ 404     -- Implementation Notes:
+ 405     --    None
+ 406     --
+ 407     ------------------------------------------------------------------
+ 408  
+ 409     function SerialNumber return CertTypes.SerialNumberT
+ 410     --# global NextSerialNumber;
+ 411     is
+ 412     begin
+ 413        return NextSerialNumber;
+ 414     end SerialNumber;
+
++++        Flow analysis of subprogram SerialNumber 
+           performed: no errors found.
+
+ 415  
+ 416  end CertificateStore;
+3 summarized warning(s), comprising:
+     2 hidden part(s)*
+     1 generation of default loop assertions*
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+
+--End of file--------------------------------------------------

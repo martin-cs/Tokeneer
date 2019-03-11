@@ -1,0 +1,478 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:25  SIMPLIFIED 05-SEP-2011, 15:40:54
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure Enclave.ValidateEnrolmentData
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/enclave/enclave.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_validateenrolmentdata_1.  @@@@@@@@@@
+***  Proved C1:  not keystore__privatekeypresent(keystore__state)
+     using hypothesis H1.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validateenrolmentdata_2.  @@@@@@@@@@
+---  Hypothesis H4 has been replaced by "true".  (It is already present, as H1).
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__1, [i___1]) and element(description__1, [
+          i___1]) <= character__last)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  screen__msgtextt__first <= screen__welcomeadmin
+-S-  Applied substitution rule validateenro_rules(189).
+     This was achieved by replacing all occurrences of screen__msgtextt__first 
+          by:
+          screen__clear.
+<S>  New C1:  true
+-S-  Applied substitution rule validateenro_rules(190).
+     This was achieved by replacing all occurrences of screen__msgtextt__last 
+          by:
+          screen__insertconfigdata.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validateenrolmentdata_3.  @@@@@@@@@@
+---  Hypothesis H4 has been replaced by "true".  (It is already present, as H1).
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__1, [i___1]) and element(description__1, [
+          i___1]) <= character__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  screen__msgtextt__first <= screen__welcomeadmin
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  display__msgt__first <= display__welcome
+-S-  Applied substitution rule validateenro_rules(154).
+     This was achieved by replacing all occurrences of display__msgt__first by:
+          display__blank.
+<S>  New C1:  true
+-S-  Applied substitution rule validateenro_rules(155).
+     This was achieved by replacing all occurrences of display__msgt__last by:
+          display__doorunlocked.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validateenrolmentdata_4.  @@@@@@@@@@
+---  Hypothesis H4 has been replaced by "true".  (It is already present, as H1).
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__1, [i___1]) and element(description__1, [
+          i___1]) <= character__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  screen__msgtextt__first <= screen__welcomeadmin
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  display__msgt__first <= display__welcome
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  statust__first <= enclavequiescent
+-S-  Applied substitution rule validateenro_rules(238).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New C1:  true
+-S-  Applied substitution rule validateenro_rules(239).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validateenrolmentdata_5.  @@@@@@@@@@
+---  Hypothesis H4 has been replaced by "true".  (It is already present, as H1).
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__1, [i___1]) and element(description__1, [
+          i___1]) <= character__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  screen__msgtextt__first <= screen__welcomeadmin
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  display__msgt__first <= display__welcome
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  statust__first <= enclavequiescent
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__enrolmentcomplete
+-S-  Applied substitution rule validateenro_rules(124).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule validateenro_rules(125).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule validateenro_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule validateenro_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validateenrolmentdata_6.  @@@@@@@@@@
+---  Hypothesis H4 has been replaced by "true".  (It is already present, as H1).
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__1, [i___1]) and element(description__1, [
+          i___1]) <= character__last)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  screen__msgtextt__first <= screen__enrolmentfailed
+-S-  Applied substitution rule validateenro_rules(189).
+     This was achieved by replacing all occurrences of screen__msgtextt__first 
+          by:
+          screen__clear.
+<S>  New C1:  true
+-S-  Applied substitution rule validateenro_rules(190).
+     This was achieved by replacing all occurrences of screen__msgtextt__last 
+          by:
+          screen__insertconfigdata.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validateenrolmentdata_7.  @@@@@@@@@@
+---  Hypothesis H4 has been replaced by "true".  (It is already present, as H1).
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__1, [i___1]) and element(description__1, [
+          i___1]) <= character__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  screen__msgtextt__first <= screen__enrolmentfailed
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  display__msgt__first <= display__blank
+-S-  Applied substitution rule validateenro_rules(154).
+     This was achieved by replacing all occurrences of display__msgt__first by:
+          display__blank.
+<S>  New C1:  true
+-S-  Applied substitution rule validateenro_rules(155).
+     This was achieved by replacing all occurrences of display__msgt__last by:
+          display__doorunlocked.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validateenrolmentdata_8.  @@@@@@@@@@
+---  Hypothesis H4 has been replaced by "true".  (It is already present, as H1).
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__1, [i___1]) and element(description__1, [
+          i___1]) <= character__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  screen__msgtextt__first <= screen__enrolmentfailed
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  display__msgt__first <= display__blank
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  statust__first <= waitingendenrol
+-S-  Applied substitution rule validateenro_rules(238).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New C1:  true
+-S-  Applied substitution rule validateenro_rules(239).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validateenrolmentdata_9.  @@@@@@@@@@
+---  Hypothesis H4 has been replaced by "true".  (It is already present, as H1).
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__1, [i___1]) and element(description__1, [
+          i___1]) <= character__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  screen__msgtextt__first <= screen__enrolmentfailed
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  display__msgt__first <= display__blank
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  statust__first <= waitingendenrol
+---  Hypothesis H16 has been replaced by "true".  (It is already present, as H7)
+          .
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__enrolmentfailed
+-S-  Applied substitution rule validateenro_rules(124).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule validateenro_rules(125).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule validateenro_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule validateenro_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validateenrolmentdata_10.  @@@@@@@@@@
+---  Hypothesis H4 has been replaced by "true".  (It is already present, as H1).
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__1, [i___1]) and element(description__1, [
+          i___1]) <= character__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  screen__msgtextt__first <= screen__welcomeadmin
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  display__msgt__first <= display__welcome
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  statust__first <= enclavequiescent
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified H18 on reading formula in, to give:
+     %%%  H18:  audittypes__elementt__first <= audittypes__enrolmentcomplete
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  keystore__privatekeypresent(keystore__state__1)
++++  Using "A->B, A |- B" on hypotheses H5 & H9 yields a new hypothesis:
+     +++  H20:  keystore__privatekeypresent(keystore__state__1)
+---  Attempted addition of new hypothesis:
+          dataok__1
+     eliminated: this already exists (as H9).
++++  Using "A->B, A |- B" on hypotheses H5 & H20 yields a new hypothesis:
+     +++  H9:  dataok__1
+-S-  Applied substitution rule validateenro_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H7:  for_all(i___1 : integer, audittypes__descriptioni__first <= i___1 
+          and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__1, [i___1]) and element(description__1, [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule validateenro_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H7:  for_all(i___1 : integer, audittypes__descriptioni__first <= i___1 
+          and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__1, [i___1]) and element(description__1, [i___1]) <= 255)
+-S-  Applied substitution rule validateenro_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New H18:  true
+-S-  Applied substitution rule validateenro_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New H19:  true
+-S-  Applied substitution rule validateenro_rules(124).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New H16:  true
+-S-  Applied substitution rule validateenro_rules(125).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New H17:  true
+-S-  Applied substitution rule validateenro_rules(149).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__first by:
+          1.
+<S>  New H7:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(description__1, [i___1]
+          ) and element(description__1, [i___1]) <= 255)
+-S-  Applied substitution rule validateenro_rules(150).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__last by:
+          150.
+<S>  New H7:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(description__1, [i___1]) and element(description__1, [i___1]) 
+          <= 255)
+-S-  Applied substitution rule validateenro_rules(154).
+     This was achieved by replacing all occurrences of display__msgt__first by:
+          display__blank.
+<S>  New H12:  true
+-S-  Applied substitution rule validateenro_rules(155).
+     This was achieved by replacing all occurrences of display__msgt__last by:
+          display__doorunlocked.
+<S>  New H13:  true
+-S-  Applied substitution rule validateenro_rules(189).
+     This was achieved by replacing all occurrences of screen__msgtextt__first 
+          by:
+          screen__clear.
+<S>  New H10:  true
+-S-  Applied substitution rule validateenro_rules(190).
+     This was achieved by replacing all occurrences of screen__msgtextt__last 
+          by:
+          screen__insertconfigdata.
+<S>  New H11:  true
+-S-  Applied substitution rule validateenro_rules(238).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H14:  true
+-S-  Applied substitution rule validateenro_rules(239).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H15:  true
+***  Proved C1:  keystore__privatekeypresent(keystore__state__1)
+     using hypothesis H20.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validateenrolmentdata_11.  @@@@@@@@@@
+---  Hypothesis H4 has been replaced by "true".  (It is already present, as H1).
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__1, [i___1]) and element(description__1, [
+          i___1]) <= character__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  screen__msgtextt__first <= screen__enrolmentfailed
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  display__msgt__first <= display__blank
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  statust__first <= waitingendenrol
+---  Hypothesis H16 has been replaced by "true".  (It is already present, as H7)
+          .
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  audittypes__elementt__first <= audittypes__enrolmentfailed
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  not keystore__privatekeypresent(keystore__state__1)
++++  Using "A->B, not B |- not A" on hypotheses H5 & H9 yields a new hypothesis:
+     +++  H21:  not keystore__privatekeypresent(keystore__state__1)
+---  Attempted addition of new hypothesis:
+          not dataok__1
+     eliminated: this already exists (as H9).
++++  Using "A->B, not B |- not A" on hypotheses H5 & H21 yields a new 
+          hypothesis:
+     +++  H9:  not dataok__1
+-S-  Applied substitution rule validateenro_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H7:  for_all(i___1 : integer, audittypes__descriptioni__first <= i___1 
+          and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__1, [i___1]) and element(description__1, [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule validateenro_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H7:  for_all(i___1 : integer, audittypes__descriptioni__first <= i___1 
+          and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__1, [i___1]) and element(description__1, [i___1]) <= 255)
+-S-  Applied substitution rule validateenro_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New H19:  true
+-S-  Applied substitution rule validateenro_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New H20:  true
+-S-  Applied substitution rule validateenro_rules(124).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New H17:  true
+-S-  Applied substitution rule validateenro_rules(125).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New H18:  true
+-S-  Applied substitution rule validateenro_rules(149).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__first by:
+          1.
+<S>  New H7:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(description__1, [i___1]
+          ) and element(description__1, [i___1]) <= 255)
+-S-  Applied substitution rule validateenro_rules(150).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__last by:
+          150.
+<S>  New H7:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(description__1, [i___1]) and element(description__1, [i___1]) 
+          <= 255)
+-S-  Applied substitution rule validateenro_rules(154).
+     This was achieved by replacing all occurrences of display__msgt__first by:
+          display__blank.
+<S>  New H12:  true
+-S-  Applied substitution rule validateenro_rules(155).
+     This was achieved by replacing all occurrences of display__msgt__last by:
+          display__doorunlocked.
+<S>  New H13:  true
+-S-  Applied substitution rule validateenro_rules(189).
+     This was achieved by replacing all occurrences of screen__msgtextt__first 
+          by:
+          screen__clear.
+<S>  New H10:  true
+-S-  Applied substitution rule validateenro_rules(190).
+     This was achieved by replacing all occurrences of screen__msgtextt__last 
+          by:
+          screen__insertconfigdata.
+<S>  New H11:  true
+-S-  Applied substitution rule validateenro_rules(238).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H14:  true
+-S-  Applied substitution rule validateenro_rules(239).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H15:  true
+***  Proved C1:  not keystore__privatekeypresent(keystore__state__1)
+     using hypothesis H21.
+***  PROVED VC.
+

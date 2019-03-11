@@ -1,0 +1,318 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:08  SIMPLIFIED 05-SEP-2011, 15:38:40
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure AuditLog.AddElementToLogFile.AddElementToCurrentFile
+
+
+
+
+
+
+@@@@@@@@@@  VC: procedure_addelementtocurrentfile_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  audittypes__elementt__first <= elementid
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  audittypes__severityt__first <= severity
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description, [i___1]) and element(description, [i___1]) <= 
+          character__last)
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+***  Proved C1:  currentlogfile >= logfileindext__first
+     using hypothesis H8.
+***  Proved C2:  currentlogfile <= logfileindext__last
+     using hypothesis H9.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_addelementtocurrentfile_2.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  audittypes__elementt__first <= elementid
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  audittypes__severityt__first <= severity
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description, [i___1]) and element(description, [i___1]) <= 
+          character__last)
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+---  Hypothesis H13 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as H9)
+          .
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= severity
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= elementid
+***  Proved C1:  audittypes__severityt__first <= severity
+     using hypothesis H4.
+***  Proved C2:  severity <= audittypes__severityt__last
+     using hypothesis H5.
+***  Proved C3:  audittypes__elementt__first <= elementid
+     using hypothesis H2.
+***  Proved C4:  elementid <= audittypes__elementt__last
+     using hypothesis H3.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_addelementtocurrentfile_3.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  audittypes__elementt__first <= elementid
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  audittypes__severityt__first <= severity
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description, [i___1]) and element(description, [i___1]) <= 
+          character__last)
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+---  Hypothesis H13 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H16 has been replaced by "true".  (It is already present, as H4)
+          .
+---  Hypothesis H17 has been replaced by "true".  (It is already present, as H5)
+          .
+---  Hypothesis H18 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as H3)
+          .
+***  Proved C1:  currentlogfile >= logfileindext__first
+     using hypothesis H8.
+***  Proved C2:  currentlogfile <= logfileindext__last
+     using hypothesis H9.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_addelementtocurrentfile_4.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  audittypes__elementt__first <= elementid
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  audittypes__severityt__first <= severity
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description, [i___1]) and element(description, [i___1]) <= 
+          character__last)
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+---  Hypothesis H13 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H16 has been replaced by "true".  (It is already present, as H4)
+          .
+---  Hypothesis H17 has been replaced by "true".  (It is already present, as H5)
+          .
+---  Hypothesis H18 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as H3)
+          .
+---  Hypothesis H22 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as H9)
+          .
+***  Proved C3:  currentlogfile >= logfileindext__first
+     using hypothesis H8.
+***  Proved C4:  currentlogfile <= logfileindext__last
+     using hypothesis H9.
+***  Proved C5:  currentlogfile >= logfileindext__first
+     using hypothesis H8.
+***  Proved C6:  currentlogfile <= logfileindext__last
+     using hypothesis H9.
+-S-  Applied substitution rule addelementto_rules(178).
+     This was achieved by replacing all occurrences of fileentrycountt__first 
+          by:
+          0.
+<S>  New H12:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> 0 <= element(logfileentries, [i___1]) and 
+          element(logfileentries, [i___1]) <= fileentrycountt__last)
+<S>  New C1:  element(logfileentries, [currentlogfile]) >= - 1
+-S-  Applied substitution rule addelementto_rules(179).
+     This was achieved by replacing all occurrences of fileentrycountt__last by:
+          1024.
+<S>  New H12:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> 0 <= element(logfileentries, [i___1]) and 
+          element(logfileentries, [i___1]) <= 1024)
+<S>  New C2:  element(logfileentries, [currentlogfile]) <= 1023
+***  Proved C1:  element(logfileentries, [currentlogfile]) >= - 1
+     using hypotheses H8, H9 & H12.
+-S-  Applied substitution rule addelementto_rules(1).
+     This was achieved by replacing all occurrences of maxlogfileentries by:
+          1024.
+<S>  New H1:  element(logfileentries, [currentlogfile]) < 1024
+-S-  Applied substitution rule addelementto_rules(8).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> 0 <= element(user, [i___1]
+          ) and element(user, [i___1]) <= character__last)
+<S>  New H7:  for_all(i___1 : integer, audittypes__descriptioni__first <= i___1 
+          and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description, [i___1]) and element(description, [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule addelementto_rules(9).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> 0 <= element(user, [i___1]
+          ) and element(user, [i___1]) <= 255)
+<S>  New H7:  for_all(i___1 : integer, audittypes__descriptioni__first <= i___1 
+          and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description, [i___1]) and element(description, [i___1]) <= 255)
+-S-  Applied substitution rule addelementto_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New H2:  audittypes__startunenrolledtis <= elementid
+-S-  Applied substitution rule addelementto_rules(19).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New H3:  elementid <= audittypes__systemfault
+-S-  Applied substitution rule addelementto_rules(125).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New H4:  audittypes__information <= severity
+-S-  Applied substitution rule addelementto_rules(126).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New H5:  severity <= audittypes__critical
+-S-  Applied substitution rule addelementto_rules(150).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__first by:
+          1.
+<S>  New H7:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(description, [i___1]) 
+          and element(description, [i___1]) <= 255)
+-S-  Applied substitution rule addelementto_rules(151).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__last by:
+          150.
+<S>  New H7:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(description, [i___1]) and element(description, [i___1]) <= 
+          255)
+-S-  Applied substitution rule addelementto_rules(155).
+     This was achieved by replacing all occurrences of 
+          audittypes__usertexti__first by:
+          1.
+<S>  New H6:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__usertexti__last -> 0 <= element(user, [i___1]) and 
+          element(user, [i___1]) <= 255)
+-S-  Applied substitution rule addelementto_rules(156).
+     This was achieved by replacing all occurrences of 
+          audittypes__usertexti__last by:
+          50.
+<S>  New H6:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 50 -> 0 <= 
+          element(user, [i___1]) and element(user, [i___1]) <= 255)
+-S-  Applied substitution rule addelementto_rules(166).
+     This was achieved by replacing all occurrences of logfileindext__first by:
+          1.
+<S>  New H8:  currentlogfile >= 1
+<S>  New H12:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          logfileindext__last -> 0 <= element(logfileentries, [i___1]) and 
+          element(logfileentries, [i___1]) <= 1024)
+-S-  Applied substitution rule addelementto_rules(167).
+     This was achieved by replacing all occurrences of logfileindext__last by:
+          17.
+<S>  New H9:  currentlogfile <= 17
+<S>  New H12:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> 0 <= 
+          element(logfileentries, [i___1]) and element(logfileentries, [i___1]) 
+          <= 1024)
+***  Proved C2:  element(logfileentries, [currentlogfile]) <= 1023
+     using hypothesis H1.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_addelementtocurrentfile_5.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  audittypes__elementt__first <= elementid
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  audittypes__severityt__first <= severity
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description, [i___1]) and element(description, [i___1]) <= 
+          character__last)
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+---  Hypothesis H13 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H16 has been replaced by "true".  (It is already present, as H4)
+          .
+---  Hypothesis H17 has been replaced by "true".  (It is already present, as H5)
+          .
+---  Hypothesis H18 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as H3)
+          .
+---  Hypothesis H22 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H28 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as H9)
+          .
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  true
+***  Proved C1:  true
+***  PROVED VC.
+

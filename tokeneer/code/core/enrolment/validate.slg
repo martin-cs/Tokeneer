@@ -1,0 +1,1930 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:25  SIMPLIFIED 05-SEP-2011, 15:40:57
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure Enrolment.Validate
+
+
+
+
+
+
+@@@@@@@@@@  VC: procedure_validate_1.  @@@@@@@@@@
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  true
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  keystore__privatekeypresent(keystore__state__2) <-> 
+          keystore__privatekeypresent(keystore__state)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__2, [i___1]) and element(description__2, [
+          i___1]) <= character__last)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  2 >= positive__first
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  2 <= positive__last
+***  Proved C1:  2 >= positive__first
+     using hypothesis H11.
+-S-  Applied substitution rule validate_rules(13).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New H12:  true
+<S>  New C2:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_2.  @@@@@@@@@@
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           and element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           <= character__last)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  2 >= positive__first
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  2 <= positive__last
+***  Proved C1:  2 >= positive__first
+     using hypothesis H8.
+-S-  Applied substitution rule validate_rules(13).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New H9:  true
+<S>  New C2:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_3.  @@@@@@@@@@
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  true
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  keystore__privatekeypresent(keystore__state__2) <-> 
+          keystore__privatekeypresent(keystore__state)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__2, [i___1]) and element(description__2, [
+          i___1]) <= character__last)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  2 >= positive__first
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  2 <= positive__last
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  dataok__3 -> keystore__privatekeypresent(keystore__state__3)
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  not dataok__3 -> (keystore__privatekeypresent(
+          keystore__state__3) <-> keystore__privatekeypresent(
+          keystore__state__2))
+%%%  Simplified H18 on reading formula in, to give:
+     %%%  H18:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__3, [i___1]) and element(description__3, [
+          i___1]) <= character__last)
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  true
+***  Proved C2:  true
+***  Proved C3:  not keystore__privatekeypresent(keystore__state)
+     using hypothesis H1.
++++  Using "A->B, A |- B" on hypotheses H15 & H22 yields a new hypothesis:
+     +++  H23:  keystore__privatekeypresent(keystore__state__3)
++++  Using "A->B, not B |- not A" on hypotheses H6 & H1 yields a new hypothesis:
+     +++  H24:  not keystore__privatekeypresent(keystore__state__2)
+-S-  Applied substitution rule validate_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H8:  for_all(i___1 : integer, audittypes__descriptioni__first <= i___1 
+          and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__2, [i___1]) and element(description__2, [i___1]) <= 
+          character__last)
+<S>  New H18:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__3, [i___1]) and element(description__3, [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule validate_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H8:  for_all(i___1 : integer, audittypes__descriptioni__first <= i___1 
+          and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__2, [i___1]) and element(description__2, [i___1]) <= 255)
+<S>  New H18:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__3, [i___1]) and element(description__3, [i___1]) <= 255)
+-S-  Applied substitution rule validate_rules(12).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New H11:  true
+<S>  New H13:  true
+-S-  Applied substitution rule validate_rules(13).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New H12:  true
+<S>  New H14:  true
+-S-  Applied substitution rule validate_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__first by:
+          1.
+<S>  New H8:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(description__2, [i___1]
+          ) and element(description__2, [i___1]) <= 255)
+<S>  New H18:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(description__3, [i___1]
+          ) and element(description__3, [i___1]) <= 255)
+-S-  Applied substitution rule validate_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__last by:
+          150.
+<S>  New H8:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(description__2, [i___1]) and element(description__2, [i___1]) 
+          <= 255)
+<S>  New H18:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(description__3, [i___1]) and element(description__3, [i___1]) 
+          <= 255)
+***  Proved C1:  keystore__privatekeypresent(keystore__state__3)
+     using hypothesis H23.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_4.  @@@@@@@@@@
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           and element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           <= character__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  2 >= positive__first
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  2 <= positive__last
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  dataok__3 -> keystore__privatekeypresent(keystore__state__3)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  not dataok__3 -> (keystore__privatekeypresent(
+          keystore__state__3) <-> keystore__privatekeypresent(keystore__state))
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__3, [i___1]) and element(description__3, [
+          i___1]) <= character__last)
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  true
+***  Proved C2:  true
+***  Proved C3:  not keystore__privatekeypresent(keystore__state)
+     using hypothesis H1.
++++  Using "A->B, A |- B" on hypotheses H12 & H19 yields a new hypothesis:
+     +++  H20:  keystore__privatekeypresent(keystore__state__3)
+-S-  Applied substitution rule validate_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H5:  for_all(i___1 : integer, audittypes__descriptioni__first <= i___1 
+          and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1]) and element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1]) <= 
+          character__last)
+<S>  New H15:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__3, [i___1]) and element(description__3, [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule validate_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H5:  for_all(i___1 : integer, audittypes__descriptioni__first <= i___1 
+          and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1]) and element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1]) <= 255)
+<S>  New H15:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__3, [i___1]) and element(description__3, [i___1]) <= 255)
+-S-  Applied substitution rule validate_rules(12).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New H8:  true
+<S>  New H10:  true
+-S-  Applied substitution rule validate_rules(13).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New H9:  true
+<S>  New H11:  true
+-S-  Applied substitution rule validate_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__first by:
+          1.
+<S>  New H5:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(makedescription(
+          mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 32, [5] := 101, [
+          6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] := 109, [11] := 
+          101, [12] := 110, [13] := 116, [14] := 32, [15] := 102, [16] := 105, [
+          17] := 108, [18] := 101, [19] := 32, [20] := 105, [21] := 115, [22] 
+          := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 114, [27] := 
+          117, [28] := 112, [29] := 116), 1), [i___1]) and element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1]) <= 255)
+<S>  New H15:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(description__3, [i___1]
+          ) and element(description__3, [i___1]) <= 255)
+-S-  Applied substitution rule validate_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__last by:
+          150.
+<S>  New H5:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, 
+          [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 
+          108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [
+          15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] 
+          := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           and element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           <= 255)
+<S>  New H15:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(description__3, [i___1]) and element(description__3, [i___1]) 
+          <= 255)
+***  Proved C1:  keystore__privatekeypresent(keystore__state__3)
+     using hypothesis H20.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_5.  @@@@@@@@@@
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  true
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  keystore__privatekeypresent(keystore__state__2) <-> 
+          keystore__privatekeypresent(keystore__state)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__2, [i___1]) and element(description__2, [
+          i___1]) <= character__last)
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  false
+***  Proved C3:  not keystore__privatekeypresent(keystore__state)
+     using hypothesis H1.
++++  Using "A->B, not B |- not A" on hypotheses H6 & H1 yields a new hypothesis:
+     +++  H15:  not keystore__privatekeypresent(keystore__state__2)
+-S-  Applied substitution rule validate_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H8:  for_all(i___1 : integer, audittypes__descriptioni__first <= i___1 
+          and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__2, [i___1]) and element(description__2, [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule validate_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H8:  for_all(i___1 : integer, audittypes__descriptioni__first <= i___1 
+          and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__2, [i___1]) and element(description__2, [i___1]) <= 255)
+-S-  Applied substitution rule validate_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__first by:
+          1.
+<S>  New H8:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(description__2, [i___1]
+          ) and element(description__2, [i___1]) <= 255)
+-S-  Applied substitution rule validate_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__last by:
+          150.
+<S>  New H8:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(description__2, [i___1]) and element(description__2, [i___1]) 
+          <= 255)
+###  Established a contradiction [P-and-not-P] among the following hypotheses:
+          H10 & H14.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_6.  @@@@@@@@@@
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           and element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           <= character__last)
+---  Hypothesis H7 has been replaced by "true".  (It is already present, as H4).
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  false
+***  Proved C3:  not keystore__privatekeypresent(keystore__state)
+     using hypothesis H1.
+-S-  Applied substitution rule validate_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H5:  for_all(i___1 : integer, audittypes__descriptioni__first <= i___1 
+          and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1]) and element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule validate_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H5:  for_all(i___1 : integer, audittypes__descriptioni__first <= i___1 
+          and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1]) and element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1]) <= 255)
+-S-  Applied substitution rule validate_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__first by:
+          1.
+<S>  New H5:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(makedescription(
+          mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 32, [5] := 101, [
+          6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] := 109, [11] := 
+          101, [12] := 110, [13] := 116, [14] := 32, [15] := 102, [16] := 105, [
+          17] := 108, [18] := 101, [19] := 32, [20] := 105, [21] := 115, [22] 
+          := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 114, [27] := 
+          117, [28] := 112, [29] := 116), 1), [i___1]) and element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1]) <= 255)
+-S-  Applied substitution rule validate_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__last by:
+          150.
+<S>  New H5:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, 
+          [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 
+          108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [
+          15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] 
+          := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           and element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           <= 255)
+###  Established a contradiction [P-and-not-P] among the following hypotheses:
+          H4 & H11.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_7.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  not keystore__privatekeypresent(keystore__state~)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  true
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  keystore__privatekeypresent(keystore__state__4) <-> 
+          keystore__privatekeypresent(keystore__state)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__4, [i___1]) and element(description__4, [
+          i___1]) <= character__last)
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  certno >= 1
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  not keystore__privatekeypresent(keystore__state~)
+***  Proved C2:  certno >= 1
+     using hypothesis H2.
+***  Proved C3:  not keystore__privatekeypresent(keystore__state~)
+     using hypothesis H3.
++++  Using "A->B, A |- B" on hypotheses H11 & H1 yields a new hypothesis:
+     +++  H18:  keystore__privatekeypresent(keystore__state__4)
+-S-  Applied substitution rule validate_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H13:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__4, [i___1]) and element(description__4, [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule validate_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H13:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__4, [i___1]) and element(description__4, [i___1]) <= 255)
+-S-  Applied substitution rule validate_rules(12).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New H6:  certno >= 1
+<S>  New H8:  certno >= 0
+-S-  Applied substitution rule validate_rules(13).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New H7:  certno <= 2147483647
+<S>  New H9:  certno <= 2147483646
+-S-  Applied substitution rule validate_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__first by:
+          1.
+<S>  New H13:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(description__4, [i___1]
+          ) and element(description__4, [i___1]) <= 255)
+-S-  Applied substitution rule validate_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__last by:
+          150.
+<S>  New H13:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(description__4, [i___1]) and element(description__4, [i___1]) 
+          <= 255)
+***  Proved C1:  keystore__privatekeypresent(keystore__state__4)
+     using hypothesis H18.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_8.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  not keystore__privatekeypresent(keystore__state~)
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  file__endofline(thefile)
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  not keystore__privatekeypresent(keystore__state~)
+***  Proved C1:  keystore__privatekeypresent(keystore__state)
+     using hypothesis H1.
+***  Proved C2:  certno >= 2
+     using hypothesis H2.
+***  Proved C3:  not keystore__privatekeypresent(keystore__state~)
+     using hypothesis H3.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_9.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  not keystore__privatekeypresent(keystore__state~)
+***  Proved C1:  certno + 1 >= positive__first
+     using hypothesis H6.
+-S-  Applied substitution rule validate_rules(13).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New H7:  certno <= 2147483647
+<S>  New C2:  certno <= 2147483646
+-S-  Applied substitution rule validate_rules(12).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New H6:  certno >= 1
+---  Eliminated hypothesis H4 (true-hypothesis).
+---  Eliminated hypothesis H6 (redundant, given H2).
+     +++  New H8:  integer__size >= 0
+     +++  New H9:  character__size >= 0
+     +++  New H10:  positive__size >= 0
+     +++  New H11:  audittypes__descriptioni__size >= 0
+
+
+@@@@@@@@@@  VC: procedure_validate_10.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  not keystore__privatekeypresent(keystore__state~)
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  file__endofline(thefile)
+-S-  Applied substitution rule validate_rules(12).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New C1:  true
+-S-  Applied substitution rule validate_rules(13).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_11.  @@@@@@@@@@
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  true
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  keystore__privatekeypresent(keystore__state__2) <-> 
+          keystore__privatekeypresent(keystore__state)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__2, [i___1]) and element(description__2, [
+          i___1]) <= character__last)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  2 >= positive__first
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  2 <= positive__last
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  dataok__3 -> keystore__privatekeypresent(keystore__state__3)
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  not dataok__3 -> (keystore__privatekeypresent(
+          keystore__state__3) <-> keystore__privatekeypresent(
+          keystore__state__2))
+%%%  Simplified H18 on reading formula in, to give:
+     %%%  H18:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__3, [i___1]) and element(description__3, [
+          i___1]) <= character__last)
+%%%  Simplified H25 on reading formula in, to give:
+     %%%  H25:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 2), [i___1])
+           and element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 2), [i___1])
+           <= character__last)
+%%%  Simplified H27 on reading formula in, to give:
+     %%%  H27:  true
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  not keystore__privatekeypresent(keystore__state__7)
+***  Proved C1:  not keystore__privatekeypresent(keystore__state__7)
+     using hypothesis H28.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_12.  @@@@@@@@@@
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           and element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           <= character__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  2 >= positive__first
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  2 <= positive__last
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  dataok__3 -> keystore__privatekeypresent(keystore__state__3)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  not dataok__3 -> (keystore__privatekeypresent(
+          keystore__state__3) <-> keystore__privatekeypresent(keystore__state))
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__3, [i___1]) and element(description__3, [
+          i___1]) <= character__last)
+%%%  Simplified H22 on reading formula in, to give:
+     %%%  H22:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 2), [i___1])
+           and element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 2), [i___1])
+           <= character__last)
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  true
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  not keystore__privatekeypresent(keystore__state__7)
+***  Proved C1:  not keystore__privatekeypresent(keystore__state__7)
+     using hypothesis H25.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_13.  @@@@@@@@@@
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  true
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  keystore__privatekeypresent(keystore__state__2) <-> 
+          keystore__privatekeypresent(keystore__state)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__2, [i___1]) and element(description__2, [
+          i___1]) <= character__last)
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           and element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           <= character__last)
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  true
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  not keystore__privatekeypresent(keystore__state__7)
+***  Proved C1:  not keystore__privatekeypresent(keystore__state__7)
+     using hypothesis H20.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_14.  @@@@@@@@@@
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           and element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           <= character__last)
+---  Hypothesis H7 has been replaced by "true".  (It is already present, as H4).
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as H5)
+          .
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  true
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  not keystore__privatekeypresent(keystore__state__7)
+***  Proved C1:  not keystore__privatekeypresent(keystore__state__7)
+     using hypothesis H17.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_15.  @@@@@@@@@@
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  true
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  keystore__privatekeypresent(keystore__state__2) <-> 
+          keystore__privatekeypresent(keystore__state)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__2, [i___1]) and element(description__2, [
+          i___1]) <= character__last)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  2 >= positive__first
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  2 <= positive__last
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  dataok__3 -> keystore__privatekeypresent(keystore__state__3)
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  not dataok__3 -> (keystore__privatekeypresent(
+          keystore__state__3) <-> keystore__privatekeypresent(
+          keystore__state__2))
+%%%  Simplified H18 on reading formula in, to give:
+     %%%  H18:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__3, [i___1]) and element(description__3, [
+          i___1]) <= character__last)
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  closedok__6
+***  Proved C1:  dataok__3 <-> keystore__privatekeypresent(keystore__state__7)
+     using hypotheses H26 & H27.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_16.  @@@@@@@@@@
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           and element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           <= character__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  2 >= positive__first
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  2 <= positive__last
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  dataok__3 -> keystore__privatekeypresent(keystore__state__3)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  not dataok__3 -> (keystore__privatekeypresent(
+          keystore__state__3) <-> keystore__privatekeypresent(keystore__state))
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__3, [i___1]) and element(description__3, [
+          i___1]) <= character__last)
+%%%  Simplified H21 on reading formula in, to give:
+     %%%  H21:  closedok__6
+***  Proved C1:  dataok__3 <-> keystore__privatekeypresent(keystore__state__7)
+     using hypotheses H23 & H24.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_17.  @@@@@@@@@@
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  true
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  keystore__privatekeypresent(keystore__state__2) <-> 
+          keystore__privatekeypresent(keystore__state)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__2, [i___1]) and element(description__2, [
+          i___1]) <= character__last)
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  closedok__6
+---  Hypothesis H18 has been replaced by "true".  (It is already present, as 
+          H10).
+***  Proved C1:  dataok__2 <-> keystore__privatekeypresent(keystore__state__7)
+     using hypotheses H10 & H19.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_18.  @@@@@@@@@@
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           and element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           <= character__last)
+---  Hypothesis H7 has been replaced by "true".  (It is already present, as H4).
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  closedok__6
+---  Hypothesis H15 has been replaced by "true".  (It is already present, as H4)
+          .
+***  Proved C1:  dataok__1 <-> keystore__privatekeypresent(keystore__state__7)
+     using hypotheses H4 & H16.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_19.  @@@@@@@@@@
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  true
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  keystore__privatekeypresent(keystore__state__2) <-> 
+          keystore__privatekeypresent(keystore__state)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__2, [i___1]) and element(description__2, [
+          i___1]) <= character__last)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  2 >= positive__first
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  2 <= positive__last
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  dataok__3 -> keystore__privatekeypresent(keystore__state__3)
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  not dataok__3 -> (keystore__privatekeypresent(
+          keystore__state__3) <-> keystore__privatekeypresent(
+          keystore__state__2))
+%%%  Simplified H18 on reading formula in, to give:
+     %%%  H18:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__3, [i___1]) and element(description__3, [
+          i___1]) <= character__last)
+%%%  Simplified H25 on reading formula in, to give:
+     %%%  H25:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 2), [i___1])
+           and element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 2), [i___1])
+           <= character__last)
+%%%  Simplified H27 on reading formula in, to give:
+     %%%  H27:  false
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  not keystore__privatekeypresent(keystore__state__3)
+>>>  Restructured hypothesis H21 into:
+     >>>  H21:  file__endoffile(thefile__3) or not dataok__3
++++  Using "A->B, not B |- not A" on hypotheses H6 & H1 yields a new hypothesis:
+     +++  H28:  not keystore__privatekeypresent(keystore__state__2)
+-S-  Applied substitution rule validate_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H8:  for_all(i___1 : integer, audittypes__descriptioni__first <= i___1 
+          and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__2, [i___1]) and element(description__2, [i___1]) <= 
+          character__last)
+<S>  New H18:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__3, [i___1]) and element(description__3, [i___1]) <= 
+          character__last)
+<S>  New H25:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 2), [i___1]) and element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 2), [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule validate_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H8:  for_all(i___1 : integer, audittypes__descriptioni__first <= i___1 
+          and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__2, [i___1]) and element(description__2, [i___1]) <= 255)
+<S>  New H18:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__3, [i___1]) and element(description__3, [i___1]) <= 255)
+<S>  New H25:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 2), [i___1]) and element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 2), [i___1]) <= 255)
+-S-  Applied substitution rule validate_rules(12).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New H11:  true
+<S>  New H13:  true
+-S-  Applied substitution rule validate_rules(13).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New H12:  true
+<S>  New H14:  true
+-S-  Applied substitution rule validate_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__first by:
+          1.
+<S>  New H8:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(description__2, [i___1]
+          ) and element(description__2, [i___1]) <= 255)
+<S>  New H18:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(description__3, [i___1]
+          ) and element(description__3, [i___1]) <= 255)
+<S>  New H25:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(makedescription(
+          mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 32, [5] := 101, [
+          6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] := 109, [11] := 
+          101, [12] := 110, [13] := 116, [14] := 32, [15] := 102, [16] := 105, [
+          17] := 108, [18] := 101, [19] := 32, [20] := 105, [21] := 115, [22] 
+          := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 114, [27] := 
+          117, [28] := 112, [29] := 116), 2), [i___1]) and element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 2), [i___1]) <= 255)
+-S-  Applied substitution rule validate_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__last by:
+          150.
+<S>  New H8:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(description__2, [i___1]) and element(description__2, [i___1]) 
+          <= 255)
+<S>  New H18:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(description__3, [i___1]) and element(description__3, [i___1]) 
+          <= 255)
+<S>  New H25:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, 
+          [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 
+          108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [
+          15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] 
+          := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 2), [i___1])
+           and element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 2), [i___1])
+           <= 255)
+###  Established a contradiction [false-hypothesis] using hypothesis H27.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_20.  @@@@@@@@@@
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           and element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           <= character__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  2 >= positive__first
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  2 <= positive__last
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  dataok__3 -> keystore__privatekeypresent(keystore__state__3)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  not dataok__3 -> (keystore__privatekeypresent(
+          keystore__state__3) <-> keystore__privatekeypresent(keystore__state))
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__3, [i___1]) and element(description__3, [
+          i___1]) <= character__last)
+%%%  Simplified H22 on reading formula in, to give:
+     %%%  H22:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 2), [i___1])
+           and element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 2), [i___1])
+           <= character__last)
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  false
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  not keystore__privatekeypresent(keystore__state__3)
+>>>  Restructured hypothesis H18 into:
+     >>>  H18:  file__endoffile(thefile__3) or not dataok__3
+-S-  Applied substitution rule validate_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H5:  for_all(i___1 : integer, audittypes__descriptioni__first <= i___1 
+          and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1]) and element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1]) <= 
+          character__last)
+<S>  New H15:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__3, [i___1]) and element(description__3, [i___1]) <= 
+          character__last)
+<S>  New H22:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 2), [i___1]) and element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 2), [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule validate_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H5:  for_all(i___1 : integer, audittypes__descriptioni__first <= i___1 
+          and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1]) and element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1]) <= 255)
+<S>  New H15:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__3, [i___1]) and element(description__3, [i___1]) <= 255)
+<S>  New H22:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 2), [i___1]) and element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 2), [i___1]) <= 255)
+-S-  Applied substitution rule validate_rules(12).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New H8:  true
+<S>  New H10:  true
+-S-  Applied substitution rule validate_rules(13).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New H9:  true
+<S>  New H11:  true
+-S-  Applied substitution rule validate_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__first by:
+          1.
+<S>  New H5:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(makedescription(
+          mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 32, [5] := 101, [
+          6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] := 109, [11] := 
+          101, [12] := 110, [13] := 116, [14] := 32, [15] := 102, [16] := 105, [
+          17] := 108, [18] := 101, [19] := 32, [20] := 105, [21] := 115, [22] 
+          := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 114, [27] := 
+          117, [28] := 112, [29] := 116), 1), [i___1]) and element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1]) <= 255)
+<S>  New H15:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(description__3, [i___1]
+          ) and element(description__3, [i___1]) <= 255)
+<S>  New H22:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(makedescription(
+          mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 32, [5] := 101, [
+          6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] := 109, [11] := 
+          101, [12] := 110, [13] := 116, [14] := 32, [15] := 102, [16] := 105, [
+          17] := 108, [18] := 101, [19] := 32, [20] := 105, [21] := 115, [22] 
+          := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 114, [27] := 
+          117, [28] := 112, [29] := 116), 2), [i___1]) and element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 2), [i___1]) <= 255)
+-S-  Applied substitution rule validate_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__last by:
+          150.
+<S>  New H5:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, 
+          [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 
+          108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [
+          15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] 
+          := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           and element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           <= 255)
+<S>  New H15:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(description__3, [i___1]) and element(description__3, [i___1]) 
+          <= 255)
+<S>  New H22:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, 
+          [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 
+          108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [
+          15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] 
+          := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 2), [i___1])
+           and element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 2), [i___1])
+           <= 255)
+###  Established a contradiction [false-hypothesis] using hypothesis H24.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_21.  @@@@@@@@@@
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  true
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  keystore__privatekeypresent(keystore__state__2) <-> 
+          keystore__privatekeypresent(keystore__state)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__2, [i___1]) and element(description__2, [
+          i___1]) <= character__last)
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           and element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           <= character__last)
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  false
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  not keystore__privatekeypresent(keystore__state__2)
+>>>  Restructured hypothesis H13 into:
+     >>>  H13:  file__endoffile(thefile__2) or not dataok__2
++++  Using "A->B, not B |- not A" on hypotheses H6 & H1 yields a new hypothesis:
+     +++  H20:  not keystore__privatekeypresent(keystore__state__2)
+-S-  Applied substitution rule validate_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H8:  for_all(i___1 : integer, audittypes__descriptioni__first <= i___1 
+          and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__2, [i___1]) and element(description__2, [i___1]) <= 
+          character__last)
+<S>  New H17:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1]) and element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule validate_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H8:  for_all(i___1 : integer, audittypes__descriptioni__first <= i___1 
+          and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__2, [i___1]) and element(description__2, [i___1]) <= 255)
+<S>  New H17:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1]) and element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1]) <= 255)
+-S-  Applied substitution rule validate_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__first by:
+          1.
+<S>  New H8:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(description__2, [i___1]
+          ) and element(description__2, [i___1]) <= 255)
+<S>  New H17:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(makedescription(
+          mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 32, [5] := 101, [
+          6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] := 109, [11] := 
+          101, [12] := 110, [13] := 116, [14] := 32, [15] := 102, [16] := 105, [
+          17] := 108, [18] := 101, [19] := 32, [20] := 105, [21] := 115, [22] 
+          := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 114, [27] := 
+          117, [28] := 112, [29] := 116), 1), [i___1]) and element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1]) <= 255)
+-S-  Applied substitution rule validate_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__last by:
+          150.
+<S>  New H8:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(description__2, [i___1]) and element(description__2, [i___1]) 
+          <= 255)
+<S>  New H17:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, 
+          [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 
+          108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [
+          15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] 
+          := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           and element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           <= 255)
+***  Proved C1:  not keystore__privatekeypresent(keystore__state__2)
+     using hypothesis H20.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_22.  @@@@@@@@@@
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           and element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           <= character__last)
+---  Hypothesis H7 has been replaced by "true".  (It is already present, as H4).
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as H5)
+          .
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  false
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  not keystore__privatekeypresent(keystore__state)
+***  Proved C1:  not keystore__privatekeypresent(keystore__state)
+     using hypothesis H1.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_23.  @@@@@@@@@@
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  true
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  keystore__privatekeypresent(keystore__state__2) <-> 
+          keystore__privatekeypresent(keystore__state)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__2, [i___1]) and element(description__2, [
+          i___1]) <= character__last)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  2 >= positive__first
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  2 <= positive__last
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  dataok__3 -> keystore__privatekeypresent(keystore__state__3)
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  not dataok__3 -> (keystore__privatekeypresent(
+          keystore__state__3) <-> keystore__privatekeypresent(
+          keystore__state__2))
+%%%  Simplified H18 on reading formula in, to give:
+     %%%  H18:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__3, [i___1]) and element(description__3, [
+          i___1]) <= character__last)
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  closedok__6
+%%%  Simplified H26 on reading formula in, to give:
+     %%%  H26:  dataok__3
+***  Proved C1:  dataok__3 <-> keystore__privatekeypresent(keystore__state__3)
+     using hypotheses H15 & H26.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_24.  @@@@@@@@@@
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           and element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           <= character__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  2 >= positive__first
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  2 <= positive__last
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  dataok__3 -> keystore__privatekeypresent(keystore__state__3)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  not dataok__3 -> (keystore__privatekeypresent(
+          keystore__state__3) <-> keystore__privatekeypresent(keystore__state))
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__3, [i___1]) and element(description__3, [
+          i___1]) <= character__last)
+%%%  Simplified H21 on reading formula in, to give:
+     %%%  H21:  closedok__6
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  dataok__3
+***  Proved C1:  dataok__3 <-> keystore__privatekeypresent(keystore__state__3)
+     using hypotheses H12 & H23.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_25.  @@@@@@@@@@
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  true
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  keystore__privatekeypresent(keystore__state__2) <-> 
+          keystore__privatekeypresent(keystore__state)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__2, [i___1]) and element(description__2, [
+          i___1]) <= character__last)
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  closedok__6
+%%%  Simplified H18 on reading formula in, to give:
+     %%%  H18:  dataok__2
+***  Proved C1:  dataok__2 <-> keystore__privatekeypresent(keystore__state__2)
+     using hypotheses H10 & H18.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_26.  @@@@@@@@@@
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           and element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 1), [i___1])
+           <= character__last)
+---  Hypothesis H7 has been replaced by "true".  (It is already present, as H4).
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  closedok__6
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  dataok__1
+***  Proved C1:  dataok__1 <-> keystore__privatekeypresent(keystore__state)
+     using hypotheses H4 & H15.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_27.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  not keystore__privatekeypresent(keystore__state~)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  true
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  keystore__privatekeypresent(keystore__state__4) <-> 
+          keystore__privatekeypresent(keystore__state)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__4, [i___1]) and element(description__4, [
+          i___1]) <= character__last)
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), certno + 1)
+          , [i___1]) and element(makedescription(mk__string([1] := 84, [2] := 
+          104, [3] := 101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] 
+          := 111, [9] := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 
+          116, [14] := 32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [
+          19] := 32, [20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 
+          111, [25] := 114, [26] := 114, [27] := 117, [28] := 112, [29] := 116)
+          , certno + 1), [i___1]) <= character__last)
+%%%  Simplified H22 on reading formula in, to give:
+     %%%  H22:  true
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  not keystore__privatekeypresent(keystore__state__7)
+***  Proved C1:  not keystore__privatekeypresent(keystore__state__7)
+     using hypothesis H23.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_28.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  not keystore__privatekeypresent(keystore__state~)
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  file__endofline(thefile)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), certno), [
+          i___1]) and element(makedescription(mk__string([1] := 84, [2] := 104, 
+          [3] := 101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 
+          111, [9] := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [
+          14] := 32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] 
+          := 32, [20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, 
+          [25] := 114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 
+          certno), [i___1]) <= character__last)
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  true
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  not keystore__privatekeypresent(keystore__state__7)
+***  Proved C1:  not keystore__privatekeypresent(keystore__state__7)
+     using hypothesis H17.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_29.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  not keystore__privatekeypresent(keystore__state~)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  true
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  keystore__privatekeypresent(keystore__state__4) <-> 
+          keystore__privatekeypresent(keystore__state)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__4, [i___1]) and element(description__4, [
+          i___1]) <= character__last)
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  closedok__6
+***  Proved C1:  dataok__4 <-> keystore__privatekeypresent(keystore__state__7)
+     using hypotheses H21 & H22.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_30.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  not keystore__privatekeypresent(keystore__state~)
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  file__endofline(thefile)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  closedok__6
+***  Proved C1:  dataok <-> keystore__privatekeypresent(keystore__state__7)
+     using hypotheses H15 & H16.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_31.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  not keystore__privatekeypresent(keystore__state~)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  true
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  keystore__privatekeypresent(keystore__state__4) <-> 
+          keystore__privatekeypresent(keystore__state)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__4, [i___1]) and element(description__4, [
+          i___1]) <= character__last)
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), certno + 1)
+          , [i___1]) and element(makedescription(mk__string([1] := 84, [2] := 
+          104, [3] := 101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] 
+          := 111, [9] := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 
+          116, [14] := 32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [
+          19] := 32, [20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 
+          111, [25] := 114, [26] := 114, [27] := 117, [28] := 112, [29] := 116)
+          , certno + 1), [i___1]) <= character__last)
+%%%  Simplified H22 on reading formula in, to give:
+     %%%  H22:  false
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  not keystore__privatekeypresent(keystore__state__4)
+>>>  Restructured hypothesis H16 into:
+     >>>  H16:  file__endoffile(thefile__4) or not dataok__4
++++  Using "A->B, A |- B" on hypotheses H11 & H1 yields a new hypothesis:
+     +++  H23:  keystore__privatekeypresent(keystore__state__4)
+-S-  Applied substitution rule validate_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H13:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__4, [i___1]) and element(description__4, [i___1]) <= 
+          character__last)
+<S>  New H20:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), certno + 1), [i___1]) 
+          and element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), certno + 1)
+          , [i___1]) <= character__last)
+-S-  Applied substitution rule validate_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H13:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__4, [i___1]) and element(description__4, [i___1]) <= 255)
+<S>  New H20:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), certno + 1), [i___1]) 
+          and element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), certno + 1)
+          , [i___1]) <= 255)
+-S-  Applied substitution rule validate_rules(12).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New H6:  certno >= 1
+<S>  New H8:  certno >= 0
+-S-  Applied substitution rule validate_rules(13).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New H7:  certno <= 2147483647
+<S>  New H9:  certno <= 2147483646
+-S-  Applied substitution rule validate_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__first by:
+          1.
+<S>  New H13:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(description__4, [i___1]
+          ) and element(description__4, [i___1]) <= 255)
+<S>  New H20:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(makedescription(
+          mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 32, [5] := 101, [
+          6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] := 109, [11] := 
+          101, [12] := 110, [13] := 116, [14] := 32, [15] := 102, [16] := 105, [
+          17] := 108, [18] := 101, [19] := 32, [20] := 105, [21] := 115, [22] 
+          := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 114, [27] := 
+          117, [28] := 112, [29] := 116), certno + 1), [i___1]) and element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), certno + 1), [i___1]) <= 
+          255)
+-S-  Applied substitution rule validate_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__last by:
+          150.
+<S>  New H13:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(description__4, [i___1]) and element(description__4, [i___1]) 
+          <= 255)
+<S>  New H20:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, 
+          [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 
+          108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [
+          15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] 
+          := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), certno + 1)
+          , [i___1]) and element(makedescription(mk__string([1] := 84, [2] := 
+          104, [3] := 101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] 
+          := 111, [9] := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 
+          116, [14] := 32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [
+          19] := 32, [20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 
+          111, [25] := 114, [26] := 114, [27] := 117, [28] := 112, [29] := 116)
+          , certno + 1), [i___1]) <= 255)
+###  Established a contradiction [false-hypothesis] using hypothesis H22.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_32.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  not keystore__privatekeypresent(keystore__state~)
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  file__endofline(thefile)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 
+          101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] 
+          := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 
+          32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [
+          20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), certno), [
+          i___1]) and element(makedescription(mk__string([1] := 84, [2] := 104, 
+          [3] := 101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 
+          111, [9] := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [
+          14] := 32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] 
+          := 32, [20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, 
+          [25] := 114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 
+          certno), [i___1]) <= character__last)
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  false
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  not keystore__privatekeypresent(keystore__state)
+>>>  Restructured hypothesis H10 into:
+     >>>  H10:  file__endoffile(thefile__5) or not dataok
+-S-  Applied substitution rule validate_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H14:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), certno), [i___1]) and 
+          element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, 
+          [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 
+          108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [
+          15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] 
+          := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), certno), [
+          i___1]) <= character__last)
+-S-  Applied substitution rule validate_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H14:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), certno), [i___1]) and 
+          element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, 
+          [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 
+          108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [
+          15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] 
+          := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), certno), [
+          i___1]) <= 255)
+-S-  Applied substitution rule validate_rules(12).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New H6:  true
+-S-  Applied substitution rule validate_rules(13).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New H7:  true
+-S-  Applied substitution rule validate_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__first by:
+          1.
+<S>  New H14:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(makedescription(
+          mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 32, [5] := 101, [
+          6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] := 109, [11] := 
+          101, [12] := 110, [13] := 116, [14] := 32, [15] := 102, [16] := 105, [
+          17] := 108, [18] := 101, [19] := 32, [20] := 105, [21] := 115, [22] 
+          := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 114, [27] := 
+          117, [28] := 112, [29] := 116), certno), [i___1]) and element(
+          makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, [4] := 
+          32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 108, [10] 
+          := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [15] := 
+          102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] := 105, [
+          21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 114, [26] := 
+          114, [27] := 117, [28] := 112, [29] := 116), certno), [i___1]) <= 255)
+-S-  Applied substitution rule validate_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__last by:
+          150.
+<S>  New H14:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(makedescription(mk__string([1] := 84, [2] := 104, [3] := 101, 
+          [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 111, [9] := 
+          108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [14] := 32, [
+          15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] := 32, [20] 
+          := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, [25] := 
+          114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), certno), [
+          i___1]) and element(makedescription(mk__string([1] := 84, [2] := 104, 
+          [3] := 101, [4] := 32, [5] := 101, [6] := 110, [7] := 114, [8] := 
+          111, [9] := 108, [10] := 109, [11] := 101, [12] := 110, [13] := 116, [
+          14] := 32, [15] := 102, [16] := 105, [17] := 108, [18] := 101, [19] 
+          := 32, [20] := 105, [21] := 115, [22] := 32, [23] := 99, [24] := 111, 
+          [25] := 114, [26] := 114, [27] := 117, [28] := 112, [29] := 116), 
+          certno), [i___1]) <= 255)
+###  Established a contradiction [false-hypothesis] using hypothesis H16.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_33.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  not keystore__privatekeypresent(keystore__state~)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  true
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  keystore__privatekeypresent(keystore__state__4) <-> 
+          keystore__privatekeypresent(keystore__state)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__4, [i___1]) and element(description__4, [
+          i___1]) <= character__last)
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  closedok__6
+%%%  Simplified H21 on reading formula in, to give:
+     %%%  H21:  dataok__4
+>>>  Restructured hypothesis H16 into:
+     >>>  H16:  file__endoffile(thefile__4) or not dataok__4
++++  Using "A->B, A |- B" on hypotheses H11 & H1 yields a new hypothesis:
+     +++  H22:  keystore__privatekeypresent(keystore__state__4)
+-S-  Applied substitution rule validate_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H13:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__4, [i___1]) and element(description__4, [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule validate_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H13:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__4, [i___1]) and element(description__4, [i___1]) <= 255)
+-S-  Applied substitution rule validate_rules(12).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New H6:  certno >= 1
+<S>  New H8:  certno >= 0
+-S-  Applied substitution rule validate_rules(13).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New H7:  certno <= 2147483647
+<S>  New H9:  certno <= 2147483646
+-S-  Applied substitution rule validate_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__first by:
+          1.
+<S>  New H13:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(description__4, [i___1]
+          ) and element(description__4, [i___1]) <= 255)
+-S-  Applied substitution rule validate_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__last by:
+          150.
+<S>  New H13:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(description__4, [i___1]) and element(description__4, [i___1]) 
+          <= 255)
+***  Proved C1:  dataok__4 <-> keystore__privatekeypresent(keystore__state__4)
+     using hypotheses H21 & H22.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validate_34.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  not keystore__privatekeypresent(keystore__state~)
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  file__endofline(thefile)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  closedok__6
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  dataok
+***  Proved C1:  dataok <-> keystore__privatekeypresent(keystore__state)
+     using hypotheses H1 & H15.
+***  PROVED VC.
+

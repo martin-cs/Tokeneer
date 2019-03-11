@@ -1,0 +1,77 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:24.66*/
+
+                 /*function UserEntry.CurrentActivityPossible*/
+
+
+rule_family currentactiv_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+currentactiv_rules(1): statust__size >= 0 may_be_deduced.
+currentactiv_rules(2): statust__first may_be_replaced_by quiescent.
+currentactiv_rules(3): statust__last may_be_replaced_by waitingremovetokenfail.
+currentactiv_rules(4): statust__base__first may_be_replaced_by quiescent.
+currentactiv_rules(5): statust__base__last may_be_replaced_by waitingremovetokenfail.
+currentactiv_rules(6): statust__pos(statust__first) may_be_replaced_by 0.
+currentactiv_rules(7): statust__pos(quiescent) may_be_replaced_by 0.
+currentactiv_rules(8): statust__val(0) may_be_replaced_by 
+     quiescent.
+currentactiv_rules(9): statust__pos(gotusertoken) may_be_replaced_by 1.
+currentactiv_rules(10): statust__val(1) may_be_replaced_by 
+     gotusertoken.
+currentactiv_rules(11): statust__pos(waitingfinger) may_be_replaced_by 2.
+currentactiv_rules(12): statust__val(2) may_be_replaced_by 
+     waitingfinger.
+currentactiv_rules(13): statust__pos(gotfinger) may_be_replaced_by 3.
+currentactiv_rules(14): statust__val(3) may_be_replaced_by 
+     gotfinger.
+currentactiv_rules(15): statust__pos(waitingupdatetoken) may_be_replaced_by 4.
+currentactiv_rules(16): statust__val(4) may_be_replaced_by 
+     waitingupdatetoken.
+currentactiv_rules(17): statust__pos(waitingentry) may_be_replaced_by 5.
+currentactiv_rules(18): statust__val(5) may_be_replaced_by 
+     waitingentry.
+currentactiv_rules(19): statust__pos(waitingremovetokensuccess) may_be_replaced_by 6.
+currentactiv_rules(20): statust__val(6) may_be_replaced_by 
+     waitingremovetokensuccess.
+currentactiv_rules(21): statust__pos(waitingremovetokenfail) may_be_replaced_by 7.
+currentactiv_rules(22): statust__val(7) may_be_replaced_by 
+     waitingremovetokenfail.
+currentactiv_rules(23): statust__pos(statust__last) may_be_replaced_by 7.
+currentactiv_rules(24): statust__pos(succ(X)) may_be_replaced_by 
+     statust__pos(X) + 1
+     if [X <=waitingremovetokenfail, X <> waitingremovetokenfail].
+currentactiv_rules(25): statust__pos(pred(X)) may_be_replaced_by 
+     statust__pos(X) - 1
+     if [X >=quiescent, X <> quiescent].
+currentactiv_rules(26): statust__pos(X) >= 0 may_be_deduced_from
+     [quiescent <= X, X <= waitingremovetokenfail].
+currentactiv_rules(27): statust__pos(X) <= 7 may_be_deduced_from
+     [quiescent <= X, X <= waitingremovetokenfail].
+currentactiv_rules(28): statust__val(X) >= quiescent may_be_deduced_from
+     [0 <= X, X <= 7].
+currentactiv_rules(29): statust__val(X) <= waitingremovetokenfail may_be_deduced_from
+     [0 <= X, X <= 7].
+currentactiv_rules(30): succ(statust__val(X)) may_be_replaced_by 
+     statust__val(X+1)
+     if [0 <= X, X < 7].
+currentactiv_rules(31): pred(statust__val(X)) may_be_replaced_by 
+     statust__val(X-1)
+     if [0 < X, X <= 7].
+currentactiv_rules(32): statust__pos(statust__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 7].
+currentactiv_rules(33): statust__val(statust__pos(X)) may_be_replaced_by X
+     if [quiescent <= X, X <= waitingremovetokenfail].
+currentactiv_rules(34): statust__pos(X) <= statust__pos(Y) & X <= Y are_interchangeable 
+     if [quiescent <= X, X <= waitingremovetokenfail, quiescent <= Y, Y <= 
+     waitingremovetokenfail].
+currentactiv_rules(35): statust__val(X) <= statust__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 7, 0 <= Y, Y <= 7].

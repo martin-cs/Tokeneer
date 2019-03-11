@@ -1,0 +1,251 @@
+           *******************************************************
+                            Listing of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:10.47
+
+Line
+   1  ------------------------------------------------------------------
+   2  -- Tokeneer ID Station Core Software
+   3  --
+   4  -- Copyright (2003) United States Government, as represented
+   5  -- by the Director, National Security Agency. All rights reserved.
+   6  --
+   7  -- This material was originally developed by Praxis High Integrity
+   8  -- Systems Ltd. under contract to the National Security Agency.
+   9  ------------------------------------------------------------------
+  10  
+  11  ------------------------------------------------------------------
+  12  -- Latch
+  13  --
+  14  -- Implementation Notes:
+  15  --    None
+  16  --
+  17  ------------------------------------------------------------------
+  18  
+  19  with Latch.Interface,
+  20       AuditLog,
+  21       AuditTypes;
+  22  
+  23  package body Latch
+  24  --# own State  is CurrentLatch,
+  25  --#               LatchTimeout &
+  26  --#     Output is    out Latch.Interface.Output;
+  27  is
+  28  
+  29  
+  30     type T is (Locked, Unlocked);
+  31     CurrentLatch : T;
+  32     LatchTimeout : Clock.TimeT;
+  33  
+  34  
+  35     ------------------------------------------------------------------
+  36     -- Init
+  37     --
+  38     -- Implementation Notes:
+  39     --    None
+  40     --
+  41     ------------------------------------------------------------------
+  42  
+  43     procedure Init
+  44     --# global out CurrentLatch;
+  45     --#        out LatchTimeout;
+  46     --# derives CurrentLatch,
+  47     --#         LatchTimeout from ;
+  48     is
+  49     begin
+  50        CurrentLatch := Locked;
+  51        LatchTimeout := Clock.ZeroTime;
+  52     end Init;
+
++++        Flow analysis of subprogram Init performed: no 
+           errors found.
+
+  53  
+  54  
+  55     ------------------------------------------------------------------
+  56     -- IsLocked
+  57     --
+  58     -- Implementation Notes:
+  59     --    None
+  60     --
+  61     ------------------------------------------------------------------
+  62     function IsLocked return Boolean
+  63     --# global CurrentLatch;
+  64     is
+  65     begin
+  66        return CurrentLatch = Locked;
+  67     end IsLocked;
+
++++        Flow analysis of subprogram IsLocked performed: 
+           no errors found.
+
+  68  
+  69  
+  70     ------------------------------------------------------------------
+  71     -- UpdateInternalLatch
+  72     --
+  73     -- Implementation Notes:
+  74     --    None
+  75     --
+  76     ------------------------------------------------------------------
+  77  
+  78     procedure UpdateInternalLatch
+  79     --# global in     Clock.Now;
+  80     --#        in     ConfigData.State;
+  81     --#        in     Clock.CurrentTime;
+  82     --#        in     LatchTimeout;
+  83     --#        in out AuditLog.State;
+  84     --#        in out AuditLog.FileState;
+  85     --#        in out CurrentLatch;
+  86     --# derives AuditLog.State,
+  87     --#         AuditLog.FileState from AuditLog.State,
+  88     --#                                 AuditLog.FileState,
+  89     --#                                 Clock.Now,
+  90     --#                                 ConfigData.State,
+  91     --#                                 Clock.CurrentTime,
+  92     --#                                 CurrentLatch,
+  93     --#                                 LatchTimeout &
+  94     --#         CurrentLatch       from Clock.CurrentTime,
+  95     --#                                 LatchTimeout;
+  96     --# post ( IsLocked(CurrentLatch) <->
+  97     --#        Clock.GreaterThanOrEqual(Clock.TheCurrentTime(Clock.CurrentTime),
+  98     --#                                 LatchTimeout) );
+  99     is
+ 100        LocalLatch : T;
+ 101        ID         : AuditTypes.ElementT;
+ 102  
+ 103     begin
+ 104        if Clock.GreaterThanOrEqual(Left  => Clock.TheCurrentTime,
+ 105                                    Right => LatchTimeout) then
+ 106           LocalLatch := Locked;
+ 107           ID         := AuditTypes.LatchLocked;
+ 108        else
+ 109           LocalLatch := Unlocked;
+ 110           ID         := AuditTypes.LatchUnlocked;
+ 111        end if;
+ 112  
+ 113        if CurrentLatch /= LocalLatch then
+ 114           AuditLog.AddElementToLog(
+ 115                  ElementID    => ID,
+ 116                  Severity     => AuditTypes.Information,
+ 117                  User         => AuditTypes.NoUser,
+ 118                  Description  => AuditTypes.NoDescription
+ 119                  );
+ 120        end if;
+ 121  
+ 122        CurrentLatch := LocalLatch;
+ 123  
+ 124     end UpdateInternalLatch;
+
++++        Flow analysis of subprogram UpdateInternalLatch 
+           performed: no errors found.
+
+ 125  
+ 126  
+ 127  
+ 128     ------------------------------------------------------------------
+ 129     -- UpdateDevice
+ 130     --
+ 131     -- Implementation Notes:
+ 132     --    None
+ 133     --
+ 134     ------------------------------------------------------------------
+ 135  
+ 136     procedure UpdateDevice(SystemFault :    out Boolean)
+ 137     --# global in     Clock.Now;
+ 138     --#        in     ConfigData.State;
+ 139     --#        in     CurrentLatch;
+ 140     --#        in out AuditLog.State;
+ 141     --#        in out AuditLog.FileState;
+ 142     --#           out Interface.Output;
+ 143     --# derives AuditLog.State,
+ 144     --#         AuditLog.FileState from AuditLog.State,
+ 145     --#                                 AuditLog.FileState,
+ 146     --#                                 Clock.Now,
+ 147     --#                                 ConfigData.State,
+ 148     --#                                 CurrentLatch &
+ 149     --#         Interface.Output,
+ 150     --#         SystemFault        from CurrentLatch;
+ 151     --# post ( IsLocked(CurrentLatch) <->
+ 152     --#           Interface.prf_isLocked(Interface.Output) ) or
+ 153     --#      SystemFault;
+ 154     is
+ 155     begin
+ 156        if CurrentLatch = Locked then
+ 157           Interface.Lock(Fault => SystemFault);
+ 158        else
+ 159           Interface.Unlock(Fault => SystemFault);
+ 160        end if;
+ 161  
+ 162        if SystemFault then
+ 163           -- Door is in error state - raise a critical system fault
+ 164           AuditLog.AddElementToLog(
+ 165                  ElementID    => AuditTypes.SystemFault,
+ 166                  Severity     => AuditTypes.Critical,
+ 167                  User         => AuditTypes.NoUser,
+ 168                  Description  => "LATCH STATE CANNOT BE DETERMINED."
+ 169                  );
+ 170        end if;
+ 171  
+ 172     end UpdateDevice;
+
++++        Flow analysis of subprogram UpdateDevice 
+           performed: no errors found.
+
+ 173  
+ 174  
+ 175     ------------------------------------------------------------------
+ 176     -- SetTimeout
+ 177     --
+ 178     -- Implementation Notes:
+ 179     --    None
+ 180     --
+ 181     ------------------------------------------------------------------
+ 182  
+ 183     procedure SetTimeout(Time : Clock.TimeT)
+ 184     --# global out LatchTimeout;
+ 185     --# derives LatchTimeout from Time;
+ 186     --# post LatchTimeout = Time;
+ 187     is
+ 188     begin
+ 189        LatchTimeout := Time;
+ 190     end SetTimeout;
+
++++        Flow analysis of subprogram SetTimeout 
+           performed: no errors found.
+
+ 191  
+ 192  
+ 193     ------------------------------------------------------------------
+ 194     -- Failure
+ 195     --
+ 196     -- Implementation Notes:
+ 197     --    None
+ 198     --
+ 199     ------------------------------------------------------------------
+ 200     procedure Failure
+ 201     --# global out CurrentLatch;
+ 202     --#        out LatchTimeout;
+ 203     --# derives CurrentLatch,
+ 204     --#         LatchTimeout from ;
+ 205     is
+ 206     begin
+ 207        CurrentLatch := Locked;
+ 208        LatchTimeout := Clock.ZeroTime;
+ 209     end Failure;
+
++++        Flow analysis of subprogram Failure performed: 
+           no errors found.
+
+ 210  
+ 211  end Latch;
+8 summarized warning(s), comprising:
+     8 use(s) of Ada2005 reserved words
+
+
+
+--End of file--------------------------------------------------

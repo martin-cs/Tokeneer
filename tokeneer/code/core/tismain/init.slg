@@ -1,0 +1,554 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:31  SIMPLIFIED 05-SEP-2011, 15:41:55
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure TISMain.Init
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/tismain/tismain.rlu
+&&&  d:/sparkdev/tis2011/code/core/tismain/init.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_init_1.  @@@@@@@@@@
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  not (privtypes__adminprivileget__first <= 
+          admintoken__theauthcertrole(admintoken__state__14) and 
+          admintoken__theauthcertrole(admintoken__state__14) <= 
+          privtypes__adminprivileget__last)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__startenrolledtis
+-S-  Applied substitution rule init_rules(109).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule init_rules(110).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule init_rules(2).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule init_rules(3).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_init_2.  @@@@@@@@@@
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  not (privtypes__adminprivileget__first <= 
+          admintoken__theauthcertrole(admintoken__state__14) and 
+          admintoken__theauthcertrole(admintoken__state__14) <= 
+          privtypes__adminprivileget__last)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__startunenrolledtis
+-S-  Applied substitution rule init_rules(109).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule init_rules(110).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule init_rules(2).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule init_rules(3).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_init_3.  @@@@@@@@@@
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  not (privtypes__adminprivileget__first <= 
+          admintoken__theauthcertrole(admintoken__state__14) and 
+          admintoken__theauthcertrole(admintoken__state__14) <= 
+          privtypes__adminprivileget__last)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  audittypes__elementt__first <= audittypes__startenrolledtis
+>>>  Restructured hypothesis H8 into:
+     >>>  H8:  admintoken__theauthcertrole(admintoken__state__14) < 
+          privtypes__adminprivileget__first or privtypes__adminprivileget__last 
+          < admintoken__theauthcertrole(admintoken__state__14)
++++  Using "A->B, A |- B" on hypotheses H9 & H12 yields a new hypothesis:
+     +++  H17:  not enclave__enrolmentisinprogress(enclave__state__15)
+---  Attempted addition of new hypothesis:
+          keystore__privatekeypresent(keystore__state__6)
+     eliminated: this already exists (as H12).
++++  Using "A->B, A |- B" on hypotheses H9 & H17 yields a new hypothesis:
+     +++  H12:  keystore__privatekeypresent(keystore__state__6)
+-S-  Applied substitution rule init_rules(2).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New H15:  true
+-S-  Applied substitution rule init_rules(3).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New H16:  true
+-S-  Applied substitution rule init_rules(109).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New H13:  true
+-S-  Applied substitution rule init_rules(110).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New H14:  true
+-S-  Applied substitution rule init_rules(161).
+     This was achieved by replacing all occurrences of 
+          privtypes__adminprivileget__first by:
+          privtypes__guard.
+<S>  New H8:  admintoken__theauthcertrole(admintoken__state__14) < 
+          privtypes__guard or privtypes__adminprivileget__last < 
+          admintoken__theauthcertrole(admintoken__state__14)
+-S-  Applied substitution rule init_rules(162).
+     This was achieved by replacing all occurrences of 
+          privtypes__adminprivileget__last by:
+          privtypes__securityofficer.
+<S>  New H8:  admintoken__theauthcertrole(admintoken__state__14) < 
+          privtypes__guard or privtypes__securityofficer < 
+          admintoken__theauthcertrole(admintoken__state__14)
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H4 (true-hypothesis).
+---  Eliminated hypothesis H5 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+---  Eliminated hypothesis H15 (true-hypothesis).
+---  Eliminated hypothesis H16 (true-hypothesis).
+---  Eliminated hypothesis H13 (true-hypothesis).
+---  Eliminated hypothesis H14 (true-hypothesis).
+%%%  Simplified H10 further (given H17), to give:
+     %%%  H10:  enclave__prf_statusisenclavequiescent(enclave__state__15)
+>>>  Using "A->B, A |- B" on H9, given H12, we simplify the former to:
+     >>>  H9:  not enclave__enrolmentisinprogress(enclave__state__15)
+     +++  New H18:  audittypes__elementt__size >= 0
+     +++  New H19:  audittypes__severityt__size >= 0
+     +++  New H20:  privtypes__privileget__size >= 0
+     +++  New H21:  privtypes__adminprivileget__size >= 0
+***  Proved C1:  admin__prf_rolepresent(theadmin__2) = privtypes__useronly
+     This was achieved by applying the rewrite rule tismain_user(10)
+     [from rulefile tismain.rlu] to rewrite this conclusion to:
+<S>  C1:  not admin__ispresent(theadmin__2)
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  From H2, proved: not admin__ispresent(theadmin__2)
+***  PROVED VC.
+
+VCN  3: Summary of user rule application.
+FIL  tismain.rlu
+RUL     tismain_user(10)
+CON        1
+
+
+@@@@@@@@@@  VC: procedure_init_4.  @@@@@@@@@@
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  not (privtypes__adminprivileget__first <= 
+          admintoken__theauthcertrole(admintoken__state__14) and 
+          admintoken__theauthcertrole(admintoken__state__14) <= 
+          privtypes__adminprivileget__last)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  audittypes__elementt__first <= audittypes__startunenrolledtis
+>>>  Restructured hypothesis H8 into:
+     >>>  H8:  admintoken__theauthcertrole(admintoken__state__14) < 
+          privtypes__adminprivileget__first or privtypes__adminprivileget__last 
+          < admintoken__theauthcertrole(admintoken__state__14)
++++  Using "A->B, not B |- not A" on hypotheses H9 & H12 yields a new 
+          hypothesis:
+     +++  H17:  enclave__enrolmentisinprogress(enclave__state__15)
+-S-  Applied substitution rule init_rules(2).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New H15:  true
+-S-  Applied substitution rule init_rules(3).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New H16:  true
+-S-  Applied substitution rule init_rules(109).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New H13:  true
+-S-  Applied substitution rule init_rules(110).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New H14:  true
+-S-  Applied substitution rule init_rules(161).
+     This was achieved by replacing all occurrences of 
+          privtypes__adminprivileget__first by:
+          privtypes__guard.
+<S>  New H8:  admintoken__theauthcertrole(admintoken__state__14) < 
+          privtypes__guard or privtypes__adminprivileget__last < 
+          admintoken__theauthcertrole(admintoken__state__14)
+-S-  Applied substitution rule init_rules(162).
+     This was achieved by replacing all occurrences of 
+          privtypes__adminprivileget__last by:
+          privtypes__securityofficer.
+<S>  New H8:  admintoken__theauthcertrole(admintoken__state__14) < 
+          privtypes__guard or privtypes__securityofficer < 
+          admintoken__theauthcertrole(admintoken__state__14)
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H4 (true-hypothesis).
+---  Eliminated hypothesis H5 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+---  Eliminated hypothesis H15 (true-hypothesis).
+---  Eliminated hypothesis H16 (true-hypothesis).
+---  Eliminated hypothesis H13 (true-hypothesis).
+---  Eliminated hypothesis H14 (true-hypothesis).
+---  Eliminated hypothesis H10 (true-disjunction).
+---  Attempted addition of new hypothesis:
+          enclave__enrolmentisinprogress(enclave__state__15)
+     eliminated: this already exists (as H17).
++++  Using "A->B, not B |- not A" on hypotheses H9 & H12 yields a new 
+          hypothesis:
+     +++  H17:  enclave__enrolmentisinprogress(enclave__state__15)
+     +++  New H18:  audittypes__elementt__size >= 0
+     +++  New H19:  audittypes__severityt__size >= 0
+     +++  New H20:  privtypes__privileget__size >= 0
+     +++  New H21:  privtypes__adminprivileget__size >= 0
+***  Proved C1:  admin__prf_rolepresent(theadmin__2) = privtypes__useronly
+     This was achieved by applying the rewrite rule tismain_user(10)
+     [from rulefile tismain.rlu] to rewrite this conclusion to:
+<S>  C1:  not admin__ispresent(theadmin__2)
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  From H2, proved: not admin__ispresent(theadmin__2)
+***  PROVED VC.
+
+VCN  4: Summary of user rule application.
+FIL  tismain.rlu
+RUL     tismain_user(10)
+CON        1
+
+
+@@@@@@@@@@  VC: procedure_init_5.  @@@@@@@@@@
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  not (privtypes__adminprivileget__first <= 
+          admintoken__theauthcertrole(admintoken__state__14) and 
+          admintoken__theauthcertrole(admintoken__state__14) <= 
+          privtypes__adminprivileget__last)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  audittypes__elementt__first <= audittypes__startenrolledtis
+***  Proved C2:  enclave__enrolmentisinprogress(enclave__state__15) or 
+          enclave__prf_statusisenclavequiescent(enclave__state__15)
+     using hypothesis H10.
+***  Proved C3:  not admin__ispresent(theadmin__2)
+     using hypothesis H2.
+***  Proved C4:  not admin__isdoingop(theadmin__2)
+     using hypothesis H3.
+***  Proved C5:  admin__prf_rolepresent(theadmin__2) <> privtypes__guard
+     using hypothesis H17.
+***  Proved C9:  not admintoken__prf_isgood(admintoken__state__14)
+     using hypothesis H6.
+***  Proved C10:  not admintoken__prf_authcertvalid(admintoken__state__14)
+     using hypothesis H7.
+>>>  Restructured hypothesis H8 into:
+     >>>  H8:  admintoken__theauthcertrole(admintoken__state__14) < 
+          privtypes__adminprivileget__first or privtypes__adminprivileget__last 
+          < admintoken__theauthcertrole(admintoken__state__14)
++++  Using "A->B, A |- B" on hypotheses H9 & H12 yields a new hypothesis:
+     +++  H18:  not enclave__enrolmentisinprogress(enclave__state__15)
+---  Attempted addition of new hypothesis:
+          keystore__privatekeypresent(keystore__state__6)
+     eliminated: this already exists (as H12).
++++  Using "A->B, A |- B" on hypotheses H9 & H18 yields a new hypothesis:
+     +++  H12:  keystore__privatekeypresent(keystore__state__6)
+-S-  Applied substitution rule init_rules(2).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New H15:  true
+-S-  Applied substitution rule init_rules(3).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New H16:  true
+-S-  Applied substitution rule init_rules(109).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New H13:  true
+-S-  Applied substitution rule init_rules(110).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New H14:  true
+-S-  Applied substitution rule init_rules(161).
+     This was achieved by replacing all occurrences of 
+          privtypes__adminprivileget__first by:
+          privtypes__guard.
+<S>  New H8:  admintoken__theauthcertrole(admintoken__state__14) < 
+          privtypes__guard or privtypes__adminprivileget__last < 
+          admintoken__theauthcertrole(admintoken__state__14)
+-S-  Applied substitution rule init_rules(162).
+     This was achieved by replacing all occurrences of 
+          privtypes__adminprivileget__last by:
+          privtypes__securityofficer.
+<S>  New H8:  admintoken__theauthcertrole(admintoken__state__14) < 
+          privtypes__guard or privtypes__securityofficer < 
+          admintoken__theauthcertrole(admintoken__state__14)
+***  Proved C1:  not enclave__enrolmentisinprogress(enclave__state__15) <-> 
+          keystore__privatekeypresent(keystore__state__6)
+     using hypotheses H12 & H18.
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H4 (true-hypothesis).
+---  Eliminated hypothesis H5 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+---  Eliminated hypothesis H15 (true-hypothesis).
+---  Eliminated hypothesis H16 (true-hypothesis).
+---  Eliminated hypothesis H13 (true-hypothesis).
+---  Eliminated hypothesis H14 (true-hypothesis).
+%%%  Simplified H10 further (given H18), to give:
+     %%%  H10:  enclave__prf_statusisenclavequiescent(enclave__state__15)
+>>>  Using "A->B, A |- B" on H9, given H12, we simplify the former to:
+     >>>  H9:  not enclave__enrolmentisinprogress(enclave__state__15)
+     +++  New H19:  audittypes__elementt__size >= 0
+     +++  New H20:  audittypes__severityt__size >= 0
+     +++  New H21:  privtypes__privileget__size >= 0
+     +++  New H22:  privtypes__adminprivileget__size >= 0
+***  Proved C6:  not enclave__prf_statusiswaitingstartadminop(
+          enclave__state__15)
+     This was achieved by applying the inference rule tismain_user(2)
+     [from rulefile tismain.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H10, proved: enclave__enrolmentisinprogress(enclave__state__15) 
+          or enclave__prf_statusisenclavequiescent(enclave__state__15)
+***  Proved C7:  not enclave__prf_statusiswaitingfinishadminop(
+          enclave__state__15)
+     This was achieved by applying the inference rule tismain_user(4)
+     [from rulefile tismain.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H10, proved: enclave__enrolmentisinprogress(enclave__state__15) 
+          or enclave__prf_statusisenclavequiescent(enclave__state__15)
+***  Proved C8:  not enclave__prf_statusisshutdown(enclave__state__15)
+     This was achieved by applying the inference rule tismain_user(6)
+     [from rulefile tismain.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H10, proved: enclave__enrolmentisinprogress(enclave__state__15) 
+          or enclave__prf_statusisenclavequiescent(enclave__state__15)
+***  Proved C11:  admintoken__theauthcertrole(admintoken__state__14) <> 
+          privtypes__guard
+     This was achieved by applying the inference rule init_user(1)
+     [from rulefile init.rlu] to infer this conclusion from its side-conditions,
+     which were established as follows:
+     <<<  From H8, proved: admintoken__theauthcertrole(admintoken__state__14) < 
+          privtypes__guard or privtypes__securityofficer < 
+          admintoken__theauthcertrole(admintoken__state__14)
+     <<<  By simple reasoning, proved: privtypes__guard < 
+          privtypes__securityofficer
+***  PROVED VC.
+
+VCN  5: Summary of user rule application.
+FIL  tismain.rlu
+RUL     tismain_user(2)
+CON        6
+RUL     tismain_user(4)
+CON        7
+RUL     tismain_user(6)
+CON        8
+FIL  init.rlu
+RUL     init_user(1)
+CON        11
+
+
+@@@@@@@@@@  VC: procedure_init_6.  @@@@@@@@@@
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  not (privtypes__adminprivileget__first <= 
+          admintoken__theauthcertrole(admintoken__state__14) and 
+          admintoken__theauthcertrole(admintoken__state__14) <= 
+          privtypes__adminprivileget__last)
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  audittypes__elementt__first <= audittypes__startunenrolledtis
+***  Proved C2:  enclave__enrolmentisinprogress(enclave__state__15) or 
+          enclave__prf_statusisenclavequiescent(enclave__state__15)
+     using hypothesis H10.
+***  Proved C3:  not admin__ispresent(theadmin__2)
+     using hypothesis H2.
+***  Proved C4:  not admin__isdoingop(theadmin__2)
+     using hypothesis H3.
+***  Proved C5:  admin__prf_rolepresent(theadmin__2) <> privtypes__guard
+     using hypothesis H17.
+***  Proved C9:  not admintoken__prf_isgood(admintoken__state__14)
+     using hypothesis H6.
+***  Proved C10:  not admintoken__prf_authcertvalid(admintoken__state__14)
+     using hypothesis H7.
+>>>  Restructured hypothesis H8 into:
+     >>>  H8:  admintoken__theauthcertrole(admintoken__state__14) < 
+          privtypes__adminprivileget__first or privtypes__adminprivileget__last 
+          < admintoken__theauthcertrole(admintoken__state__14)
++++  Using "A->B, not B |- not A" on hypotheses H9 & H12 yields a new 
+          hypothesis:
+     +++  H18:  enclave__enrolmentisinprogress(enclave__state__15)
+-S-  Applied substitution rule init_rules(2).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New H15:  true
+-S-  Applied substitution rule init_rules(3).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New H16:  true
+-S-  Applied substitution rule init_rules(109).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New H13:  true
+-S-  Applied substitution rule init_rules(110).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New H14:  true
+-S-  Applied substitution rule init_rules(161).
+     This was achieved by replacing all occurrences of 
+          privtypes__adminprivileget__first by:
+          privtypes__guard.
+<S>  New H8:  admintoken__theauthcertrole(admintoken__state__14) < 
+          privtypes__guard or privtypes__adminprivileget__last < 
+          admintoken__theauthcertrole(admintoken__state__14)
+-S-  Applied substitution rule init_rules(162).
+     This was achieved by replacing all occurrences of 
+          privtypes__adminprivileget__last by:
+          privtypes__securityofficer.
+<S>  New H8:  admintoken__theauthcertrole(admintoken__state__14) < 
+          privtypes__guard or privtypes__securityofficer < 
+          admintoken__theauthcertrole(admintoken__state__14)
+***  Proved C1:  not enclave__enrolmentisinprogress(enclave__state__15) <-> 
+          keystore__privatekeypresent(keystore__state__6)
+     using hypotheses H12 & H18.
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H4 (true-hypothesis).
+---  Eliminated hypothesis H5 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+---  Eliminated hypothesis H15 (true-hypothesis).
+---  Eliminated hypothesis H16 (true-hypothesis).
+---  Eliminated hypothesis H13 (true-hypothesis).
+---  Eliminated hypothesis H14 (true-hypothesis).
+---  Eliminated hypothesis H10 (true-disjunction).
+---  Attempted addition of new hypothesis:
+          enclave__enrolmentisinprogress(enclave__state__15)
+     eliminated: this already exists (as H18).
++++  Using "A->B, not B |- not A" on hypotheses H9 & H12 yields a new 
+          hypothesis:
+     +++  H18:  enclave__enrolmentisinprogress(enclave__state__15)
+     +++  New H19:  audittypes__elementt__size >= 0
+     +++  New H20:  audittypes__severityt__size >= 0
+     +++  New H21:  privtypes__privileget__size >= 0
+     +++  New H22:  privtypes__adminprivileget__size >= 0
+***  Proved C6:  not enclave__prf_statusiswaitingstartadminop(
+          enclave__state__15)
+     This was achieved by applying the inference rule tismain_user(1)
+     [from rulefile tismain.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H18, proved: enclave__enrolmentisinprogress(enclave__state__15)
+***  Proved C7:  not enclave__prf_statusiswaitingfinishadminop(
+          enclave__state__15)
+     This was achieved by applying the inference rule tismain_user(3)
+     [from rulefile tismain.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H18, proved: enclave__enrolmentisinprogress(enclave__state__15)
+***  Proved C8:  not enclave__prf_statusisshutdown(enclave__state__15)
+     This was achieved by applying the inference rule tismain_user(5)
+     [from rulefile tismain.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H18, proved: enclave__enrolmentisinprogress(enclave__state__15)
+***  Proved C11:  admintoken__theauthcertrole(admintoken__state__14) <> 
+          privtypes__guard
+     This was achieved by applying the inference rule init_user(1)
+     [from rulefile init.rlu] to infer this conclusion from its side-conditions,
+     which were established as follows:
+     <<<  From H8, proved: admintoken__theauthcertrole(admintoken__state__14) < 
+          privtypes__guard or privtypes__securityofficer < 
+          admintoken__theauthcertrole(admintoken__state__14)
+     <<<  By simple reasoning, proved: privtypes__guard < 
+          privtypes__securityofficer
+***  PROVED VC.
+
+VCN  6: Summary of user rule application.
+FIL  tismain.rlu
+RUL     tismain_user(1)
+CON        6
+RUL     tismain_user(3)
+CON        7
+RUL     tismain_user(5)
+CON        8
+FIL  init.rlu
+RUL     init_user(1)
+CON        11
+
+
+OVR  Overall summary of VCs using user rules.
+FIL  tismain.rlu
+RUL     tismain_user(10)
+VCS        3, 4
+RUL     tismain_user(2)
+VCS        5
+RUL     tismain_user(4)
+VCS        5
+RUL     tismain_user(6)
+VCS        5
+RUL     tismain_user(1)
+VCS        6
+RUL     tismain_user(3)
+VCS        6
+RUL     tismain_user(5)
+VCS        6
+FIL  init.rlu
+RUL     init_user(1)
+VCS        5, 6
+

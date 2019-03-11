@@ -1,0 +1,69 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:14.69*/
+
+                  /*procedure Auth.Construct.ConvertTISTime*/
+
+
+rule_family converttisti_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+converttisti_rules(1): basictypes__unsigned32t__size >= 0 may_be_deduced.
+converttisti_rules(2): basictypes__unsigned32t__size may_be_replaced_by 32.
+converttisti_rules(3): basictypes__unsigned32t__first may_be_replaced_by 0.
+converttisti_rules(4): basictypes__unsigned32t__last may_be_replaced_by 4294967295.
+converttisti_rules(5): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__base__last may_be_deduced.
+converttisti_rules(6): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__first may_be_deduced.
+converttisti_rules(7): basictypes__unsigned32t__base__last >= 
+     basictypes__unsigned32t__last may_be_deduced.
+converttisti_rules(8): clock__yearst__size >= 0 may_be_deduced.
+converttisti_rules(9): clock__yearst__first may_be_replaced_by 1901.
+converttisti_rules(10): clock__yearst__last may_be_replaced_by 2099.
+converttisti_rules(11): clock__yearst__base__first <= 
+     clock__yearst__base__last may_be_deduced.
+converttisti_rules(12): clock__yearst__base__first <= 
+     clock__yearst__first may_be_deduced.
+converttisti_rules(13): clock__yearst__base__last >= 
+     clock__yearst__last may_be_deduced.
+converttisti_rules(14): clock__monthst__size >= 0 may_be_deduced.
+converttisti_rules(15): clock__monthst__first may_be_replaced_by 1.
+converttisti_rules(16): clock__monthst__last may_be_replaced_by 12.
+converttisti_rules(17): clock__monthst__base__first <= 
+     clock__monthst__base__last may_be_deduced.
+converttisti_rules(18): clock__monthst__base__first <= 
+     clock__monthst__first may_be_deduced.
+converttisti_rules(19): clock__monthst__base__last >= 
+     clock__monthst__last may_be_deduced.
+converttisti_rules(20): clock__dayst__size >= 0 may_be_deduced.
+converttisti_rules(21): clock__dayst__first may_be_replaced_by 1.
+converttisti_rules(22): clock__dayst__last may_be_replaced_by 31.
+converttisti_rules(23): clock__dayst__base__first <= clock__dayst__base__last may_be_deduced.
+converttisti_rules(24): clock__dayst__base__first <= clock__dayst__first may_be_deduced.
+converttisti_rules(25): clock__dayst__base__last >= clock__dayst__last may_be_deduced.
+converttisti_rules(26): clock__hourst__size >= 0 may_be_deduced.
+converttisti_rules(27): clock__hourst__first may_be_replaced_by 0.
+converttisti_rules(28): clock__hourst__last may_be_replaced_by 23.
+converttisti_rules(29): clock__hourst__base__first <= 
+     clock__hourst__base__last may_be_deduced.
+converttisti_rules(30): clock__hourst__base__first <= 
+     clock__hourst__first may_be_deduced.
+converttisti_rules(31): clock__hourst__base__last >= 
+     clock__hourst__last may_be_deduced.
+converttisti_rules(32): clock__minutest__size >= 0 may_be_deduced.
+converttisti_rules(33): clock__minutest__first may_be_replaced_by 0.
+converttisti_rules(34): clock__minutest__last may_be_replaced_by 59.
+converttisti_rules(35): clock__minutest__base__first <= 
+     clock__minutest__base__last may_be_deduced.
+converttisti_rules(36): clock__minutest__base__first <= 
+     clock__minutest__first may_be_deduced.
+converttisti_rules(37): clock__minutest__base__last >= 
+     clock__minutest__last may_be_deduced.

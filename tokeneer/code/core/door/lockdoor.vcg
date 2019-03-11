@@ -1,0 +1,141 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:10.78
+
+                          procedure Door.LockDoor
+
+
+
+
+For path(s) from start to check associated with statement of line 367:
+
+procedure_lockdoor_1.
+H1:    true .
+H2:    currentdoor >= t__first .
+H3:    currentdoor <= t__last .
+H4:    dooralarm >= alarmtypes__statust__first .
+H5:    dooralarm <= alarmtypes__statust__last .
+H6:    true .
+H7:    latch__prf_latchtimeout(latch__state__1) = 
+           clock__thecurrenttime(clock__currenttime) .
+H8:    true .
+H9:    latch__islocked(latch__state__2) <-> 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), latch__prf_latchtimeout(latch__state__2)) .
+H10:   latch__prf_latchtimeout(latch__state__2) = 
+           latch__prf_latchtimeout(latch__state__1) .
+        ->
+C1:    latch__prf_latchtimeout(latch__state__2) = 
+           clock__thecurrenttime(clock__currenttime) .
+ 
+
+For path(s) from start to check associated with statement of line 371:
+
+procedure_lockdoor_2.
+H1:    true .
+H2:    currentdoor >= t__first .
+H3:    currentdoor <= t__last .
+H4:    dooralarm >= alarmtypes__statust__first .
+H5:    dooralarm <= alarmtypes__statust__last .
+H6:    true .
+H7:    latch__prf_latchtimeout(latch__state__1) = 
+           clock__thecurrenttime(clock__currenttime) .
+H8:    true .
+H9:    latch__islocked(latch__state__2) <-> 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), latch__prf_latchtimeout(latch__state__2)) .
+H10:   latch__prf_latchtimeout(latch__state__2) = 
+           latch__prf_latchtimeout(latch__state__1) .
+H11:   latch__prf_latchtimeout(latch__state__2) = 
+           clock__thecurrenttime(clock__currenttime) .
+H12:   ((currentdoor = open) and (latch__islocked(latch__state__2) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), clock__thecurrenttime(
+           clock__currenttime)))) <-> (dooralarm__3 = 
+           alarmtypes__alarming) .
+H13:   dooralarm__3 >= alarmtypes__statust__first .
+H14:   dooralarm__3 <= alarmtypes__statust__last .
+        ->
+C1:    clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), clock__thecurrenttime(
+           clock__currenttime)) .
+ 
+
+For path(s) from start to finish:
+
+procedure_lockdoor_3.
+H1:    true .
+H2:    currentdoor >= t__first .
+H3:    currentdoor <= t__last .
+H4:    dooralarm >= alarmtypes__statust__first .
+H5:    dooralarm <= alarmtypes__statust__last .
+H6:    true .
+H7:    latch__prf_latchtimeout(latch__state__1) = 
+           clock__thecurrenttime(clock__currenttime) .
+H8:    true .
+H9:    latch__islocked(latch__state__2) <-> 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), latch__prf_latchtimeout(latch__state__2)) .
+H10:   latch__prf_latchtimeout(latch__state__2) = 
+           latch__prf_latchtimeout(latch__state__1) .
+H11:   latch__prf_latchtimeout(latch__state__2) = 
+           clock__thecurrenttime(clock__currenttime) .
+H12:   ((currentdoor = open) and (latch__islocked(latch__state__2) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), clock__thecurrenttime(
+           clock__currenttime)))) <-> (dooralarm__3 = 
+           alarmtypes__alarming) .
+H13:   dooralarm__3 >= alarmtypes__statust__first .
+H14:   dooralarm__3 <= alarmtypes__statust__last .
+H15:   clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), clock__thecurrenttime(
+           clock__currenttime)) .
+        ->
+C1:    ((currentdoor = open) and (latch__islocked(latch__state__2) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), clock__thecurrenttime(
+           clock__currenttime)))) <-> (dooralarm__3 = 
+           alarmtypes__alarming) .
+C2:    latch__islocked(latch__state__2) .
+ 
+
+For checks of refinement integrity: 
+
+procedure_lockdoor_4.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_lockdoor_5.
+H1:    true .
+H2:    true .
+H3:    currentdoor = fld_currentdoor(state~) .
+H4:    currentdoor = fld_currentdoor(state) .
+H5:    dooralarm~ = fld_dooralarm(state~) .
+H6:    dooralarm = fld_dooralarm(state) .
+H7:    alarmtimeout = fld_alarmtimeout(state) .
+H8:    currentdoor >= t__first .
+H9:    currentdoor <= t__last .
+H10:   dooralarm~ >= alarmtypes__statust__first .
+H11:   dooralarm~ <= alarmtypes__statust__last .
+H12:   dooralarm >= alarmtypes__statust__first .
+H13:   dooralarm <= alarmtypes__statust__last .
+H14:   ((currentdoor = open) and (latch__islocked(
+           latch__state) and clock__greaterthanorequal(
+           clock__thecurrenttime(clock__currenttime), 
+           alarmtimeout))) <-> (dooralarm = 
+           alarmtypes__alarming) .
+H15:   latch__islocked(latch__state) .
+        ->
+C1:    (latch__islocked(latch__state) and ((thecurrentdoor(
+           state) = open) and clock__greaterthanorequal(
+           clock__thecurrenttime(clock__currenttime), 
+           prf_alarmtimeout(state)))) <-> (thedooralarm(
+           state) = alarmtypes__alarming) .
+C2:    latch__islocked(latch__state) .
+ 
+

@@ -1,0 +1,169 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:10.15
+
+                      procedure AuditLog.CancelArchive
+
+
+
+
+For path(s) from start to assertion of line 1752:
+
+procedure_cancelarchive_1.
+H1:    true .
+H2:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+        ->
+C1:    logfileindext__first >= logfileindext__first .
+C2:    logfileindext__first <= logfileindext__last .
+C3:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+C4:    logfileindext__first >= logfileindext__first .
+C5:    logfileindext__first <= logfileindext__last .
+C6:    logfileindext__first >= logfileindext__first .
+C7:    logfileindext__first <= logfileindext__last .
+ 
+
+For path(s) from assertion of line 1752 to assertion of line 1752:
+
+procedure_cancelarchive_2.
+H1:    loop__1__i >= logfileindext__first .
+H2:    loop__1__i <= logfileindext__last .
+H3:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H4:    loop__1__i >= logfileindext__first .
+H5:    loop__1__i <= logfileindext__last .
+H6:    loop__1__i >= logfileindext__first .
+H7:    loop__1__i <= logfileindext__last .
+H8:    loop__1__i >= logfileindext__first .
+H9:    loop__1__i <= logfileindext__last .
+H10:   element(logfilesstatus, [loop__1__i]) = archived .
+H11:   used >= filestatust__first .
+H12:   used <= filestatust__last .
+H13:   loop__1__i >= logfileindext__first .
+H14:   loop__1__i <= logfileindext__last .
+H15:   not (loop__1__i = logfileindext__last) .
+        ->
+C1:    loop__1__i + 1 >= logfileindext__first .
+C2:    loop__1__i + 1 <= logfileindext__last .
+C3:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(update(
+           logfilesstatus, [loop__1__i], used), [i___1]) >= 
+           filestatust__first) and (element(update(
+           logfilesstatus, [loop__1__i], used), [i___1]) <= 
+           filestatust__last))) .
+C4:    loop__1__i + 1 >= logfileindext__first .
+C5:    loop__1__i + 1 <= logfileindext__last .
+C6:    loop__1__i + 1 >= logfileindext__first .
+C7:    loop__1__i + 1 <= logfileindext__last .
+ 
+
+procedure_cancelarchive_3.
+H1:    loop__1__i >= logfileindext__first .
+H2:    loop__1__i <= logfileindext__last .
+H3:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H4:    loop__1__i >= logfileindext__first .
+H5:    loop__1__i <= logfileindext__last .
+H6:    loop__1__i >= logfileindext__first .
+H7:    loop__1__i <= logfileindext__last .
+H8:    loop__1__i >= logfileindext__first .
+H9:    loop__1__i <= logfileindext__last .
+H10:   not (element(logfilesstatus, [loop__1__i]) = 
+           archived) .
+H11:   not (loop__1__i = logfileindext__last) .
+        ->
+C1:    loop__1__i + 1 >= logfileindext__first .
+C2:    loop__1__i + 1 <= logfileindext__last .
+C3:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+C4:    loop__1__i + 1 >= logfileindext__first .
+C5:    loop__1__i + 1 <= logfileindext__last .
+C6:    loop__1__i + 1 >= logfileindext__first .
+C7:    loop__1__i + 1 <= logfileindext__last .
+ 
+
+For path(s) from assertion of line 1752 to run-time check associated with statement of line 1753:
+
+procedure_cancelarchive_4.
+H1:    loop__1__i >= logfileindext__first .
+H2:    loop__1__i <= logfileindext__last .
+H3:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H4:    loop__1__i >= logfileindext__first .
+H5:    loop__1__i <= logfileindext__last .
+H6:    loop__1__i >= logfileindext__first .
+H7:    loop__1__i <= logfileindext__last .
+        ->
+C1:    loop__1__i >= logfileindext__first .
+C2:    loop__1__i <= logfileindext__last .
+ 
+
+For path(s) from assertion of line 1752 to run-time check associated with statement of line 1754:
+
+procedure_cancelarchive_5.
+H1:    loop__1__i >= logfileindext__first .
+H2:    loop__1__i <= logfileindext__last .
+H3:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H4:    loop__1__i >= logfileindext__first .
+H5:    loop__1__i <= logfileindext__last .
+H6:    loop__1__i >= logfileindext__first .
+H7:    loop__1__i <= logfileindext__last .
+H8:    loop__1__i >= logfileindext__first .
+H9:    loop__1__i <= logfileindext__last .
+H10:   element(logfilesstatus, [loop__1__i]) = archived .
+        ->
+C1:    used >= filestatust__first .
+C2:    used <= filestatust__last .
+C3:    loop__1__i >= logfileindext__first .
+C4:    loop__1__i <= logfileindext__last .
+ 
+
+For path(s) from assertion of line 1752 to finish:
+
+procedure_cancelarchive_6.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_cancelarchive_7.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+For checks of refinement integrity: 
+
+procedure_cancelarchive_8.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_cancelarchive_9.
+*** true .          /* trivially true VC removed by Examiner */
+
+

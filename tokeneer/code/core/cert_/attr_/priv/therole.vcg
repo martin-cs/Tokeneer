@@ -1,0 +1,72 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:15.31
+
+                           function Priv.TheRole
+
+
+
+
+For path(s) from start to finish:
+
+function_therole_1.
+H1:    true .
+H2:    fld_class(fld_clearance(contents)) >= 
+           privtypes__classt__first .
+H3:    fld_class(fld_clearance(contents)) <= 
+           privtypes__classt__last .
+H4:    fld_role(contents) >= privtypes__privileget__first .
+H5:    fld_role(contents) <= privtypes__privileget__last .
+H6:    fld_serialnumber(fld_basecertid(fld_inherit(contents))) >= 
+           certtypes__serialnumbert__first .
+H7:    fld_serialnumber(fld_basecertid(fld_inherit(contents))) <= 
+           certtypes__serialnumbert__last .
+H8:    for_all(i___2: integer, ((i___2 >= cryptotypes__namei__first) and (
+           i___2 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           fld_issuer(fld_basecertid(fld_inherit(contents)))), [
+           i___2]) >= character__first) and (element(fld_name(
+           fld_issuer(fld_basecertid(fld_inherit(contents)))), [
+           i___2]) <= character__last))) .
+H9:    fld_namelength(fld_issuer(fld_basecertid(fld_inherit(
+           contents)))) >= cryptotypes__namecountt__first .
+H10:   fld_namelength(fld_issuer(fld_basecertid(fld_inherit(
+           contents)))) <= cryptotypes__namecountt__last .
+H11:   fld_id(fld_issuer(fld_basecertid(fld_inherit(
+           contents)))) >= cryptotypes__issueridt__first .
+H12:   fld_id(fld_issuer(fld_basecertid(fld_inherit(
+           contents)))) <= cryptotypes__issueridt__last .
+H13:   fld_mechanism(fld_inherit(fld_inherit(contents))) >= 
+           cryptotypes__algorithmt__first .
+H14:   fld_mechanism(fld_inherit(fld_inherit(contents))) <= 
+           cryptotypes__algorithmt__last .
+H15:   true .
+H16:   true .
+H17:   fld_serialnumber(fld_id(fld_inherit(fld_inherit(
+           contents)))) >= certtypes__serialnumbert__first .
+H18:   fld_serialnumber(fld_id(fld_inherit(fld_inherit(
+           contents)))) <= certtypes__serialnumbert__last .
+H19:   for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           fld_issuer(fld_id(fld_inherit(fld_inherit(
+           contents))))), [i___1]) >= character__first) and (element(
+           fld_name(fld_issuer(fld_id(fld_inherit(fld_inherit(
+           contents))))), [i___1]) <= character__last))) .
+H20:   fld_namelength(fld_issuer(fld_id(fld_inherit(fld_inherit(
+           contents))))) >= cryptotypes__namecountt__first .
+H21:   fld_namelength(fld_issuer(fld_id(fld_inherit(fld_inherit(
+           contents))))) <= cryptotypes__namecountt__last .
+H22:   fld_id(fld_issuer(fld_id(fld_inherit(fld_inherit(
+           contents))))) >= cryptotypes__issueridt__first .
+H23:   fld_id(fld_issuer(fld_id(fld_inherit(fld_inherit(
+           contents))))) <= cryptotypes__issueridt__last .
+        ->
+C1:    true .
+C2:    fld_role(contents) >= privtypes__privileget__first .
+C3:    fld_role(contents) <= privtypes__privileget__last .
+ 
+

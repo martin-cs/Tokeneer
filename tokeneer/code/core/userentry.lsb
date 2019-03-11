@@ -1,0 +1,1405 @@
+           *******************************************************
+                            Listing of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:24.87
+
+Line
+   1  ------------------------------------------------------------------
+   2  -- Tokeneer ID Station Core Software
+   3  --
+   4  -- Copyright (2003) United States Government, as represented
+   5  -- by the Director, National Security Agency. All rights reserved.
+   6  --
+   7  -- This material was originally developed by Praxis High Integrity
+   8  -- Systems Ltd. under contract to the National Security Agency.
+   9  --
+  10  -- Modifications to proof annotations by Phil Thornley, April 2009
+  11  ------------------------------------------------------------------
+  12  
+  13  ------------------------------------------------------------------
+  14  -- UserEntry
+  15  --
+  16  -- Implementation Notes:
+  17  --    Implements UserEntry
+  18  --
+  19  ------------------------------------------------------------------
+  20  
+  21  with BasicTypes;
+  22  use type BasicTypes.PresenceT;
+  23  
+  24  with IandATypes;
+  25  use type IandATypes.MatchResultT;
+  26  use type IandATypes.FarT;
+  27  
+  28  with Bio;
+  29  with AuditLog;
+  30  with AuditTypes;
+  31  with UserToken;
+  32  with Display;
+  33  with Door;
+  34  with Latch;
+  35  with Clock;
+  36  with ConfigData;
+  37  with CertificateStore;
+  38  
+  39  
+  40  package body UserEntry
+  41  --# own State is Status,
+  42  --#              FingerTimeout,
+  43  --#              TokenRemovalTimeout;
+  44  is
+  45  
+  46  
+  47     ------------------------------------------------------------------
+  48     -- Types
+  49     --
+  50     ------------------------------------------------------------------
+  51     type StatusT is (Quiescent,
+  52                      GotUserToken,
+  53                      WaitingFinger,
+  54                      GotFinger,
+  55                      WaitingUpdateToken,
+  56                      WaitingEntry,
+  57                      WaitingRemoveTokenSuccess,
+  58                      WaitingRemoveTokenFail);
+  59  
+  60     ------------------------------------------------------------------
+  61     -- State
+  62     --
+  63     ------------------------------------------------------------------
+  64     Status : StatusT := Quiescent;
+  65  
+  66     FingerTimeout       : Clock.TimeT := Clock.ZeroTime;
+  67     TokenRemovalTimeout : Clock.TimeT := Clock.ZeroTime;
+  68  
+  69     ------------------------------------------------------------------
+  70     -- Local Operations
+  71     ------------------------------------------------------------------
+  72  
+  73     ------------------------------------------------------------------
+  74     -- UserHasDeparted
+  75     --
+  76     -- Description:
+  77     --    Determines whether the User has just departed.
+  78     --
+  79     -- Implementation Notes:
+  80     --    None.
+  81     --
+  82     -- Traceunit : C.UserEntry.UserHasDeparted
+  83     -- Traceto : FD.UserEntry.UserHasDeparted
+  84     ------------------------------------------------------------------
+  85     function UserHasDeparted return Boolean
+  86     --# global Status,
+  87     --#        UserToken.State;
+  88     is
+  89     begin
+  90        return Status > Quiescent and not UserToken.IsPresent;
+  91     end UserHasDeparted;
+
++++        Flow analysis of subprogram UserHasDeparted 
+           performed: no errors found.
+
+  92  
+  93     ------------------------------------------------------------------
+  94     -- UserTokenTorn
+  95     --
+  96     -- Description:
+  97     --    Handles a user token tear.
+  98     --
+  99     -- Implementation Notes:
+ 100     --    None.
+ 101     --
+ 102     -- Traceunit : C.UserEntry.UserTokenTorn
+ 103     -- Traceto : FD.UserEntry.UserTokenTorn
+ 104     ------------------------------------------------------------------
+ 105     procedure UserTokenTorn(TheStats : in out Stats.T)
+ 106     --# global in     ConfigData.State;
+ 107     --#        in     Clock.Now;
+ 108     --#        in out UserToken.State;
+ 109     --#        in out Display.State;
+ 110     --#        in out AuditLog.State;
+ 111     --#        in out AuditLog.FileState;
+ 112     --#           out Status;
+ 113     --# derives UserToken.State,
+ 114     --#         Display.State,
+ 115     --#         TheStats           from * &
+ 116     --#         AuditLog.State,
+ 117     --#         AuditLog.FileState from UserToken.State,
+ 118     --#                                 Display.State,
+ 119     --#                                 AuditLog.State,
+ 120     --#                                 AuditLog.FileState,
+ 121     --#                                 ConfigData.State,
+ 122     --#                                 Clock.Now &
+ 123     --#         Status             from ;
+ 124     is
+ 125  
+ 126     begin
+ 127  
+ 128        AuditLog.AddElementToLog
+ 129          ( ElementID   => AuditTypes.UserTokenRemoved,
+ 130            Severity    => AuditTypes.Warning,
+ 131            User        => UserToken.ExtractUser,
+ 132            Description => AuditTypes.NoDescription
+ 133            );
+ 134  
+ 135        Display.SetValue (Msg => Display.Welcome);
+ 136        Status := Quiescent;
+ 137  
+ 138        Stats.AddFailedEntry (TheStats => TheStats);
+ 139        UserToken.Clear;
+ 140  
+ 141     end UserTokenTorn;
+
++++        Flow analysis of subprogram UserTokenTorn 
+           performed: no errors found.
+
+ 142  
+ 143     ------------------------------------------------------------------
+ 144     -- ValidateUserToken
+ 145     --
+ 146     -- Description:
+ 147     --    Reads and validates the user token.
+ 148     --    Performs all actions when Status = GotUserToken
+ 149     --
+ 150     -- Implementation Notes:
+ 151     --    Since it is expensive to read all the certificates from the
+ 152     --    token they are only read if required. This means that the
+ 153     --    reading of the certificates from the token is postponed until
+ 154     --    this operation.
+ 155     --
+ 156     -- Traceunit : C.UserEntry.ValidateUserToken
+ 157     -- Traceto : FD.UserEntry.TISReadUserToken
+ 158     -- Traceto : FD.UserEntry.BioCheckNotRequired
+ 159     -- Traceto : FD.UserEntry.BioCheckRequired
+ 160     -- Traceto : FD.UserEntry.ValidateUserEntryFail
+ 161     -- Traceto : FD.UserEntry.UserTokenTorn
+ 162     ------------------------------------------------------------------
+ 163     procedure ValidateUserToken(TheStats : in out Stats.T)
+ 164     --# global in     ConfigData.State;
+ 165     --#        in     Clock.Now;
+ 166     --#        in     UserToken.Input;
+ 167     --#        in     Clock.CurrentTime;
+ 168     --#        in     KeyStore.Store;
+ 169     --#        in     KeyStore.State;
+ 170     --#        in     Bio.Input;
+ 171     --#        in out UserToken.State;
+ 172     --#        in out Display.State;
+ 173     --#        in out AuditLog.State;
+ 174     --#        in out AuditLog.FileState;
+ 175     --#        in out UserToken.Status;
+ 176     --#        in out FingerTimeout;
+ 177     --#           out Status;
+ 178     --# derives Status,
+ 179     --#         UserToken.State,
+ 180     --#         UserToken.Status   from UserToken.State,
+ 181     --#                                 UserToken.Status,
+ 182     --#                                 UserToken.Input,
+ 183     --#                                 Clock.CurrentTime,
+ 184     --#                                 KeyStore.Store,
+ 185     --#                                 KeyStore.State &
+ 186     --#         AuditLog.State,
+ 187     --#         AuditLog.FileState from UserToken.State,
+ 188     --#                                 Display.State,
+ 189     --#                                 AuditLog.State,
+ 190     --#                                 AuditLog.FileState,
+ 191     --#                                 ConfigData.State,
+ 192     --#                                 Clock.Now,
+ 193     --#                                 UserToken.Status,
+ 194     --#                                 UserToken.Input,
+ 195     --#                                 Clock.CurrentTime,
+ 196     --#                                 KeyStore.Store,
+ 197     --#                                 KeyStore.State &
+ 198     --#         Display.State      from *,
+ 199     --#                                 UserToken.State,
+ 200     --#                                 UserToken.Status,
+ 201     --#                                 UserToken.Input,
+ 202     --#                                 Clock.CurrentTime,
+ 203     --#                                 KeyStore.Store,
+ 204     --#                                 KeyStore.State &
+ 205     --#         TheStats           from *,
+ 206     --#                                 UserToken.State &
+ 207     --#         FingerTimeout      from *,
+ 208     --#                                 UserToken.State,
+ 209     --#                                 ConfigData.State,
+ 210     --#                                 UserToken.Status,
+ 211     --#                                 UserToken.Input,
+ 212     --#                                 Clock.CurrentTime,
+ 213     --#                                 KeyStore.Store,
+ 214     --#                                 KeyStore.State &
+ 215     --#         null               from Bio.Input;
+ 216     is
+ 217  
+ 218       AuthCertOK : Boolean;
+ 219       TokenOK : Boolean;
+ 220  
+ 221       Description : AuditTypes.DescriptionT;
+ 222     begin
+ 223  
+ 224        if not UserToken.IsPresent then
+ 225  
+ 226           UserTokenTorn(TheStats => TheStats);
+ 227  
+ 228        else
+ 229  
+ 230           UserToken.ReadAndCheckAuthCert (AuthCertOK => AuthCertOK);
+ 231  
+ 232           if AuthCertOK then
+ 233  
+ 234              -- GetPresentUserTokenC postponed actions
+ 235  
+ 236              AuditLog.AddElementToLog
+ 237                ( ElementID   => AuditTypes.UserTokenPresent,
+ 238                  Severity    => AuditTypes.Information,
+ 239                  User        => UserToken.ExtractUser,
+ 240                  Description => AuditTypes.NoDescription
+ 241                  );
+ 242  
+ 243              -- BioCheckNotRequiredC actions
+ 244  
+ 245              AuditLog.AddElementToLog
+ 246                ( ElementID   => AuditTypes.AuthCertValid,
+ 247                  Severity    => AuditTypes.Information,
+ 248                  User        => UserToken.ExtractUser,
+ 249                  Description => AuditTypes.NoDescription
+ 250                  );
+ 251  
+ 252              Display.SetValue (Msg => Display.Wait);
+ 253              Status := WaitingEntry;
+ 254           else
+ 255  
+ 256              UserToken.ReadAndCheck
+ 257                (Description => Description,
+ 258                 TokenOK     => TokenOK);
+ 259  
+ 260              if TokenOK then
+ 261  
+ 262                 -- GetPresentUserTokenC postponed actions
+ 263  
+ 264                 AuditLog.AddElementToLog
+ 265                   ( ElementID   => AuditTypes.UserTokenPresent,
+ 266                     Severity    => AuditTypes.Information,
+ 267                     User        => UserToken.ExtractUser,
+ 268                     Description => AuditTypes.NoDescription
+ 269                     );
+ 270  
+ 271                 -- BioCheckRequiredC actions
+ 272  
+ 273                 AuditLog.AddElementToLog
+ 274                   ( ElementID   => AuditTypes.AuthCertInvalid,
+ 275                     Severity    => AuditTypes.Information,
+ 276                     User        => UserToken.ExtractUser,
+ 277                     Description => AuditTypes.NoDescription
+ 278                     );
+ 279  
+ 280                 Display.SetValue (Msg => Display.InsertFinger);
+ 281                 Status := WaitingFinger;
+ 282  
+ 283                 FingerTimeout := Clock.AddDuration
+ 284                   ( TheTime     => Clock.TheCurrentTime,
+ 285                     TheDuration => ConfigData.TheFingerWaitDuration );
+ 286  
+ 287                 -- Flush any stale BIO data.
+ 288                 Bio.Flush;
+ 289  
+ 290              else
+ 291                 -- GetPresentUserTokenC postponed actions
+ 292  
+ 293                 AuditLog.AddElementToLog
+ 294                   ( ElementID   => AuditTypes.UserTokenPresent,
+ 295                     Severity    => AuditTypes.Information,
+ 296                     User        => UserToken.ExtractUser,
+ 297                     Description => AuditTypes.NoDescription
+ 298                     );
+ 299  
+ 300  
+ 301                 -- ValidateUserTokenFailC actions
+ 302  
+ 303                 AuditLog.AddElementToLog
+ 304                   ( ElementID   => AuditTypes.UserTokenInvalid,
+ 305                     Severity    => AuditTypes.Warning,
+ 306                     User        => UserToken.ExtractUser,
+ 307                     Description => Description
+ 308                     );
+ 309  
+ 310                 Display.SetValue (Msg => Display.RemoveToken);
+ 311                 Status := WaitingRemoveTokenFail;
+ 312  
+ 313              end if;
+ 314           end if;
+ 315        end if;
+ 316     end ValidateUserToken;
+
++++        Flow analysis of subprogram ValidateUserToken 
+           performed: no errors found.
+
+ 317  
+ 318     ------------------------------------------------------------------
+ 319     -- ReadFinger
+ 320     --
+ 321     -- Description:
+ 322     --    Reads and fingerprint.
+ 323     --    Performs all actions when Status = WaitingFinger
+ 324     --
+ 325     -- Implementation Notes:
+ 326     --    None.
+ 327     --
+ 328     -- Traceunit : C.UserEntry.ReadFinger
+ 329     -- Traceto : FD.UserEntry.ReadFingerOK
+ 330     -- Traceto : FD.UserEntry.NoFinger
+ 331     -- Traceto : FD.UserEntry.FingerTimeout
+ 332     -- Traceto : FD.UserEntry.UserTokenTorn
+ 333     ------------------------------------------------------------------
+ 334     procedure ReadFinger(TheStats : in out Stats.T)
+ 335     --# global in     ConfigData.State;
+ 336     --#        in     Clock.Now;
+ 337     --#        in     Clock.CurrentTime;
+ 338     --#        in     FingerTimeout;
+ 339     --#        in     Bio.Input;
+ 340     --#        in out Status;
+ 341     --#        in out UserToken.State;
+ 342     --#        in out Display.State;
+ 343     --#        in out AuditLog.State;
+ 344     --#        in out AuditLog.FileState;
+ 345     --# derives Status,
+ 346     --#         Display.State      from *,
+ 347     --#                                 UserToken.State,
+ 348     --#                                 Clock.CurrentTime,
+ 349     --#                                 FingerTimeout,
+ 350     --#                                 Bio.Input &
+ 351     --#         UserToken.State,
+ 352     --#         TheStats           from *,
+ 353     --#                                 UserToken.State &
+ 354     --#         AuditLog.State,
+ 355     --#         AuditLog.FileState from UserToken.State,
+ 356     --#                                 Display.State,
+ 357     --#                                 AuditLog.State,
+ 358     --#                                 AuditLog.FileState,
+ 359     --#                                 ConfigData.State,
+ 360     --#                                 Clock.Now,
+ 361     --#                                 Clock.CurrentTime,
+ 362     --#                                 FingerTimeout,
+ 363     --#                                 Bio.Input;
+ 364     --# pre Status = WaitingFinger;
+ 365     is
+ 366  
+ 367       FingerPresence : BasicTypes.PresenceT;
+ 368     begin
+ 369  
+ 370        if not UserToken.IsPresent then
+ 371  
+ 372           UserTokenTorn(TheStats => TheStats);
+ 373  
+ 374        else
+ 375  
+ 376           if Clock.GreaterThan(Clock.TheCurrentTime, FingerTimeout) then
+ 377  
+ 378              -- FingerTimeoutC actions
+ 379  
+ 380              AuditLog.AddElementToLog
+ 381                ( ElementID   => AuditTypes.FingerTimeout,
+ 382                  Severity    => AuditTypes.Warning,
+ 383                  User        => UserToken.ExtractUser,
+ 384                  Description => AuditTypes.NoDescription
+ 385                  );
+ 386  
+ 387              Display.SetValue (Msg => Display.RemoveToken);
+ 388              Status := WaitingRemoveTokenFail;
+ 389  
+ 390           else
+ 391  
+ 392              Bio.Poll(FingerPresent => FingerPresence);
+ 393  
+ 394              if FingerPresence = BasicTypes.Present then
+ 395  
+ 396                 -- ReadFingerOKC actions
+ 397  
+ 398                 AuditLog.AddElementToLog
+ 399                   ( ElementID   => AuditTypes.FingerDetected,
+ 400                     Severity    => AuditTypes.Information,
+ 401                     User        => UserToken.ExtractUser,
+ 402                     Description => AuditTypes.NoDescription
+ 403                     );
+ 404  
+ 405                 Display.SetValue (Msg => Display.Wait);
+ 406                 Status := GotFinger;
+ 407  
+ 408  
+ 409              else
+ 410                 -- NoFingerC actions
+ 411                 null;
+ 412  
+ 413              end if;
+ 414  
+ 415           end if;
+ 416  
+ 417        end if;
+ 418     end ReadFinger;
+
++++        Flow analysis of subprogram ReadFinger 
+           performed: no errors found.
+
+ 419  
+ 420  
+ 421  
+ 422     ------------------------------------------------------------------
+ 423     -- ValidateFinger
+ 424     --
+ 425     -- Description:
+ 426     --    Validates and fingerprint.
+ 427     --    Performs all actions when Status = GotFinger
+ 428     --
+ 429     -- Implementation Notes:
+ 430     --    None.
+ 431     --
+ 432     -- Traceunit : C.UserEntry.ValidateFinger
+ 433     -- Traceto : FD.UserEntry.ValidateFingerOK
+ 434     -- Traceto : FD.UserEntry.ValidateFingerFail
+ 435     -- Traceto : FD.UserEntry.UserTokenTorn
+ 436     ------------------------------------------------------------------
+ 437     procedure ValidateFinger (TheStats : in out Stats.T)
+ 438     --# global in     ConfigData.State;
+ 439     --#        in     Clock.Now;
+ 440     --#        in     Bio.Input;
+ 441     --#        in out UserToken.State;
+ 442     --#        in out Display.State;
+ 443     --#        in out AuditLog.State;
+ 444     --#        in out AuditLog.FileState;
+ 445     --#           out Status;
+ 446     --# derives Display.State,
+ 447     --#         TheStats           from *,
+ 448     --#                                 UserToken.State,
+ 449     --#                                 ConfigData.State,
+ 450     --#                                 Bio.Input &
+ 451     --#         AuditLog.State,
+ 452     --#         AuditLog.FileState from UserToken.State,
+ 453     --#                                 Display.State,
+ 454     --#                                 AuditLog.State,
+ 455     --#                                 AuditLog.FileState,
+ 456     --#                                 ConfigData.State,
+ 457     --#                                 Clock.Now,
+ 458     --#                                 Bio.Input &
+ 459     --#         Status             from UserToken.State,
+ 460     --#                                 ConfigData.State,
+ 461     --#                                 Bio.Input &
+ 462     --#         UserToken.State    from *;
+ 463     is
+ 464  
+ 465        TheTemplate : IandATypes.TemplateT;
+ 466        MatchResult : IandATypes.MatchResultT;
+ 467        AchievedFAR : IandATypes.FarT;
+ 468        MaxFAR      : IandATypes.FarT;
+ 469  
+ 470  
+ 471     ------------------------------------------------------------------
+ 472     -- AchievedFarDescription
+ 473     --
+ 474     -- Description:
+ 475     --    Produces a description for the Audit log from the
+ 476     --    supplied FAR.
+ 477     --
+ 478     -- Implementation Notes:
+ 479     --    None
+ 480     ------------------------------------------------------------------
+ 481     function AchievedFARDescription return AuditTypes.DescriptionT
+ 482     --# global AchievedFAR;
+ 483     is
+ 484        Result : AuditTypes.DescriptionT := AuditTypes.NoDescription;
+ 485  
+ 486        ------------------------------------------------------------------
+ 487        -- SetResultString
+ 488        --
+ 489        -- Description:
+ 490        --    Sets the Result string allowing for overflow.
+ 491        --
+ 492        -- Implementation Notes:
+ 493        --    Hidden because of use of slices.
+ 494        ------------------------------------------------------------------
+ 495        procedure SetResultString
+ 496        --# global in     AchievedFAR;
+ 497        --#        in out Result;
+ 498        --# derives Result from *,
+ 499        --#                     AchievedFAR;
+ 500        is
+ 501           --# hide SetResultString;
+ 502  
+ 503           FullString : String := "Acheived FAR : "
+ 504             & IandATypes.FarT'Image(AchievedFAR) ;
+ 505        begin
+ 506  
+ 507           -- if the Full string is shorter then use it all otherwise
+ 508           -- truncate it.
+ 509           if FullString'Last <= AuditTypes.DescriptionI'Last then
+ 510              Result (1.. FullString'Last) := FullString;
+ 511           else
+ 512              Result := FullString (1 .. AuditTypes.DescriptionI'Last);
+ 513           end if;
+ 514        end SetResultString;
+ 515  
+ 516  
+ 517     --------------------------------------------------------------------
+ 518     -- begin AchievedFARDescription
+ 519     --------------------------------------------------------------------
+ 520     begin
+ 521  
+ 522        SetResultString;
+ 523  
+ 524        return Result;
+ 525  
+ 526     end AchievedFARDescription;
+
++++        Flow analysis of subprogram 
+           AchievedFARDescription performed: no errors found.
+
+ 527  
+ 528     --------------------------------------------------------------------
+ 529     -- begin ValidateFinger
+ 530     --------------------------------------------------------------------
+ 531  
+ 532     begin
+ 533  
+ 534        if not UserToken.IsPresent then
+ 535  
+ 536           UserTokenTorn(TheStats => TheStats);
+ 537  
+ 538        else
+ 539  
+ 540           TheTemplate := UserToken.GetIandATemplate;
+ 541  
+ 542           MaxFar := ConfigData.TheSystemMaxFar;
+ 543           if TheTemplate.RequiredMaxFar < MaxFar then
+ 544              MaxFar := TheTemplate.RequiredMaxFar;
+ 545           end if;
+ 546  
+ 547           Bio.Verify
+ 548             ( Template    => TheTemplate,
+ 549               MaxFar      => MaxFar,
+ 550               MatchResult => MatchResult,
+ 551               AchievedFAR => AchievedFAR );
+ 552  
+ 553           -- ValidateFingerOKC and ValidateFingerFailC common actions
+ 554  
+ 555           -- Flush any stale BIO data.
+ 556           Bio.Flush;
+ 557  
+ 558           if MatchResult = IandATypes.Match then
+ 559  
+ 560              -- ValidateFingerOKC actions
+ 561  
+ 562              AuditLog.AddElementToLog
+ 563                ( ElementID   => AuditTypes.FingerMatched,
+ 564                  Severity    => AuditTypes.Information,
+ 565                  User        => UserToken.ExtractUser,
+ 566                  Description => AchievedFARDescription
+ 567                  );
+ 568  
+ 569              Display.SetValue (Msg => Display.Wait);
+ 570              Status := WaitingUpdateToken;
+ 571  
+ 572              Stats.AddSuccessfulBio(TheStats => TheStats);
+ 573  
+ 574           else
+ 575              -- ValidateFingerFailC actions
+ 576  
+ 577              AuditLog.AddElementToLog
+ 578                ( ElementID   => AuditTypes.FingerNotMatched,
+ 579                  Severity    => AuditTypes.Warning,
+ 580                  User        => UserToken.ExtractUser,
+ 581                  Description => AchievedFARDescription
+ 582                  );
+ 583  
+ 584              Display.SetValue (Msg => Display.RemoveToken);
+ 585              Status := WaitingRemoveTokenFail;
+ 586  
+ 587              Stats.AddFailedBio(TheStats => TheStats);
+ 588  
+ 589           end if;
+ 590  
+ 591        end if;
+ 592  
+ 593     end ValidateFinger;
+
++++        Flow analysis of subprogram ValidateFinger 
+           performed: no errors found.
+
+ 594  
+ 595  
+ 596     ------------------------------------------------------------------
+ 597     -- UpdateToken
+ 598     --
+ 599     -- Description:
+ 600     --    Updates the user token if required.
+ 601     --    Performs all actions when Status = WaitingUpdateToken.
+ 602     --
+ 603     -- Implementation Notes:
+ 604     --    None.
+ 605     --
+ 606     -- Traceunit : C.UserEntry.UpdateToken
+ 607     -- Traceto : FD.UserEntry.UpdateUserTokenNotRequired
+ 608     -- Traceto : FD.UserEntry.WriteUserTokenOK
+ 609     -- Traceto : FD.UserEntry.WriteUserTokenFail
+ 610     -- Traceto : FD.UserEntry.UserTokenTorn
+ 611     ------------------------------------------------------------------
+ 612     procedure UpdateToken(TheStats : in out Stats.T)
+ 613     --# global in     ConfigData.State;
+ 614     --#        in     Clock.Now;
+ 615     --#        in     Clock.CurrentTime;
+ 616     --#        in     KeyStore.Store;
+ 617     --#        in     KeyStore.State;
+ 618     --#        in out UserToken.State;
+ 619     --#        in out Display.State;
+ 620     --#        in out AuditLog.State;
+ 621     --#        in out AuditLog.FileState;
+ 622     --#        in out UserToken.Status;
+ 623     --#        in out CertificateStore.FileState;
+ 624     --#        in out CertificateStore.State;
+ 625     --#           out Status;
+ 626     --#           out UserToken.Output;
+ 627     --# derives Display.State,
+ 628     --#         UserToken.Status,
+ 629     --#         CertificateStore.FileState,
+ 630     --#         CertificateStore.State     from *,
+ 631     --#                                         UserToken.State,
+ 632     --#                                         ConfigData.State,
+ 633     --#                                         UserToken.Status,
+ 634     --#                                         Clock.CurrentTime,
+ 635     --#                                         KeyStore.Store,
+ 636     --#                                         KeyStore.State,
+ 637     --#                                         CertificateStore.State &
+ 638     --#         AuditLog.State,
+ 639     --#         AuditLog.FileState         from UserToken.State,
+ 640     --#                                         Display.State,
+ 641     --#                                         AuditLog.State,
+ 642     --#                                         AuditLog.FileState,
+ 643     --#                                         ConfigData.State,
+ 644     --#                                         Clock.Now,
+ 645     --#                                         UserToken.Status,
+ 646     --#                                         Clock.CurrentTime,
+ 647     --#                                         KeyStore.Store,
+ 648     --#                                         KeyStore.State,
+ 649     --#                                         CertificateStore.FileState,
+ 650     --#                                         CertificateStore.State &
+ 651     --#         Status                     from UserToken.State &
+ 652     --#         UserToken.State            from *,
+ 653     --#                                         ConfigData.State,
+ 654     --#                                         Clock.CurrentTime,
+ 655     --#                                         KeyStore.State,
+ 656     --#                                         CertificateStore.State &
+ 657     --#         TheStats                   from *,
+ 658     --#                                         UserToken.State &
+ 659     --#         UserToken.Output           from UserToken.State,
+ 660     --#                                         ConfigData.State,
+ 661     --#                                         UserToken.Status,
+ 662     --#                                         Clock.CurrentTime,
+ 663     --#                                         KeyStore.Store,
+ 664     --#                                         KeyStore.State,
+ 665     --#                                         CertificateStore.State;
+ 666     --# pre Keystore.PrivateKeyPresent(KeyStore.State);
+ 667     is
+ 668  
+ 669        UpdateOK : Boolean;
+ 670     begin
+ 671  
+ 672        if not UserToken.IsPresent then
+ 673  
+ 674           UserTokenTorn(TheStats => TheStats);
+ 675  
+ 676        else
+ 677  
+ 678           -- ConstructAuthCert actions
+ 679  
+ 680           UserToken.AddAuthCert(Success => UpdateOK);
+ 681  
+ 682           -- WriteUserTokenOKC / WriteUserTokenFailC common actions
+ 683  
+ 684           Status := WaitingEntry;
+ 685  
+ 686  
+ 687           if UpdateOK then
+ 688              -- only add the certificate to the token if we could build one
+ 689              UserToken.UpdateAuthCert(Success => UpdateOK);
+ 690           end if;
+ 691  
+ 692           if UpdateOK then
+ 693  
+ 694              -- WriteUserTokenOKC actions
+ 695  
+ 696              AuditLog.AddElementToLog
+ 697                ( ElementID   => AuditTypes.AuthCertWritten,
+ 698                  Severity    => AuditTypes.Information,
+ 699                  User        => UserToken.ExtractUser,
+ 700                  Description => AuditTypes.NoDescription
+ 701                  );
+ 702  
+ 703              Display.SetValue (Msg => Display.Wait);
+ 704  
+ 705              CertificateStore.UpdateStore;
+ 706  
+ 707           else
+ 708  
+ 709              -- WriteUserTokenFailC actions
+ 710  
+ 711              AuditLog.AddElementToLog
+ 712                ( ElementID   => AuditTypes.AuthCertWriteFailed,
+ 713                  Severity    => AuditTypes.Warning,
+ 714                  User        => UserToken.ExtractUser,
+ 715                  Description => AuditTypes.NoDescription
+ 716                  );
+ 717  
+ 718              Display.SetValue (Msg => Display.TokenUpdateFailed);
+ 719  
+ 720           end if;
+ 721  
+ 722        end if;
+ 723     end UpdateToken;
+
++++        Flow analysis of subprogram UpdateToken 
+           performed: no errors found.
+
+ 724  
+ 725  
+ 726     ------------------------------------------------------------------
+ 727     -- ValidateEntry
+ 728     --
+ 729     -- Description:
+ 730     --    Validates user entry criteria.
+ 731     --    Performs all actions when Status = WaitingEntry.
+ 732     --
+ 733     -- Implementation Notes:
+ 734     --    None.
+ 735     --
+ 736     -- Traceunit : C.UserEntry.ValidateEntry
+ 737     -- Traceto : FD.UserEntry.EntryOK
+ 738     -- Traceto : FD.UserEntry.EntryNotAllowedC
+ 739     -- Traceto : FD.UserEntry.UserTokenTorn
+ 740     ------------------------------------------------------------------
+ 741     procedure ValidateEntry(TheStats : in out Stats.T)
+ 742     --# global in     ConfigData.State;
+ 743     --#        in     Clock.Now;
+ 744     --#        in     Clock.CurrentTime;
+ 745     --#        in out UserToken.State;
+ 746     --#        in out Display.State;
+ 747     --#        in out AuditLog.State;
+ 748     --#        in out AuditLog.FileState;
+ 749     --#        in out TokenRemovalTimeout;
+ 750     --#           out Status;
+ 751     --# derives UserToken.State,
+ 752     --#         TheStats            from *,
+ 753     --#                                  UserToken.State &
+ 754     --#         Display.State,
+ 755     --#         TokenRemovalTimeout from *,
+ 756     --#                                  UserToken.State,
+ 757     --#                                  ConfigData.State,
+ 758     --#                                  Clock.CurrentTime &
+ 759     --#         AuditLog.State,
+ 760     --#         AuditLog.FileState  from UserToken.State,
+ 761     --#                                  Display.State,
+ 762     --#                                  AuditLog.State,
+ 763     --#                                  AuditLog.FileState,
+ 764     --#                                  ConfigData.State,
+ 765     --#                                  Clock.Now,
+ 766     --#                                  Clock.CurrentTime &
+ 767     --#         Status              from UserToken.State,
+ 768     --#                                  ConfigData.State,
+ 769     --#                                  Clock.CurrentTime;
+ 770     is
+ 771  
+ 772     begin
+ 773  
+ 774        if not UserToken.IsPresent then
+ 775  
+ 776           UserTokenTorn(TheStats => TheStats);
+ 777  
+ 778        else
+ 779  
+ 780           if ConfigData.IsInEntryPeriod
+ 781             ( Class   => UserToken.GetClass,
+ 782               TheTime => Clock.TheCurrentTime) then
+ 783  
+ 784              -- EntryOKC actions
+ 785  
+ 786              AuditLog.AddElementToLog
+ 787                ( ElementID   => AuditTypes.EntryPermitted,
+ 788                  Severity    => AuditTypes.Information,
+ 789                  User        => UserToken.ExtractUser,
+ 790                  Description => AuditTypes.NoDescription
+ 791                  );
+ 792  
+ 793              Display.SetValue (Msg => Display.OpenDoor);
+ 794              Status := WaitingRemoveTokenSuccess;
+ 795  
+ 796  
+ 797              TokenRemovalTimeout := Clock.AddDuration
+ 798                ( TheTime     => Clock.TheCurrentTime,
+ 799                  TheDuration => ConfigData.TheTokenRemovalDuration );
+ 800  
+ 801           else
+ 802  
+ 803              -- EntryNotAllowedC actions
+ 804  
+ 805              AuditLog.AddElementToLog
+ 806                ( ElementID   => AuditTypes.EntryDenied,
+ 807                  Severity    => AuditTypes.Warning,
+ 808                  User        => UserToken.ExtractUser,
+ 809                  Description => AuditTypes.NoDescription
+ 810                  );
+ 811  
+ 812              Display.SetValue (Msg => Display.RemoveToken);
+ 813              Status := WaitingRemoveTokenFail;
+ 814  
+ 815           end if;
+ 816  
+ 817        end if;
+ 818  
+ 819     end ValidateEntry;
+
++++        Flow analysis of subprogram ValidateEntry 
+           performed: no errors found.
+
+ 820  
+ 821  
+ 822     ------------------------------------------------------------------
+ 823     -- UnlockDoor
+ 824     --
+ 825     -- Description:
+ 826     --    Waits for conditions to unlock the door.
+ 827     --    Performs all actions when Status = WaitingRemoveTokenSuccess.
+ 828     --
+ 829     -- Implementation Notes:
+ 830     --    None.
+ 831     --
+ 832     -- Traceunit : C.UserEntry.UnlockDoor
+ 833     -- Traceto : FD.UserEntry.UnlockDoorOK
+ 834     -- Traceto : FD.UserEntry.WaitingTokenRemoval
+ 835     -- Traceto : FD.UserEntry.TokenRemovalTimeout
+ 836     ------------------------------------------------------------------
+ 837     procedure UnlockDoor(TheStats : in out Stats.T)
+ 838     --# global in     ConfigData.State;
+ 839     --#        in     Clock.Now;
+ 840     --#        in     Clock.CurrentTime;
+ 841     --#        in     TokenRemovalTimeout;
+ 842     --#        in out Status;
+ 843     --#        in out UserToken.State;
+ 844     --#        in out Display.State;
+ 845     --#        in out AuditLog.State;
+ 846     --#        in out AuditLog.FileState;
+ 847     --#        in out Door.State;
+ 848     --#        in out Latch.State;
+ 849     --# derives Status,
+ 850     --#         Display.State      from *,
+ 851     --#                                 UserToken.State,
+ 852     --#                                 Clock.CurrentTime,
+ 853     --#                                 TokenRemovalTimeout &
+ 854     --#         UserToken.State,
+ 855     --#         TheStats           from *,
+ 856     --#                                 UserToken.State &
+ 857     --#         AuditLog.State,
+ 858     --#         AuditLog.FileState from UserToken.State,
+ 859     --#                                 Display.State,
+ 860     --#                                 AuditLog.State,
+ 861     --#                                 AuditLog.FileState,
+ 862     --#                                 ConfigData.State,
+ 863     --#                                 Clock.Now,
+ 864     --#                                 Clock.CurrentTime,
+ 865     --#                                 TokenRemovalTimeout,
+ 866     --#                                 Door.State,
+ 867     --#                                 Latch.State &
+ 868     --#         Door.State,
+ 869     --#         Latch.State        from *,
+ 870     --#                                 UserToken.State,
+ 871     --#                                 ConfigData.State,
+ 872     --#                                 Clock.CurrentTime,
+ 873     --#                                 Latch.State;
+ 874     --# pre Status = WaitingRemoveTokenSuccess and
+ 875     --#      --------------------------------------------------------
+ 876     --#      -- PROOF ANNOTATIONS FOR SECURITY PROPERTY 3          --
+ 877     --#      --====================================================--
+ 878     --#      -- Before each call to UnlockDoor, the security       --
+ 879     --#      -- property holds.                                    --
+ 880     --#      --------------------------------------------------------
+ 881     --#      ( ( Latch.IsLocked(Latch.State) and
+ 882     --#          Door.TheCurrentDoor(Door.State) = Door.Open and
+ 883     --#          Clock.GreaterThanOrEqual(Clock.TheCurrentTime(Clock.CurrentTime),
+ 884     --#                                   Door.prf_alarmTimeout(Door.State)) ) <->
+ 885     --#        Door.TheDoorAlarm(Door.State) = AlarmTypes.Alarming );
+ 886     --#
+ 887     --# post
+ 888     --#      --------------------------------------------------------
+ 889     --#      -- PROOF ANNOTATIONS FOR SECURITY PROPERTY 3          --
+ 890     --#      --====================================================--
+ 891     --#      -- After each call to UnlockDoor, the security        --
+ 892     --#      -- property holds.                                    --
+ 893     --#      --------------------------------------------------------
+ 894     --#      ( ( Latch.IsLocked(Latch.State) and
+ 895     --#          Door.TheCurrentDoor(Door.State) = Door.Open and
+ 896     --#          Clock.GreaterThanOrEqual(Clock.TheCurrentTime(Clock.CurrentTime),
+ 897     --#                                   Door.prf_alarmTimeout(Door.State)) ) <->
+ 898     --#        Door.TheDoorAlarm(Door.State) = AlarmTypes.Alarming ) and
+ 899     --#
+ 900     --#      ( ( Latch.IsLocked(Latch.State~) and
+ 901     --#          not Latch.IsLocked(Latch.State) )
+ 902     --#            <-> prf_UserEntryUnlockDoor );
+ 903     is
+ 904  
+ 905     begin
+ 906  
+ 907        if not UserToken.IsPresent then
+ 908  
+ 909           -- UnlockDoorOKC actions
+ 910  
+ 911           Door.UnlockDoor;
+ 912           UserToken.Clear;
+ 913           Display.SetValue (Msg => Display.DoorUnlocked);
+ 914           Status := Quiescent;
+ 915  
+ 916           Stats.AddSuccessfulEntry(TheStats => TheStats);
+ 917  
+ 918        else
+ 919  
+ 920           if Clock.GreaterThan(Clock.TheCurrentTime, TokenRemovalTimeout) then
+ 921  
+ 922              -- TokenRemovalTimeoutC actions
+ 923  
+ 924              AuditLog.AddElementToLog
+ 925                ( ElementID   => AuditTypes.EntryTimeout,
+ 926                  Severity    => AuditTypes.Warning,
+ 927                  User        => UserToken.ExtractUser,
+ 928                  Description => AuditTypes.NoDescription
+ 929                  );
+ 930  
+ 931              Display.SetValue (Msg => Display.RemoveToken);
+ 932              Status := WaitingRemoveTokenFail;
+ 933  
+ 934           else
+ 935  
+ 936              -- WaitingTokenRemovalC actions
+ 937              null;
+ 938  
+ 939           end if;
+ 940  
+ 941        end if;
+ 942  
+ 943     end UnlockDoor;
+
++++        Flow analysis of subprogram UnlockDoor 
+           performed: no errors found.
+
+ 944  
+ 945  
+ 946     ------------------------------------------------------------------
+ 947     -- FailedAccessTokenRemoved
+ 948     --
+ 949     -- Description:
+ 950     --    Handles the removal of a token after a failed access.
+ 951     --    Performs all actions when Status = WaitingRemoveTokenFail.
+ 952     --
+ 953     -- Implementation Notes:
+ 954     --    None
+ 955     --
+ 956     -- Traceunit : C.UserEntry.FailedAccessTokenRemoved
+ 957     -- Traceto: FD.UserEntry.FailedAccessTokenRemoved
+ 958     ------------------------------------------------------------------
+ 959     procedure FailedAccessTokenRemoved(TheStats : in out Stats.T)
+ 960     --# global in     ConfigData.State;
+ 961     --#        in     Clock.Now;
+ 962     --#        in out UserToken.State;
+ 963     --#        in out Display.State;
+ 964     --#        in out AuditLog.State;
+ 965     --#        in out AuditLog.FileState;
+ 966     --#           out Status;
+ 967     --# derives UserToken.State,
+ 968     --#         Display.State,
+ 969     --#         TheStats           from * &
+ 970     --#         AuditLog.State,
+ 971     --#         AuditLog.FileState from UserToken.State,
+ 972     --#                                 Display.State,
+ 973     --#                                 AuditLog.State,
+ 974     --#                                 AuditLog.FileState,
+ 975     --#                                 ConfigData.State,
+ 976     --#                                 Clock.Now &
+ 977     --#         Status             from ;
+ 978     is
+ 979  
+ 980     begin
+ 981  
+ 982        AuditLog.AddElementToLog
+ 983          ( ElementID   => AuditTypes.UserTokenRemoved,
+ 984            Severity    => AuditTypes.Information,
+ 985            User        => UserToken.ExtractUser,
+ 986            Description => AuditTypes.NoDescription
+ 987            );
+ 988  
+ 989        Display.SetValue (Msg => Display.Welcome);
+ 990        Status := Quiescent;
+ 991  
+ 992        Stats.AddFailedEntry (TheStats => TheStats);
+ 993        UserToken.Clear;
+ 994  
+ 995     end FailedAccessTokenRemoved;
+
++++        Flow analysis of subprogram 
+           FailedAccessTokenRemoved performed: no errors found.
+
+ 996  
+ 997  
+ 998     ------------------------------------------------------------------
+ 999     -- Public Operations
+1000     ------------------------------------------------------------------
+1001  
+1002  
+1003     ------------------------------------------------------------------
+1004     -- InProgress
+1005     --
+1006     -- Implementation Notes:
+1007     --    None.
+1008     --
+1009     ------------------------------------------------------------------
+1010     function InProgress return Boolean
+1011     --# global Status;
+1012     is
+1013     begin
+1014        return Status > Quiescent and Status < WaitingRemoveTokenFail;
+1015     end InProgress;
+
++++        Flow analysis of subprogram InProgress 
+           performed: no errors found.
+
+1016  
+1017     ------------------------------------------------------------------
+1018     -- CurrentActivityPossible
+1019     --
+1020     -- Implementation Notes:
+1021     --    None.
+1022     ------------------------------------------------------------------
+1023     function CurrentActivityPossible return Boolean
+1024     --# global Status,
+1025     --#        UserToken.State;
+1026     --# return R =>
+1027     --#        (R = ((Status > Quiescent and Status < WaitingRemoveTokenFail) or
+1028     --#              (Status > Quiescent and not UserToken.IsPresent(UserToken.State))))
+1029     --#        and (R -> Status > Quiescent)
+1030     --#        and (R -> (Status = WaitingRemoveTokenFail ->
+1031     --#                     not UserToken.IsPresent(UserToken.State)));
+1032     is
+1033     begin
+1034        --# check InProgress(Status) <->
+1035        --#         (Status > Quiescent and Status < WaitingRemoveTokenFail);
+1036        --# check UserHasDeparted(Status, UserToken.State) <->
+1037        --#         (Status > Quiescent and not UserToken.IsPresent(UserToken.State));
+1038        return InProgress or UserHasDeparted;
+1039     end CurrentActivityPossible;
+
++++        Flow analysis of subprogram 
+           CurrentActivityPossible performed: no errors found.
+
+1040  
+1041     ------------------------------------------------------------------
+1042     -- CanStart
+1043     --
+1044     -- Implementation Notes:
+1045     --    None.
+1046     ------------------------------------------------------------------
+1047     function CanStart return Boolean
+1048     --# global Status,
+1049     --#        UserToken.State;
+1050     is
+1051     begin
+1052        return Status = Quiescent and UserToken.IsPresent;
+1053     end CanStart;
+
++++        Flow analysis of subprogram CanStart performed: 
+           no errors found.
+
+1054  
+1055     ------------------------------------------------------------------
+1056     -- DisplayPollUpdate
+1057     --
+1058     -- Implementation Notes:
+1059     --    None.
+1060     ------------------------------------------------------------------
+1061     procedure DisplayPollUpdate
+1062     --# global in     Status;
+1063     --#        in     ConfigData.State;
+1064     --#        in     Clock.Now;
+1065     --#        in     Latch.State;
+1066     --#        in out Display.State;
+1067     --#        in out AuditLog.State;
+1068     --#        in out AuditLog.FileState;
+1069     --# derives Display.State      from *,
+1070     --#                                 Status,
+1071     --#                                 Latch.State &
+1072     --#         AuditLog.State     from *,
+1073     --#                                 Status,
+1074     --#                                 Display.State,
+1075     --#                                 AuditLog.FileState,
+1076     --#                                 ConfigData.State,
+1077     --#                                 Clock.Now,
+1078     --#                                 Latch.State &
+1079     --#         AuditLog.FileState from *,
+1080     --#                                 Status,
+1081     --#                                 Display.State,
+1082     --#                                 AuditLog.State,
+1083     --#                                 ConfigData.State,
+1084     --#                                 Clock.Now,
+1085     --#                                 Latch.State;
+1086     is
+1087        NewMsg : Display.MsgT;
+1088     begin
+1089        if Latch.IsLocked then
+1090           if Status = WaitingRemoveTokenFail then
+1091              NewMsg := Display.RemoveToken;
+1092           else
+1093              NewMsg := Display.Welcome;
+1094           end if;
+1095           Display.ChangeDoorUnlockedMsg(Msg => NewMsg);
+1096        end if;
+1097  
+1098     end DisplayPollUpdate;
+
++++        Flow analysis of subprogram DisplayPollUpdate 
+           performed: no errors found.
+
+1099  
+1100  
+1101     ------------------------------------------------------------------
+1102     -- Progress
+1103     --
+1104     -- Implementation Notes:
+1105     --    None.
+1106     ------------------------------------------------------------------
+1107     procedure Progress
+1108       (TheStats : in out Stats.T)
+1109     --# global in     ConfigData.State;
+1110     --#        in     Clock.Now;
+1111     --#        in     UserToken.Input;
+1112     --#        in     Clock.CurrentTime;
+1113     --#        in     KeyStore.Store;
+1114     --#        in     KeyStore.State;
+1115     --#        in     Bio.Input;
+1116     --#        in out Status;
+1117     --#        in out UserToken.State;
+1118     --#        in out Display.State;
+1119     --#        in out AuditLog.State;
+1120     --#        in out AuditLog.FileState;
+1121     --#        in out UserToken.Status;
+1122     --#        in out FingerTimeout;
+1123     --#        in out CertificateStore.FileState;
+1124     --#        in out CertificateStore.State;
+1125     --#        in out TokenRemovalTimeout;
+1126     --#        in out Door.State;
+1127     --#        in out Latch.State;
+1128     --#           out UserToken.Output;
+1129     --# derives UserToken.State,
+1130     --#         UserToken.Status           from Status,
+1131     --#                                         UserToken.State,
+1132     --#                                         ConfigData.State,
+1133     --#                                         UserToken.Status,
+1134     --#                                         UserToken.Input,
+1135     --#                                         Clock.CurrentTime,
+1136     --#                                         KeyStore.Store,
+1137     --#                                         KeyStore.State,
+1138     --#                                         CertificateStore.State &
+1139     --#         AuditLog.State,
+1140     --#         AuditLog.FileState         from Status,
+1141     --#                                         UserToken.State,
+1142     --#                                         Display.State,
+1143     --#                                         AuditLog.State,
+1144     --#                                         AuditLog.FileState,
+1145     --#                                         ConfigData.State,
+1146     --#                                         Clock.Now,
+1147     --#                                         UserToken.Status,
+1148     --#                                         UserToken.Input,
+1149     --#                                         Clock.CurrentTime,
+1150     --#                                         KeyStore.Store,
+1151     --#                                         KeyStore.State,
+1152     --#                                         FingerTimeout,
+1153     --#                                         Bio.Input,
+1154     --#                                         CertificateStore.FileState,
+1155     --#                                         CertificateStore.State,
+1156     --#                                         TokenRemovalTimeout,
+1157     --#                                         Door.State,
+1158     --#                                         Latch.State &
+1159     --#         CertificateStore.FileState,
+1160     --#         CertificateStore.State     from *,
+1161     --#                                         Status,
+1162     --#                                         UserToken.State,
+1163     --#                                         ConfigData.State,
+1164     --#                                         UserToken.Status,
+1165     --#                                         Clock.CurrentTime,
+1166     --#                                         KeyStore.Store,
+1167     --#                                         KeyStore.State,
+1168     --#                                         CertificateStore.State &
+1169     --#         TokenRemovalTimeout,
+1170     --#         Latch.State                from *,
+1171     --#                                         Status,
+1172     --#                                         UserToken.State,
+1173     --#                                         ConfigData.State,
+1174     --#                                         Clock.CurrentTime &
+1175     --#         Status                     from *,
+1176     --#                                         UserToken.State,
+1177     --#                                         ConfigData.State,
+1178     --#                                         UserToken.Status,
+1179     --#                                         UserToken.Input,
+1180     --#                                         Clock.CurrentTime,
+1181     --#                                         KeyStore.Store,
+1182     --#                                         KeyStore.State,
+1183     --#                                         FingerTimeout,
+1184     --#                                         Bio.Input,
+1185     --#                                         TokenRemovalTimeout &
+1186     --#         Display.State              from *,
+1187     --#                                         Status,
+1188     --#                                         UserToken.State,
+1189     --#                                         ConfigData.State,
+1190     --#                                         UserToken.Status,
+1191     --#                                         UserToken.Input,
+1192     --#                                         Clock.CurrentTime,
+1193     --#                                         KeyStore.Store,
+1194     --#                                         KeyStore.State,
+1195     --#                                         FingerTimeout,
+1196     --#                                         Bio.Input,
+1197     --#                                         CertificateStore.State,
+1198     --#                                         TokenRemovalTimeout &
+1199     --#         TheStats                   from *,
+1200     --#                                         Status,
+1201     --#                                         UserToken.State,
+1202     --#                                         ConfigData.State,
+1203     --#                                         Bio.Input &
+1204     --#         FingerTimeout              from *,
+1205     --#                                         Status,
+1206     --#                                         UserToken.State,
+1207     --#                                         ConfigData.State,
+1208     --#                                         UserToken.Status,
+1209     --#                                         UserToken.Input,
+1210     --#                                         Clock.CurrentTime,
+1211     --#                                         KeyStore.Store,
+1212     --#                                         KeyStore.State &
+1213     --#         UserToken.Output           from Status,
+1214     --#                                         UserToken.State,
+1215     --#                                         ConfigData.State,
+1216     --#                                         UserToken.Status,
+1217     --#                                         Clock.CurrentTime,
+1218     --#                                         KeyStore.Store,
+1219     --#                                         KeyStore.State,
+1220     --#                                         CertificateStore.State &
+1221     --#         Door.State                 from *,
+1222     --#                                         Status,
+1223     --#                                         UserToken.State,
+1224     --#                                         ConfigData.State,
+1225     --#                                         Clock.CurrentTime,
+1226     --#                                         Latch.State;
+1227     --# pre Keystore.PrivateKeyPresent(KeyStore.State) and
+1228     --#     Status > Quiescent
+1229     --#     and (Status = WaitingRemoveTokenFail
+1230     --#             -> not UserToken.IsPresent(UserToken.State)) and
+1231     --#      --------------------------------------------------------
+1232     --#      -- PROOF ANNOTATIONS FOR SECURITY PROPERTY 3          --
+1233     --#      --====================================================--
+1234     --#      -- Before each call to Progress, the security         --
+1235     --#      -- property holds.                                    --
+1236     --#      --------------------------------------------------------
+1237     --#      ( ( Latch.IsLocked(Latch.State) and
+1238     --#          Door.TheCurrentDoor(Door.State) = Door.Open and
+1239     --#          Clock.GreaterThanOrEqual(Clock.TheCurrentTime(Clock.CurrentTime),
+1240     --#                                   Door.prf_alarmTimeout(Door.State)) ) <->
+1241     --#        Door.TheDoorAlarm(Door.State) = AlarmTypes.Alarming );
+1242     --#
+1243     --# post
+1244     --#      --------------------------------------------------------
+1245     --#      -- PROOF ANNOTATIONS FOR SECURITY PROPERTY 3          --
+1246     --#      --====================================================--
+1247     --#      -- After each call to Progress, the security property --
+1248     --#      -- holds.                                             --
+1249     --#      --------------------------------------------------------
+1250     --#      ( ( Latch.IsLocked(Latch.State) and
+1251     --#          Door.TheCurrentDoor(Door.State) = Door.Open and
+1252     --#          Clock.GreaterThanOrEqual(Clock.TheCurrentTime(Clock.CurrentTime),
+1253     --#                                   Door.prf_alarmTimeout(Door.State)) ) <->
+1254     --#        Door.TheDoorAlarm(Door.State) = AlarmTypes.Alarming ) and
+1255     --#
+1256     --#      ( ( Latch.IsLocked(Latch.State~) and
+1257     --#          not Latch.IsLocked(Latch.State) )
+1258     --#            <-> prf_UserEntryUnlockDoor );
+1259     is
+1260        subtype ActiveStatusT is StatusT
+1261          range GotUserToken .. WaitingRemoveTokenFail;
+1262  
+1263        LocalStatus : ActiveStatusT;
+1264  
+1265     begin
+1266        LocalStatus := ActiveStatusT'(Status);
+1267  
+1268        case LocalStatus is
+1269           when GotUserToken =>
+1270              ValidateUserToken (TheStats => TheStats);
+1271           when WaitingFinger =>
+1272              ReadFinger (TheStats => TheStats);
+1273           when GotFinger =>
+1274              ValidateFinger (TheStats => TheStats);
+1275           when WaitingUpdateToken =>
+1276              UpdateToken (TheStats => TheStats);
+1277           when WaitingEntry =>
+1278              ValidateEntry (TheStats => TheStats);
+1279           when WaitingRemoveTokenSuccess =>
+1280              UnlockDoor (TheStats => TheStats);
+1281           when WaitingRemoveTokenFail =>
+1282              FailedAccessTokenRemoved (TheStats => TheStats);
+1283        end case;
+1284  
+1285     end Progress;
+
++++        Flow analysis of subprogram Progress performed: 
+           no errors found.
+
+1286  
+1287  
+1288     ------------------------------------------------------------------
+1289     -- StartEntry
+1290     --
+1291     -- Implementation Notes:
+1292     --    The physical reading of the certificates from the token is
+1293     --    postponed until validation since only as many certificates as are
+1294     --    required to do this validation are read from the token.
+1295     ------------------------------------------------------------------
+1296     procedure StartEntry
+1297     --# global in     ConfigData.State;
+1298     --#        in     Clock.Now;
+1299     --#        in out Display.State;
+1300     --#        in out AuditLog.State;
+1301     --#        in out AuditLog.FileState;
+1302     --#           out Status;
+1303     --# derives Status             from  &
+1304     --#         Display.State      from * &
+1305     --#         AuditLog.State     from *,
+1306     --#                                 Display.State,
+1307     --#                                 AuditLog.FileState,
+1308     --#                                 ConfigData.State,
+1309     --#                                 Clock.Now &
+1310     --#         AuditLog.FileState from *,
+1311     --#                                 Display.State,
+1312     --#                                 AuditLog.State,
+1313     --#                                 ConfigData.State,
+1314     --#                                 Clock.Now;
+1315     is
+1316  
+1317     begin
+1318  
+1319        Display.SetValue (Msg => Display.Wait);
+1320        Status := GotUserToken;
+1321  
+1322     end StartEntry;
+
++++        Flow analysis of subprogram StartEntry 
+           performed: no errors found.
+
+1323  
+1324  end UserEntry;
+1 summarized warning(s), comprising:
+     1 hidden part(s)*
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+
+--End of file--------------------------------------------------

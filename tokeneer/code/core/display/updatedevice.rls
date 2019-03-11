@@ -1,0 +1,437 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:17.84*/
+
+                       /*procedure Display.UpdateDevice*/
+
+
+rule_family updatedevice_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+updatedevice_rules(1): character__first <= element(fld_text(fld_top(element(msgtostrings, [I]))), [J]) may_be_deduced_from [blank <= I, I <= doorunlocked, 1 <= J, J <= 23].
+updatedevice_rules(2): element(fld_text(fld_top(element(msgtostrings, [I]))), [J]) <= 
+     character__last may_be_deduced_from [blank <= I, I <= doorunlocked, 1 <= J, J <= 23].
+updatedevice_rules(3): msgtextcount__first <= fld_len(fld_top(element(msgtostrings, [I]))) may_be_deduced_from [blank <= I, I <= doorunlocked].
+updatedevice_rules(4): fld_len(fld_top(element(msgtostrings, [I]))) <= 
+     msgtextcount__last may_be_deduced_from [blank <= I, I <= doorunlocked].
+updatedevice_rules(5): character__first <= element(fld_text(fld_bottom(element(msgtostrings, [I]))), [J]) may_be_deduced_from [blank <= I, I <= doorunlocked, 1 <= J, J <= 23].
+updatedevice_rules(6): element(fld_text(fld_bottom(element(msgtostrings, [I]))), [J]) <= 
+     character__last may_be_deduced_from [blank <= I, I <= doorunlocked, 1 <= J, J <= 23].
+updatedevice_rules(7): msgtextcount__first <= fld_len(fld_bottom(element(msgtostrings, [I]))) may_be_deduced_from [blank <= I, I <= doorunlocked].
+updatedevice_rules(8): fld_len(fld_bottom(element(msgtostrings, [I]))) <= 
+     msgtextcount__last may_be_deduced_from [blank <= I, I <= doorunlocked].
+updatedevice_rules(9): integer__size >= 0 may_be_deduced.
+updatedevice_rules(10): integer__first may_be_replaced_by -2147483648.
+updatedevice_rules(11): integer__last may_be_replaced_by 2147483647.
+updatedevice_rules(12): integer__base__first may_be_replaced_by -2147483648.
+updatedevice_rules(13): integer__base__last may_be_replaced_by 2147483647.
+updatedevice_rules(14): character__size >= 0 may_be_deduced.
+updatedevice_rules(15): character__first may_be_replaced_by 0.
+updatedevice_rules(16): character__last may_be_replaced_by 255.
+updatedevice_rules(17): character__base__first may_be_replaced_by 0.
+updatedevice_rules(18): character__base__last may_be_replaced_by 255.
+updatedevice_rules(19): positive__size >= 0 may_be_deduced.
+updatedevice_rules(20): positive__first may_be_replaced_by 1.
+updatedevice_rules(21): positive__last may_be_replaced_by 2147483647.
+updatedevice_rules(22): positive__base__first may_be_replaced_by -2147483648.
+updatedevice_rules(23): positive__base__last may_be_replaced_by 2147483647.
+updatedevice_rules(24): basictypes__unsigned32t__size >= 0 may_be_deduced.
+updatedevice_rules(25): basictypes__unsigned32t__size may_be_replaced_by 32.
+updatedevice_rules(26): basictypes__unsigned32t__first may_be_replaced_by 0.
+updatedevice_rules(27): basictypes__unsigned32t__last may_be_replaced_by 4294967295.
+updatedevice_rules(28): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__base__last may_be_deduced.
+updatedevice_rules(29): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__first may_be_deduced.
+updatedevice_rules(30): basictypes__unsigned32t__base__last >= 
+     basictypes__unsigned32t__last may_be_deduced.
+updatedevice_rules(31): audittypes__elementt__size >= 0 may_be_deduced.
+updatedevice_rules(32): audittypes__elementt__first may_be_replaced_by audittypes__startunenrolledtis.
+updatedevice_rules(33): audittypes__elementt__last may_be_replaced_by audittypes__systemfault.
+updatedevice_rules(34): audittypes__elementt__base__first may_be_replaced_by audittypes__startunenrolledtis.
+updatedevice_rules(35): audittypes__elementt__base__last may_be_replaced_by audittypes__systemfault.
+updatedevice_rules(36): audittypes__elementt__pos(
+     audittypes__elementt__first) may_be_replaced_by 0.
+updatedevice_rules(37): audittypes__elementt__pos(
+     audittypes__startunenrolledtis) may_be_replaced_by 0.
+updatedevice_rules(38): audittypes__elementt__val(0) may_be_replaced_by 
+     audittypes__startunenrolledtis.
+updatedevice_rules(39): audittypes__elementt__pos(
+     audittypes__startenrolledtis) may_be_replaced_by 1.
+updatedevice_rules(40): audittypes__elementt__val(1) may_be_replaced_by 
+     audittypes__startenrolledtis.
+updatedevice_rules(41): audittypes__elementt__pos(
+     audittypes__enrolmentcomplete) may_be_replaced_by 2.
+updatedevice_rules(42): audittypes__elementt__val(2) may_be_replaced_by 
+     audittypes__enrolmentcomplete.
+updatedevice_rules(43): audittypes__elementt__pos(
+     audittypes__enrolmentfailed) may_be_replaced_by 3.
+updatedevice_rules(44): audittypes__elementt__val(3) may_be_replaced_by 
+     audittypes__enrolmentfailed.
+updatedevice_rules(45): audittypes__elementt__pos(
+     audittypes__displaychanged) may_be_replaced_by 4.
+updatedevice_rules(46): audittypes__elementt__val(4) may_be_replaced_by 
+     audittypes__displaychanged.
+updatedevice_rules(47): audittypes__elementt__pos(
+     audittypes__screenchanged) may_be_replaced_by 5.
+updatedevice_rules(48): audittypes__elementt__val(5) may_be_replaced_by 
+     audittypes__screenchanged.
+updatedevice_rules(49): audittypes__elementt__pos(
+     audittypes__doorclosed) may_be_replaced_by 6.
+updatedevice_rules(50): audittypes__elementt__val(6) may_be_replaced_by 
+     audittypes__doorclosed.
+updatedevice_rules(51): audittypes__elementt__pos(
+     audittypes__dooropened) may_be_replaced_by 7.
+updatedevice_rules(52): audittypes__elementt__val(7) may_be_replaced_by 
+     audittypes__dooropened.
+updatedevice_rules(53): audittypes__elementt__pos(
+     audittypes__latchlocked) may_be_replaced_by 8.
+updatedevice_rules(54): audittypes__elementt__val(8) may_be_replaced_by 
+     audittypes__latchlocked.
+updatedevice_rules(55): audittypes__elementt__pos(
+     audittypes__latchunlocked) may_be_replaced_by 9.
+updatedevice_rules(56): audittypes__elementt__val(9) may_be_replaced_by 
+     audittypes__latchunlocked.
+updatedevice_rules(57): audittypes__elementt__pos(
+     audittypes__alarmraised) may_be_replaced_by 10.
+updatedevice_rules(58): audittypes__elementt__val(10) may_be_replaced_by 
+     audittypes__alarmraised.
+updatedevice_rules(59): audittypes__elementt__pos(
+     audittypes__alarmsilenced) may_be_replaced_by 11.
+updatedevice_rules(60): audittypes__elementt__val(11) may_be_replaced_by 
+     audittypes__alarmsilenced.
+updatedevice_rules(61): audittypes__elementt__pos(
+     audittypes__truncatelog) may_be_replaced_by 12.
+updatedevice_rules(62): audittypes__elementt__val(12) may_be_replaced_by 
+     audittypes__truncatelog.
+updatedevice_rules(63): audittypes__elementt__pos(
+     audittypes__auditalarmraised) may_be_replaced_by 13.
+updatedevice_rules(64): audittypes__elementt__val(13) may_be_replaced_by 
+     audittypes__auditalarmraised.
+updatedevice_rules(65): audittypes__elementt__pos(
+     audittypes__auditalarmsilenced) may_be_replaced_by 14.
+updatedevice_rules(66): audittypes__elementt__val(14) may_be_replaced_by 
+     audittypes__auditalarmsilenced.
+updatedevice_rules(67): audittypes__elementt__pos(
+     audittypes__usertokenremoved) may_be_replaced_by 15.
+updatedevice_rules(68): audittypes__elementt__val(15) may_be_replaced_by 
+     audittypes__usertokenremoved.
+updatedevice_rules(69): audittypes__elementt__pos(
+     audittypes__usertokenpresent) may_be_replaced_by 16.
+updatedevice_rules(70): audittypes__elementt__val(16) may_be_replaced_by 
+     audittypes__usertokenpresent.
+updatedevice_rules(71): audittypes__elementt__pos(
+     audittypes__usertokeninvalid) may_be_replaced_by 17.
+updatedevice_rules(72): audittypes__elementt__val(17) may_be_replaced_by 
+     audittypes__usertokeninvalid.
+updatedevice_rules(73): audittypes__elementt__pos(
+     audittypes__authcertvalid) may_be_replaced_by 18.
+updatedevice_rules(74): audittypes__elementt__val(18) may_be_replaced_by 
+     audittypes__authcertvalid.
+updatedevice_rules(75): audittypes__elementt__pos(
+     audittypes__authcertinvalid) may_be_replaced_by 19.
+updatedevice_rules(76): audittypes__elementt__val(19) may_be_replaced_by 
+     audittypes__authcertinvalid.
+updatedevice_rules(77): audittypes__elementt__pos(
+     audittypes__fingerdetected) may_be_replaced_by 20.
+updatedevice_rules(78): audittypes__elementt__val(20) may_be_replaced_by 
+     audittypes__fingerdetected.
+updatedevice_rules(79): audittypes__elementt__pos(
+     audittypes__fingertimeout) may_be_replaced_by 21.
+updatedevice_rules(80): audittypes__elementt__val(21) may_be_replaced_by 
+     audittypes__fingertimeout.
+updatedevice_rules(81): audittypes__elementt__pos(
+     audittypes__fingermatched) may_be_replaced_by 22.
+updatedevice_rules(82): audittypes__elementt__val(22) may_be_replaced_by 
+     audittypes__fingermatched.
+updatedevice_rules(83): audittypes__elementt__pos(
+     audittypes__fingernotmatched) may_be_replaced_by 23.
+updatedevice_rules(84): audittypes__elementt__val(23) may_be_replaced_by 
+     audittypes__fingernotmatched.
+updatedevice_rules(85): audittypes__elementt__pos(
+     audittypes__authcertwritten) may_be_replaced_by 24.
+updatedevice_rules(86): audittypes__elementt__val(24) may_be_replaced_by 
+     audittypes__authcertwritten.
+updatedevice_rules(87): audittypes__elementt__pos(
+     audittypes__authcertwritefailed) may_be_replaced_by 25.
+updatedevice_rules(88): audittypes__elementt__val(25) may_be_replaced_by 
+     audittypes__authcertwritefailed.
+updatedevice_rules(89): audittypes__elementt__pos(
+     audittypes__entrypermitted) may_be_replaced_by 26.
+updatedevice_rules(90): audittypes__elementt__val(26) may_be_replaced_by 
+     audittypes__entrypermitted.
+updatedevice_rules(91): audittypes__elementt__pos(
+     audittypes__entrytimeout) may_be_replaced_by 27.
+updatedevice_rules(92): audittypes__elementt__val(27) may_be_replaced_by 
+     audittypes__entrytimeout.
+updatedevice_rules(93): audittypes__elementt__pos(
+     audittypes__entrydenied) may_be_replaced_by 28.
+updatedevice_rules(94): audittypes__elementt__val(28) may_be_replaced_by 
+     audittypes__entrydenied.
+updatedevice_rules(95): audittypes__elementt__pos(
+     audittypes__admintokenpresent) may_be_replaced_by 29.
+updatedevice_rules(96): audittypes__elementt__val(29) may_be_replaced_by 
+     audittypes__admintokenpresent.
+updatedevice_rules(97): audittypes__elementt__pos(
+     audittypes__admintokenvalid) may_be_replaced_by 30.
+updatedevice_rules(98): audittypes__elementt__val(30) may_be_replaced_by 
+     audittypes__admintokenvalid.
+updatedevice_rules(99): audittypes__elementt__pos(
+     audittypes__admintokeninvalid) may_be_replaced_by 31.
+updatedevice_rules(100): audittypes__elementt__val(31) may_be_replaced_by 
+     audittypes__admintokeninvalid.
+updatedevice_rules(101): audittypes__elementt__pos(
+     audittypes__admintokenexpired) may_be_replaced_by 32.
+updatedevice_rules(102): audittypes__elementt__val(32) may_be_replaced_by 
+     audittypes__admintokenexpired.
+updatedevice_rules(103): audittypes__elementt__pos(
+     audittypes__admintokenremoved) may_be_replaced_by 33.
+updatedevice_rules(104): audittypes__elementt__val(33) may_be_replaced_by 
+     audittypes__admintokenremoved.
+updatedevice_rules(105): audittypes__elementt__pos(
+     audittypes__invalidoprequest) may_be_replaced_by 34.
+updatedevice_rules(106): audittypes__elementt__val(34) may_be_replaced_by 
+     audittypes__invalidoprequest.
+updatedevice_rules(107): audittypes__elementt__pos(
+     audittypes__operationstart) may_be_replaced_by 35.
+updatedevice_rules(108): audittypes__elementt__val(35) may_be_replaced_by 
+     audittypes__operationstart.
+updatedevice_rules(109): audittypes__elementt__pos(
+     audittypes__archivelog) may_be_replaced_by 36.
+updatedevice_rules(110): audittypes__elementt__val(36) may_be_replaced_by 
+     audittypes__archivelog.
+updatedevice_rules(111): audittypes__elementt__pos(
+     audittypes__archivecomplete) may_be_replaced_by 37.
+updatedevice_rules(112): audittypes__elementt__val(37) may_be_replaced_by 
+     audittypes__archivecomplete.
+updatedevice_rules(113): audittypes__elementt__pos(
+     audittypes__archivecheckfailed) may_be_replaced_by 38.
+updatedevice_rules(114): audittypes__elementt__val(38) may_be_replaced_by 
+     audittypes__archivecheckfailed.
+updatedevice_rules(115): audittypes__elementt__pos(
+     audittypes__updatedconfigdata) may_be_replaced_by 39.
+updatedevice_rules(116): audittypes__elementt__val(39) may_be_replaced_by 
+     audittypes__updatedconfigdata.
+updatedevice_rules(117): audittypes__elementt__pos(
+     audittypes__invalidconfigdata) may_be_replaced_by 40.
+updatedevice_rules(118): audittypes__elementt__val(40) may_be_replaced_by 
+     audittypes__invalidconfigdata.
+updatedevice_rules(119): audittypes__elementt__pos(
+     audittypes__shutdown) may_be_replaced_by 41.
+updatedevice_rules(120): audittypes__elementt__val(41) may_be_replaced_by 
+     audittypes__shutdown.
+updatedevice_rules(121): audittypes__elementt__pos(
+     audittypes__overridelock) may_be_replaced_by 42.
+updatedevice_rules(122): audittypes__elementt__val(42) may_be_replaced_by 
+     audittypes__overridelock.
+updatedevice_rules(123): audittypes__elementt__pos(
+     audittypes__systemfault) may_be_replaced_by 43.
+updatedevice_rules(124): audittypes__elementt__val(43) may_be_replaced_by 
+     audittypes__systemfault.
+updatedevice_rules(125): audittypes__elementt__pos(
+     audittypes__elementt__last) may_be_replaced_by 43.
+updatedevice_rules(126): audittypes__elementt__pos(succ(X)) may_be_replaced_by 
+     audittypes__elementt__pos(X) + 1
+     if [X <=audittypes__systemfault, X <> 
+     audittypes__systemfault].
+updatedevice_rules(127): audittypes__elementt__pos(pred(X)) may_be_replaced_by 
+     audittypes__elementt__pos(X) - 1
+     if [X >=audittypes__startunenrolledtis, X <> 
+     audittypes__startunenrolledtis].
+updatedevice_rules(128): audittypes__elementt__pos(X) >= 0 may_be_deduced_from
+     [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+updatedevice_rules(129): audittypes__elementt__pos(X) <= 43 may_be_deduced_from
+     [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+updatedevice_rules(130): audittypes__elementt__val(X) >= 
+     audittypes__startunenrolledtis may_be_deduced_from
+     [0 <= X, X <= 43].
+updatedevice_rules(131): audittypes__elementt__val(X) <= 
+     audittypes__systemfault may_be_deduced_from
+     [0 <= X, X <= 43].
+updatedevice_rules(132): succ(audittypes__elementt__val(X)) may_be_replaced_by 
+     audittypes__elementt__val(X+1)
+     if [0 <= X, X < 43].
+updatedevice_rules(133): pred(audittypes__elementt__val(X)) may_be_replaced_by 
+     audittypes__elementt__val(X-1)
+     if [0 < X, X <= 43].
+updatedevice_rules(134): audittypes__elementt__pos(
+     audittypes__elementt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 43].
+updatedevice_rules(135): audittypes__elementt__val(
+     audittypes__elementt__pos(X)) may_be_replaced_by X
+     if [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+updatedevice_rules(136): audittypes__elementt__pos(X) <= 
+     audittypes__elementt__pos(Y) & X <= Y are_interchangeable 
+     if [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault, audittypes__startunenrolledtis <= Y, Y <= 
+     audittypes__systemfault].
+updatedevice_rules(137): audittypes__elementt__val(X) <= 
+     audittypes__elementt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 43, 0 <= Y, Y <= 43].
+updatedevice_rules(138): audittypes__severityt__size >= 0 may_be_deduced.
+updatedevice_rules(139): audittypes__severityt__first may_be_replaced_by audittypes__information.
+updatedevice_rules(140): audittypes__severityt__last may_be_replaced_by audittypes__critical.
+updatedevice_rules(141): audittypes__severityt__base__first may_be_replaced_by audittypes__information.
+updatedevice_rules(142): audittypes__severityt__base__last may_be_replaced_by audittypes__critical.
+updatedevice_rules(143): audittypes__severityt__pos(
+     audittypes__severityt__first) may_be_replaced_by 0.
+updatedevice_rules(144): audittypes__severityt__pos(
+     audittypes__information) may_be_replaced_by 0.
+updatedevice_rules(145): audittypes__severityt__val(0) may_be_replaced_by 
+     audittypes__information.
+updatedevice_rules(146): audittypes__severityt__pos(
+     audittypes__warning) may_be_replaced_by 1.
+updatedevice_rules(147): audittypes__severityt__val(1) may_be_replaced_by 
+     audittypes__warning.
+updatedevice_rules(148): audittypes__severityt__pos(
+     audittypes__critical) may_be_replaced_by 2.
+updatedevice_rules(149): audittypes__severityt__val(2) may_be_replaced_by 
+     audittypes__critical.
+updatedevice_rules(150): audittypes__severityt__pos(
+     audittypes__severityt__last) may_be_replaced_by 2.
+updatedevice_rules(151): audittypes__severityt__pos(succ(X)) may_be_replaced_by 
+     audittypes__severityt__pos(X) + 1
+     if [X <=audittypes__critical, X <> audittypes__critical].
+updatedevice_rules(152): audittypes__severityt__pos(pred(X)) may_be_replaced_by 
+     audittypes__severityt__pos(X) - 1
+     if [X >=audittypes__information, X <> 
+     audittypes__information].
+updatedevice_rules(153): audittypes__severityt__pos(X) >= 0 may_be_deduced_from
+     [audittypes__information <= X, X <= audittypes__critical].
+updatedevice_rules(154): audittypes__severityt__pos(X) <= 2 may_be_deduced_from
+     [audittypes__information <= X, X <= audittypes__critical].
+updatedevice_rules(155): audittypes__severityt__val(X) >= 
+     audittypes__information may_be_deduced_from
+     [0 <= X, X <= 2].
+updatedevice_rules(156): audittypes__severityt__val(X) <= 
+     audittypes__critical may_be_deduced_from
+     [0 <= X, X <= 2].
+updatedevice_rules(157): succ(audittypes__severityt__val(X)) may_be_replaced_by 
+     audittypes__severityt__val(X+1)
+     if [0 <= X, X < 2].
+updatedevice_rules(158): pred(audittypes__severityt__val(X)) may_be_replaced_by 
+     audittypes__severityt__val(X-1)
+     if [0 < X, X <= 2].
+updatedevice_rules(159): audittypes__severityt__pos(
+     audittypes__severityt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 2].
+updatedevice_rules(160): audittypes__severityt__val(
+     audittypes__severityt__pos(X)) may_be_replaced_by X
+     if [audittypes__information <= X, X <= audittypes__critical].
+updatedevice_rules(161): audittypes__severityt__pos(X) <= 
+     audittypes__severityt__pos(Y) & X <= Y are_interchangeable 
+     if [audittypes__information <= X, X <= audittypes__critical, 
+     audittypes__information <= Y, Y <= audittypes__critical].
+updatedevice_rules(162): audittypes__severityt__val(X) <= 
+     audittypes__severityt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 2, 0 <= Y, Y <= 2].
+updatedevice_rules(163): msgt__size >= 0 may_be_deduced.
+updatedevice_rules(164): msgt__first may_be_replaced_by blank.
+updatedevice_rules(165): msgt__last may_be_replaced_by doorunlocked.
+updatedevice_rules(166): msgt__base__first may_be_replaced_by blank.
+updatedevice_rules(167): msgt__base__last may_be_replaced_by doorunlocked.
+updatedevice_rules(168): msgt__pos(msgt__first) may_be_replaced_by 0.
+updatedevice_rules(169): msgt__pos(blank) may_be_replaced_by 0.
+updatedevice_rules(170): msgt__val(0) may_be_replaced_by blank.
+updatedevice_rules(171): msgt__pos(welcome) may_be_replaced_by 1.
+updatedevice_rules(172): msgt__val(1) may_be_replaced_by welcome.
+updatedevice_rules(173): msgt__pos(insertfinger) may_be_replaced_by 2.
+updatedevice_rules(174): msgt__val(2) may_be_replaced_by 
+     insertfinger.
+updatedevice_rules(175): msgt__pos(opendoor) may_be_replaced_by 3.
+updatedevice_rules(176): msgt__val(3) may_be_replaced_by opendoor.
+updatedevice_rules(177): msgt__pos(wait) may_be_replaced_by 4.
+updatedevice_rules(178): msgt__val(4) may_be_replaced_by wait.
+updatedevice_rules(179): msgt__pos(removetoken) may_be_replaced_by 5.
+updatedevice_rules(180): msgt__val(5) may_be_replaced_by 
+     removetoken.
+updatedevice_rules(181): msgt__pos(tokenupdatefailed) may_be_replaced_by 6.
+updatedevice_rules(182): msgt__val(6) may_be_replaced_by 
+     tokenupdatefailed.
+updatedevice_rules(183): msgt__pos(doorunlocked) may_be_replaced_by 7.
+updatedevice_rules(184): msgt__val(7) may_be_replaced_by 
+     doorunlocked.
+updatedevice_rules(185): msgt__pos(msgt__last) may_be_replaced_by 7.
+updatedevice_rules(186): msgt__pos(succ(X)) may_be_replaced_by 
+     msgt__pos(X) + 1
+     if [X <=doorunlocked, X <> doorunlocked].
+updatedevice_rules(187): msgt__pos(pred(X)) may_be_replaced_by 
+     msgt__pos(X) - 1
+     if [X >=blank, X <> blank].
+updatedevice_rules(188): msgt__pos(X) >= 0 may_be_deduced_from
+     [blank <= X, X <= doorunlocked].
+updatedevice_rules(189): msgt__pos(X) <= 7 may_be_deduced_from
+     [blank <= X, X <= doorunlocked].
+updatedevice_rules(190): msgt__val(X) >= blank may_be_deduced_from
+     [0 <= X, X <= 7].
+updatedevice_rules(191): msgt__val(X) <= doorunlocked may_be_deduced_from
+     [0 <= X, X <= 7].
+updatedevice_rules(192): succ(msgt__val(X)) may_be_replaced_by 
+     msgt__val(X+1)
+     if [0 <= X, X < 7].
+updatedevice_rules(193): pred(msgt__val(X)) may_be_replaced_by 
+     msgt__val(X-1)
+     if [0 < X, X <= 7].
+updatedevice_rules(194): msgt__pos(msgt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 7].
+updatedevice_rules(195): msgt__val(msgt__pos(X)) may_be_replaced_by X
+     if [blank <= X, X <= doorunlocked].
+updatedevice_rules(196): msgt__pos(X) <= msgt__pos(Y) & X <= Y are_interchangeable 
+     if [blank <= X, X <= doorunlocked, blank <= Y, Y <= 
+     doorunlocked].
+updatedevice_rules(197): msgt__val(X) <= msgt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 7, 0 <= Y, Y <= 7].
+updatedevice_rules(198): msgtextcount__size >= 0 may_be_deduced.
+updatedevice_rules(199): msgtextcount__first may_be_replaced_by 0.
+updatedevice_rules(200): msgtextcount__last may_be_replaced_by 23.
+updatedevice_rules(201): msgtextcount__base__first may_be_replaced_by -2147483648.
+updatedevice_rules(202): msgtextcount__base__last may_be_replaced_by 2147483647.
+updatedevice_rules(203): msgtexti__size >= 0 may_be_deduced.
+updatedevice_rules(204): msgtexti__first may_be_replaced_by 1.
+updatedevice_rules(205): msgtexti__last may_be_replaced_by 23.
+updatedevice_rules(206): msgtexti__base__first may_be_replaced_by -2147483648.
+updatedevice_rules(207): msgtexti__base__last may_be_replaced_by 2147483647.
+updatedevice_rules(208): msglinet__size >= 0 may_be_deduced.
+updatedevice_rules(209): A = B may_be_deduced_from
+     [goal(checktype(A,msglinet)),
+      goal(checktype(B,msglinet)),
+      fld_text(A) = fld_text(B),
+      fld_len(A) = fld_len(B)].
+updatedevice_rules(210): msgstrt__size >= 0 may_be_deduced.
+updatedevice_rules(211): A = B may_be_deduced_from
+     [goal(checktype(A,msgstrt)),
+      goal(checktype(B,msgstrt)),
+      fld_top(A) = fld_top(B),
+      fld_bottom(A) = fld_bottom(B)].
+updatedevice_rules(212): scrolltextcount__size >= 0 may_be_deduced.
+updatedevice_rules(213): scrolltextcount__first may_be_replaced_by 0.
+updatedevice_rules(214): scrolltextcount__last may_be_replaced_by 50.
+updatedevice_rules(215): scrolltextcount__base__first may_be_replaced_by -2147483648.
+updatedevice_rules(216): scrolltextcount__base__last may_be_replaced_by 2147483647.
+updatedevice_rules(217): scrolltexti__size >= 0 may_be_deduced.
+updatedevice_rules(218): scrolltexti__first may_be_replaced_by 1.
+updatedevice_rules(219): scrolltexti__last may_be_replaced_by 50.
+updatedevice_rules(220): scrolltexti__base__first may_be_replaced_by -2147483648.
+updatedevice_rules(221): scrolltexti__base__last may_be_replaced_by 2147483647.
+updatedevice_rules(222): scrollstrt__size >= 0 may_be_deduced.
+updatedevice_rules(223): A = B may_be_deduced_from
+     [goal(checktype(A,scrollstrt)),
+      goal(checktype(B,scrollstrt)),
+      fld_text(A) = fld_text(B),
+      fld_len(A) = fld_len(B)].
+updatedevice_rules(224): sizest__size >= 0 may_be_deduced.
+updatedevice_rules(225): A = B may_be_deduced_from
+     [goal(checktype(A,sizest)),
+      goal(checktype(B,sizest)),
+      fld_top(A) = fld_top(B),
+      fld_bottom(A) = fld_bottom(B)].

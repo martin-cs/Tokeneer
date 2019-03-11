@@ -1,0 +1,211 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:26  SIMPLIFIED 05-SEP-2011, 15:40:37
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure Enclave.Init
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/enclave/enclave.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_init_1.  @@@@@@@@@@
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  statust__first <= enclavequiescent
+-S-  Applied substitution rule init_rules(2).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New C1:  true
+-S-  Applied substitution rule init_rules(3).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_init_2.  @@@@@@@@@@
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  statust__first <= notenrolled
+-S-  Applied substitution rule init_rules(2).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New C1:  true
+-S-  Applied substitution rule init_rules(3).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_init_3.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  statust__first <= enclavequiescent
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  true
+***  Proved C2:  true
+-S-  Applied substitution rule init_rules(2).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H4:  true
+-S-  Applied substitution rule init_rules(3).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H5:  true
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H2 (true-hypothesis).
+---  Eliminated hypothesis H4 (true-hypothesis).
+---  Eliminated hypothesis H5 (true-hypothesis).
+     +++  New H6:  statust__size >= 0
+***  Proved C1:  keystore__privatekeypresent(keystore__state) <-> not 
+          enrolmentisinprogress(enclavequiescent)
+     This was achieved by applying the rewrite rule enclave_user(4)
+     [from rulefile enclave.rlu] to rewrite this conclusion to:
+<S>  C1:  keystore__privatekeypresent(keystore__state) <-> not (
+          enclavequiescent >= notenrolled and enclavequiescent <= 
+          waitingendenrol)
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  From H3, proved: keystore__privatekeypresent(keystore__state) <-> not 
+          (enclavequiescent >= notenrolled and enclavequiescent <= 
+          waitingendenrol)
+***  PROVED VC.
+
+VCN  3: Summary of user rule application.
+FIL  enclave.rlu
+RUL     enclave_user(4)
+CON        1
+
+
+@@@@@@@@@@  VC: procedure_init_4.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  statust__first <= notenrolled
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  enrolmentisinprogress(notenrolled)
+-S-  Applied substitution rule init_rules(2).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H4:  true
+-S-  Applied substitution rule init_rules(3).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H5:  true
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H2 (true-hypothesis).
+---  Eliminated hypothesis H4 (true-hypothesis).
+---  Eliminated hypothesis H5 (true-hypothesis).
+     +++  New H6:  statust__size >= 0
+***  Proved C1:  keystore__privatekeypresent(keystore__state) <-> not 
+          enrolmentisinprogress(notenrolled)
+     This was achieved by applying the rewrite rule enclave_user(4)
+     [from rulefile enclave.rlu] to rewrite this conclusion to:
+<S>  C1:  keystore__privatekeypresent(keystore__state) <-> not (notenrolled >= 
+          notenrolled and notenrolled <= waitingendenrol)
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  From H3, proved: keystore__privatekeypresent(keystore__state) <-> not 
+          (notenrolled >= notenrolled and notenrolled <= waitingendenrol)
+***  Proved C2:  enrolmentisinprogress(notenrolled)
+     This was achieved by applying the rewrite rule enclave_user(4)
+     [from rulefile enclave.rlu] to rewrite this conclusion to:
+<S>  C2:  notenrolled >= notenrolled and notenrolled <= waitingendenrol
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  By simple reasoning, proved: notenrolled >= notenrolled and 
+          notenrolled <= waitingendenrol
+***  PROVED VC.
+
+VCN  4: Summary of user rule application.
+FIL  enclave.rlu
+RUL     enclave_user(4)
+CON        1, 2
+
+
+@@@@@@@@@@  VC: procedure_init_5.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_init_6.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  statust__first <= status
+-S-  Applied substitution rule init_rules(2).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H4:  notenrolled <= status
+-S-  Applied substitution rule init_rules(3).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H5:  status <= shutdown
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H2 (true-hypothesis).
+-S-  Eliminated hypothesis H3.
+     This was achieved by replacing all occurrences of status by:
+          fld_status(state).
+<S>  New H6:  keystore__privatekeypresent(keystore__state) <-> not 
+          enrolmentisinprogress(fld_status(state))
+<S>  New H7:  enrolmentisinprogress(fld_status(state)) or fld_status(state) = 
+          enclavequiescent
+<S>  New H4:  notenrolled <= fld_status(state)
+<S>  New H5:  fld_status(state) <= shutdown
+     +++  New H8:  statust__size >= 0
+***  Proved C1:  keystore__privatekeypresent(keystore__state) <-> not 
+          enclave__enrolmentisinprogress(state)
+     This was achieved by applying the rewrite rule enclave_user(13)
+     [from rulefile enclave.rlu] to rewrite this conclusion to:
+<S>  C1:  keystore__privatekeypresent(keystore__state) <-> not 
+          enrolmentisinprogress(fld_status(state))
+     This rule could be applied because its side-conditions hold, as follows:
+     <<<  From H6, proved: keystore__privatekeypresent(keystore__state) <-> not 
+          enrolmentisinprogress(fld_status(state))
+     <<<  Immediate condition checktype(state, statetype) evaluated successfully
++++  New H9:  enclave__enrolmentisinprogress(state) or fld_status(state) = 
+          enclavequiescent
+     This was achieved by applying the rewrite rule enclave_user(13)
+     [from rulefile enclave.rlu] to rewrite existing hypothesis H7 to give the 
+          above formula.
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  Immediate condition checktype(state, statetype) evaluated successfully
+***  Proved C2:  enclave__enrolmentisinprogress(state) or 
+          prf_statusisenclavequiescent(state)
+     This was achieved by applying the rewrite rule enclave_user(11)
+     [from rulefile enclave.rlu] to rewrite this conclusion to:
+<S>  C2:  enclave__enrolmentisinprogress(state) or fld_status(state) = 
+          enclavequiescent
+     This rule could be applied because its side-conditions hold, as follows:
+     <<<  From H9, proved: enclave__enrolmentisinprogress(state) or fld_status(
+          state) = enclavequiescent
+     <<<  Immediate condition checktype(state, statetype) evaluated successfully
+***  PROVED VC.
+
+VCN  6: Summary of user rule application.
+FIL  enclave.rlu
+RUL     enclave_user(13)
+CON        1
+HYP        9
+RUL     enclave_user(11)
+CON        2
+
+
+OVR  Overall summary of VCs using user rules.
+FIL  enclave.rlu
+RUL     enclave_user(4)
+VCS        3, 4
+RUL     enclave_user(13)
+VCS        6
+RUL     enclave_user(11)
+VCS        6
+

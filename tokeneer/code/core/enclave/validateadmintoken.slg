@@ -1,0 +1,1707 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:25  SIMPLIFIED 05-SEP-2011, 15:40:52
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure Enclave.ValidateAdminToken
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/enclave/enclave.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_validateadmintoken_1.  @@@@@@@@@@
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  statust__first <= status__1
+-S-  Applied substitution rule validateadmi_rules(269).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H9:  notenrolled <= status__1
+-S-  Applied substitution rule validateadmi_rules(270).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H10:  status__1 <= shutdown
+---  Eliminated hypothesis H6 (true-hypothesis).
+-S-  Eliminated hypothesis H8.
+     This was achieved by replacing all occurrences of status__1 by:
+          enclavequiescent.
+<S>  New H9:  true
+<S>  New H10:  true
+---  Eliminated hypothesis H9 (true-hypothesis).
+---  Eliminated hypothesis H10 (true-hypothesis).
+     +++  New H11:  integer__size >= 0
+     +++  New H12:  character__size >= 0
+     +++  New H13:  positive__size >= 0
+     +++  New H14:  audittypes__elementt__size >= 0
+     +++  New H15:  audittypes__severityt__size >= 0
+     +++  New H16:  audittypes__descriptioni__size >= 0
+     +++  New H17:  audittypes__usertexti__size >= 0
+     +++  New H18:  privtypes__privileget__size >= 0
+     +++  New H19:  privtypes__adminprivileget__size >= 0
+     +++  New H20:  admin__opandnullt__size >= 0
+     +++  New H21:  screen__msgtextt__size >= 0
+     +++  New H22:  statust__size >= 0
+***  Proved C1:  admin__prf_rolepresent(theadmin) <> privtypes__guard
+     This was achieved by applying the inference rule enclave_user(2)
+     [from rulefile enclave.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H1, proved: not admin__ispresent(theadmin)
+***  PROVED VC.
+
+VCN  1: Summary of user rule application.
+FIL  enclave.rlu
+RUL     enclave_user(2)
+CON        1
+
+
+@@@@@@@@@@  VC: procedure_validateadmintoken_2.  @@@@@@@@@@
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  admintoken__ispresent(admintoken__state)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  tokenok__2 <-> admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__adminprivileget__first <= admintoken__theauthcertrole(
+          admintoken__state__2) and admintoken__theauthcertrole(
+          admintoken__state__2) <= privtypes__adminprivileget__last))
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__2, [i___1]) and element(description__2, [
+          i___1]) <= character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) <= 
+          character__last)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__admintokenpresent
+-S-  Applied substitution rule validateadmi_rules(124).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule validateadmi_rules(125).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule validateadmi_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule validateadmi_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validateadmintoken_3.  @@@@@@@@@@
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  admintoken__ispresent(admintoken__state)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  tokenok__2 <-> admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__adminprivileget__first <= admintoken__theauthcertrole(
+          admintoken__state__2) and admintoken__theauthcertrole(
+          admintoken__state__2) <= privtypes__adminprivileget__last))
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__2, [i___1]) and element(description__2, [
+          i___1]) <= character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) <= 
+          character__last)
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  audittypes__elementt__first <= audittypes__admintokenpresent
+---  Hypothesis H18 has been replaced by "true".  (It is already present, as 
+          H11).
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__admintokenvalid
+***  Proved C1:  audittypes__severityt__first <= audittypes__information
+     using hypothesis H12.
+***  Proved C2:  audittypes__information <= audittypes__severityt__last
+     using hypothesis H13.
+***  Proved C3:  audittypes__elementt__first <= audittypes__admintokenvalid
+     using hypothesis H14.
+-S-  Applied substitution rule validateadmi_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New H15:  true
+<S>  New C4:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validateadmintoken_4.  @@@@@@@@@@
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  admintoken__ispresent(admintoken__state)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  tokenok__2 <-> admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__adminprivileget__first <= admintoken__theauthcertrole(
+          admintoken__state__2) and admintoken__theauthcertrole(
+          admintoken__state__2) <= privtypes__adminprivileget__last))
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__2, [i___1]) and element(description__2, [
+          i___1]) <= character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) <= 
+          character__last)
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  audittypes__elementt__first <= audittypes__admintokenpresent
+---  Hypothesis H18 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as 
+          H13).
+%%%  Simplified H21 on reading formula in, to give:
+     %%%  H21:  audittypes__elementt__first <= audittypes__admintokenvalid
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  screen__msgtextt__first <= screen__requestadminop
+-S-  Applied substitution rule validateadmi_rules(220).
+     This was achieved by replacing all occurrences of screen__msgtextt__first 
+          by:
+          screen__clear.
+<S>  New C1:  true
+-S-  Applied substitution rule validateadmi_rules(221).
+     This was achieved by replacing all occurrences of screen__msgtextt__last 
+          by:
+          screen__insertconfigdata.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validateadmintoken_5.  @@@@@@@@@@
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  admintoken__ispresent(admintoken__state)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  tokenok__2 <-> admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__adminprivileget__first <= admintoken__theauthcertrole(
+          admintoken__state__2) and admintoken__theauthcertrole(
+          admintoken__state__2) <= privtypes__adminprivileget__last))
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__2, [i___1]) and element(description__2, [
+          i___1]) <= character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) <= 
+          character__last)
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  audittypes__elementt__first <= audittypes__admintokenpresent
+---  Hypothesis H18 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as 
+          H13).
+%%%  Simplified H21 on reading formula in, to give:
+     %%%  H21:  audittypes__elementt__first <= audittypes__admintokenvalid
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  screen__msgtextt__first <= screen__requestadminop
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  statust__first <= enclavequiescent
+-S-  Applied substitution rule validateadmi_rules(269).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New C1:  true
+-S-  Applied substitution rule validateadmi_rules(270).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validateadmintoken_6.  @@@@@@@@@@
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  admintoken__ispresent(admintoken__state)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  tokenok__2 <-> admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__adminprivileget__first <= admintoken__theauthcertrole(
+          admintoken__state__2) and admintoken__theauthcertrole(
+          admintoken__state__2) <= privtypes__adminprivileget__last))
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__2, [i___1]) and element(description__2, [
+          i___1]) <= character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) <= 
+          character__last)
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  audittypes__elementt__first <= audittypes__admintokenpresent
+---  Hypothesis H18 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as 
+          H13).
+%%%  Simplified H21 on reading formula in, to give:
+     %%%  H21:  audittypes__elementt__first <= audittypes__admintokenvalid
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  screen__msgtextt__first <= screen__requestadminop
+%%%  Simplified H25 on reading formula in, to give:
+     %%%  H25:  statust__first <= enclavequiescent
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  privtypes__adminprivileget__first <= admintoken__theauthcertrole(
+          admintoken__state__2)
+-S-  Applied substitution rule validateadmi_rules(186).
+     This was achieved by replacing all occurrences of 
+          privtypes__adminprivileget__first by:
+          privtypes__guard.
+<S>  New H8:  tokenok__2 <-> admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__adminprivileget__last))
+<S>  New C3:  privtypes__guard <= admintoken__theauthcertrole(
+          admintoken__state__2)
+-S-  Applied substitution rule validateadmi_rules(187).
+     This was achieved by replacing all occurrences of 
+          privtypes__adminprivileget__last by:
+          privtypes__securityofficer.
+<S>  New H8:  tokenok__2 <-> admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer))
+<S>  New C4:  admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer
++++  Using "A->B, A |- B" on hypotheses H8 & H17 yields a new hypothesis:
+     +++  H27:  admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer))
+---  Attempted addition of new hypothesis:
+          tokenok__2
+     eliminated: this already exists (as H17).
++++  Using "A->B, A |- B" on hypotheses H8 & H27 yields a new hypothesis:
+     +++  H17:  tokenok__2
+-S-  Applied substitution rule validateadmi_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H9:  for_all(i___1 : integer, audittypes__descriptioni__first <= i___1 
+          and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__2, [i___1]) and element(description__2, [i___1]) <= 
+          character__last)
+<S>  New H11:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> 0 <= element(
+          admintoken__extractuser(admintoken__state__2), [i___1]) and element(
+          admintoken__extractuser(admintoken__state__2), [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule validateadmi_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H9:  for_all(i___1 : integer, audittypes__descriptioni__first <= i___1 
+          and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__2, [i___1]) and element(description__2, [i___1]) <= 255)
+<S>  New H11:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> 0 <= element(
+          admintoken__extractuser(admintoken__state__2), [i___1]) and element(
+          admintoken__extractuser(admintoken__state__2), [i___1]) <= 255)
+-S-  Applied substitution rule validateadmi_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New H14:  true
+<S>  New H21:  true
+-S-  Applied substitution rule validateadmi_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New H15:  true
+<S>  New H22:  true
+-S-  Applied substitution rule validateadmi_rules(124).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New H12:  true
+-S-  Applied substitution rule validateadmi_rules(125).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New H13:  true
+-S-  Applied substitution rule validateadmi_rules(149).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__first by:
+          1.
+<S>  New H9:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(description__2, [i___1]
+          ) and element(description__2, [i___1]) <= 255)
+-S-  Applied substitution rule validateadmi_rules(150).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__last by:
+          150.
+<S>  New H9:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(description__2, [i___1]) and element(description__2, [i___1]) 
+          <= 255)
+-S-  Applied substitution rule validateadmi_rules(154).
+     This was achieved by replacing all occurrences of 
+          audittypes__usertexti__first by:
+          1.
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__usertexti__last -> 0 <= element(admintoken__extractuser(
+          admintoken__state__2), [i___1]) and element(admintoken__extractuser(
+          admintoken__state__2), [i___1]) <= 255)
+-S-  Applied substitution rule validateadmi_rules(155).
+     This was achieved by replacing all occurrences of 
+          audittypes__usertexti__last by:
+          50.
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 50 -> 0 <= 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) <= 
+          255)
+-S-  Applied substitution rule validateadmi_rules(220).
+     This was achieved by replacing all occurrences of screen__msgtextt__first 
+          by:
+          screen__clear.
+<S>  New H23:  true
+-S-  Applied substitution rule validateadmi_rules(221).
+     This was achieved by replacing all occurrences of screen__msgtextt__last 
+          by:
+          screen__insertconfigdata.
+<S>  New H24:  true
+-S-  Applied substitution rule validateadmi_rules(269).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H25:  true
+-S-  Applied substitution rule validateadmi_rules(270).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H26:  true
+---  Eliminated hypothesis H6 (true-hypothesis).
+---  Eliminated hypothesis H10 (true-hypothesis).
+---  Eliminated hypothesis H16 (true-hypothesis).
+---  Eliminated hypothesis H18 (true-hypothesis).
+---  Eliminated hypothesis H19 (true-hypothesis).
+---  Eliminated hypothesis H20 (true-hypothesis).
+---  Eliminated hypothesis H14 (true-hypothesis).
+---  Eliminated hypothesis H21 (true-hypothesis).
+---  Eliminated hypothesis H15 (true-hypothesis).
+---  Eliminated hypothesis H22 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H13 (true-hypothesis).
+---  Eliminated hypothesis H23 (true-hypothesis).
+---  Eliminated hypothesis H24 (true-hypothesis).
+---  Eliminated hypothesis H25 (true-hypothesis).
+---  Eliminated hypothesis H26 (true-hypothesis).
+>>>  Using "A->B, A |- B" on H8, given H17, we simplify the former to:
+     >>>  H8:  admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer))
+-S-  Eliminated hypothesis H8.
+     This was achieved by replacing all occurrences of tokenok__2 by:
+          admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer)).
+<S>  New H17:  admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer))
+>>>  Hypothesis H8 has now been split into two, giving:
+     >>>  H28:  admintoken__prf_isgood(admintoken__state__2)
+     >>>  H29:  admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer)
+---  Attempted addition of new hypothesis:
+          admintoken__prf_isgood(admintoken__state__2)
+     eliminated: this already exists (as H28).
+---  Attempted addition of new hypothesis:
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer)
+     eliminated: this already exists (as H29).
+>>>  Hypothesis H17 has now been split into two, giving:
+     >>>  H28:  admintoken__prf_isgood(admintoken__state__2)
+     >>>  H29:  admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer)
+---  Attempted addition of new hypothesis:
+          admintoken__prf_isgood(admintoken__state__2)
+     eliminated: this already exists (as H28).
+---  Attempted addition of new hypothesis:
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer)
+     eliminated: this already exists (as H29).
+>>>  Hypothesis H27 has now been split into two, giving:
+     >>>  H28:  admintoken__prf_isgood(admintoken__state__2)
+     >>>  H29:  admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer)
+>>>  Hypothesis H29 has now been split into two, giving:
+     >>>  H30:  admintoken__prf_authcertvalid(admintoken__state__2)
+     >>>  H31:  privtypes__guard <= admintoken__theauthcertrole(
+          admintoken__state__2) and admintoken__theauthcertrole(
+          admintoken__state__2) <= privtypes__securityofficer
+>>>  Hypothesis H31 has now been split into two, giving:
+     >>>  H32:  privtypes__guard <= admintoken__theauthcertrole(
+          admintoken__state__2)
+     >>>  H33:  admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer
+***  Proved C1:  admintoken__prf_isgood(admintoken__state__2)
+     using hypothesis H28.
+***  Proved C2:  admintoken__prf_authcertvalid(admintoken__state__2)
+     using hypothesis H30.
+***  Proved C3:  privtypes__guard <= admintoken__theauthcertrole(
+          admintoken__state__2)
+     using hypothesis H32.
+***  Proved C4:  admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer
+     using hypothesis H33.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validateadmintoken_7.  @@@@@@@@@@
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  admintoken__ispresent(admintoken__state)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  tokenok__2 <-> admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__adminprivileget__first <= admintoken__theauthcertrole(
+          admintoken__state__2) and admintoken__theauthcertrole(
+          admintoken__state__2) <= privtypes__adminprivileget__last))
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__2, [i___1]) and element(description__2, [
+          i___1]) <= character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) <= 
+          character__last)
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  audittypes__elementt__first <= audittypes__admintokenpresent
+---  Hypothesis H18 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as 
+          H13).
+%%%  Simplified H21 on reading formula in, to give:
+     %%%  H21:  audittypes__elementt__first <= audittypes__admintokenvalid
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  screen__msgtextt__first <= screen__requestadminop
+%%%  Simplified H25 on reading formula in, to give:
+     %%%  H25:  statust__first <= enclavequiescent
+%%%  Simplified H29 on reading formula in, to give:
+     %%%  H29:  privtypes__adminprivileget__first <= 
+          admintoken__theauthcertrole(admintoken__state__2)
+%%%  Simplified H31 on reading formula in, to give:
+     %%%  H31:  privtypes__adminprivileget__first <= admintoken__getrole(
+          admintoken__state__2)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  privtypes__adminprivileget__first <= admintoken__getrole(
+          admintoken__state__2)
+***  Proved C1:  privtypes__adminprivileget__first <= admintoken__getrole(
+          admintoken__state__2)
+     using hypothesis H31.
+***  Proved C2:  admintoken__getrole(admintoken__state__2) <= 
+          privtypes__adminprivileget__last
+     using hypothesis H32.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validateadmintoken_8.  @@@@@@@@@@
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  admintoken__ispresent(admintoken__state)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  tokenok__2 <-> admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__adminprivileget__first <= admintoken__theauthcertrole(
+          admintoken__state__2) and admintoken__theauthcertrole(
+          admintoken__state__2) <= privtypes__adminprivileget__last))
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__2, [i___1]) and element(description__2, [
+          i___1]) <= character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) <= 
+          character__last)
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  audittypes__elementt__first <= audittypes__admintokenpresent
+---  Hypothesis H18 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as 
+          H13).
+%%%  Simplified H21 on reading formula in, to give:
+     %%%  H21:  audittypes__elementt__first <= audittypes__admintokenvalid
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  screen__msgtextt__first <= screen__requestadminop
+%%%  Simplified H25 on reading formula in, to give:
+     %%%  H25:  statust__first <= enclavequiescent
+%%%  Simplified H29 on reading formula in, to give:
+     %%%  H29:  privtypes__adminprivileget__first <= 
+          admintoken__theauthcertrole(admintoken__state__2)
+%%%  Simplified H31 on reading formula in, to give:
+     %%%  H31:  privtypes__adminprivileget__first <= admintoken__getrole(
+          admintoken__state__2)
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H34 has been replaced by "true".  (It is already present, as 
+          H32).
++++  Using "A->B, A |- B" on hypotheses H8 & H17 yields a new hypothesis:
+     +++  H38:  admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__adminprivileget__first <= admintoken__theauthcertrole(
+          admintoken__state__2) and admintoken__theauthcertrole(
+          admintoken__state__2) <= privtypes__adminprivileget__last))
+---  Attempted addition of new hypothesis:
+          tokenok__2
+     eliminated: this already exists (as H17).
++++  Using "A->B, A |- B" on hypotheses H8 & H38 yields a new hypothesis:
+     +++  H17:  tokenok__2
+-S-  Applied substitution rule validateadmi_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H9:  for_all(i___1 : integer, audittypes__descriptioni__first <= i___1 
+          and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__2, [i___1]) and element(description__2, [i___1]) <= 
+          character__last)
+<S>  New H11:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> 0 <= element(
+          admintoken__extractuser(admintoken__state__2), [i___1]) and element(
+          admintoken__extractuser(admintoken__state__2), [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule validateadmi_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H9:  for_all(i___1 : integer, audittypes__descriptioni__first <= i___1 
+          and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__2, [i___1]) and element(description__2, [i___1]) <= 255)
+<S>  New H11:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> 0 <= element(
+          admintoken__extractuser(admintoken__state__2), [i___1]) and element(
+          admintoken__extractuser(admintoken__state__2), [i___1]) <= 255)
+-S-  Applied substitution rule validateadmi_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New H14:  true
+<S>  New H21:  true
+-S-  Applied substitution rule validateadmi_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New H15:  true
+<S>  New H22:  true
+-S-  Applied substitution rule validateadmi_rules(124).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New H12:  true
+-S-  Applied substitution rule validateadmi_rules(125).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New H13:  true
+-S-  Applied substitution rule validateadmi_rules(149).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__first by:
+          1.
+<S>  New H9:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(description__2, [i___1]
+          ) and element(description__2, [i___1]) <= 255)
+-S-  Applied substitution rule validateadmi_rules(150).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__last by:
+          150.
+<S>  New H9:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(description__2, [i___1]) and element(description__2, [i___1]) 
+          <= 255)
+-S-  Applied substitution rule validateadmi_rules(154).
+     This was achieved by replacing all occurrences of 
+          audittypes__usertexti__first by:
+          1.
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__usertexti__last -> 0 <= element(admintoken__extractuser(
+          admintoken__state__2), [i___1]) and element(admintoken__extractuser(
+          admintoken__state__2), [i___1]) <= 255)
+-S-  Applied substitution rule validateadmi_rules(155).
+     This was achieved by replacing all occurrences of 
+          audittypes__usertexti__last by:
+          50.
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 50 -> 0 <= 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) <= 
+          255)
+-S-  Applied substitution rule validateadmi_rules(186).
+     This was achieved by replacing all occurrences of 
+          privtypes__adminprivileget__first by:
+          privtypes__guard.
+<S>  New H8:  tokenok__2 <-> admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__adminprivileget__last))
+<S>  New H29:  privtypes__guard <= admintoken__theauthcertrole(
+          admintoken__state__2)
+<S>  New H31:  privtypes__guard <= admintoken__getrole(admintoken__state__2)
+<S>  New H38:  admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__adminprivileget__last))
+-S-  Applied substitution rule validateadmi_rules(187).
+     This was achieved by replacing all occurrences of 
+          privtypes__adminprivileget__last by:
+          privtypes__securityofficer.
+<S>  New H30:  admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer
+<S>  New H32:  admintoken__getrole(admintoken__state__2) <= 
+          privtypes__securityofficer
+<S>  New H8:  tokenok__2 <-> admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer))
+<S>  New H38:  admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer))
+-S-  Applied substitution rule validateadmi_rules(220).
+     This was achieved by replacing all occurrences of screen__msgtextt__first 
+          by:
+          screen__clear.
+<S>  New H23:  true
+-S-  Applied substitution rule validateadmi_rules(221).
+     This was achieved by replacing all occurrences of screen__msgtextt__last 
+          by:
+          screen__insertconfigdata.
+<S>  New H24:  true
+-S-  Applied substitution rule validateadmi_rules(269).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H25:  true
+-S-  Applied substitution rule validateadmi_rules(270).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H26:  true
+---  Eliminated hypothesis H6 (true-hypothesis).
+---  Eliminated hypothesis H10 (true-hypothesis).
+---  Eliminated hypothesis H16 (true-hypothesis).
+---  Eliminated hypothesis H18 (true-hypothesis).
+---  Eliminated hypothesis H19 (true-hypothesis).
+---  Eliminated hypothesis H20 (true-hypothesis).
+---  Eliminated hypothesis H33 (true-hypothesis).
+---  Eliminated hypothesis H34 (true-hypothesis).
+---  Eliminated hypothesis H14 (true-hypothesis).
+---  Eliminated hypothesis H21 (true-hypothesis).
+---  Eliminated hypothesis H15 (true-hypothesis).
+---  Eliminated hypothesis H22 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H13 (true-hypothesis).
+---  Eliminated hypothesis H23 (true-hypothesis).
+---  Eliminated hypothesis H24 (true-hypothesis).
+---  Eliminated hypothesis H25 (true-hypothesis).
+---  Eliminated hypothesis H26 (true-hypothesis).
+>>>  Using "A->B, A |- B" on H8, given H17, we simplify the former to:
+     >>>  H8:  admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer))
+-S-  Eliminated hypothesis H8.
+     This was achieved by replacing all occurrences of tokenok__2 by:
+          admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer)).
+<S>  New H17:  admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer))
+---  Attempted addition of new hypothesis:
+          admintoken__prf_isgood(admintoken__state__2)
+     eliminated: this already exists (as H27).
+>>>  Hypothesis H8 has now been split into two, giving:
+     >>>  H27:  admintoken__prf_isgood(admintoken__state__2)
+     >>>  H39:  admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer)
+---  Attempted addition of new hypothesis:
+          admintoken__prf_isgood(admintoken__state__2)
+     eliminated: this already exists (as H27).
+---  Attempted addition of new hypothesis:
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer)
+     eliminated: this already exists (as H39).
+>>>  Hypothesis H17 has now been split into two, giving:
+     >>>  H27:  admintoken__prf_isgood(admintoken__state__2)
+     >>>  H39:  admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer)
+---  Attempted addition of new hypothesis:
+          admintoken__prf_isgood(admintoken__state__2)
+     eliminated: this already exists (as H27).
+---  Attempted addition of new hypothesis:
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer)
+     eliminated: this already exists (as H39).
+>>>  Hypothesis H38 has now been split into two, giving:
+     >>>  H27:  admintoken__prf_isgood(admintoken__state__2)
+     >>>  H39:  admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer)
+---  Attempted addition of new hypothesis:
+          admintoken__prf_authcertvalid(admintoken__state__2)
+     eliminated: this already exists (as H28).
+>>>  Hypothesis H39 has now been split into two, giving:
+     >>>  H28:  admintoken__prf_authcertvalid(admintoken__state__2)
+     >>>  H40:  privtypes__guard <= admintoken__theauthcertrole(
+          admintoken__state__2) and admintoken__theauthcertrole(
+          admintoken__state__2) <= privtypes__securityofficer
+---  Attempted addition of new hypothesis:
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2)
+     eliminated: this already exists (as H29).
+---  Attempted addition of new hypothesis:
+          admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer
+     eliminated: this already exists (as H30).
+>>>  Hypothesis H40 has now been split into two, giving:
+     >>>  H29:  privtypes__guard <= admintoken__theauthcertrole(
+          admintoken__state__2)
+     >>>  H30:  admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer
+     +++  New H41:  integer__size >= 0
+     +++  New H42:  character__size >= 0
+     +++  New H43:  positive__size >= 0
+     +++  New H44:  audittypes__elementt__size >= 0
+     +++  New H45:  audittypes__severityt__size >= 0
+     +++  New H46:  audittypes__descriptioni__size >= 0
+     +++  New H47:  audittypes__usertexti__size >= 0
+     +++  New H48:  privtypes__privileget__size >= 0
+     +++  New H49:  privtypes__adminprivileget__size >= 0
+     +++  New H50:  admin__opandnullt__size >= 0
+     +++  New H51:  screen__msgtextt__size >= 0
+     +++  New H52:  statust__size >= 0
+***  Proved C1:  admintoken__getrole(admintoken__state__2) = privtypes__guard 
+          -> admintoken__theauthcertrole(admintoken__state__2) = 
+          privtypes__guard
+     This was achieved by applying the rewrite rule enclave_user(14)
+     [from rulefile enclave.rlu] to rewrite this conclusion to:
+<S>  C1:  admintoken__theauthcertrole(admintoken__state__2) = privtypes__guard 
+          -> admintoken__theauthcertrole(admintoken__state__2) = 
+          privtypes__guard
+     This rule could be applied because its side-conditions hold, as follows:
+     <<<  By simple reasoning, proved: admintoken__theauthcertrole(
+          admintoken__state__2) = privtypes__guard -> 
+          admintoken__theauthcertrole(admintoken__state__2) = privtypes__guard
+     <<<  Immediate condition checktype(admintoken__state__2, 
+          admintoken__statetype) evaluated successfully
+***  PROVED VC.
+
+VCN  8: Summary of user rule application.
+FIL  enclave.rlu
+RUL     enclave_user(14)
+CON        1
+
+
+@@@@@@@@@@  VC: procedure_validateadmintoken_9.  @@@@@@@@@@
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  admintoken__ispresent(admintoken__state)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  tokenok__2 <-> admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__adminprivileget__first <= admintoken__theauthcertrole(
+          admintoken__state__2) and admintoken__theauthcertrole(
+          admintoken__state__2) <= privtypes__adminprivileget__last))
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__2, [i___1]) and element(description__2, [
+          i___1]) <= character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) <= 
+          character__last)
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  audittypes__elementt__first <= audittypes__admintokenpresent
+---  Hypothesis H18 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as H9)
+          .
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__admintokeninvalid
+***  Proved C1:  audittypes__severityt__first <= audittypes__warning
+     using hypothesis H12.
+***  Proved C3:  audittypes__elementt__first <= audittypes__admintokeninvalid
+     using hypothesis H14.
+-S-  Applied substitution rule validateadmi_rules(125).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New H13:  true
+<S>  New C2:  true
+-S-  Applied substitution rule validateadmi_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New H15:  true
+<S>  New C4:  true
+***  Proved C2:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validateadmintoken_10.  @@@@@@@@@@
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  admintoken__ispresent(admintoken__state)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  tokenok__2 <-> admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__adminprivileget__first <= admintoken__theauthcertrole(
+          admintoken__state__2) and admintoken__theauthcertrole(
+          admintoken__state__2) <= privtypes__adminprivileget__last))
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__2, [i___1]) and element(description__2, [
+          i___1]) <= character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) <= 
+          character__last)
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  audittypes__elementt__first <= audittypes__admintokenpresent
+---  Hypothesis H18 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as H9)
+          .
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified H22 on reading formula in, to give:
+     %%%  H22:  audittypes__elementt__first <= audittypes__admintokeninvalid
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  screen__msgtextt__first <= screen__removeadmintoken
+-S-  Applied substitution rule validateadmi_rules(220).
+     This was achieved by replacing all occurrences of screen__msgtextt__first 
+          by:
+          screen__clear.
+<S>  New C1:  true
+-S-  Applied substitution rule validateadmi_rules(221).
+     This was achieved by replacing all occurrences of screen__msgtextt__last 
+          by:
+          screen__insertconfigdata.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validateadmintoken_11.  @@@@@@@@@@
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  admintoken__ispresent(admintoken__state)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  tokenok__2 <-> admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__adminprivileget__first <= admintoken__theauthcertrole(
+          admintoken__state__2) and admintoken__theauthcertrole(
+          admintoken__state__2) <= privtypes__adminprivileget__last))
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__2, [i___1]) and element(description__2, [
+          i___1]) <= character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) <= 
+          character__last)
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  audittypes__elementt__first <= audittypes__admintokenpresent
+---  Hypothesis H18 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as H9)
+          .
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified H22 on reading formula in, to give:
+     %%%  H22:  audittypes__elementt__first <= audittypes__admintokeninvalid
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  screen__msgtextt__first <= screen__removeadmintoken
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  statust__first <= waitingremoveadmintokenfail
+-S-  Applied substitution rule validateadmi_rules(269).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New C1:  true
+-S-  Applied substitution rule validateadmi_rules(270).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validateadmintoken_12.  @@@@@@@@@@
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  admintoken__ispresent(admintoken__state)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  tokenok__2 <-> admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__adminprivileget__first <= admintoken__theauthcertrole(
+          admintoken__state__2) and admintoken__theauthcertrole(
+          admintoken__state__2) <= privtypes__adminprivileget__last))
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__2, [i___1]) and element(description__2, [
+          i___1]) <= character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) <= 
+          character__last)
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  audittypes__elementt__first <= audittypes__admintokenpresent
+---  Hypothesis H18 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as H9)
+          .
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified H22 on reading formula in, to give:
+     %%%  H22:  audittypes__elementt__first <= audittypes__admintokeninvalid
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  screen__msgtextt__first <= screen__removeadmintoken
+%%%  Simplified H26 on reading formula in, to give:
+     %%%  H26:  statust__first <= waitingremoveadmintokenfail
++++  Using "A->B, not B |- not A" on hypotheses H8 & H17 yields a new 
+          hypothesis:
+     +++  H28:  not admintoken__prf_isgood(admintoken__state__2) or (not 
+          admintoken__prf_authcertvalid(admintoken__state__2) or (
+          admintoken__theauthcertrole(admintoken__state__2) < 
+          privtypes__adminprivileget__first or privtypes__adminprivileget__last 
+          < admintoken__theauthcertrole(admintoken__state__2)))
+-S-  Applied substitution rule validateadmi_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H9:  for_all(i___1 : integer, audittypes__descriptioni__first <= i___1 
+          and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__2, [i___1]) and element(description__2, [i___1]) <= 
+          character__last)
+<S>  New H11:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> 0 <= element(
+          admintoken__extractuser(admintoken__state__2), [i___1]) and element(
+          admintoken__extractuser(admintoken__state__2), [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule validateadmi_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H9:  for_all(i___1 : integer, audittypes__descriptioni__first <= i___1 
+          and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__2, [i___1]) and element(description__2, [i___1]) <= 255)
+<S>  New H11:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> 0 <= element(
+          admintoken__extractuser(admintoken__state__2), [i___1]) and element(
+          admintoken__extractuser(admintoken__state__2), [i___1]) <= 255)
+-S-  Applied substitution rule validateadmi_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New H14:  true
+<S>  New H22:  true
+-S-  Applied substitution rule validateadmi_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New H15:  true
+<S>  New H23:  true
+-S-  Applied substitution rule validateadmi_rules(124).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New H12:  true
+<S>  New H20:  true
+-S-  Applied substitution rule validateadmi_rules(125).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New H13:  true
+<S>  New H21:  true
+-S-  Applied substitution rule validateadmi_rules(149).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__first by:
+          1.
+<S>  New H9:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(description__2, [i___1]
+          ) and element(description__2, [i___1]) <= 255)
+-S-  Applied substitution rule validateadmi_rules(150).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__last by:
+          150.
+<S>  New H9:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(description__2, [i___1]) and element(description__2, [i___1]) 
+          <= 255)
+-S-  Applied substitution rule validateadmi_rules(154).
+     This was achieved by replacing all occurrences of 
+          audittypes__usertexti__first by:
+          1.
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__usertexti__last -> 0 <= element(admintoken__extractuser(
+          admintoken__state__2), [i___1]) and element(admintoken__extractuser(
+          admintoken__state__2), [i___1]) <= 255)
+-S-  Applied substitution rule validateadmi_rules(155).
+     This was achieved by replacing all occurrences of 
+          audittypes__usertexti__last by:
+          50.
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 50 -> 0 <= 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) <= 
+          255)
+-S-  Applied substitution rule validateadmi_rules(186).
+     This was achieved by replacing all occurrences of 
+          privtypes__adminprivileget__first by:
+          privtypes__guard.
+<S>  New H8:  tokenok__2 <-> admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__adminprivileget__last))
+<S>  New H28:  not admintoken__prf_isgood(admintoken__state__2) or (not 
+          admintoken__prf_authcertvalid(admintoken__state__2) or (
+          admintoken__theauthcertrole(admintoken__state__2) < privtypes__guard 
+          or privtypes__adminprivileget__last < admintoken__theauthcertrole(
+          admintoken__state__2)))
+-S-  Applied substitution rule validateadmi_rules(187).
+     This was achieved by replacing all occurrences of 
+          privtypes__adminprivileget__last by:
+          privtypes__securityofficer.
+<S>  New H8:  tokenok__2 <-> admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer))
+<S>  New H28:  not admintoken__prf_isgood(admintoken__state__2) or (not 
+          admintoken__prf_authcertvalid(admintoken__state__2) or (
+          admintoken__theauthcertrole(admintoken__state__2) < privtypes__guard 
+          or privtypes__securityofficer < admintoken__theauthcertrole(
+          admintoken__state__2)))
+-S-  Applied substitution rule validateadmi_rules(220).
+     This was achieved by replacing all occurrences of screen__msgtextt__first 
+          by:
+          screen__clear.
+<S>  New H24:  true
+-S-  Applied substitution rule validateadmi_rules(221).
+     This was achieved by replacing all occurrences of screen__msgtextt__last 
+          by:
+          screen__insertconfigdata.
+<S>  New H25:  true
+-S-  Applied substitution rule validateadmi_rules(269).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H26:  true
+-S-  Applied substitution rule validateadmi_rules(270).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H27:  true
+---  Eliminated hypothesis H6 (true-hypothesis).
+---  Eliminated hypothesis H10 (true-hypothesis).
+---  Eliminated hypothesis H16 (true-hypothesis).
+---  Eliminated hypothesis H18 (true-hypothesis).
+---  Eliminated hypothesis H19 (true-hypothesis).
+---  Eliminated hypothesis H14 (true-hypothesis).
+---  Eliminated hypothesis H22 (true-hypothesis).
+---  Eliminated hypothesis H15 (true-hypothesis).
+---  Eliminated hypothesis H23 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H20 (true-hypothesis).
+---  Eliminated hypothesis H13 (true-hypothesis).
+---  Eliminated hypothesis H21 (true-hypothesis).
+---  Eliminated hypothesis H24 (true-hypothesis).
+---  Eliminated hypothesis H25 (true-hypothesis).
+---  Eliminated hypothesis H26 (true-hypothesis).
+---  Eliminated hypothesis H27 (true-hypothesis).
+-S-  Eliminated hypothesis H8.
+     This was achieved by replacing all occurrences of tokenok__2 by:
+          admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer)).
+<S>  New H17:  not (admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer)))
+>>>  Restructured hypothesis H17 into:
+     >>>  H17:  not admintoken__prf_isgood(admintoken__state__2) or (not 
+          admintoken__prf_authcertvalid(admintoken__state__2) or (
+          admintoken__theauthcertrole(admintoken__state__2) < privtypes__guard 
+          or privtypes__securityofficer < admintoken__theauthcertrole(
+          admintoken__state__2)))
+     +++  New H29:  integer__size >= 0
+     +++  New H30:  character__size >= 0
+     +++  New H31:  positive__size >= 0
+     +++  New H32:  audittypes__elementt__size >= 0
+     +++  New H33:  audittypes__severityt__size >= 0
+     +++  New H34:  audittypes__descriptioni__size >= 0
+     +++  New H35:  audittypes__usertexti__size >= 0
+     +++  New H36:  privtypes__privileget__size >= 0
+     +++  New H37:  privtypes__adminprivileget__size >= 0
+     +++  New H38:  admin__opandnullt__size >= 0
+     +++  New H39:  screen__msgtextt__size >= 0
+     +++  New H40:  statust__size >= 0
+***  Proved C1:  admin__prf_rolepresent(theadmin) <> privtypes__guard
+     This was achieved by applying the inference rule enclave_user(2)
+     [from rulefile enclave.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H1, proved: not admin__ispresent(theadmin)
+***  PROVED VC.
+
+VCN  12: Summary of user rule application.
+FIL  enclave.rlu
+RUL     enclave_user(2)
+CON        1
+
+
+@@@@@@@@@@  VC: procedure_validateadmintoken_13.  @@@@@@@@@@
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  statust__first <= status__1
+***  Proved C1:  status__1 = enclavequiescent or status__1 = 
+          waitingremoveadmintokenfail
+     using hypothesis H8.
+***  Proved C2:  status__1 = waitingremoveadmintokenfail -> not 
+          admin__ispresent(theadmin)
+     using hypothesis H1.
+***  Proved C3:  not admin__isdoingop(theadmin)
+     using hypothesis H2.
+***  Proved C4:  admin__prf_rolepresent(theadmin) = privtypes__guard -> 
+          admintoken__prf_isgood(admintoken__state__1) and (
+          admintoken__prf_authcertvalid(admintoken__state__1) and 
+          admintoken__theauthcertrole(admintoken__state__1) = privtypes__guard)
+     using hypothesis H11.
+***  Proved C5:  admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__overridelock -> admin__prf_rolepresent(theadmin) = 
+          privtypes__guard
+     using hypothesis H4.
+***  Proved C6:  admin__prf_rolepresent(theadmin) = privtypes__guard -> 
+          admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__overridelock or not admin__isdoingop(theadmin)
+     using hypothesis H5.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validateadmintoken_14.  @@@@@@@@@@
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  admintoken__ispresent(admintoken__state)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  tokenok__2 <-> admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__adminprivileget__first <= admintoken__theauthcertrole(
+          admintoken__state__2) and admintoken__theauthcertrole(
+          admintoken__state__2) <= privtypes__adminprivileget__last))
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__2, [i___1]) and element(description__2, [
+          i___1]) <= character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) <= 
+          character__last)
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  audittypes__elementt__first <= audittypes__admintokenpresent
+---  Hypothesis H18 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as 
+          H13).
+%%%  Simplified H21 on reading formula in, to give:
+     %%%  H21:  audittypes__elementt__first <= audittypes__admintokenvalid
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  screen__msgtextt__first <= screen__requestadminop
+%%%  Simplified H25 on reading formula in, to give:
+     %%%  H25:  statust__first <= enclavequiescent
+%%%  Simplified H29 on reading formula in, to give:
+     %%%  H29:  privtypes__adminprivileget__first <= 
+          admintoken__theauthcertrole(admintoken__state__2)
+%%%  Simplified H31 on reading formula in, to give:
+     %%%  H31:  privtypes__adminprivileget__first <= admintoken__getrole(
+          admintoken__state__2)
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as 
+          H31).
+---  Hypothesis H34 has been replaced by "true".  (It is already present, as 
+          H32).
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  true
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  not admin__isdoingop(theadmin__6)
+     using hypothesis H36.
+***  Proved C5:  admin__isdoingop(theadmin__6) and admin__thecurrentop(
+          theadmin__6) = admin__overridelock -> admin__prf_rolepresent(
+          theadmin__6) = privtypes__guard
+     using hypothesis H36.
+***  Proved C6:  admin__prf_rolepresent(theadmin__6) = privtypes__guard -> 
+          admin__isdoingop(theadmin__6) and admin__thecurrentop(theadmin__6) = 
+          admin__overridelock or not admin__isdoingop(theadmin__6)
+     using hypothesis H36.
++++  Using "A->B, A |- B" on hypotheses H8 & H17 yields a new hypothesis:
+     +++  H39:  admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__adminprivileget__first <= admintoken__theauthcertrole(
+          admintoken__state__2) and admintoken__theauthcertrole(
+          admintoken__state__2) <= privtypes__adminprivileget__last))
+---  Attempted addition of new hypothesis:
+          tokenok__2
+     eliminated: this already exists (as H17).
++++  Using "A->B, A |- B" on hypotheses H8 & H39 yields a new hypothesis:
+     +++  H17:  tokenok__2
+-S-  Applied substitution rule validateadmi_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H9:  for_all(i___1 : integer, audittypes__descriptioni__first <= i___1 
+          and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__2, [i___1]) and element(description__2, [i___1]) <= 
+          character__last)
+<S>  New H11:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> 0 <= element(
+          admintoken__extractuser(admintoken__state__2), [i___1]) and element(
+          admintoken__extractuser(admintoken__state__2), [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule validateadmi_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H9:  for_all(i___1 : integer, audittypes__descriptioni__first <= i___1 
+          and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__2, [i___1]) and element(description__2, [i___1]) <= 255)
+<S>  New H11:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> 0 <= element(
+          admintoken__extractuser(admintoken__state__2), [i___1]) and element(
+          admintoken__extractuser(admintoken__state__2), [i___1]) <= 255)
+-S-  Applied substitution rule validateadmi_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New H14:  true
+<S>  New H21:  true
+-S-  Applied substitution rule validateadmi_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New H15:  true
+<S>  New H22:  true
+-S-  Applied substitution rule validateadmi_rules(124).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New H12:  true
+-S-  Applied substitution rule validateadmi_rules(125).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New H13:  true
+-S-  Applied substitution rule validateadmi_rules(149).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__first by:
+          1.
+<S>  New H9:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(description__2, [i___1]
+          ) and element(description__2, [i___1]) <= 255)
+-S-  Applied substitution rule validateadmi_rules(150).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__last by:
+          150.
+<S>  New H9:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(description__2, [i___1]) and element(description__2, [i___1]) 
+          <= 255)
+-S-  Applied substitution rule validateadmi_rules(154).
+     This was achieved by replacing all occurrences of 
+          audittypes__usertexti__first by:
+          1.
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__usertexti__last -> 0 <= element(admintoken__extractuser(
+          admintoken__state__2), [i___1]) and element(admintoken__extractuser(
+          admintoken__state__2), [i___1]) <= 255)
+-S-  Applied substitution rule validateadmi_rules(155).
+     This was achieved by replacing all occurrences of 
+          audittypes__usertexti__last by:
+          50.
+<S>  New H11:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 50 -> 0 <= 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) <= 
+          255)
+-S-  Applied substitution rule validateadmi_rules(186).
+     This was achieved by replacing all occurrences of 
+          privtypes__adminprivileget__first by:
+          privtypes__guard.
+<S>  New H8:  tokenok__2 <-> admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__adminprivileget__last))
+<S>  New H29:  privtypes__guard <= admintoken__theauthcertrole(
+          admintoken__state__2)
+<S>  New H31:  privtypes__guard <= admintoken__getrole(admintoken__state__2)
+<S>  New H39:  admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__adminprivileget__last))
+-S-  Applied substitution rule validateadmi_rules(187).
+     This was achieved by replacing all occurrences of 
+          privtypes__adminprivileget__last by:
+          privtypes__securityofficer.
+<S>  New H30:  admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer
+<S>  New H32:  admintoken__getrole(admintoken__state__2) <= 
+          privtypes__securityofficer
+<S>  New H8:  tokenok__2 <-> admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer))
+<S>  New H39:  admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer))
+-S-  Applied substitution rule validateadmi_rules(220).
+     This was achieved by replacing all occurrences of screen__msgtextt__first 
+          by:
+          screen__clear.
+<S>  New H23:  true
+-S-  Applied substitution rule validateadmi_rules(221).
+     This was achieved by replacing all occurrences of screen__msgtextt__last 
+          by:
+          screen__insertconfigdata.
+<S>  New H24:  true
+-S-  Applied substitution rule validateadmi_rules(269).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H25:  true
+-S-  Applied substitution rule validateadmi_rules(270).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H26:  true
+---  Eliminated hypothesis H6 (true-hypothesis).
+---  Eliminated hypothesis H10 (true-hypothesis).
+---  Eliminated hypothesis H16 (true-hypothesis).
+---  Eliminated hypothesis H18 (true-hypothesis).
+---  Eliminated hypothesis H19 (true-hypothesis).
+---  Eliminated hypothesis H20 (true-hypothesis).
+---  Eliminated hypothesis H33 (true-hypothesis).
+---  Eliminated hypothesis H34 (true-hypothesis).
+---  Eliminated hypothesis H14 (true-hypothesis).
+---  Eliminated hypothesis H21 (true-hypothesis).
+---  Eliminated hypothesis H15 (true-hypothesis).
+---  Eliminated hypothesis H22 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H13 (true-hypothesis).
+---  Eliminated hypothesis H23 (true-hypothesis).
+---  Eliminated hypothesis H24 (true-hypothesis).
+---  Eliminated hypothesis H25 (true-hypothesis).
+---  Eliminated hypothesis H26 (true-hypothesis).
+>>>  Using "A->B, A |- B" on H8, given H17, we simplify the former to:
+     >>>  H8:  admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer))
+-S-  Eliminated hypothesis H8.
+     This was achieved by replacing all occurrences of tokenok__2 by:
+          admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer)).
+<S>  New H17:  admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer))
+---  Attempted addition of new hypothesis:
+          admintoken__prf_isgood(admintoken__state__2)
+     eliminated: this already exists (as H27).
+>>>  Hypothesis H8 has now been split into two, giving:
+     >>>  H27:  admintoken__prf_isgood(admintoken__state__2)
+     >>>  H40:  admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer)
+---  Attempted addition of new hypothesis:
+          admintoken__prf_isgood(admintoken__state__2)
+     eliminated: this already exists (as H27).
+---  Attempted addition of new hypothesis:
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer)
+     eliminated: this already exists (as H40).
+>>>  Hypothesis H17 has now been split into two, giving:
+     >>>  H27:  admintoken__prf_isgood(admintoken__state__2)
+     >>>  H40:  admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer)
+---  Attempted addition of new hypothesis:
+          admintoken__prf_isgood(admintoken__state__2)
+     eliminated: this already exists (as H27).
+---  Attempted addition of new hypothesis:
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer)
+     eliminated: this already exists (as H40).
+>>>  Hypothesis H39 has now been split into two, giving:
+     >>>  H27:  admintoken__prf_isgood(admintoken__state__2)
+     >>>  H40:  admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2) 
+          and admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer)
+---  Attempted addition of new hypothesis:
+          admintoken__prf_authcertvalid(admintoken__state__2)
+     eliminated: this already exists (as H28).
+>>>  Hypothesis H40 has now been split into two, giving:
+     >>>  H28:  admintoken__prf_authcertvalid(admintoken__state__2)
+     >>>  H41:  privtypes__guard <= admintoken__theauthcertrole(
+          admintoken__state__2) and admintoken__theauthcertrole(
+          admintoken__state__2) <= privtypes__securityofficer
+---  Attempted addition of new hypothesis:
+          privtypes__guard <= admintoken__theauthcertrole(admintoken__state__2)
+     eliminated: this already exists (as H29).
+---  Attempted addition of new hypothesis:
+          admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer
+     eliminated: this already exists (as H30).
+>>>  Hypothesis H41 has now been split into two, giving:
+     >>>  H29:  privtypes__guard <= admintoken__theauthcertrole(
+          admintoken__state__2)
+     >>>  H30:  admintoken__theauthcertrole(admintoken__state__2) <= 
+          privtypes__securityofficer
+     +++  New H42:  integer__size >= 0
+     +++  New H43:  character__size >= 0
+     +++  New H44:  positive__size >= 0
+     +++  New H45:  audittypes__elementt__size >= 0
+     +++  New H46:  audittypes__severityt__size >= 0
+     +++  New H47:  audittypes__descriptioni__size >= 0
+     +++  New H48:  audittypes__usertexti__size >= 0
+     +++  New H49:  privtypes__privileget__size >= 0
+     +++  New H50:  privtypes__adminprivileget__size >= 0
+     +++  New H51:  admin__opandnullt__size >= 0
+     +++  New H52:  screen__msgtextt__size >= 0
+     +++  New H53:  statust__size >= 0
+>>>  Conclusion C4 is an implication formula [P->Q].
+     Attempting to prove this by proving Q while adding P to the hypotheses.
++++  Added new hypotheses (in proving an implication formula).
+     +++  New H54:  admin__prf_rolepresent(theadmin__6) = privtypes__guard
+>>>  Using "A->B, A |- B" on H35, given H54, we simplify the former to:
+     >>>  H35:  admintoken__getrole(admintoken__state__2) = privtypes__guard
++++  Using "A->B, A |- B" on hypotheses H38 & H35 yields a new hypothesis:
+     +++  H55:  admintoken__theauthcertrole(admintoken__state__2) = 
+          privtypes__guard
++++  New subgoal C1:  admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and 
+          admintoken__theauthcertrole(admintoken__state__2) = privtypes__guard)
+>>>  Conclusion C1 has now been split into two, giving:
+     >>>  C1:  admintoken__prf_isgood(admintoken__state__2)
+     >>>  C2:  admintoken__prf_authcertvalid(admintoken__state__2) and 
+          admintoken__theauthcertrole(admintoken__state__2) = privtypes__guard
+>>>  Conclusion C2 has now been split into two, giving:
+     >>>  C2:  admintoken__prf_authcertvalid(admintoken__state__2)
+     >>>  C3:  admintoken__theauthcertrole(admintoken__state__2) = 
+          privtypes__guard
+---  Attempted addition of new hypothesis:
+          admintoken__theauthcertrole(admintoken__state__2) = privtypes__guard
+     eliminated: this already exists (as H55).
++++  Using "A->B, A |- B" on hypotheses H38 & H35 yields a new hypothesis:
+     +++  H55:  admintoken__theauthcertrole(admintoken__state__2) = 
+          privtypes__guard
+***  Proved subgoal C1
+     using hypothesis H27.
+***  Proved subgoal C2
+     using hypothesis H28.
+***  Proved subgoal C3
+     using hypothesis H55.
+***  Proved C4:  admin__prf_rolepresent(theadmin__6) = privtypes__guard -> 
+          admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and 
+          admintoken__theauthcertrole(admintoken__state__2) = privtypes__guard)
+     by implication.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_validateadmintoken_15.  @@@@@@@@@@
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  admintoken__ispresent(admintoken__state)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  tokenok__2 <-> admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and (
+          privtypes__adminprivileget__first <= admintoken__theauthcertrole(
+          admintoken__state__2) and admintoken__theauthcertrole(
+          admintoken__state__2) <= privtypes__adminprivileget__last))
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__2, [i___1]) and element(description__2, [
+          i___1]) <= character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state__2), [i___1]) <= 
+          character__last)
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  audittypes__elementt__first <= audittypes__admintokenpresent
+---  Hypothesis H18 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as H9)
+          .
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified H22 on reading formula in, to give:
+     %%%  H22:  audittypes__elementt__first <= audittypes__admintokeninvalid
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  screen__msgtextt__first <= screen__removeadmintoken
+%%%  Simplified H26 on reading formula in, to give:
+     %%%  H26:  statust__first <= waitingremoveadmintokenfail
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  true
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  not admin__ispresent(theadmin)
+***  Proved C1:  true
+***  Proved C2:  not admin__ispresent(theadmin)
+     using hypothesis H1.
+***  Proved C3:  not admin__isdoingop(theadmin)
+     using hypothesis H2.
+***  Proved C4:  admin__prf_rolepresent(theadmin) = privtypes__guard -> 
+          admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and 
+          admintoken__theauthcertrole(admintoken__state__2) = privtypes__guard)
+     using hypothesis H28.
+***  Proved C5:  admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__overridelock -> admin__prf_rolepresent(theadmin) = 
+          privtypes__guard
+     using hypothesis H4.
+***  Proved C6:  admin__prf_rolepresent(theadmin) = privtypes__guard -> 
+          admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__overridelock or not admin__isdoingop(theadmin)
+     using hypothesis H5.
+***  PROVED VC.
+
+
+OVR  Overall summary of VCs using user rules.
+FIL  enclave.rlu
+RUL     enclave_user(2)
+VCS        1, 12
+RUL     enclave_user(14)
+VCS        8
+

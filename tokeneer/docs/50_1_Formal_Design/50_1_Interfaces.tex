@@ -1,0 +1,460 @@
+
+%=========================================================================
+\chapter{Operations interfacing to the ID Station}
+\label{sec:Interfaces}
+%=========================================================================
+
+%-------------------------------------------------------------------------
+\section{Real World Changes}
+%-------------------------------------------------------------------------
+The monitored components of the real world can change at any time.
+The only assumption we make of the real world is that time increases.
+
+\begin{schema}{RealWorldTimeChanges}
+        nowC, nowC' :TIME
+\where
+        nowC' \geq nowC
+\end{schema}
+
+\begin{zed}
+        RealWorldChangesC \defs RealWorldTimeChanges \land \Delta RealWorldC
+\end{zed}
+
+\begin{schema}{RealWorldChanges}
+        \Delta RealWorld
+\where
+        now' \geq now
+\end{schema}
+
+%-------------------------------------------------------------------------
+\section{Obtaining inputs from the real world}
+%-------------------------------------------------------------------------
+
+Most data is polled from the real world on a periodic basis. 
+Some items are however only read when the system is in a state to
+receive data. This includes reading the contents of Tokens, the floppy
+disk and the keyboard.
+
+
+%.................................
+\subsection{Polling the real world}
+%.................................
+
+\begin{traceunit}{FD.Interface.TISPoll}
+\traceto{FS.Interface.TISPoll}
+\end{traceunit}
+
+We poll all of the real world entities. For those entities that take
+time to read we simply check for the presence of data. 
+
+\begin{traceunit}{FD.Interface.PollTime}
+\traceto{FD.Interface.TISPoll}
+\end{traceunit}
+
+\begin{schema}{PollTimeC}
+	\Delta DoorLatchAlarmC
+\\       RealWorldC
+\where
+	currentTimeC' = nowC
+\end{schema}
+
+\begin{traceunit}{FD.Interface.PollDoor}
+\traceto{FD.Interface.TISPoll}
+\end{traceunit}
+
+When polling the door, we do not change the alarm timeout or latch
+timeout. 
+
+\begin{schema}{PollDoorC}
+	\Delta DoorLatchAlarmC
+\\	RealWorldC
+\where
+	currentDoorC' = doorC
+\\	latchTimeoutC' = latchTimeoutC
+\\	alarmTimeoutC' = alarmTimeoutC
+\\      doorAlarmC' = doorAlarmC
+\\      currentLatchC' = currentLatchC
+\end{schema}
+
+The internal representation of the latch or the alarm may need to be
+updated as a result of changes to the attributes that influence their
+values. 
+
+\begin{zed}
+        PollTimeAndDoor \defs (PollTimeC \land PollDoorC) 
+       \semi UpdateInternalLatch \semi UpdateInternalAlarm
+\end{zed}
+
+The system only polls for the presence of the tokens, finger, floppy and
+keyboard data. This is a
+refinement from the Formal Specification \cite{FS}, which made the
+assumption that all inputs could be read sufficiently fast to perform
+the read regularly, see Section \ref{sec:DemandReading}. These entities are either required
+infrequently or are time consuming to read so within the design they are only read when
+data is present and the system requires the information.
+
+\begin{traceunit}{FD.Interface.PollUserToken}
+\traceto{FD.Interface.TISPoll}
+\end{traceunit}
+
+\begin{schema}{PollUserTokenC}
+        \Delta UserTokenC
+\\	RealWorldC
+\where
+	userTokenPresenceC' = present \iff userTokenC \neq noTC
+\\	currentUserTokenC' =   currentUserTokenC
+\end{schema}
+
+\begin{traceunit}{FD.Interface.PollAdminToken}
+\traceto{FD.Interface.TISPoll}
+\end{traceunit}
+
+\begin{schema}{PollAdminTokenC}
+	\Delta AdminTokenC
+\\      RealWorldC
+\where
+	adminTokenPresenceC' = present \iff adminTokenC \neq noTC
+\\	currentAdminTokenC' =  currentAdminTokenC
+\end{schema}
+
+\begin{traceunit}{FD.Interface.PollFinger}
+\traceto{FD.Interface.TISPoll}
+\end{traceunit}
+
+\begin{schema}{PollFingerC}
+	\Delta FingerC
+\\	RealWorldC
+\where
+	fingerPresenceC' = present \iff fingerC \neq noFP
+\end{schema}
+
+\begin{traceunit}{FD.Interface.PollFloppy}
+\traceto{FD.Interface.TISPoll}
+\end{traceunit}
+
+\begin{schema}{PollFloppyC}
+        \Delta FloppyC
+\\      RealWorldC
+\where
+	floppyPresenceC' = present \iff floppyC \neq noFloppyC
+\\      currentFloppyC' =  currentFloppyC
+\\      writtenFloppyC' = writtenFloppyC
+\end{schema}
+
+\begin{traceunit}{FD.Interface.PollKeyboard}
+\traceto{FD.Interface.TISPoll}
+\end{traceunit}
+
+\begin{schema}{PollKeyboardC}
+        \Delta KeyboardC
+\\      RealWorldC
+\where
+        keyedDataPresenceC = present \iff keyboardC \neq noKB
+\end{schema}
+
+So the overall poll operation is obtained by combining all the
+individual polling actions.
+
+\begin{traceunit}{FD.Interface.DisplayPollUpdate}
+\traceto{FD.Interface.TISPoll}
+\end{traceunit}
+
+If the user is
+currently being invited to enter the enclave on the display and the 
+door becomes latched then the display will change to indicate that the
+system is no longer offering entry.
+
+\begin{schema}{DisplayPollUpdate}
+        \Delta IDStationC
+\where
+        currentLatchC' = locked
+\\ \t1  \land (currentDisplayC = doorUnlocked 
+\\ \t2  \land        (statusC \neq waitingRemoveTokenFail \land
+        currentDisplayC' = welcome
+\\ \t3  \lor statusC = waitingRemoveTokenFail \land currentDisplayC' =
+removeToken)
+\\ \t1  ~~~~\lor currentDisplayC \neq doorUnlocked 
+\\ \t2  \land currentDisplayC' = currentDisplayC)
+\\      \lor
+        currentLatchC' \neq locked 
+\\ \t1 \land currentDisplayC' = currentDisplayC
+\end{schema}
+
+We assume that while polling occurs the $RealWorld$ does not
+change. This is a reasonable assumption since all information polled
+is easy and quick to obtain.
+
+\begin{schema}{PollC}
+	\Delta IDStationC
+\\      \Xi RealWorldC
+\also
+	PollTimeAndDoor
+\\	PollUserTokenC
+\\	PollAdminTokenC
+\\	PollFingerC
+\\      PollFloppyC
+\\      PollKeyboardC
+\\      DisplayPollUpdate
+\also
+        \Xi ConfigC
+\\      \Xi KeyStoreC
+\\      \Xi CertificateStore
+\\      \Xi AdminC
+\\      \Xi StatsC
+\\      \Xi InternalC
+\where
+        currentScreenC' = currentScreenC
+\end{schema}
+
+Polling the real world may result in changes which need to be audited.
+The only events that will appear in the audit log during polling are 
+the user independent elements.
+
+\begin{zed}
+        TISPollC \defs PollC \land LogChangeC 
+\\ \t2 \land
+        [ AddElementsToLogC | auditTypes~ newElements? \subseteq
+        USER\_INDEPENDENT\_ELEMENTS ] \hide ( newElements? )
+\end{zed}
+
+%..........................
+\subsection{Reading Real World Values}
+%..........................
+
+Those entities that are read on demand are the tokens and floppy.
+
+\begin{schema}{ReadUserTokenC}
+        \Delta UserTokenC
+\\	RealWorldC
+\where
+	userTokenPresenceC' = userTokenPresenceC
+\\	currentUserTokenC' = userTokenC
+\end{schema}
+
+\begin{schema}{ReadAdminTokenC}
+	\Delta AdminTokenC
+\\      RealWorldC
+\where
+	adminTokenPresenceC' = adminTokenPresenceC
+\\	currentAdminTokenC' = adminTokenC
+\end{schema}
+
+\begin{schema}{ReadFloppyC}
+        \Delta FloppyC
+\\      RealWorldC
+\where
+	floppyPresenceC' = floppyPresenceC
+\\      currentFloppyC' =  floppyC
+\\      writtenFloppyC' = writtenFloppyC
+\end{schema}
+
+%-------------------------------------------------------------------------
+\section{The ID Station changes the world}
+%-------------------------------------------------------------------------
+
+
+%..........................
+\subsection{Periodic Updates}
+%..........................
+
+We consider the process of updating the real world with the current
+internal 
+representation, one variable at a time.
+
+\begin{traceunit}{FD.Interface.UpdateLatch}
+\traceto{FD.Interface.TISUpdates}
+\traceto{FD.Interface.TISEarlyUpdates}
+\end{traceunit}
+
+\begin{schema}{UpdateLatchC}
+	\Xi DoorLatchAlarmC
+\\	RealWorldChangesC
+\where
+	latchC' = currentLatchC
+\end{schema}
+
+\begin{traceunit}{FD.Interface.UpdateAlarm}
+\traceto{FD.Interface.TISUpdates}
+\traceto{FD.Interface.TISEarlyUpdates}
+\end{traceunit}
+
+\begin{schema}{UpdateAlarmC}
+	\Xi DoorLatchAlarmC
+\\      AuditLogC
+\\	RealWorldChangesC
+\where
+        alarmC' = alarming \iff doorAlarmC = alarming \lor auditAlarmC = alarming 
+\end{schema}
+
+\begin{traceunit}{FD.Interface.UpdateDisplay}
+\traceto{FD.Interface.TISUpdates}
+\end{traceunit}
+
+\begin{schema}{UpdateDisplayC}
+	\Delta IDStationC
+\\	RealWorldChangesC
+\where
+	displayC' = currentDisplayC
+\\
+        currentDisplayC' = currentDisplayC
+\end{schema}
+
+Configuration Data is only displayed if the security officer is
+present. System statistics are only displayed if an administrator is
+logged on.
+
+
+\begin{traceunit}{FD.Interface.UpdateScreen}
+\traceto{FD.Interface.TISUpdates}
+\end{traceunit}
+
+\begin{schema}{UpdateScreenC}
+        \Xi IDStationC
+\\      \Xi AdminC
+\\      RealWorldChangesC
+\where
+           screenC'.screenMsgC = currentScreenC.screenMsgC
+\\           screenC'.screenConfigC = \IF \The rolePresentC =
+securityOfficer \THEN displayConfigDataC (\theta ConfigC) \ELSE clearC 
+\\            screenC'.screenStatsC = \IF rolePresentC \neq \Nil
+\THEN displayStatsC (\theta StatsC) \ELSE clearC
+\\     screenC'.screenDoorAlarm = displayAlarm~ doorAlarmC
+\\     screenC'.screenLogAlarm = displayAlarm~ auditAlarmC
+\end{schema}
+ 
+All these can be combined, along with no change in the remaining
+real world variables,
+to represent the regular updating of the world.
+
+When updates to the real world occur it is possible that interfacing
+with external devices will result in a system fault that is
+audited. Not other aspects of TIS will change during updates of the
+real world.
+
+\begin{traceunit}{FD.Interface.TISEarlyUpdates}
+\traceto{FS.Interface.TISEarlyUpdates}
+\end{traceunit}
+
+
+
+The alarm and the door latch will need to be updated as soon as
+possible after polling the real world, this ensures that the system is
+kept secure.
+
+\begin{zed}
+        TISEarlyUpdateC \defs UpdateLatchC \land UpdateAlarmC 
+\\ \t3        \land [~ RealWorldChangesC | screenC' = screenC \land
+        displayC' = displayC ~]
+\\ \t3 \land \Xi UserTokenC \land \Xi AdminTokenC \land \Xi FingerC \land
+\Xi FloppyC \land 
+\\ \t3 \Xi ScreenC \land \Xi KeyboardC \land \Xi ConfigC \land
+\Xi StatsC  
+\\ \t3 \land \Xi KeyStoreC \land \Xi AdminC \land \Xi InternalC
+\\ \t3 \land [ AddElementsToLogC | auditTypes~ newElements? \subseteq
+\{ systemFaultElement \} ]  \hide (newElements?) 
+\end{zed}
+
+\begin{traceunit}{FD.Interface.TISUpdates}
+\traceto{FS.Interface.TISUpdates}
+\end{traceunit}
+
+The alarm, door latch, display and TIS screen will be updated after performing any
+calculations. 
+
+\begin{zed}
+        TISUpdateC \defs UpdateLatchC \land UpdateAlarmC \land UpdateDisplayC \land UpdateScreenC
+\\ \t3 \land \Xi UserTokenC \land \Xi AdminTokenC \land \Xi FingerC \land
+\Xi FloppyC \land 
+\\ \t3 \Xi KeyboardC \land \Xi ConfigC \land
+\Xi StatsC  
+\\ \t3 \land \Xi KeyStoreC \land \Xi AdminC \land \Xi InternalC
+\\ \t3 \land [ AddElementsToLogC | auditTypes~ newElements? \subseteq
+\{ systemFaultElement \} ]  \hide (newElements?) 
+\end{zed}
+
+%......................
+\subsection{Updating the user Token}
+%......................
+
+\begin{traceunit}{FD.Interface.UpdateToken}
+\traceto{FS.Interface.UpdateToken}
+\end{traceunit}
+
+We have a further operation, which writes to the User Token only.
+We treat this separately because we expect to update the other devices
+regularly and frequently,
+but we will only be updating the User Token when we have something to
+write. 
+
+\begin{schema}{UpdateUserTokenC}
+	\Delta IDStationC
+\\	RealWorldChangesC
+\also
+        \Xi TISControlledRealWorldC
+\where
+	userTokenC' = currentUserTokenC
+\end{schema}
+
+%......................
+\subsection{Updating the Floppy}
+%......................
+
+\begin{traceunit}{FD.Interface.UpdateFloppy}
+\traceto{FS.Interface.UpdateFloppy}
+\end{traceunit}
+
+
+We have an operation which writes to the Floppy only.
+We will only be updating the Floppy disk when we have something to write.
+
+\begin{schema}{UpdateFloppyC}
+        \Delta IDStationC
+\\      RealWorldChangesC
+\also
+        \Xi UserTokenC
+\\      \Xi AdminTokenC
+\\      \Xi FingerC
+\\      \Xi DoorLatchAlarmC
+\\      \Xi KeyboardC
+\\      \Xi ConfigC
+\\      \Xi StatsC
+\\      \Xi KeyStoreC
+\\      \Xi AdminC      
+\\      \Xi AuditLogC
+\\      \Xi InternalC
+\also
+	\Xi TISControlledRealWorldC
+\where
+	floppyC' = writtenFloppyC
+\\      currentFloppyC' = badFloppyC
+\also
+        floppyPresenceC' = floppyPresenceC
+\\      currentDisplayC' = currentDisplayC
+\\      currentScreenC' = currentScreenC
+\end{schema}
+\begin{Zcomment}
+\item
+Having written the floppy we can assume nothing about the $currentFloppy$
+until we next poll. We do not know what data is on the floppy as it
+may have been corrupted during the write. This ensures that the
+readback we do is forced to be effective. 
+\end{Zcomment}
+
+
+%------------------------------------------------------------------------
+\section{Clearing Biometric Data}
+%------------------------------------------------------------------------
+\begin{traceunit}{FD.Interface.FlushFingerData}
+\traceto{FDP\_RIP.2.1}
+\end{traceunit}
+
+The biometric device must be cleared of stale data after a fingerprint
+has been verified and before an attempt is made to capture fingerprint
+data. This will force the biometric device to capture fresh data.
+
+\begin{schema}{FlushFingerDataC}
+        fingerC, fingerC' : FINGERPRINTTRY
+\where
+        fingerC' = noFP
+\end{schema}
+

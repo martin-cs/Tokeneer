@@ -1,0 +1,1171 @@
+%==========================================================================
+\chapter{Introduction}
+%==========================================================================
+In order to demonstrate that developing highly secure systems to the
+level of rigour required by the higher assurance levels of the Common
+Criteria is possible, the NSA has asked Praxis High Integrity Systems to
+undertake a research project to develop part of an existing secure
+system (the Tokeneer System) in accordance with their high-integrity
+development process. This development work will then be used to
+show the security community that is is possible to develop secure
+systems rigorously in a cost effective manner.
+
+This document is the formal design, written using the Z
+notation. This document specifies the behaviour of the core of the Token
+ID Station (TIS) that is being developed.
+It documents the third step in the Praxis high
+integrity systems development approach. The whole process consists of:
+
+\begin{enumerate}
+\item
+Requirements Analysis (the REVEAL process)
+\item
+Formal Specification (using the formal notation Z)
+\item
+{\bf Formal Design and the INFORMED process}
+\item
+Implementation in SPARK Ada
+\item
+Verification (using the SPARK Examiner toolset).
+\end{enumerate}
+
+%--------------------------------------------------------------------------
+\section{Structure of this Design}
+%--------------------------------------------------------------------------
+This design is presented as a formal model of the TIS core function
+using concrete representations for the state. 
+The model is presented using the Z notation. 
+The structure of this design follows very closely the structure of the
+formal specification \cite{FS}, from which it is refined.
+
+The design models TIS as a number of state components and a number of
+operations that change the state.  The operations presented in this
+design cover:
+\begin{itemize}
+\item
+user authentication and entry into the enclave;
+\item
+enrolment of TIS;
+\item
+administrator logon/logoff;
+\item
+archiving the log;
+\item
+updating of configuration data;
+\item
+shutdown;
+\item
+overriding the enclave door.
+\end{itemize}
+
+The design is structured by presenting type constructs useful in the
+modelling of TIS in the remainder of this section. 
+
+Section \ref{sec:TIS} introduces the refined state that defines the TIS.
+  
+Section \ref{sec:Interfaces} covers accepting data
+from the real world and updating the real world. 
+
+Section \ref{sec:Internal} presents a number of operations on parts of
+the TIS state, these are later used in the construction of the TIS
+system operations. 
+
+Section \ref{sec:UserEntry} presents the multi-phase user authentication and
+entry operation.
+
+Section \ref{sec:Enclave} describes all the system operations that
+take place within the enclave. These are administrative operations.
+
+Section \ref{sec:Start} defines the initial system and the state of TIS at
+start-up.
+
+Section \ref{sec:Whole} describes how the whole TIS core
+works. Here we pull together the operations described through the remainder
+of the specification.
+ 
+Appendix \ref{sec:Summary} discusses a number of issues that were raised during the
+production of this design. 
+
+Appendix \ref{sec:Abstract} presents the refinement relation between the abstract state in
+the Formal Specification \cite{FS} and the state presented here.
+
+Appendix \ref{chap:refine} presents part of the refinement argument
+that the Formal Design is a correct refinement of the Formal
+Specification \cite{FS}.
+
+%--------------------------------------------------------------------------
+\section{Design decisions}
+%--------------------------------------------------------------------------
+This section discusses the key design descisions that are addressed in
+this formal design. 
+
+%...........................
+\subsection{Prioritisation}
+%..........................
+Within the formal specification there were a number of activities that
+could happen non-deterministically, in that the specification allowed
+a choice between two actions given the initial conditions.
+
+Within the design we eliminate the non-determinism and thus define the
+priority of actions where there was an arbitrary choice in the Formal
+Specification.
+
+A logged on administrator may tear their token during a user entry
+operation. Processing 
+the Admin Token tear should take priority since information only
+presented to administrators will be displayed on the TIS Console screen
+until the token tear is processed.
+
+With this in mind the assigned priority is as follows:
+
+\begin{enumerate}
+\item Progressing the initial system enrolment.
+\item Handling an admin logout due to token tear or timeout.
+\item Handling a user token tear.
+\item Progressing any current user entry.
+\item Handling any outstanding admin token tear (where the admin is
+not logged on).
+\item Progressing any administrator activity.
+\item Starting a user entry activity.
+\item Starting an administrator logon or operation.
+\end{enumerate}
+ 
+It should be noticed that constraints in the formal specification
+already prevent all administrator activities (apart from token tears)
+occuring concurrently with user entry processing.
+
+The structure of the administrator operations has been altered
+slightly from the specification to assist in the implementation of this
+priorisation. Bad logouts due to a token tear during an operation are
+no longer presented as part of the operation, instead they are
+presented as part of administrator logout.
+
+%.................................
+\subsection{Clearing secure data}
+%.................................
+Data extracted from the tokens and held internally will be cleared
+when the token is removed or the system shutdown. This ensures that it
+is not possible to inadvertently transfer information from one user to
+another. 
+
+Fingerprint data is cleared from the fingerprint reader before and
+after data is read to ensure that no stale data is inadvertently read
+as valid.
+
+%.................................
+\subsection{Reading on demand}
+\label{sec:DemandReading}
+%.................................
+Within the Formal Specification it is assumed that all data is read
+from the real world on a periodic basis. In reality much of the data
+is time consuming to read so should only be read when required. Within
+the formal design we show which data should be polled frequently and
+which simply read when it is neaded. The design still falls short in
+this respect in the area of the Tokens, since within the
+implementation  only sufficient data items will be read from a token to perform
+the validation, however this design shows all of the token being read.
+This is discussed futher in Appendix \ref{sec:Summary}. 
+
+%................................
+\subsection{Elaboration of Audit}
+%................................
+A major refinement in the design is to define the structure and types
+of audit entries that will be logged. Also the definition of the audit
+log now models how this log should be implemented internally using a
+number of files.
+
+%.................................
+\subsection{Configuration Data}
+%.................................
+This design considers the configuration data in terms of simple
+parameters that can be supplied by the operator to define aspects such
+as authentication periods. This significantly restricts the possible
+system configurations as compared with the Formal Specification.
+
+
+%.................................
+\subsection{Encryption and Keys}
+%.................................
+Within the design the model of encryption and keys has been
+refined. However, since the core TIS will make use of libraries to
+supply the crypto functions, the formal model makes several
+assumptions about keys. The model simply aims to demonstrate the
+correct use of library utilities to perform the desired validation.
+
+
+%.................................
+\subsection{Certificates}
+%.................................
+The design model of certificates is refined to capture the concept
+that certificates take the form of raw data and a signature. The
+validity of the data is checked using the signature and various fields
+can be extracted from a certificate. This provides a more concrete
+model of how a certificate is formed and used than the specification
+provided. The mechanism by which extraction and construction of
+certificates is performed is not specified formally; this is because
+these facilities are provided by a certificate processing library that
+is considered outside of the core TIS function. 
+
+%--------------------------------------------------------------------------
+\section{Trace units}
+%--------------------------------------------------------------------------
+Each section of the design has been tagged with a named {\em
+traceunit} which will be used as a reference from later design
+documents. All trace units in this document have the prefix ``FD''
+identifying them as originating in the Formal Design.
+
+Most traceunits contain a list of requirements that are relevent to
+that part of the specification. These are taken from the SRS
+\cite{SRS}.  
+%--------------------------------------------------------------------------
+\section{Z basics}
+%--------------------------------------------------------------------------
+This formal design is written using the Z formal notation. 
+
+It provides a concrete implementation of the TIS system specified in
+the Formal Specification \cite{FS}. All state is refined to the
+concrete components that will be used in the implementation. 
+
+%..............................
+\subsection{Z naming conventions}
+%.............................
+The convention used is to terminate each type, value and Schema name
+with the letter $C$  where the entity is a direct refinement of an
+entity presented in the Formal Specification. So $AuditLogC$ is the
+concrete version of the $AuditLog$. Similarly retrieval relations
+names have the letter $R$ as a suffix, so $AuditLogR$ is the retrieval
+relation between $AuditLogC$ and $AuditLog$.
+
+%..............................
+\subsection{Z comments}
+%.............................
+The intention is that someone unfamiliar with Z should be able to read this
+specification and gain a complete understanding of the functionality
+of the TIS system specified within.
+
+We have attempted to make the informal commentary as complete and
+unambiguous as possible. We have also separated out the parts of the
+commentary that are only relevant for understanding the formal model,
+as below:
+\begin{Zcomment}
+\item
+Readers who are not interested in the formal model can skip these
+sections of the commentary.
+\end{Zcomment}
+
+%..............................
+\subsection{Z type checking}
+%.............................
+In order to make this document stand alone for reading purposes all
+definitions used unchanged from the specification are repeated in this
+document. Where this occurs the Z text is not type checked, the reason
+being that this document is type checked with the formal
+specification and the original declaration from the specification is
+used by the type checker.
+All Z statements repeated from the formal specification are annotated
+as such.
+
+Section \ref{sec:Abstract} defines the retrieval relations between the
+abstract state and the concrete state. This section makes reference to
+declaration in the formal specification \cite{FS} without
+representation.
+%--------------------------------------------------------------------------
+\section{TIS Basic Types}
+%--------------------------------------------------------------------------
+
+\begin{traceunit}{FD.Types.RawTypes}
+\end{traceunit}
+
+Within the TIS implmentation many entities are stored using Unsigned 32
+bit integers.
+\begin{zed}
+        maxDigestLength == 32
+\\      maxSigLength == 128
+\end{zed}
+
+\begin{zed}
+        BYTE == 0 \upto 255
+\also
+        INTEGER32 == -2147483648 \upto 2147483647
+\also 
+        RAWDATA == \seq BYTE
+\also 
+        DIGESTDATA == \{ x : RAWDATA | \# x \leq maxDigestLength \}
+\\      SIGDATA == \{ x : RAWDATA | \# x \leq maxSigLength \}
+\end{zed}
+        
+
+
+\begin{traceunit}{FD.Types.Time}
+\traceto{FS.Types.Time}
+\end{traceunit}
+
+Time and date is some universal clock,
+which for our purposes can be modelled as just the naturals. Our only
+requirement is that the granularity of our clock is sufficiently fine
+to distinguish times differing by a second, although to order audit
+entries effectively we choose 1/10 second as the unit of time. 
+%%unchecked
+\begin{zed}
+	TIME == \nat
+\end{zed}
+\begin{Zcomment}
+\item Definition repeated from Formal Specification \cite{FS}
+\end{Zcomment}
+
+We define a constant $zeroTime$ used at system initialisation.
+
+%%unchecked
+\begin{zed}
+        zeroTime == 0
+\end{zed}
+\begin{Zcomment}
+\item Definition repeated from Formal Specification \cite{FS}
+\end{Zcomment}
+
+We introduce the concept of the length of a day. This is because some
+of the configuration data will relate to a single day.
+
+\begin{axdef}
+        dayLength : TIME
+\end{axdef}
+
+\begin{zed}
+        DAYTIME == 0 \upto (dayLength -1)
+\end{zed}
+
+\begin{traceunit}{FD.Types.Presence}
+\traceto{FS.Types.Presence}
+\end{traceunit}
+
+Many entities such as tokens, fingers and floppy disks may be
+presented to the system and removed by the user. We monitor the
+presence of these entities.
+%%unchecked
+\begin{zed}
+	PRESENCE ::= present | absent
+\end{zed}
+\begin{Zcomment}
+\item Definitions repeated unchanged from Formal Specification \cite{FS}
+\end{Zcomment}
+
+\begin{traceunit}{FD.Types.Clearance}
+\traceto{FS.Types.Clearance}
+\end{traceunit}
+
+
+$CLASS$ is the ordered classifications on document, areas, and people.
+%%unchecked
+\begin{syntax}
+	CLASS ::= & unmarked | unclassified | restricted | confidential |
+		secret | topsecret
+\end{syntax}
+\begin{Zcomment}
+\item Definition repeated unchanged from Formal Specification \cite{FS}
+\end{Zcomment}
+
+We define functions returning the minimum and maximum of a set of $CLASS$es.
+
+\begin{axdef}
+        minClass : \power_1 CLASS \fun CLASS
+\\      maxClass : \power_1 CLASS \fun CLASS
+\where
+        \exists ordering : \seq CLASS @
+\\ \t1        ordering =  \langle unmarked, unclassified, restricted, confidential,
+        secret, topsecret \rangle 
+\\ \t1        \land minClass = \{ S : \power_1 CLASS @ S \mapsto (ordering~ (min~ (\dom
+        (ordering \rres S)))) \}
+\\ \t1        \land maxClass = \{ S : \power_1 CLASS @ S \mapsto (ordering~ (max~ (\dom
+        (ordering \rres S)))) \}
+\end{axdef}
+
+
+%%unchecked
+\begin{schema}{Clearance}
+	class: CLASS
+\end{schema}
+\begin{Zcomment}
+\item Definition repeated unchanged from Formal Specification \cite{FS}
+\end{Zcomment}
+
+There is an ordering on the type $Clearance$. The function
+$minClearance$ and $maxClearance$ give the minimum and maximum of a
+pair of elements of type $Clearance$. This is defined in terms of the
+ordering on class.
+
+%%unchecked
+\begin{axdef}
+        minClearance : Clearance \cross Clearance \fun Clearance
+\\      maxClearance : Clearance \cross Clearance \fun Clearance
+\where
+        \forall a, b : Clearance @ 
+\\ \t1  minClearance(a, b).class  = minClass \{ a.class, b.class \}
+\end{axdef}
+\begin{Zcomment}
+\item Declarations repeated unchanged from Formal Specification
+\cite{FS}. The definitions are new. 
+\end{Zcomment}
+
+\begin{traceunit}{FD.Types.Privilege}
+\traceto{FS.Types.Privilege}
+\end{traceunit}
+
+
+$PRIVILEGE$ is the role held by the Token user. This will determine
+the privileges that the Token user has when interacting with the ID
+station.
+%%unchecked
+\begin{syntax}
+        PRIVILEGE ::= & userOnly | guard | securityOfficer | auditManager 
+\end{syntax}
+\begin{Zcomment}
+\item Definition repeated unchanged from Formal Specification \cite{FS}
+\end{Zcomment}
+
+\begin{traceunit}{FD.Types.User}
+\traceto{FD.Types.User}
+\end{traceunit}
+
+An $User$ is a unique identification of an certificate owner. An user
+will have a common name which does not contribute to the unique
+identification.  
+
+\begin{zed}
+        [ USERID, USERNAME ]
+\end{zed}
+
+\begin{schema}{User}
+        id: USERID
+\\      name : USERNAME
+\end{schema}
+
+\begin{traceunit}{FD.Types.Issuer}
+\traceto{FS.Types.Issuer}
+\end{traceunit}
+
+
+An $Issuer$ is a unique identification of an issuing body. Issuers are
+privileged users with the ability to issue certificates. 
+
+\begin{schema}{Issuer}
+        User
+\end{schema}
+
+\begin{traceunit}{FD.Types.Fingerprint}
+\traceto{FS.Types.Fingerprint}
+\end{traceunit}
+
+$FINGERPRINT$ will need to include sufficient control information to allow
+us to compare with templates and decide a match or not.
+%%unchecked
+\begin{zed}
+	[ FINGERPRINT ]
+\end{zed}
+\begin{Zcomment}
+\item Definition repeated unchanged from Formal Specification \cite{FS}
+\end{Zcomment}
+
+
+\begin{traceunit}{FD.Types.FingerprintTemplate}
+\traceto{FS.Types.FingerprintTemplate}
+\end{traceunit}
+
+
+A $FINGERPRINTTEMPLATE$ contains abstracted information, derived from
+a number of sample readings of a fingerprint.
+
+%%unchecked
+\begin{zed}
+	[ FINGERPRINTTEMPLATE ]
+\end{zed}
+\begin{Zcomment}
+\item Definition repeated unchanged from Formal Specification \cite{FS}
+\end{Zcomment}
+
+The fingerprint template and will be accompanied by additional information,
+the FAR (False Acceptance Rate) threshold level to be applied to any comparisons.
+
+A fingerprint template will need additional information,
+such as the False Acceptance Rate to be applied.
+\begin{schema}{FingerprintTemplateC}
+	templateC: FINGERPRINTTEMPLATE
+\\      far : INTEGER32
+\end{schema}
+
+The biometrics library provides facilities to tell whether a
+fingerprint read from a user matches a template.
+
+\begin{zed}
+        MATCHRESULT ::= match | noMatch
+\end{zed}
+
+
+\begin{axdef}
+        verifyBio : INTEGER32 \fun FINGERPRINTTEMPLATE \fun FINGERPRINTTRY \fun
+        MATCHRESULT \cross INTEGER32
+\where
+        \forall maxFar : INTEGER32;
+                fTemplate : FINGERPRINTTEMPLATE; 
+                finger : FINGERPRINTTRY  @ 
+\\ \t1  \exists result :  MATCHRESULT; achievedFar : INTEGER32 @
+\\      \t2 verifyBio~ maxFar~ fTemplate ~ finger = (result, achievedFar) \\
+\\      \t2 \land result = match \implies achievedFar \leq maxFar   
+\end{axdef}
+
+%--------------------------------------------------------------------------
+\section{Keys, Encryption and the Crypto Library}
+%--------------------------------------------------------------------------
+
+\begin{traceunit}{FD.KeyTypes.Keys}
+\traceto{FS.KeyTypes.Keys}
+\end{traceunit}
+
+The signing and validation of certificates used in Tokeneer relies on
+the use of
+asymetric keys, which comprise two parts, one which is public and
+one which is private. 
+%%unchecked
+\begin{zed}
+        [ KEYPART ]
+\end{zed}
+\begin{Zcomment}
+\item Definition repeated unchanged from Formal Specification \cite{FS}
+\end{Zcomment}
+
+The core TIS makes use of a Crypto Library to maintain all the keys it
+knows about. This library maintains a database of the currently known
+keys.
+
+A key part has a number of characteristics that aid identification of the
+key, in addition to the key data. It is either a $public$ or $private$
+key and it has an owner, the issuer who holds the private part.
+
+\begin{zed}
+        KEYTYPE ::= public | private
+\end{zed}
+
+\begin{schema}{KeyPart}
+        keyType: KEYTYPE
+\\      keyOwner: Issuer
+\\      keyData : KEYPART
+\end{schema}      
+
+Certificates are signed by an issuer using the private part, and can
+be verified by anyone who holds the public part. 
+
+The Crypto Library also provides utility functions that allow digests to be
+created and signatures to be created and verified. These functions
+support a number of digest algorithms and asymmetric signing alorithms.
+
+\begin{zed}
+        ALGORITHM ::= rsa | md2 | md5 | sha1 | ripemd128 | ripemd160 |
+       rsaWithMd2 | 
+\\ \t1 rsaWithMd5 | rsaWithSha1 | rsaWithRipemd128 | rsaWithRipemd160  
+\end{zed}
+
+\newcommand{\isVerifiedBy}{\mathrel{\sf isVerifiedBy}}
+%\newcommand{\isKeyPair}{\mathrel{\sf isKeyPair}}
+%%inrel \isVerifiedBy
+
+\begin{axdef}
+        digest : ALGORITHM \pfun RAWDATA \fun DIGESTDATA
+\\      sign : ALGORITHM \pfun KEYPART \fun DIGESTDATA \fun SIGDATA
+\\      \_ \isVerifiedBy \_ : (ALGORITHM \cross DIGESTDATA \cross SIGDATA
+) \rel KEYPART
+\where 
+        \forall privateKey, publicKey : KeyPart; data : RAWDATA;
+        mechanism : ALGORITHM;
+\\ \t1  theDigest : DIGESTDATA; theSignature : SIGDATA @
+\\ \t2  mechanism \in \dom digest \cap \dom sign 
+\\ \t2  \land privateKey.keyType = private \land publicKey.keyType = public
+\\ \t2          \land publicKey.keyOwner = privateKey.keyOwner
+\\      \t2     \land theDigest = digest~ mechanism~ data
+\\      \t2     \land theSignature = sign~ mechanism~ privateKey.keyData~
+theDigest \iff
+\\      \t3   (mechanism, theDigest, theSignature) \isVerifiedBy
+publicKey.keyData 
+\end{axdef}
+
+Knowing an issuer is equivalent to having a copy of the issuer's
+public key part. While possessing an issuer's private key part means 
+that you are that issuer.
+
+
+%--------------------------------------------------------------------------
+\section{Certificates, Tokens and Enrolment Data} 
+%--------------------------------------------------------------------------
+%..........................
+\subsection{Certificates}
+%.........................
+
+\begin{traceunit}{FD.Types.Certificates}
+\traceto{FS.Types.Certificates}
+\end{traceunit}
+
+All certificates consist of data and a signature. A number of
+attributes are encoded within the data. 
+
+\begin{schema}{RawCertificate}
+        data: RAWDATA
+\\      signature: SIGDATA
+\\      signedData: RAWDATA
+\where
+        signedData =  data \cat signature
+\end{schema}
+
+Each certificate is signed and can be verified using a key, typically the
+public key of an issuer. 
+
+Some attributes are common to all certificates. 
+
+All certificates can be uniquely identified by their issuer and the
+serial Number supplied by the issuer when the certificate is created.
+
+\begin{schema}{CertificateIdC}
+	issuerC: Issuer
+\\      serialNumber : \nat
+\end{schema}
+
+In addition to the unique certificate id all certificates contain a
+validity period during which time they are valid. 
+This is defined by two times $notBefore$ and $notAfter$. The validity
+period is any time $t$ satisfying $notBefore \leq t$ and $t \leq notAfter$. 
+The mechanism is the althorithm by which the signature is signed.
+
+\begin{schema}{CertificateContents}
+        idC: CertificateIdC
+\\      notBefore: TIME
+\\      notAfter:TIME
+\\      mechanism : ALGORITHM
+\end{schema}
+
+\begin{axdef}
+        certificateValidity : CertificateContents \fun \power TIME
+\where 
+        certificateValidity = (\lambda CertificateContents @ 
+        notBefore \upto notAfter)
+\end{axdef}
+
+Each type of certificate potentially expands on these attributes.
+
+The ID certificate is an X.509 certificate. ID certificates are used
+during enrolment as well as being present on tokens.
+
+The subject is the name of the entity being identified by the
+certificate and the key is the entity's public key. 
+
+We don't need to know about the key of the Token although we do need
+to know about the key of an issuer supplied at enrolment.
+
+\begin{schema}{IDCertContents}
+	CertificateContents
+\\      subjectC: Issuer
+\\      subjectPubKC: KEYPART
+\end{schema}
+
+The certificates containing attributes all share some common
+attributes. 
+
+An attribute certificate contains the identification of the ID
+certificate to which it relates, this ID certificate is referred to as 
+the base certificate for the attribute certificate. The base
+certificate should be the ID certificate on the Token.  
+
+\begin{schema}{AttCertificateContents}
+        CertificateContents
+\\      baseCertIdC: CertificateIdC      
+\end{schema}
+
+
+A privilege certificate additionally contains a role and clearance.
+\begin{schema}{PrivCertContents}
+	AttCertificateContents
+\\	roleC: PRIVILEGE
+\\	clearanceC: Clearance
+\end{schema}
+
+
+An authorisation certificate has the same structure as a privilege certificate.
+\begin{schema}{AuthCertContents}
+	AttCertificateContents
+\\	roleC: PRIVILEGE
+\\	clearanceC: Clearance
+\end{schema}
+
+An I\&A (Identification and Authentication) certificate additionally contains
+a fingerprint template. 
+\begin{schema}{IandACertContents}
+	AttCertificateContents
+\\	templateC: FingerprintTemplateC
+\end{schema}
+
+All certificates can be extracted from raw certificate data. The
+extraction functions are provided by a Certificate Processing Library,
+which is outside the scope of the core TIS, but will be utilised by TIS.
+
+The certificate processing library also provides a function to
+generate the raw certificate data from an authorisation certificate contents.
+
+\begin{axdef}
+        extractIDCert : RawCertificate \pfun IDCertContents
+\\      extractPrivCert : RawCertificate \pfun PrivCertContents
+\\      extractIandACert : RawCertificate \pfun IandACertContents
+\\      extractAuthCert : RawCertificate \pfun AuthCertContents
+\\      constructAuthCert : AuthCertContents \fun RAWDATA
+\end{axdef}
+
+Each type of certificate comprises a $RawCertficate$, from which the
+required certificate type can be extracted.
+
+We can extract the contents of an ID certificate from an ID certificate.
+
+\begin{zed}
+        IDCertC \defs  [~ RawCertificate | \theta RawCertificate \in
+        \dom extractIDCert ~]
+\end{zed}
+
+In general an ID certificate is not validated by the keypart held on
+the certificate. 
+
+The ID Certificate of a CA (Certification Authority) is a root
+certificate and is signed by itself.
+
+\begin{schema}{CAIdCertC}
+        IDCertC
+\where
+        \exists IDCertContents ; theDigest : DIGESTDATA @
+\\ \t1       \theta IDCertContents = extractIDCert \theta RawCertificate 
+\\ \t1       \land theDigest = digest~ mechanism ~ data
+\\ \t1       \land (mechanism, theDigest, signature ) \isVerifiedBy subjectPubKC 
+\end{schema}
+
+We can extract the contents of a privilege certificate from a Priv Certificate.
+\begin{zed}
+        PrivCertC \defs [~ RawCertificate | \theta RawCertificate \in
+        \dom extractPrivCert ~]
+\end{zed}
+
+We can extract the contents of an I\&A certificate from an I\&A Certificate.
+\begin{zed}
+        IandACertC \defs [~ RawCertificate | \theta RawCertificate \in
+        \dom extractIandACert ~]
+\end{zed}
+
+We can extract the contents of an authorisation certificate from an Auth Certificate.
+\begin{zed}
+        AuthCertC \defs [~ RawCertificate | \theta RawCertificate \in
+        \dom extractAuthCert ~]
+\end{zed}
+
+
+%..........................
+\subsection{Tokens}
+%.........................
+
+\begin{traceunit}{FD.Types.Tokens}
+\traceto{FS.Types.Tokens}
+\end{traceunit}
+
+Each Token has an ID. Token IDs are different for every token from a
+given smartcard supplier (issuer). Tokens from different issuers may,
+however, share Token IDs. 
+\begin{zed}
+	 TOKENIDC == \nat
+\end{zed}
+
+A $Token$ contains a number of certificates. The
+authorisation certificate is optional while the others must be present.
+\begin{schema}{TokenC}
+	tokenIDC: TOKENIDC
+
+\also	idCertC: RawCertificate
+\\	privCertC: RawCertificate
+\\	iandACertC: RawCertificate
+\\	authCertC: \Optional RawCertificate
+\end{schema}
+
+
+A $Token$ is valid if all of the certificates on it are well-formed,
+each certificate correctly cross-references to the ID Certificate,
+and the ID Certificate correctly cross-references to the $Token$ ID.
+
+A token need not contain a valid Auth certificate to be considered valid.
+
+\begin{schema}{ValidTokenC}
+	TokenC
+\where
+        idCertC \in \{ IDCertC \}
+\\      privCertC \in \{ PrivCertC \}
+\\      iandACertC \in \{ IandACertC \}
+\also
+	(extractPrivCert~privCertC).baseCertIdC = (extractIDCert~idCertC).idC
+\\	(extractIandACert~iandACertC).baseCertIdC = (extractIDCert~idCertC).idC
+
+\also	
+        (extractIDCert~idCertC).idC.serialNumber = tokenIDC
+
+\end{schema}
+
+If the Auth certificate is present it will only be used if it is
+valid, in that it correctly cross-references to the $Token$ ID and the
+ID certificate. 
+
+\begin{schema}{TokenWithValidAuthC}
+        TokenC
+\where
+        idCertC \in \{ IDCertC \}
+\also
+        (extractIDCert~idCertC).idC.serialNumber = tokenIDC
+\also
+\\      authCertC \neq \Nil 
+\\      \t1     \land \The authCertC \in \{ AuthCertC \}
+\\      \t1    \land  (extractAuthCert~ (\The
+authCertC)).baseCertIdC.serialNumber = tokenIDC 
+\\      \t1    \land (extractAuthCert~ (\The authCertC)).baseCertIdC = (extractIDCert~idCertC).idC
+
+\end{schema}
+
+A $Token$ is current if all of the Certificates are current,
+or if only the Auth Cert is non-current.
+Currency needs a time, which is included in the schema,
+and will need to be tied to the relevent time when this schema is used.
+
+\begin{schema}{CurrentTokenC}
+	ValidTokenC
+\\	nowC: TIME
+\where
+        (\exists IDCertContents @ \theta IDCertContents =
+        extractIDCert~idCertC
+\\ \t1  \land nowC \in certificateValidity~ \theta CertificateContents) 
+\also
+        (\exists PrivCertContents @ \theta PrivCertContents =
+        extractPrivCert~idCertC
+\\ \t1  \land nowC \in certificateValidity~ \theta CertificateContents) 
+\also
+        (\exists IandACertContents @ \theta IandACertContents =
+        extractIandACert~idCertC
+\\ \t1  \land nowC \in certificateValidity~ \theta CertificateContents) 
+\end{schema}
+
+%............................
+\subsection{Enrolment Data}
+%............................
+
+\begin{traceunit}{FD.Types.Enrolment}
+\traceto{FS.Types.Enrolment}
+\end{traceunit}
+Enrolment data is the information the ID station needs in order to
+know how to authenticate tokens presented to it, and to produce its
+own authentication certificates such that they can be authenticated by
+workstations in the enclave.
+
+Enrolment data consists of a number of ID certificates: 
+\begin{itemize}
+\item
+this ID Station's ID Certificate, which will be signed by a CA.
+\item
+A number of other Issuers' ID Certificates. These will belong to 
+        \begin{itemize}
+        \item
+        CAs, who authenticate AAs (Attribute Authorities) and ID Stations. These will be self signed.
+        \item
+        AAs, who authenticate privilege and I\&A certificates. 
+        \end{itemize}
+\end{itemize}
+
+The ID Station's certificate is just one of the issuer certificates,
+although we will want to be able to identify it as belonging to this
+ID station. 
+
+The certificates are ordered within the enrolment data.
+
+\begin{schema}{EnrolC}
+        idStationCertC : IDCertC
+\\      issuerCertsC : \iseq IDCertC
+\where
+        idStationCertC \in \ran issuerCertsC
+\end{schema}
+
+For the Enrolment data to be considered valid each certificate must be
+signed correctly and the Issuer's certificate must be present for it
+to be possible to check that the signatures are correct.
+Note that CA ID
+certificates are self signed but AA and IDStation certificates are
+signed by an CA.
+
+For each certificate that is not self signed the signing CA will
+appear earlier in the sequence of issuers.
+
+The ID station certificate is the second certificate in the enrolment
+data and must be preceded by the certificate for the issuing CA.
+
+\begin{schema}{ValidEnrolC}
+        EnrolC
+\where
+        \ran issuerCertsC \cap \{ CAIdCertC \} \neq \emptyset
+\also
+\\      \forall cert : IDCertC ; earlierCerts : \seq IDCertC 
+         | earlierCerts \cat \langle cert \rangle \prefix  issuerCertsC @ 
+\\      \t1     \exists issuerCert : IDCertC ; 
+\\      \t1     certContent, issuerContent : IDCertContents; theDigest
+: DIGESTDATA @
+\\      \t2     issuerCert \in \ran (earlierCerts \cat \langle cert \rangle) 
+\\      \t2     \land certContent = extractIDCert~ cert \land issuerContent = extractIDCert~ issuerCert
+\\      \t2     \land certContent.idC.issuerC = issuerContent.subjectC 
+\\      \t2     \land theDigest = digest~ certContent.mechanism~ cert.data
+\\      \t2     \land (certContent.mechanism, theDigest, cert.signature) \isVerifiedBy issuerContent.subjectPubKC
+\also
+        issuerCertsC \inv idStationCertC = 2 
+
+
+\end{schema}
+\begin{Zcomment}
+\item
+There must be an ID certificate for at least one CA.
+\item
+For each certificate the enrolment data must include the ID
+certificate for the issuer of the certificate, the certificate must be
+validated by the issuer's key and the issuer of the
+certificate must be a CA.
+\item 
+For each certificate the ID certificate of the issuer of the
+certificate must apear earlier in the enrolment data.
+\item
+The certificate for the ID Station is the second certificate. 
+\end{Zcomment}
+
+%--------------------------------------------------------------------------
+\section{World outside the ID Station}
+%--------------------------------------------------------------------------
+We choose to model the real world (or at least the real peripherals)
+as being outside the ID Station.
+When the user inserts a token, they are providing input to the ID Station.
+It is up to the ID Station to then respond by reading the real world
+input into its own, internal representation. The ID Station receives stimulus
+from the real world and itself changes the real world. All real world
+entities are modelled as components of the $RealWorld$.
+
+We will distingush between real world entities that we use
+ (eg. $finger$), we control (eg. $alarm$) 
+ and we may change (eg. $userToken$ or $floppy$).
+
+
+%..............................
+\subsection{Real World types}
+%..............................
+
+\begin{traceunit}{FD.Types.RealWorld}
+\traceto{FS.Types.RealWorld}
+\end{traceunit}
+
+
+There are several types associated with the real world. The door,
+latch and alarm all have two possible states.
+%%unchecked
+\begin{zed}
+	DOOR ::= open | closed
+\also
+	LATCH ::= unlocked | locked
+\also
+	ALARM ::= silent | alarming
+\end{zed}
+\begin{Zcomment}
+\item Definitions repeated unchanged from Formal Specification \cite{FS}.
+\end{Zcomment}
+
+
+Display messages are the short messages presented to the user on the
+small display outside the enclave.
+%%unchecked
+\begin{zed}
+	DISPLAYMESSAGE ::= blank | welcome | insertFinger | openDoor |
+                        wait | 
+\\      \t3  removeToken | tokenUpdateFailed | doorUnlocked
+\end{zed}
+\begin{Zcomment}
+\item Definitions repeated unchanged from Formal Specification \cite{FS}.
+\end{Zcomment}
+
+The messages that appear on the display are presented in the table \ref{tab:display}.
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|}
+                & \multicolumn{2}{c|}{\bf Displayed text} \\ \cline{2-3}
+{\bf Message}   & {\bf Top line}                & {\bf Bottom line}     \\
+\hline
+$blank$         & {\tt SYSTEM NOT OPERATIONAL}  &\\
+$welcome$       & {\tt WELCOME TO TIS}          & {\tt ENTER TOKEN}  \\
+$insertFinger$  & {\tt AUTHENTICATING USER}     & {\tt INSERT FINGER} \\ 
+$wait$          & {\tt AUTHENTICATING USER}     & {\tt PLEASE WAIT} \\
+$openDoor$      & {\tt }                        & {\tt REMOVE TOKEN AND ENTER} \\
+$removeToken$   & {\tt ENTRY DENIED}            & {\tt REMOVE TOKEN} \\
+$tokenUpdateFailed$ &                   & {\tt TOKEN UPDATE FAILED } \\
+$doorUnlocked$  &                       & {\tt ENTER ENCLAVE} \\
+\hline
+\end{tabular}
+\caption{Display Messages}
+\label{tab:display}
+\end{table}
+
+Because it is possible to be trying to read a token that is not inserted,
+or a fingerprint when no finger is inserted,
+or an invalid token or fingerprint, 
+we introduce free types to capture the absence or poor quality of these.
+
+The values $badFP$ and $badT$ represent all possible error codes that
+occur when trying to capture this data. The system will behave the
+same way in all failure cases with only the audit log capturing the
+different error codes that actually occur.
+%%unchecked
+\begin{zed}
+	FINGERPRINTTRY ::= noFP | badFP | goodFP \ldata FINGERPRINT \rdata
+\end{zed}
+\begin{Zcomment}
+\item Definition repeated unchanged from Formal Specification \cite{FS}.
+\end{Zcomment}
+\begin{zed}
+	TOKENTRYC ::= noTC | badTC | goodTC \ldata TokenC \rdata
+\end{zed}
+
+When modelling data supplied on a floppy disk we model the possibility
+of the disk not being present, being empty or being corrupt as well as
+containing valid data.
+We make the assumption that each floppy disk will only contain one
+data type, either enrolment data, configuration data or audit data.
+
+\begin{zed}
+       FLOPPYC ::=  noFloppyC | emptyFloppyC | badFloppyC | 
+       enrolmentFileC \ldata EnrolC \rdata |
+\\ \t3    auditFileC \ldata \finset AuditC \rdata |
+          configFileC \ldata ConfigC \rdata
+\end{zed}
+
+Inputs may be supplied by an administrator at the keyboard. We model
+input values representing no data, invalid data or a valid request to
+perform an adminstrator operation.
+%%unchecked
+\begin{zed}
+        KEYBOARD ::= noKB | badKB | keyedOps \ldata ADMINOP \rdata 
+\end{zed}
+\begin{Zcomment}
+\item Definitions repeated unchanged from Formal Specification \cite{FS}.
+\end{Zcomment}
+
+There are a number of messages that may appear on the TIS screen
+within the enclave. Some of these are simple messages, the text of these
+is supplied in the Table \ref{tab:screen}. 
+Others involve more complex presentation of data, such as
+configuration data or system statistics, the details of this
+presentation is left to design.
+
+\begin{zed}
+       SCREENTEXTC ::=  clearC | welcomeAdminC | busyC | removeAdminTokenC |
+       closeDoorC |
+\\ \t3          requestAdminOpC | doingOpC | invalidRequestC | invalidDataC |
+\\ \t3          insertEnrolmentDataC | validatingEnrolmentDataC |
+       enrolmentFailedC |
+\\ \t3          archiveFailedC | insertBlankFloppyC | insertConfigDataC |
+\also 
+        \t3  displayStatsC \ldata StatsC \rdata | 
+        displayConfigDataC \ldata ConfigC \rdata |
+\also   \t3 displayAlarm \ldata ALARM \rdata 
+
+\end{zed}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|}
+{\bf Message}   &  {\bf Displayed text}   \\
+\hline
+$clearC$                 &                               \\
+$welcomeAdminC$          & {\tt WELCOME TO TIS}          \\
+$busyC$                  & {\tt SYSTEM BUSY PLEASE WAIT} \\ 
+$removeAdminTokenC$      & {\tt REMOVE TOKEN} \\
+$closeDoorC$             & {\tt CLOSE ENCLAVE DOOR} \\
+$requestAdminOpC$        & {\tt ENTER REQUIRED OPERATION} \\
+$doingOpC$               & {\tt PERFORMING OPERATION PLEASE WAIT} \\
+$invalidRequestC$        & {\tt INVALID REQUEST: PLEASE ENTER NEW
+OPERATION} \\
+$invalidDataC$           & {\tt INVALID DATA: PLEASE ENTER NEW
+OPERATION} \\
+$archiveFailedC$         & {\tt ARCHIVE FAILED: PLEASE ENTER NEW
+OPERATION} \\
+$insertEnrolmentDataC$   & {\tt PLEASE INSERT ENROLMENT DATA FLOPPY} \\
+$validatingEnrolmentDataC$ & {\tt VALIDATING ENROLMENT DATA PLEASE WAIT
+} \\
+$enrolmentFailedC$       & {\tt INVALID ENROLMENT DATA} \\
+$insertBlankFloppyC$     & {\tt INSERT BLANK FLOPPY} \\
+$insertConfigDataC$      & {\tt INSERT CONFIGURATION DATA FLOPPY} \\
+\hline
+\end{tabular}
+\caption{Short Screen Messages}
+\label{tab:screen}
+\end{table}
+
+%...............................
+\subsection{The Real World}
+%...............................
+\begin{traceunit}{FD.ControlledRealWorld.State}
+\end{traceunit}
+
+The real world entities that are controlled by TIS are as follows:
+\begin{itemize}
+\item the latch on the door into the enclave.
+\item the audible alarm.
+\item the display that resides outside the enclave.
+\item the screen on the ID Station within the enclave with
+which the administrator interacts.
+\end{itemize}
+
+\begin{schema}{TISControlledRealWorldC}
+        latchC : LATCH
+\\      alarmC : ALARM
+\\      displayC : DISPLAYMESSAGE
+\\      screenC : ScreenC
+\end{schema}
+
+\begin{traceunit}{FD.MonitoredRealWorld.State}
+\end{traceunit}
+
+The real world entities that are used by TIS are as follows:
+\begin{itemize}
+\item the real world has a concept of time.
+\item the door into the enclave that is monitored by the ID Station.
+\item fingerprints are read, via the biometric reader, into
+the ID Station for comparison with fingerprint templates.
+\item a user, trying to enter the enclave will supply
+their token to the ID station via the token reader that resides
+outside the enclave. 
+\item a user within the enclave who has administrator
+privileges will supply their token to the ID station via the token
+reader that resides inside the enclave.
+\item  the ID Station accepts enrolment data and
+configuration data on a floppy disk. The disk drive resides in the enclave.
+\item  the ID Station has a keyboard within the enclave which the
+administrator uses to control TIS. 
+\end{itemize}
+
+\begin{schema}{TISMonitoredRealWorldC}
+        nowC : TIME
+\\      doorC : DOOR
+\\      fingerC : FINGERPRINTTRY
+\\      userTokenC, adminTokenC : TOKENTRYC
+\\      floppyC : FLOPPYC
+\\      keyboardC : KEYBOARD
+\end{schema}
+
+In addition TIS may change some of the entities that it uses from the
+real world.   
+\begin{itemize}
+\item The ID station may need to update the $userToken$ token
+(with an Authentication Certificate).
+\item The ID Station archives the Audit Log to floppy disk so may
+write to $floppy$.
+\item The ID Station flushes fingerprint information from the
+biometric reader after validating the data.
+\end{itemize}
+
+The Whole real world is given by:
+
+\begin{zed}
+RealWorldC \defs TISControlledRealWorldC \land TISMonitoredRealWorldC
+\end{zed}

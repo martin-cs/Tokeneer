@@ -1,0 +1,64 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:27.74
+
+                          procedure Poll.Activity
+
+
+
+
+For path(s) from start to finish:
+
+procedure_activity_1.
+H1:    true .
+H2:    (latch__islocked(latch__state__2) and ((
+           door__thecurrentdoor(door__state__2) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime__1), door__prf_alarmtimeout(
+           door__state__2)))) <-> (door__thedooralarm(door__state__2) = 
+           alarmtypes__alarming) .
+H3:    latch__islocked(latch__state__2) <-> 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime__1), latch__prf_latchtimeout(
+           latch__state__2)) .
+H4:    latch__islocked(latch__state) -> ((latch__state__2 = 
+           latch__state) and latch__islocked(latch__state__2)) .
+H5:    latch__prf_latchtimeout(latch__state__2) = 
+           latch__prf_latchtimeout(latch__state) .
+H6:    true .
+H7:    admintoken__prf_isgood(admintoken__state) <-> 
+           admintoken__prf_isgood(admintoken__state__4) .
+H8:    admintoken__prf_authcertvalid(admintoken__state) <-> 
+           admintoken__prf_authcertvalid(admintoken__state__4) .
+H9:    (admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard) <-> (admintoken__theauthcertrole(
+           admintoken__state__4) = privtypes__guard) .
+        ->
+C1:    (latch__islocked(latch__state__2) and ((
+           door__thecurrentdoor(door__state__2) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime__1), door__prf_alarmtimeout(
+           door__state__2)))) <-> (door__thedooralarm(door__state__2) = 
+           alarmtypes__alarming) .
+C2:    admintoken__prf_isgood(admintoken__state) <-> 
+           admintoken__prf_isgood(admintoken__state__4) .
+C3:    admintoken__prf_authcertvalid(admintoken__state) <-> 
+           admintoken__prf_authcertvalid(admintoken__state__4) .
+C4:    (admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard) <-> (admintoken__theauthcertrole(
+           admintoken__state__4) = privtypes__guard) .
+C5:    latch__islocked(latch__state__2) <-> 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime__1), latch__prf_latchtimeout(
+           latch__state__2)) .
+C6:    latch__islocked(latch__state) -> ((latch__state__2 = 
+           latch__state) and latch__islocked(latch__state__2)) .
+C7:    latch__prf_latchtimeout(latch__state__2) = 
+           latch__prf_latchtimeout(latch__state) .
+ 
+

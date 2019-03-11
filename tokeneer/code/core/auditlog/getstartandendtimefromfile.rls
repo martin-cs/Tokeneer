@@ -1,0 +1,43 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:08.14*/
+
+               /*procedure AuditLog.GetStartAndEndTimeFromFile*/
+
+
+rule_family getstartande_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+getstartande_rules(1): maxlogfileentries may_be_replaced_by 1024.
+getstartande_rules(2): integer__size >= 0 may_be_deduced.
+getstartande_rules(3): integer__first may_be_replaced_by -2147483648.
+getstartande_rules(4): integer__last may_be_replaced_by 2147483647.
+getstartande_rules(5): integer__base__first may_be_replaced_by -2147483648.
+getstartande_rules(6): integer__base__last may_be_replaced_by 2147483647.
+getstartande_rules(7): character__size >= 0 may_be_deduced.
+getstartande_rules(8): character__first may_be_replaced_by 0.
+getstartande_rules(9): character__last may_be_replaced_by 255.
+getstartande_rules(10): character__base__first may_be_replaced_by 0.
+getstartande_rules(11): character__base__last may_be_replaced_by 255.
+getstartande_rules(12): natural__size >= 0 may_be_deduced.
+getstartande_rules(13): natural__first may_be_replaced_by 0.
+getstartande_rules(14): natural__last may_be_replaced_by 2147483647.
+getstartande_rules(15): natural__base__first may_be_replaced_by -2147483648.
+getstartande_rules(16): natural__base__last may_be_replaced_by 2147483647.
+getstartande_rules(17): positive__size >= 0 may_be_deduced.
+getstartande_rules(18): positive__first may_be_replaced_by 1.
+getstartande_rules(19): positive__last may_be_replaced_by 2147483647.
+getstartande_rules(20): positive__base__first may_be_replaced_by -2147483648.
+getstartande_rules(21): positive__base__last may_be_replaced_by 2147483647.
+getstartande_rules(22): clock__timetexti__size >= 0 may_be_deduced.
+getstartande_rules(23): clock__timetexti__first may_be_replaced_by 1.
+getstartande_rules(24): clock__timetexti__last may_be_replaced_by 21.
+getstartande_rules(25): clock__timetexti__base__first may_be_replaced_by -2147483648.
+getstartande_rules(26): clock__timetexti__base__last may_be_replaced_by 2147483647.

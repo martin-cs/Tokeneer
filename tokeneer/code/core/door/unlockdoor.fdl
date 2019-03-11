@@ -1,0 +1,75 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:10.73}
+
+                         {procedure Door.UnlockDoor}
+
+
+title procedure unlockdoor;
+
+  function round__(real) : integer;
+  type clock__currenttime__type = pending;
+  type clock__timet = pending;
+  type clock__durationt = integer;
+  type alarmtypes__statust = (alarmtypes__alarming, 
+     alarmtypes__silent);
+  type configdata__state__type = pending;
+  type latch__statetype = pending;
+  type t = (open, closed);
+  type statetype = record
+        dooralarm : alarmtypes__statust;
+        alarmtimeout : clock__timet;
+        currentdoor : t
+     end;
+  const t__base__first : t = pending; 
+  const t__base__last : t = pending; 
+  const configdata__durationt__base__first : integer = pending; 
+  const configdata__durationt__base__last : integer = pending; 
+  const alarmtypes__statust__base__first : alarmtypes__statust = pending; 
+  const alarmtypes__statust__base__last : alarmtypes__statust = pending; 
+  const clock__durationt__base__first : integer = pending; 
+  const clock__durationt__base__last : integer = pending; 
+  const t__first : t = pending; 
+  const t__last : t = pending; 
+  const t__size : integer = pending; 
+  const configdata__durationt__first : integer = pending; 
+  const configdata__durationt__last : integer = pending; 
+  const configdata__durationt__size : integer = pending; 
+  const alarmtypes__statust__first : alarmtypes__statust = pending; 
+  const alarmtypes__statust__last : alarmtypes__statust = pending; 
+  const alarmtypes__statust__size : integer = pending; 
+  const clock__durationt__first : integer = pending; 
+  const clock__durationt__last : integer = pending; 
+  const clock__durationt__size : integer = pending; 
+  var clock__currenttime : clock__currenttime__type;
+  var configdata__state : configdata__state__type;
+  var latch__state : latch__statetype;
+  var state : statetype;
+  var currentdoor : t;
+  var alarmtimeout : clock__timet;
+  var dooralarm : alarmtypes__statust;
+  function clock__thecurrenttime(clock__currenttime__type) : 
+     clock__timet;
+  function clock__greaterthanorequal(clock__timet, clock__timet) : boolean;
+  function clock__addduration(clock__timet, integer) : 
+     clock__timet;
+  function configdata__thelatchunlockduration(
+     configdata__state__type) : integer;
+  function configdata__thealarmsilentduration(
+     configdata__state__type) : integer;
+  function latch__prf_latchtimeout(latch__statetype) : 
+     clock__timet;
+  function latch__islocked(latch__statetype) : boolean;
+  function prf_alarmtimeout(statetype) : clock__timet;
+  function thecurrentdoor(statetype) : t;
+  function thedooralarm(statetype) : alarmtypes__statust;
+  var dooralarm__3 : alarmtypes__statust;
+  var latch__state__2 : latch__statetype;
+  var latch__state__1 : latch__statetype;
+
+end;

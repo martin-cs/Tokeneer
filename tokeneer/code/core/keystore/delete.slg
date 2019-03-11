@@ -1,0 +1,177 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:12  SIMPLIFIED 05-SEP-2011, 15:41:06
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure KeyStore.Delete
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/keystore/keystore.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_delete_1.  @@@@@@@@@@
+---  Eliminated hypothesis H1 (true-hypothesis).
+     +++  New H2:  integer__size >= 0
+     +++  New H3:  character__size >= 0
+     +++  New H4:  positive__size >= 0
+     +++  New H5:  cryptotypes__namecountt__size >= 0
+     +++  New H6:  cryptotypes__namei__size >= 0
+     +++  New H7:  cryptotypes__issueridt__size >= 0
+     +++  New H8:  cryptotypes__issueridt__base__first <= 
+          cryptotypes__issueridt__base__last
+     +++  New H9:  cryptotypes__issuert__size >= 0
+     +++  New H10:  optionalprivatekeyt__size >= 0
+     +++  New H11:  0 <= fld_namelength(cryptotypes__nullissuer)
+     +++  New H12:  fld_namelength(cryptotypes__nullissuer) <= 40
+     +++  New H13:  0 <= fld_id(cryptotypes__nullissuer)
+     +++  New H14:  cryptotypes__issueridt__base__first <= 0
+     +++  New H15:  fld_id(cryptotypes__nullissuer) <= 4294967295
+     +++  New H16:  cryptotypes__issueridt__base__last >= 4294967295
+***  Proved C1:  not privatekeypresent(mk__optionalprivatekeyt(ispresent := 
+          false, owner := cryptotypes__nullissuer))
+     This was achieved by applying the rewrite rule keystore_user(1)
+     [from rulefile keystore.rlu] to rewrite this conclusion to:
+<S>  C1:  not fld_ispresent(mk__optionalprivatekeyt(ispresent := false, owner 
+          := cryptotypes__nullissuer))
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  By simple reasoning, proved: not fld_ispresent(
+          mk__optionalprivatekeyt(ispresent := false, owner := 
+          cryptotypes__nullissuer))
+***  PROVED VC.
+
+VCN  1: Summary of user rule application.
+FIL  keystore.rlu
+RUL     keystore_user(1)
+CON        1
+
+
+@@@@@@@@@@  VC: procedure_delete_2.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_delete_3.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  keystore__interface__store~ = fld_keystore__interface__store(
+          store~)
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_owner(thistisinfo)), [i___1]) and element(fld_name(
+          fld_owner(thistisinfo)), [i___1]) <= character__last)
+-S-  Applied substitution rule delete_rules(13).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H6:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(fld_owner(
+          thistisinfo)), [i___1]) and element(fld_name(fld_owner(thistisinfo)), 
+          [i___1]) <= character__last)
+-S-  Applied substitution rule delete_rules(14).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H6:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(fld_owner(
+          thistisinfo)), [i___1]) and element(fld_name(fld_owner(thistisinfo)), 
+          [i___1]) <= 255)
+-S-  Applied substitution rule delete_rules(23).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namecountt__first by:
+          0.
+<S>  New H7:  fld_namelength(fld_owner(thistisinfo)) >= 0
+-S-  Applied substitution rule delete_rules(24).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namecountt__last by:
+          40.
+<S>  New H8:  fld_namelength(fld_owner(thistisinfo)) <= 40
+-S-  Applied substitution rule delete_rules(28).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namei__first by:
+          1.
+<S>  New H6:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          cryptotypes__namei__last -> 0 <= element(fld_name(fld_owner(
+          thistisinfo)), [i___1]) and element(fld_name(fld_owner(thistisinfo)), 
+          [i___1]) <= 255)
+-S-  Applied substitution rule delete_rules(29).
+     This was achieved by replacing all occurrences of cryptotypes__namei__last 
+          by:
+          40.
+<S>  New H6:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 40 -> 0 <= 
+          element(fld_name(fld_owner(thistisinfo)), [i___1]) and element(
+          fld_name(fld_owner(thistisinfo)), [i___1]) <= 255)
+-S-  Applied substitution rule delete_rules(33).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__issueridt__first by:
+          0.
+<S>  New H9:  fld_id(fld_owner(thistisinfo)) >= 0
+-S-  Applied substitution rule delete_rules(34).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__issueridt__last by:
+          4294967295.
+<S>  New H10:  fld_id(fld_owner(thistisinfo)) <= 4294967295
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H2 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+---  Eliminated hypothesis H4, which only specifies a value for 
+          keystore__interface__store.
+     This is not referred to anywhere else in the VC.
+-S-  Eliminated hypothesis H5.
+     This was achieved by replacing all occurrences of thistisinfo by:
+          fld_thistisinfo(state).
+<S>  New H12:  not privatekeypresent(fld_thistisinfo(state))
+<S>  New H7:  fld_namelength(fld_owner(fld_thistisinfo(state))) >= 0
+<S>  New H8:  fld_namelength(fld_owner(fld_thistisinfo(state))) <= 40
+<S>  New H6:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 40 -> 0 <= 
+          element(fld_name(fld_owner(fld_thistisinfo(state))), [i___1]) and 
+          element(fld_name(fld_owner(fld_thistisinfo(state))), [i___1]) <= 255)
+<S>  New H9:  fld_id(fld_owner(fld_thistisinfo(state))) >= 0
+<S>  New H10:  fld_id(fld_owner(fld_thistisinfo(state))) <= 4294967295
+     +++  New H13:  integer__size >= 0
+     +++  New H14:  character__size >= 0
+     +++  New H15:  positive__size >= 0
+     +++  New H16:  cryptotypes__namecountt__size >= 0
+     +++  New H17:  cryptotypes__namei__size >= 0
+     +++  New H18:  cryptotypes__issueridt__size >= 0
+     +++  New H19:  cryptotypes__issueridt__base__first <= 
+          cryptotypes__issueridt__base__last
+     +++  New H20:  cryptotypes__issuert__size >= 0
+     +++  New H21:  optionalprivatekeyt__size >= 0
+     +++  New H22:  0 <= fld_namelength(cryptotypes__nullissuer)
+     +++  New H23:  fld_namelength(cryptotypes__nullissuer) <= 40
+     +++  New H24:  0 <= fld_id(cryptotypes__nullissuer)
+     +++  New H25:  cryptotypes__issueridt__base__first <= 0
+     +++  New H26:  fld_id(cryptotypes__nullissuer) <= 4294967295
+     +++  New H27:  cryptotypes__issueridt__base__last >= 4294967295
+***  Proved C1:  not keystore__privatekeypresent(state)
+     This was achieved by applying the rewrite rule keystore_user(2)
+     [from rulefile keystore.rlu] to rewrite this conclusion to:
+<S>  C1:  not privatekeypresent(fld_thistisinfo(state))
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  From H12, proved: not privatekeypresent(fld_thistisinfo(state))
+***  PROVED VC.
+
+VCN  3: Summary of user rule application.
+FIL  keystore.rlu
+RUL     keystore_user(2)
+CON        1
+
+
+OVR  Overall summary of VCs using user rules.
+FIL  keystore.rlu
+RUL     keystore_user(1)
+VCS        1
+RUL     keystore_user(2)
+VCS        3
+

@@ -1,0 +1,518 @@
+           *******************************************************
+                            Listing of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:07.86
+
+Line
+   1  ------------------------------------------------------------------
+   2  -- Tokeneer ID Station Core Software
+   3  --
+   4  -- Copyright (2003) United States Government, as represented
+   5  -- by the Director, National Security Agency. All rights reserved.
+   6  --
+   7  -- This material was originally developed by Praxis High Integrity
+   8  -- Systems Ltd. under contract to the National Security Agency.
+   9  ------------------------------------------------------------------
+  10  
+  11  ------------------------------------------------------------------
+  12  -- Clock
+  13  --
+  14  -- Implementation Notes:
+  15  --    None.
+  16  --
+  17  ------------------------------------------------------------------
+  18  with Clock.Interface,
+  19       BasicTypes;
+  20  
+  21  use type BasicTypes.Unsigned32T;
+  22  
+  23  package body Clock
+  24  --# own Now is in Clock.Interface.Now;
+  25  is
+  26  
+  27     ------------------------------------------------------------------
+  28     -- Types and constants
+  29     --
+  30     ------------------------------------------------------------------
+  31        MilliSecsInMin : constant := 60 * MilliSecsInSec;
+  32        MilliSecsInHr : constant := 60 * MilliSecsInMin;
+  33     ------------------------------------------------------------------
+  34     -- State
+  35     --
+  36     ------------------------------------------------------------------
+  37     CurrentTime : TimeT;
+  38  
+  39  
+  40     ------------------------------------------------------------------
+  41     -- Private Operations
+  42     ------------------------------------------------------------------
+  43  
+  44     ------------------------------------------------------------------
+  45     -- SetStringSegment
+  46     --
+  47     -- Definition:
+  48     --    Sets the section of the string S from SStart to SEnd with
+  49     --    the String representation of the Value.
+  50     --    Pads to the left with '0'.
+  51     --    Truncates if Value is too big to fit.
+  52     --
+  53     -- Implementation Notes:
+  54     --    None.
+  55     --
+  56     ------------------------------------------------------------------
+  57     procedure SetStringSegment
+  58       ( S      : in out String;
+  59         Value  : in     Natural;
+  60         SStart : in     Positive;
+  61         SEnd   : in     Positive)
+  62     --# derives S from *,
+  63     --#                Value,
+  64     --#                SEnd,
+  65     --#                SStart;
+  66     --# pre S'Last >= SEnd and S'First <= SStart;
+  67     is
+  68        V : Natural;
+  69     begin
+  70  
+  71        V := Value;
+  72  
+  73        for I in reverse Positive range SStart .. SEnd loop
+  74           --# assert I <= SEnd and I >= SStart
+  75           --#        and I <= S'Last and I >= S'First
+  76           --#        and V in Natural ;
+  77           S(I) := Character'Val(Character'Pos('0') + (V mod 10));
+  78           V    := V / 10;
+  79        end loop;
+  80  
+  81     end SetStringSegment;
+
++++        Flow analysis of subprogram SetStringSegment 
+           performed: no errors found.
+
+  82  
+  83     ------------------------------------------------------------------
+  84     -- Public Operations
+  85     ------------------------------------------------------------------
+  86  
+  87     ------------------------------------------------------------------
+  88     -- Poll
+  89     --
+  90     -- Implementation Notes:
+  91     --    None.
+  92     --
+  93     ------------------------------------------------------------------
+  94  
+  95     procedure Poll
+  96     --# global in     Interface.Now;
+  97     --#           out CurrentTime;
+  98     --# derives CurrentTime from Interface.Now;
+  99     is
+ 100     begin
+ 101        CurrentTime := Interface.TheTime;
+ 102     end Poll;
+
++++        Flow analysis of subprogram Poll performed: no 
+           errors found.
+
+ 103  
+ 104     ------------------------------------------------------------------
+ 105     -- TheCurrentTime
+ 106     --
+ 107     -- Implementation Notes:
+ 108     --    None.
+ 109     --
+ 110     ------------------------------------------------------------------
+ 111  
+ 112     function TheCurrentTime return TimeT
+ 113     is
+ 114     begin
+ 115        return CurrentTime;
+ 116     end TheCurrentTime;
+
++++        Flow analysis of subprogram TheCurrentTime 
+           performed: no errors found.
+
+ 117  
+ 118     ------------------------------------------------------------------
+ 119     -- GetNow
+ 120     --
+ 121     -- Implementation Notes:
+ 122     --    None.
+ 123     --
+ 124     ------------------------------------------------------------------
+ 125  
+ 126     function GetNow return TimeT
+ 127     --# global Interface.Now;
+ 128     is
+ 129     begin
+ 130        return Interface.TheTime;
+ 131     end GetNow;
+
++++        Flow analysis of subprogram GetNow performed: no 
+           errors found.
+
+ 132  
+ 133     ------------------------------------------------------------------
+ 134     -- GreaterThan
+ 135     --
+ 136     -- Implementation Notes:
+ 137     --    None.
+ 138     --
+ 139     ------------------------------------------------------------------
+ 140  
+ 141     function GreaterThan ( Left, Right : TimeT ) return Boolean
+ 142     is
+ 143     begin
+ 144        return Left.Year > Right.Year
+ 145          or (Left.Year = Right.Year
+ 146              and Left.Month > Right.Month )
+ 147          or (Left.Year = Right.Year
+ 148              and Left.Month = Right.Month
+ 149              and Left.Day > Right.Day)
+ 150          or (Left.Year = Right.Year
+ 151              and Left.Month = Right.Month
+ 152              and Left.Day = Right.Day
+ 153              and Left.MilliSec > Right.MilliSec);
+ 154     end GreaterThan;
+
++++        Flow analysis of subprogram GreaterThan 
+           performed: no errors found.
+
+ 155  
+ 156     ------------------------------------------------------------------
+ 157     -- LessThan
+ 158     --
+ 159     -- Implementation Notes:
+ 160     --    None.
+ 161     --
+ 162     ------------------------------------------------------------------
+ 163  
+ 164     function LessThan ( Left, Right : TimeT ) return Boolean
+ 165     is
+ 166     begin
+ 167        return Left.Year < Right.Year
+ 168          or (Left.Year = Right.Year
+ 169              and Left.Month < Right.Month )
+ 170          or (Left.Year = Right.Year
+ 171              and Left.Month = Right.Month
+ 172              and Left.Day < Right.Day)
+ 173          or (Left.Year= Right.Year
+ 174              and Left.Month = Right.Month
+ 175              and Left.Day = Right.Day
+ 176              and Left.MilliSec < Right.MilliSec);
+ 177     end LessThan;
+
++++        Flow analysis of subprogram LessThan performed: 
+           no errors found.
+
+ 178  
+ 179     ------------------------------------------------------------------
+ 180     -- GreaterThanOrEqual
+ 181     --
+ 182     -- Implemention Notes:
+ 183     --    None.
+ 184     --
+ 185     ------------------------------------------------------------------
+ 186  
+ 187     function GreaterThanOrEqual ( Left, Right : TimeT ) return Boolean
+ 188     is
+ 189     begin
+ 190         return GreaterThan (Left, Right) or Left = Right;
+ 191     end GreaterThanOrEqual;
+
++++        Flow analysis of subprogram GreaterThanOrEqual 
+           performed: no errors found.
+
+ 192  
+ 193     ------------------------------------------------------------------
+ 194     -- LessThanOrEqual
+ 195     --
+ 196     -- Implemention Notes:
+ 197     --    None.
+ 198     --
+ 199     ------------------------------------------------------------------
+ 200  
+ 201     function LessThanOrEqual ( Left, Right : TimeT ) return Boolean
+ 202     is
+ 203     begin
+ 204         return LessThan (Left, Right) or Left = Right;
+ 205     end LessThanOrEqual;
+
++++        Flow analysis of subprogram LessThanOrEqual 
+           performed: no errors found.
+
+ 206  
+ 207     ------------------------------------------------------------------
+ 208     -- ConstructTime
+ 209     --
+ 210     -- Implementation Notes:
+ 211     --    None.
+ 212     --
+ 213     ------------------------------------------------------------------
+ 214     procedure ConstructTime
+ 215       (Year    : in     BasicTypes.Unsigned32T;
+ 216        Month   : in     BasicTypes.Unsigned32T;
+ 217        Day     : in     BasicTypes.Unsigned32T;
+ 218        Hour    : in     BasicTypes.Unsigned32T;
+ 219        Min     : in     BasicTypes.Unsigned32T;
+ 220        TheTime :    out TimeT;
+ 221        Success :    out Boolean)
+ 222     is
+ 223     begin
+ 224        if BasicTypes.Unsigned32T(YearsT'First) <= Year and
+ 225              Year <= BasicTypes.Unsigned32T(YearsT'Last) and
+ 226              BasicTypes.Unsigned32T(MonthsT'First) <= Month and
+ 227              Month <= BasicTypes.Unsigned32T(MonthsT'Last) and
+ 228              BasicTypes.Unsigned32T(DaysT'First) <= Day and
+ 229              Day <= BasicTypes.Unsigned32T(DaysT'Last) and
+ 230              BasicTypes.Unsigned32T(HoursT'First) <= Hour and
+ 231              Hour <= BasicTypes.Unsigned32T(HoursT'Last) and
+ 232              BasicTypes.Unsigned32T(MinutesT'First) <= Min and
+ 233              Min <= BasicTypes.Unsigned32T(MinutesT'Last) then
+ 234  
+ 235  
+ 236           TheTime := TimeT'
+ 237             (Year => YearsT(Year),
+ 238              Month => MonthsT(Month),
+ 239              Day => DaysT(Day),
+ 240              MilliSec => MilliSecsT(Hour) * MilliSecsInHr
+ 241                          + MilliSecsT(Min) * MilliSecsInMin);
+ 242  
+ 243           if Interface.IsValidTime(TheTime) then
+ 244              Success := True;
+ 245           else
+ 246              TheTime := ZeroTime;
+ 247              Success := False;
+ 248           end if;
+ 249        else
+ 250           TheTime := ZeroTime;
+ 251           Success := False;
+ 252        end if;
+ 253     end ConstructTime;
+
++++        Flow analysis of subprogram ConstructTime 
+           performed: no errors found.
+
+ 254  
+ 255     ------------------------------------------------------------------
+ 256     -- SplitTime
+ 257     --
+ 258     -- Implementation Notes:
+ 259     --    This always rounds down.
+ 260     --
+ 261     ------------------------------------------------------------------
+ 262     procedure SplitTime
+ 263       (TheTime : in     TimeT;
+ 264        Year    :    out YearsT;
+ 265        Month   :    out MonthsT;
+ 266        Day     :    out DaysT;
+ 267        Hour    :    out HoursT;
+ 268        Min     :    out MinutesT)
+ 269     is
+ 270  
+ 271     begin
+ 272        Year  := TheTime.Year;
+ 273        Month := TheTime.Month;
+ 274        Day   := TheTime.Day;
+ 275        Hour  := HoursT (TheTime.MilliSec / MilliSecsInHr);
+ 276        Min   := MinutesT ((TheTime.MilliSec mod MilliSecsInHr )
+ 277                          / MilliSecsInMin);
+ 278     end SplitTime;
+
++++        Flow analysis of subprogram SplitTime performed: 
+           no errors found.
+
+ 279  
+ 280     ------------------------------------------------------------------
+ 281     -- StartOfDay
+ 282     --
+ 283     -- Implementation Notes:
+ 284     --    None.
+ 285     --
+ 286     ------------------------------------------------------------------
+ 287     function StartOfDay (TheTime : TimeT) return TimeT
+ 288     is
+ 289     begin
+ 290        return TimeT'(Year => TheTime.Year,
+ 291                      Month => TheTime.Month,
+ 292                      Day => TheTime.Day,
+ 293                      MilliSec => MilliSecsT'First);
+ 294     end StartOfDay;
+
++++        Flow analysis of subprogram StartOfDay 
+           performed: no errors found.
+
+ 295  
+ 296  
+ 297     ------------------------------------------------------------------
+ 298     -- PrintDuration
+ 299     --
+ 300     -- Implementation Notes:
+ 301     --    None.
+ 302     --
+ 303     ------------------------------------------------------------------
+ 304     function PrintDuration (TheDuration : DurationT ) return DurationTextT
+ 305     is
+ 306        LocalText : DurationTextT := "hh:mm:ss.s";
+ 307        FirstHourIndex    : constant TimeTextI := 1;
+ 308        LastHourIndex     : constant TimeTextI := 2;
+ 309  
+ 310        FirstMinIndex     : constant TimeTextI := 4;
+ 311        LastMinIndex      : constant TimeTextI := 5;
+ 312  
+ 313        FirstSecIndex     : constant TimeTextI := 7;
+ 314        LastSecIndex      : constant TimeTextI := 8;
+ 315  
+ 316        TenthSecIndex     : constant TimeTextI := 10;
+ 317  
+ 318        TenthSecsInSec     : constant := 10;
+ 319        TenthSecsInMin     : constant := 60 * TenthSecsInSec;
+ 320        TenthSecsInHr      : constant := 60 * TenthSecsInMin;
+ 321     begin
+ 322  
+ 323        SetStringSegment(LocalText,
+ 324                         Natural(TheDuration / TenthSecsInHr),
+ 325                         FirstHourIndex,
+ 326                         LastHourIndex);
+ 327  
+ 328        SetStringSegment(LocalText,
+ 329                         Natural((TheDuration mod TenthSecsInHr)
+ 330                                 / TenthSecsInMin),
+ 331                         FirstMinIndex,
+ 332                         LastMinIndex);
+ 333  
+ 334        SetStringSegment(LocalText,
+ 335                         Natural((TheDuration mod TenthSecsInMin)
+ 336                                 / TenthSecsInSec),
+ 337                         FirstSecIndex,
+ 338                         LastSecIndex);
+ 339  
+ 340        SetStringSegment(LocalText,
+ 341                         Natural(TheDuration mod TenthSecsInSec),
+ 342                         TenthSecIndex,
+ 343                         TenthSecIndex);
+ 344  
+ 345        return LocalText;
+ 346     end PrintDuration;
+
++++        Flow analysis of subprogram PrintDuration 
+           performed: no errors found.
+
+ 347  
+ 348     ------------------------------------------------------------------
+ 349     -- PrintTime
+ 350     --
+ 351     -- Implementation Notes:
+ 352     --    None.
+ 353     --
+ 354     ------------------------------------------------------------------
+ 355     function PrintTime (TheTime : TimeT ) return TimeTextT
+ 356     is
+ 357        LocalText : TimeTextT := "yyyy-mm-dd hh:mm:ss.s";
+ 358  
+ 359        FirstYearIndex    : constant TimeTextI := 1;
+ 360        LastYearIndex     : constant TimeTextI := 4;
+ 361  
+ 362        FirstMonthIndex   : constant TimeTextI := 6;
+ 363        LastMonthIndex    : constant TimeTextI := 7;
+ 364  
+ 365        FirstDayIndex     : constant TimeTextI := 9;
+ 366        LastDayIndex      : constant TimeTextI := 10;
+ 367  
+ 368        FirstHourIndex    : constant TimeTextI := 12;
+ 369        LastHourIndex     : constant TimeTextI := 13;
+ 370  
+ 371        FirstMinIndex     : constant TimeTextI := 15;
+ 372        LastMinIndex      : constant TimeTextI := 16;
+ 373  
+ 374        FirstSecIndex     : constant TimeTextI := 18;
+ 375        LastSecIndex      : constant TimeTextI := 19;
+ 376  
+ 377        TenthSecIndex     : constant TimeTextI := 21;
+ 378  
+ 379     begin
+ 380        --# assert LocalText'First = TimeTextI'First and
+ 381        --#        LocalText'Last = TimeTextI'Last;
+ 382  
+ 383        SetStringSegment(LocalText,
+ 384                         Natural(TheTime.Year),
+ 385                         FirstYearIndex,
+ 386                         LastYearIndex);
+ 387  
+ 388        SetStringSegment(LocalText,
+ 389                         Natural(TheTime.Month),
+ 390                         FirstMonthIndex,
+ 391                         LastMonthIndex);
+ 392  
+ 393        SetStringSegment(LocalText,
+ 394                         Natural(TheTime.Day),
+ 395                         FirstDayIndex,
+ 396                         LastDayIndex);
+ 397  
+ 398        SetStringSegment(LocalText,
+ 399                         Natural(TheTime.MilliSec / MilliSecsInHr),
+ 400                         FirstHourIndex,
+ 401                         LastHourIndex);
+ 402  
+ 403        SetStringSegment(LocalText,
+ 404                         Natural((TheTime.MilliSec mod MilliSecsInHr)
+ 405                                 / MilliSecsInMin),
+ 406                         FirstMinIndex,
+ 407                         LastMinIndex);
+ 408  
+ 409        SetStringSegment(LocalText,
+ 410                         Natural((TheTime.MilliSec mod MilliSecsInMin)
+ 411                                 / MilliSecsInSec),
+ 412                         FirstSecIndex,
+ 413                         LastSecIndex);
+ 414  
+ 415        SetStringSegment(LocalText,
+ 416                         Natural((TheTime.MilliSec mod MilliSecsInSec)
+ 417                                 / MilliSecsInTenthSec),
+ 418                         TenthSecIndex,
+ 419                         TenthSecIndex);
+ 420  
+ 421        return LocalText;
+ 422     end PrintTime;
+
++++        Flow analysis of subprogram PrintTime performed: 
+           no errors found.
+
+ 423  
+ 424     ------------------------------------------------------------------
+ 425     -- AddDuration
+ 426     --
+ 427     -- Implementation Notes:
+ 428     --    None.
+ 429     --
+ 430     ------------------------------------------------------------------
+ 431     function AddDuration
+ 432       (TheTime : TimeT; TheDuration : DurationT ) return TimeT
+ 433     is
+ 434     begin
+ 435        return Interface.AddDuration(TheTime, TheDuration);
+ 436  
+ 437     end AddDuration;
+
++++        Flow analysis of subprogram AddDuration 
+           performed: no errors found.
+
+ 438  
+ 439  
+ 440  end Clock;
+ 441  
+ 442  
+ 443  
+ 444  
+ 445  
+ 446  
+9 summarized warning(s), comprising:
+     9 use(s) of Ada2005 reserved words
+
+
+
+--End of file--------------------------------------------------

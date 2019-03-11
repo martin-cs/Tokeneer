@@ -1,0 +1,73 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:17.81*/
+
+                  /*procedure Display.ChangeDoorUnlockedMsg*/
+
+
+rule_family changedoorun_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+changedoorun_rules(1): msgt__size >= 0 may_be_deduced.
+changedoorun_rules(2): msgt__first may_be_replaced_by blank.
+changedoorun_rules(3): msgt__last may_be_replaced_by doorunlocked.
+changedoorun_rules(4): msgt__base__first may_be_replaced_by blank.
+changedoorun_rules(5): msgt__base__last may_be_replaced_by doorunlocked.
+changedoorun_rules(6): msgt__pos(msgt__first) may_be_replaced_by 0.
+changedoorun_rules(7): msgt__pos(blank) may_be_replaced_by 0.
+changedoorun_rules(8): msgt__val(0) may_be_replaced_by blank.
+changedoorun_rules(9): msgt__pos(welcome) may_be_replaced_by 1.
+changedoorun_rules(10): msgt__val(1) may_be_replaced_by welcome.
+changedoorun_rules(11): msgt__pos(insertfinger) may_be_replaced_by 2.
+changedoorun_rules(12): msgt__val(2) may_be_replaced_by 
+     insertfinger.
+changedoorun_rules(13): msgt__pos(opendoor) may_be_replaced_by 3.
+changedoorun_rules(14): msgt__val(3) may_be_replaced_by opendoor.
+changedoorun_rules(15): msgt__pos(wait) may_be_replaced_by 4.
+changedoorun_rules(16): msgt__val(4) may_be_replaced_by wait.
+changedoorun_rules(17): msgt__pos(removetoken) may_be_replaced_by 5.
+changedoorun_rules(18): msgt__val(5) may_be_replaced_by 
+     removetoken.
+changedoorun_rules(19): msgt__pos(tokenupdatefailed) may_be_replaced_by 6.
+changedoorun_rules(20): msgt__val(6) may_be_replaced_by 
+     tokenupdatefailed.
+changedoorun_rules(21): msgt__pos(doorunlocked) may_be_replaced_by 7.
+changedoorun_rules(22): msgt__val(7) may_be_replaced_by 
+     doorunlocked.
+changedoorun_rules(23): msgt__pos(msgt__last) may_be_replaced_by 7.
+changedoorun_rules(24): msgt__pos(succ(X)) may_be_replaced_by 
+     msgt__pos(X) + 1
+     if [X <=doorunlocked, X <> doorunlocked].
+changedoorun_rules(25): msgt__pos(pred(X)) may_be_replaced_by 
+     msgt__pos(X) - 1
+     if [X >=blank, X <> blank].
+changedoorun_rules(26): msgt__pos(X) >= 0 may_be_deduced_from
+     [blank <= X, X <= doorunlocked].
+changedoorun_rules(27): msgt__pos(X) <= 7 may_be_deduced_from
+     [blank <= X, X <= doorunlocked].
+changedoorun_rules(28): msgt__val(X) >= blank may_be_deduced_from
+     [0 <= X, X <= 7].
+changedoorun_rules(29): msgt__val(X) <= doorunlocked may_be_deduced_from
+     [0 <= X, X <= 7].
+changedoorun_rules(30): succ(msgt__val(X)) may_be_replaced_by 
+     msgt__val(X+1)
+     if [0 <= X, X < 7].
+changedoorun_rules(31): pred(msgt__val(X)) may_be_replaced_by 
+     msgt__val(X-1)
+     if [0 < X, X <= 7].
+changedoorun_rules(32): msgt__pos(msgt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 7].
+changedoorun_rules(33): msgt__val(msgt__pos(X)) may_be_replaced_by X
+     if [blank <= X, X <= doorunlocked].
+changedoorun_rules(34): msgt__pos(X) <= msgt__pos(Y) & X <= Y are_interchangeable 
+     if [blank <= X, X <= doorunlocked, blank <= Y, Y <= 
+     doorunlocked].
+changedoorun_rules(35): msgt__val(X) <= msgt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 7, 0 <= Y, Y <= 7].

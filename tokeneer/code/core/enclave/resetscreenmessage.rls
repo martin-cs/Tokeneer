@@ -1,0 +1,174 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:27.62*/
+
+                    /*procedure Enclave.ResetScreenMessage*/
+
+
+rule_family resetscreenm_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+resetscreenm_rules(1): screen__msgtextt__size >= 0 may_be_deduced.
+resetscreenm_rules(2): screen__msgtextt__first may_be_replaced_by screen__clear.
+resetscreenm_rules(3): screen__msgtextt__last may_be_replaced_by screen__insertconfigdata.
+resetscreenm_rules(4): screen__msgtextt__base__first may_be_replaced_by screen__clear.
+resetscreenm_rules(5): screen__msgtextt__base__last may_be_replaced_by screen__insertconfigdata.
+resetscreenm_rules(6): screen__msgtextt__pos(screen__msgtextt__first) may_be_replaced_by 0.
+resetscreenm_rules(7): screen__msgtextt__pos(screen__clear) may_be_replaced_by 0.
+resetscreenm_rules(8): screen__msgtextt__val(0) may_be_replaced_by 
+     screen__clear.
+resetscreenm_rules(9): screen__msgtextt__pos(screen__welcomeadmin) may_be_replaced_by 1.
+resetscreenm_rules(10): screen__msgtextt__val(1) may_be_replaced_by 
+     screen__welcomeadmin.
+resetscreenm_rules(11): screen__msgtextt__pos(screen__busy) may_be_replaced_by 2.
+resetscreenm_rules(12): screen__msgtextt__val(2) may_be_replaced_by 
+     screen__busy.
+resetscreenm_rules(13): screen__msgtextt__pos(
+     screen__removeadmintoken) may_be_replaced_by 3.
+resetscreenm_rules(14): screen__msgtextt__val(3) may_be_replaced_by 
+     screen__removeadmintoken.
+resetscreenm_rules(15): screen__msgtextt__pos(screen__closedoor) may_be_replaced_by 4.
+resetscreenm_rules(16): screen__msgtextt__val(4) may_be_replaced_by 
+     screen__closedoor.
+resetscreenm_rules(17): screen__msgtextt__pos(
+     screen__requestadminop) may_be_replaced_by 5.
+resetscreenm_rules(18): screen__msgtextt__val(5) may_be_replaced_by 
+     screen__requestadminop.
+resetscreenm_rules(19): screen__msgtextt__pos(screen__doingop) may_be_replaced_by 6.
+resetscreenm_rules(20): screen__msgtextt__val(6) may_be_replaced_by 
+     screen__doingop.
+resetscreenm_rules(21): screen__msgtextt__pos(
+     screen__invalidrequest) may_be_replaced_by 7.
+resetscreenm_rules(22): screen__msgtextt__val(7) may_be_replaced_by 
+     screen__invalidrequest.
+resetscreenm_rules(23): screen__msgtextt__pos(screen__invaliddata) may_be_replaced_by 8.
+resetscreenm_rules(24): screen__msgtextt__val(8) may_be_replaced_by 
+     screen__invaliddata.
+resetscreenm_rules(25): screen__msgtextt__pos(
+     screen__archivefailed) may_be_replaced_by 9.
+resetscreenm_rules(26): screen__msgtextt__val(9) may_be_replaced_by 
+     screen__archivefailed.
+resetscreenm_rules(27): screen__msgtextt__pos(
+     screen__insertenrolmentdata) may_be_replaced_by 10.
+resetscreenm_rules(28): screen__msgtextt__val(10) may_be_replaced_by 
+     screen__insertenrolmentdata.
+resetscreenm_rules(29): screen__msgtextt__pos(
+     screen__validatingenrolmentdata) may_be_replaced_by 11.
+resetscreenm_rules(30): screen__msgtextt__val(11) may_be_replaced_by 
+     screen__validatingenrolmentdata.
+resetscreenm_rules(31): screen__msgtextt__pos(
+     screen__enrolmentfailed) may_be_replaced_by 12.
+resetscreenm_rules(32): screen__msgtextt__val(12) may_be_replaced_by 
+     screen__enrolmentfailed.
+resetscreenm_rules(33): screen__msgtextt__pos(
+     screen__insertblankfloppy) may_be_replaced_by 13.
+resetscreenm_rules(34): screen__msgtextt__val(13) may_be_replaced_by 
+     screen__insertblankfloppy.
+resetscreenm_rules(35): screen__msgtextt__pos(
+     screen__insertconfigdata) may_be_replaced_by 14.
+resetscreenm_rules(36): screen__msgtextt__val(14) may_be_replaced_by 
+     screen__insertconfigdata.
+resetscreenm_rules(37): screen__msgtextt__pos(screen__msgtextt__last) may_be_replaced_by 14.
+resetscreenm_rules(38): screen__msgtextt__pos(succ(X)) may_be_replaced_by 
+     screen__msgtextt__pos(X) + 1
+     if [X <=screen__insertconfigdata, X <> 
+     screen__insertconfigdata].
+resetscreenm_rules(39): screen__msgtextt__pos(pred(X)) may_be_replaced_by 
+     screen__msgtextt__pos(X) - 1
+     if [X >=screen__clear, X <> screen__clear].
+resetscreenm_rules(40): screen__msgtextt__pos(X) >= 0 may_be_deduced_from
+     [screen__clear <= X, X <= screen__insertconfigdata].
+resetscreenm_rules(41): screen__msgtextt__pos(X) <= 14 may_be_deduced_from
+     [screen__clear <= X, X <= screen__insertconfigdata].
+resetscreenm_rules(42): screen__msgtextt__val(X) >= screen__clear may_be_deduced_from
+     [0 <= X, X <= 14].
+resetscreenm_rules(43): screen__msgtextt__val(X) <= 
+     screen__insertconfigdata may_be_deduced_from
+     [0 <= X, X <= 14].
+resetscreenm_rules(44): succ(screen__msgtextt__val(X)) may_be_replaced_by 
+     screen__msgtextt__val(X+1)
+     if [0 <= X, X < 14].
+resetscreenm_rules(45): pred(screen__msgtextt__val(X)) may_be_replaced_by 
+     screen__msgtextt__val(X-1)
+     if [0 < X, X <= 14].
+resetscreenm_rules(46): screen__msgtextt__pos(screen__msgtextt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 14].
+resetscreenm_rules(47): screen__msgtextt__val(screen__msgtextt__pos(X)) may_be_replaced_by X
+     if [screen__clear <= X, X <= screen__insertconfigdata].
+resetscreenm_rules(48): screen__msgtextt__pos(X) <= 
+     screen__msgtextt__pos(Y) & X <= Y are_interchangeable 
+     if [screen__clear <= X, X <= screen__insertconfigdata, 
+     screen__clear <= Y, Y <= screen__insertconfigdata].
+resetscreenm_rules(49): screen__msgtextt__val(X) <= 
+     screen__msgtextt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 14, 0 <= Y, Y <= 14].
+resetscreenm_rules(50): statust__size >= 0 may_be_deduced.
+resetscreenm_rules(51): statust__first may_be_replaced_by notenrolled.
+resetscreenm_rules(52): statust__last may_be_replaced_by shutdown.
+resetscreenm_rules(53): statust__base__first may_be_replaced_by notenrolled.
+resetscreenm_rules(54): statust__base__last may_be_replaced_by shutdown.
+resetscreenm_rules(55): statust__pos(statust__first) may_be_replaced_by 0.
+resetscreenm_rules(56): statust__pos(notenrolled) may_be_replaced_by 0.
+resetscreenm_rules(57): statust__val(0) may_be_replaced_by 
+     notenrolled.
+resetscreenm_rules(58): statust__pos(waitingenrol) may_be_replaced_by 1.
+resetscreenm_rules(59): statust__val(1) may_be_replaced_by 
+     waitingenrol.
+resetscreenm_rules(60): statust__pos(waitingendenrol) may_be_replaced_by 2.
+resetscreenm_rules(61): statust__val(2) may_be_replaced_by 
+     waitingendenrol.
+resetscreenm_rules(62): statust__pos(enclavequiescent) may_be_replaced_by 3.
+resetscreenm_rules(63): statust__val(3) may_be_replaced_by 
+     enclavequiescent.
+resetscreenm_rules(64): statust__pos(waitingremoveadmintokenfail) may_be_replaced_by 4.
+resetscreenm_rules(65): statust__val(4) may_be_replaced_by 
+     waitingremoveadmintokenfail.
+resetscreenm_rules(66): statust__pos(gotadmintoken) may_be_replaced_by 5.
+resetscreenm_rules(67): statust__val(5) may_be_replaced_by 
+     gotadmintoken.
+resetscreenm_rules(68): statust__pos(waitingstartadminop) may_be_replaced_by 6.
+resetscreenm_rules(69): statust__val(6) may_be_replaced_by 
+     waitingstartadminop.
+resetscreenm_rules(70): statust__pos(waitingfinishadminop) may_be_replaced_by 7.
+resetscreenm_rules(71): statust__val(7) may_be_replaced_by 
+     waitingfinishadminop.
+resetscreenm_rules(72): statust__pos(shutdown) may_be_replaced_by 8.
+resetscreenm_rules(73): statust__val(8) may_be_replaced_by 
+     shutdown.
+resetscreenm_rules(74): statust__pos(statust__last) may_be_replaced_by 8.
+resetscreenm_rules(75): statust__pos(succ(X)) may_be_replaced_by 
+     statust__pos(X) + 1
+     if [X <=shutdown, X <> shutdown].
+resetscreenm_rules(76): statust__pos(pred(X)) may_be_replaced_by 
+     statust__pos(X) - 1
+     if [X >=notenrolled, X <> notenrolled].
+resetscreenm_rules(77): statust__pos(X) >= 0 may_be_deduced_from
+     [notenrolled <= X, X <= shutdown].
+resetscreenm_rules(78): statust__pos(X) <= 8 may_be_deduced_from
+     [notenrolled <= X, X <= shutdown].
+resetscreenm_rules(79): statust__val(X) >= notenrolled may_be_deduced_from
+     [0 <= X, X <= 8].
+resetscreenm_rules(80): statust__val(X) <= shutdown may_be_deduced_from
+     [0 <= X, X <= 8].
+resetscreenm_rules(81): succ(statust__val(X)) may_be_replaced_by 
+     statust__val(X+1)
+     if [0 <= X, X < 8].
+resetscreenm_rules(82): pred(statust__val(X)) may_be_replaced_by 
+     statust__val(X-1)
+     if [0 < X, X <= 8].
+resetscreenm_rules(83): statust__pos(statust__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 8].
+resetscreenm_rules(84): statust__val(statust__pos(X)) may_be_replaced_by X
+     if [notenrolled <= X, X <= shutdown].
+resetscreenm_rules(85): statust__pos(X) <= statust__pos(Y) & X <= Y are_interchangeable 
+     if [notenrolled <= X, X <= shutdown, notenrolled <= Y, Y <= 
+     shutdown].
+resetscreenm_rules(86): statust__val(X) <= statust__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 8, 0 <= Y, Y <= 8].

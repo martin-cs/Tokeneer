@@ -1,0 +1,112 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:32.06}
+
+                             {procedure TISMain}
+
+
+title procedure tismain;
+
+  function round__(real) : integer;
+  type clock__currenttime__type = pending;
+  type clock__timet = pending;
+  type privtypes__privileget = (privtypes__useronly, 
+     privtypes__guard, privtypes__auditmanager, 
+     privtypes__securityofficer);
+  type auditlog__state__type = pending;
+  type latch__statetype = pending;
+  type latch__outtype = pending;
+  type door__statetype = pending;
+  type door__t = (door__open, door__closed);
+  type alarm__outtype = pending;
+  type keystore__state__type = pending;
+  type admin__opandnullt = (admin__nullop, admin__archivelog, 
+     admin__updateconfigdata, admin__overridelock, 
+     admin__shutdownop);
+  type admin__t = pending;
+  type admintoken__statetype = pending;
+  type enclave__statetype = pending;
+  const admin__opandnullt__base__first : admin__opandnullt = pending; 
+  const admin__opandnullt__base__last : admin__opandnullt = pending; 
+  const door__t__base__first : door__t = pending; 
+  const door__t__base__last : door__t = pending; 
+  const privtypes__privileget__base__first : 
+     privtypes__privileget = pending; 
+  const privtypes__privileget__base__last : privtypes__privileget = pending; 
+  const admin__opandnullt__first : admin__opandnullt = pending; 
+  const admin__opandnullt__last : admin__opandnullt = pending; 
+  const admin__opandnullt__size : integer = pending; 
+  const door__t__first : door__t = pending; 
+  const door__t__last : door__t = pending; 
+  const door__t__size : integer = pending; 
+  const privtypes__privileget__first : privtypes__privileget = pending; 
+  const privtypes__privileget__last : privtypes__privileget = pending; 
+  const privtypes__privileget__size : integer = pending; 
+  var clock__currenttime : clock__currenttime__type;
+  var auditlog__state : auditlog__state__type;
+  var latch__state : latch__statetype;
+  var latch__output : latch__outtype;
+  var door__state : door__statetype;
+  var alarm__output : alarm__outtype;
+  var keystore__state : keystore__state__type;
+  var admintoken__state : admintoken__statetype;
+  var enclave__state : enclave__statetype;
+  var systemfault : boolean;
+  var shutdowncompleted : boolean;
+  var theadmin : admin__t;
+  function clock__thecurrenttime(clock__currenttime__type) : 
+     clock__timet;
+  function clock__greaterthanorequal(clock__timet, clock__timet) : boolean;
+  function auditlog__systemfaultoccurred(auditlog__state__type) : boolean;
+  function latch__prf_islocked(latch__outtype) : boolean;
+  function latch__islocked(latch__statetype) : boolean;
+  function door__prf_alarmtimeout(door__statetype) : clock__timet;
+  function door__thecurrentdoor(door__statetype) : door__t;
+  function alarm__prf_isalarming(alarm__outtype) : boolean;
+  function keystore__privatekeypresent(keystore__state__type) : boolean;
+  function admin__prf_rolepresent(admin__t) : 
+     privtypes__privileget;
+  function admin__isdoingop(admin__t) : boolean;
+  function admin__thecurrentop(admin__t) : admin__opandnullt;
+  function admin__ispresent(admin__t) : boolean;
+  function admintoken__theauthcertrole(admintoken__statetype) : 
+     privtypes__privileget;
+  function admintoken__prf_isgood(admintoken__statetype) : boolean;
+  function admintoken__prf_authcertvalid(admintoken__statetype) : boolean;
+  function userentry__prf_userentryunlockdoor : boolean;
+  function enclave__prf_statusisgotadmintoken(enclave__statetype) : boolean;
+  function enclave__prf_statusiswaitingremoveadmintokenfail(
+     enclave__statetype) : boolean;
+  function enclave__prf_statusiswaitingstartadminop(
+     enclave__statetype) : boolean;
+  function enclave__prf_statusiswaitingfinishadminop(
+     enclave__statetype) : boolean;
+  function enclave__prf_statusisenclavequiescent(
+     enclave__statetype) : boolean;
+  function enclave__prf_statusisshutdown(enclave__statetype) : boolean;
+  function enclave__enrolmentisinprogress(enclave__statetype) : boolean;
+  function enclave__hasshutdown(enclave__statetype) : boolean;
+  function prf_prelatchstate : latch__statetype;
+  function prf_prelatchoutput : latch__outtype;
+  var theadmin__2 : admin__t;
+  var admintoken__state__2 : admintoken__statetype;
+  var alarm__output__2 : alarm__outtype;
+  var clock__currenttime__2 : clock__currenttime__type;
+  var door__state__2 : door__statetype;
+  var systemfault__2 : boolean;
+  var latch__output__2 : latch__outtype;
+  var latch__state__2 : latch__statetype;
+  var keystore__state__2 : keystore__state__type;
+  var enclave__state__2 : enclave__statetype;
+  var latch__state__1 : latch__statetype;
+  var admintoken__state__1 : admintoken__statetype;
+  var theadmin__1 : admin__t;
+  var keystore__state__1 : keystore__state__type;
+  var enclave__state__1 : enclave__statetype;
+
+end;

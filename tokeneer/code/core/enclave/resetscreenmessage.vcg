@@ -1,0 +1,83 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:27.62
+
+                    procedure Enclave.ResetScreenMessage
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 2408:
+
+procedure_resetscreenmessage_1.
+H1:    true .
+H2:    status >= statust__first .
+H3:    status <= statust__last .
+H4:    status = enclavequiescent .
+H5:    true .
+H6:    admin__ispresent(theadmin) .
+        ->
+C1:    screen__requestadminop >= screen__msgtextt__first .
+C2:    screen__requestadminop <= screen__msgtextt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 2410:
+
+procedure_resetscreenmessage_2.
+H1:    true .
+H2:    status >= statust__first .
+H3:    status <= statust__last .
+H4:    status = enclavequiescent .
+H5:    true .
+H6:    not (admin__ispresent(theadmin)) .
+        ->
+C1:    screen__welcomeadmin >= screen__msgtextt__first .
+C2:    screen__welcomeadmin <= screen__msgtextt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 2413:
+
+procedure_resetscreenmessage_3.
+H1:    true .
+H2:    status >= statust__first .
+H3:    status <= statust__last .
+H4:    not (status = enclavequiescent) .
+H5:    status = waitingremoveadmintokenfail .
+        ->
+C1:    screen__removeadmintoken >= screen__msgtextt__first .
+C2:    screen__removeadmintoken <= screen__msgtextt__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_resetscreenmessage_4.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_resetscreenmessage_5.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_resetscreenmessage_6.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_resetscreenmessage_7.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+For checks of refinement integrity: 
+
+procedure_resetscreenmessage_8.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_resetscreenmessage_9.
+*** true .          /* trivially true VC removed by Examiner */
+
+

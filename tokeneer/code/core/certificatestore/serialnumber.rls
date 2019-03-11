@@ -1,0 +1,26 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:16.16*/
+
+                   /*function CertificateStore.SerialNumber*/
+
+
+rule_family serialnumber_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+serialnumber_rules(1): certtypes__serialnumbert__size >= 0 may_be_deduced.
+serialnumber_rules(2): certtypes__serialnumbert__first may_be_replaced_by 0.
+serialnumber_rules(3): certtypes__serialnumbert__last may_be_replaced_by 4294967295.
+serialnumber_rules(4): certtypes__serialnumbert__base__first <= 
+     certtypes__serialnumbert__base__last may_be_deduced.
+serialnumber_rules(5): certtypes__serialnumbert__base__first <= 
+     certtypes__serialnumbert__first may_be_deduced.
+serialnumber_rules(6): certtypes__serialnumbert__base__last >= 
+     certtypes__serialnumbert__last may_be_deduced.

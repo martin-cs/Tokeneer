@@ -1,0 +1,34 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:08.08*/
+
+                      /*function AuditLog.NextListIndex*/
+
+
+rule_family nextlistinde_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+nextlistinde_rules(1): logfilecountt__size >= 0 may_be_deduced.
+nextlistinde_rules(2): logfilecountt__first may_be_replaced_by 0.
+nextlistinde_rules(3): logfilecountt__last may_be_replaced_by 17.
+nextlistinde_rules(4): logfilecountt__base__first <= 
+     logfilecountt__base__last may_be_deduced.
+nextlistinde_rules(5): logfilecountt__base__first <= 
+     logfilecountt__first may_be_deduced.
+nextlistinde_rules(6): logfilecountt__base__last >= logfilecountt__last may_be_deduced.
+nextlistinde_rules(7): logfileindext__size >= 0 may_be_deduced.
+nextlistinde_rules(8): logfileindext__first may_be_replaced_by 1.
+nextlistinde_rules(9): logfileindext__last may_be_replaced_by 17.
+nextlistinde_rules(10): logfileindext__base__first <= 
+     logfileindext__base__last may_be_deduced.
+nextlistinde_rules(11): logfileindext__base__first <= 
+     logfileindext__first may_be_deduced.
+nextlistinde_rules(12): logfileindext__base__last >= 
+     logfileindext__last may_be_deduced.

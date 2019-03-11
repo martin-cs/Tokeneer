@@ -1,0 +1,356 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:14.83*/
+
+                            /*procedure Auth.Clear*/
+
+
+rule_family clear_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+clear_rules(1): cryptotypes__issueridt__first <= fld_id(fld_issuer(fld_id(fld_inherit(cert__attr__nullcontents)))) may_be_deduced.
+clear_rules(2): fld_id(fld_issuer(fld_id(fld_inherit(cert__attr__nullcontents)))) <= 
+     cryptotypes__issueridt__last may_be_deduced.
+clear_rules(3): cryptotypes__namecountt__first <= fld_namelength(fld_issuer(fld_id(fld_inherit(cert__attr__nullcontents)))) may_be_deduced.
+clear_rules(4): fld_namelength(fld_issuer(fld_id(fld_inherit(cert__attr__nullcontents)))) <= 
+     cryptotypes__namecountt__last may_be_deduced.
+clear_rules(5): character__first <= element(fld_name(fld_issuer(fld_id(fld_inherit(cert__attr__nullcontents)))), [I]) may_be_deduced_from [1 <= I, I <= 40].
+clear_rules(6): element(fld_name(fld_issuer(fld_id(fld_inherit(cert__attr__nullcontents)))), [I]) <= 
+     character__last may_be_deduced_from [1 <= I, I <= 40].
+clear_rules(7): certtypes__serialnumbert__first <= fld_serialnumber(fld_id(fld_inherit(cert__attr__nullcontents))) may_be_deduced.
+clear_rules(8): fld_serialnumber(fld_id(fld_inherit(cert__attr__nullcontents))) <= 
+     certtypes__serialnumbert__last may_be_deduced.
+clear_rules(9): cryptotypes__algorithmt__first <= fld_mechanism(fld_inherit(cert__attr__nullcontents)) may_be_deduced.
+clear_rules(10): fld_mechanism(fld_inherit(cert__attr__nullcontents)) <= 
+     cryptotypes__algorithmt__last may_be_deduced.
+clear_rules(11): cryptotypes__issueridt__first <= fld_id(fld_issuer(fld_basecertid(cert__attr__nullcontents))) may_be_deduced.
+clear_rules(12): fld_id(fld_issuer(fld_basecertid(cert__attr__nullcontents))) <= 
+     cryptotypes__issueridt__last may_be_deduced.
+clear_rules(13): cryptotypes__namecountt__first <= fld_namelength(fld_issuer(fld_basecertid(cert__attr__nullcontents))) may_be_deduced.
+clear_rules(14): fld_namelength(fld_issuer(fld_basecertid(cert__attr__nullcontents))) <= 
+     cryptotypes__namecountt__last may_be_deduced.
+clear_rules(15): character__first <= element(fld_name(fld_issuer(fld_basecertid(cert__attr__nullcontents))), [I]) may_be_deduced_from [1 <= I, I <= 40].
+clear_rules(16): element(fld_name(fld_issuer(fld_basecertid(cert__attr__nullcontents))), [I]) <= 
+     character__last may_be_deduced_from [1 <= I, I <= 40].
+clear_rules(17): certtypes__serialnumbert__first <= fld_serialnumber(fld_basecertid(cert__attr__nullcontents)) may_be_deduced.
+clear_rules(18): fld_serialnumber(fld_basecertid(cert__attr__nullcontents)) <= 
+     certtypes__serialnumbert__last may_be_deduced.
+clear_rules(19): cryptotypes__issueridt__first <= fld_id(fld_issuer(fld_id(fld_inherit(fld_inherit(nullcontents))))) may_be_deduced.
+clear_rules(20): fld_id(fld_issuer(fld_id(fld_inherit(fld_inherit(nullcontents))))) <= 
+     cryptotypes__issueridt__last may_be_deduced.
+clear_rules(21): cryptotypes__namecountt__first <= fld_namelength(fld_issuer(fld_id(fld_inherit(fld_inherit(nullcontents))))) may_be_deduced.
+clear_rules(22): fld_namelength(fld_issuer(fld_id(fld_inherit(fld_inherit(nullcontents))))) <= 
+     cryptotypes__namecountt__last may_be_deduced.
+clear_rules(23): character__first <= element(fld_name(fld_issuer(fld_id(fld_inherit(fld_inherit(nullcontents))))), [I]) may_be_deduced_from [1 <= I, I <= 40].
+clear_rules(24): element(fld_name(fld_issuer(fld_id(fld_inherit(fld_inherit(nullcontents))))), [I]) <= 
+     character__last may_be_deduced_from [1 <= I, I <= 40].
+clear_rules(25): certtypes__serialnumbert__first <= fld_serialnumber(fld_id(fld_inherit(fld_inherit(nullcontents)))) may_be_deduced.
+clear_rules(26): fld_serialnumber(fld_id(fld_inherit(fld_inherit(nullcontents)))) <= 
+     certtypes__serialnumbert__last may_be_deduced.
+clear_rules(27): cryptotypes__algorithmt__first <= fld_mechanism(fld_inherit(fld_inherit(nullcontents))) may_be_deduced.
+clear_rules(28): fld_mechanism(fld_inherit(fld_inherit(nullcontents))) <= 
+     cryptotypes__algorithmt__last may_be_deduced.
+clear_rules(29): cryptotypes__issueridt__first <= fld_id(fld_issuer(fld_basecertid(fld_inherit(nullcontents)))) may_be_deduced.
+clear_rules(30): fld_id(fld_issuer(fld_basecertid(fld_inherit(nullcontents)))) <= 
+     cryptotypes__issueridt__last may_be_deduced.
+clear_rules(31): cryptotypes__namecountt__first <= fld_namelength(fld_issuer(fld_basecertid(fld_inherit(nullcontents)))) may_be_deduced.
+clear_rules(32): fld_namelength(fld_issuer(fld_basecertid(fld_inherit(nullcontents)))) <= 
+     cryptotypes__namecountt__last may_be_deduced.
+clear_rules(33): character__first <= element(fld_name(fld_issuer(fld_basecertid(fld_inherit(nullcontents)))), [I]) may_be_deduced_from [1 <= I, I <= 40].
+clear_rules(34): element(fld_name(fld_issuer(fld_basecertid(fld_inherit(nullcontents)))), [I]) <= 
+     character__last may_be_deduced_from [1 <= I, I <= 40].
+clear_rules(35): certtypes__serialnumbert__first <= fld_serialnumber(fld_basecertid(fld_inherit(nullcontents))) may_be_deduced.
+clear_rules(36): fld_serialnumber(fld_basecertid(fld_inherit(nullcontents))) <= 
+     certtypes__serialnumbert__last may_be_deduced.
+clear_rules(37): privtypes__privileget__first <= fld_role(nullcontents) may_be_deduced.
+clear_rules(38): fld_role(nullcontents) <= privtypes__privileget__last may_be_deduced.
+clear_rules(39): privtypes__classt__first <= fld_class(fld_clearance(nullcontents)) may_be_deduced.
+clear_rules(40): fld_class(fld_clearance(nullcontents)) <= 
+     privtypes__classt__last may_be_deduced.
+clear_rules(41): nullcontents may_be_replaced_by 
+           mk__contentst(inherit := cert__attr__nullcontents, 
+           role := (privtypes__privileget__first), 
+           clearance := mk__privtypes__clearancet(class := (
+           privtypes__classt__first))).
+clear_rules(42): integer__size >= 0 may_be_deduced.
+clear_rules(43): integer__first may_be_replaced_by -2147483648.
+clear_rules(44): integer__last may_be_replaced_by 2147483647.
+clear_rules(45): integer__base__first may_be_replaced_by -2147483648.
+clear_rules(46): integer__base__last may_be_replaced_by 2147483647.
+clear_rules(47): character__size >= 0 may_be_deduced.
+clear_rules(48): character__first may_be_replaced_by 0.
+clear_rules(49): character__last may_be_replaced_by 255.
+clear_rules(50): character__base__first may_be_replaced_by 0.
+clear_rules(51): character__base__last may_be_replaced_by 255.
+clear_rules(52): positive__size >= 0 may_be_deduced.
+clear_rules(53): positive__first may_be_replaced_by 1.
+clear_rules(54): positive__last may_be_replaced_by 2147483647.
+clear_rules(55): positive__base__first may_be_replaced_by -2147483648.
+clear_rules(56): positive__base__last may_be_replaced_by 2147483647.
+clear_rules(57): privtypes__privileget__size >= 0 may_be_deduced.
+clear_rules(58): privtypes__privileget__first may_be_replaced_by privtypes__useronly.
+clear_rules(59): privtypes__privileget__last may_be_replaced_by privtypes__securityofficer.
+clear_rules(60): privtypes__privileget__base__first may_be_replaced_by privtypes__useronly.
+clear_rules(61): privtypes__privileget__base__last may_be_replaced_by privtypes__securityofficer.
+clear_rules(62): privtypes__privileget__pos(privtypes__privileget__first) may_be_replaced_by 0.
+clear_rules(63): privtypes__privileget__pos(privtypes__useronly) may_be_replaced_by 0.
+clear_rules(64): privtypes__privileget__val(0) may_be_replaced_by 
+     privtypes__useronly.
+clear_rules(65): privtypes__privileget__pos(privtypes__guard) may_be_replaced_by 1.
+clear_rules(66): privtypes__privileget__val(1) may_be_replaced_by 
+     privtypes__guard.
+clear_rules(67): privtypes__privileget__pos(
+     privtypes__auditmanager) may_be_replaced_by 2.
+clear_rules(68): privtypes__privileget__val(2) may_be_replaced_by 
+     privtypes__auditmanager.
+clear_rules(69): privtypes__privileget__pos(
+     privtypes__securityofficer) may_be_replaced_by 3.
+clear_rules(70): privtypes__privileget__val(3) may_be_replaced_by 
+     privtypes__securityofficer.
+clear_rules(71): privtypes__privileget__pos(privtypes__privileget__last) may_be_replaced_by 3.
+clear_rules(72): privtypes__privileget__pos(succ(X)) may_be_replaced_by 
+     privtypes__privileget__pos(X) + 1
+     if [X <=privtypes__securityofficer, X <> 
+     privtypes__securityofficer].
+clear_rules(73): privtypes__privileget__pos(pred(X)) may_be_replaced_by 
+     privtypes__privileget__pos(X) - 1
+     if [X >=privtypes__useronly, X <> privtypes__useronly].
+clear_rules(74): privtypes__privileget__pos(X) >= 0 may_be_deduced_from
+     [privtypes__useronly <= X, X <= privtypes__securityofficer].
+clear_rules(75): privtypes__privileget__pos(X) <= 3 may_be_deduced_from
+     [privtypes__useronly <= X, X <= privtypes__securityofficer].
+clear_rules(76): privtypes__privileget__val(X) >= 
+     privtypes__useronly may_be_deduced_from
+     [0 <= X, X <= 3].
+clear_rules(77): privtypes__privileget__val(X) <= 
+     privtypes__securityofficer may_be_deduced_from
+     [0 <= X, X <= 3].
+clear_rules(78): succ(privtypes__privileget__val(X)) may_be_replaced_by 
+     privtypes__privileget__val(X+1)
+     if [0 <= X, X < 3].
+clear_rules(79): pred(privtypes__privileget__val(X)) may_be_replaced_by 
+     privtypes__privileget__val(X-1)
+     if [0 < X, X <= 3].
+clear_rules(80): privtypes__privileget__pos(privtypes__privileget__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 3].
+clear_rules(81): privtypes__privileget__val(privtypes__privileget__pos(X)) may_be_replaced_by X
+     if [privtypes__useronly <= X, X <= 
+     privtypes__securityofficer].
+clear_rules(82): privtypes__privileget__pos(X) <= 
+     privtypes__privileget__pos(Y) & X <= Y are_interchangeable 
+     if [privtypes__useronly <= X, X <= 
+     privtypes__securityofficer, privtypes__useronly <= Y, Y <= 
+     privtypes__securityofficer].
+clear_rules(83): privtypes__privileget__val(X) <= 
+     privtypes__privileget__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 3, 0 <= Y, Y <= 3].
+clear_rules(84): privtypes__classt__size >= 0 may_be_deduced.
+clear_rules(85): privtypes__classt__first may_be_replaced_by privtypes__unmarked.
+clear_rules(86): privtypes__classt__last may_be_replaced_by privtypes__topsecret.
+clear_rules(87): privtypes__classt__base__first may_be_replaced_by privtypes__unmarked.
+clear_rules(88): privtypes__classt__base__last may_be_replaced_by privtypes__topsecret.
+clear_rules(89): privtypes__classt__pos(privtypes__classt__first) may_be_replaced_by 0.
+clear_rules(90): privtypes__classt__pos(privtypes__unmarked) may_be_replaced_by 0.
+clear_rules(91): privtypes__classt__val(0) may_be_replaced_by 
+     privtypes__unmarked.
+clear_rules(92): privtypes__classt__pos(privtypes__unclassified) may_be_replaced_by 1.
+clear_rules(93): privtypes__classt__val(1) may_be_replaced_by 
+     privtypes__unclassified.
+clear_rules(94): privtypes__classt__pos(privtypes__restricted) may_be_replaced_by 2.
+clear_rules(95): privtypes__classt__val(2) may_be_replaced_by 
+     privtypes__restricted.
+clear_rules(96): privtypes__classt__pos(privtypes__confidential) may_be_replaced_by 3.
+clear_rules(97): privtypes__classt__val(3) may_be_replaced_by 
+     privtypes__confidential.
+clear_rules(98): privtypes__classt__pos(privtypes__secret) may_be_replaced_by 4.
+clear_rules(99): privtypes__classt__val(4) may_be_replaced_by 
+     privtypes__secret.
+clear_rules(100): privtypes__classt__pos(privtypes__topsecret) may_be_replaced_by 5.
+clear_rules(101): privtypes__classt__val(5) may_be_replaced_by 
+     privtypes__topsecret.
+clear_rules(102): privtypes__classt__pos(privtypes__classt__last) may_be_replaced_by 5.
+clear_rules(103): privtypes__classt__pos(succ(X)) may_be_replaced_by 
+     privtypes__classt__pos(X) + 1
+     if [X <=privtypes__topsecret, X <> privtypes__topsecret].
+clear_rules(104): privtypes__classt__pos(pred(X)) may_be_replaced_by 
+     privtypes__classt__pos(X) - 1
+     if [X >=privtypes__unmarked, X <> privtypes__unmarked].
+clear_rules(105): privtypes__classt__pos(X) >= 0 may_be_deduced_from
+     [privtypes__unmarked <= X, X <= privtypes__topsecret].
+clear_rules(106): privtypes__classt__pos(X) <= 5 may_be_deduced_from
+     [privtypes__unmarked <= X, X <= privtypes__topsecret].
+clear_rules(107): privtypes__classt__val(X) >= 
+     privtypes__unmarked may_be_deduced_from
+     [0 <= X, X <= 5].
+clear_rules(108): privtypes__classt__val(X) <= 
+     privtypes__topsecret may_be_deduced_from
+     [0 <= X, X <= 5].
+clear_rules(109): succ(privtypes__classt__val(X)) may_be_replaced_by 
+     privtypes__classt__val(X+1)
+     if [0 <= X, X < 5].
+clear_rules(110): pred(privtypes__classt__val(X)) may_be_replaced_by 
+     privtypes__classt__val(X-1)
+     if [0 < X, X <= 5].
+clear_rules(111): privtypes__classt__pos(privtypes__classt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 5].
+clear_rules(112): privtypes__classt__val(privtypes__classt__pos(X)) may_be_replaced_by X
+     if [privtypes__unmarked <= X, X <= privtypes__topsecret].
+clear_rules(113): privtypes__classt__pos(X) <= privtypes__classt__pos(Y) & X <= Y are_interchangeable 
+     if [privtypes__unmarked <= X, X <= privtypes__topsecret, 
+     privtypes__unmarked <= Y, Y <= privtypes__topsecret].
+clear_rules(114): privtypes__classt__val(X) <= privtypes__classt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 5, 0 <= Y, Y <= 5].
+clear_rules(115): privtypes__clearancet__size >= 0 may_be_deduced.
+clear_rules(116): A = B may_be_deduced_from
+     [goal(checktype(A,privtypes__clearancet)),
+      goal(checktype(B,privtypes__clearancet)),
+      fld_class(A) = fld_class(B)].
+clear_rules(117): cryptotypes__namecountt__size >= 0 may_be_deduced.
+clear_rules(118): cryptotypes__namecountt__first may_be_replaced_by 0.
+clear_rules(119): cryptotypes__namecountt__last may_be_replaced_by 40.
+clear_rules(120): cryptotypes__namecountt__base__first may_be_replaced_by -2147483648.
+clear_rules(121): cryptotypes__namecountt__base__last may_be_replaced_by 2147483647.
+clear_rules(122): cryptotypes__issueridt__size >= 0 may_be_deduced.
+clear_rules(123): cryptotypes__issueridt__first may_be_replaced_by 0.
+clear_rules(124): cryptotypes__issueridt__last may_be_replaced_by 4294967295.
+clear_rules(125): cryptotypes__issueridt__base__first <= 
+     cryptotypes__issueridt__base__last may_be_deduced.
+clear_rules(126): cryptotypes__issueridt__base__first <= 
+     cryptotypes__issueridt__first may_be_deduced.
+clear_rules(127): cryptotypes__issueridt__base__last >= 
+     cryptotypes__issueridt__last may_be_deduced.
+clear_rules(128): cryptotypes__issuert__size >= 0 may_be_deduced.
+clear_rules(129): A = B may_be_deduced_from
+     [goal(checktype(A,cryptotypes__issuert)),
+      goal(checktype(B,cryptotypes__issuert)),
+      fld_id(A) = fld_id(B),
+      fld_namelength(A) = fld_namelength(B),
+      fld_name(A) = fld_name(B)].
+clear_rules(130): cryptotypes__algorithmt__size >= 0 may_be_deduced.
+clear_rules(131): cryptotypes__algorithmt__first may_be_replaced_by cryptotypes__rsa.
+clear_rules(132): cryptotypes__algorithmt__last may_be_replaced_by cryptotypes__ripemd160_rsa.
+clear_rules(133): cryptotypes__algorithmt__base__first may_be_replaced_by cryptotypes__rsa.
+clear_rules(134): cryptotypes__algorithmt__base__last may_be_replaced_by cryptotypes__ripemd160_rsa.
+clear_rules(135): cryptotypes__algorithmt__pos(
+     cryptotypes__algorithmt__first) may_be_replaced_by 0.
+clear_rules(136): cryptotypes__algorithmt__pos(cryptotypes__rsa) may_be_replaced_by 0.
+clear_rules(137): cryptotypes__algorithmt__val(0) may_be_replaced_by 
+     cryptotypes__rsa.
+clear_rules(138): cryptotypes__algorithmt__pos(cryptotypes__md2) may_be_replaced_by 1.
+clear_rules(139): cryptotypes__algorithmt__val(1) may_be_replaced_by 
+     cryptotypes__md2.
+clear_rules(140): cryptotypes__algorithmt__pos(cryptotypes__md5) may_be_replaced_by 2.
+clear_rules(141): cryptotypes__algorithmt__val(2) may_be_replaced_by 
+     cryptotypes__md5.
+clear_rules(142): cryptotypes__algorithmt__pos(cryptotypes__sha_1) may_be_replaced_by 3.
+clear_rules(143): cryptotypes__algorithmt__val(3) may_be_replaced_by 
+     cryptotypes__sha_1.
+clear_rules(144): cryptotypes__algorithmt__pos(
+     cryptotypes__ripemd128) may_be_replaced_by 4.
+clear_rules(145): cryptotypes__algorithmt__val(4) may_be_replaced_by 
+     cryptotypes__ripemd128.
+clear_rules(146): cryptotypes__algorithmt__pos(
+     cryptotypes__ripemd160) may_be_replaced_by 5.
+clear_rules(147): cryptotypes__algorithmt__val(5) may_be_replaced_by 
+     cryptotypes__ripemd160.
+clear_rules(148): cryptotypes__algorithmt__pos(
+     cryptotypes__md2_rsa) may_be_replaced_by 6.
+clear_rules(149): cryptotypes__algorithmt__val(6) may_be_replaced_by 
+     cryptotypes__md2_rsa.
+clear_rules(150): cryptotypes__algorithmt__pos(
+     cryptotypes__md5_rsa) may_be_replaced_by 7.
+clear_rules(151): cryptotypes__algorithmt__val(7) may_be_replaced_by 
+     cryptotypes__md5_rsa.
+clear_rules(152): cryptotypes__algorithmt__pos(
+     cryptotypes__sha1_rsa) may_be_replaced_by 8.
+clear_rules(153): cryptotypes__algorithmt__val(8) may_be_replaced_by 
+     cryptotypes__sha1_rsa.
+clear_rules(154): cryptotypes__algorithmt__pos(
+     cryptotypes__ripemd128_rsa) may_be_replaced_by 9.
+clear_rules(155): cryptotypes__algorithmt__val(9) may_be_replaced_by 
+     cryptotypes__ripemd128_rsa.
+clear_rules(156): cryptotypes__algorithmt__pos(
+     cryptotypes__ripemd160_rsa) may_be_replaced_by 10.
+clear_rules(157): cryptotypes__algorithmt__val(10) may_be_replaced_by 
+     cryptotypes__ripemd160_rsa.
+clear_rules(158): cryptotypes__algorithmt__pos(
+     cryptotypes__algorithmt__last) may_be_replaced_by 10.
+clear_rules(159): cryptotypes__algorithmt__pos(succ(X)) may_be_replaced_by 
+     cryptotypes__algorithmt__pos(X) + 1
+     if [X <=cryptotypes__ripemd160_rsa, X <> 
+     cryptotypes__ripemd160_rsa].
+clear_rules(160): cryptotypes__algorithmt__pos(pred(X)) may_be_replaced_by 
+     cryptotypes__algorithmt__pos(X) - 1
+     if [X >=cryptotypes__rsa, X <> cryptotypes__rsa].
+clear_rules(161): cryptotypes__algorithmt__pos(X) >= 0 may_be_deduced_from
+     [cryptotypes__rsa <= X, X <= cryptotypes__ripemd160_rsa].
+clear_rules(162): cryptotypes__algorithmt__pos(X) <= 10 may_be_deduced_from
+     [cryptotypes__rsa <= X, X <= cryptotypes__ripemd160_rsa].
+clear_rules(163): cryptotypes__algorithmt__val(X) >= 
+     cryptotypes__rsa may_be_deduced_from
+     [0 <= X, X <= 10].
+clear_rules(164): cryptotypes__algorithmt__val(X) <= 
+     cryptotypes__ripemd160_rsa may_be_deduced_from
+     [0 <= X, X <= 10].
+clear_rules(165): succ(cryptotypes__algorithmt__val(X)) may_be_replaced_by 
+     cryptotypes__algorithmt__val(X+1)
+     if [0 <= X, X < 10].
+clear_rules(166): pred(cryptotypes__algorithmt__val(X)) may_be_replaced_by 
+     cryptotypes__algorithmt__val(X-1)
+     if [0 < X, X <= 10].
+clear_rules(167): cryptotypes__algorithmt__pos(
+     cryptotypes__algorithmt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 10].
+clear_rules(168): cryptotypes__algorithmt__val(
+     cryptotypes__algorithmt__pos(X)) may_be_replaced_by X
+     if [cryptotypes__rsa <= X, X <= cryptotypes__ripemd160_rsa].
+clear_rules(169): cryptotypes__algorithmt__pos(X) <= 
+     cryptotypes__algorithmt__pos(Y) & X <= Y are_interchangeable 
+     if [cryptotypes__rsa <= X, X <= cryptotypes__ripemd160_rsa, 
+     cryptotypes__rsa <= Y, Y <= cryptotypes__ripemd160_rsa].
+clear_rules(170): cryptotypes__algorithmt__val(X) <= 
+     cryptotypes__algorithmt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 10, 0 <= Y, Y <= 10].
+clear_rules(171): certtypes__serialnumbert__size >= 0 may_be_deduced.
+clear_rules(172): certtypes__serialnumbert__first may_be_replaced_by 0.
+clear_rules(173): certtypes__serialnumbert__last may_be_replaced_by 4294967295.
+clear_rules(174): certtypes__serialnumbert__base__first <= 
+     certtypes__serialnumbert__base__last may_be_deduced.
+clear_rules(175): certtypes__serialnumbert__base__first <= 
+     certtypes__serialnumbert__first may_be_deduced.
+clear_rules(176): certtypes__serialnumbert__base__last >= 
+     certtypes__serialnumbert__last may_be_deduced.
+clear_rules(177): certtypes__idt__size >= 0 may_be_deduced.
+clear_rules(178): A = B may_be_deduced_from
+     [goal(checktype(A,certtypes__idt)),
+      goal(checktype(B,certtypes__idt)),
+      fld_issuer(A) = fld_issuer(B),
+      fld_serialnumber(A) = fld_serialnumber(B)].
+clear_rules(179): cert__contentst__size >= 0 may_be_deduced.
+clear_rules(180): A = B may_be_deduced_from
+     [goal(checktype(A,cert__contentst)),
+      goal(checktype(B,cert__contentst)),
+      fld_id(A) = fld_id(B),
+      fld_notbefore(A) = fld_notbefore(B),
+      fld_notafter(A) = fld_notafter(B),
+      fld_mechanism(A) = fld_mechanism(B)].
+clear_rules(181): cert__attr__contentst__size >= 0 may_be_deduced.
+clear_rules(182): A = B may_be_deduced_from
+     [goal(checktype(A,cert__attr__contentst)),
+      goal(checktype(B,cert__attr__contentst)),
+      fld_inherit(A) = fld_inherit(B),
+      fld_basecertid(A) = fld_basecertid(B)].
+clear_rules(183): contentst__size >= 0 may_be_deduced.
+clear_rules(184): A = B may_be_deduced_from
+     [goal(checktype(A,contentst)),
+      goal(checktype(B,contentst)),
+      fld_inherit(A) = fld_inherit(B),
+      fld_role(A) = fld_role(B),
+      fld_clearance(A) = fld_clearance(B)].

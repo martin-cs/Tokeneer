@@ -1,0 +1,192 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:26.29
+
+                       procedure Enclave.ArchiveLogOp
+
+
+
+
+For path(s) from start to precondition check associated with statement of line 931:
+
+procedure_archivelogop_1.
+H1:    (status = waitingstartadminop) or (status = 
+           waitingfinishadminop) .
+H2:    admin__ispresent(theadmin) .
+H3:    admin__isdoingop(theadmin) .
+H4:    admin__thecurrentop(theadmin) = admin__archivelog .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H6:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H7:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H8:    status >= statust__first .
+H9:    status <= statust__last .
+H10:   status = waitingstartadminop .
+        ->
+C1:    status = waitingstartadminop .
+ 
+
+For path(s) from start to precondition check associated with statement of line 933:
+
+procedure_archivelogop_2.
+H1:    (status = waitingstartadminop) or (status = 
+           waitingfinishadminop) .
+H2:    admin__ispresent(theadmin) .
+H3:    admin__isdoingop(theadmin) .
+H4:    admin__thecurrentop(theadmin) = admin__archivelog .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H6:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H7:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H8:    status >= statust__first .
+H9:    status <= statust__last .
+H10:   not (status = waitingstartadminop) .
+        ->
+C1:    admin__ispresent(theadmin) .
+ 
+
+For path(s) from start to finish:
+
+procedure_archivelogop_3.
+H1:    (status = waitingstartadminop) or (status = 
+           waitingfinishadminop) .
+H2:    admin__ispresent(theadmin) .
+H3:    admin__isdoingop(theadmin) .
+H4:    admin__thecurrentop(theadmin) = admin__archivelog .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H6:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H7:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H8:    status >= statust__first .
+H9:    status <= statust__last .
+H10:   status = waitingstartadminop .
+H11:   status = waitingstartadminop .
+H12:   (status__1 = waitingstartadminop) or (status__1 = 
+           waitingfinishadminop) .
+H13:   status__1 >= statust__first .
+H14:   status__1 <= statust__last .
+        ->
+C1:    (status__1 = waitingstartadminop) or ((status__1 = 
+           waitingfinishadminop) or (status__1 = 
+           enclavequiescent)) .
+C2:    admin__ispresent(theadmin) .
+C3:    ((status__1 = waitingstartadminop) or (status__1 = 
+           waitingfinishadminop)) -> (admin__isdoingop(
+           theadmin) and (admin__ispresent(theadmin) and (
+           admin__thecurrentop(theadmin) = admin__archivelog))) .
+C4:    (status__1 = enclavequiescent) -> (not (
+           admin__isdoingop(theadmin))) .
+C5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+C6:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+C7:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+C8:    admin__prf_rolepresent(theadmin) = 
+           admin__prf_rolepresent(theadmin) .
+ 
+
+procedure_archivelogop_4.
+H1:    (status = waitingstartadminop) or (status = 
+           waitingfinishadminop) .
+H2:    admin__ispresent(theadmin) .
+H3:    admin__isdoingop(theadmin) .
+H4:    admin__thecurrentop(theadmin) = admin__archivelog .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H6:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H7:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H8:    status >= statust__first .
+H9:    status <= statust__last .
+H10:   not (status = waitingstartadminop) .
+H11:   admin__ispresent(theadmin) .
+H12:   status__2 = enclavequiescent .
+H13:   admin__ispresent(theadmin__2) .
+H14:   not (admin__isdoingop(theadmin__2)) .
+H15:   admin__prf_rolepresent(theadmin__2) = 
+           admin__prf_rolepresent(theadmin) .
+H16:   status__2 >= statust__first .
+H17:   status__2 <= statust__last .
+        ->
+C1:    (status__2 = waitingstartadminop) or ((status__2 = 
+           waitingfinishadminop) or (status__2 = 
+           enclavequiescent)) .
+C2:    admin__ispresent(theadmin__2) .
+C3:    ((status__2 = waitingstartadminop) or (status__2 = 
+           waitingfinishadminop)) -> (admin__isdoingop(theadmin__2) and (
+           admin__ispresent(theadmin__2) and (
+           admin__thecurrentop(theadmin__2) = 
+           admin__archivelog))) .
+C4:    (status__2 = enclavequiescent) -> (not (
+           admin__isdoingop(theadmin__2))) .
+C5:    (admin__prf_rolepresent(theadmin__2) = 
+           privtypes__guard) -> (admintoken__prf_isgood(
+           admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+C6:    (admin__isdoingop(theadmin__2) and (
+           admin__thecurrentop(theadmin__2) = 
+           admin__overridelock)) -> (admin__prf_rolepresent(theadmin__2) = 
+           privtypes__guard) .
+C7:    (admin__prf_rolepresent(theadmin__2) = 
+           privtypes__guard) -> ((admin__isdoingop(theadmin__2) and (
+           admin__thecurrentop(theadmin__2) = 
+           admin__overridelock)) or (not (admin__isdoingop(theadmin__2)))) .
+C8:    admin__prf_rolepresent(theadmin__2) = 
+           admin__prf_rolepresent(theadmin) .
+ 
+

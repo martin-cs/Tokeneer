@@ -1,0 +1,247 @@
+           *******************************************************
+                            Listing of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:25.08
+
+Line
+   1  ------------------------------------------------------------------
+   2  -- Tokeneer ID Station Core Software
+   3  --
+   4  -- Copyright (2003) United States Government, as represented
+   5  -- by the Director, National Security Agency. All rights reserved.
+   6  --
+   7  -- This material was originally developed by Praxis High Integrity
+   8  -- Systems Ltd. under contract to the National Security Agency.
+   9  ------------------------------------------------------------------
+  10  
+  11  ------------------------------------------------------------------
+  12  -- Configuration
+  13  --
+  14  -- Implementation Notes:
+  15  --    None.
+  16  --
+  17  ------------------------------------------------------------------
+  18  
+  19  with ConfigData;
+  20  with PrivTypes;
+  21  with AuditTypes;
+  22  with AuditLog;
+  23  with Clock;
+  24  with IandATypes;
+  25  with AdminToken;
+  26  
+  27  use type Clock.DurationT;
+  28  use type AuditTypes.FileSizeT;
+  29  
+  30  package body Configuration
+  31  is
+  32  
+  33     ------------------------------------------------------------------
+  34     -- Types
+  35     --
+  36     ------------------------------------------------------------------
+  37     ------------------------------------------------------------------
+  38     -- Init
+  39     --
+  40     -- Implementation Notes:
+  41     --      None.
+  42     ------------------------------------------------------------------
+  43     procedure Init
+  44     is
+  45     begin
+  46        ConfigData.Init;
+  47     end Init;
+
++++        Flow analysis of subprogram Init performed: no 
+           errors found.
+
+  48  
+  49     ------------------------------------------------------------------
+  50     -- UpdateData
+  51     --
+  52     -- Implementation Notes:
+  53     --      This follows the Design faithfully, note that this means that
+  54     --      failure to write the Config File does not prevent a change in
+  55     --      the config data.
+  56     --
+  57     ------------------------------------------------------------------
+  58     procedure UpdateData
+  59       (TheFile        : in out File.T;
+  60        DataValid      :    out Boolean)
+  61     is
+  62        TheLatchUnlockDuration  : ConfigData.DurationT;
+  63        TheAlarmSilentDuration  : ConfigData.DurationT;
+  64        TheFingerWaitDuration   : ConfigData.DurationT;
+  65        TheTokenRemovalDuration : ConfigData.DurationT;
+  66        TheEnclaveClearance     : PrivTypes.ClassT;
+  67        TheWorkingHoursStart    : Clock.DurationT;
+  68        TheWorkingHoursEnd      : Clock.DurationT;
+  69        TheMaxAuthDuration      : Clock.DurationT;
+  70        TheAccessPolicy         : ConfigData.AccessPolicyT;
+  71        TheMinEntryClass        : PrivTypes.ClassT;
+  72        TheMinPreservedLogSize  : AuditTypes.FileSizeT;
+  73        TheAlarmThresholdSize   : AuditTypes.FileSizeT;
+  74        TheSystemMaxFar         : IandATypes.FarT;
+  75        Success                 : Boolean;
+  76  
+  77        ------------------------------------------------------------------
+  78        -- MakeDesciption
+  79        --
+  80        -- Description:
+  81        --      Makes a description text containing new config parameters
+  82        --      for inclusion in audit record.
+  83        --
+  84        -- Implementation Notes:
+  85        --      Hidden due to use of 'Image and slicing.
+  86        ------------------------------------------------------------------
+  87        function MakeDescription return AuditTypes.DescriptionT
+  88          --# global
+  89          --# TheLatchUnlockDuration,
+  90          --# TheAlarmSilentDuration,
+  91          --# TheFingerWaitDuration,
+  92          --# TheTokenRemovalDuration,
+  93          --# TheEnclaveClearance,
+  94          --# TheWorkingHoursStart,
+  95          --# TheWorkingHoursEnd,
+  96          --# TheMaxAuthDuration,
+  97          --# TheAccessPolicy,
+  98          --# TheMinEntryClass,
+  99          --# TheMinPreservedLogSize,
+ 100          --# TheAlarmThresholdSize,
+ 101          --# TheSystemMaxFar;
+ 102        is
+ 103           --# hide MakeDescription;
+ 104  
+ 105           LocalText : AuditTypes.DescriptionT := AuditTypes.NoDescription;
+ 106           Str : String :=
+ 107             Clock.DurationT'Image(TheAlarmSilentDuration / 10) & "; "
+ 108             & Clock.DurationT'Image(TheLatchUnlockDuration / 10) & "; "
+ 109             & Clock.DurationT'Image(TheTokenRemovalDuration / 10) & "; "
+ 110             & Clock.DurationT'Image(TheFingerWaitDuration / 10) & "; "
+ 111             & PrivTypes.ClassT'Image(TheEnclaveClearance) & "; "
+ 112             & Clock.PrintDuration(TheWorkingHoursStart)(1 .. 5) & "; "
+ 113             & Clock.PrintDuration(TheWorkingHoursEnd)(1 .. 5) & "; "
+ 114             & Clock.PrintDuration(TheMaxAuthDuration)(1 .. 5) & "; "
+ 115             & ConfigData.AccessPolicyT'Image(TheAccessPolicy) & "; "
+ 116             & PrivTypes.ClassT'Image(TheMinEntryClass) & "; "
+ 117             & AuditTypes.FileSizeT'Image(TheMinPreservedLogSize / 1024) & "; "
+ 118             & AuditTypes.FileSizeT'Image(TheAlarmThresholdSize / 1024) & "; "
+ 119             & IandATypes.FarT'Image(TheSystemMaxFar) ;
+ 120  
+ 121        begin
+ 122  
+ 123           if Str'Last > LocalText'Last then
+ 124              LocalText := Str(1 .. LocalText'Last);
+ 125           else
+ 126              LocalText(1 .. Str'Last) := Str;
+ 127           end if;
+ 128  
+ 129           return LocalText;
+ 130  
+ 131        end MakeDescription;
+ 132  
+ 133     begin
+ 134  
+ 135        ConfigData.ValidateFile
+ 136          (TheFile                 => TheFile,
+ 137           Success                 => DataValid,
+ 138           TheLatchUnlockDuration  => TheLatchUnlockDuration,
+ 139           TheAlarmSilentDuration  => TheAlarmSilentDuration,
+ 140           TheFingerWaitDuration   => TheFingerWaitDuration,
+ 141           TheTokenRemovalDuration => TheTokenRemovalDuration,
+ 142           TheEnclaveClearance     => TheEnclaveClearance,
+ 143           TheWorkingHoursStart    => TheWorkingHoursStart,
+ 144           TheWorkingHoursEnd      => TheWorkingHoursEnd,
+ 145           TheMaxAuthDuration      => TheMaxAuthDuration,
+ 146           TheAccessPolicy         => TheAccessPolicy,
+ 147           TheMinEntryClass        => TheMinEntryClass,
+ 148           TheMinPreservedLogSize  => TheMinPreservedLogSize,
+ 149           TheAlarmThresholdSize   => TheAlarmThresholdSize,
+ 150           TheSystemMaxFar         => TheSystemMaxFar );
+ 151  
+ 152        if DataValid then
+ 153  
+ 154           ConfigData.UpdateData
+ 155             ( TheLatchUnlockDuration  => TheLatchUnlockDuration,
+ 156               TheAlarmSilentDuration  => TheAlarmSilentDuration,
+ 157               TheFingerWaitDuration   => TheFingerWaitDuration,
+ 158               TheTokenRemovalDuration => TheTokenRemovalDuration,
+ 159               TheEnclaveClearance     => TheEnclaveClearance,
+ 160               TheWorkingHoursStart    => TheWorkingHoursStart,
+ 161               TheWorkingHoursEnd      => TheWorkingHoursEnd,
+ 162               TheMaxAuthDuration      => TheMaxAuthDuration,
+ 163               TheAccessPolicy         => TheAccessPolicy,
+ 164               TheMinEntryClass        => TheMinEntryClass,
+ 165               TheMinPreservedLogSize  => TheMinPreservedLogSize,
+ 166               TheAlarmThresholdSize   => TheAlarmThresholdSize,
+ 167               TheSystemMaxFar         => TheSystemMaxFar );
+ 168  
+ 169           AuditLog.AddElementToLog
+ 170             ( ElementID   => AuditTypes.UpdatedConfigData,
+ 171               Severity    => AuditTypes.Information,
+ 172               User        => AdminToken.ExtractUser,
+ 173               Description => MakeDescription
+ 174               );
+ 175  
+ 176           ConfigData.WriteFile
+ 177             (Success                 => Success,
+ 178              TheLatchUnlockDuration  => TheLatchUnlockDuration,
+ 179              TheAlarmSilentDuration  => TheAlarmSilentDuration,
+ 180              TheFingerWaitDuration   => TheFingerWaitDuration,
+ 181              TheTokenRemovalDuration => TheTokenRemovalDuration,
+ 182              TheEnclaveClearance     => TheEnclaveClearance,
+ 183              TheWorkingHoursStart    => TheWorkingHoursStart,
+ 184              TheWorkingHoursEnd      => TheWorkingHoursEnd,
+ 185              TheMaxAuthDuration      => TheMaxAuthDuration,
+ 186              TheAccessPolicy         => TheAccessPolicy,
+ 187              TheMinEntryClass        => TheMinEntryClass,
+ 188              TheMinPreservedLogSize  => TheMinPreservedLogSize,
+ 189              TheAlarmThresholdSize   => TheAlarmThresholdSize,
+ 190              TheSystemMaxFar         => TheSystemMaxFar );
+ 191  
+ 192           if not Success then
+ 193  
+ 194              -- Warn that config data will not be preserved through powerdown.
+ 195  
+ 196              AuditLog.AddElementToLog
+ 197                ( ElementID   => AuditTypes.SystemFault,
+ 198                  Severity    => AuditTypes.Warning,
+ 199                  User        => AuditTypes.NoUser,
+ 200                  Description => "Error Writing New Config Data to file"
+ 201                  );
+ 202  
+ 203           end if;
+ 204  
+ 205        else
+ 206  
+ 207           AuditLog.AddElementToLog
+ 208             ( ElementID   => AuditTypes.InvalidConfigData,
+ 209               Severity    => AuditTypes.Warning,
+ 210               User        => AdminToken.ExtractUser,
+ 211               Description => AuditTypes.NoDescription
+ 212               );
+ 213  
+ 214        end if;
+ 215  
+ 216     end UpdateData;
+
++++        Flow analysis of subprogram UpdateData 
+           performed: no errors found.
+
+ 217  
+ 218  
+ 219  end Configuration;
+ 220  
+ 221  
+ 222  
+1 summarized warning(s), comprising:
+     1 hidden part(s)*
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+
+--End of file--------------------------------------------------

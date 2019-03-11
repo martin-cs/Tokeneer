@@ -1,0 +1,121 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:10.73*/
+
+                         /*procedure Door.UnlockDoor*/
+
+
+rule_family unlockdoor_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+unlockdoor_rules(1): clock__durationt__size >= 0 may_be_deduced.
+unlockdoor_rules(2): clock__durationt__first may_be_replaced_by 0.
+unlockdoor_rules(3): clock__durationt__last may_be_replaced_by 864000.
+unlockdoor_rules(4): clock__durationt__base__first <= 
+     clock__durationt__base__last may_be_deduced.
+unlockdoor_rules(5): clock__durationt__base__first <= 
+     clock__durationt__first may_be_deduced.
+unlockdoor_rules(6): clock__durationt__base__last >= 
+     clock__durationt__last may_be_deduced.
+unlockdoor_rules(7): alarmtypes__statust__size >= 0 may_be_deduced.
+unlockdoor_rules(8): alarmtypes__statust__first may_be_replaced_by alarmtypes__alarming.
+unlockdoor_rules(9): alarmtypes__statust__last may_be_replaced_by alarmtypes__silent.
+unlockdoor_rules(10): alarmtypes__statust__base__first may_be_replaced_by alarmtypes__alarming.
+unlockdoor_rules(11): alarmtypes__statust__base__last may_be_replaced_by alarmtypes__silent.
+unlockdoor_rules(12): alarmtypes__statust__pos(
+     alarmtypes__statust__first) may_be_replaced_by 0.
+unlockdoor_rules(13): alarmtypes__statust__pos(
+     alarmtypes__alarming) may_be_replaced_by 0.
+unlockdoor_rules(14): alarmtypes__statust__val(0) may_be_replaced_by 
+     alarmtypes__alarming.
+unlockdoor_rules(15): alarmtypes__statust__pos(alarmtypes__silent) may_be_replaced_by 1.
+unlockdoor_rules(16): alarmtypes__statust__val(1) may_be_replaced_by 
+     alarmtypes__silent.
+unlockdoor_rules(17): alarmtypes__statust__pos(
+     alarmtypes__statust__last) may_be_replaced_by 1.
+unlockdoor_rules(18): alarmtypes__statust__pos(succ(X)) may_be_replaced_by 
+     alarmtypes__statust__pos(X) + 1
+     if [X <=alarmtypes__silent, X <> alarmtypes__silent].
+unlockdoor_rules(19): alarmtypes__statust__pos(pred(X)) may_be_replaced_by 
+     alarmtypes__statust__pos(X) - 1
+     if [X >=alarmtypes__alarming, X <> alarmtypes__alarming].
+unlockdoor_rules(20): alarmtypes__statust__pos(X) >= 0 may_be_deduced_from
+     [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+unlockdoor_rules(21): alarmtypes__statust__pos(X) <= 1 may_be_deduced_from
+     [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+unlockdoor_rules(22): alarmtypes__statust__val(X) >= 
+     alarmtypes__alarming may_be_deduced_from
+     [0 <= X, X <= 1].
+unlockdoor_rules(23): alarmtypes__statust__val(X) <= 
+     alarmtypes__silent may_be_deduced_from
+     [0 <= X, X <= 1].
+unlockdoor_rules(24): succ(alarmtypes__statust__val(X)) may_be_replaced_by 
+     alarmtypes__statust__val(X+1)
+     if [0 <= X, X < 1].
+unlockdoor_rules(25): pred(alarmtypes__statust__val(X)) may_be_replaced_by 
+     alarmtypes__statust__val(X-1)
+     if [0 < X, X <= 1].
+unlockdoor_rules(26): alarmtypes__statust__pos(
+     alarmtypes__statust__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+unlockdoor_rules(27): alarmtypes__statust__val(
+     alarmtypes__statust__pos(X)) may_be_replaced_by X
+     if [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+unlockdoor_rules(28): alarmtypes__statust__pos(X) <= 
+     alarmtypes__statust__pos(Y) & X <= Y are_interchangeable 
+     if [alarmtypes__alarming <= X, X <= alarmtypes__silent, 
+     alarmtypes__alarming <= Y, Y <= alarmtypes__silent].
+unlockdoor_rules(29): alarmtypes__statust__val(X) <= 
+     alarmtypes__statust__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].
+unlockdoor_rules(30): configdata__durationt__size >= 0 may_be_deduced.
+unlockdoor_rules(31): configdata__durationt__first may_be_replaced_by 0.
+unlockdoor_rules(32): configdata__durationt__last may_be_replaced_by 2000.
+unlockdoor_rules(33): configdata__durationt__base__first <= 
+     configdata__durationt__base__last may_be_deduced.
+unlockdoor_rules(34): configdata__durationt__base__first <= 
+     configdata__durationt__first may_be_deduced.
+unlockdoor_rules(35): configdata__durationt__base__last >= 
+     configdata__durationt__last may_be_deduced.
+unlockdoor_rules(36): t__size >= 0 may_be_deduced.
+unlockdoor_rules(37): t__first may_be_replaced_by open.
+unlockdoor_rules(38): t__last may_be_replaced_by closed.
+unlockdoor_rules(39): t__base__first may_be_replaced_by open.
+unlockdoor_rules(40): t__base__last may_be_replaced_by closed.
+unlockdoor_rules(41): t__pos(t__first) may_be_replaced_by 0.
+unlockdoor_rules(42): t__pos(open) may_be_replaced_by 0.
+unlockdoor_rules(43): t__val(0) may_be_replaced_by open.
+unlockdoor_rules(44): t__pos(closed) may_be_replaced_by 1.
+unlockdoor_rules(45): t__val(1) may_be_replaced_by closed.
+unlockdoor_rules(46): t__pos(t__last) may_be_replaced_by 1.
+unlockdoor_rules(47): t__pos(succ(X)) may_be_replaced_by t__pos(X) + 1
+     if [X <=closed, X <> closed].
+unlockdoor_rules(48): t__pos(pred(X)) may_be_replaced_by t__pos(X) - 1
+     if [X >=open, X <> open].
+unlockdoor_rules(49): t__pos(X) >= 0 may_be_deduced_from
+     [open <= X, X <= closed].
+unlockdoor_rules(50): t__pos(X) <= 1 may_be_deduced_from
+     [open <= X, X <= closed].
+unlockdoor_rules(51): t__val(X) >= open may_be_deduced_from
+     [0 <= X, X <= 1].
+unlockdoor_rules(52): t__val(X) <= closed may_be_deduced_from
+     [0 <= X, X <= 1].
+unlockdoor_rules(53): succ(t__val(X)) may_be_replaced_by t__val(X+1)
+     if [0 <= X, X < 1].
+unlockdoor_rules(54): pred(t__val(X)) may_be_replaced_by t__val(X-1)
+     if [0 < X, X <= 1].
+unlockdoor_rules(55): t__pos(t__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+unlockdoor_rules(56): t__val(t__pos(X)) may_be_replaced_by X
+     if [open <= X, X <= closed].
+unlockdoor_rules(57): t__pos(X) <= t__pos(Y) & X <= Y are_interchangeable 
+     if [open <= X, X <= closed, open <= Y, Y <= closed].
+unlockdoor_rules(58): t__val(X) <= t__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].

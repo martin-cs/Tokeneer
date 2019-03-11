@@ -1,0 +1,3351 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:09.64
+
+                       procedure AuditLog.ArchiveLog
+
+
+
+
+For path(s) from start to precondition check associated with statement of line 1532:
+
+procedure_archivelog_1.
+H1:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H2:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H3:    auditalarm >= alarmtypes__statust__first .
+H4:    auditalarm <= alarmtypes__statust__last .
+H5:    numberlogentries >= logentrycountt__first .
+H6:    numberlogentries <= logentrycountt__last .
+H7:    true .
+H8:    true .
+H9:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H10:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H11:   currentlogfile >= logfileindext__first .
+H12:   currentlogfile <= logfileindext__last .
+H13:   fld_length(usedlogfiles) >= logfilecountt__first .
+H14:   fld_length(usedlogfiles) <= logfilecountt__last .
+H15:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H16:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H17:   fld_head(usedlogfiles) >= logfileindext__first .
+H18:   fld_head(usedlogfiles) <= logfileindext__last .
+H19:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+        ->
+C1:    archivefilestringi__last <= file__maxnamelength .
+ 
+
+For path(s) from start to run-time check associated with statement of line 1536:
+
+procedure_archivelog_2.
+H1:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H2:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H3:    auditalarm >= alarmtypes__statust__first .
+H4:    auditalarm <= alarmtypes__statust__last .
+H5:    numberlogentries >= logentrycountt__first .
+H6:    numberlogentries <= logentrycountt__last .
+H7:    true .
+H8:    true .
+H9:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H10:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H11:   currentlogfile >= logfileindext__first .
+H12:   currentlogfile <= logfileindext__last .
+H13:   fld_length(usedlogfiles) >= logfilecountt__first .
+H14:   fld_length(usedlogfiles) <= logfilecountt__last .
+H15:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H16:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H17:   fld_head(usedlogfiles) >= logfileindext__first .
+H18:   fld_head(usedlogfiles) <= logfileindext__last .
+H19:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H20:   archivefilestringi__last <= file__maxnamelength .
+H21:   true .
+H22:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(
+           converttoauditdescription(mk__string( [1] := 78, [2] := 111, 
+           [3] := 116, [4] := 104, [5] := 105, [6] := 110, [7] := 103, 
+           [8] := 32, [9] := 97, [10] := 114, [11] := 99, [12] := 104, 
+           [13] := 105, [14] := 118, [15] := 101, [16] := 100)), [
+           i___1]) >= character__first) and (element(
+           converttoauditdescription(mk__string( [1] := 78, [2] := 111, 
+           [3] := 116, [4] := 104, [5] := 105, [6] := 110, [7] := 103, 
+           [8] := 32, [9] := 97, [10] := 114, [11] := 99, [12] := 104, 
+           [13] := 105, [14] := 118, [15] := 101, [16] := 100)), [
+           i___1]) <= character__last))) .
+        ->
+C1:    element(fld_list(usedlogfiles), [fld_head(
+           usedlogfiles)]) >= logfileindext__first .
+C2:    element(fld_list(usedlogfiles), [fld_head(
+           usedlogfiles)]) <= logfileindext__last .
+C3:    fld_head(usedlogfiles) >= logfileindext__first .
+C4:    fld_head(usedlogfiles) <= logfileindext__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 1560:
+
+procedure_archivelog_3.
+H1:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H2:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H3:    auditalarm >= alarmtypes__statust__first .
+H4:    auditalarm <= alarmtypes__statust__last .
+H5:    numberlogentries >= logentrycountt__first .
+H6:    numberlogentries <= logentrycountt__last .
+H7:    true .
+H8:    true .
+H9:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H10:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H11:   currentlogfile >= logfileindext__first .
+H12:   currentlogfile <= logfileindext__last .
+H13:   fld_length(usedlogfiles) >= logfilecountt__first .
+H14:   fld_length(usedlogfiles) <= logfilecountt__last .
+H15:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H16:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H17:   fld_head(usedlogfiles) >= logfileindext__first .
+H18:   fld_head(usedlogfiles) <= logfileindext__last .
+H19:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H20:   archivefilestringi__last <= file__maxnamelength .
+H21:   true .
+H22:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(
+           converttoauditdescription(mk__string( [1] := 78, [2] := 111, 
+           [3] := 116, [4] := 104, [5] := 105, [6] := 110, [7] := 103, 
+           [8] := 32, [9] := 97, [10] := 114, [11] := 99, [12] := 104, 
+           [13] := 105, [14] := 118, [15] := 101, [16] := 100)), [
+           i___1]) >= character__first) and (element(
+           converttoauditdescription(mk__string( [1] := 78, [2] := 111, 
+           [3] := 116, [4] := 104, [5] := 105, [6] := 110, [7] := 103, 
+           [8] := 32, [9] := 97, [10] := 114, [11] := 99, [12] := 104, 
+           [13] := 105, [14] := 118, [15] := 101, [16] := 100)), [
+           i___1]) <= character__last))) .
+H23:   element(fld_list(usedlogfiles), [fld_head(
+           usedlogfiles)]) >= logfileindext__first .
+H24:   element(fld_list(usedlogfiles), [fld_head(
+           usedlogfiles)]) <= logfileindext__last .
+H25:   fld_head(usedlogfiles) >= logfileindext__first .
+H26:   fld_head(usedlogfiles) <= logfileindext__last .
+H27:   not ((fld_length(usedlogfiles) = 0) or ((fld_length(
+           usedlogfiles) = 1) and (element(logfileentries, [element(
+           fld_list(usedlogfiles), [fld_head(usedlogfiles)])]) < 
+           maxlogfileentries))) .
+        ->
+C1:    0 >= logfilecountt__first .
+C2:    0 <= logfilecountt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 1561:
+
+procedure_archivelog_4.
+H1:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H2:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H3:    auditalarm >= alarmtypes__statust__first .
+H4:    auditalarm <= alarmtypes__statust__last .
+H5:    numberlogentries >= logentrycountt__first .
+H6:    numberlogentries <= logentrycountt__last .
+H7:    true .
+H8:    true .
+H9:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H10:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H11:   currentlogfile >= logfileindext__first .
+H12:   currentlogfile <= logfileindext__last .
+H13:   fld_length(usedlogfiles) >= logfilecountt__first .
+H14:   fld_length(usedlogfiles) <= logfilecountt__last .
+H15:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H16:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H17:   fld_head(usedlogfiles) >= logfileindext__first .
+H18:   fld_head(usedlogfiles) <= logfileindext__last .
+H19:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H20:   archivefilestringi__last <= file__maxnamelength .
+H21:   true .
+H22:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(
+           converttoauditdescription(mk__string( [1] := 78, [2] := 111, 
+           [3] := 116, [4] := 104, [5] := 105, [6] := 110, [7] := 103, 
+           [8] := 32, [9] := 97, [10] := 114, [11] := 99, [12] := 104, 
+           [13] := 105, [14] := 118, [15] := 101, [16] := 100)), [
+           i___1]) >= character__first) and (element(
+           converttoauditdescription(mk__string( [1] := 78, [2] := 111, 
+           [3] := 116, [4] := 104, [5] := 105, [6] := 110, [7] := 103, 
+           [8] := 32, [9] := 97, [10] := 114, [11] := 99, [12] := 104, 
+           [13] := 105, [14] := 118, [15] := 101, [16] := 100)), [
+           i___1]) <= character__last))) .
+H23:   element(fld_list(usedlogfiles), [fld_head(
+           usedlogfiles)]) >= logfileindext__first .
+H24:   element(fld_list(usedlogfiles), [fld_head(
+           usedlogfiles)]) <= logfileindext__last .
+H25:   fld_head(usedlogfiles) >= logfileindext__first .
+H26:   fld_head(usedlogfiles) <= logfileindext__last .
+H27:   not ((fld_length(usedlogfiles) = 0) or ((fld_length(
+           usedlogfiles) = 1) and (element(logfileentries, [element(
+           fld_list(usedlogfiles), [fld_head(usedlogfiles)])]) < 
+           maxlogfileentries))) .
+H28:   0 >= logfilecountt__first .
+H29:   0 <= logfilecountt__last .
+        ->
+C1:    fld_head(usedlogfiles) >= logfileindext__first .
+C2:    fld_head(usedlogfiles) <= logfileindext__last .
+ 
+
+For path(s) from start to assertion of line 1565:
+
+procedure_archivelog_5.
+H1:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H2:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H3:    auditalarm >= alarmtypes__statust__first .
+H4:    auditalarm <= alarmtypes__statust__last .
+H5:    numberlogentries >= logentrycountt__first .
+H6:    numberlogentries <= logentrycountt__last .
+H7:    true .
+H8:    true .
+H9:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H10:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H11:   currentlogfile >= logfileindext__first .
+H12:   currentlogfile <= logfileindext__last .
+H13:   fld_length(usedlogfiles) >= logfilecountt__first .
+H14:   fld_length(usedlogfiles) <= logfilecountt__last .
+H15:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H16:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H17:   fld_head(usedlogfiles) >= logfileindext__first .
+H18:   fld_head(usedlogfiles) <= logfileindext__last .
+H19:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H20:   archivefilestringi__last <= file__maxnamelength .
+H21:   true .
+H22:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(
+           converttoauditdescription(mk__string( [1] := 78, [2] := 111, 
+           [3] := 116, [4] := 104, [5] := 105, [6] := 110, [7] := 103, 
+           [8] := 32, [9] := 97, [10] := 114, [11] := 99, [12] := 104, 
+           [13] := 105, [14] := 118, [15] := 101, [16] := 100)), [
+           i___1]) >= character__first) and (element(
+           converttoauditdescription(mk__string( [1] := 78, [2] := 111, 
+           [3] := 116, [4] := 104, [5] := 105, [6] := 110, [7] := 103, 
+           [8] := 32, [9] := 97, [10] := 114, [11] := 99, [12] := 104, 
+           [13] := 105, [14] := 118, [15] := 101, [16] := 100)), [
+           i___1]) <= character__last))) .
+H23:   element(fld_list(usedlogfiles), [fld_head(
+           usedlogfiles)]) >= logfileindext__first .
+H24:   element(fld_list(usedlogfiles), [fld_head(
+           usedlogfiles)]) <= logfileindext__last .
+H25:   fld_head(usedlogfiles) >= logfileindext__first .
+H26:   fld_head(usedlogfiles) <= logfileindext__last .
+H27:   not ((fld_length(usedlogfiles) = 0) or ((fld_length(
+           usedlogfiles) = 1) and (element(logfileentries, [element(
+           fld_list(usedlogfiles), [fld_head(usedlogfiles)])]) < 
+           maxlogfileentries))) .
+H28:   0 >= logfilecountt__first .
+H29:   0 <= logfilecountt__last .
+H30:   fld_head(usedlogfiles) >= logfileindext__first .
+H31:   fld_head(usedlogfiles) <= logfileindext__last .
+H32:   0 >= logfilecountt__first .
+H33:   0 <= logfilecountt__last .
+H34:   0 < maxnumberarchivablefiles .
+H35:   0 < fld_length(usedlogfiles) .
+        ->
+C1:    fld_head(usedlogfiles) >= logfileindext__first .
+C2:    fld_head(usedlogfiles) <= logfileindext__last .
+C3:    0 >= 0 .
+C4:    0 < maxnumberarchivablefiles .
+C5:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+C6:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+C7:    auditalarm >= alarmtypes__statust__first .
+C8:    auditalarm <= alarmtypes__statust__last .
+C9:    numberlogentries >= logentrycountt__first .
+C10:   numberlogentries <= logentrycountt__last .
+C11:   true .
+C12:   true .
+C13:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+C14:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+C15:   currentlogfile >= logfileindext__first .
+C16:   currentlogfile <= logfileindext__last .
+C17:   fld_length(usedlogfiles) >= logfilecountt__first .
+C18:   fld_length(usedlogfiles) <= logfilecountt__last .
+C19:   fld_lasti(usedlogfiles) >= logfileindext__first .
+C20:   fld_lasti(usedlogfiles) <= logfileindext__last .
+C21:   fld_head(usedlogfiles) >= logfileindext__first .
+C22:   fld_head(usedlogfiles) <= logfileindext__last .
+C23:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+C24:   numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+ 
+
+For path(s) from assertion of line 1565 to assertion of line 1565:
+
+procedure_archivelog_6.
+H1:    fileindexinusedlist >= logfileindext__first .
+H2:    fileindexinusedlist <= logfileindext__last .
+H3:    archivedfilecount >= 0 .
+H4:    archivedfilecount < maxnumberarchivablefiles .
+H5:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H7:    auditalarm >= alarmtypes__statust__first .
+H8:    auditalarm <= alarmtypes__statust__last .
+H9:    numberlogentries >= logentrycountt__first .
+H10:   numberlogentries <= logentrycountt__last .
+H11:   true .
+H12:   true .
+H13:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H14:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H15:   currentlogfile >= logfileindext__first .
+H16:   currentlogfile <= logfileindext__last .
+H17:   fld_length(usedlogfiles) >= logfilecountt__first .
+H18:   fld_length(usedlogfiles) <= logfilecountt__last .
+H19:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H20:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H21:   fld_head(usedlogfiles) >= logfileindext__first .
+H22:   fld_head(usedlogfiles) <= logfileindext__last .
+H23:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H24:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+H25:   fileindexinusedlist >= logfileindext__first .
+H26:   fileindexinusedlist <= logfileindext__last .
+H27:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H28:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H29:   fileindexinusedlist >= logfileindext__first .
+H30:   fileindexinusedlist <= logfileindext__last .
+H31:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H32:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H33:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H34:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H35:   not (element(logfileentries, [element(fld_list(
+           usedlogfiles), [fileindexinusedlist])]) < 
+           maxlogfileentries) .
+H36:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H37:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H38:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H39:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H40:   true .
+H41:   true .
+H42:   true .
+H43:   true .
+H44:   true .
+H45:   not (not ok__4) .
+H46:   archived >= filestatust__first .
+H47:   archived <= filestatust__last .
+H48:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H49:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H50:   archivedfilecount >= logfilecountt__first .
+H51:   archivedfilecount <= logfilecountt__last .
+H52:   archivedfilecount = 0 .
+H53:   true .
+H54:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__5, [
+           i___1]) >= character__first) and (element(description__5, [
+           i___1]) <= character__last))) .
+H55:   true .
+H56:   true .
+H57:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H58:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H59:   archivedfilecount >= logfilecountt__first .
+H60:   archivedfilecount <= logfilecountt__last .
+H61:   archivedfilecount + 1 >= logfilecountt__first .
+H62:   archivedfilecount + 1 <= logfilecountt__last .
+H63:   fileindexinusedlist >= logfileindext__first .
+H64:   fileindexinusedlist <= logfileindext__last .
+H65:   fileindexinusedlist >= logfileindext__first .
+H66:   fileindexinusedlist <= logfileindext__last .
+H67:   nextlistindex(fileindexinusedlist) >= logfileindext__first .
+H68:   nextlistindex(fileindexinusedlist) <= logfileindext__last .
+H69:   nextlistindex(fileindexinusedlist) >= logfileindext__first .
+H70:   nextlistindex(fileindexinusedlist) <= logfileindext__last .
+H71:   archivedfilecount + 1 >= logfilecountt__first .
+H72:   archivedfilecount + 1 <= logfilecountt__last .
+H73:   archivedfilecount + 1 < maxnumberarchivablefiles .
+H74:   archivedfilecount + 1 < fld_length(usedlogfiles) .
+        ->
+C1:    nextlistindex(fileindexinusedlist) >= logfileindext__first .
+C2:    nextlistindex(fileindexinusedlist) <= logfileindext__last .
+C3:    archivedfilecount + 1 >= 0 .
+C4:    archivedfilecount + 1 < maxnumberarchivablefiles .
+C5:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+C6:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+C7:    auditalarm >= alarmtypes__statust__first .
+C8:    auditalarm <= alarmtypes__statust__last .
+C9:    numberlogentries >= logentrycountt__first .
+C10:   numberlogentries <= logentrycountt__last .
+C11:   true .
+C12:   true .
+C13:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(update(
+           logfilesstatus, [element(fld_list(usedlogfiles), [
+           fileindexinusedlist])], archived), [i___1]) >= 
+           filestatust__first) and (element(update(
+           logfilesstatus, [element(fld_list(usedlogfiles), [
+           fileindexinusedlist])], archived), [i___1]) <= 
+           filestatust__last))) .
+C14:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+C15:   currentlogfile >= logfileindext__first .
+C16:   currentlogfile <= logfileindext__last .
+C17:   fld_length(usedlogfiles) >= logfilecountt__first .
+C18:   fld_length(usedlogfiles) <= logfilecountt__last .
+C19:   fld_lasti(usedlogfiles) >= logfileindext__first .
+C20:   fld_lasti(usedlogfiles) <= logfileindext__last .
+C21:   fld_head(usedlogfiles) >= logfileindext__first .
+C22:   fld_head(usedlogfiles) <= logfileindext__last .
+C23:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+C24:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+ 
+
+procedure_archivelog_7.
+H1:    fileindexinusedlist >= logfileindext__first .
+H2:    fileindexinusedlist <= logfileindext__last .
+H3:    archivedfilecount >= 0 .
+H4:    archivedfilecount < maxnumberarchivablefiles .
+H5:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H7:    auditalarm >= alarmtypes__statust__first .
+H8:    auditalarm <= alarmtypes__statust__last .
+H9:    numberlogentries >= logentrycountt__first .
+H10:   numberlogentries <= logentrycountt__last .
+H11:   true .
+H12:   true .
+H13:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H14:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H15:   currentlogfile >= logfileindext__first .
+H16:   currentlogfile <= logfileindext__last .
+H17:   fld_length(usedlogfiles) >= logfilecountt__first .
+H18:   fld_length(usedlogfiles) <= logfilecountt__last .
+H19:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H20:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H21:   fld_head(usedlogfiles) >= logfileindext__first .
+H22:   fld_head(usedlogfiles) <= logfileindext__last .
+H23:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H24:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+H25:   fileindexinusedlist >= logfileindext__first .
+H26:   fileindexinusedlist <= logfileindext__last .
+H27:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H28:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H29:   fileindexinusedlist >= logfileindext__first .
+H30:   fileindexinusedlist <= logfileindext__last .
+H31:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H32:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H33:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H34:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H35:   not (element(logfileentries, [element(fld_list(
+           usedlogfiles), [fileindexinusedlist])]) < 
+           maxlogfileentries) .
+H36:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H37:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H38:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H39:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H40:   true .
+H41:   true .
+H42:   true .
+H43:   true .
+H44:   true .
+H45:   not (not ok__4) .
+H46:   archived >= filestatust__first .
+H47:   archived <= filestatust__last .
+H48:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H49:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H50:   archivedfilecount >= logfilecountt__first .
+H51:   archivedfilecount <= logfilecountt__last .
+H52:   not (archivedfilecount = 0) .
+H53:   true .
+H54:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(
+           description, [i___1]) >= character__first) and (element(
+           description, [i___1]) <= character__last))) .
+H55:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__6, [
+           i___1]) >= character__first) and (element(description__6, [
+           i___1]) <= character__last))) .
+H56:   true .
+H57:   true .
+H58:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H59:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H60:   archivedfilecount >= logfilecountt__first .
+H61:   archivedfilecount <= logfilecountt__last .
+H62:   archivedfilecount + 1 >= logfilecountt__first .
+H63:   archivedfilecount + 1 <= logfilecountt__last .
+H64:   fileindexinusedlist >= logfileindext__first .
+H65:   fileindexinusedlist <= logfileindext__last .
+H66:   fileindexinusedlist >= logfileindext__first .
+H67:   fileindexinusedlist <= logfileindext__last .
+H68:   nextlistindex(fileindexinusedlist) >= logfileindext__first .
+H69:   nextlistindex(fileindexinusedlist) <= logfileindext__last .
+H70:   nextlistindex(fileindexinusedlist) >= logfileindext__first .
+H71:   nextlistindex(fileindexinusedlist) <= logfileindext__last .
+H72:   archivedfilecount + 1 >= logfilecountt__first .
+H73:   archivedfilecount + 1 <= logfilecountt__last .
+H74:   archivedfilecount + 1 < maxnumberarchivablefiles .
+H75:   archivedfilecount + 1 < fld_length(usedlogfiles) .
+        ->
+C1:    nextlistindex(fileindexinusedlist) >= logfileindext__first .
+C2:    nextlistindex(fileindexinusedlist) <= logfileindext__last .
+C3:    archivedfilecount + 1 >= 0 .
+C4:    archivedfilecount + 1 < maxnumberarchivablefiles .
+C5:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+C6:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+C7:    auditalarm >= alarmtypes__statust__first .
+C8:    auditalarm <= alarmtypes__statust__last .
+C9:    numberlogentries >= logentrycountt__first .
+C10:   numberlogentries <= logentrycountt__last .
+C11:   true .
+C12:   true .
+C13:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(update(
+           logfilesstatus, [element(fld_list(usedlogfiles), [
+           fileindexinusedlist])], archived), [i___1]) >= 
+           filestatust__first) and (element(update(
+           logfilesstatus, [element(fld_list(usedlogfiles), [
+           fileindexinusedlist])], archived), [i___1]) <= 
+           filestatust__last))) .
+C14:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+C15:   currentlogfile >= logfileindext__first .
+C16:   currentlogfile <= logfileindext__last .
+C17:   fld_length(usedlogfiles) >= logfilecountt__first .
+C18:   fld_length(usedlogfiles) <= logfilecountt__last .
+C19:   fld_lasti(usedlogfiles) >= logfileindext__first .
+C20:   fld_lasti(usedlogfiles) <= logfileindext__last .
+C21:   fld_head(usedlogfiles) >= logfileindext__first .
+C22:   fld_head(usedlogfiles) <= logfileindext__last .
+C23:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+C24:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+ 
+
+For path(s) from assertion of line 1565 to run-time check associated with statement of line 1572:
+
+procedure_archivelog_8.
+H1:    fileindexinusedlist >= logfileindext__first .
+H2:    fileindexinusedlist <= logfileindext__last .
+H3:    archivedfilecount >= 0 .
+H4:    archivedfilecount < maxnumberarchivablefiles .
+H5:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H7:    auditalarm >= alarmtypes__statust__first .
+H8:    auditalarm <= alarmtypes__statust__last .
+H9:    numberlogentries >= logentrycountt__first .
+H10:   numberlogentries <= logentrycountt__last .
+H11:   true .
+H12:   true .
+H13:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H14:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H15:   currentlogfile >= logfileindext__first .
+H16:   currentlogfile <= logfileindext__last .
+H17:   fld_length(usedlogfiles) >= logfilecountt__first .
+H18:   fld_length(usedlogfiles) <= logfilecountt__last .
+H19:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H20:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H21:   fld_head(usedlogfiles) >= logfileindext__first .
+H22:   fld_head(usedlogfiles) <= logfileindext__last .
+H23:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H24:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+H25:   fileindexinusedlist >= logfileindext__first .
+H26:   fileindexinusedlist <= logfileindext__last .
+        ->
+C1:    element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+C2:    element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+C3:    fileindexinusedlist >= logfileindext__first .
+C4:    fileindexinusedlist <= logfileindext__last .
+ 
+
+For path(s) from assertion of line 1565 to run-time check associated with statement of line 1573:
+
+procedure_archivelog_9.
+H1:    fileindexinusedlist >= logfileindext__first .
+H2:    fileindexinusedlist <= logfileindext__last .
+H3:    archivedfilecount >= 0 .
+H4:    archivedfilecount < maxnumberarchivablefiles .
+H5:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H7:    auditalarm >= alarmtypes__statust__first .
+H8:    auditalarm <= alarmtypes__statust__last .
+H9:    numberlogentries >= logentrycountt__first .
+H10:   numberlogentries <= logentrycountt__last .
+H11:   true .
+H12:   true .
+H13:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H14:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H15:   currentlogfile >= logfileindext__first .
+H16:   currentlogfile <= logfileindext__last .
+H17:   fld_length(usedlogfiles) >= logfilecountt__first .
+H18:   fld_length(usedlogfiles) <= logfilecountt__last .
+H19:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H20:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H21:   fld_head(usedlogfiles) >= logfileindext__first .
+H22:   fld_head(usedlogfiles) <= logfileindext__last .
+H23:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H24:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+H25:   fileindexinusedlist >= logfileindext__first .
+H26:   fileindexinusedlist <= logfileindext__last .
+H27:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H28:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H29:   fileindexinusedlist >= logfileindext__first .
+H30:   fileindexinusedlist <= logfileindext__last .
+H31:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H32:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+        ->
+C1:    element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+C2:    element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+ 
+
+For path(s) from assertion of line 1565 to run-time check associated with statement of line 1575:
+
+procedure_archivelog_10.
+H1:    fileindexinusedlist >= logfileindext__first .
+H2:    fileindexinusedlist <= logfileindext__last .
+H3:    archivedfilecount >= 0 .
+H4:    archivedfilecount < maxnumberarchivablefiles .
+H5:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H7:    auditalarm >= alarmtypes__statust__first .
+H8:    auditalarm <= alarmtypes__statust__last .
+H9:    numberlogentries >= logentrycountt__first .
+H10:   numberlogentries <= logentrycountt__last .
+H11:   true .
+H12:   true .
+H13:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H14:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H15:   currentlogfile >= logfileindext__first .
+H16:   currentlogfile <= logfileindext__last .
+H17:   fld_length(usedlogfiles) >= logfilecountt__first .
+H18:   fld_length(usedlogfiles) <= logfilecountt__last .
+H19:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H20:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H21:   fld_head(usedlogfiles) >= logfileindext__first .
+H22:   fld_head(usedlogfiles) <= logfileindext__last .
+H23:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H24:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+H25:   fileindexinusedlist >= logfileindext__first .
+H26:   fileindexinusedlist <= logfileindext__last .
+H27:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H28:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H29:   fileindexinusedlist >= logfileindext__first .
+H30:   fileindexinusedlist <= logfileindext__last .
+H31:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H32:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H33:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H34:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H35:   not (element(logfileentries, [element(fld_list(
+           usedlogfiles), [fileindexinusedlist])]) < 
+           maxlogfileentries) .
+H36:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H37:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+        ->
+C1:    element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+C2:    element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+ 
+
+For path(s) from assertion of line 1565 to run-time check associated with statement of line 1586:
+
+procedure_archivelog_11.
+H1:    fileindexinusedlist >= logfileindext__first .
+H2:    fileindexinusedlist <= logfileindext__last .
+H3:    archivedfilecount >= 0 .
+H4:    archivedfilecount < maxnumberarchivablefiles .
+H5:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H7:    auditalarm >= alarmtypes__statust__first .
+H8:    auditalarm <= alarmtypes__statust__last .
+H9:    numberlogentries >= logentrycountt__first .
+H10:   numberlogentries <= logentrycountt__last .
+H11:   true .
+H12:   true .
+H13:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H14:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H15:   currentlogfile >= logfileindext__first .
+H16:   currentlogfile <= logfileindext__last .
+H17:   fld_length(usedlogfiles) >= logfilecountt__first .
+H18:   fld_length(usedlogfiles) <= logfilecountt__last .
+H19:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H20:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H21:   fld_head(usedlogfiles) >= logfileindext__first .
+H22:   fld_head(usedlogfiles) <= logfileindext__last .
+H23:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H24:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+H25:   fileindexinusedlist >= logfileindext__first .
+H26:   fileindexinusedlist <= logfileindext__last .
+H27:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H28:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H29:   fileindexinusedlist >= logfileindext__first .
+H30:   fileindexinusedlist <= logfileindext__last .
+H31:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H32:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H33:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H34:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H35:   not (element(logfileentries, [element(fld_list(
+           usedlogfiles), [fileindexinusedlist])]) < 
+           maxlogfileentries) .
+H36:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H37:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H38:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H39:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H40:   true .
+H41:   true .
+H42:   true .
+H43:   true .
+H44:   true .
+H45:   not (not ok__4) .
+        ->
+C1:    archived >= filestatust__first .
+C2:    archived <= filestatust__last .
+C3:    element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+C4:    element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+ 
+
+For path(s) from assertion of line 1565 to run-time check associated with statement of line 1598:
+
+procedure_archivelog_12.
+H1:    fileindexinusedlist >= logfileindext__first .
+H2:    fileindexinusedlist <= logfileindext__last .
+H3:    archivedfilecount >= 0 .
+H4:    archivedfilecount < maxnumberarchivablefiles .
+H5:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H7:    auditalarm >= alarmtypes__statust__first .
+H8:    auditalarm <= alarmtypes__statust__last .
+H9:    numberlogentries >= logentrycountt__first .
+H10:   numberlogentries <= logentrycountt__last .
+H11:   true .
+H12:   true .
+H13:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H14:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H15:   currentlogfile >= logfileindext__first .
+H16:   currentlogfile <= logfileindext__last .
+H17:   fld_length(usedlogfiles) >= logfilecountt__first .
+H18:   fld_length(usedlogfiles) <= logfilecountt__last .
+H19:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H20:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H21:   fld_head(usedlogfiles) >= logfileindext__first .
+H22:   fld_head(usedlogfiles) <= logfileindext__last .
+H23:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H24:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+H25:   fileindexinusedlist >= logfileindext__first .
+H26:   fileindexinusedlist <= logfileindext__last .
+H27:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H28:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H29:   fileindexinusedlist >= logfileindext__first .
+H30:   fileindexinusedlist <= logfileindext__last .
+H31:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H32:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H33:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H34:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H35:   not (element(logfileentries, [element(fld_list(
+           usedlogfiles), [fileindexinusedlist])]) < 
+           maxlogfileentries) .
+H36:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H37:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H38:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H39:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H40:   true .
+H41:   true .
+H42:   true .
+H43:   true .
+H44:   true .
+H45:   not (not ok__4) .
+H46:   archived >= filestatust__first .
+H47:   archived <= filestatust__last .
+H48:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H49:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H50:   archivedfilecount >= logfilecountt__first .
+H51:   archivedfilecount <= logfilecountt__last .
+H52:   archivedfilecount = 0 .
+H53:   true .
+H54:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__5, [
+           i___1]) >= character__first) and (element(description__5, [
+           i___1]) <= character__last))) .
+H55:   true .
+H56:   true .
+        ->
+C1:    element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+C2:    element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+ 
+
+procedure_archivelog_13.
+H1:    fileindexinusedlist >= logfileindext__first .
+H2:    fileindexinusedlist <= logfileindext__last .
+H3:    archivedfilecount >= 0 .
+H4:    archivedfilecount < maxnumberarchivablefiles .
+H5:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H7:    auditalarm >= alarmtypes__statust__first .
+H8:    auditalarm <= alarmtypes__statust__last .
+H9:    numberlogentries >= logentrycountt__first .
+H10:   numberlogentries <= logentrycountt__last .
+H11:   true .
+H12:   true .
+H13:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H14:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H15:   currentlogfile >= logfileindext__first .
+H16:   currentlogfile <= logfileindext__last .
+H17:   fld_length(usedlogfiles) >= logfilecountt__first .
+H18:   fld_length(usedlogfiles) <= logfilecountt__last .
+H19:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H20:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H21:   fld_head(usedlogfiles) >= logfileindext__first .
+H22:   fld_head(usedlogfiles) <= logfileindext__last .
+H23:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H24:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+H25:   fileindexinusedlist >= logfileindext__first .
+H26:   fileindexinusedlist <= logfileindext__last .
+H27:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H28:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H29:   fileindexinusedlist >= logfileindext__first .
+H30:   fileindexinusedlist <= logfileindext__last .
+H31:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H32:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H33:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H34:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H35:   not (element(logfileentries, [element(fld_list(
+           usedlogfiles), [fileindexinusedlist])]) < 
+           maxlogfileentries) .
+H36:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H37:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H38:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H39:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H40:   true .
+H41:   true .
+H42:   true .
+H43:   true .
+H44:   true .
+H45:   not (not ok__4) .
+H46:   archived >= filestatust__first .
+H47:   archived <= filestatust__last .
+H48:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H49:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H50:   archivedfilecount >= logfilecountt__first .
+H51:   archivedfilecount <= logfilecountt__last .
+H52:   not (archivedfilecount = 0) .
+H53:   true .
+H54:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(
+           description, [i___1]) >= character__first) and (element(
+           description, [i___1]) <= character__last))) .
+H55:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__6, [
+           i___1]) >= character__first) and (element(description__6, [
+           i___1]) <= character__last))) .
+H56:   true .
+H57:   true .
+        ->
+C1:    element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+C2:    element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+ 
+
+For path(s) from assertion of line 1565 to run-time check associated with statement of line 1599:
+
+procedure_archivelog_14.
+H1:    fileindexinusedlist >= logfileindext__first .
+H2:    fileindexinusedlist <= logfileindext__last .
+H3:    archivedfilecount >= 0 .
+H4:    archivedfilecount < maxnumberarchivablefiles .
+H5:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H7:    auditalarm >= alarmtypes__statust__first .
+H8:    auditalarm <= alarmtypes__statust__last .
+H9:    numberlogentries >= logentrycountt__first .
+H10:   numberlogentries <= logentrycountt__last .
+H11:   true .
+H12:   true .
+H13:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H14:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H15:   currentlogfile >= logfileindext__first .
+H16:   currentlogfile <= logfileindext__last .
+H17:   fld_length(usedlogfiles) >= logfilecountt__first .
+H18:   fld_length(usedlogfiles) <= logfilecountt__last .
+H19:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H20:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H21:   fld_head(usedlogfiles) >= logfileindext__first .
+H22:   fld_head(usedlogfiles) <= logfileindext__last .
+H23:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H24:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+H25:   fileindexinusedlist >= logfileindext__first .
+H26:   fileindexinusedlist <= logfileindext__last .
+H27:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H28:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H29:   fileindexinusedlist >= logfileindext__first .
+H30:   fileindexinusedlist <= logfileindext__last .
+H31:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H32:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H33:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H34:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H35:   not (element(logfileentries, [element(fld_list(
+           usedlogfiles), [fileindexinusedlist])]) < 
+           maxlogfileentries) .
+H36:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H37:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H38:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H39:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H40:   true .
+H41:   true .
+H42:   true .
+H43:   true .
+H44:   true .
+H45:   not (not ok__4) .
+H46:   archived >= filestatust__first .
+H47:   archived <= filestatust__last .
+H48:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H49:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H50:   archivedfilecount >= logfilecountt__first .
+H51:   archivedfilecount <= logfilecountt__last .
+H52:   archivedfilecount = 0 .
+H53:   true .
+H54:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__5, [
+           i___1]) >= character__first) and (element(description__5, [
+           i___1]) <= character__last))) .
+H55:   true .
+H56:   true .
+H57:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H58:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H59:   archivedfilecount >= logfilecountt__first .
+H60:   archivedfilecount <= logfilecountt__last .
+        ->
+C1:    archivedfilecount + 1 >= logfilecountt__first .
+C2:    archivedfilecount + 1 <= logfilecountt__last .
+ 
+
+procedure_archivelog_15.
+H1:    fileindexinusedlist >= logfileindext__first .
+H2:    fileindexinusedlist <= logfileindext__last .
+H3:    archivedfilecount >= 0 .
+H4:    archivedfilecount < maxnumberarchivablefiles .
+H5:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H7:    auditalarm >= alarmtypes__statust__first .
+H8:    auditalarm <= alarmtypes__statust__last .
+H9:    numberlogentries >= logentrycountt__first .
+H10:   numberlogentries <= logentrycountt__last .
+H11:   true .
+H12:   true .
+H13:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H14:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H15:   currentlogfile >= logfileindext__first .
+H16:   currentlogfile <= logfileindext__last .
+H17:   fld_length(usedlogfiles) >= logfilecountt__first .
+H18:   fld_length(usedlogfiles) <= logfilecountt__last .
+H19:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H20:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H21:   fld_head(usedlogfiles) >= logfileindext__first .
+H22:   fld_head(usedlogfiles) <= logfileindext__last .
+H23:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H24:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+H25:   fileindexinusedlist >= logfileindext__first .
+H26:   fileindexinusedlist <= logfileindext__last .
+H27:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H28:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H29:   fileindexinusedlist >= logfileindext__first .
+H30:   fileindexinusedlist <= logfileindext__last .
+H31:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H32:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H33:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H34:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H35:   not (element(logfileentries, [element(fld_list(
+           usedlogfiles), [fileindexinusedlist])]) < 
+           maxlogfileentries) .
+H36:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H37:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H38:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H39:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H40:   true .
+H41:   true .
+H42:   true .
+H43:   true .
+H44:   true .
+H45:   not (not ok__4) .
+H46:   archived >= filestatust__first .
+H47:   archived <= filestatust__last .
+H48:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H49:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H50:   archivedfilecount >= logfilecountt__first .
+H51:   archivedfilecount <= logfilecountt__last .
+H52:   not (archivedfilecount = 0) .
+H53:   true .
+H54:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(
+           description, [i___1]) >= character__first) and (element(
+           description, [i___1]) <= character__last))) .
+H55:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__6, [
+           i___1]) >= character__first) and (element(description__6, [
+           i___1]) <= character__last))) .
+H56:   true .
+H57:   true .
+H58:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H59:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H60:   archivedfilecount >= logfilecountt__first .
+H61:   archivedfilecount <= logfilecountt__last .
+        ->
+C1:    archivedfilecount + 1 >= logfilecountt__first .
+C2:    archivedfilecount + 1 <= logfilecountt__last .
+ 
+
+For path(s) from assertion of line 1565 to run-time check associated with statement of line 1600:
+
+procedure_archivelog_16.
+H1:    fileindexinusedlist >= logfileindext__first .
+H2:    fileindexinusedlist <= logfileindext__last .
+H3:    archivedfilecount >= 0 .
+H4:    archivedfilecount < maxnumberarchivablefiles .
+H5:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H7:    auditalarm >= alarmtypes__statust__first .
+H8:    auditalarm <= alarmtypes__statust__last .
+H9:    numberlogentries >= logentrycountt__first .
+H10:   numberlogentries <= logentrycountt__last .
+H11:   true .
+H12:   true .
+H13:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H14:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H15:   currentlogfile >= logfileindext__first .
+H16:   currentlogfile <= logfileindext__last .
+H17:   fld_length(usedlogfiles) >= logfilecountt__first .
+H18:   fld_length(usedlogfiles) <= logfilecountt__last .
+H19:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H20:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H21:   fld_head(usedlogfiles) >= logfileindext__first .
+H22:   fld_head(usedlogfiles) <= logfileindext__last .
+H23:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H24:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+H25:   fileindexinusedlist >= logfileindext__first .
+H26:   fileindexinusedlist <= logfileindext__last .
+H27:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H28:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H29:   fileindexinusedlist >= logfileindext__first .
+H30:   fileindexinusedlist <= logfileindext__last .
+H31:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H32:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H33:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H34:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H35:   not (element(logfileentries, [element(fld_list(
+           usedlogfiles), [fileindexinusedlist])]) < 
+           maxlogfileentries) .
+H36:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H37:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H38:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H39:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H40:   true .
+H41:   true .
+H42:   true .
+H43:   true .
+H44:   true .
+H45:   not (not ok__4) .
+H46:   archived >= filestatust__first .
+H47:   archived <= filestatust__last .
+H48:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H49:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H50:   archivedfilecount >= logfilecountt__first .
+H51:   archivedfilecount <= logfilecountt__last .
+H52:   archivedfilecount = 0 .
+H53:   true .
+H54:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__5, [
+           i___1]) >= character__first) and (element(description__5, [
+           i___1]) <= character__last))) .
+H55:   true .
+H56:   true .
+H57:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H58:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H59:   archivedfilecount >= logfilecountt__first .
+H60:   archivedfilecount <= logfilecountt__last .
+H61:   archivedfilecount + 1 >= logfilecountt__first .
+H62:   archivedfilecount + 1 <= logfilecountt__last .
+H63:   fileindexinusedlist >= logfileindext__first .
+H64:   fileindexinusedlist <= logfileindext__last .
+        ->
+C1:    fileindexinusedlist >= logfileindext__first .
+C2:    fileindexinusedlist <= logfileindext__last .
+ 
+
+procedure_archivelog_17.
+H1:    fileindexinusedlist >= logfileindext__first .
+H2:    fileindexinusedlist <= logfileindext__last .
+H3:    archivedfilecount >= 0 .
+H4:    archivedfilecount < maxnumberarchivablefiles .
+H5:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H7:    auditalarm >= alarmtypes__statust__first .
+H8:    auditalarm <= alarmtypes__statust__last .
+H9:    numberlogentries >= logentrycountt__first .
+H10:   numberlogentries <= logentrycountt__last .
+H11:   true .
+H12:   true .
+H13:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H14:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H15:   currentlogfile >= logfileindext__first .
+H16:   currentlogfile <= logfileindext__last .
+H17:   fld_length(usedlogfiles) >= logfilecountt__first .
+H18:   fld_length(usedlogfiles) <= logfilecountt__last .
+H19:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H20:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H21:   fld_head(usedlogfiles) >= logfileindext__first .
+H22:   fld_head(usedlogfiles) <= logfileindext__last .
+H23:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H24:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+H25:   fileindexinusedlist >= logfileindext__first .
+H26:   fileindexinusedlist <= logfileindext__last .
+H27:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H28:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H29:   fileindexinusedlist >= logfileindext__first .
+H30:   fileindexinusedlist <= logfileindext__last .
+H31:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H32:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H33:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H34:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H35:   not (element(logfileentries, [element(fld_list(
+           usedlogfiles), [fileindexinusedlist])]) < 
+           maxlogfileentries) .
+H36:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H37:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H38:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H39:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H40:   true .
+H41:   true .
+H42:   true .
+H43:   true .
+H44:   true .
+H45:   not (not ok__4) .
+H46:   archived >= filestatust__first .
+H47:   archived <= filestatust__last .
+H48:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H49:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H50:   archivedfilecount >= logfilecountt__first .
+H51:   archivedfilecount <= logfilecountt__last .
+H52:   not (archivedfilecount = 0) .
+H53:   true .
+H54:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(
+           description, [i___1]) >= character__first) and (element(
+           description, [i___1]) <= character__last))) .
+H55:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__6, [
+           i___1]) >= character__first) and (element(description__6, [
+           i___1]) <= character__last))) .
+H56:   true .
+H57:   true .
+H58:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H59:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H60:   archivedfilecount >= logfilecountt__first .
+H61:   archivedfilecount <= logfilecountt__last .
+H62:   archivedfilecount + 1 >= logfilecountt__first .
+H63:   archivedfilecount + 1 <= logfilecountt__last .
+H64:   fileindexinusedlist >= logfileindext__first .
+H65:   fileindexinusedlist <= logfileindext__last .
+        ->
+C1:    fileindexinusedlist >= logfileindext__first .
+C2:    fileindexinusedlist <= logfileindext__last .
+ 
+
+For path(s) from assertion of line 1565 to run-time check associated with statement of line 1600:
+
+procedure_archivelog_18.
+H1:    fileindexinusedlist >= logfileindext__first .
+H2:    fileindexinusedlist <= logfileindext__last .
+H3:    archivedfilecount >= 0 .
+H4:    archivedfilecount < maxnumberarchivablefiles .
+H5:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H7:    auditalarm >= alarmtypes__statust__first .
+H8:    auditalarm <= alarmtypes__statust__last .
+H9:    numberlogentries >= logentrycountt__first .
+H10:   numberlogentries <= logentrycountt__last .
+H11:   true .
+H12:   true .
+H13:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H14:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H15:   currentlogfile >= logfileindext__first .
+H16:   currentlogfile <= logfileindext__last .
+H17:   fld_length(usedlogfiles) >= logfilecountt__first .
+H18:   fld_length(usedlogfiles) <= logfilecountt__last .
+H19:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H20:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H21:   fld_head(usedlogfiles) >= logfileindext__first .
+H22:   fld_head(usedlogfiles) <= logfileindext__last .
+H23:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H24:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+H25:   fileindexinusedlist >= logfileindext__first .
+H26:   fileindexinusedlist <= logfileindext__last .
+H27:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H28:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H29:   fileindexinusedlist >= logfileindext__first .
+H30:   fileindexinusedlist <= logfileindext__last .
+H31:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H32:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H33:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H34:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H35:   not (element(logfileentries, [element(fld_list(
+           usedlogfiles), [fileindexinusedlist])]) < 
+           maxlogfileentries) .
+H36:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H37:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H38:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H39:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H40:   true .
+H41:   true .
+H42:   true .
+H43:   true .
+H44:   true .
+H45:   not (not ok__4) .
+H46:   archived >= filestatust__first .
+H47:   archived <= filestatust__last .
+H48:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H49:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H50:   archivedfilecount >= logfilecountt__first .
+H51:   archivedfilecount <= logfilecountt__last .
+H52:   archivedfilecount = 0 .
+H53:   true .
+H54:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__5, [
+           i___1]) >= character__first) and (element(description__5, [
+           i___1]) <= character__last))) .
+H55:   true .
+H56:   true .
+H57:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H58:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H59:   archivedfilecount >= logfilecountt__first .
+H60:   archivedfilecount <= logfilecountt__last .
+H61:   archivedfilecount + 1 >= logfilecountt__first .
+H62:   archivedfilecount + 1 <= logfilecountt__last .
+H63:   fileindexinusedlist >= logfileindext__first .
+H64:   fileindexinusedlist <= logfileindext__last .
+H65:   fileindexinusedlist >= logfileindext__first .
+H66:   fileindexinusedlist <= logfileindext__last .
+H67:   nextlistindex(fileindexinusedlist) >= logfileindext__first .
+H68:   nextlistindex(fileindexinusedlist) <= logfileindext__last .
+        ->
+C1:    nextlistindex(fileindexinusedlist) >= logfileindext__first .
+C2:    nextlistindex(fileindexinusedlist) <= logfileindext__last .
+ 
+
+procedure_archivelog_19.
+H1:    fileindexinusedlist >= logfileindext__first .
+H2:    fileindexinusedlist <= logfileindext__last .
+H3:    archivedfilecount >= 0 .
+H4:    archivedfilecount < maxnumberarchivablefiles .
+H5:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H7:    auditalarm >= alarmtypes__statust__first .
+H8:    auditalarm <= alarmtypes__statust__last .
+H9:    numberlogentries >= logentrycountt__first .
+H10:   numberlogentries <= logentrycountt__last .
+H11:   true .
+H12:   true .
+H13:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H14:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H15:   currentlogfile >= logfileindext__first .
+H16:   currentlogfile <= logfileindext__last .
+H17:   fld_length(usedlogfiles) >= logfilecountt__first .
+H18:   fld_length(usedlogfiles) <= logfilecountt__last .
+H19:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H20:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H21:   fld_head(usedlogfiles) >= logfileindext__first .
+H22:   fld_head(usedlogfiles) <= logfileindext__last .
+H23:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H24:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+H25:   fileindexinusedlist >= logfileindext__first .
+H26:   fileindexinusedlist <= logfileindext__last .
+H27:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H28:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H29:   fileindexinusedlist >= logfileindext__first .
+H30:   fileindexinusedlist <= logfileindext__last .
+H31:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H32:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H33:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H34:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H35:   not (element(logfileentries, [element(fld_list(
+           usedlogfiles), [fileindexinusedlist])]) < 
+           maxlogfileentries) .
+H36:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H37:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H38:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H39:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H40:   true .
+H41:   true .
+H42:   true .
+H43:   true .
+H44:   true .
+H45:   not (not ok__4) .
+H46:   archived >= filestatust__first .
+H47:   archived <= filestatust__last .
+H48:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H49:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H50:   archivedfilecount >= logfilecountt__first .
+H51:   archivedfilecount <= logfilecountt__last .
+H52:   not (archivedfilecount = 0) .
+H53:   true .
+H54:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(
+           description, [i___1]) >= character__first) and (element(
+           description, [i___1]) <= character__last))) .
+H55:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__6, [
+           i___1]) >= character__first) and (element(description__6, [
+           i___1]) <= character__last))) .
+H56:   true .
+H57:   true .
+H58:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H59:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H60:   archivedfilecount >= logfilecountt__first .
+H61:   archivedfilecount <= logfilecountt__last .
+H62:   archivedfilecount + 1 >= logfilecountt__first .
+H63:   archivedfilecount + 1 <= logfilecountt__last .
+H64:   fileindexinusedlist >= logfileindext__first .
+H65:   fileindexinusedlist <= logfileindext__last .
+H66:   fileindexinusedlist >= logfileindext__first .
+H67:   fileindexinusedlist <= logfileindext__last .
+H68:   nextlistindex(fileindexinusedlist) >= logfileindext__first .
+H69:   nextlistindex(fileindexinusedlist) <= logfileindext__last .
+        ->
+C1:    nextlistindex(fileindexinusedlist) >= logfileindext__first .
+C2:    nextlistindex(fileindexinusedlist) <= logfileindext__last .
+ 
+
+For path(s) from start to assertion of line 1606:
+
+procedure_archivelog_20.
+H1:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H2:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H3:    auditalarm >= alarmtypes__statust__first .
+H4:    auditalarm <= alarmtypes__statust__last .
+H5:    numberlogentries >= logentrycountt__first .
+H6:    numberlogentries <= logentrycountt__last .
+H7:    true .
+H8:    true .
+H9:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H10:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H11:   currentlogfile >= logfileindext__first .
+H12:   currentlogfile <= logfileindext__last .
+H13:   fld_length(usedlogfiles) >= logfilecountt__first .
+H14:   fld_length(usedlogfiles) <= logfilecountt__last .
+H15:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H16:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H17:   fld_head(usedlogfiles) >= logfileindext__first .
+H18:   fld_head(usedlogfiles) <= logfileindext__last .
+H19:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H20:   archivefilestringi__last <= file__maxnamelength .
+H21:   true .
+H22:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(
+           converttoauditdescription(mk__string( [1] := 78, [2] := 111, 
+           [3] := 116, [4] := 104, [5] := 105, [6] := 110, [7] := 103, 
+           [8] := 32, [9] := 97, [10] := 114, [11] := 99, [12] := 104, 
+           [13] := 105, [14] := 118, [15] := 101, [16] := 100)), [
+           i___1]) >= character__first) and (element(
+           converttoauditdescription(mk__string( [1] := 78, [2] := 111, 
+           [3] := 116, [4] := 104, [5] := 105, [6] := 110, [7] := 103, 
+           [8] := 32, [9] := 97, [10] := 114, [11] := 99, [12] := 104, 
+           [13] := 105, [14] := 118, [15] := 101, [16] := 100)), [
+           i___1]) <= character__last))) .
+H23:   element(fld_list(usedlogfiles), [fld_head(
+           usedlogfiles)]) >= logfileindext__first .
+H24:   element(fld_list(usedlogfiles), [fld_head(
+           usedlogfiles)]) <= logfileindext__last .
+H25:   fld_head(usedlogfiles) >= logfileindext__first .
+H26:   fld_head(usedlogfiles) <= logfileindext__last .
+H27:   (fld_length(usedlogfiles) = 0) or ((fld_length(
+           usedlogfiles) = 1) and (element(logfileentries, [element(
+           fld_list(usedlogfiles), [fld_head(usedlogfiles)])]) < 
+           maxlogfileentries)) .
+H28:   true .
+H29:   true .
+H30:   true .
+H31:   not ok__1 .
+H32:   true .
+H33:   true .
+H34:   true .
+H35:   true .
+H36:   true .
+H37:   true .
+H38:   true .
+        ->
+C1:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+C2:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+C3:    auditalarm >= alarmtypes__statust__first .
+C4:    auditalarm <= alarmtypes__statust__last .
+C5:    numberlogentries >= logentrycountt__first .
+C6:    numberlogentries <= logentrycountt__last .
+C7:    true .
+C8:    true .
+C9:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+C10:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+C11:   currentlogfile >= logfileindext__first .
+C12:   currentlogfile <= logfileindext__last .
+C13:   fld_length(usedlogfiles) >= logfilecountt__first .
+C14:   fld_length(usedlogfiles) <= logfilecountt__last .
+C15:   fld_lasti(usedlogfiles) >= logfileindext__first .
+C16:   fld_lasti(usedlogfiles) <= logfileindext__last .
+C17:   fld_head(usedlogfiles) >= logfileindext__first .
+C18:   fld_head(usedlogfiles) <= logfileindext__last .
+C19:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+C20:   numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+ 
+
+procedure_archivelog_21.
+H1:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H2:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H3:    auditalarm >= alarmtypes__statust__first .
+H4:    auditalarm <= alarmtypes__statust__last .
+H5:    numberlogentries >= logentrycountt__first .
+H6:    numberlogentries <= logentrycountt__last .
+H7:    true .
+H8:    true .
+H9:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H10:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H11:   currentlogfile >= logfileindext__first .
+H12:   currentlogfile <= logfileindext__last .
+H13:   fld_length(usedlogfiles) >= logfilecountt__first .
+H14:   fld_length(usedlogfiles) <= logfilecountt__last .
+H15:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H16:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H17:   fld_head(usedlogfiles) >= logfileindext__first .
+H18:   fld_head(usedlogfiles) <= logfileindext__last .
+H19:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H20:   archivefilestringi__last <= file__maxnamelength .
+H21:   true .
+H22:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(
+           converttoauditdescription(mk__string( [1] := 78, [2] := 111, 
+           [3] := 116, [4] := 104, [5] := 105, [6] := 110, [7] := 103, 
+           [8] := 32, [9] := 97, [10] := 114, [11] := 99, [12] := 104, 
+           [13] := 105, [14] := 118, [15] := 101, [16] := 100)), [
+           i___1]) >= character__first) and (element(
+           converttoauditdescription(mk__string( [1] := 78, [2] := 111, 
+           [3] := 116, [4] := 104, [5] := 105, [6] := 110, [7] := 103, 
+           [8] := 32, [9] := 97, [10] := 114, [11] := 99, [12] := 104, 
+           [13] := 105, [14] := 118, [15] := 101, [16] := 100)), [
+           i___1]) <= character__last))) .
+H23:   element(fld_list(usedlogfiles), [fld_head(
+           usedlogfiles)]) >= logfileindext__first .
+H24:   element(fld_list(usedlogfiles), [fld_head(
+           usedlogfiles)]) <= logfileindext__last .
+H25:   fld_head(usedlogfiles) >= logfileindext__first .
+H26:   fld_head(usedlogfiles) <= logfileindext__last .
+H27:   (fld_length(usedlogfiles) = 0) or ((fld_length(
+           usedlogfiles) = 1) and (element(logfileentries, [element(
+           fld_list(usedlogfiles), [fld_head(usedlogfiles)])]) < 
+           maxlogfileentries)) .
+H28:   true .
+H29:   true .
+H30:   true .
+H31:   not (not ok__1) .
+H32:   true .
+H33:   true .
+H34:   true .
+H35:   true .
+H36:   true .
+        ->
+C1:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+C2:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+C3:    auditalarm >= alarmtypes__statust__first .
+C4:    auditalarm <= alarmtypes__statust__last .
+C5:    numberlogentries >= logentrycountt__first .
+C6:    numberlogentries <= logentrycountt__last .
+C7:    true .
+C8:    true .
+C9:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+C10:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+C11:   currentlogfile >= logfileindext__first .
+C12:   currentlogfile <= logfileindext__last .
+C13:   fld_length(usedlogfiles) >= logfilecountt__first .
+C14:   fld_length(usedlogfiles) <= logfilecountt__last .
+C15:   fld_lasti(usedlogfiles) >= logfileindext__first .
+C16:   fld_lasti(usedlogfiles) <= logfileindext__last .
+C17:   fld_head(usedlogfiles) >= logfileindext__first .
+C18:   fld_head(usedlogfiles) <= logfileindext__last .
+C19:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+C20:   numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+ 
+
+procedure_archivelog_22.
+H1:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H2:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H3:    auditalarm >= alarmtypes__statust__first .
+H4:    auditalarm <= alarmtypes__statust__last .
+H5:    numberlogentries >= logentrycountt__first .
+H6:    numberlogentries <= logentrycountt__last .
+H7:    true .
+H8:    true .
+H9:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H10:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H11:   currentlogfile >= logfileindext__first .
+H12:   currentlogfile <= logfileindext__last .
+H13:   fld_length(usedlogfiles) >= logfilecountt__first .
+H14:   fld_length(usedlogfiles) <= logfilecountt__last .
+H15:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H16:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H17:   fld_head(usedlogfiles) >= logfileindext__first .
+H18:   fld_head(usedlogfiles) <= logfileindext__last .
+H19:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H20:   archivefilestringi__last <= file__maxnamelength .
+H21:   true .
+H22:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(
+           converttoauditdescription(mk__string( [1] := 78, [2] := 111, 
+           [3] := 116, [4] := 104, [5] := 105, [6] := 110, [7] := 103, 
+           [8] := 32, [9] := 97, [10] := 114, [11] := 99, [12] := 104, 
+           [13] := 105, [14] := 118, [15] := 101, [16] := 100)), [
+           i___1]) >= character__first) and (element(
+           converttoauditdescription(mk__string( [1] := 78, [2] := 111, 
+           [3] := 116, [4] := 104, [5] := 105, [6] := 110, [7] := 103, 
+           [8] := 32, [9] := 97, [10] := 114, [11] := 99, [12] := 104, 
+           [13] := 105, [14] := 118, [15] := 101, [16] := 100)), [
+           i___1]) <= character__last))) .
+H23:   element(fld_list(usedlogfiles), [fld_head(
+           usedlogfiles)]) >= logfileindext__first .
+H24:   element(fld_list(usedlogfiles), [fld_head(
+           usedlogfiles)]) <= logfileindext__last .
+H25:   fld_head(usedlogfiles) >= logfileindext__first .
+H26:   fld_head(usedlogfiles) <= logfileindext__last .
+H27:   not ((fld_length(usedlogfiles) = 0) or ((fld_length(
+           usedlogfiles) = 1) and (element(logfileentries, [element(
+           fld_list(usedlogfiles), [fld_head(usedlogfiles)])]) < 
+           maxlogfileentries))) .
+H28:   0 >= logfilecountt__first .
+H29:   0 <= logfilecountt__last .
+H30:   fld_head(usedlogfiles) >= logfileindext__first .
+H31:   fld_head(usedlogfiles) <= logfileindext__last .
+H32:   0 >= logfilecountt__first .
+H33:   0 <= logfilecountt__last .
+H34:   not ((0 < maxnumberarchivablefiles) and (0 < fld_length(
+           usedlogfiles))) .
+        ->
+C1:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+C2:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+C3:    auditalarm >= alarmtypes__statust__first .
+C4:    auditalarm <= alarmtypes__statust__last .
+C5:    numberlogentries >= logentrycountt__first .
+C6:    numberlogentries <= logentrycountt__last .
+C7:    true .
+C8:    true .
+C9:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+C10:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+C11:   currentlogfile >= logfileindext__first .
+C12:   currentlogfile <= logfileindext__last .
+C13:   fld_length(usedlogfiles) >= logfilecountt__first .
+C14:   fld_length(usedlogfiles) <= logfilecountt__last .
+C15:   fld_lasti(usedlogfiles) >= logfileindext__first .
+C16:   fld_lasti(usedlogfiles) <= logfileindext__last .
+C17:   fld_head(usedlogfiles) >= logfileindext__first .
+C18:   fld_head(usedlogfiles) <= logfileindext__last .
+C19:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+C20:   numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+ 
+
+For path(s) from assertion of line 1565 to assertion of line 1606:
+
+procedure_archivelog_23.
+H1:    fileindexinusedlist >= logfileindext__first .
+H2:    fileindexinusedlist <= logfileindext__last .
+H3:    archivedfilecount >= 0 .
+H4:    archivedfilecount < maxnumberarchivablefiles .
+H5:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H7:    auditalarm >= alarmtypes__statust__first .
+H8:    auditalarm <= alarmtypes__statust__last .
+H9:    numberlogentries >= logentrycountt__first .
+H10:   numberlogentries <= logentrycountt__last .
+H11:   true .
+H12:   true .
+H13:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H14:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H15:   currentlogfile >= logfileindext__first .
+H16:   currentlogfile <= logfileindext__last .
+H17:   fld_length(usedlogfiles) >= logfilecountt__first .
+H18:   fld_length(usedlogfiles) <= logfilecountt__last .
+H19:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H20:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H21:   fld_head(usedlogfiles) >= logfileindext__first .
+H22:   fld_head(usedlogfiles) <= logfileindext__last .
+H23:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H24:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+H25:   fileindexinusedlist >= logfileindext__first .
+H26:   fileindexinusedlist <= logfileindext__last .
+H27:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H28:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H29:   fileindexinusedlist >= logfileindext__first .
+H30:   fileindexinusedlist <= logfileindext__last .
+H31:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H32:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H33:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H34:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H35:   element(logfileentries, [element(fld_list(
+           usedlogfiles), [fileindexinusedlist])]) < 
+           maxlogfileentries .
+        ->
+C1:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+C2:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+C3:    auditalarm >= alarmtypes__statust__first .
+C4:    auditalarm <= alarmtypes__statust__last .
+C5:    numberlogentries >= logentrycountt__first .
+C6:    numberlogentries <= logentrycountt__last .
+C7:    true .
+C8:    true .
+C9:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+C10:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+C11:   currentlogfile >= logfileindext__first .
+C12:   currentlogfile <= logfileindext__last .
+C13:   fld_length(usedlogfiles) >= logfilecountt__first .
+C14:   fld_length(usedlogfiles) <= logfilecountt__last .
+C15:   fld_lasti(usedlogfiles) >= logfileindext__first .
+C16:   fld_lasti(usedlogfiles) <= logfileindext__last .
+C17:   fld_head(usedlogfiles) >= logfileindext__first .
+C18:   fld_head(usedlogfiles) <= logfileindext__last .
+C19:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+C20:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+ 
+
+procedure_archivelog_24.
+H1:    fileindexinusedlist >= logfileindext__first .
+H2:    fileindexinusedlist <= logfileindext__last .
+H3:    archivedfilecount >= 0 .
+H4:    archivedfilecount < maxnumberarchivablefiles .
+H5:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H7:    auditalarm >= alarmtypes__statust__first .
+H8:    auditalarm <= alarmtypes__statust__last .
+H9:    numberlogentries >= logentrycountt__first .
+H10:   numberlogentries <= logentrycountt__last .
+H11:   true .
+H12:   true .
+H13:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H14:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H15:   currentlogfile >= logfileindext__first .
+H16:   currentlogfile <= logfileindext__last .
+H17:   fld_length(usedlogfiles) >= logfilecountt__first .
+H18:   fld_length(usedlogfiles) <= logfilecountt__last .
+H19:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H20:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H21:   fld_head(usedlogfiles) >= logfileindext__first .
+H22:   fld_head(usedlogfiles) <= logfileindext__last .
+H23:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H24:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+H25:   fileindexinusedlist >= logfileindext__first .
+H26:   fileindexinusedlist <= logfileindext__last .
+H27:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H28:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H29:   fileindexinusedlist >= logfileindext__first .
+H30:   fileindexinusedlist <= logfileindext__last .
+H31:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H32:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H33:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H34:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H35:   not (element(logfileentries, [element(fld_list(
+           usedlogfiles), [fileindexinusedlist])]) < 
+           maxlogfileentries) .
+H36:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H37:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H38:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H39:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H40:   true .
+H41:   true .
+H42:   true .
+H43:   true .
+H44:   true .
+H45:   not ok__4 .
+        ->
+C1:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+C2:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+C3:    auditalarm >= alarmtypes__statust__first .
+C4:    auditalarm <= alarmtypes__statust__last .
+C5:    numberlogentries >= logentrycountt__first .
+C6:    numberlogentries <= logentrycountt__last .
+C7:    true .
+C8:    true .
+C9:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+C10:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+C11:   currentlogfile >= logfileindext__first .
+C12:   currentlogfile <= logfileindext__last .
+C13:   fld_length(usedlogfiles) >= logfilecountt__first .
+C14:   fld_length(usedlogfiles) <= logfilecountt__last .
+C15:   fld_lasti(usedlogfiles) >= logfileindext__first .
+C16:   fld_lasti(usedlogfiles) <= logfileindext__last .
+C17:   fld_head(usedlogfiles) >= logfileindext__first .
+C18:   fld_head(usedlogfiles) <= logfileindext__last .
+C19:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+C20:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+ 
+
+procedure_archivelog_25.
+H1:    fileindexinusedlist >= logfileindext__first .
+H2:    fileindexinusedlist <= logfileindext__last .
+H3:    archivedfilecount >= 0 .
+H4:    archivedfilecount < maxnumberarchivablefiles .
+H5:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H7:    auditalarm >= alarmtypes__statust__first .
+H8:    auditalarm <= alarmtypes__statust__last .
+H9:    numberlogentries >= logentrycountt__first .
+H10:   numberlogentries <= logentrycountt__last .
+H11:   true .
+H12:   true .
+H13:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H14:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H15:   currentlogfile >= logfileindext__first .
+H16:   currentlogfile <= logfileindext__last .
+H17:   fld_length(usedlogfiles) >= logfilecountt__first .
+H18:   fld_length(usedlogfiles) <= logfilecountt__last .
+H19:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H20:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H21:   fld_head(usedlogfiles) >= logfileindext__first .
+H22:   fld_head(usedlogfiles) <= logfileindext__last .
+H23:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H24:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+H25:   fileindexinusedlist >= logfileindext__first .
+H26:   fileindexinusedlist <= logfileindext__last .
+H27:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H28:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H29:   fileindexinusedlist >= logfileindext__first .
+H30:   fileindexinusedlist <= logfileindext__last .
+H31:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H32:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H33:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H34:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H35:   not (element(logfileentries, [element(fld_list(
+           usedlogfiles), [fileindexinusedlist])]) < 
+           maxlogfileentries) .
+H36:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H37:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H38:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H39:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H40:   true .
+H41:   true .
+H42:   true .
+H43:   true .
+H44:   true .
+H45:   not (not ok__4) .
+H46:   archived >= filestatust__first .
+H47:   archived <= filestatust__last .
+H48:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H49:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H50:   archivedfilecount >= logfilecountt__first .
+H51:   archivedfilecount <= logfilecountt__last .
+H52:   archivedfilecount = 0 .
+H53:   true .
+H54:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__5, [
+           i___1]) >= character__first) and (element(description__5, [
+           i___1]) <= character__last))) .
+H55:   true .
+H56:   true .
+H57:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H58:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H59:   archivedfilecount >= logfilecountt__first .
+H60:   archivedfilecount <= logfilecountt__last .
+H61:   archivedfilecount + 1 >= logfilecountt__first .
+H62:   archivedfilecount + 1 <= logfilecountt__last .
+H63:   fileindexinusedlist >= logfileindext__first .
+H64:   fileindexinusedlist <= logfileindext__last .
+H65:   fileindexinusedlist >= logfileindext__first .
+H66:   fileindexinusedlist <= logfileindext__last .
+H67:   nextlistindex(fileindexinusedlist) >= logfileindext__first .
+H68:   nextlistindex(fileindexinusedlist) <= logfileindext__last .
+H69:   nextlistindex(fileindexinusedlist) >= logfileindext__first .
+H70:   nextlistindex(fileindexinusedlist) <= logfileindext__last .
+H71:   archivedfilecount + 1 >= logfilecountt__first .
+H72:   archivedfilecount + 1 <= logfilecountt__last .
+H73:   not ((archivedfilecount + 1 < 
+           maxnumberarchivablefiles) and (archivedfilecount + 1 < 
+           fld_length(usedlogfiles))) .
+        ->
+C1:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+C2:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+C3:    auditalarm >= alarmtypes__statust__first .
+C4:    auditalarm <= alarmtypes__statust__last .
+C5:    numberlogentries >= logentrycountt__first .
+C6:    numberlogentries <= logentrycountt__last .
+C7:    true .
+C8:    true .
+C9:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(update(
+           logfilesstatus, [element(fld_list(usedlogfiles), [
+           fileindexinusedlist])], archived), [i___1]) >= 
+           filestatust__first) and (element(update(
+           logfilesstatus, [element(fld_list(usedlogfiles), [
+           fileindexinusedlist])], archived), [i___1]) <= 
+           filestatust__last))) .
+C10:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+C11:   currentlogfile >= logfileindext__first .
+C12:   currentlogfile <= logfileindext__last .
+C13:   fld_length(usedlogfiles) >= logfilecountt__first .
+C14:   fld_length(usedlogfiles) <= logfilecountt__last .
+C15:   fld_lasti(usedlogfiles) >= logfileindext__first .
+C16:   fld_lasti(usedlogfiles) <= logfileindext__last .
+C17:   fld_head(usedlogfiles) >= logfileindext__first .
+C18:   fld_head(usedlogfiles) <= logfileindext__last .
+C19:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+C20:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+ 
+
+procedure_archivelog_26.
+H1:    fileindexinusedlist >= logfileindext__first .
+H2:    fileindexinusedlist <= logfileindext__last .
+H3:    archivedfilecount >= 0 .
+H4:    archivedfilecount < maxnumberarchivablefiles .
+H5:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H7:    auditalarm >= alarmtypes__statust__first .
+H8:    auditalarm <= alarmtypes__statust__last .
+H9:    numberlogentries >= logentrycountt__first .
+H10:   numberlogentries <= logentrycountt__last .
+H11:   true .
+H12:   true .
+H13:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H14:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H15:   currentlogfile >= logfileindext__first .
+H16:   currentlogfile <= logfileindext__last .
+H17:   fld_length(usedlogfiles) >= logfilecountt__first .
+H18:   fld_length(usedlogfiles) <= logfilecountt__last .
+H19:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H20:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H21:   fld_head(usedlogfiles) >= logfileindext__first .
+H22:   fld_head(usedlogfiles) <= logfileindext__last .
+H23:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H24:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+H25:   fileindexinusedlist >= logfileindext__first .
+H26:   fileindexinusedlist <= logfileindext__last .
+H27:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H28:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H29:   fileindexinusedlist >= logfileindext__first .
+H30:   fileindexinusedlist <= logfileindext__last .
+H31:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H32:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H33:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H34:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H35:   not (element(logfileentries, [element(fld_list(
+           usedlogfiles), [fileindexinusedlist])]) < 
+           maxlogfileentries) .
+H36:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H37:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H38:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H39:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H40:   true .
+H41:   true .
+H42:   true .
+H43:   true .
+H44:   true .
+H45:   not (not ok__4) .
+H46:   archived >= filestatust__first .
+H47:   archived <= filestatust__last .
+H48:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H49:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H50:   archivedfilecount >= logfilecountt__first .
+H51:   archivedfilecount <= logfilecountt__last .
+H52:   not (archivedfilecount = 0) .
+H53:   true .
+H54:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(
+           description, [i___1]) >= character__first) and (element(
+           description, [i___1]) <= character__last))) .
+H55:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(description__6, [
+           i___1]) >= character__first) and (element(description__6, [
+           i___1]) <= character__last))) .
+H56:   true .
+H57:   true .
+H58:   element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+           logfileindext__first .
+H59:   element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+           logfileindext__last .
+H60:   archivedfilecount >= logfilecountt__first .
+H61:   archivedfilecount <= logfilecountt__last .
+H62:   archivedfilecount + 1 >= logfilecountt__first .
+H63:   archivedfilecount + 1 <= logfilecountt__last .
+H64:   fileindexinusedlist >= logfileindext__first .
+H65:   fileindexinusedlist <= logfileindext__last .
+H66:   fileindexinusedlist >= logfileindext__first .
+H67:   fileindexinusedlist <= logfileindext__last .
+H68:   nextlistindex(fileindexinusedlist) >= logfileindext__first .
+H69:   nextlistindex(fileindexinusedlist) <= logfileindext__last .
+H70:   nextlistindex(fileindexinusedlist) >= logfileindext__first .
+H71:   nextlistindex(fileindexinusedlist) <= logfileindext__last .
+H72:   archivedfilecount + 1 >= logfilecountt__first .
+H73:   archivedfilecount + 1 <= logfilecountt__last .
+H74:   not ((archivedfilecount + 1 < 
+           maxnumberarchivablefiles) and (archivedfilecount + 1 < 
+           fld_length(usedlogfiles))) .
+        ->
+C1:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+C2:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+C3:    auditalarm >= alarmtypes__statust__first .
+C4:    auditalarm <= alarmtypes__statust__last .
+C5:    numberlogentries >= logentrycountt__first .
+C6:    numberlogentries <= logentrycountt__last .
+C7:    true .
+C8:    true .
+C9:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(update(
+           logfilesstatus, [element(fld_list(usedlogfiles), [
+           fileindexinusedlist])], archived), [i___1]) >= 
+           filestatust__first) and (element(update(
+           logfilesstatus, [element(fld_list(usedlogfiles), [
+           fileindexinusedlist])], archived), [i___1]) <= 
+           filestatust__last))) .
+C10:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+C11:   currentlogfile >= logfileindext__first .
+C12:   currentlogfile <= logfileindext__last .
+C13:   fld_length(usedlogfiles) >= logfilecountt__first .
+C14:   fld_length(usedlogfiles) <= logfilecountt__last .
+C15:   fld_lasti(usedlogfiles) >= logfileindext__first .
+C16:   fld_lasti(usedlogfiles) <= logfileindext__last .
+C17:   fld_head(usedlogfiles) >= logfileindext__first .
+C18:   fld_head(usedlogfiles) <= logfileindext__last .
+C19:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+C20:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+ 
+
+For path(s) from assertion of line 1606 to precondition check associated with statement of line 1611:
+
+procedure_archivelog_27.
+H1:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H2:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H3:    auditalarm >= alarmtypes__statust__first .
+H4:    auditalarm <= alarmtypes__statust__last .
+H5:    numberlogentries >= logentrycountt__first .
+H6:    numberlogentries <= logentrycountt__last .
+H7:    true .
+H8:    true .
+H9:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H10:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H11:   currentlogfile >= logfileindext__first .
+H12:   currentlogfile <= logfileindext__last .
+H13:   fld_length(usedlogfiles) >= logfilecountt__first .
+H14:   fld_length(usedlogfiles) <= logfilecountt__last .
+H15:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H16:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H17:   fld_head(usedlogfiles) >= logfileindext__first .
+H18:   fld_head(usedlogfiles) <= logfileindext__last .
+H19:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H20:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+H21:   true .
+H22:   archivefault .
+        ->
+C1:    audittypes__warning >= audittypes__severityt__first .
+C2:    audittypes__warning <= audittypes__severityt__last .
+C3:    audittypes__systemfault >= audittypes__elementt__first .
+C4:    audittypes__systemfault <= audittypes__elementt__last .
+C5:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+ 
+
+For path(s) from assertion of line 1606 to precondition check associated with statement of line 1621:
+
+procedure_archivelog_28.
+H1:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H2:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H3:    auditalarm >= alarmtypes__statust__first .
+H4:    auditalarm <= alarmtypes__statust__last .
+H5:    numberlogentries >= logentrycountt__first .
+H6:    numberlogentries <= logentrycountt__last .
+H7:    true .
+H8:    true .
+H9:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H10:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H11:   currentlogfile >= logfileindext__first .
+H12:   currentlogfile <= logfileindext__last .
+H13:   fld_length(usedlogfiles) >= logfilecountt__first .
+H14:   fld_length(usedlogfiles) <= logfilecountt__last .
+H15:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H16:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H17:   fld_head(usedlogfiles) >= logfileindext__first .
+H18:   fld_head(usedlogfiles) <= logfileindext__last .
+H19:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H20:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+H21:   true .
+H22:   archivefault .
+H23:   audittypes__warning >= audittypes__severityt__first .
+H24:   audittypes__warning <= audittypes__severityt__last .
+H25:   audittypes__systemfault >= audittypes__elementt__first .
+H26:   audittypes__systemfault <= audittypes__elementt__last .
+H27:   numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H28:   numberlogentries__7 = (fld_length(usedlogfiles__7) - 1) * 
+           maxlogfileentries + element(logfileentries__7, [
+           currentlogfile__7]) .
+H29:   auditalarm__7 >= alarmtypes__statust__first .
+H30:   auditalarm__7 <= alarmtypes__statust__last .
+H31:   numberlogentries__7 >= logentrycountt__first .
+H32:   numberlogentries__7 <= logentrycountt__last .
+H33:   true .
+H34:   true .
+H35:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(logfilesstatus__7, [
+           i___1]) >= filestatust__first) and (element(
+           logfilesstatus__7, [i___1]) <= filestatust__last))) .
+H36:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(logfileentries__7, [
+           i___1]) >= fileentrycountt__first) and (element(
+           logfileentries__7, [i___1]) <= fileentrycountt__last))) .
+H37:   currentlogfile__7 >= logfileindext__first .
+H38:   currentlogfile__7 <= logfileindext__last .
+H39:   fld_length(usedlogfiles__7) >= logfilecountt__first .
+H40:   fld_length(usedlogfiles__7) <= logfilecountt__last .
+H41:   fld_lasti(usedlogfiles__7) >= logfileindext__first .
+H42:   fld_lasti(usedlogfiles__7) <= logfileindext__last .
+H43:   fld_head(usedlogfiles__7) >= logfileindext__first .
+H44:   fld_head(usedlogfiles__7) <= logfileindext__last .
+H45:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(usedlogfiles__7), [
+           i___1]) >= logfileindext__first) and (element(fld_list(
+           usedlogfiles__7), [i___1]) <= logfileindext__last))) .
+H46:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(
+           description, [i___1]) >= character__first) and (element(
+           description, [i___1]) <= character__last))) .
+        ->
+C1:    audittypes__information >= audittypes__severityt__first .
+C2:    audittypes__information <= audittypes__severityt__last .
+C3:    audittypes__archivelog >= audittypes__elementt__first .
+C4:    audittypes__archivelog <= audittypes__elementt__last .
+C5:    numberlogentries__7 = (fld_length(usedlogfiles__7) - 1) * 
+           maxlogfileentries + element(logfileentries__7, [
+           currentlogfile__7]) .
+ 
+
+procedure_archivelog_29.
+H1:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H2:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H3:    auditalarm >= alarmtypes__statust__first .
+H4:    auditalarm <= alarmtypes__statust__last .
+H5:    numberlogentries >= logentrycountt__first .
+H6:    numberlogentries <= logentrycountt__last .
+H7:    true .
+H8:    true .
+H9:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H10:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H11:   currentlogfile >= logfileindext__first .
+H12:   currentlogfile <= logfileindext__last .
+H13:   fld_length(usedlogfiles) >= logfilecountt__first .
+H14:   fld_length(usedlogfiles) <= logfilecountt__last .
+H15:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H16:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H17:   fld_head(usedlogfiles) >= logfileindext__first .
+H18:   fld_head(usedlogfiles) <= logfileindext__last .
+H19:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H20:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+H21:   true .
+H22:   not archivefault .
+H23:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(
+           description, [i___1]) >= character__first) and (element(
+           description, [i___1]) <= character__last))) .
+        ->
+C1:    audittypes__information >= audittypes__severityt__first .
+C2:    audittypes__information <= audittypes__severityt__last .
+C3:    audittypes__archivelog >= audittypes__elementt__first .
+C4:    audittypes__archivelog <= audittypes__elementt__last .
+C5:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+ 
+
+For path(s) from assertion of line 1606 to finish:
+
+procedure_archivelog_30.
+H1:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H2:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H3:    auditalarm >= alarmtypes__statust__first .
+H4:    auditalarm <= alarmtypes__statust__last .
+H5:    numberlogentries >= logentrycountt__first .
+H6:    numberlogentries <= logentrycountt__last .
+H7:    true .
+H8:    true .
+H9:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H10:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H11:   currentlogfile >= logfileindext__first .
+H12:   currentlogfile <= logfileindext__last .
+H13:   fld_length(usedlogfiles) >= logfilecountt__first .
+H14:   fld_length(usedlogfiles) <= logfilecountt__last .
+H15:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H16:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H17:   fld_head(usedlogfiles) >= logfileindext__first .
+H18:   fld_head(usedlogfiles) <= logfileindext__last .
+H19:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H20:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+H21:   true .
+H22:   archivefault .
+H23:   audittypes__warning >= audittypes__severityt__first .
+H24:   audittypes__warning <= audittypes__severityt__last .
+H25:   audittypes__systemfault >= audittypes__elementt__first .
+H26:   audittypes__systemfault <= audittypes__elementt__last .
+H27:   numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H28:   numberlogentries__7 = (fld_length(usedlogfiles__7) - 1) * 
+           maxlogfileentries + element(logfileentries__7, [
+           currentlogfile__7]) .
+H29:   auditalarm__7 >= alarmtypes__statust__first .
+H30:   auditalarm__7 <= alarmtypes__statust__last .
+H31:   numberlogentries__7 >= logentrycountt__first .
+H32:   numberlogentries__7 <= logentrycountt__last .
+H33:   true .
+H34:   true .
+H35:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(logfilesstatus__7, [
+           i___1]) >= filestatust__first) and (element(
+           logfilesstatus__7, [i___1]) <= filestatust__last))) .
+H36:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(logfileentries__7, [
+           i___1]) >= fileentrycountt__first) and (element(
+           logfileentries__7, [i___1]) <= fileentrycountt__last))) .
+H37:   currentlogfile__7 >= logfileindext__first .
+H38:   currentlogfile__7 <= logfileindext__last .
+H39:   fld_length(usedlogfiles__7) >= logfilecountt__first .
+H40:   fld_length(usedlogfiles__7) <= logfilecountt__last .
+H41:   fld_lasti(usedlogfiles__7) >= logfileindext__first .
+H42:   fld_lasti(usedlogfiles__7) <= logfileindext__last .
+H43:   fld_head(usedlogfiles__7) >= logfileindext__first .
+H44:   fld_head(usedlogfiles__7) <= logfileindext__last .
+H45:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(usedlogfiles__7), [
+           i___1]) >= logfileindext__first) and (element(fld_list(
+           usedlogfiles__7), [i___1]) <= logfileindext__last))) .
+H46:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(
+           description, [i___1]) >= character__first) and (element(
+           description, [i___1]) <= character__last))) .
+H47:   audittypes__information >= audittypes__severityt__first .
+H48:   audittypes__information <= audittypes__severityt__last .
+H49:   audittypes__archivelog >= audittypes__elementt__first .
+H50:   audittypes__archivelog <= audittypes__elementt__last .
+H51:   numberlogentries__7 = (fld_length(usedlogfiles__7) - 1) * 
+           maxlogfileentries + element(logfileentries__7, [
+           currentlogfile__7]) .
+H52:   numberlogentries__8 = (fld_length(usedlogfiles__8) - 1) * 
+           maxlogfileentries + element(logfileentries__8, [
+           currentlogfile__8]) .
+H53:   auditalarm__8 >= alarmtypes__statust__first .
+H54:   auditalarm__8 <= alarmtypes__statust__last .
+H55:   numberlogentries__8 >= logentrycountt__first .
+H56:   numberlogentries__8 <= logentrycountt__last .
+H57:   true .
+H58:   true .
+H59:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(logfilesstatus__8, [
+           i___1]) >= filestatust__first) and (element(
+           logfilesstatus__8, [i___1]) <= filestatust__last))) .
+H60:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(logfileentries__8, [
+           i___1]) >= fileentrycountt__first) and (element(
+           logfileentries__8, [i___1]) <= fileentrycountt__last))) .
+H61:   currentlogfile__8 >= logfileindext__first .
+H62:   currentlogfile__8 <= logfileindext__last .
+H63:   fld_length(usedlogfiles__8) >= logfilecountt__first .
+H64:   fld_length(usedlogfiles__8) <= logfilecountt__last .
+H65:   fld_lasti(usedlogfiles__8) >= logfileindext__first .
+H66:   fld_lasti(usedlogfiles__8) <= logfileindext__last .
+H67:   fld_head(usedlogfiles__8) >= logfileindext__first .
+H68:   fld_head(usedlogfiles__8) <= logfileindext__last .
+H69:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(usedlogfiles__8), [
+           i___1]) >= logfileindext__first) and (element(fld_list(
+           usedlogfiles__8), [i___1]) <= logfileindext__last))) .
+        ->
+C1:    numberlogentries__8 = (fld_length(usedlogfiles__8) - 1) * 
+           maxlogfileentries + element(logfileentries__8, [
+           currentlogfile__8]) .
+ 
+
+procedure_archivelog_31.
+H1:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H2:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H3:    auditalarm >= alarmtypes__statust__first .
+H4:    auditalarm <= alarmtypes__statust__last .
+H5:    numberlogentries >= logentrycountt__first .
+H6:    numberlogentries <= logentrycountt__last .
+H7:    true .
+H8:    true .
+H9:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H10:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H11:   currentlogfile >= logfileindext__first .
+H12:   currentlogfile <= logfileindext__last .
+H13:   fld_length(usedlogfiles) >= logfilecountt__first .
+H14:   fld_length(usedlogfiles) <= logfilecountt__last .
+H15:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H16:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H17:   fld_head(usedlogfiles) >= logfileindext__first .
+H18:   fld_head(usedlogfiles) <= logfileindext__last .
+H19:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+H20:   numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+           maxlogfileentries + element(logfileentries~, [
+           currentlogfile~]) .
+H21:   true .
+H22:   not archivefault .
+H23:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__descriptioni__first) and (i___1 <= 
+           audittypes__descriptioni__last)) -> ((element(
+           description, [i___1]) >= character__first) and (element(
+           description, [i___1]) <= character__last))) .
+H24:   audittypes__information >= audittypes__severityt__first .
+H25:   audittypes__information <= audittypes__severityt__last .
+H26:   audittypes__archivelog >= audittypes__elementt__first .
+H27:   audittypes__archivelog <= audittypes__elementt__last .
+H28:   numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+H29:   numberlogentries__8 = (fld_length(usedlogfiles__8) - 1) * 
+           maxlogfileentries + element(logfileentries__8, [
+           currentlogfile__8]) .
+H30:   auditalarm__8 >= alarmtypes__statust__first .
+H31:   auditalarm__8 <= alarmtypes__statust__last .
+H32:   numberlogentries__8 >= logentrycountt__first .
+H33:   numberlogentries__8 <= logentrycountt__last .
+H34:   true .
+H35:   true .
+H36:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(logfilesstatus__8, [
+           i___1]) >= filestatust__first) and (element(
+           logfilesstatus__8, [i___1]) <= filestatust__last))) .
+H37:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(logfileentries__8, [
+           i___1]) >= fileentrycountt__first) and (element(
+           logfileentries__8, [i___1]) <= fileentrycountt__last))) .
+H38:   currentlogfile__8 >= logfileindext__first .
+H39:   currentlogfile__8 <= logfileindext__last .
+H40:   fld_length(usedlogfiles__8) >= logfilecountt__first .
+H41:   fld_length(usedlogfiles__8) <= logfilecountt__last .
+H42:   fld_lasti(usedlogfiles__8) >= logfileindext__first .
+H43:   fld_lasti(usedlogfiles__8) <= logfileindext__last .
+H44:   fld_head(usedlogfiles__8) >= logfileindext__first .
+H45:   fld_head(usedlogfiles__8) <= logfileindext__last .
+H46:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(usedlogfiles__8), [
+           i___1]) >= logfileindext__first) and (element(fld_list(
+           usedlogfiles__8), [i___1]) <= logfileindext__last))) .
+        ->
+C1:    numberlogentries__8 = (fld_length(usedlogfiles__8) - 1) * 
+           maxlogfileentries + element(logfileentries__8, [
+           currentlogfile__8]) .
+ 
+
+For checks of refinement integrity: 
+
+procedure_archivelog_32.
+H1:    true .
+H2:    auditalarm = fld_auditalarm(state) .
+H3:    numberlogentries = fld_numberlogentries(state) .
+H4:    auditsystemfault <-> fld_auditsystemfault(state) .
+H5:    logfiles = fld_logfiles(filestate) .
+H6:    logfilesstatus = fld_logfilesstatus(state) .
+H7:    logfileentries = fld_logfileentries(state) .
+H8:    currentlogfile = fld_currentlogfile(state) .
+H9:    usedlogfiles = fld_usedlogfiles(state) .
+H10:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(user, [
+           i___1]) >= character__first) and (element(user, [
+           i___1]) <= character__last))) .
+H11:   auditalarm >= alarmtypes__statust__first .
+H12:   auditalarm <= alarmtypes__statust__last .
+H13:   numberlogentries >= logentrycountt__first .
+H14:   numberlogentries <= logentrycountt__last .
+H15:   true .
+H16:   true .
+H17:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H18:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfileentries, [i___1]) >= fileentrycountt__first) and (element(
+           logfileentries, [i___1]) <= fileentrycountt__last))) .
+H19:   currentlogfile >= logfileindext__first .
+H20:   currentlogfile <= logfileindext__last .
+H21:   fld_length(usedlogfiles) >= logfilecountt__first .
+H22:   fld_length(usedlogfiles) <= logfilecountt__last .
+H23:   fld_lasti(usedlogfiles) >= logfileindext__first .
+H24:   fld_lasti(usedlogfiles) <= logfileindext__last .
+H25:   fld_head(usedlogfiles) >= logfileindext__first .
+H26:   fld_head(usedlogfiles) <= logfileindext__last .
+H27:   for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(fld_list(
+           usedlogfiles), [i___1]) >= logfileindext__first) and (element(
+           fld_list(usedlogfiles), [i___1]) <= 
+           logfileindext__last))) .
+        ->
+C1:    numberlogentries = (fld_length(usedlogfiles) - 1) * 
+           maxlogfileentries + element(logfileentries, [
+           currentlogfile]) .
+ 
+
+procedure_archivelog_33.
+*** true .          /* trivially true VC removed by Examiner */
+
+

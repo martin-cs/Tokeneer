@@ -1,0 +1,83 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:28.92
+
+             procedure ConfigData.ValidateFile.ReadAuthDuration
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 675:
+
+procedure_readauthduration_1.
+H1:    true .
+        ->
+C1:    clock__durationt__first >= clock__durationt__first .
+C2:    clock__durationt__first <= clock__durationt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 676:
+
+procedure_readauthduration_2.
+H1:    true .
+H2:    clock__durationt__first >= clock__durationt__first .
+H3:    clock__durationt__first <= clock__durationt__last .
+H4:    for_all(i___1: integer, ((i___1 >= 
+           maxauthdurationtexti__first) and (i___1 <= 
+           maxauthdurationtexti__last)) -> ((element(thetitle__1, [
+           i___1]) >= character__first) and (element(thetitle__1, [
+           i___1]) <= character__last))) .
+H5:    stop__1 >= natural__first .
+H6:    stop__1 <= natural__last .
+        ->
+C1:    stop__1 >= natural__first .
+C2:    stop__1 <= natural__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 679:
+
+procedure_readauthduration_3.
+H1:    true .
+H2:    clock__durationt__first >= clock__durationt__first .
+H3:    clock__durationt__first <= clock__durationt__last .
+H4:    for_all(i___1: integer, ((i___1 >= 
+           maxauthdurationtexti__first) and (i___1 <= 
+           maxauthdurationtexti__last)) -> ((element(thetitle__1, [
+           i___1]) >= character__first) and (element(thetitle__1, [
+           i___1]) <= character__last))) .
+H5:    stop__1 >= natural__first .
+H6:    stop__1 <= natural__last .
+H7:    stop__1 >= natural__first .
+H8:    stop__1 <= natural__last .
+H9:    for_all(i___1: integer, ((i___1 >= 
+           maxauthdurationtexti__first) and (i___1 <= 
+           maxauthdurationtexti__last)) -> ((element(thetitle__1, [
+           i___1]) >= character__first) and (element(thetitle__1, [
+           i___1]) <= character__last))) .
+H10:   stop__1 >= natural__first .
+H11:   stop__1 <= natural__last .
+H12:   stop__1 = maxauthdurationtexti__last .
+H13:   thetitle__1 = maxauthdurationtitle .
+H14:   themaxauthduration__2 >= clock__durationt__first .
+H15:   themaxauthduration__2 <= clock__durationt__last .
+H16:   true .
+        ->
+C1:    themaxauthduration__2 >= clock__durationt__first .
+C2:    themaxauthduration__2 <= clock__durationt__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_readauthduration_4.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_readauthduration_5.
+*** true .          /* trivially true VC removed by Examiner */
+
+

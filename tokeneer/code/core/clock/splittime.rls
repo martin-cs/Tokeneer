@@ -1,0 +1,63 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:07.64*/
+
+                         /*procedure Clock.SplitTime*/
+
+
+rule_family splittime_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+splittime_rules(1): millisecsinmin may_be_replaced_by 60000.
+splittime_rules(2): millisecsinhr may_be_replaced_by 3600000.
+splittime_rules(3): timet__size >= 0 may_be_deduced.
+splittime_rules(4): A = B may_be_deduced_from
+     [goal(checktype(A,timet)),
+      goal(checktype(B,timet)),
+      fld_year(A) = fld_year(B),
+      fld_month(A) = fld_month(B),
+      fld_day(A) = fld_day(B),
+      fld_millisec(A) = fld_millisec(B)].
+splittime_rules(5): yearst__size >= 0 may_be_deduced.
+splittime_rules(6): yearst__first may_be_replaced_by 1901.
+splittime_rules(7): yearst__last may_be_replaced_by 2099.
+splittime_rules(8): yearst__base__first <= yearst__base__last may_be_deduced.
+splittime_rules(9): yearst__base__first <= yearst__first may_be_deduced.
+splittime_rules(10): yearst__base__last >= yearst__last may_be_deduced.
+splittime_rules(11): monthst__size >= 0 may_be_deduced.
+splittime_rules(12): monthst__first may_be_replaced_by 1.
+splittime_rules(13): monthst__last may_be_replaced_by 12.
+splittime_rules(14): monthst__base__first <= monthst__base__last may_be_deduced.
+splittime_rules(15): monthst__base__first <= monthst__first may_be_deduced.
+splittime_rules(16): monthst__base__last >= monthst__last may_be_deduced.
+splittime_rules(17): dayst__size >= 0 may_be_deduced.
+splittime_rules(18): dayst__first may_be_replaced_by 1.
+splittime_rules(19): dayst__last may_be_replaced_by 31.
+splittime_rules(20): dayst__base__first <= dayst__base__last may_be_deduced.
+splittime_rules(21): dayst__base__first <= dayst__first may_be_deduced.
+splittime_rules(22): dayst__base__last >= dayst__last may_be_deduced.
+splittime_rules(23): hourst__size >= 0 may_be_deduced.
+splittime_rules(24): hourst__first may_be_replaced_by 0.
+splittime_rules(25): hourst__last may_be_replaced_by 23.
+splittime_rules(26): hourst__base__first <= hourst__base__last may_be_deduced.
+splittime_rules(27): hourst__base__first <= hourst__first may_be_deduced.
+splittime_rules(28): hourst__base__last >= hourst__last may_be_deduced.
+splittime_rules(29): minutest__size >= 0 may_be_deduced.
+splittime_rules(30): minutest__first may_be_replaced_by 0.
+splittime_rules(31): minutest__last may_be_replaced_by 59.
+splittime_rules(32): minutest__base__first <= minutest__base__last may_be_deduced.
+splittime_rules(33): minutest__base__first <= minutest__first may_be_deduced.
+splittime_rules(34): minutest__base__last >= minutest__last may_be_deduced.
+splittime_rules(35): millisecst__size >= 0 may_be_deduced.
+splittime_rules(36): millisecst__first may_be_replaced_by 0.
+splittime_rules(37): millisecst__last may_be_replaced_by 86399999.
+splittime_rules(38): millisecst__base__first <= millisecst__base__last may_be_deduced.
+splittime_rules(39): millisecst__base__first <= millisecst__first may_be_deduced.
+splittime_rules(40): millisecst__base__last >= millisecst__last may_be_deduced.

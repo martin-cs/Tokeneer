@@ -1,0 +1,50 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:29.09*/
+
+            /*procedure ConfigData.ValidateFile.ReadAlarmThreshold*/
+
+
+rule_family readalarmthr_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+readalarmthr_rules(1): character__first <= element(alarmthresholdtitle, [I]) may_be_deduced_from [1 <= I, I <= 19].
+readalarmthr_rules(2): element(alarmthresholdtitle, [I]) <= 
+     character__last may_be_deduced_from [1 <= I, I <= 19].
+readalarmthr_rules(3): integer__size >= 0 may_be_deduced.
+readalarmthr_rules(4): integer__first may_be_replaced_by -2147483648.
+readalarmthr_rules(5): integer__last may_be_replaced_by 2147483647.
+readalarmthr_rules(6): integer__base__first may_be_replaced_by -2147483648.
+readalarmthr_rules(7): integer__base__last may_be_replaced_by 2147483647.
+readalarmthr_rules(8): character__size >= 0 may_be_deduced.
+readalarmthr_rules(9): character__first may_be_replaced_by 0.
+readalarmthr_rules(10): character__last may_be_replaced_by 255.
+readalarmthr_rules(11): character__base__first may_be_replaced_by 0.
+readalarmthr_rules(12): character__base__last may_be_replaced_by 255.
+readalarmthr_rules(13): natural__size >= 0 may_be_deduced.
+readalarmthr_rules(14): natural__first may_be_replaced_by 0.
+readalarmthr_rules(15): natural__last may_be_replaced_by 2147483647.
+readalarmthr_rules(16): natural__base__first may_be_replaced_by -2147483648.
+readalarmthr_rules(17): natural__base__last may_be_replaced_by 2147483647.
+readalarmthr_rules(18): positive__size >= 0 may_be_deduced.
+readalarmthr_rules(19): positive__first may_be_replaced_by 1.
+readalarmthr_rules(20): positive__last may_be_replaced_by 2147483647.
+readalarmthr_rules(21): positive__base__first may_be_replaced_by -2147483648.
+readalarmthr_rules(22): positive__base__last may_be_replaced_by 2147483647.
+readalarmthr_rules(23): audittypes__filesizet__size >= 0 may_be_deduced.
+readalarmthr_rules(24): audittypes__filesizet__first may_be_replaced_by 0.
+readalarmthr_rules(25): audittypes__filesizet__last may_be_replaced_by 4194304.
+readalarmthr_rules(26): audittypes__filesizet__base__first may_be_replaced_by -2147483648.
+readalarmthr_rules(27): audittypes__filesizet__base__last may_be_replaced_by 2147483647.
+readalarmthr_rules(28): alarmthresholdtexti__size >= 0 may_be_deduced.
+readalarmthr_rules(29): alarmthresholdtexti__first may_be_replaced_by 1.
+readalarmthr_rules(30): alarmthresholdtexti__last may_be_replaced_by 19.
+readalarmthr_rules(31): alarmthresholdtexti__base__first may_be_replaced_by -2147483648.
+readalarmthr_rules(32): alarmthresholdtexti__base__last may_be_replaced_by 2147483647.

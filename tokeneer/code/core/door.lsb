@@ -1,0 +1,506 @@
+           *******************************************************
+                            Listing of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:10.90
+
+Line
+   1  ------------------------------------------------------------------
+   2  -- Tokeneer ID Station Core Software
+   3  --
+   4  -- Copyright (2003) United States Government, as represented
+   5  -- by the Director, National Security Agency. All rights reserved.
+   6  --
+   7  -- This material was originally developed by Praxis High Integrity
+   8  -- Systems Ltd. under contract to the National Security Agency.
+   9  --
+  10  -- Modifications to proof annotations by Phil Thornley, April 2009
+  11  ------------------------------------------------------------------
+  12  
+  13  ------------------------------------------------------------------
+  14  -- Door
+  15  --
+  16  -- Implementation Notes:
+  17  --    None
+  18  --
+  19  ------------------------------------------------------------------
+  20  with Door.Interface,
+  21       AuditLog,
+  22       AuditTypes,
+  23       AlarmTypes,
+  24       Clock,
+  25       ConfigData,
+  26       Latch;
+  27  
+  28  use type AlarmTypes.StatusT;
+  29  
+  30  package body Door
+  31  --# own State is CurrentDoor,
+  32  --#              AlarmTimeout,
+  33  --#              DoorAlarm &
+  34  --#     Input is in Door.Interface.Input;
+  35  is
+  36  
+  37     ------------------------------------------------------------------
+  38     -- State
+  39     ------------------------------------------------------------------
+  40     CurrentDoor  : T;
+  41     DoorAlarm    : AlarmTypes.StatusT;
+  42     AlarmTimeout : Clock.TimeT;
+  43  
+  44  
+  45     ------------------------------------------------------------------
+  46     -- UpdateDoorAlarm
+  47     --
+  48     -- Description:
+  49     --    Local procedure that activates the alarm if the door is
+  50     --    open/locked and the door alarm timeout has passed.
+  51     --
+  52     -- Implementation Notes:
+  53     --    Used by Poll, LockDoor and UnlockDoor
+  54     --
+  55     -- Traceunit : C.Door.UpdateDoorAlarm
+  56     -- Traceto   : FD.Latch.UpdateInternalAlarm
+  57     ------------------------------------------------------------------
+  58  
+  59     procedure UpdateDoorAlarm
+  60     --# global in     Clock.Now;
+  61     --#        in     ConfigData.State;
+  62     --#        in     Clock.CurrentTime;
+  63     --#        in     Latch.State;
+  64     --#        in     AlarmTimeout;
+  65     --#        in     CurrentDoor;
+  66     --#        in out AuditLog.State;
+  67     --#        in out AuditLog.FileState;
+  68     --#        in out DoorAlarm;
+  69     --# derives AuditLog.State,
+  70     --#         AuditLog.FileState from AuditLog.State,
+  71     --#                                 AuditLog.FileState,
+  72     --#                                 Clock.Now,
+  73     --#                                 ConfigData.State,
+  74     --#                                 Clock.CurrentTime,
+  75     --#                                 Latch.State,
+  76     --#                                 DoorAlarm,
+  77     --#                                 AlarmTimeout,
+  78     --#                                 CurrentDoor &
+  79     --#         DoorAlarm          from Clock.CurrentTime,
+  80     --#                                 Latch.State,
+  81     --#                                 AlarmTimeout,
+  82     --#                                 CurrentDoor;
+  83     --# post
+  84     --#      --------------------------------------------------------
+  85     --#      -- PROOF ANNOTATIONS FOR SECURITY PROPERTY 3          --
+  86     --#      --====================================================--
+  87     --#      -- After each call to UpdateDoorAlarm, the security   --
+  88     --#      -- property holds.                                    --
+  89     --#      --------------------------------------------------------
+  90     --#      ( CurrentDoor = Open and
+  91     --#        Latch.IsLocked(Latch.State) and
+  92     --#        Clock.GreaterThanOrEqual(Clock.TheCurrentTime(Clock.CurrentTime),
+  93     --#                                 AlarmTimeout) ) <->
+  94     --#      DoorAlarm = AlarmTypes.Alarming;
+  95     is
+  96        LocalAlarm : AlarmTypes.StatusT;
+  97        Severity   : AuditTypes.SeverityT;
+  98        ID         : AuditTypes.ElementT;
+  99     begin
+ 100        if CurrentDoor = Open and
+ 101              Latch.IsLocked and
+ 102              Clock.GreaterThanOrEqual(Left  => Clock.TheCurrentTime,
+ 103                                       Right => AlarmTimeout) then
+ 104  
+ 105           LocalAlarm := AlarmTypes.Alarming;
+ 106           Severity   := AuditTypes.Critical;
+ 107           ID         := AuditTypes.AlarmRaised;
+ 108  
+ 109        else
+ 110  
+ 111           LocalAlarm := AlarmTypes.Silent;
+ 112           Severity   := AuditTypes.Information;
+ 113           ID         := AuditTypes.AlarmSilenced;
+ 114  
+ 115        end if;
+ 116  
+ 117        if DoorAlarm /= LocalAlarm then
+ 118           AuditLog.AddElementToLog(
+ 119                  ElementID    => ID,
+ 120                  Severity     => Severity,
+ 121                  User         => AuditTypes.NoUser,
+ 122                  Description  => AuditTypes.NoDescription
+ 123                  );
+ 124        end if;
+ 125  
+ 126        DoorAlarm := LocalAlarm;
+ 127  
+ 128     end UpdateDoorAlarm;
+
++++        Flow analysis of subprogram UpdateDoorAlarm 
+           performed: no errors found.
+
+ 129  
+ 130  
+ 131     ------------------------------------------------------------------
+ 132     -- Poll
+ 133     --
+ 134     -- Implementation Notes:
+ 135     --    Clock must be polled before this is called.
+ 136     --
+ 137     ------------------------------------------------------------------
+ 138  
+ 139     procedure Poll(SystemFault :    out Boolean)
+ 140     --# global in     Clock.Now;
+ 141     --#        in     ConfigData.State;
+ 142     --#        in     Clock.CurrentTime;
+ 143     --#        in     AlarmTimeout;
+ 144     --#        in     Interface.Input;
+ 145     --#        in out AuditLog.State;
+ 146     --#        in out AuditLog.FileState;
+ 147     --#        in out Latch.State;
+ 148     --#        in out DoorAlarm;
+ 149     --#        in out CurrentDoor;
+ 150     --# derives AuditLog.State,
+ 151     --#         AuditLog.FileState from AuditLog.State,
+ 152     --#                                 AuditLog.FileState,
+ 153     --#                                 Clock.Now,
+ 154     --#                                 ConfigData.State,
+ 155     --#                                 Clock.CurrentTime,
+ 156     --#                                 Latch.State,
+ 157     --#                                 DoorAlarm,
+ 158     --#                                 AlarmTimeout,
+ 159     --#                                 CurrentDoor,
+ 160     --#                                 Interface.Input &
+ 161     --#         Latch.State        from *,
+ 162     --#                                 Clock.CurrentTime &
+ 163     --#         SystemFault        from Interface.Input &
+ 164     --#         DoorAlarm          from Clock.CurrentTime,
+ 165     --#                                 Latch.State,
+ 166     --#                                 AlarmTimeout,
+ 167     --#                                 CurrentDoor,
+ 168     --#                                 Interface.Input &
+ 169     --#         CurrentDoor        from *,
+ 170     --#                                 Interface.Input;
+ 171     --# post
+ 172     --#      --------------------------------------------------------
+ 173     --#      -- PROOF ANNOTATIONS FOR SECURITY PROPERTY 3          --
+ 174     --#      --====================================================--
+ 175     --#      -- After each call to Poll, the security property     --
+ 176     --#      -- holds.                                             --
+ 177     --#      --------------------------------------------------------
+ 178     --#      ( ( CurrentDoor = Open and
+ 179     --#          Latch.IsLocked(Latch.State) and
+ 180     --#          Clock.GreaterThanOrEqual(Clock.TheCurrentTime(Clock.CurrentTime),
+ 181     --#                                   AlarmTimeout) ) <->
+ 182     --#        DoorAlarm = AlarmTypes.Alarming ) and
+ 183     --#
+ 184     --#
+ 185     --#      ( Latch.IsLocked(Latch.State) <->
+ 186     --#        Clock.GreaterThanOrEqual(Clock.TheCurrentTime(Clock.CurrentTime),
+ 187     --#                                 Latch.prf_LatchTimeout(Latch.State)) ) and
+ 188     --#      ( Latch.IsLocked(Latch.State~) ->
+ 189     --#                 (Latch.State = Latch.State~ and
+ 190     --#                  Latch.IsLocked(Latch.State) ) ) and
+ 191     --#      Latch.prf_latchTimeout(Latch.State) = Latch.prf_latchTimeout(Latch.State~);
+ 192     is
+ 193        NewDoor : T;
+ 194        ID      : AuditTypes.ElementT;
+ 195     begin
+ 196        Interface.GetDoorState(DoorState => NewDoor,
+ 197                               Fault     => SystemFault);
+ 198  
+ 199        if SystemFault then
+ 200  
+ 201           -- Door is in error state - raise a critical system fault
+ 202           AuditLog.AddElementToLog(
+ 203                  ElementID    => AuditTypes.SystemFault,
+ 204                  Severity     => AuditTypes.Critical,
+ 205                  User         => AuditTypes.NoUser,
+ 206                  Description  => "DOOR STATE CANNOT BE DETERMINED"
+ 207                  );
+ 208  
+ 209        else
+ 210  
+ 211           if CurrentDoor /= NewDoor then
+ 212  
+ 213           -- Door has changed - add event to log
+ 214           if NewDoor = Closed then
+ 215              ID := AuditTypes.DoorClosed;
+ 216           else
+ 217              ID := AuditTypes.DoorOpened;
+ 218           end if;
+ 219  
+ 220           AuditLog.AddElementToLog(
+ 221                  ElementID    => ID,
+ 222                  Severity     => AuditTypes.Information,
+ 223                  User         => AuditTypes.NoUser,
+ 224                  Description  => AuditTypes.NoDescription
+ 225                  );
+ 226  
+ 227           CurrentDoor := NewDoor;
+ 228  
+ 229           end if;
+ 230  
+ 231           SystemFault := False;
+ 232        end if;
+ 233  
+ 234        Latch.UpdateInternalLatch;
+ 235        UpdateDoorAlarm;
+ 236  
+ 237     end Poll;
+
++++        Flow analysis of subprogram Poll performed: no 
+           errors found.
+
+ 238  
+ 239  
+ 240     ------------------------------------------------------------------
+ 241     -- UnlockDoor
+ 242     --
+ 243     -- Implementation Notes:
+ 244     --    None
+ 245     --
+ 246     ------------------------------------------------------------------
+ 247  
+ 248     procedure UnlockDoor
+ 249     --# global in     Clock.Now;
+ 250     --#        in     ConfigData.State;
+ 251     --#        in     Clock.CurrentTime;
+ 252     --#        in     CurrentDoor;
+ 253     --#        in out AuditLog.State;
+ 254     --#        in out AuditLog.FileState;
+ 255     --#        in out Latch.State;
+ 256     --#        in out DoorAlarm;
+ 257     --#           out AlarmTimeout;
+ 258     --# derives AuditLog.State,
+ 259     --#         AuditLog.FileState from AuditLog.State,
+ 260     --#                                 AuditLog.FileState,
+ 261     --#                                 Clock.Now,
+ 262     --#                                 ConfigData.State,
+ 263     --#                                 Clock.CurrentTime,
+ 264     --#                                 Latch.State,
+ 265     --#                                 DoorAlarm,
+ 266     --#                                 CurrentDoor &
+ 267     --#         Latch.State        from *,
+ 268     --#                                 ConfigData.State,
+ 269     --#                                 Clock.CurrentTime &
+ 270     --#         DoorAlarm          from ConfigData.State,
+ 271     --#                                 Clock.CurrentTime,
+ 272     --#                                 Latch.State,
+ 273     --#                                 CurrentDoor &
+ 274     --#         AlarmTimeout       from ConfigData.State,
+ 275     --#                                 Clock.CurrentTime;
+ 276     --# post
+ 277     --#      --------------------------------------------------------
+ 278     --#      -- PROOF ANNOTATIONS FOR SECURITY PROPERTY 3          --
+ 279     --#      --====================================================--
+ 280     --#      -- After each call to UnlockDoor, the security        --
+ 281     --#      -- property holds.                                    --
+ 282     --#      --------------------------------------------------------
+ 283     --#      ( ( CurrentDoor = Open and
+ 284     --#          Latch.IsLocked(Latch.State) and
+ 285     --#          Clock.GreaterThanOrEqual(Clock.TheCurrentTime(Clock.CurrentTime),
+ 286     --#                                   AlarmTimeout) ) <->
+ 287     --#        DoorAlarm = AlarmTypes.Alarming ) and
+ 288     --#
+ 289     --#      ( Latch.IsLocked(Latch.State) <->
+ 290     --#        Clock.GreaterThanOrEqual(Clock.TheCurrentTime(Clock.CurrentTime),
+ 291     --#                                 Latch.prf_LatchTimeout(Latch.State)) );
+ 292     is
+ 293        LatchTimeout : Clock.TimeT;
+ 294     begin
+ 295  
+ 296        LatchTimeout := Clock.AddDuration(
+ 297                           TheTime     => Clock.TheCurrentTime,
+ 298                           TheDuration => ConfigData.TheLatchUnlockDuration
+ 299                           );
+ 300  
+ 301        Latch.SetTimeout(Time => LatchTimeout);
+ 302  
+ 303        AlarmTimeout := Clock.AddDuration(
+ 304                              TheTime     => LatchTimeout,
+ 305                              TheDuration => ConfigData.TheAlarmSilentDuration
+ 306                              );
+ 307  
+ 308        Latch.UpdateInternalLatch;
+ 309        UpdateDoorAlarm;
+ 310  
+ 311     end UnlockDoor;
+
++++        Flow analysis of subprogram UnlockDoor 
+           performed: no errors found.
+
+ 312  
+ 313  
+ 314     ------------------------------------------------------------------
+ 315     -- LockDoor
+ 316     --
+ 317     -- Implementation Notes:
+ 318     --    None
+ 319     --
+ 320     ------------------------------------------------------------------
+ 321  
+ 322     procedure LockDoor
+ 323     --# global in     Clock.Now;
+ 324     --#        in     ConfigData.State;
+ 325     --#        in     Clock.CurrentTime;
+ 326     --#        in     CurrentDoor;
+ 327     --#        in out AuditLog.State;
+ 328     --#        in out AuditLog.FileState;
+ 329     --#        in out Latch.State;
+ 330     --#        in out DoorAlarm;
+ 331     --#           out AlarmTimeout;
+ 332     --# derives AuditLog.State,
+ 333     --#         AuditLog.FileState from AuditLog.State,
+ 334     --#                                 AuditLog.FileState,
+ 335     --#                                 Clock.Now,
+ 336     --#                                 ConfigData.State,
+ 337     --#                                 Clock.CurrentTime,
+ 338     --#                                 Latch.State,
+ 339     --#                                 DoorAlarm,
+ 340     --#                                 CurrentDoor &
+ 341     --#         Latch.State        from *,
+ 342     --#                                 Clock.CurrentTime &
+ 343     --#         DoorAlarm          from Clock.CurrentTime,
+ 344     --#                                 Latch.State,
+ 345     --#                                 CurrentDoor &
+ 346     --#         AlarmTimeout       from Clock.CurrentTime;
+ 347     --# post
+ 348     --#      --------------------------------------------------------
+ 349     --#      -- PROOF ANNOTATIONS FOR SECURITY PROPERTY 3          --
+ 350     --#      --====================================================--
+ 351     --#      -- After each call to LockDoor, the security property --
+ 352     --#      -- holds.                                             --
+ 353     --#      --------------------------------------------------------
+ 354     --#      ( ( CurrentDoor = Open and
+ 355     --#          Latch.IsLocked(Latch.State) and
+ 356     --#          Clock.GreaterThanOrEqual(Clock.TheCurrentTime(Clock.CurrentTime),
+ 357     --#                                   AlarmTimeout) ) <->
+ 358     --#        DoorAlarm = AlarmTypes.Alarming ) and
+ 359     --#      Latch.IsLocked(Latch.State);
+ 360     is
+ 361     begin
+ 362  
+ 363        Latch.SetTimeout(Time => Clock.TheCurrentTime);
+ 364        AlarmTimeout := Clock.TheCurrentTime;
+ 365  
+ 366        Latch.UpdateInternalLatch;
+ 367        --# check Latch.prf_latchTimeout(Latch.State) =
+ 368        --#         Clock.TheCurrentTime(Clock.CurrentTime);
+ 369        UpdateDoorAlarm;
+ 370  
+ 371        --# check Clock.GreaterThanOrEqual(Clock.TheCurrentTime(Clock.CurrentTime),
+ 372        --#                                AlarmTimeout);
+ 373  
+ 374     end LockDoor;
+
++++        Flow analysis of subprogram LockDoor performed: 
+           no errors found.
+
+ 375  
+ 376  
+ 377  
+ 378     ------------------------------------------------------------------
+ 379     -- Init
+ 380     --
+ 381     -- Implementation Notes:
+ 382     --    None
+ 383     --
+ 384     ------------------------------------------------------------------
+ 385  
+ 386     procedure Init
+ 387     --# global out DoorAlarm;
+ 388     --#        out AlarmTimeout;
+ 389     --#        out CurrentDoor;
+ 390     --# derives DoorAlarm,
+ 391     --#         AlarmTimeout,
+ 392     --#         CurrentDoor  from ;
+ 393     is
+ 394     begin
+ 395        CurrentDoor  := Closed;
+ 396        DoorAlarm    := AlarmTypes.Silent;
+ 397        AlarmTimeout := Clock.ZeroTime;
+ 398     end Init;
+
++++        Flow analysis of subprogram Init performed: no 
+           errors found.
+
+ 399  
+ 400  
+ 401     ------------------------------------------------------------------
+ 402     -- TheCurrentDoor
+ 403     --
+ 404     -- Implementation Notes:
+ 405     --    None
+ 406     --
+ 407     ------------------------------------------------------------------
+ 408  
+ 409     function TheCurrentDoor return T
+ 410     --# global CurrentDoor;
+ 411     is
+ 412     begin
+ 413        return CurrentDoor;
+ 414     end TheCurrentDoor;
+
++++        Flow analysis of subprogram TheCurrentDoor 
+           performed: no errors found.
+
+ 415  
+ 416  
+ 417     ------------------------------------------------------------------
+ 418     -- TheDoorAlarm
+ 419     --
+ 420     -- Implementation Notes:
+ 421     --    None
+ 422     --
+ 423     ------------------------------------------------------------------
+ 424  
+ 425     function TheDoorAlarm return AlarmTypes.StatusT
+ 426     --# global DoorAlarm;
+ 427     is
+ 428     begin
+ 429        return DoorAlarm;
+ 430     end TheDoorAlarm;
+
++++        Flow analysis of subprogram TheDoorAlarm 
+           performed: no errors found.
+
+ 431  
+ 432  
+ 433     ------------------------------------------------------------------
+ 434     -- Failure
+ 435     --
+ 436     -- Implementation notes:
+ 437     --    None
+ 438     --
+ 439     ------------------------------------------------------------------
+ 440  
+ 441     procedure Failure
+ 442     --# global out Latch.State;
+ 443     --#        out DoorAlarm;
+ 444     --#        out AlarmTimeout;
+ 445     --#        out CurrentDoor;
+ 446     --# derives Latch.State,
+ 447     --#         DoorAlarm,
+ 448     --#         AlarmTimeout,
+ 449     --#         CurrentDoor  from ;
+ 450     is
+ 451     begin
+ 452        CurrentDoor  := Open;
+ 453        AlarmTimeout := Clock.ZeroTime;
+ 454        DoorAlarm    := AlarmTypes.Alarming;
+ 455        Latch.Failure;
+ 456     end Failure;
+
++++        Flow analysis of subprogram Failure performed: 
+           no errors found.
+
+ 457  
+ 458  end Door;
+8 summarized warning(s), comprising:
+     8 use(s) of Ada2005 reserved words
+
+
+
+--End of file--------------------------------------------------

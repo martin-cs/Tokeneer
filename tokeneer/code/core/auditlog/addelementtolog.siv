@@ -1,0 +1,118 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:09  SIMPLIFIED 05-SEP-2011, 15:38:39
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure AuditLog.AddElementToLog
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 1446:
+
+procedure_addelementtolog_1.
+*** true .          /* all conclusions proved */
+
+
+For path(s) from start to precondition check associated with statement of line 
+          1448:
+
+procedure_addelementtolog_2.
+*** true .          /* all conclusions proved */
+
+
+For path(s) from start to precondition check associated with statement of line 
+          1458:
+
+procedure_addelementtolog_3.
+*** true .          /* all conclusions proved */
+
+
+For path(s) from start to finish:
+
+procedure_addelementtolog_4.
+*** true .          /* all conclusions proved */
+
+
+procedure_addelementtolog_5.
+*** true .          /* all conclusions proved */
+
+
+For checks of refinement integrity: 
+
+procedure_addelementtolog_6.
+H1:    audittypes__startunenrolledtis <= elementid .
+H2:    elementid <= audittypes__systemfault .
+H3:    audittypes__information <= severity .
+H4:    severity <= audittypes__critical .
+H5:    for_all(i___1 : integer, 1 <= i___1 and i___1 <= 50 -> 0 <= element(
+          user, [i___1]) and element(user, [i___1]) <= 255) .
+H6:    for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          description__index__subtype__1__last -> 0 <= element(description, [
+          i___1]) and element(description, [i___1]) <= 255) .
+H7:    alarmtypes__alarming <= fld_auditalarm(state) .
+H8:    fld_auditalarm(state) <= alarmtypes__silent .
+H9:    fld_numberlogentries(state) >= 0 .
+H10:   fld_numberlogentries(state) <= 17408 .
+H11:   for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> free <= element(
+          fld_logfilesstatus(state), [i___1]) and element(fld_logfilesstatus(
+          state), [i___1]) <= used) .
+H12:   for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> 0 <= element(
+          fld_logfileentries(state), [i___1]) and element(fld_logfileentries(
+          state), [i___1]) <= 1024) .
+H13:   fld_currentlogfile(state) >= 1 .
+H14:   fld_currentlogfile(state) <= 17 .
+H15:   fld_length(fld_usedlogfiles(state)) >= 0 .
+H16:   fld_length(fld_usedlogfiles(state)) <= 17 .
+H17:   fld_lasti(fld_usedlogfiles(state)) >= 1 .
+H18:   fld_lasti(fld_usedlogfiles(state)) <= 17 .
+H19:   fld_head(fld_usedlogfiles(state)) >= 1 .
+H20:   fld_head(fld_usedlogfiles(state)) <= 17 .
+H21:   for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> 1 <= element(
+          fld_list(fld_usedlogfiles(state)), [i___1]) and element(fld_list(
+          fld_usedlogfiles(state)), [i___1]) <= 17) .
+H22:   integer__size >= 0 .
+H23:   character__size >= 0 .
+H24:   positive__size >= 0 .
+H25:   audittypes__elementt__size >= 0 .
+H26:   audittypes__severityt__size >= 0 .
+H27:   audittypes__descriptioni__size >= 0 .
+H28:   audittypes__usertexti__size >= 0 .
+H29:   alarmtypes__statust__size >= 0 .
+H30:   description__index__subtype__1__last >= 0 .
+H31:   logfilecountt__size >= 0 .
+H32:   logfilecountt__base__first <= logfilecountt__base__last .
+H33:   logfileindext__size >= 0 .
+H34:   logfileindext__base__first <= logfileindext__base__last .
+H35:   filestatust__size >= 0 .
+H36:   logfilelistt__size >= 0 .
+H37:   logentrycountt__size >= 0 .
+H38:   logentrycountt__base__first <= logentrycountt__base__last .
+H39:   fileentrycountt__size >= 0 .
+H40:   fileentrycountt__base__first <= fileentrycountt__base__last .
+H41:   description__index__subtype__1__last <= 2147483647 .
+H42:   logfilecountt__base__first <= 0 .
+H43:   logfilecountt__base__last >= 17 .
+H44:   logfileindext__base__first <= 1 .
+H45:   logfileindext__base__last >= 17 .
+H46:   logentrycountt__base__first <= 0 .
+H47:   logentrycountt__base__last >= 17408 .
+H48:   fileentrycountt__base__first <= 0 .
+H49:   fileentrycountt__base__last >= 1024 .
+       ->
+C1:    fld_numberlogentries(state) = (fld_length(fld_usedlogfiles(state)) - 1) 
+          * 1024 + element(fld_logfileentries(state), [fld_currentlogfile(state)
+          ]) .
+
+
+procedure_addelementtolog_7.
+*** true .          /* all conclusions proved */
+
+

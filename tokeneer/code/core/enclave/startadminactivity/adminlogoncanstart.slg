@@ -1,0 +1,60 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:27  SIMPLIFIED 05-SEP-2011, 15:40:44
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+function Enclave.StartAdminActivity.AdminLogonCanStart
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  
+          d:/sparkdev/tis2011/code/core/enclave/startadminactivity/startadminactivity.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: function_adminlogoncanstart_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  statust__first <= status
+-S-  Applied substitution rule adminlogonca_rules(2).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H2:  notenrolled <= status
+-S-  Applied substitution rule adminlogonca_rules(3).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H3:  status <= shutdown
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H4 (true-hypothesis).
+---  Eliminated hypothesis H5 (true-hypothesis).
+     +++  New H6:  statust__size >= 0
+>>>  Conclusion C1 is an implication formula [P->Q].
+     Attempting to prove this by proving Q while adding P to the hypotheses.
++++  Added new hypotheses (in proving an implication formula).
+     +++  New H7:  not admin__ispresent(theadmin)
+     +++  New H8:  status = enclavequiescent
+     +++  New H9:  admintoken__ispresent(admintoken__state)
++++  New subgoal C1:  not admin__ispresent(theadmin)
+-S-  Eliminated hypothesis H8.
+     This was achieved by replacing all occurrences of status by:
+          enclavequiescent.
+<S>  New H2:  true
+<S>  New H3:  true
+***  Proved subgoal C1
+     using hypothesis H7.
+***  Proved C1:  not admin__ispresent(theadmin) and (status = enclavequiescent 
+          and admintoken__ispresent(admintoken__state)) -> not admin__ispresent(
+          theadmin)
+     by implication.
+***  PROVED VC.
+

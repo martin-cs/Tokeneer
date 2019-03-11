@@ -1,0 +1,82 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:21.08
+
+                         procedure AdminToken.Init
+
+
+
+
+For path(s) from start to finish:
+
+procedure_init_1.
+H1:    true .
+H2:    not (fld_valid(idcert__2)) .
+H3:    not (fld_valid(authcert__2)) .
+H4:    cert__attr__auth__therole(fld_contents(authcert__2)) = 
+           privtypes__privileget__first .
+H5:    tokenpresence__2 >= basictypes__presencet__first .
+H6:    tokenpresence__2 <= basictypes__presencet__last .
+H7:    tokentry__2 >= tokentypes__tryt__first .
+H8:    tokentry__2 <= tokentypes__tryt__last .
+H9:    tokenid__2 >= tokentypes__tokenidt__first .
+H10:   tokenid__2 <= tokentypes__tokenidt__last .
+H11:   true .
+H12:   true .
+H13:   true .
+H14:   true .
+        ->
+C1:    not (fld_valid(idcert__2)) .
+C2:    not (fld_valid(authcert__2)) .
+C3:    cert__attr__auth__therole(fld_contents(authcert__2)) = 
+           privtypes__privileget__first .
+ 
+
+For checks of refinement integrity: 
+
+procedure_init_2.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_init_3.
+H1:    true .
+H2:    true .
+H3:    admintoken__interface__status~ = 
+           fld_admintoken__interface__status(status~) .
+H4:    admintoken__interface__status = 
+           fld_admintoken__interface__status(status) .
+H5:    tokenpresence = fld_tokenpresence(state) .
+H6:    tokentry = fld_tokentry(state) .
+H7:    tokenid = fld_tokenid(state) .
+H8:    authcert = fld_authcert(state) .
+H9:    idcert = fld_idcert(state) .
+H10:   admintoken__interface__state = fld_admintoken__interface__state(
+           state) .
+H11:   tokenpresence >= basictypes__presencet__first .
+H12:   tokenpresence <= basictypes__presencet__last .
+H13:   tokentry >= tokentypes__tryt__first .
+H14:   tokentry <= tokentypes__tryt__last .
+H15:   tokenid >= tokentypes__tokenidt__first .
+H16:   tokenid <= tokentypes__tokenidt__last .
+H17:   true .
+H18:   true .
+H19:   true .
+H20:   true .
+H21:   not (fld_valid(idcert)) .
+H22:   not (fld_valid(authcert)) .
+H23:   cert__attr__auth__therole(fld_contents(authcert)) = 
+           privtypes__privileget__first .
+        ->
+C1:    not (prf_isgood(state)) .
+C2:    not (prf_authcertvalid(state)) .
+C3:    not ((theauthcertrole(state) >= 
+           privtypes__adminprivileget__first) and (
+           theauthcertrole(state) <= 
+           privtypes__adminprivileget__last)) .
+ 
+

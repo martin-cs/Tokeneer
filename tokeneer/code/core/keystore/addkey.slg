@@ -1,0 +1,1938 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:12  SIMPLIFIED 05-SEP-2011, 15:41:04
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure KeyStore.AddKey
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/keystore/keystore.rlu
+&&&  d:/sparkdev/tis2011/code/core/keystore/addkey.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_addkey_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(theowner), [i___1]) and element(fld_name(theowner), [i___1]) 
+          <= character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  cryptotypes__algorithmt__first <= fld_algorithmid(thekey)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_owner(thistisinfo)), [i___1]) and element(fld_name(
+          fld_owner(thistisinfo)), [i___1]) <= character__last)
+-S-  Applied substitution rule addkey_rules(19).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__first by:
+          0.
+<S>  New C1:  fld_keylength(thekey) >= 0
+<S>  New C3:  fld_keylength(thekey) >= 0
+<S>  New C5:  fld_keyid(thekey) >= 0
+<S>  New C7:  fld_keyid(thekey) >= 0
+-S-  Applied substitution rule addkey_rules(20).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__last by:
+          4294967295.
+<S>  New C2:  fld_keylength(thekey) <= 4294967295
+<S>  New C4:  fld_keylength(thekey) <= 4294967295
+<S>  New C6:  fld_keyid(thekey) <= 4294967295
+<S>  New C8:  fld_keyid(thekey) <= 4294967295
+-S-  Applied substitution rule addkey_rules(1).
+     This was achieved by replacing all occurrences of 
+          keystore__interface__fullkeymask by:
+          15.
+<S>  New C9:  15 >= keystore__interface__maskt__first
+<S>  New C10:  15 <= keystore__interface__maskt__last
+-S-  Applied substitution rule addkey_rules(236).
+     This was achieved by replacing all occurrences of 
+          keystore__interface__maskt__first by:
+          0.
+<S>  New C9:  true
+-S-  Applied substitution rule addkey_rules(237).
+     This was achieved by replacing all occurrences of 
+          keystore__interface__maskt__last by:
+          15.
+<S>  New C10:  true
+***  Proved C9:  true
+***  Proved C10:  true
+-S-  Applied substitution rule addkey_rules(8).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H2:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(theowner), 
+          [i___1]) and element(fld_name(theowner), [i___1]) <= character__last)
+<S>  New H14:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(fld_owner(
+          thistisinfo)), [i___1]) and element(fld_name(fld_owner(thistisinfo)), 
+          [i___1]) <= character__last)
+-S-  Applied substitution rule addkey_rules(9).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H2:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(theowner), 
+          [i___1]) and element(fld_name(theowner), [i___1]) <= 255)
+<S>  New H14:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(fld_owner(
+          thistisinfo)), [i___1]) and element(fld_name(fld_owner(thistisinfo)), 
+          [i___1]) <= 255)
+-S-  Applied substitution rule addkey_rules(162).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namecountt__first by:
+          0.
+<S>  New H3:  fld_namelength(theowner) >= 0
+<S>  New H15:  fld_namelength(fld_owner(thistisinfo)) >= 0
+-S-  Applied substitution rule addkey_rules(163).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namecountt__last by:
+          40.
+<S>  New H4:  fld_namelength(theowner) <= 40
+<S>  New H16:  fld_namelength(fld_owner(thistisinfo)) <= 40
+-S-  Applied substitution rule addkey_rules(167).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namei__first by:
+          1.
+<S>  New H2:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          cryptotypes__namei__last -> 0 <= element(fld_name(theowner), [i___1]) 
+          and element(fld_name(theowner), [i___1]) <= 255)
+<S>  New H14:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          cryptotypes__namei__last -> 0 <= element(fld_name(fld_owner(
+          thistisinfo)), [i___1]) and element(fld_name(fld_owner(thistisinfo)), 
+          [i___1]) <= 255)
+-S-  Applied substitution rule addkey_rules(168).
+     This was achieved by replacing all occurrences of cryptotypes__namei__last 
+          by:
+          40.
+<S>  New H2:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 40 -> 0 <= 
+          element(fld_name(theowner), [i___1]) and element(fld_name(theowner), [
+          i___1]) <= 255)
+<S>  New H14:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 40 -> 0 <= 
+          element(fld_name(fld_owner(thistisinfo)), [i___1]) and element(
+          fld_name(fld_owner(thistisinfo)), [i___1]) <= 255)
+-S-  Applied substitution rule addkey_rules(172).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__issueridt__first by:
+          0.
+<S>  New H5:  fld_id(theowner) >= 0
+<S>  New H17:  fld_id(fld_owner(thistisinfo)) >= 0
+-S-  Applied substitution rule addkey_rules(173).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__issueridt__last by:
+          4294967295.
+<S>  New H6:  fld_id(theowner) <= 4294967295
+<S>  New H18:  fld_id(fld_owner(thistisinfo)) <= 4294967295
+-S-  Applied substitution rule addkey_rules(180).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__algorithmt__first by:
+          cryptotypes__rsa.
+<S>  New H11:  cryptotypes__rsa <= fld_algorithmid(thekey)
+-S-  Applied substitution rule addkey_rules(181).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__algorithmt__last by:
+          cryptotypes__ripemd160_rsa.
+<S>  New H12:  fld_algorithmid(thekey) <= cryptotypes__ripemd160_rsa
+-S-  Applied substitution rule addkey_rules(221).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__keyidt__first by:
+          0.
+<S>  New H9:  fld_keyid(thekey) >= 0
+-S-  Applied substitution rule addkey_rules(222).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__keyidt__last by:
+          4294967295.
+<S>  New H10:  fld_keyid(thekey) <= 4294967295
+-S-  Applied substitution rule addkey_rules(227).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__keylengtht__first by:
+          0.
+<S>  New H7:  fld_keylength(thekey) >= 0
+-S-  Applied substitution rule addkey_rules(228).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__keylengtht__last by:
+          128.
+<S>  New H8:  fld_keylength(thekey) <= 128
+***  Proved C1:  fld_keylength(thekey) >= 0
+     using hypothesis H7.
+***  Proved C3:  fld_keylength(thekey) >= 0
+     using hypothesis H7.
+***  Proved C5:  fld_keyid(thekey) >= 0
+     using hypothesis H9.
+***  Proved C7:  fld_keyid(thekey) >= 0
+     using hypothesis H9.
+***  Proved C2:  fld_keylength(thekey) <= 4294967295
+     using hypothesis H8.
+***  Proved C4:  fld_keylength(thekey) <= 4294967295
+     using hypothesis H8.
+***  Proved C6:  fld_keyid(thekey) <= 4294967295
+     using hypothesis H10.
+***  Proved C8:  fld_keyid(thekey) <= 4294967295
+     using hypothesis H10.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_addkey_2.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(theowner), [i___1]) and element(fld_name(theowner), [i___1]) 
+          <= character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  cryptotypes__algorithmt__first <= fld_algorithmid(thekey)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_owner(thistisinfo)), [i___1]) and element(fld_name(
+          fld_owner(thistisinfo)), [i___1]) <= character__last)
+---  Hypothesis H22 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H25).
+%%%  Simplified H31 on reading formula in, to give:
+     %%%  H31:  fld_keylength(thekey) >= basictypes__unsigned32t__first
+%%%  Simplified H32 on reading formula in, to give:
+     %%%  H32:  fld_keylength(thekey) <= basictypes__unsigned32t__last
+%%%  Simplified H33 on reading formula in, to give:
+     %%%  H33:  fld_keyid(thekey) >= basictypes__unsigned32t__first
+%%%  Simplified H34 on reading formula in, to give:
+     %%%  H34:  fld_keyid(thekey) <= basictypes__unsigned32t__last
+%%%  Simplified H35 on reading formula in, to give:
+     %%%  H35:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(theowner), [i___1]) and element(fld_name(theowner), [i___1]) 
+          <= character__last)
+%%%  Simplified H36 on reading formula in, to give:
+     %%%  H36:  fld_namelength(theowner) >= cryptotypes__namecountt__first
+%%%  Simplified H37 on reading formula in, to give:
+     %%%  H37:  fld_namelength(theowner) <= cryptotypes__namecountt__last
+%%%  Simplified H38 on reading formula in, to give:
+     %%%  H38:  fld_id(theowner) >= cryptotypes__issueridt__first
+%%%  Simplified H39 on reading formula in, to give:
+     %%%  H39:  fld_id(theowner) <= cryptotypes__issueridt__last
+%%%  Simplified H40 on reading formula in, to give:
+     %%%  H40:  keystore__interface__fullkeymask >= 
+          keystore__interface__maskt__first
+%%%  Simplified H41 on reading formula in, to give:
+     %%%  H41:  keystore__interface__fullkeymask <= 
+          keystore__interface__maskt__last
+%%%  Simplified H42 on reading formula in, to give:
+     %%%  H42:  keystore__interface__returnvaluet__first <= retval__1
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  keystore__interface__returnvaluet__first <= retval__1
+***  Proved C1:  keystore__interface__returnvaluet__first <= retval__1
+     using hypothesis H42.
+***  Proved C2:  retval__1 <= keystore__interface__returnvaluet__last
+     using hypothesis H43.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_addkey_3.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(theowner), [i___1]) and element(fld_name(theowner), [i___1]) 
+          <= character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  cryptotypes__algorithmt__first <= fld_algorithmid(thekey)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_owner(thistisinfo)), [i___1]) and element(fld_name(
+          fld_owner(thistisinfo)), [i___1]) <= character__last)
+---  Hypothesis H22 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H25).
+%%%  Simplified H31 on reading formula in, to give:
+     %%%  H31:  fld_keylength(thekey) >= basictypes__unsigned32t__first
+%%%  Simplified H32 on reading formula in, to give:
+     %%%  H32:  fld_keylength(thekey) <= basictypes__unsigned32t__last
+%%%  Simplified H33 on reading formula in, to give:
+     %%%  H33:  fld_keyid(thekey) >= basictypes__unsigned32t__first
+%%%  Simplified H34 on reading formula in, to give:
+     %%%  H34:  fld_keyid(thekey) <= basictypes__unsigned32t__last
+%%%  Simplified H35 on reading formula in, to give:
+     %%%  H35:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(theowner), [i___1]) and element(fld_name(theowner), [i___1]) 
+          <= character__last)
+%%%  Simplified H36 on reading formula in, to give:
+     %%%  H36:  fld_namelength(theowner) >= cryptotypes__namecountt__first
+%%%  Simplified H37 on reading formula in, to give:
+     %%%  H37:  fld_namelength(theowner) <= cryptotypes__namecountt__last
+%%%  Simplified H38 on reading formula in, to give:
+     %%%  H38:  fld_id(theowner) >= cryptotypes__issueridt__first
+%%%  Simplified H39 on reading formula in, to give:
+     %%%  H39:  fld_id(theowner) <= cryptotypes__issueridt__last
+%%%  Simplified H40 on reading formula in, to give:
+     %%%  H40:  keystore__interface__fullkeymask >= 
+          keystore__interface__maskt__first
+%%%  Simplified H41 on reading formula in, to give:
+     %%%  H41:  keystore__interface__fullkeymask <= 
+          keystore__interface__maskt__last
+%%%  Simplified H42 on reading formula in, to give:
+     %%%  H42:  keystore__interface__returnvaluet__first <= retval__1
+---  Hypothesis H44 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H45 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H46 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H47 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as 
+          H43).
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  keystore__interface__returnvaluet__first <= retval__1
+***  Proved C1:  keystore__interface__returnvaluet__first <= retval__1
+     using hypothesis H42.
+***  Proved C2:  retval__1 <= keystore__interface__returnvaluet__last
+     using hypothesis H43.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_addkey_4.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(theowner), [i___1]) and element(fld_name(theowner), [i___1]) 
+          <= character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  cryptotypes__algorithmt__first <= fld_algorithmid(thekey)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_owner(thistisinfo)), [i___1]) and element(fld_name(
+          fld_owner(thistisinfo)), [i___1]) <= character__last)
+---  Hypothesis H22 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H25).
+%%%  Simplified H31 on reading formula in, to give:
+     %%%  H31:  fld_keylength(thekey) >= basictypes__unsigned32t__first
+%%%  Simplified H32 on reading formula in, to give:
+     %%%  H32:  fld_keylength(thekey) <= basictypes__unsigned32t__last
+%%%  Simplified H33 on reading formula in, to give:
+     %%%  H33:  fld_keyid(thekey) >= basictypes__unsigned32t__first
+%%%  Simplified H34 on reading formula in, to give:
+     %%%  H34:  fld_keyid(thekey) <= basictypes__unsigned32t__last
+%%%  Simplified H35 on reading formula in, to give:
+     %%%  H35:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(theowner), [i___1]) and element(fld_name(theowner), [i___1]) 
+          <= character__last)
+%%%  Simplified H36 on reading formula in, to give:
+     %%%  H36:  fld_namelength(theowner) >= cryptotypes__namecountt__first
+%%%  Simplified H37 on reading formula in, to give:
+     %%%  H37:  fld_namelength(theowner) <= cryptotypes__namecountt__last
+%%%  Simplified H38 on reading formula in, to give:
+     %%%  H38:  fld_id(theowner) >= cryptotypes__issueridt__first
+%%%  Simplified H39 on reading formula in, to give:
+     %%%  H39:  fld_id(theowner) <= cryptotypes__issueridt__last
+%%%  Simplified H40 on reading formula in, to give:
+     %%%  H40:  keystore__interface__fullkeymask >= 
+          keystore__interface__maskt__first
+%%%  Simplified H41 on reading formula in, to give:
+     %%%  H41:  keystore__interface__fullkeymask <= 
+          keystore__interface__maskt__last
+%%%  Simplified H42 on reading formula in, to give:
+     %%%  H42:  keystore__interface__returnvaluet__first <= retval__1
+---  Hypothesis H44 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H45 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H46 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H47 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H50 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as 
+          H43).
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  keystore__interface__returnvaluet__first <= retval__1
+***  Proved C1:  keystore__interface__returnvaluet__first <= retval__1
+     using hypothesis H42.
+***  Proved C2:  retval__1 <= keystore__interface__returnvaluet__last
+     using hypothesis H43.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_addkey_5.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(theowner), [i___1]) and element(fld_name(theowner), [i___1]) 
+          <= character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  cryptotypes__algorithmt__first <= fld_algorithmid(thekey)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_owner(thistisinfo)), [i___1]) and element(fld_name(
+          fld_owner(thistisinfo)), [i___1]) <= character__last)
+---  Hypothesis H22 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H25).
+%%%  Simplified H31 on reading formula in, to give:
+     %%%  H31:  fld_keylength(thekey) >= basictypes__unsigned32t__first
+%%%  Simplified H32 on reading formula in, to give:
+     %%%  H32:  fld_keylength(thekey) <= basictypes__unsigned32t__last
+%%%  Simplified H33 on reading formula in, to give:
+     %%%  H33:  fld_keyid(thekey) >= basictypes__unsigned32t__first
+%%%  Simplified H34 on reading formula in, to give:
+     %%%  H34:  fld_keyid(thekey) <= basictypes__unsigned32t__last
+%%%  Simplified H35 on reading formula in, to give:
+     %%%  H35:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(theowner), [i___1]) and element(fld_name(theowner), [i___1]) 
+          <= character__last)
+%%%  Simplified H36 on reading formula in, to give:
+     %%%  H36:  fld_namelength(theowner) >= cryptotypes__namecountt__first
+%%%  Simplified H37 on reading formula in, to give:
+     %%%  H37:  fld_namelength(theowner) <= cryptotypes__namecountt__last
+%%%  Simplified H38 on reading formula in, to give:
+     %%%  H38:  fld_id(theowner) >= cryptotypes__issueridt__first
+%%%  Simplified H39 on reading formula in, to give:
+     %%%  H39:  fld_id(theowner) <= cryptotypes__issueridt__last
+%%%  Simplified H40 on reading formula in, to give:
+     %%%  H40:  keystore__interface__fullkeymask >= 
+          keystore__interface__maskt__first
+%%%  Simplified H41 on reading formula in, to give:
+     %%%  H41:  keystore__interface__fullkeymask <= 
+          keystore__interface__maskt__last
+%%%  Simplified H42 on reading formula in, to give:
+     %%%  H42:  keystore__interface__returnvaluet__first <= retval__1
+---  Hypothesis H44 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H45 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H46 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H47 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H53 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H54 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H56 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H57 has been replaced by "true".  (It is already present, as 
+          H43).
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  keystore__interface__returnvaluet__first <= retval__1
+***  Proved C1:  keystore__interface__returnvaluet__first <= retval__1
+     using hypothesis H42.
+***  Proved C2:  retval__1 <= keystore__interface__returnvaluet__last
+     using hypothesis H43.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_addkey_6.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(theowner), [i___1]) and element(fld_name(theowner), [i___1]) 
+          <= character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  cryptotypes__algorithmt__first <= fld_algorithmid(thekey)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_owner(thistisinfo)), [i___1]) and element(fld_name(
+          fld_owner(thistisinfo)), [i___1]) <= character__last)
+---  Hypothesis H22 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H25).
+%%%  Simplified H31 on reading formula in, to give:
+     %%%  H31:  fld_keylength(thekey) >= basictypes__unsigned32t__first
+%%%  Simplified H32 on reading formula in, to give:
+     %%%  H32:  fld_keylength(thekey) <= basictypes__unsigned32t__last
+%%%  Simplified H33 on reading formula in, to give:
+     %%%  H33:  fld_keyid(thekey) >= basictypes__unsigned32t__first
+%%%  Simplified H34 on reading formula in, to give:
+     %%%  H34:  fld_keyid(thekey) <= basictypes__unsigned32t__last
+%%%  Simplified H35 on reading formula in, to give:
+     %%%  H35:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(theowner), [i___1]) and element(fld_name(theowner), [i___1]) 
+          <= character__last)
+%%%  Simplified H36 on reading formula in, to give:
+     %%%  H36:  fld_namelength(theowner) >= cryptotypes__namecountt__first
+%%%  Simplified H37 on reading formula in, to give:
+     %%%  H37:  fld_namelength(theowner) <= cryptotypes__namecountt__last
+%%%  Simplified H38 on reading formula in, to give:
+     %%%  H38:  fld_id(theowner) >= cryptotypes__issueridt__first
+%%%  Simplified H39 on reading formula in, to give:
+     %%%  H39:  fld_id(theowner) <= cryptotypes__issueridt__last
+%%%  Simplified H40 on reading formula in, to give:
+     %%%  H40:  keystore__interface__fullkeymask >= 
+          keystore__interface__maskt__first
+%%%  Simplified H41 on reading formula in, to give:
+     %%%  H41:  keystore__interface__fullkeymask <= 
+          keystore__interface__maskt__last
+%%%  Simplified H42 on reading formula in, to give:
+     %%%  H42:  keystore__interface__returnvaluet__first <= retval__1
+---  Hypothesis H44 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H45 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H46 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H47 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H50 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H53 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H55 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H56 has been replaced by "true".  (It is already present, as 
+          H43).
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  keystore__interface__returnvaluet__first <= retval__1
+***  Proved C1:  keystore__interface__returnvaluet__first <= retval__1
+     using hypothesis H42.
+***  Proved C2:  retval__1 <= keystore__interface__returnvaluet__last
+     using hypothesis H43.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_addkey_7.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(theowner), [i___1]) and element(fld_name(theowner), [i___1]) 
+          <= character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  cryptotypes__algorithmt__first <= fld_algorithmid(thekey)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_owner(thistisinfo)), [i___1]) and element(fld_name(
+          fld_owner(thistisinfo)), [i___1]) <= character__last)
+---  Hypothesis H22 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H25).
+%%%  Simplified H31 on reading formula in, to give:
+     %%%  H31:  fld_keylength(thekey) >= basictypes__unsigned32t__first
+%%%  Simplified H32 on reading formula in, to give:
+     %%%  H32:  fld_keylength(thekey) <= basictypes__unsigned32t__last
+%%%  Simplified H33 on reading formula in, to give:
+     %%%  H33:  fld_keyid(thekey) >= basictypes__unsigned32t__first
+%%%  Simplified H34 on reading formula in, to give:
+     %%%  H34:  fld_keyid(thekey) <= basictypes__unsigned32t__last
+%%%  Simplified H35 on reading formula in, to give:
+     %%%  H35:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(theowner), [i___1]) and element(fld_name(theowner), [i___1]) 
+          <= character__last)
+%%%  Simplified H36 on reading formula in, to give:
+     %%%  H36:  fld_namelength(theowner) >= cryptotypes__namecountt__first
+%%%  Simplified H37 on reading formula in, to give:
+     %%%  H37:  fld_namelength(theowner) <= cryptotypes__namecountt__last
+%%%  Simplified H38 on reading formula in, to give:
+     %%%  H38:  fld_id(theowner) >= cryptotypes__issueridt__first
+%%%  Simplified H39 on reading formula in, to give:
+     %%%  H39:  fld_id(theowner) <= cryptotypes__issueridt__last
+%%%  Simplified H40 on reading formula in, to give:
+     %%%  H40:  keystore__interface__fullkeymask >= 
+          keystore__interface__maskt__first
+%%%  Simplified H41 on reading formula in, to give:
+     %%%  H41:  keystore__interface__fullkeymask <= 
+          keystore__interface__maskt__last
+%%%  Simplified H42 on reading formula in, to give:
+     %%%  H42:  keystore__interface__returnvaluet__first <= retval__1
+---  Hypothesis H44 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H45 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H46 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H47 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H53 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H54 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H56 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H57 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H58 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H59 has been replaced by "true".  (It is already present, as 
+          H43).
+%%%  Simplified H60 on reading formula in, to give:
+     %%%  H60:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(convertretvaltotext(retval__1, mk__string([1] := 65, [2] 
+          := 100, [3] := 100, [4] := 75, [5] := 101, [6] := 121)), [i___1]) and 
+          element(convertretvaltotext(retval__1, mk__string([1] := 65, [2] := 
+          100, [3] := 100, [4] := 75, [5] := 101, [6] := 121)), [i___1]) <= 
+          character__last)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__systemfault
+-S-  Applied substitution rule addkey_rules(132).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule addkey_rules(133).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule addkey_rules(25).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule addkey_rules(26).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_addkey_8.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(theowner), [i___1]) and element(fld_name(theowner), [i___1]) 
+          <= character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  cryptotypes__algorithmt__first <= fld_algorithmid(thekey)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_owner(thistisinfo)), [i___1]) and element(fld_name(
+          fld_owner(thistisinfo)), [i___1]) <= character__last)
+---  Hypothesis H22 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H25).
+%%%  Simplified H31 on reading formula in, to give:
+     %%%  H31:  fld_keylength(thekey) >= basictypes__unsigned32t__first
+%%%  Simplified H32 on reading formula in, to give:
+     %%%  H32:  fld_keylength(thekey) <= basictypes__unsigned32t__last
+%%%  Simplified H33 on reading formula in, to give:
+     %%%  H33:  fld_keyid(thekey) >= basictypes__unsigned32t__first
+%%%  Simplified H34 on reading formula in, to give:
+     %%%  H34:  fld_keyid(thekey) <= basictypes__unsigned32t__last
+%%%  Simplified H35 on reading formula in, to give:
+     %%%  H35:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(theowner), [i___1]) and element(fld_name(theowner), [i___1]) 
+          <= character__last)
+%%%  Simplified H36 on reading formula in, to give:
+     %%%  H36:  fld_namelength(theowner) >= cryptotypes__namecountt__first
+%%%  Simplified H37 on reading formula in, to give:
+     %%%  H37:  fld_namelength(theowner) <= cryptotypes__namecountt__last
+%%%  Simplified H38 on reading formula in, to give:
+     %%%  H38:  fld_id(theowner) >= cryptotypes__issueridt__first
+%%%  Simplified H39 on reading formula in, to give:
+     %%%  H39:  fld_id(theowner) <= cryptotypes__issueridt__last
+%%%  Simplified H40 on reading formula in, to give:
+     %%%  H40:  keystore__interface__fullkeymask >= 
+          keystore__interface__maskt__first
+%%%  Simplified H41 on reading formula in, to give:
+     %%%  H41:  keystore__interface__fullkeymask <= 
+          keystore__interface__maskt__last
+%%%  Simplified H42 on reading formula in, to give:
+     %%%  H42:  keystore__interface__returnvaluet__first <= retval__1
+---  Hypothesis H44 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H45 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H46 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H47 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H50 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H53 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H55 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H56 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H57 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H58 has been replaced by "true".  (It is already present, as 
+          H43).
+%%%  Simplified H59 on reading formula in, to give:
+     %%%  H59:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(convertretvaltotext(retval__1, mk__string([1] := 65, [2] 
+          := 100, [3] := 100, [4] := 75, [5] := 101, [6] := 121)), [i___1]) and 
+          element(convertretvaltotext(retval__1, mk__string([1] := 65, [2] := 
+          100, [3] := 100, [4] := 75, [5] := 101, [6] := 121)), [i___1]) <= 
+          character__last)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__systemfault
+-S-  Applied substitution rule addkey_rules(132).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule addkey_rules(133).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule addkey_rules(25).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule addkey_rules(26).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_addkey_9.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(theowner), [i___1]) and element(fld_name(theowner), [i___1]) 
+          <= character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  cryptotypes__algorithmt__first <= fld_algorithmid(thekey)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_owner(thistisinfo)), [i___1]) and element(fld_name(
+          fld_owner(thistisinfo)), [i___1]) <= character__last)
+---  Hypothesis H22 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H25).
+%%%  Simplified H31 on reading formula in, to give:
+     %%%  H31:  fld_keylength(thekey) >= basictypes__unsigned32t__first
+%%%  Simplified H32 on reading formula in, to give:
+     %%%  H32:  fld_keylength(thekey) <= basictypes__unsigned32t__last
+%%%  Simplified H33 on reading formula in, to give:
+     %%%  H33:  fld_keyid(thekey) >= basictypes__unsigned32t__first
+%%%  Simplified H34 on reading formula in, to give:
+     %%%  H34:  fld_keyid(thekey) <= basictypes__unsigned32t__last
+%%%  Simplified H35 on reading formula in, to give:
+     %%%  H35:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(theowner), [i___1]) and element(fld_name(theowner), [i___1]) 
+          <= character__last)
+%%%  Simplified H36 on reading formula in, to give:
+     %%%  H36:  fld_namelength(theowner) >= cryptotypes__namecountt__first
+%%%  Simplified H37 on reading formula in, to give:
+     %%%  H37:  fld_namelength(theowner) <= cryptotypes__namecountt__last
+%%%  Simplified H38 on reading formula in, to give:
+     %%%  H38:  fld_id(theowner) >= cryptotypes__issueridt__first
+%%%  Simplified H39 on reading formula in, to give:
+     %%%  H39:  fld_id(theowner) <= cryptotypes__issueridt__last
+%%%  Simplified H40 on reading formula in, to give:
+     %%%  H40:  keystore__interface__fullkeymask >= 
+          keystore__interface__maskt__first
+%%%  Simplified H41 on reading formula in, to give:
+     %%%  H41:  keystore__interface__fullkeymask <= 
+          keystore__interface__maskt__last
+%%%  Simplified H42 on reading formula in, to give:
+     %%%  H42:  keystore__interface__returnvaluet__first <= retval__1
+---  Hypothesis H44 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H45 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H46 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H47 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H53 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H54 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H56 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H57 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H58 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H59 has been replaced by "true".  (It is already present, as 
+          H43).
+%%%  Simplified H60 on reading formula in, to give:
+     %%%  H60:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(convertretvaltotext(retval__1, mk__string([1] := 65, [2] 
+          := 100, [3] := 100, [4] := 75, [5] := 101, [6] := 121)), [i___1]) and 
+          element(convertretvaltotext(retval__1, mk__string([1] := 65, [2] := 
+          100, [3] := 100, [4] := 75, [5] := 101, [6] := 121)), [i___1]) <= 
+          character__last)
+%%%  Simplified H61 on reading formula in, to give:
+     %%%  H61:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified H63 on reading formula in, to give:
+     %%%  H63:  audittypes__elementt__first <= audittypes__systemfault
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  not (retval__1 = keystore__interface__ok and not ispublic) -> (
+          privatekeypresent(mk__optionalprivatekeyt(ispresent := true, owner := 
+          theowner)) <-> privatekeypresent(thistisinfo))
+***  Proved C2:  not (retval__1 = keystore__interface__ok and not ispublic) -> (
+          privatekeypresent(mk__optionalprivatekeyt(ispresent := true, owner := 
+          theowner)) <-> privatekeypresent(thistisinfo))
+     using hypotheses H49 & H50.
+-S-  Applied substitution rule addkey_rules(1).
+     This was achieved by replacing all occurrences of 
+          keystore__interface__fullkeymask by:
+          15.
+<S>  New H28:  15 >= keystore__interface__maskt__first
+<S>  New H29:  15 <= keystore__interface__maskt__last
+<S>  New H40:  15 >= keystore__interface__maskt__first
+<S>  New H41:  15 <= keystore__interface__maskt__last
+-S-  Applied substitution rule addkey_rules(8).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H2:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(theowner), 
+          [i___1]) and element(fld_name(theowner), [i___1]) <= character__last)
+<S>  New H14:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(fld_owner(
+          thistisinfo)), [i___1]) and element(fld_name(fld_owner(thistisinfo)), 
+          [i___1]) <= character__last)
+<S>  New H35:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(theowner), 
+          [i___1]) and element(fld_name(theowner), [i___1]) <= character__last)
+<S>  New H60:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          convertretvaltotext(retval__1, mk__string([1] := 65, [2] := 100, [3] 
+          := 100, [4] := 75, [5] := 101, [6] := 121)), [i___1]) and element(
+          convertretvaltotext(retval__1, mk__string([1] := 65, [2] := 100, [3] 
+          := 100, [4] := 75, [5] := 101, [6] := 121)), [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule addkey_rules(9).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H2:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(theowner), 
+          [i___1]) and element(fld_name(theowner), [i___1]) <= 255)
+<S>  New H14:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(fld_owner(
+          thistisinfo)), [i___1]) and element(fld_name(fld_owner(thistisinfo)), 
+          [i___1]) <= 255)
+<S>  New H35:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(theowner), 
+          [i___1]) and element(fld_name(theowner), [i___1]) <= 255)
+<S>  New H60:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          convertretvaltotext(retval__1, mk__string([1] := 65, [2] := 100, [3] 
+          := 100, [4] := 75, [5] := 101, [6] := 121)), [i___1]) and element(
+          convertretvaltotext(retval__1, mk__string([1] := 65, [2] := 100, [3] 
+          := 100, [4] := 75, [5] := 101, [6] := 121)), [i___1]) <= 255)
+-S-  Applied substitution rule addkey_rules(19).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__first by:
+          0.
+<S>  New H20:  fld_keylength(thekey) >= 0
+<S>  New H24:  fld_keyid(thekey) >= 0
+<S>  New H31:  fld_keylength(thekey) >= 0
+<S>  New H33:  fld_keyid(thekey) >= 0
+-S-  Applied substitution rule addkey_rules(20).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__last by:
+          4294967295.
+<S>  New H21:  fld_keylength(thekey) <= 4294967295
+<S>  New H25:  fld_keyid(thekey) <= 4294967295
+<S>  New H32:  fld_keylength(thekey) <= 4294967295
+<S>  New H34:  fld_keyid(thekey) <= 4294967295
+-S-  Applied substitution rule addkey_rules(25).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New H63:  true
+-S-  Applied substitution rule addkey_rules(26).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New H64:  true
+-S-  Applied substitution rule addkey_rules(132).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New H61:  true
+-S-  Applied substitution rule addkey_rules(133).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New H62:  true
+-S-  Applied substitution rule addkey_rules(157).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__first by:
+          1.
+<S>  New H60:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(convertretvaltotext(
+          retval__1, mk__string([1] := 65, [2] := 100, [3] := 100, [4] := 75, [
+          5] := 101, [6] := 121)), [i___1]) and element(convertretvaltotext(
+          retval__1, mk__string([1] := 65, [2] := 100, [3] := 100, [4] := 75, [
+          5] := 101, [6] := 121)), [i___1]) <= 255)
+-S-  Applied substitution rule addkey_rules(158).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__last by:
+          150.
+<S>  New H60:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(convertretvaltotext(retval__1, mk__string([1] := 65, [2] := 
+          100, [3] := 100, [4] := 75, [5] := 101, [6] := 121)), [i___1]) and 
+          element(convertretvaltotext(retval__1, mk__string([1] := 65, [2] := 
+          100, [3] := 100, [4] := 75, [5] := 101, [6] := 121)), [i___1]) <= 255)
+-S-  Applied substitution rule addkey_rules(162).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namecountt__first by:
+          0.
+<S>  New H3:  fld_namelength(theowner) >= 0
+<S>  New H15:  fld_namelength(fld_owner(thistisinfo)) >= 0
+<S>  New H36:  fld_namelength(theowner) >= 0
+-S-  Applied substitution rule addkey_rules(163).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namecountt__last by:
+          40.
+<S>  New H4:  fld_namelength(theowner) <= 40
+<S>  New H16:  fld_namelength(fld_owner(thistisinfo)) <= 40
+<S>  New H37:  fld_namelength(theowner) <= 40
+-S-  Applied substitution rule addkey_rules(167).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namei__first by:
+          1.
+<S>  New H2:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          cryptotypes__namei__last -> 0 <= element(fld_name(theowner), [i___1]) 
+          and element(fld_name(theowner), [i___1]) <= 255)
+<S>  New H14:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          cryptotypes__namei__last -> 0 <= element(fld_name(fld_owner(
+          thistisinfo)), [i___1]) and element(fld_name(fld_owner(thistisinfo)), 
+          [i___1]) <= 255)
+<S>  New H35:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          cryptotypes__namei__last -> 0 <= element(fld_name(theowner), [i___1]) 
+          and element(fld_name(theowner), [i___1]) <= 255)
+-S-  Applied substitution rule addkey_rules(168).
+     This was achieved by replacing all occurrences of cryptotypes__namei__last 
+          by:
+          40.
+<S>  New H2:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 40 -> 0 <= 
+          element(fld_name(theowner), [i___1]) and element(fld_name(theowner), [
+          i___1]) <= 255)
+<S>  New H14:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 40 -> 0 <= 
+          element(fld_name(fld_owner(thistisinfo)), [i___1]) and element(
+          fld_name(fld_owner(thistisinfo)), [i___1]) <= 255)
+<S>  New H35:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 40 -> 0 <= 
+          element(fld_name(theowner), [i___1]) and element(fld_name(theowner), [
+          i___1]) <= 255)
+-S-  Applied substitution rule addkey_rules(172).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__issueridt__first by:
+          0.
+<S>  New H5:  fld_id(theowner) >= 0
+<S>  New H17:  fld_id(fld_owner(thistisinfo)) >= 0
+<S>  New H38:  fld_id(theowner) >= 0
+-S-  Applied substitution rule addkey_rules(173).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__issueridt__last by:
+          4294967295.
+<S>  New H6:  fld_id(theowner) <= 4294967295
+<S>  New H18:  fld_id(fld_owner(thistisinfo)) <= 4294967295
+<S>  New H39:  fld_id(theowner) <= 4294967295
+-S-  Applied substitution rule addkey_rules(180).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__algorithmt__first by:
+          cryptotypes__rsa.
+<S>  New H11:  cryptotypes__rsa <= fld_algorithmid(thekey)
+-S-  Applied substitution rule addkey_rules(181).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__algorithmt__last by:
+          cryptotypes__ripemd160_rsa.
+<S>  New H12:  fld_algorithmid(thekey) <= cryptotypes__ripemd160_rsa
+-S-  Applied substitution rule addkey_rules(221).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__keyidt__first by:
+          0.
+<S>  New H9:  fld_keyid(thekey) >= 0
+-S-  Applied substitution rule addkey_rules(222).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__keyidt__last by:
+          4294967295.
+<S>  New H10:  fld_keyid(thekey) <= 4294967295
+-S-  Applied substitution rule addkey_rules(227).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__keylengtht__first by:
+          0.
+<S>  New H7:  fld_keylength(thekey) >= 0
+-S-  Applied substitution rule addkey_rules(228).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__keylengtht__last by:
+          128.
+<S>  New H8:  fld_keylength(thekey) <= 128
+-S-  Applied substitution rule addkey_rules(236).
+     This was achieved by replacing all occurrences of 
+          keystore__interface__maskt__first by:
+          0.
+<S>  New H28:  true
+<S>  New H40:  true
+-S-  Applied substitution rule addkey_rules(237).
+     This was achieved by replacing all occurrences of 
+          keystore__interface__maskt__last by:
+          15.
+<S>  New H29:  true
+<S>  New H41:  true
+-S-  Applied substitution rule addkey_rules(244).
+     This was achieved by replacing all occurrences of 
+          keystore__interface__returnvaluet__first by:
+          keystore__interface__ok.
+<S>  New H42:  keystore__interface__ok <= retval__1
+-S-  Applied substitution rule addkey_rules(245).
+     This was achieved by replacing all occurrences of 
+          keystore__interface__returnvaluet__last by:
+          keystore__interface__cryptokialreadyinitialized.
+<S>  New H43:  retval__1 <= keystore__interface__cryptokialreadyinitialized
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H13 (true-hypothesis).
+---  Eliminated hypothesis H19 (true-hypothesis).
+---  Eliminated hypothesis H22 (true-hypothesis).
+---  Eliminated hypothesis H23 (true-hypothesis).
+---  Eliminated hypothesis H26 (true-hypothesis).
+---  Eliminated hypothesis H27 (true-hypothesis).
+---  Eliminated hypothesis H30 (true-hypothesis).
+---  Eliminated hypothesis H44 (true-hypothesis).
+---  Eliminated hypothesis H45 (true-hypothesis).
+---  Eliminated hypothesis H46 (true-hypothesis).
+---  Eliminated hypothesis H47 (true-hypothesis).
+---  Eliminated hypothesis H48 (true-hypothesis).
+---  Eliminated hypothesis H51 (true-hypothesis).
+---  Eliminated hypothesis H52 (true-hypothesis).
+---  Eliminated hypothesis H53 (true-hypothesis).
+---  Eliminated hypothesis H54 (true-hypothesis).
+---  Eliminated hypothesis H56 (true-hypothesis).
+---  Eliminated hypothesis H57 (true-hypothesis).
+---  Eliminated hypothesis H58 (true-hypothesis).
+---  Eliminated hypothesis H59 (true-hypothesis).
+---  Eliminated hypothesis H63 (true-hypothesis).
+---  Eliminated hypothesis H64 (true-hypothesis).
+---  Eliminated hypothesis H61 (true-hypothesis).
+---  Eliminated hypothesis H62 (true-hypothesis).
+---  Eliminated hypothesis H28 (true-hypothesis).
+---  Eliminated hypothesis H40 (true-hypothesis).
+---  Eliminated hypothesis H29 (true-hypothesis).
+---  Eliminated hypothesis H41 (true-hypothesis).
+---  Eliminated hypothesis H31 (duplicate of H20).
+---  Eliminated hypothesis H33 (duplicate of H24).
+---  Eliminated hypothesis H32 (duplicate of H21).
+---  Eliminated hypothesis H34 (duplicate of H25).
+---  Eliminated hypothesis H36 (duplicate of H3).
+---  Eliminated hypothesis H37 (duplicate of H4).
+---  Eliminated hypothesis H35 (duplicate of H2).
+---  Eliminated hypothesis H38 (duplicate of H5).
+---  Eliminated hypothesis H39 (duplicate of H6).
+---  Eliminated hypothesis H24 (duplicate of H9).
+---  Eliminated hypothesis H25 (duplicate of H10).
+---  Eliminated hypothesis H20 (duplicate of H7).
+---  Eliminated hypothesis H21 (redundant, given H8).
+-S-  Eliminated hypothesis H49.
+     This was achieved by replacing all occurrences of retval__1 by:
+          keystore__interface__ok.
+<S>  New H55:  element(issystem, [keystore__interface__ok])
+<S>  New H60:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(convertretvaltotext(keystore__interface__ok, mk__string([1] 
+          := 65, [2] := 100, [3] := 100, [4] := 75, [5] := 101, [6] := 121)), [
+          i___1]) and element(convertretvaltotext(keystore__interface__ok, 
+          mk__string([1] := 65, [2] := 100, [3] := 100, [4] := 75, [5] := 101, [
+          6] := 121)), [i___1]) <= 255)
+<S>  New H42:  true
+<S>  New H43:  true
+<S>  New C1:  not ispublic -> privatekeypresent(mk__optionalprivatekeyt(
+          ispresent := true, owner := theowner))
+-S-  Eliminated hypothesis H50.
+     This was achieved by replacing all occurrences of ispublic by:
+          false.
+<S>  New C1:  privatekeypresent(mk__optionalprivatekeyt(ispresent := true, 
+          owner := theowner))
+---  Eliminated hypothesis H42 (true-hypothesis).
+---  Eliminated hypothesis H43 (true-hypothesis).
+     +++  New H65:  integer__size >= 0
+     +++  New H66:  character__size >= 0
+     +++  New H67:  positive__size >= 0
+     +++  New H68:  basictypes__unsigned32t__base__first <= 
+          basictypes__unsigned32t__base__last
+     +++  New H69:  audittypes__elementt__size >= 0
+     +++  New H70:  audittypes__severityt__size >= 0
+     +++  New H71:  audittypes__descriptioni__size >= 0
+     +++  New H72:  cryptotypes__namecountt__size >= 0
+     +++  New H73:  cryptotypes__namei__size >= 0
+     +++  New H74:  cryptotypes__issueridt__size >= 0
+     +++  New H75:  cryptotypes__issueridt__base__first <= 
+          cryptotypes__issueridt__base__last
+     +++  New H76:  cryptotypes__issuert__size >= 0
+     +++  New H77:  cryptotypes__algorithmt__size >= 0
+     +++  New H78:  cryptotypes__keyidt__size >= 0
+     +++  New H79:  cryptotypes__keyidt__base__first <= 
+          cryptotypes__keyidt__base__last
+     +++  New H80:  cryptotypes__keylengtht__size >= 0
+     +++  New H81:  cryptotypes__keylengtht__base__first <= 
+          cryptotypes__keylengtht__base__last
+     +++  New H82:  cryptotypes__keypartt__size >= 0
+     +++  New H83:  keystore__interface__keytemplatet__size >= 0
+     +++  New H84:  keystore__interface__returnvaluet__size >= 0
+     +++  New H85:  optionalprivatekeyt__size >= 0
+     +++  New H86:  basictypes__unsigned32t__base__first <= 0
+     +++  New H87:  basictypes__unsigned32t__base__last >= 4294967295
+     +++  New H88:  cryptotypes__issueridt__base__first <= 0
+     +++  New H89:  cryptotypes__issueridt__base__last >= 4294967295
+     +++  New H90:  cryptotypes__keyidt__base__first <= 0
+     +++  New H91:  cryptotypes__keyidt__base__last >= 4294967295
+     +++  New H92:  cryptotypes__keylengtht__base__first <= 0
+     +++  New H93:  cryptotypes__keylengtht__base__last >= 128
+***  Proved C1:  privatekeypresent(mk__optionalprivatekeyt(ispresent := true, 
+          owner := theowner))
+     This was achieved by applying the rewrite rule keystore_user(1)
+     [from rulefile keystore.rlu] to rewrite this conclusion to:
+<S>  C1:  fld_ispresent(mk__optionalprivatekeyt(ispresent := true, owner := 
+          theowner))
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  By simple reasoning, proved: fld_ispresent(mk__optionalprivatekeyt(
+          ispresent := true, owner := theowner))
+***  PROVED VC.
+
+VCN  9: Summary of user rule application.
+FIL  keystore.rlu
+RUL     keystore_user(1)
+CON        1
+
+
+@@@@@@@@@@  VC: procedure_addkey_10.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(theowner), [i___1]) and element(fld_name(theowner), [i___1]) 
+          <= character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  cryptotypes__algorithmt__first <= fld_algorithmid(thekey)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_owner(thistisinfo)), [i___1]) and element(fld_name(
+          fld_owner(thistisinfo)), [i___1]) <= character__last)
+---  Hypothesis H22 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H25).
+%%%  Simplified H31 on reading formula in, to give:
+     %%%  H31:  fld_keylength(thekey) >= basictypes__unsigned32t__first
+%%%  Simplified H32 on reading formula in, to give:
+     %%%  H32:  fld_keylength(thekey) <= basictypes__unsigned32t__last
+%%%  Simplified H33 on reading formula in, to give:
+     %%%  H33:  fld_keyid(thekey) >= basictypes__unsigned32t__first
+%%%  Simplified H34 on reading formula in, to give:
+     %%%  H34:  fld_keyid(thekey) <= basictypes__unsigned32t__last
+%%%  Simplified H35 on reading formula in, to give:
+     %%%  H35:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(theowner), [i___1]) and element(fld_name(theowner), [i___1]) 
+          <= character__last)
+%%%  Simplified H36 on reading formula in, to give:
+     %%%  H36:  fld_namelength(theowner) >= cryptotypes__namecountt__first
+%%%  Simplified H37 on reading formula in, to give:
+     %%%  H37:  fld_namelength(theowner) <= cryptotypes__namecountt__last
+%%%  Simplified H38 on reading formula in, to give:
+     %%%  H38:  fld_id(theowner) >= cryptotypes__issueridt__first
+%%%  Simplified H39 on reading formula in, to give:
+     %%%  H39:  fld_id(theowner) <= cryptotypes__issueridt__last
+%%%  Simplified H40 on reading formula in, to give:
+     %%%  H40:  keystore__interface__fullkeymask >= 
+          keystore__interface__maskt__first
+%%%  Simplified H41 on reading formula in, to give:
+     %%%  H41:  keystore__interface__fullkeymask <= 
+          keystore__interface__maskt__last
+%%%  Simplified H42 on reading formula in, to give:
+     %%%  H42:  keystore__interface__returnvaluet__first <= retval__1
+---  Hypothesis H44 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H45 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H46 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H47 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H50 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H53 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H55 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H56 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H57 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H58 has been replaced by "true".  (It is already present, as 
+          H43).
+%%%  Simplified H59 on reading formula in, to give:
+     %%%  H59:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(convertretvaltotext(retval__1, mk__string([1] := 65, [2] 
+          := 100, [3] := 100, [4] := 75, [5] := 101, [6] := 121)), [i___1]) and 
+          element(convertretvaltotext(retval__1, mk__string([1] := 65, [2] := 
+          100, [3] := 100, [4] := 75, [5] := 101, [6] := 121)), [i___1]) <= 
+          character__last)
+%%%  Simplified H60 on reading formula in, to give:
+     %%%  H60:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified H62 on reading formula in, to give:
+     %%%  H62:  audittypes__elementt__first <= audittypes__systemfault
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  true
+***  Proved C1:  retval__1 = keystore__interface__ok and not ispublic -> 
+          privatekeypresent(thistisinfo)
+     using hypothesis H49.
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_addkey_11.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(theowner), [i___1]) and element(fld_name(theowner), [i___1]) 
+          <= character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  cryptotypes__algorithmt__first <= fld_algorithmid(thekey)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_owner(thistisinfo)), [i___1]) and element(fld_name(
+          fld_owner(thistisinfo)), [i___1]) <= character__last)
+---  Hypothesis H22 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H25).
+%%%  Simplified H31 on reading formula in, to give:
+     %%%  H31:  fld_keylength(thekey) >= basictypes__unsigned32t__first
+%%%  Simplified H32 on reading formula in, to give:
+     %%%  H32:  fld_keylength(thekey) <= basictypes__unsigned32t__last
+%%%  Simplified H33 on reading formula in, to give:
+     %%%  H33:  fld_keyid(thekey) >= basictypes__unsigned32t__first
+%%%  Simplified H34 on reading formula in, to give:
+     %%%  H34:  fld_keyid(thekey) <= basictypes__unsigned32t__last
+%%%  Simplified H35 on reading formula in, to give:
+     %%%  H35:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(theowner), [i___1]) and element(fld_name(theowner), [i___1]) 
+          <= character__last)
+%%%  Simplified H36 on reading formula in, to give:
+     %%%  H36:  fld_namelength(theowner) >= cryptotypes__namecountt__first
+%%%  Simplified H37 on reading formula in, to give:
+     %%%  H37:  fld_namelength(theowner) <= cryptotypes__namecountt__last
+%%%  Simplified H38 on reading formula in, to give:
+     %%%  H38:  fld_id(theowner) >= cryptotypes__issueridt__first
+%%%  Simplified H39 on reading formula in, to give:
+     %%%  H39:  fld_id(theowner) <= cryptotypes__issueridt__last
+%%%  Simplified H40 on reading formula in, to give:
+     %%%  H40:  keystore__interface__fullkeymask >= 
+          keystore__interface__maskt__first
+%%%  Simplified H41 on reading formula in, to give:
+     %%%  H41:  keystore__interface__fullkeymask <= 
+          keystore__interface__maskt__last
+%%%  Simplified H42 on reading formula in, to give:
+     %%%  H42:  keystore__interface__returnvaluet__first <= retval__1
+---  Hypothesis H44 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H45 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H46 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H47 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H53 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H54 has been replaced by "true".  (It is already present, as 
+          H43).
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  not (retval__1 = keystore__interface__ok and not ispublic) -> (
+          privatekeypresent(mk__optionalprivatekeyt(ispresent := true, owner := 
+          theowner)) <-> privatekeypresent(thistisinfo))
+***  Proved C2:  not (retval__1 = keystore__interface__ok and not ispublic) -> (
+          privatekeypresent(mk__optionalprivatekeyt(ispresent := true, owner := 
+          theowner)) <-> privatekeypresent(thistisinfo))
+     using hypotheses H49 & H50.
+-S-  Applied substitution rule addkey_rules(1).
+     This was achieved by replacing all occurrences of 
+          keystore__interface__fullkeymask by:
+          15.
+<S>  New H28:  15 >= keystore__interface__maskt__first
+<S>  New H29:  15 <= keystore__interface__maskt__last
+<S>  New H40:  15 >= keystore__interface__maskt__first
+<S>  New H41:  15 <= keystore__interface__maskt__last
+-S-  Applied substitution rule addkey_rules(8).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H2:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(theowner), 
+          [i___1]) and element(fld_name(theowner), [i___1]) <= character__last)
+<S>  New H14:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(fld_owner(
+          thistisinfo)), [i___1]) and element(fld_name(fld_owner(thistisinfo)), 
+          [i___1]) <= character__last)
+<S>  New H35:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(theowner), 
+          [i___1]) and element(fld_name(theowner), [i___1]) <= character__last)
+-S-  Applied substitution rule addkey_rules(9).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H2:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(theowner), 
+          [i___1]) and element(fld_name(theowner), [i___1]) <= 255)
+<S>  New H14:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(fld_owner(
+          thistisinfo)), [i___1]) and element(fld_name(fld_owner(thistisinfo)), 
+          [i___1]) <= 255)
+<S>  New H35:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(theowner), 
+          [i___1]) and element(fld_name(theowner), [i___1]) <= 255)
+-S-  Applied substitution rule addkey_rules(19).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__first by:
+          0.
+<S>  New H20:  fld_keylength(thekey) >= 0
+<S>  New H24:  fld_keyid(thekey) >= 0
+<S>  New H31:  fld_keylength(thekey) >= 0
+<S>  New H33:  fld_keyid(thekey) >= 0
+-S-  Applied substitution rule addkey_rules(20).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__last by:
+          4294967295.
+<S>  New H21:  fld_keylength(thekey) <= 4294967295
+<S>  New H25:  fld_keyid(thekey) <= 4294967295
+<S>  New H32:  fld_keylength(thekey) <= 4294967295
+<S>  New H34:  fld_keyid(thekey) <= 4294967295
+-S-  Applied substitution rule addkey_rules(162).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namecountt__first by:
+          0.
+<S>  New H3:  fld_namelength(theowner) >= 0
+<S>  New H15:  fld_namelength(fld_owner(thistisinfo)) >= 0
+<S>  New H36:  fld_namelength(theowner) >= 0
+-S-  Applied substitution rule addkey_rules(163).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namecountt__last by:
+          40.
+<S>  New H4:  fld_namelength(theowner) <= 40
+<S>  New H16:  fld_namelength(fld_owner(thistisinfo)) <= 40
+<S>  New H37:  fld_namelength(theowner) <= 40
+-S-  Applied substitution rule addkey_rules(167).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namei__first by:
+          1.
+<S>  New H2:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          cryptotypes__namei__last -> 0 <= element(fld_name(theowner), [i___1]) 
+          and element(fld_name(theowner), [i___1]) <= 255)
+<S>  New H14:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          cryptotypes__namei__last -> 0 <= element(fld_name(fld_owner(
+          thistisinfo)), [i___1]) and element(fld_name(fld_owner(thistisinfo)), 
+          [i___1]) <= 255)
+<S>  New H35:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          cryptotypes__namei__last -> 0 <= element(fld_name(theowner), [i___1]) 
+          and element(fld_name(theowner), [i___1]) <= 255)
+-S-  Applied substitution rule addkey_rules(168).
+     This was achieved by replacing all occurrences of cryptotypes__namei__last 
+          by:
+          40.
+<S>  New H2:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 40 -> 0 <= 
+          element(fld_name(theowner), [i___1]) and element(fld_name(theowner), [
+          i___1]) <= 255)
+<S>  New H14:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 40 -> 0 <= 
+          element(fld_name(fld_owner(thistisinfo)), [i___1]) and element(
+          fld_name(fld_owner(thistisinfo)), [i___1]) <= 255)
+<S>  New H35:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 40 -> 0 <= 
+          element(fld_name(theowner), [i___1]) and element(fld_name(theowner), [
+          i___1]) <= 255)
+-S-  Applied substitution rule addkey_rules(172).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__issueridt__first by:
+          0.
+<S>  New H5:  fld_id(theowner) >= 0
+<S>  New H17:  fld_id(fld_owner(thistisinfo)) >= 0
+<S>  New H38:  fld_id(theowner) >= 0
+-S-  Applied substitution rule addkey_rules(173).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__issueridt__last by:
+          4294967295.
+<S>  New H6:  fld_id(theowner) <= 4294967295
+<S>  New H18:  fld_id(fld_owner(thistisinfo)) <= 4294967295
+<S>  New H39:  fld_id(theowner) <= 4294967295
+-S-  Applied substitution rule addkey_rules(180).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__algorithmt__first by:
+          cryptotypes__rsa.
+<S>  New H11:  cryptotypes__rsa <= fld_algorithmid(thekey)
+-S-  Applied substitution rule addkey_rules(181).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__algorithmt__last by:
+          cryptotypes__ripemd160_rsa.
+<S>  New H12:  fld_algorithmid(thekey) <= cryptotypes__ripemd160_rsa
+-S-  Applied substitution rule addkey_rules(221).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__keyidt__first by:
+          0.
+<S>  New H9:  fld_keyid(thekey) >= 0
+-S-  Applied substitution rule addkey_rules(222).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__keyidt__last by:
+          4294967295.
+<S>  New H10:  fld_keyid(thekey) <= 4294967295
+-S-  Applied substitution rule addkey_rules(227).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__keylengtht__first by:
+          0.
+<S>  New H7:  fld_keylength(thekey) >= 0
+-S-  Applied substitution rule addkey_rules(228).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__keylengtht__last by:
+          128.
+<S>  New H8:  fld_keylength(thekey) <= 128
+-S-  Applied substitution rule addkey_rules(236).
+     This was achieved by replacing all occurrences of 
+          keystore__interface__maskt__first by:
+          0.
+<S>  New H28:  true
+<S>  New H40:  true
+-S-  Applied substitution rule addkey_rules(237).
+     This was achieved by replacing all occurrences of 
+          keystore__interface__maskt__last by:
+          15.
+<S>  New H29:  true
+<S>  New H41:  true
+-S-  Applied substitution rule addkey_rules(244).
+     This was achieved by replacing all occurrences of 
+          keystore__interface__returnvaluet__first by:
+          keystore__interface__ok.
+<S>  New H42:  keystore__interface__ok <= retval__1
+-S-  Applied substitution rule addkey_rules(245).
+     This was achieved by replacing all occurrences of 
+          keystore__interface__returnvaluet__last by:
+          keystore__interface__cryptokialreadyinitialized.
+<S>  New H43:  retval__1 <= keystore__interface__cryptokialreadyinitialized
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H13 (true-hypothesis).
+---  Eliminated hypothesis H19 (true-hypothesis).
+---  Eliminated hypothesis H22 (true-hypothesis).
+---  Eliminated hypothesis H23 (true-hypothesis).
+---  Eliminated hypothesis H26 (true-hypothesis).
+---  Eliminated hypothesis H27 (true-hypothesis).
+---  Eliminated hypothesis H30 (true-hypothesis).
+---  Eliminated hypothesis H44 (true-hypothesis).
+---  Eliminated hypothesis H45 (true-hypothesis).
+---  Eliminated hypothesis H46 (true-hypothesis).
+---  Eliminated hypothesis H47 (true-hypothesis).
+---  Eliminated hypothesis H48 (true-hypothesis).
+---  Eliminated hypothesis H51 (true-hypothesis).
+---  Eliminated hypothesis H52 (true-hypothesis).
+---  Eliminated hypothesis H53 (true-hypothesis).
+---  Eliminated hypothesis H54 (true-hypothesis).
+---  Eliminated hypothesis H28 (true-hypothesis).
+---  Eliminated hypothesis H40 (true-hypothesis).
+---  Eliminated hypothesis H29 (true-hypothesis).
+---  Eliminated hypothesis H41 (true-hypothesis).
+---  Eliminated hypothesis H31 (duplicate of H20).
+---  Eliminated hypothesis H33 (duplicate of H24).
+---  Eliminated hypothesis H32 (duplicate of H21).
+---  Eliminated hypothesis H34 (duplicate of H25).
+---  Eliminated hypothesis H36 (duplicate of H3).
+---  Eliminated hypothesis H37 (duplicate of H4).
+---  Eliminated hypothesis H35 (duplicate of H2).
+---  Eliminated hypothesis H38 (duplicate of H5).
+---  Eliminated hypothesis H39 (duplicate of H6).
+---  Eliminated hypothesis H24 (duplicate of H9).
+---  Eliminated hypothesis H25 (duplicate of H10).
+---  Eliminated hypothesis H20 (duplicate of H7).
+---  Eliminated hypothesis H21 (redundant, given H8).
+-S-  Eliminated hypothesis H49.
+     This was achieved by replacing all occurrences of retval__1 by:
+          keystore__interface__ok.
+<S>  New H55:  not element(issystem, [keystore__interface__ok])
+<S>  New H42:  true
+<S>  New H43:  true
+<S>  New C1:  not ispublic -> privatekeypresent(mk__optionalprivatekeyt(
+          ispresent := true, owner := theowner))
+-S-  Eliminated hypothesis H50.
+     This was achieved by replacing all occurrences of ispublic by:
+          false.
+<S>  New C1:  privatekeypresent(mk__optionalprivatekeyt(ispresent := true, 
+          owner := theowner))
+---  Eliminated hypothesis H42 (true-hypothesis).
+---  Eliminated hypothesis H43 (true-hypothesis).
+     +++  New H56:  integer__size >= 0
+     +++  New H57:  character__size >= 0
+     +++  New H58:  positive__size >= 0
+     +++  New H59:  basictypes__unsigned32t__base__first <= 
+          basictypes__unsigned32t__base__last
+     +++  New H60:  audittypes__elementt__size >= 0
+     +++  New H61:  audittypes__severityt__size >= 0
+     +++  New H62:  audittypes__descriptioni__size >= 0
+     +++  New H63:  cryptotypes__namecountt__size >= 0
+     +++  New H64:  cryptotypes__namei__size >= 0
+     +++  New H65:  cryptotypes__issueridt__size >= 0
+     +++  New H66:  cryptotypes__issueridt__base__first <= 
+          cryptotypes__issueridt__base__last
+     +++  New H67:  cryptotypes__issuert__size >= 0
+     +++  New H68:  cryptotypes__algorithmt__size >= 0
+     +++  New H69:  cryptotypes__keyidt__size >= 0
+     +++  New H70:  cryptotypes__keyidt__base__first <= 
+          cryptotypes__keyidt__base__last
+     +++  New H71:  cryptotypes__keylengtht__size >= 0
+     +++  New H72:  cryptotypes__keylengtht__base__first <= 
+          cryptotypes__keylengtht__base__last
+     +++  New H73:  cryptotypes__keypartt__size >= 0
+     +++  New H74:  keystore__interface__keytemplatet__size >= 0
+     +++  New H75:  keystore__interface__returnvaluet__size >= 0
+     +++  New H76:  optionalprivatekeyt__size >= 0
+     +++  New H77:  basictypes__unsigned32t__base__first <= 0
+     +++  New H78:  basictypes__unsigned32t__base__last >= 4294967295
+     +++  New H79:  cryptotypes__issueridt__base__first <= 0
+     +++  New H80:  cryptotypes__issueridt__base__last >= 4294967295
+     +++  New H81:  cryptotypes__keyidt__base__first <= 0
+     +++  New H82:  cryptotypes__keyidt__base__last >= 4294967295
+     +++  New H83:  cryptotypes__keylengtht__base__first <= 0
+     +++  New H84:  cryptotypes__keylengtht__base__last >= 128
+***  Proved C1:  privatekeypresent(mk__optionalprivatekeyt(ispresent := true, 
+          owner := theowner))
+     This was achieved by applying the rewrite rule keystore_user(1)
+     [from rulefile keystore.rlu] to rewrite this conclusion to:
+<S>  C1:  fld_ispresent(mk__optionalprivatekeyt(ispresent := true, owner := 
+          theowner))
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  By simple reasoning, proved: fld_ispresent(mk__optionalprivatekeyt(
+          ispresent := true, owner := theowner))
+***  PROVED VC.
+
+VCN  11: Summary of user rule application.
+FIL  keystore.rlu
+RUL     keystore_user(1)
+CON        1
+
+
+@@@@@@@@@@  VC: procedure_addkey_12.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(theowner), [i___1]) and element(fld_name(theowner), [i___1]) 
+          <= character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  cryptotypes__algorithmt__first <= fld_algorithmid(thekey)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_owner(thistisinfo)), [i___1]) and element(fld_name(
+          fld_owner(thistisinfo)), [i___1]) <= character__last)
+---  Hypothesis H22 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as 
+          H21).
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H25).
+%%%  Simplified H31 on reading formula in, to give:
+     %%%  H31:  fld_keylength(thekey) >= basictypes__unsigned32t__first
+%%%  Simplified H32 on reading formula in, to give:
+     %%%  H32:  fld_keylength(thekey) <= basictypes__unsigned32t__last
+%%%  Simplified H33 on reading formula in, to give:
+     %%%  H33:  fld_keyid(thekey) >= basictypes__unsigned32t__first
+%%%  Simplified H34 on reading formula in, to give:
+     %%%  H34:  fld_keyid(thekey) <= basictypes__unsigned32t__last
+%%%  Simplified H35 on reading formula in, to give:
+     %%%  H35:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(theowner), [i___1]) and element(fld_name(theowner), [i___1]) 
+          <= character__last)
+%%%  Simplified H36 on reading formula in, to give:
+     %%%  H36:  fld_namelength(theowner) >= cryptotypes__namecountt__first
+%%%  Simplified H37 on reading formula in, to give:
+     %%%  H37:  fld_namelength(theowner) <= cryptotypes__namecountt__last
+%%%  Simplified H38 on reading formula in, to give:
+     %%%  H38:  fld_id(theowner) >= cryptotypes__issueridt__first
+%%%  Simplified H39 on reading formula in, to give:
+     %%%  H39:  fld_id(theowner) <= cryptotypes__issueridt__last
+%%%  Simplified H40 on reading formula in, to give:
+     %%%  H40:  keystore__interface__fullkeymask >= 
+          keystore__interface__maskt__first
+%%%  Simplified H41 on reading formula in, to give:
+     %%%  H41:  keystore__interface__fullkeymask <= 
+          keystore__interface__maskt__last
+%%%  Simplified H42 on reading formula in, to give:
+     %%%  H42:  keystore__interface__returnvaluet__first <= retval__1
+---  Hypothesis H44 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H45 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H46 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H47 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H50 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H53 has been replaced by "true".  (It is already present, as 
+          H43).
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  true
+***  Proved C1:  retval__1 = keystore__interface__ok and not ispublic -> 
+          privatekeypresent(thistisinfo)
+     using hypothesis H49.
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_addkey_13.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_addkey_14.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  keystore__interface__store~ = fld_keystore__interface__store(
+          store~)
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  thistisinfo~ = fld_thistisinfo(state~)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(theowner), [i___1]) and element(fld_name(theowner), [i___1]) 
+          <= character__last)
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  cryptotypes__algorithmt__first <= fld_algorithmid(thekey)
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_owner(thistisinfo~)), [i___1]) and element(fld_name(
+          fld_owner(thistisinfo~)), [i___1]) <= character__last)
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  fld_namelength(fld_owner(thistisinfo~)) >= 
+          cryptotypes__namecountt__first
+%%%  Simplified H21 on reading formula in, to give:
+     %%%  H21:  fld_namelength(fld_owner(thistisinfo~)) <= 
+          cryptotypes__namecountt__last
+%%%  Simplified H22 on reading formula in, to give:
+     %%%  H22:  fld_id(fld_owner(thistisinfo~)) >= cryptotypes__issueridt__first
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  fld_id(fld_owner(thistisinfo~)) <= cryptotypes__issueridt__last
+%%%  Simplified H26 on reading formula in, to give:
+     %%%  H26:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(fld_owner(thistisinfo)), [i___1]) and element(fld_name(
+          fld_owner(thistisinfo)), [i___1]) <= character__last)
+%%%  Simplified H33 on reading formula in, to give:
+     %%%  H33:  not (added and not ispublic) -> (privatekeypresent(thistisinfo) 
+          <-> privatekeypresent(thistisinfo~))
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  not (added and not ispublic) -> (keystore__privatekeypresent(
+          state) <-> keystore__privatekeypresent(state~))
+-S-  Applied substitution rule addkey_rules(8).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H7:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(theowner), 
+          [i___1]) and element(fld_name(theowner), [i___1]) <= character__last)
+<S>  New H19:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(fld_owner(
+          thistisinfo~)), [i___1]) and element(fld_name(fld_owner(thistisinfo~))
+          , [i___1]) <= character__last)
+<S>  New H26:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(fld_owner(
+          thistisinfo)), [i___1]) and element(fld_name(fld_owner(thistisinfo)), 
+          [i___1]) <= character__last)
+-S-  Applied substitution rule addkey_rules(9).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H7:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(theowner), 
+          [i___1]) and element(fld_name(theowner), [i___1]) <= 255)
+<S>  New H19:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(fld_owner(
+          thistisinfo~)), [i___1]) and element(fld_name(fld_owner(thistisinfo~))
+          , [i___1]) <= 255)
+<S>  New H26:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(fld_owner(
+          thistisinfo)), [i___1]) and element(fld_name(fld_owner(thistisinfo)), 
+          [i___1]) <= 255)
+-S-  Applied substitution rule addkey_rules(162).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namecountt__first by:
+          0.
+<S>  New H8:  fld_namelength(theowner) >= 0
+<S>  New H20:  fld_namelength(fld_owner(thistisinfo~)) >= 0
+<S>  New H27:  fld_namelength(fld_owner(thistisinfo)) >= 0
+-S-  Applied substitution rule addkey_rules(163).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namecountt__last by:
+          40.
+<S>  New H9:  fld_namelength(theowner) <= 40
+<S>  New H21:  fld_namelength(fld_owner(thistisinfo~)) <= 40
+<S>  New H28:  fld_namelength(fld_owner(thistisinfo)) <= 40
+-S-  Applied substitution rule addkey_rules(167).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namei__first by:
+          1.
+<S>  New H7:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          cryptotypes__namei__last -> 0 <= element(fld_name(theowner), [i___1]) 
+          and element(fld_name(theowner), [i___1]) <= 255)
+<S>  New H19:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          cryptotypes__namei__last -> 0 <= element(fld_name(fld_owner(
+          thistisinfo~)), [i___1]) and element(fld_name(fld_owner(thistisinfo~))
+          , [i___1]) <= 255)
+<S>  New H26:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          cryptotypes__namei__last -> 0 <= element(fld_name(fld_owner(
+          thistisinfo)), [i___1]) and element(fld_name(fld_owner(thistisinfo)), 
+          [i___1]) <= 255)
+-S-  Applied substitution rule addkey_rules(168).
+     This was achieved by replacing all occurrences of cryptotypes__namei__last 
+          by:
+          40.
+<S>  New H7:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 40 -> 0 <= 
+          element(fld_name(theowner), [i___1]) and element(fld_name(theowner), [
+          i___1]) <= 255)
+<S>  New H19:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 40 -> 0 <= 
+          element(fld_name(fld_owner(thistisinfo~)), [i___1]) and element(
+          fld_name(fld_owner(thistisinfo~)), [i___1]) <= 255)
+<S>  New H26:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 40 -> 0 <= 
+          element(fld_name(fld_owner(thistisinfo)), [i___1]) and element(
+          fld_name(fld_owner(thistisinfo)), [i___1]) <= 255)
+-S-  Applied substitution rule addkey_rules(172).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__issueridt__first by:
+          0.
+<S>  New H10:  fld_id(theowner) >= 0
+<S>  New H22:  fld_id(fld_owner(thistisinfo~)) >= 0
+<S>  New H29:  fld_id(fld_owner(thistisinfo)) >= 0
+-S-  Applied substitution rule addkey_rules(173).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__issueridt__last by:
+          4294967295.
+<S>  New H11:  fld_id(theowner) <= 4294967295
+<S>  New H23:  fld_id(fld_owner(thistisinfo~)) <= 4294967295
+<S>  New H30:  fld_id(fld_owner(thistisinfo)) <= 4294967295
+-S-  Applied substitution rule addkey_rules(180).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__algorithmt__first by:
+          cryptotypes__rsa.
+<S>  New H16:  cryptotypes__rsa <= fld_algorithmid(thekey)
+-S-  Applied substitution rule addkey_rules(181).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__algorithmt__last by:
+          cryptotypes__ripemd160_rsa.
+<S>  New H17:  fld_algorithmid(thekey) <= cryptotypes__ripemd160_rsa
+-S-  Applied substitution rule addkey_rules(221).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__keyidt__first by:
+          0.
+<S>  New H14:  fld_keyid(thekey) >= 0
+-S-  Applied substitution rule addkey_rules(222).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__keyidt__last by:
+          4294967295.
+<S>  New H15:  fld_keyid(thekey) <= 4294967295
+-S-  Applied substitution rule addkey_rules(227).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__keylengtht__first by:
+          0.
+<S>  New H12:  fld_keylength(thekey) >= 0
+-S-  Applied substitution rule addkey_rules(228).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__keylengtht__last by:
+          128.
+<S>  New H13:  fld_keylength(thekey) <= 128
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H2 (true-hypothesis).
+---  Eliminated hypothesis H18 (true-hypothesis).
+---  Eliminated hypothesis H24 (true-hypothesis).
+---  Eliminated hypothesis H25 (true-hypothesis).
+---  Eliminated hypothesis H31 (true-hypothesis).
+---  Eliminated hypothesis H4, which only specifies a value for 
+          keystore__interface__store.
+     This is not referred to anywhere else in the VC.
+-S-  Eliminated hypothesis H6.
+     This was achieved by replacing all occurrences of thistisinfo by:
+          fld_thistisinfo(state).
+<S>  New H32:  added and not ispublic -> privatekeypresent(fld_thistisinfo(
+          state))
+<S>  New H33:  not (added and not ispublic) -> (privatekeypresent(
+          fld_thistisinfo(state)) <-> privatekeypresent(thistisinfo~))
+<S>  New H27:  fld_namelength(fld_owner(fld_thistisinfo(state))) >= 0
+<S>  New H28:  fld_namelength(fld_owner(fld_thistisinfo(state))) <= 40
+<S>  New H26:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 40 -> 0 <= 
+          element(fld_name(fld_owner(fld_thistisinfo(state))), [i___1]) and 
+          element(fld_name(fld_owner(fld_thistisinfo(state))), [i___1]) <= 255)
+<S>  New H29:  fld_id(fld_owner(fld_thistisinfo(state))) >= 0
+<S>  New H30:  fld_id(fld_owner(fld_thistisinfo(state))) <= 4294967295
+     +++  New H34:  integer__size >= 0
+     +++  New H35:  character__size >= 0
+     +++  New H36:  positive__size >= 0
+     +++  New H37:  basictypes__unsigned32t__base__first <= 
+          basictypes__unsigned32t__base__last
+     +++  New H38:  audittypes__elementt__size >= 0
+     +++  New H39:  audittypes__severityt__size >= 0
+     +++  New H40:  audittypes__descriptioni__size >= 0
+     +++  New H41:  cryptotypes__namecountt__size >= 0
+     +++  New H42:  cryptotypes__namei__size >= 0
+     +++  New H43:  cryptotypes__issueridt__size >= 0
+     +++  New H44:  cryptotypes__issueridt__base__first <= 
+          cryptotypes__issueridt__base__last
+     +++  New H45:  cryptotypes__issuert__size >= 0
+     +++  New H46:  cryptotypes__algorithmt__size >= 0
+     +++  New H47:  cryptotypes__keyidt__size >= 0
+     +++  New H48:  cryptotypes__keyidt__base__first <= 
+          cryptotypes__keyidt__base__last
+     +++  New H49:  cryptotypes__keylengtht__size >= 0
+     +++  New H50:  cryptotypes__keylengtht__base__first <= 
+          cryptotypes__keylengtht__base__last
+     +++  New H51:  cryptotypes__keypartt__size >= 0
+     +++  New H52:  keystore__interface__keytemplatet__size >= 0
+     +++  New H53:  keystore__interface__returnvaluet__size >= 0
+     +++  New H54:  optionalprivatekeyt__size >= 0
+     +++  New H55:  basictypes__unsigned32t__base__first <= 0
+     +++  New H56:  basictypes__unsigned32t__base__last >= 4294967295
+     +++  New H57:  cryptotypes__issueridt__base__first <= 0
+     +++  New H58:  cryptotypes__issueridt__base__last >= 4294967295
+     +++  New H59:  cryptotypes__keyidt__base__first <= 0
+     +++  New H60:  cryptotypes__keyidt__base__last >= 4294967295
+     +++  New H61:  cryptotypes__keylengtht__base__first <= 0
+     +++  New H62:  cryptotypes__keylengtht__base__last >= 128
+***  Proved C2:  not (added and not ispublic) -> (keystore__privatekeypresent(
+          state) <-> keystore__privatekeypresent(state~))
+     This was achieved by applying the inference rule addkey_user(1)
+     [from rulefile addkey.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H33, proved: not (added and not ispublic) -> (privatekeypresent(
+          fld_thistisinfo(state)) <-> privatekeypresent(thistisinfo~))
+     <<<  From H5, proved: thistisinfo~ = fld_thistisinfo(state~)
+***  Proved C1:  added and not ispublic -> keystore__privatekeypresent(state)
+     This was achieved by applying the rewrite rule keystore_user(2)
+     [from rulefile keystore.rlu] to rewrite this conclusion to:
+<S>  C1:  added and not ispublic -> privatekeypresent(fld_thistisinfo(state))
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  From H32, proved: added and not ispublic -> privatekeypresent(
+          fld_thistisinfo(state))
+***  PROVED VC.
+
+VCN  14: Summary of user rule application.
+FIL  addkey.rlu
+RUL     addkey_user(1)
+CON        2
+FIL  keystore.rlu
+RUL     keystore_user(2)
+CON        1
+
+
+OVR  Overall summary of VCs using user rules.
+FIL  keystore.rlu
+RUL     keystore_user(1)
+VCS        9, 11
+RUL     keystore_user(2)
+VCS        14
+FIL  addkey.rlu
+RUL     addkey_user(1)
+VCS        14
+

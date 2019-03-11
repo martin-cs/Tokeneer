@@ -1,0 +1,766 @@
+
+%==========================================================================
+\chapter{The Abstraction Relation}
+\label{sec:Abstract}
+%==========================================================================
+This chapter defines the retreival relation between the concrete 
+state presented in this document and the abstract state in the formal
+specification \cite{FS}. The reader is referred to the formal
+specification for definitions of the schemas within that specification.
+
+%--------------------------------------------------------------------------
+\section{Fingerprint}
+%--------------------------------------------------------------------------
+
+\begin{traceunit}{FD.FingerprintTemplate.Retrieval}
+\traceto{FS.Types.FingerprintTemplate}
+\traceto{FD.Types.FingerprintTemplate}
+\end{traceunit}
+
+\begin{schema}{FingerprintTemplateR}
+        FingerprintTemplate
+\\      FingerprintTemplateC
+\where
+        template = templateC
+\end{schema}
+\begin{Zcomment}
+\item
+The abstract model did not consider the $far$ so this is
+free.
+\end{Zcomment}
+
+This relation can be used to define an abstraction function:
+
+\begin{axdef}
+        fingerprintTemplateR : FingerprintTemplateC \fun
+        FingerprintTemplate
+\where
+        fingerprintTemplateR = \{ FingerprintTemplateC;
+        FingerprintTemplate | FingerprintTemplateR @ 
+\\ \t5 \theta
+        FingerprintTemplateC \mapsto \theta FingerprintTemplate \} 
+\end{axdef}
+
+%--------------------------------------------------------------------------
+\section{Certificates}
+%--------------------------------------------------------------------------
+
+\begin{traceunit}{FD.Certificates.Retrieval}
+\traceto{FS.Types.Certificates}
+\traceto{FD.Types.Certificates}
+\end{traceunit}
+
+We state that there is a bijection between the concrete $User$ type
+and the abstract type $USER$. The abstract type $USER$ was a basic
+type with no constraints on its structure or contents, the concrete
+$Issuer$ is implemented as two fields, a name and an Id.
+
+\begin{axdef}
+        userR : User \bij USER
+\where
+        userR \limg Issuer \rimg  = ISSUER
+\end{axdef}
+
+
+There is a simple retrieval relation for certificate Ids.
+
+\begin{schema}{CertificateIdR}
+        CertificateId
+\\      CertificateIdC
+\where
+        issuer = userR~ issuerC
+\end{schema}
+\begin{Zcomment}
+\item
+The abstract model did not consider the $serialNumber$ so this is
+free.
+\end{Zcomment}
+
+This relation can be used to define an abstraction function:
+
+\begin{axdef}
+        certificateIdR : CertificateIdC \fun
+        CertificateId
+\where
+        certificateIdR = \{ CertificateIdC;
+        CertificateId | CertificateIdR @ 
+        \theta CertificateIdC \mapsto \theta CertificateId \} 
+\end{axdef}
+
+The abstract Certificates can be retrieved from the concrete (Raw)
+certificates, by making use of the appropriate extraction functions. 
+
+\begin{schema}{IDCertR}
+        IDCert
+\\      IDCertC
+\where
+        \exists IDCertContents @
+        \theta IDCertContents = extractIDCert~ \theta RawCertificate
+
+\\ \t1  \land id = certificateIdR~ idC
+\\ \t1  \land validityPeriod = notBefore \upto notAfter
+\\ \t1  \land isValidatedBy = \{ key : KEYPART | 
+\\ \t2  ( mechanism,
+digest~ mechanism~ data, signature ) \isVerifiedBy key @ key \}
+\also 
+   \t1  \land subject = userR~ subjectC
+\\ \t1  \land subjectPubK = subjectPubKC
+\end{schema}
+\begin{Zcomment}
+\item
+We make the assumption here that there is no more than one possible key that
+will validate the data. 
+\end{Zcomment}
+
+
+The same retrieval relation works for ID certificates of CAs.
+\begin{zed}
+        CAIdCertR \defs CAIdCert \land CAIdCertC \land IDCertR
+\end{zed}
+
+\begin{schema}{PrivCertR}
+        PrivCert
+\\      PrivCertC
+\where
+        \exists PrivCertContents @
+        \theta PrivCertContents = extractPrivCert~ \theta RawCertificate
+
+\\ \t1 \land id = certificateIdR~ idC
+\\ \t1  \land validityPeriod = notBefore \upto notAfter
+\\ \t1  \land isValidatedBy = \{ key : KEYPART | 
+\\ \t2  ( mechanism,
+        digest~ mechanism~ data, signature ) \isVerifiedBy key @ key \}
+\also
+  \t1   \land baseCertId = certificateIdR~ baseCertIdC
+\\ \t1 \land tokenID = tokenIDR~ baseCertIdC.serialNumber
+\also
+   \t1  \land role = roleC
+\\ \t1  \land clearance = clearanceC
+\end{schema}
+\begin{Zcomment}
+\item
+We make the assumption here that there is no more than one possible key that
+will validate the data. 
+\end{Zcomment}
+
+\begin{schema}{AuthCertR}
+        AuthCert
+\\      AuthCertC
+\where
+        \exists AuthCertContents @
+        \theta AuthCertContents = extractAuthCert~ \theta RawCertificate
+
+\\ \t1 \land id = certificateIdR~ idC
+\\ \t1  \land validityPeriod = notBefore \upto notAfter
+\\ \t1  \land isValidatedBy = \{ key : KEYPART | 
+\\ \t2  ( mechanism,
+        digest~ mechanism~ data, signature ) \isVerifiedBy key @ key \}
+\also
+   \t1 \land baseCertId = certificateIdR~ baseCertIdC
+\\ \t1  \land tokenID = tokenIDR~ baseCertIdC.serialNumber
+\also
+   \t1  \land role = roleC
+\\ \t1  \land clearance = clearanceC
+\end{schema}
+\begin{Zcomment}
+\item
+We make the assumption here that there is no more than one possible key that
+will validate the data. 
+\end{Zcomment}
+
+
+\begin{schema}{IandACertR}
+        IandACert
+\\      IandACertC
+\where
+        \exists IandACertContents @
+        \theta IandACertContents = extractIandACert~ \theta RawCertificate
+
+\\ \t1 \land id = certificateIdR~ idC
+\\ \t1  \land validityPeriod = notBefore \upto notAfter
+\\ \t1  \land isValidatedBy = \{ key : KEYPART |
+\\ \t2   ( mechanism,
+        digest~ mechanism~ data, signature ) \isVerifiedBy key @ key \}
+\also
+   \t1 \land baseCertId = certificateIdR~ baseCertIdC
+\\ \t1  \land tokenID = tokenIDR~ baseCertIdC.serialNumber
+\also
+    \t1  \land template = fingerprintTemplateR~ templateC
+
+\end{schema}
+\begin{Zcomment}
+\item
+We make the assumption here that there is no more than one possible key that
+will validate the data. 
+\end{Zcomment}
+
+These relations can be used to define abstraction functions for
+obtaining abstract certificates from concrete certificates. These
+functions are not surjections since the abstract validity periods may
+not be contiguous but the concrete validity periods are always contiguous.
+
+\begin{axdef}
+        idCertR : IDCertC \fun  IDCert
+\\      privCertR : PrivCertC \fun PrivCert
+\\      authCertR : AuthCertC \fun AuthCert
+\\      iandACertR : IandACertC \fun IandACert
+\where
+        idCertR = \{ IDCertC; IDCert | IDCertR @ 
+        \theta IDCertC \mapsto \theta IDCert \} 
+\also 
+        privCertR = \{ PrivCertC; PrivCert | PrivCertR @ 
+        \theta  PrivCertC \mapsto \theta PrivCert \} 
+\also
+        authCertR = \{ AuthCertC; AuthCert | AuthCertR @ 
+        \theta  AuthCertC \mapsto \theta AuthCert \} 
+\also
+        iandACertR = \{ IandACertC; IandACert | IandACertR @ 
+        \theta  IandACertC \mapsto \theta IandACert \} 
+\end{axdef}
+
+%---------------------------------------------------------------------------
+\section{Tokens}
+%---------------------------------------------------------------------------
+
+\begin{traceunit}{FD.Tokens.Retrieval}
+\traceto{FS.Types.Tokens}
+\traceto{FD.Types.Tokens}
+\end{traceunit}
+
+We state that there is a bijection between the concrete $TOKENIDC$ type
+and the abstract type $TOKENID$. The abstract type $TOKENID$ was a basic
+type with no constraints on its structure or contents, the concrete
+$TOKENIDC$ is implemented as a natural number.
+
+\begin{axdef}
+        tokenIDR : TOKENIDC \bij TOKENID
+\end{axdef}
+
+The retrieval relation makes use of the retrieval relations for each
+of the certificate types.
+
+We cannot define a retrieval relation for $Tokens$ that is true for
+all concrete tokens. This is because the abstract tokens do not
+themselves have the possibility of a token containing the wrong type
+of certificate data. However we can define a retrieval relation for
+tokens where certificate contents can all be extracted from the
+concrete raw certificates.
+
+\begin{schema}{TokenR}
+        Token
+\\      TokenC
+\where
+        idCertC \in \{ IDCertC \}
+\\      privCertC \in \{ PrivCertC \}
+\\      iandACertC \in \{ IandACertC \}  
+\\      authCertC = \Nil \lor \The authCertC \in \{ AuthCertC \}      
+\also
+        tokenID = tokenIDR~ tokenIDC
+\also
+        idCert = idCertR~ idCertC
+\\      privCert = privCertR~ privCertC
+\\      iandACert = iandACertR~ iandACertC
+\also
+        authCert = \Nil \land authCertC = \Nil
+\\ \t1       \lor 
+\\      authCert \neq \Nil \land authCertC \neq \Nil 
+        \land  \The authCert = authCertR~ (\The authCertC)
+\end{schema}
+
+This relation holds for all $ValidToken$s.
+
+\begin{zed}
+        ValidTokenR \defs ValidToken \land ValidTokenC \land TokenR
+\end{zed}
+
+This relation can be used to define a partial abstraction function. 
+
+\begin{axdef}
+        tokenR : TokenC \pfun  Token
+\where
+        tokenR = \{ TokenC; Token | TokenR @ 
+        \theta TokenC \mapsto \theta Token \} 
+\end{axdef}
+
+
+The retrieval relation for current tokens uses the retrieval relation
+for valid tokens and preserves $now$.
+\begin{schema}{CurrentTokenR}
+        CurrentToken
+\\      CurrentTokenC
+\where
+        ValidTokenR
+\also
+        now = nowC
+\end{schema}
+
+%--------------------------------------------------------------------------
+\section{Enrolment}
+%--------------------------------------------------------------------------
+
+\begin{traceunit}{FD.Enrolment.Retrieval}
+\traceto{FS.Types.Enrolment}
+\traceto{FD.Types.Enrolment}
+\end{traceunit}
+
+\begin{schema}{EnrolR}
+        Enrol
+\\      EnrolC
+\where
+        idStationCert = idCertR~ idStationCertC
+
+\also
+        \# issuerCerts = \# issuerCertsC
+
+\\      \forall certC : \ran issuerCertsC @ \exists cert : issuerCerts @
+        cert = idCertR~ certC
+\\      \forall cert : issuerCerts @ \exists certC : \ran issuerCertsC @
+        cert = idCertR~ certC
+
+\end{schema}
+
+This relation can be used to define an abstraction function. 
+
+\begin{axdef}
+        enrolR : EnrolC \fun  Enrol
+\where
+        enrolR = \{ EnrolC; Enrol | EnrolR @ 
+        \theta EnrolC \mapsto \theta Enrol \} 
+\end{axdef}
+
+
+The same retrieval relation works for a valid enrolment.
+\begin{zed}
+        ValidEnrolR \defs ValidEnrolC \land ValidEnrol \land EnrolR
+\end{zed}
+
+
+%----------------------------------------------------------------------
+\section{Configuration Data}
+%----------------------------------------------------------------------
+
+\begin{traceunit}{FD.ConfigData.Retrieval}
+\traceto{FS.ConfigData.State}
+\traceto{FD.ConfigData.State}
+\end{traceunit}
+
+
+
+\begin{schema}{ConfigR}
+        Config
+\\      ConfigC
+\where
+        alarmSilentDuration = alarmSilentDurationC
+\\      latchUnlockDuration = latchUnlockDurationC
+\\      tokenRemovalDuration = tokenRemovalDurationC
+\\      enclaveClearance.class = enclaveClearanceC
+\\      authPeriod = \{ p : PRIVILEGE @ p \mapsto authPeriodC \}
+\\      entryPeriod = \{ p : PRIVILEGE @ p \mapsto entryPeriodC \}
+\\      minPreservedLogSize = minPreservedLogSizeC
+\\      alarmThresholdSize = alarmThresholdSizeC
+\end{schema}
+
+This relation is not surjective, it cannot retrieve an $authPeriod$ that
+depends on the $role$ for instance. 
+
+We can define a function that retreives the abstract configuration
+data from the concrete:
+
+\begin{axdef}
+        configR : ConfigC \fun Config
+\where
+        configR = \{ ConfigC; Config | ConfigR @ \theta ConfigC \mapsto
+        \theta Config \}
+\end{axdef}
+
+%--------------------------------------------------------------------------
+\section{Real World}
+%--------------------------------------------------------------------------
+
+\begin{traceunit}{FD.RealWorld.Retrieval}
+\traceto{FD.Types.RealWorld}
+\traceto{FS.Types.RealWorld}
+\end{traceunit}
+
+We define a retrieval relation mapping entities of type $TOKENTRYC$ to
+their abstract representation.
+Note that all abstract tokens that cannot be retrieved from concrete
+tokens are related to concrete bad tokens. 
+
+\begin{axdef}
+        tokenTryR : TOKENTRYC \rel TOKENTRY
+\where
+        tokenTryR = \{ noTC \mapsto noT, badTC \mapsto badT \}
+\\ \t1  \cup \{ TokenC | \theta TokenC \notin \dom tokenR @ goodTC~
+\theta TokenC \mapsto badT \}
+ 
+\\ \t1  \cup \{ TokenC | \theta TokenC \in \dom tokenR  @ goodTC~ \theta TokenC \mapsto goodT~
+(tokenR~ \theta TokenC) \}    
+\\ \t1  \cup \{ Token | \theta Token \in \ran tokenR @ badTC \mapsto
+goodT~ \theta Token \}
+\end{axdef}
+\begin{Zcomment}
+\item
+Concrete tokens that contain raw certificates from which the
+correct contents cannot be extracted are modelled as $badT$ within the
+abstract model.
+\end{Zcomment}
+
+We define a retrieval relation mapping entities of type $FLOPPYC$ to
+their abstract representation.
+
+\begin{axdef}
+        floppyR : FLOPPYC \rel FLOPPY
+\where
+        floppyR = \{ noFloppyC \mapsto noFloppy, emptyFloppyC \mapsto
+        emptyFloppy,  badFloppyC \mapsto badFloppy \}
+\\ \t1  \cup \{ ValidEnrolC @ enrolmentFileC~ \theta ValidEnrolC \mapsto enrolmentFile~
+        (enrolR~ \theta ValidEnrolC) \}
+\\ \t1  \cup \{ ValidEnrol | \theta ValidEnrol \notin \ran enrolR @ badFloppyC
+\mapsto  enrolmentFile~ \theta ValidEnrol \}
+\\ \t1  \cup \{ auditData : \finset AuditC @ auditFileC~ auditData
+\mapsto auditFile~ (auditR \limg auditData \rimg) \} 
+\\ \t1  \cup \{ ConfigC  @ 
+        configFileC~ \theta ConfigC \mapsto configFile~ (configR~
+        \theta ConfigC )
+        \} 
+\\ \t1 \cup \{ Config | \theta Config \notin \ran configR @ badFloppyC
+        \mapsto configFile~ \theta Config \}   
+\end{axdef}
+
+We define a partial retrieval relation mapping entities of type $SCREENTEXTC$
+to their abstract representation.
+
+\begin{axdef}
+        screenTextR : SCREENTEXTC \rel SCREENTEXT
+\where
+        screenTextR = \{ clearC \mapsto clear, 
+        welcomeAdminC \mapsto welcomeAdmin, 
+        busyC \mapsto busy,
+\\ \t2  removeAdminTokenC \mapsto removeAdminToken,
+        closeDoorC \mapsto closeDoor,
+\\ \t2        requestAdminOpC \mapsto requestAdminOp,
+        doingOpC \mapsto doingOp,
+\\ \t2        invalidRequestC \mapsto invalidRequest,
+        invalidDataC \mapsto invalidData,
+\\ \t2        insertEnrolmentDataC \mapsto insertEnrolmentData,
+        validatingEnrolmentDataC \mapsto validatingEnrolmentData,
+\\ \t2        enrolmentFailedC \mapsto enrolmentFailed,
+        insertBlankFloppyC \mapsto insertBlankFloppy,
+\\ \t2        insertConfigDataC \mapsto insertConfigData
+         \}
+\\ \t1  \cup \{ StatsC @ displayStatsC~ \theta StatsC \mapsto displayStats~
+        (statsR~ \theta StatsC) \}
+\\ \t1  \cup \{ ConfigC; Config | ConfigR @ displayConfigDataC~ \theta ConfigC \mapsto displayConfigData~ \theta Config \}    
+\end{axdef}
+\begin{Zcomment}
+\item
+The elements of $SCREENTEXTC$ not in the domain are only used in the
+definition of screen state components that have no equivalent in the abstract
+model. Hence this function being partial will not affect our ability
+to define retrieval relations for the TIS state.
+\end{Zcomment}
+
+%...................................
+\subsection{The Real World State}
+%...................................
+
+The retrieval relations for the controlled and monitored real world
+are simple.
+
+\begin{schema}{TISControlledRealWorldR}
+        TISControlledRealWorld
+\\      TISControlledRealWorldC
+\where
+        latch = latchC
+\\      alarm = alarmC
+\\      display = displayC
+\\      screen = screenR~ screenC
+\end{schema}
+
+\begin{schema}{TISMonitoredRealWorldR}
+        TISMonitoredRealWorld
+\\      TISMonitoredRealWorldC
+\where
+        now = nowC
+\\      door = doorC
+\\      finger = fingerC
+\\      userTokenC \mapsto userToken \in tokenTryR
+\\      adminTokenC \mapsto adminToken \in tokenTryR
+\\      floppyC \mapsto floppy \in floppyR
+\\      keyboard = keyboardC            
+\end{schema}
+
+Combining these relations we obtain the relation for the whole real world.
+
+\begin{zed}
+        TISRealWorldR \defs TISControlledRealWorldR \land TISMonitoredRealWorldR
+\end{zed}
+%--------------------------------------------------------------------------
+\section{Audit Log}
+%--------------------------------------------------------------------------
+
+\begin{traceunit}{FD.AuditLog.Retrieval}
+\traceto{FD.AuditLog.State}
+\traceto{FS.AuditLog.State}
+\end{traceunit}
+
+We state that there is a bijection between the concrete $AuditC$ type
+and the abstract type $Audit$. The abstract type $Audit$ was a basic
+type with no constraints on its structure or contents.
+
+\begin{axdef}
+        auditR : AuditC \bij Audit
+\end{axdef}
+
+We observe that within the implementation all log elements have the same
+size so the implementations of the functions $sizeElement$ and
+$sizeLog$ are given by:
+
+\begin{axdef}
+        sizeElementC : AuditC \fun \nat
+\\      sizeLogC : \finset AuditC \fun \nat
+\where
+        sizeElementC = AuditC \cross \{ sizeAuditElement \}
+\\      sizeLogC = \{ X : \finset AuditC @ X \mapsto (sizeAuditElement *
+\# X) \}
+\end{axdef}
+
+
+\begin{schema}{AuditLogR}
+        AuditLog
+\\      AuditLogC
+\where
+        auditLog = auditR \limg \bigcup (\ran logFiles ) \rimg
+\\
+        auditAlarmC = auditAlarm
+\end{schema}
+\begin{Zcomment}
+\item
+The $auditLog$ is the contents of all the $logFiles$.
+\end{Zcomment}
+
+
+
+%----------------------------------------------------------------------
+\section{Key Store}
+%----------------------------------------------------------------------
+
+\begin{traceunit}{FD.KeyStore.Retrieval}
+\traceto{FD.KeyStore.State}
+\traceto{FS.KeyStore.State}
+\end{traceunit}
+
+\begin{schema}{KeyStoreR}
+        KeyStore
+\\      KeyStoreC
+\where
+
+        ownName = \{ key : keys | key.keyType = private @ userR~ key.keyOwner
+        \}
+\\      issuerKey = \{ key : keys | key.keyType = public @
+        userR~ key.keyOwner \mapsto key.keyData \}
+\end{schema}
+
+
+
+%--------------------------------------------------------------------
+\section{System Statistics}
+%--------------------------------------------------------------------
+
+\begin{traceunit}{FD.Stats.Retrieval}
+\traceto{FS.Stats.State}
+\traceto{FD.Stats.State}
+\end{traceunit}
+
+\begin{schema}{StatsR}
+        Stats
+\\      StatsC
+\where 
+        successEntry = successEntryC 
+\\      failEntry = failEntryC 
+\\      successBio = successBioC 
+\\      failBio = failBioC 
+\end{schema}
+
+from this we can define a total retrieval bijection for system
+statistics.
+
+\begin{axdef}
+        statsR : StatsC \bij Stats
+\where
+        statsR = \{ Stats; StatsC | StatsR @ \theta StatsC \mapsto \theta Stats \}
+\end{axdef}
+
+%--------------------------------------------------------------------
+\section{Administration}
+%--------------------------------------------------------------------
+
+\begin{traceunit}{FD.Admin.Retrieval}
+\traceto{FD.Admin.State}
+\traceto{FS.Admin.State}
+\end{traceunit}
+
+
+\begin{schema}{AdminR}
+        Admin
+\\      AdminC
+\where
+        rolePresent = rolePresentC
+\\      availableOps = availableOpsC
+\\      currentAdminOp = currentAdminOpC
+\end{schema}
+
+%-----------------------------------------------------------------------
+\section{Real World Entities}
+%-----------------------------------------------------------------------
+%The real world entities are internally modelled identically to their external model.
+
+\begin{traceunit}{FD.RealWorldState.Retrieval}
+\traceto{FD.RealWorld.State}
+\traceto{FS.RealWorld.State}
+\end{traceunit}
+
+
+
+\begin{schema}{DoorLatchAlarmR}
+        DoorLatchAlarm
+\\      DoorLatchAlarmC
+\where
+
+	currentTime = currentTimeC
+\\	currentDoor = currentDoorC
+\\	currentLatch = currentLatchC
+\\	doorAlarm = doorAlarmC
+\\	latchTimeout = latchTimeoutC
+\\	alarmTimeout = alarmTimeoutC
+\end{schema}
+
+
+\begin{schema}{UserTokenR}
+        UserToken
+\\      UserTokenC
+\where
+	currentUserTokenC \mapsto currentUserToken \in tokenTryR 
+\\	userTokenPresence = userTokenPresenceC 
+\end{schema}
+
+\begin{schema}{AdminTokenR}
+        AdminToken
+\\      AdminTokenC
+\where
+	 currentAdminTokenC \mapsto currentAdminToken \in tokenTryR
+\\	adminTokenPresence = adminTokenPresenceC 
+\end{schema}
+
+\begin{schema}{FingerR}
+        Finger
+\\      FingerC
+\where
+        fingerPresence = fingerPresenceC
+\end{schema}
+
+
+\begin{schema}{FloppyR}
+        Floppy
+\\      FloppyC
+\where
+       	currentFloppyC \mapsto currentFloppy \in floppyR
+\\      writtenFloppyC \mapsto writtenFloppy \in floppyR 
+\\	floppyPresence = floppyPresenceC
+\end{schema}
+
+\begin{schema}{ScreenR}
+        Screen
+\\      ScreenC
+\where
+        screenStatsC \mapsto screenStats \in screenTextR 
+\\      screenMsgC \mapsto screenMsg \in screenTextR 
+\\      screenConfigC \mapsto screenConfig \in screenTextR
+\end{schema}
+\begin{Zcomment}
+\item
+As the abstract $Screen$ does not include components for displaying
+the current alarms, these are free.
+\end{Zcomment}
+
+From this we can define a retrieval relation for screens.
+
+\begin{axdef}
+        screenR : ScreenC \rel Screen
+\where
+        screenR = \{ Screen; ScreenC | ScreenR @ \theta ScreenC
+        \mapsto \theta Screen \}
+\end{axdef}
+
+
+\begin{schema}{KeyboardR}
+        Keyboard
+\\      KeyboardC
+\where        
+        keyedDataPresence = keyedDataPresenceC
+\end{schema}  
+
+
+%-----------------------------------------------------------------------
+\section{Internal State}
+%-----------------------------------------------------------------------
+
+\begin{traceunit}{FD.Internal.Retrieval}
+\traceto{FS.Internal.State}
+\traceto{FD.Internal.State}
+\end{traceunit}
+
+The retrieval relation for the Internal state is trivial.
+
+\begin{schema}{InternalR}
+        Internal
+\\      InternalC
+\where
+        status = statusC
+\\      enclaveStatus = enclaveStatusC 
+\\      tokenRemovalTimeout = tokenRemovalTimeoutC 
+\end{schema}
+
+
+%-----------------------------------------------------------------------
+\section{The whole Token ID Station}
+%-----------------------------------------------------------------------
+
+\begin{traceunit}{FD.TIS.Retrieval}
+\traceto{FD.TIS.State}
+\traceto{FS.TIS.State}
+\end{traceunit}
+
+
+The retrieval relation for the whole Token ID Station is constructed
+from combining the retrieval relations for the state components, with
+the addition of retrieval rules for the remaining state components.  
+ 
+\begin{schema}{IDStationR}
+        IDStation
+\\      IDStationC        
+\also
+	UserTokenR
+\\	AdminTokenR
+\\	FingerR
+\\	DoorLatchAlarmR
+\\      FloppyR
+\\      KeyboardR
+\\      ConfigR
+\\      StatsR
+\\      KeyStoreR
+\\      AdminR
+\\      AuditLogR
+\\      InternalR
+\where
+        currentDisplay = currentDisplayC
+\\      currentScreenC \mapsto currentScreen \in screenR 
+\end{schema}
+
+
+
+
+
+
+

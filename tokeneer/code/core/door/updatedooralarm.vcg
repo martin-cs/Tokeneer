@@ -1,0 +1,502 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:10.56
+
+                       procedure Door.UpdateDoorAlarm
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 105:
+
+procedure_updatedooralarm_1.
+H1:    true .
+H2:    currentdoor >= t__first .
+H3:    currentdoor <= t__last .
+H4:    dooralarm >= alarmtypes__statust__first .
+H5:    dooralarm <= alarmtypes__statust__last .
+H6:    true .
+H7:    true .
+H8:    true .
+H9:    currentdoor = open .
+H10:   latch__islocked(latch__state) .
+H11:   clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), alarmtimeout) .
+        ->
+C1:    alarmtypes__alarming >= alarmtypes__statust__first .
+C2:    alarmtypes__alarming <= alarmtypes__statust__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 106:
+
+procedure_updatedooralarm_2.
+H1:    true .
+H2:    currentdoor >= t__first .
+H3:    currentdoor <= t__last .
+H4:    dooralarm >= alarmtypes__statust__first .
+H5:    dooralarm <= alarmtypes__statust__last .
+H6:    true .
+H7:    true .
+H8:    true .
+H9:    currentdoor = open .
+H10:   latch__islocked(latch__state) .
+H11:   clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), alarmtimeout) .
+H12:   alarmtypes__alarming >= alarmtypes__statust__first .
+H13:   alarmtypes__alarming <= alarmtypes__statust__last .
+        ->
+C1:    audittypes__critical >= audittypes__severityt__first .
+C2:    audittypes__critical <= audittypes__severityt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 107:
+
+procedure_updatedooralarm_3.
+H1:    true .
+H2:    currentdoor >= t__first .
+H3:    currentdoor <= t__last .
+H4:    dooralarm >= alarmtypes__statust__first .
+H5:    dooralarm <= alarmtypes__statust__last .
+H6:    true .
+H7:    true .
+H8:    true .
+H9:    currentdoor = open .
+H10:   latch__islocked(latch__state) .
+H11:   clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), alarmtimeout) .
+H12:   alarmtypes__alarming >= alarmtypes__statust__first .
+H13:   alarmtypes__alarming <= alarmtypes__statust__last .
+H14:   audittypes__critical >= audittypes__severityt__first .
+H15:   audittypes__critical <= audittypes__severityt__last .
+        ->
+C1:    audittypes__alarmraised >= audittypes__elementt__first .
+C2:    audittypes__alarmraised <= audittypes__elementt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 111:
+
+procedure_updatedooralarm_4.
+H1:    true .
+H2:    currentdoor >= t__first .
+H3:    currentdoor <= t__last .
+H4:    dooralarm >= alarmtypes__statust__first .
+H5:    dooralarm <= alarmtypes__statust__last .
+H6:    true .
+H7:    true .
+H8:    true .
+H9:    not ((currentdoor = open) and (latch__islocked(
+           latch__state) and clock__greaterthanorequal(
+           clock__thecurrenttime(clock__currenttime), 
+           alarmtimeout))) .
+        ->
+C1:    alarmtypes__silent >= alarmtypes__statust__first .
+C2:    alarmtypes__silent <= alarmtypes__statust__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 112:
+
+procedure_updatedooralarm_5.
+H1:    true .
+H2:    currentdoor >= t__first .
+H3:    currentdoor <= t__last .
+H4:    dooralarm >= alarmtypes__statust__first .
+H5:    dooralarm <= alarmtypes__statust__last .
+H6:    true .
+H7:    true .
+H8:    true .
+H9:    not ((currentdoor = open) and (latch__islocked(
+           latch__state) and clock__greaterthanorequal(
+           clock__thecurrenttime(clock__currenttime), 
+           alarmtimeout))) .
+H10:   alarmtypes__silent >= alarmtypes__statust__first .
+H11:   alarmtypes__silent <= alarmtypes__statust__last .
+        ->
+C1:    audittypes__information >= audittypes__severityt__first .
+C2:    audittypes__information <= audittypes__severityt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 113:
+
+procedure_updatedooralarm_6.
+H1:    true .
+H2:    currentdoor >= t__first .
+H3:    currentdoor <= t__last .
+H4:    dooralarm >= alarmtypes__statust__first .
+H5:    dooralarm <= alarmtypes__statust__last .
+H6:    true .
+H7:    true .
+H8:    true .
+H9:    not ((currentdoor = open) and (latch__islocked(
+           latch__state) and clock__greaterthanorequal(
+           clock__thecurrenttime(clock__currenttime), 
+           alarmtimeout))) .
+H10:   alarmtypes__silent >= alarmtypes__statust__first .
+H11:   alarmtypes__silent <= alarmtypes__statust__last .
+H12:   audittypes__information >= audittypes__severityt__first .
+H13:   audittypes__information <= audittypes__severityt__last .
+        ->
+C1:    audittypes__alarmsilenced >= audittypes__elementt__first .
+C2:    audittypes__alarmsilenced <= audittypes__elementt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 118:
+
+procedure_updatedooralarm_7.
+H1:    true .
+H2:    currentdoor >= t__first .
+H3:    currentdoor <= t__last .
+H4:    dooralarm >= alarmtypes__statust__first .
+H5:    dooralarm <= alarmtypes__statust__last .
+H6:    true .
+H7:    true .
+H8:    true .
+H9:    currentdoor = open .
+H10:   latch__islocked(latch__state) .
+H11:   clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), alarmtimeout) .
+H12:   alarmtypes__alarming >= alarmtypes__statust__first .
+H13:   alarmtypes__alarming <= alarmtypes__statust__last .
+H14:   audittypes__critical >= audittypes__severityt__first .
+H15:   audittypes__critical <= audittypes__severityt__last .
+H16:   audittypes__alarmraised >= audittypes__elementt__first .
+H17:   audittypes__alarmraised <= audittypes__elementt__last .
+H18:   alarmtypes__alarming >= alarmtypes__statust__first .
+H19:   alarmtypes__alarming <= alarmtypes__statust__last .
+H20:   dooralarm <> alarmtypes__alarming .
+H21:   audittypes__alarmraised >= audittypes__elementt__first .
+H22:   audittypes__alarmraised <= audittypes__elementt__last .
+H23:   audittypes__critical >= audittypes__severityt__first .
+H24:   audittypes__critical <= audittypes__severityt__last .
+        ->
+C1:    audittypes__critical >= audittypes__severityt__first .
+C2:    audittypes__critical <= audittypes__severityt__last .
+C3:    audittypes__alarmraised >= audittypes__elementt__first .
+C4:    audittypes__alarmraised <= audittypes__elementt__last .
+ 
+
+procedure_updatedooralarm_8.
+H1:    true .
+H2:    currentdoor >= t__first .
+H3:    currentdoor <= t__last .
+H4:    dooralarm >= alarmtypes__statust__first .
+H5:    dooralarm <= alarmtypes__statust__last .
+H6:    true .
+H7:    true .
+H8:    true .
+H9:    not ((currentdoor = open) and (latch__islocked(
+           latch__state) and clock__greaterthanorequal(
+           clock__thecurrenttime(clock__currenttime), 
+           alarmtimeout))) .
+H10:   alarmtypes__silent >= alarmtypes__statust__first .
+H11:   alarmtypes__silent <= alarmtypes__statust__last .
+H12:   audittypes__information >= audittypes__severityt__first .
+H13:   audittypes__information <= audittypes__severityt__last .
+H14:   audittypes__alarmsilenced >= audittypes__elementt__first .
+H15:   audittypes__alarmsilenced <= audittypes__elementt__last .
+H16:   alarmtypes__silent >= alarmtypes__statust__first .
+H17:   alarmtypes__silent <= alarmtypes__statust__last .
+H18:   dooralarm <> alarmtypes__silent .
+H19:   audittypes__alarmsilenced >= audittypes__elementt__first .
+H20:   audittypes__alarmsilenced <= audittypes__elementt__last .
+H21:   audittypes__information >= audittypes__severityt__first .
+H22:   audittypes__information <= audittypes__severityt__last .
+        ->
+C1:    audittypes__information >= audittypes__severityt__first .
+C2:    audittypes__information <= audittypes__severityt__last .
+C3:    audittypes__alarmsilenced >= audittypes__elementt__first .
+C4:    audittypes__alarmsilenced <= audittypes__elementt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 126:
+
+procedure_updatedooralarm_9.
+H1:    true .
+H2:    currentdoor >= t__first .
+H3:    currentdoor <= t__last .
+H4:    dooralarm >= alarmtypes__statust__first .
+H5:    dooralarm <= alarmtypes__statust__last .
+H6:    true .
+H7:    true .
+H8:    true .
+H9:    currentdoor = open .
+H10:   latch__islocked(latch__state) .
+H11:   clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), alarmtimeout) .
+H12:   alarmtypes__alarming >= alarmtypes__statust__first .
+H13:   alarmtypes__alarming <= alarmtypes__statust__last .
+H14:   audittypes__critical >= audittypes__severityt__first .
+H15:   audittypes__critical <= audittypes__severityt__last .
+H16:   audittypes__alarmraised >= audittypes__elementt__first .
+H17:   audittypes__alarmraised <= audittypes__elementt__last .
+H18:   alarmtypes__alarming >= alarmtypes__statust__first .
+H19:   alarmtypes__alarming <= alarmtypes__statust__last .
+H20:   dooralarm <> alarmtypes__alarming .
+H21:   audittypes__alarmraised >= audittypes__elementt__first .
+H22:   audittypes__alarmraised <= audittypes__elementt__last .
+H23:   audittypes__critical >= audittypes__severityt__first .
+H24:   audittypes__critical <= audittypes__severityt__last .
+H25:   audittypes__critical >= audittypes__severityt__first .
+H26:   audittypes__critical <= audittypes__severityt__last .
+H27:   audittypes__alarmraised >= audittypes__elementt__first .
+H28:   audittypes__alarmraised <= audittypes__elementt__last .
+H29:   alarmtypes__alarming >= alarmtypes__statust__first .
+H30:   alarmtypes__alarming <= alarmtypes__statust__last .
+        ->
+C1:    alarmtypes__alarming >= alarmtypes__statust__first .
+C2:    alarmtypes__alarming <= alarmtypes__statust__last .
+ 
+
+procedure_updatedooralarm_10.
+H1:    true .
+H2:    currentdoor >= t__first .
+H3:    currentdoor <= t__last .
+H4:    dooralarm >= alarmtypes__statust__first .
+H5:    dooralarm <= alarmtypes__statust__last .
+H6:    true .
+H7:    true .
+H8:    true .
+H9:    not ((currentdoor = open) and (latch__islocked(
+           latch__state) and clock__greaterthanorequal(
+           clock__thecurrenttime(clock__currenttime), 
+           alarmtimeout))) .
+H10:   alarmtypes__silent >= alarmtypes__statust__first .
+H11:   alarmtypes__silent <= alarmtypes__statust__last .
+H12:   audittypes__information >= audittypes__severityt__first .
+H13:   audittypes__information <= audittypes__severityt__last .
+H14:   audittypes__alarmsilenced >= audittypes__elementt__first .
+H15:   audittypes__alarmsilenced <= audittypes__elementt__last .
+H16:   alarmtypes__silent >= alarmtypes__statust__first .
+H17:   alarmtypes__silent <= alarmtypes__statust__last .
+H18:   dooralarm <> alarmtypes__silent .
+H19:   audittypes__alarmsilenced >= audittypes__elementt__first .
+H20:   audittypes__alarmsilenced <= audittypes__elementt__last .
+H21:   audittypes__information >= audittypes__severityt__first .
+H22:   audittypes__information <= audittypes__severityt__last .
+H23:   audittypes__information >= audittypes__severityt__first .
+H24:   audittypes__information <= audittypes__severityt__last .
+H25:   audittypes__alarmsilenced >= audittypes__elementt__first .
+H26:   audittypes__alarmsilenced <= audittypes__elementt__last .
+H27:   alarmtypes__silent >= alarmtypes__statust__first .
+H28:   alarmtypes__silent <= alarmtypes__statust__last .
+        ->
+C1:    alarmtypes__silent >= alarmtypes__statust__first .
+C2:    alarmtypes__silent <= alarmtypes__statust__last .
+ 
+
+procedure_updatedooralarm_11.
+H1:    true .
+H2:    currentdoor >= t__first .
+H3:    currentdoor <= t__last .
+H4:    dooralarm >= alarmtypes__statust__first .
+H5:    dooralarm <= alarmtypes__statust__last .
+H6:    true .
+H7:    true .
+H8:    true .
+H9:    currentdoor = open .
+H10:   latch__islocked(latch__state) .
+H11:   clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), alarmtimeout) .
+H12:   alarmtypes__alarming >= alarmtypes__statust__first .
+H13:   alarmtypes__alarming <= alarmtypes__statust__last .
+H14:   audittypes__critical >= audittypes__severityt__first .
+H15:   audittypes__critical <= audittypes__severityt__last .
+H16:   audittypes__alarmraised >= audittypes__elementt__first .
+H17:   audittypes__alarmraised <= audittypes__elementt__last .
+H18:   alarmtypes__alarming >= alarmtypes__statust__first .
+H19:   alarmtypes__alarming <= alarmtypes__statust__last .
+H20:   not (dooralarm <> alarmtypes__alarming) .
+H21:   alarmtypes__alarming >= alarmtypes__statust__first .
+H22:   alarmtypes__alarming <= alarmtypes__statust__last .
+        ->
+C1:    alarmtypes__alarming >= alarmtypes__statust__first .
+C2:    alarmtypes__alarming <= alarmtypes__statust__last .
+ 
+
+procedure_updatedooralarm_12.
+H1:    true .
+H2:    currentdoor >= t__first .
+H3:    currentdoor <= t__last .
+H4:    dooralarm >= alarmtypes__statust__first .
+H5:    dooralarm <= alarmtypes__statust__last .
+H6:    true .
+H7:    true .
+H8:    true .
+H9:    not ((currentdoor = open) and (latch__islocked(
+           latch__state) and clock__greaterthanorequal(
+           clock__thecurrenttime(clock__currenttime), 
+           alarmtimeout))) .
+H10:   alarmtypes__silent >= alarmtypes__statust__first .
+H11:   alarmtypes__silent <= alarmtypes__statust__last .
+H12:   audittypes__information >= audittypes__severityt__first .
+H13:   audittypes__information <= audittypes__severityt__last .
+H14:   audittypes__alarmsilenced >= audittypes__elementt__first .
+H15:   audittypes__alarmsilenced <= audittypes__elementt__last .
+H16:   alarmtypes__silent >= alarmtypes__statust__first .
+H17:   alarmtypes__silent <= alarmtypes__statust__last .
+H18:   not (dooralarm <> alarmtypes__silent) .
+H19:   alarmtypes__silent >= alarmtypes__statust__first .
+H20:   alarmtypes__silent <= alarmtypes__statust__last .
+        ->
+C1:    alarmtypes__silent >= alarmtypes__statust__first .
+C2:    alarmtypes__silent <= alarmtypes__statust__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_updatedooralarm_13.
+H1:    true .
+H2:    currentdoor >= t__first .
+H3:    currentdoor <= t__last .
+H4:    dooralarm >= alarmtypes__statust__first .
+H5:    dooralarm <= alarmtypes__statust__last .
+H6:    true .
+H7:    true .
+H8:    true .
+H9:    currentdoor = open .
+H10:   latch__islocked(latch__state) .
+H11:   clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), alarmtimeout) .
+H12:   alarmtypes__alarming >= alarmtypes__statust__first .
+H13:   alarmtypes__alarming <= alarmtypes__statust__last .
+H14:   audittypes__critical >= audittypes__severityt__first .
+H15:   audittypes__critical <= audittypes__severityt__last .
+H16:   audittypes__alarmraised >= audittypes__elementt__first .
+H17:   audittypes__alarmraised <= audittypes__elementt__last .
+H18:   alarmtypes__alarming >= alarmtypes__statust__first .
+H19:   alarmtypes__alarming <= alarmtypes__statust__last .
+H20:   dooralarm <> alarmtypes__alarming .
+H21:   audittypes__alarmraised >= audittypes__elementt__first .
+H22:   audittypes__alarmraised <= audittypes__elementt__last .
+H23:   audittypes__critical >= audittypes__severityt__first .
+H24:   audittypes__critical <= audittypes__severityt__last .
+H25:   audittypes__critical >= audittypes__severityt__first .
+H26:   audittypes__critical <= audittypes__severityt__last .
+H27:   audittypes__alarmraised >= audittypes__elementt__first .
+H28:   audittypes__alarmraised <= audittypes__elementt__last .
+H29:   alarmtypes__alarming >= alarmtypes__statust__first .
+H30:   alarmtypes__alarming <= alarmtypes__statust__last .
+H31:   alarmtypes__alarming >= alarmtypes__statust__first .
+H32:   alarmtypes__alarming <= alarmtypes__statust__last .
+        ->
+C1:    ((currentdoor = open) and (latch__islocked(
+           latch__state) and clock__greaterthanorequal(
+           clock__thecurrenttime(clock__currenttime), 
+           alarmtimeout))) <-> (alarmtypes__alarming = 
+           alarmtypes__alarming) .
+ 
+
+procedure_updatedooralarm_14.
+H1:    true .
+H2:    currentdoor >= t__first .
+H3:    currentdoor <= t__last .
+H4:    dooralarm >= alarmtypes__statust__first .
+H5:    dooralarm <= alarmtypes__statust__last .
+H6:    true .
+H7:    true .
+H8:    true .
+H9:    not ((currentdoor = open) and (latch__islocked(
+           latch__state) and clock__greaterthanorequal(
+           clock__thecurrenttime(clock__currenttime), 
+           alarmtimeout))) .
+H10:   alarmtypes__silent >= alarmtypes__statust__first .
+H11:   alarmtypes__silent <= alarmtypes__statust__last .
+H12:   audittypes__information >= audittypes__severityt__first .
+H13:   audittypes__information <= audittypes__severityt__last .
+H14:   audittypes__alarmsilenced >= audittypes__elementt__first .
+H15:   audittypes__alarmsilenced <= audittypes__elementt__last .
+H16:   alarmtypes__silent >= alarmtypes__statust__first .
+H17:   alarmtypes__silent <= alarmtypes__statust__last .
+H18:   dooralarm <> alarmtypes__silent .
+H19:   audittypes__alarmsilenced >= audittypes__elementt__first .
+H20:   audittypes__alarmsilenced <= audittypes__elementt__last .
+H21:   audittypes__information >= audittypes__severityt__first .
+H22:   audittypes__information <= audittypes__severityt__last .
+H23:   audittypes__information >= audittypes__severityt__first .
+H24:   audittypes__information <= audittypes__severityt__last .
+H25:   audittypes__alarmsilenced >= audittypes__elementt__first .
+H26:   audittypes__alarmsilenced <= audittypes__elementt__last .
+H27:   alarmtypes__silent >= alarmtypes__statust__first .
+H28:   alarmtypes__silent <= alarmtypes__statust__last .
+H29:   alarmtypes__silent >= alarmtypes__statust__first .
+H30:   alarmtypes__silent <= alarmtypes__statust__last .
+        ->
+C1:    ((currentdoor = open) and (latch__islocked(
+           latch__state) and clock__greaterthanorequal(
+           clock__thecurrenttime(clock__currenttime), 
+           alarmtimeout))) <-> (alarmtypes__silent = 
+           alarmtypes__alarming) .
+ 
+
+procedure_updatedooralarm_15.
+H1:    true .
+H2:    currentdoor >= t__first .
+H3:    currentdoor <= t__last .
+H4:    dooralarm >= alarmtypes__statust__first .
+H5:    dooralarm <= alarmtypes__statust__last .
+H6:    true .
+H7:    true .
+H8:    true .
+H9:    currentdoor = open .
+H10:   latch__islocked(latch__state) .
+H11:   clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), alarmtimeout) .
+H12:   alarmtypes__alarming >= alarmtypes__statust__first .
+H13:   alarmtypes__alarming <= alarmtypes__statust__last .
+H14:   audittypes__critical >= audittypes__severityt__first .
+H15:   audittypes__critical <= audittypes__severityt__last .
+H16:   audittypes__alarmraised >= audittypes__elementt__first .
+H17:   audittypes__alarmraised <= audittypes__elementt__last .
+H18:   alarmtypes__alarming >= alarmtypes__statust__first .
+H19:   alarmtypes__alarming <= alarmtypes__statust__last .
+H20:   not (dooralarm <> alarmtypes__alarming) .
+H21:   alarmtypes__alarming >= alarmtypes__statust__first .
+H22:   alarmtypes__alarming <= alarmtypes__statust__last .
+H23:   alarmtypes__alarming >= alarmtypes__statust__first .
+H24:   alarmtypes__alarming <= alarmtypes__statust__last .
+        ->
+C1:    ((currentdoor = open) and (latch__islocked(
+           latch__state) and clock__greaterthanorequal(
+           clock__thecurrenttime(clock__currenttime), 
+           alarmtimeout))) <-> (alarmtypes__alarming = 
+           alarmtypes__alarming) .
+ 
+
+procedure_updatedooralarm_16.
+H1:    true .
+H2:    currentdoor >= t__first .
+H3:    currentdoor <= t__last .
+H4:    dooralarm >= alarmtypes__statust__first .
+H5:    dooralarm <= alarmtypes__statust__last .
+H6:    true .
+H7:    true .
+H8:    true .
+H9:    not ((currentdoor = open) and (latch__islocked(
+           latch__state) and clock__greaterthanorequal(
+           clock__thecurrenttime(clock__currenttime), 
+           alarmtimeout))) .
+H10:   alarmtypes__silent >= alarmtypes__statust__first .
+H11:   alarmtypes__silent <= alarmtypes__statust__last .
+H12:   audittypes__information >= audittypes__severityt__first .
+H13:   audittypes__information <= audittypes__severityt__last .
+H14:   audittypes__alarmsilenced >= audittypes__elementt__first .
+H15:   audittypes__alarmsilenced <= audittypes__elementt__last .
+H16:   alarmtypes__silent >= alarmtypes__statust__first .
+H17:   alarmtypes__silent <= alarmtypes__statust__last .
+H18:   not (dooralarm <> alarmtypes__silent) .
+H19:   alarmtypes__silent >= alarmtypes__statust__first .
+H20:   alarmtypes__silent <= alarmtypes__statust__last .
+H21:   alarmtypes__silent >= alarmtypes__statust__first .
+H22:   alarmtypes__silent <= alarmtypes__statust__last .
+        ->
+C1:    ((currentdoor = open) and (latch__islocked(
+           latch__state) and clock__greaterthanorequal(
+           clock__thecurrenttime(clock__currenttime), 
+           alarmtimeout))) <-> (alarmtypes__silent = 
+           alarmtypes__alarming) .
+ 
+

@@ -1,0 +1,189 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:12.58}
+
+                          {procedure KeyStore.Sign}
+
+
+title procedure sign;
+
+  function round__(real) : integer;
+  type character = integer;
+  type basictypes__unsigned32t = integer;
+  type basictypes__bytet = integer;
+  type audittypes__elementt = (audittypes__startunenrolledtis, 
+     audittypes__startenrolledtis, audittypes__enrolmentcomplete, 
+     audittypes__enrolmentfailed, audittypes__displaychanged, 
+     audittypes__screenchanged, audittypes__doorclosed, 
+     audittypes__dooropened, audittypes__latchlocked, 
+     audittypes__latchunlocked, audittypes__alarmraised, 
+     audittypes__alarmsilenced, audittypes__truncatelog, 
+     audittypes__auditalarmraised, audittypes__auditalarmsilenced, 
+     audittypes__usertokenremoved, audittypes__usertokenpresent, 
+     audittypes__usertokeninvalid, audittypes__authcertvalid, 
+     audittypes__authcertinvalid, audittypes__fingerdetected, 
+     audittypes__fingertimeout, audittypes__fingermatched, 
+     audittypes__fingernotmatched, audittypes__authcertwritten, 
+     audittypes__authcertwritefailed, audittypes__entrypermitted, 
+     audittypes__entrytimeout, audittypes__entrydenied, 
+     audittypes__admintokenpresent, audittypes__admintokenvalid, 
+     audittypes__admintokeninvalid, audittypes__admintokenexpired, 
+     audittypes__admintokenremoved, audittypes__invalidoprequest, 
+     audittypes__operationstart, audittypes__archivelog, 
+     audittypes__archivecomplete, audittypes__archivecheckfailed, 
+     audittypes__updatedconfigdata, audittypes__invalidconfigdata, 
+     audittypes__shutdown, audittypes__overridelock, 
+     audittypes__systemfault);
+  type audittypes__severityt = (audittypes__information, 
+     audittypes__warning, audittypes__critical);
+  type cryptotypes__algorithmt = (cryptotypes__rsa, 
+     cryptotypes__md2, cryptotypes__md5, cryptotypes__sha_1, 
+     cryptotypes__ripemd128, cryptotypes__ripemd160, 
+     cryptotypes__md2_rsa, cryptotypes__md5_rsa, 
+     cryptotypes__sha1_rsa, cryptotypes__ripemd128_rsa, 
+     cryptotypes__ripemd160_rsa);
+  type keystore__interface__returnvaluet = (
+     keystore__interface__ok, keystore__interface__hostmemory, 
+     keystore__interface__generalerror, 
+     keystore__interface__functionfailed, 
+     keystore__interface__argumentsbad, 
+     keystore__interface__attributereadonly, 
+     keystore__interface__attributetypeinvalid, 
+     keystore__interface__attributevalueinvalid, 
+     keystore__interface__datainvalid, 
+     keystore__interface__datalenrange, 
+     keystore__interface__deviceerror, 
+     keystore__interface__devicememory, 
+     keystore__interface__functioncanceled, 
+     keystore__interface__keyhandleinvalid, 
+     keystore__interface__keysizerange, 
+     keystore__interface__keytypeinconsistent, 
+     keystore__interface__keyfunctionnotpermitted, 
+     keystore__interface__mechanisminvalid, 
+     keystore__interface__mechanismparaminvalid, 
+     keystore__interface__objecthandleinvalid, 
+     keystore__interface__operationactive, 
+     keystore__interface__operationnotinitialized, 
+     keystore__interface__signatureinvalid, 
+     keystore__interface__signaturelenrange, 
+     keystore__interface__templateincomplete, 
+     keystore__interface__templateinconsistent, 
+     keystore__interface__buffertoosmall, 
+     keystore__interface__cryptokinotinitialized, 
+     keystore__interface__cryptokialreadyinitialized);
+  type keystore__interface__digestpadi = integer;
+  type string = array [integer] of character;
+  const null__string : string = pending;
+  type keystore__interface__digestpadt = array [integer] of integer;
+  type issystemt = array [keystore__interface__returnvaluet] of boolean;
+  type certtypes__rawdatat = record
+        rawdata : string;
+        datalength : integer
+     end;
+  type certtypes__signaturet = record
+        sigdata : string;
+        siglength : integer
+     end;
+  type keystore__interface__digestt = record
+        digestid : integer;
+        signreturn : keystore__interface__returnvaluet;
+        verifyreturn : keystore__interface__returnvaluet;
+        pad : keystore__interface__digestpadt
+     end;
+  const issystem : issystemt = pending;
+  const mechanism : cryptotypes__algorithmt = pending;
+  const keystore__interface__digestpadi__base__first : integer = pending; 
+  const keystore__interface__digestpadi__base__last : integer = pending; 
+  const keystore__interface__returnvaluet__base__first : 
+     keystore__interface__returnvaluet = pending; 
+  const keystore__interface__returnvaluet__base__last : 
+     keystore__interface__returnvaluet = pending; 
+  const certtypes__sigdatai__base__first : integer = pending; 
+  const certtypes__sigdatai__base__last : integer = pending; 
+  const certtypes__rawcertificatei__base__first : integer = pending; 
+  const certtypes__rawcertificatei__base__last : integer = pending; 
+  const cryptotypes__algorithmt__base__first : 
+     cryptotypes__algorithmt = pending; 
+  const cryptotypes__algorithmt__base__last : 
+     cryptotypes__algorithmt = pending; 
+  const audittypes__descriptioni__base__first : integer = pending; 
+  const audittypes__descriptioni__base__last : integer = pending; 
+  const audittypes__severityt__base__first : 
+     audittypes__severityt = pending; 
+  const audittypes__severityt__base__last : audittypes__severityt = pending; 
+  const audittypes__elementt__base__first : audittypes__elementt = pending; 
+  const audittypes__elementt__base__last : audittypes__elementt = pending; 
+  const basictypes__bytet__base__first : integer = pending; 
+  const basictypes__bytet__base__last : integer = pending; 
+  const basictypes__unsigned32t__base__first : integer = pending; 
+  const basictypes__unsigned32t__base__last : integer = pending; 
+  const positive__base__first : integer = pending; 
+  const positive__base__last : integer = pending; 
+  const character__base__first : character = pending; 
+  const character__base__last : character = pending; 
+  const integer__base__first : integer = pending; 
+  const integer__base__last : integer = pending; 
+  const keystore__interface__digestt__size : integer = pending; 
+  const keystore__interface__digestpadi__first : integer = pending; 
+  const keystore__interface__digestpadi__last : integer = pending; 
+  const keystore__interface__digestpadi__size : integer = pending; 
+  const keystore__interface__returnvaluet__first : 
+     keystore__interface__returnvaluet = pending; 
+  const keystore__interface__returnvaluet__last : 
+     keystore__interface__returnvaluet = pending; 
+  const keystore__interface__returnvaluet__size : integer = pending; 
+  const certtypes__signaturet__size : integer = pending; 
+  const certtypes__sigdatai__first : integer = pending; 
+  const certtypes__sigdatai__last : integer = pending; 
+  const certtypes__sigdatai__size : integer = pending; 
+  const certtypes__rawdatat__size : integer = pending; 
+  const certtypes__rawcertificatei__first : integer = pending; 
+  const certtypes__rawcertificatei__last : integer = pending; 
+  const certtypes__rawcertificatei__size : integer = pending; 
+  const cryptotypes__algorithmt__first : cryptotypes__algorithmt = pending; 
+  const cryptotypes__algorithmt__last : cryptotypes__algorithmt = pending; 
+  const cryptotypes__algorithmt__size : integer = pending; 
+  const audittypes__descriptioni__first : integer = pending; 
+  const audittypes__descriptioni__last : integer = pending; 
+  const audittypes__descriptioni__size : integer = pending; 
+  const audittypes__severityt__first : audittypes__severityt = pending; 
+  const audittypes__severityt__last : audittypes__severityt = pending; 
+  const audittypes__severityt__size : integer = pending; 
+  const audittypes__elementt__first : audittypes__elementt = pending; 
+  const audittypes__elementt__last : audittypes__elementt = pending; 
+  const audittypes__elementt__size : integer = pending; 
+  const basictypes__bytet__first : integer = pending; 
+  const basictypes__bytet__last : integer = pending; 
+  const basictypes__bytet__size : integer = pending; 
+  const basictypes__unsigned32t__first : integer = pending; 
+  const basictypes__unsigned32t__last : integer = pending; 
+  const basictypes__unsigned32t__size : integer = pending; 
+  const positive__first : integer = pending; 
+  const positive__last : integer = pending; 
+  const positive__size : integer = pending; 
+  const character__first : character = pending; 
+  const character__last : character = pending; 
+  const character__size : integer = pending; 
+  const integer__first : integer = pending; 
+  const integer__last : integer = pending; 
+  const integer__size : integer = pending; 
+  var rawcertdata : certtypes__rawdatat;
+  var signature : certtypes__signaturet;
+  var theprivatekeyh : integer;
+  var thedigest : keystore__interface__digestt;
+  var digested : boolean;
+  var retval : keystore__interface__returnvaluet;
+  function convertretvaltotext(keystore__interface__returnvaluet, 
+     string) : string;
+  var retval__3 : keystore__interface__returnvaluet;
+  var signature__3 : certtypes__signaturet;
+  var theprivatekeyh__2 : integer;
+  var digested__1 : boolean;
+  var thedigest__1 : keystore__interface__digestt;
+
+end;

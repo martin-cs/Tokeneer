@@ -1,0 +1,498 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:07  SIMPLIFIED 05-SEP-2011, 15:39:36
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure Clock.SetStringSegment
+
+
+
+
+
+
+@@@@@@@@@@  VC: procedure_setstringsegment_1.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  for_all(i___1 : integer, s__index__subtype__1__first <= i___1 
+          and i___1 <= s__index__subtype__1__last -> character__first <= 
+          element(s, [i___1]) and element(s, [i___1]) <= character__last)
+***  Proved C1:  value >= natural__first
+     using hypothesis H4.
+***  Proved C2:  value <= natural__last
+     using hypothesis H5.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_setstringsegment_2.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  for_all(i___1 : integer, s__index__subtype__1__first <= i___1 
+          and i___1 <= s__index__subtype__1__last -> character__first <= 
+          element(s, [i___1]) and element(s, [i___1]) <= character__last)
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H4)
+          .
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H5)
+          .
+-S-  Applied substitution rule setstringseg_rules(2).
+     This was achieved by replacing all occurrences of integer__first by:
+          - 2147483648.
+<S>  New C1:  send >= - 2147483648
+<S>  New C3:  sstart >= - 2147483648
+-S-  Applied substitution rule setstringseg_rules(3).
+     This was achieved by replacing all occurrences of integer__last by:
+          2147483647.
+<S>  New C2:  send <= 2147483647
+<S>  New C4:  sstart <= 2147483647
+-S-  Applied substitution rule setstringseg_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H3:  for_all(i___1 : integer, s__index__subtype__1__first <= i___1 and 
+          i___1 <= s__index__subtype__1__last -> 0 <= element(s, [i___1]) and 
+          element(s, [i___1]) <= character__last)
+-S-  Applied substitution rule setstringseg_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H3:  for_all(i___1 : integer, s__index__subtype__1__first <= i___1 and 
+          i___1 <= s__index__subtype__1__last -> 0 <= element(s, [i___1]) and 
+          element(s, [i___1]) <= 255)
+-S-  Applied substitution rule setstringseg_rules(12).
+     This was achieved by replacing all occurrences of natural__first by:
+          0.
+<S>  New H4:  value >= 0
+-S-  Applied substitution rule setstringseg_rules(13).
+     This was achieved by replacing all occurrences of natural__last by:
+          2147483647.
+<S>  New H5:  value <= 2147483647
+-S-  Applied substitution rule setstringseg_rules(17).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New H6:  sstart >= 1
+<S>  New H8:  send >= 1
+-S-  Applied substitution rule setstringseg_rules(18).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New H7:  sstart <= 2147483647
+<S>  New H9:  send <= 2147483647
+-S-  Applied substitution rule setstringseg_rules(21).
+     This was achieved by replacing all occurrences of 
+          s__index__subtype__1__first by:
+          1.
+<S>  New H2:  1 <= sstart
+<S>  New H3:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          s__index__subtype__1__last -> 0 <= element(s, [i___1]) and element(s, 
+          [i___1]) <= 255)
+***  Proved C1:  send >= - 2147483648
+     using hypothesis H8.
+***  Proved C3:  sstart >= - 2147483648
+     using hypothesis H2.
+***  Proved C2:  send <= 2147483647
+     using hypothesis H9.
+***  Proved C4:  sstart <= 2147483647
+     using hypothesis H7.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_setstringsegment_3.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  for_all(i___1 : integer, s__index__subtype__1__first <= i___1 
+          and i___1 <= s__index__subtype__1__last -> character__first <= 
+          element(s, [i___1]) and element(s, [i___1]) <= character__last)
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H4)
+          .
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H5)
+          .
+***  Proved C1:  sstart <= send -> send >= positive__first and send <= 
+          positive__last
+     using hypotheses H8 & H9.
+***  Proved C2:  sstart <= send -> sstart >= positive__first and sstart <= 
+          positive__last
+     using hypotheses H6 & H7.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_setstringsegment_4.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  for_all(i___1 : integer, s__index__subtype__1__first <= i___1 
+          and i___1 <= s__index__subtype__1__last -> character__first <= 
+          element(s, [i___1]) and element(s, [i___1]) <= character__last)
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H4)
+          .
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H5)
+          .
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  true
+%%%  Simplified C7 on reading formula in, to give:
+     %%%  C7:  for_all(i___1 : integer, s__index__subtype__1__first <= i___1 
+          and i___1 <= s__index__subtype__1__last -> character__first <= 
+          element(s, [i___1]) and element(s, [i___1]) <= character__last)
+%%%  Simplified C18 on reading formula in, to give:
+     %%%  C18:  true
+***  Proved C1:  true
+***  Proved C2:  send >= sstart
+     using hypothesis H18.
+***  Proved C3:  send <= s__index__subtype__1__last
+     using hypothesis H1.
+***  Proved C4:  send >= s__index__subtype__1__first
+     using hypotheses H2 & H18.
+***  Proved C5:  value >= natural__first
+     using hypothesis H4.
+***  Proved C6:  value <= natural__last
+     using hypothesis H5.
+***  Proved C7:  for_all(i___1 : integer, s__index__subtype__1__first <= i___1 
+          and i___1 <= s__index__subtype__1__last -> character__first <= 
+          element(s, [i___1]) and element(s, [i___1]) <= character__last)
+     using hypothesis H3.
+***  Proved C8:  value >= natural__first
+     using hypothesis H4.
+***  Proved C9:  value <= natural__last
+     using hypothesis H5.
+***  Proved C10:  sstart >= positive__first
+     using hypothesis H6.
+***  Proved C11:  sstart <= positive__last
+     using hypothesis H7.
+***  Proved C12:  send >= positive__first
+     using hypothesis H8.
+***  Proved C13:  send <= positive__last
+     using hypothesis H9.
+***  Proved C14:  s__index__subtype__1__last >= send
+     using hypothesis H1.
+***  Proved C15:  s__index__subtype__1__first <= sstart
+     using hypothesis H2.
+***  Proved C16:  send >= positive__first
+     using hypothesis H8.
+***  Proved C17:  send <= positive__last
+     using hypothesis H9.
+***  Proved C18:  true
+***  Proved C19:  send >= sstart
+     using hypothesis H18.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_setstringsegment_5.  @@@@@@@@@@
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, s__index__subtype__1__first <= i___1 
+          and i___1 <= s__index__subtype__1__last -> character__first <= 
+          element(s, [i___1]) and element(s, [i___1]) <= character__last)
+---  Hypothesis H18 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as H5)
+          .
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as H6)
+          .
+---  Hypothesis H24 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as 
+          H23).
+%%%  Simplified H30 on reading formula in, to give:
+     %%%  H30:  true
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as H4)
+          .
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as H3)
+          .
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as H5)
+          .
+---  Hypothesis H34 has been replaced by "true".  (It is already present, as H6)
+          .
+---  Hypothesis H37 has been replaced by "true".  (It is already present, as 
+          H30).
+%%%  Simplified C7 on reading formula in, to give:
+     %%%  C7:  for_all(i___1 : integer, s__index__subtype__1__first <= i___1 
+          and i___1 <= s__index__subtype__1__last -> character__first <= 
+          element(update(s, [loop__1__i], 48 + v mod 10), [i___1]) and element(
+          update(s, [loop__1__i], 48 + v mod 10), [i___1]) <= character__last)
+***  Proved C1:  loop__1__i - 1 <= send
+     using hypothesis H1.
+***  Proved C3:  loop__1__i - 1 <= s__index__subtype__1__last
+     using hypothesis H3.
+***  Proved C5:  v div 10 >= natural__first
+     using hypothesis H35.
+***  Proved C6:  v div 10 <= natural__last
+     using hypothesis H36.
+***  Proved C7:  for_all(i___1 : integer, s__index__subtype__1__first <= i___1 
+          and i___1 <= s__index__subtype__1__last -> character__first <= 
+          element(update(s, [loop__1__i], 48 + v mod 10), [i___1]) and element(
+          update(s, [loop__1__i], 48 + v mod 10), [i___1]) <= character__last)
+     using hypotheses H3, H4, H7, H22 & H23.
+***  Proved C8:  value >= natural__first
+     using hypothesis H8.
+***  Proved C9:  value <= natural__last
+     using hypothesis H9.
+***  Proved C10:  sstart >= positive__first
+     using hypothesis H10.
+***  Proved C11:  sstart <= positive__last
+     using hypothesis H11.
+***  Proved C12:  send >= positive__first
+     using hypothesis H12.
+***  Proved C13:  send <= positive__last
+     using hypothesis H13.
+***  Proved C14:  s__index__subtype__1__last >= send
+     using hypothesis H14.
+***  Proved C15:  s__index__subtype__1__first <= sstart
+     using hypothesis H15.
+***  Proved C17:  loop__1__i - 1 <= positive__last
+     using hypothesis H17.
+***  Proved C18:  loop__1__i - 1 <= send
+     using hypothesis H1.
+-S-  Applied substitution rule setstringseg_rules(21).
+     This was achieved by replacing all occurrences of 
+          s__index__subtype__1__first by:
+          1.
+<S>  New H4:  loop__1__i >= 1
+<S>  New H7:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          s__index__subtype__1__last -> character__first <= element(s, [i___1]) 
+          and element(s, [i___1]) <= character__last)
+<S>  New H15:  1 <= sstart
+<S>  New C4:  loop__1__i >= 2
+-S-  Applied substitution rule setstringseg_rules(17).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New H10:  sstart >= 1
+<S>  New H12:  send >= 1
+<S>  New H16:  loop__1__i >= 1
+<S>  New C16:  loop__1__i >= 2
+***  Proved C4:  loop__1__i >= 2
+     using hypotheses H2, H10 & H38.
+***  Proved C16:  loop__1__i >= 2
+     using hypotheses H2, H10 & H38.
+>>>  Restructured hypothesis H38 into:
+     >>>  H38:  loop__1__i <> sstart
+-S-  Applied substitution rule setstringseg_rules(4).
+     This was achieved by replacing all occurrences of integer__base__first by:
+          - 2147483648.
+<S>  New H26:  v mod 10 >= - 2147483696
+<S>  New H28:  v mod 10 >= - 2147483648
+-S-  Applied substitution rule setstringseg_rules(5).
+     This was achieved by replacing all occurrences of integer__base__last by:
+          2147483647.
+<S>  New H27:  v mod 10 <= 2147483599
+<S>  New H29:  v mod 10 <= 2147483647
+-S-  Applied substitution rule setstringseg_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H7:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          s__index__subtype__1__last -> 0 <= element(s, [i___1]) and element(s, 
+          [i___1]) <= character__last)
+<S>  New H22:  v mod 10 >= - 48
+-S-  Applied substitution rule setstringseg_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H23:  v mod 10 <= 207
+<S>  New H7:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          s__index__subtype__1__last -> 0 <= element(s, [i___1]) and element(s, 
+          [i___1]) <= 255)
+-S-  Applied substitution rule setstringseg_rules(12).
+     This was achieved by replacing all occurrences of natural__first by:
+          0.
+<S>  New H5:  v >= 0
+<S>  New H8:  value >= 0
+<S>  New H35:  v div 10 >= 0
+-S-  Applied substitution rule setstringseg_rules(13).
+     This was achieved by replacing all occurrences of natural__last by:
+          2147483647.
+<S>  New H6:  v <= 2147483647
+<S>  New H9:  value <= 2147483647
+<S>  New H36:  v div 10 <= 2147483647
+-S-  Applied substitution rule setstringseg_rules(18).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New H11:  sstart <= 2147483647
+<S>  New H13:  send <= 2147483647
+<S>  New H17:  loop__1__i <= 2147483647
+%%%  Hypotheses H2 & H38 together imply that
+          sstart < loop__1__i.
+     H2 & H38 have therefore been deleted and a new H39 added to this effect.
+***  Proved C2:  loop__1__i - 1 >= sstart
+     via its standard form, which is:
+     Std.Fm C2:  loop__1__i - sstart > 0
+     using hypothesis H39.
+***  Proved C19:  loop__1__i - 1 >= sstart
+     via its standard form, which is:
+     Std.Fm C19:  loop__1__i - sstart > 0
+     using hypothesis H39.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_setstringsegment_6.  @@@@@@@@@@
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, s__index__subtype__1__first <= i___1 
+          and i___1 <= s__index__subtype__1__last -> character__first <= 
+          element(s, [i___1]) and element(s, [i___1]) <= character__last)
+---  Hypothesis H18 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as H5)
+          .
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as H6)
+          .
+%%%  Simplified C9 on reading formula in, to give:
+     %%%  C9:  true
+***  Proved C9:  true
+***  Proved C10:  loop__1__i >= s__index__subtype__1__first
+     using hypothesis H4.
+***  Proved C11:  loop__1__i <= s__index__subtype__1__last
+     using hypothesis H3.
+-S-  Applied substitution rule setstringseg_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H7:  for_all(i___1 : integer, s__index__subtype__1__first <= i___1 and 
+          i___1 <= s__index__subtype__1__last -> 0 <= element(s, [i___1]) and 
+          element(s, [i___1]) <= character__last)
+<S>  New C1:  v mod 10 >= - 48
+<S>  New C3:  v mod 10 >= - 48
+-S-  Applied substitution rule setstringseg_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H7:  for_all(i___1 : integer, s__index__subtype__1__first <= i___1 and 
+          i___1 <= s__index__subtype__1__last -> 0 <= element(s, [i___1]) and 
+          element(s, [i___1]) <= 255)
+<S>  New C2:  v mod 10 <= 207
+<S>  New C4:  v mod 10 <= 207
+-S-  Applied substitution rule setstringseg_rules(4).
+     This was achieved by replacing all occurrences of integer__base__first by:
+          - 2147483648.
+<S>  New C5:  v mod 10 >= - 2147483696
+<S>  New C7:  v mod 10 >= - 2147483648
+-S-  Applied substitution rule setstringseg_rules(5).
+     This was achieved by replacing all occurrences of integer__base__last by:
+          2147483647.
+<S>  New C6:  v mod 10 <= 2147483599
+<S>  New C8:  v mod 10 <= 2147483647
+***  Proved C1:  v mod 10 >= - 48
+***  Proved C3:  v mod 10 >= - 48
+***  Proved C2:  v mod 10 <= 207
+***  Proved C4:  v mod 10 <= 207
+***  Proved C5:  v mod 10 >= - 2147483696
+***  Proved C7:  v mod 10 >= - 2147483648
+***  Proved C6:  v mod 10 <= 2147483599
+***  Proved C8:  v mod 10 <= 2147483647
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_setstringsegment_7.  @@@@@@@@@@
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, s__index__subtype__1__first <= i___1 
+          and i___1 <= s__index__subtype__1__last -> character__first <= 
+          element(s, [i___1]) and element(s, [i___1]) <= character__last)
+---  Hypothesis H18 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as H5)
+          .
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as H6)
+          .
+---  Hypothesis H24 has been replaced by "true".  (It is already present, as 
+          H22).
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as 
+          H23).
+%%%  Simplified H30 on reading formula in, to give:
+     %%%  H30:  true
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as H4)
+          .
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as H3)
+          .
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as H5)
+          .
+---  Hypothesis H34 has been replaced by "true".  (It is already present, as H6)
+          .
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  true
+***  Proved C3:  true
+-S-  Applied substitution rule setstringseg_rules(12).
+     This was achieved by replacing all occurrences of natural__first by:
+          0.
+<S>  New H5:  v >= 0
+<S>  New H8:  value >= 0
+<S>  New C1:  v div 10 >= 0
+-S-  Applied substitution rule setstringseg_rules(13).
+     This was achieved by replacing all occurrences of natural__last by:
+          2147483647.
+<S>  New H6:  v <= 2147483647
+<S>  New H9:  value <= 2147483647
+<S>  New C2:  v div 10 <= 2147483647
+-S-  Applied substitution rule setstringseg_rules(4).
+     This was achieved by replacing all occurrences of integer__base__first by:
+          - 2147483648.
+<S>  New H26:  v mod 10 >= - 2147483696
+<S>  New H28:  v mod 10 >= - 2147483648
+-S-  Applied substitution rule setstringseg_rules(5).
+     This was achieved by replacing all occurrences of integer__base__last by:
+          2147483647.
+<S>  New H27:  v mod 10 <= 2147483599
+<S>  New H29:  v mod 10 <= 2147483647
+-S-  Applied substitution rule setstringseg_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H7:  for_all(i___1 : integer, s__index__subtype__1__first <= i___1 and 
+          i___1 <= s__index__subtype__1__last -> 0 <= element(s, [i___1]) and 
+          element(s, [i___1]) <= character__last)
+<S>  New H22:  v mod 10 >= - 48
+-S-  Applied substitution rule setstringseg_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H23:  v mod 10 <= 207
+<S>  New H7:  for_all(i___1 : integer, s__index__subtype__1__first <= i___1 and 
+          i___1 <= s__index__subtype__1__last -> 0 <= element(s, [i___1]) and 
+          element(s, [i___1]) <= 255)
+-S-  Applied substitution rule setstringseg_rules(17).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New H10:  sstart >= 1
+<S>  New H12:  send >= 1
+<S>  New H16:  loop__1__i >= 1
+-S-  Applied substitution rule setstringseg_rules(18).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New H11:  sstart <= 2147483647
+<S>  New H13:  send <= 2147483647
+<S>  New H17:  loop__1__i <= 2147483647
+-S-  Applied substitution rule setstringseg_rules(21).
+     This was achieved by replacing all occurrences of 
+          s__index__subtype__1__first by:
+          1.
+<S>  New H4:  loop__1__i >= 1
+<S>  New H15:  1 <= sstart
+<S>  New H7:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          s__index__subtype__1__last -> 0 <= element(s, [i___1]) and element(s, 
+          [i___1]) <= 255)
+---  Eliminated hypothesis H18 (true-hypothesis).
+---  Eliminated hypothesis H19 (true-hypothesis).
+---  Eliminated hypothesis H20 (true-hypothesis).
+---  Eliminated hypothesis H21 (true-hypothesis).
+---  Eliminated hypothesis H24 (true-hypothesis).
+---  Eliminated hypothesis H25 (true-hypothesis).
+---  Eliminated hypothesis H30 (true-hypothesis).
+---  Eliminated hypothesis H31 (true-hypothesis).
+---  Eliminated hypothesis H32 (true-hypothesis).
+---  Eliminated hypothesis H33 (true-hypothesis).
+---  Eliminated hypothesis H34 (true-hypothesis).
+---  Eliminated hypothesis H16 (duplicate of H4).
+---  Eliminated hypothesis H15 (duplicate of H10).
+---  Eliminated hypothesis H26 (redundant, given H22).
+---  Eliminated hypothesis H27 (redundant, given H23).
+---  Eliminated hypothesis H28 (redundant, given H22).
+---  Eliminated hypothesis H29 (redundant, given H23).
+***  Proved C1:  v div 10 >= 0
+     using hypothesis H5.
+***  Proved C2:  v div 10 <= 2147483647
+     using hypothesis H6.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_setstringsegment_8.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_setstringsegment_9.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+

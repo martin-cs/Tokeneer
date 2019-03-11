@@ -1,0 +1,371 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:10.34
+
+                    procedure Latch.UpdateInternalLatch
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 106:
+
+procedure_updateinternallatch_1.
+H1:    true .
+H2:    currentlatch >= t__first .
+H3:    currentlatch <= t__last .
+H4:    true .
+H5:    true .
+H6:    clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), latchtimeout) .
+        ->
+C1:    locked >= t__first .
+C2:    locked <= t__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 107:
+
+procedure_updateinternallatch_2.
+H1:    true .
+H2:    currentlatch >= t__first .
+H3:    currentlatch <= t__last .
+H4:    true .
+H5:    true .
+H6:    clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), latchtimeout) .
+H7:    locked >= t__first .
+H8:    locked <= t__last .
+        ->
+C1:    audittypes__latchlocked >= audittypes__elementt__first .
+C2:    audittypes__latchlocked <= audittypes__elementt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 109:
+
+procedure_updateinternallatch_3.
+H1:    true .
+H2:    currentlatch >= t__first .
+H3:    currentlatch <= t__last .
+H4:    true .
+H5:    true .
+H6:    not (clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), latchtimeout)) .
+        ->
+C1:    unlocked >= t__first .
+C2:    unlocked <= t__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 110:
+
+procedure_updateinternallatch_4.
+H1:    true .
+H2:    currentlatch >= t__first .
+H3:    currentlatch <= t__last .
+H4:    true .
+H5:    true .
+H6:    not (clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), latchtimeout)) .
+H7:    unlocked >= t__first .
+H8:    unlocked <= t__last .
+        ->
+C1:    audittypes__latchunlocked >= audittypes__elementt__first .
+C2:    audittypes__latchunlocked <= audittypes__elementt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 114:
+
+procedure_updateinternallatch_5.
+H1:    true .
+H2:    currentlatch >= t__first .
+H3:    currentlatch <= t__last .
+H4:    true .
+H5:    true .
+H6:    clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), latchtimeout) .
+H7:    locked >= t__first .
+H8:    locked <= t__last .
+H9:    audittypes__latchlocked >= audittypes__elementt__first .
+H10:   audittypes__latchlocked <= audittypes__elementt__last .
+H11:   locked >= t__first .
+H12:   locked <= t__last .
+H13:   currentlatch <> locked .
+H14:   audittypes__latchlocked >= audittypes__elementt__first .
+H15:   audittypes__latchlocked <= audittypes__elementt__last .
+        ->
+C1:    audittypes__information >= audittypes__severityt__first .
+C2:    audittypes__information <= audittypes__severityt__last .
+C3:    audittypes__latchlocked >= audittypes__elementt__first .
+C4:    audittypes__latchlocked <= audittypes__elementt__last .
+ 
+
+procedure_updateinternallatch_6.
+H1:    true .
+H2:    currentlatch >= t__first .
+H3:    currentlatch <= t__last .
+H4:    true .
+H5:    true .
+H6:    not (clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), latchtimeout)) .
+H7:    unlocked >= t__first .
+H8:    unlocked <= t__last .
+H9:    audittypes__latchunlocked >= audittypes__elementt__first .
+H10:   audittypes__latchunlocked <= audittypes__elementt__last .
+H11:   unlocked >= t__first .
+H12:   unlocked <= t__last .
+H13:   currentlatch <> unlocked .
+H14:   audittypes__latchunlocked >= audittypes__elementt__first .
+H15:   audittypes__latchunlocked <= audittypes__elementt__last .
+        ->
+C1:    audittypes__information >= audittypes__severityt__first .
+C2:    audittypes__information <= audittypes__severityt__last .
+C3:    audittypes__latchunlocked >= audittypes__elementt__first .
+C4:    audittypes__latchunlocked <= audittypes__elementt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 122:
+
+procedure_updateinternallatch_7.
+H1:    true .
+H2:    currentlatch >= t__first .
+H3:    currentlatch <= t__last .
+H4:    true .
+H5:    true .
+H6:    clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), latchtimeout) .
+H7:    locked >= t__first .
+H8:    locked <= t__last .
+H9:    audittypes__latchlocked >= audittypes__elementt__first .
+H10:   audittypes__latchlocked <= audittypes__elementt__last .
+H11:   locked >= t__first .
+H12:   locked <= t__last .
+H13:   currentlatch <> locked .
+H14:   audittypes__latchlocked >= audittypes__elementt__first .
+H15:   audittypes__latchlocked <= audittypes__elementt__last .
+H16:   audittypes__information >= audittypes__severityt__first .
+H17:   audittypes__information <= audittypes__severityt__last .
+H18:   audittypes__latchlocked >= audittypes__elementt__first .
+H19:   audittypes__latchlocked <= audittypes__elementt__last .
+H20:   locked >= t__first .
+H21:   locked <= t__last .
+        ->
+C1:    locked >= t__first .
+C2:    locked <= t__last .
+ 
+
+procedure_updateinternallatch_8.
+H1:    true .
+H2:    currentlatch >= t__first .
+H3:    currentlatch <= t__last .
+H4:    true .
+H5:    true .
+H6:    not (clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), latchtimeout)) .
+H7:    unlocked >= t__first .
+H8:    unlocked <= t__last .
+H9:    audittypes__latchunlocked >= audittypes__elementt__first .
+H10:   audittypes__latchunlocked <= audittypes__elementt__last .
+H11:   unlocked >= t__first .
+H12:   unlocked <= t__last .
+H13:   currentlatch <> unlocked .
+H14:   audittypes__latchunlocked >= audittypes__elementt__first .
+H15:   audittypes__latchunlocked <= audittypes__elementt__last .
+H16:   audittypes__information >= audittypes__severityt__first .
+H17:   audittypes__information <= audittypes__severityt__last .
+H18:   audittypes__latchunlocked >= audittypes__elementt__first .
+H19:   audittypes__latchunlocked <= audittypes__elementt__last .
+H20:   unlocked >= t__first .
+H21:   unlocked <= t__last .
+        ->
+C1:    unlocked >= t__first .
+C2:    unlocked <= t__last .
+ 
+
+procedure_updateinternallatch_9.
+H1:    true .
+H2:    currentlatch >= t__first .
+H3:    currentlatch <= t__last .
+H4:    true .
+H5:    true .
+H6:    clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), latchtimeout) .
+H7:    locked >= t__first .
+H8:    locked <= t__last .
+H9:    audittypes__latchlocked >= audittypes__elementt__first .
+H10:   audittypes__latchlocked <= audittypes__elementt__last .
+H11:   locked >= t__first .
+H12:   locked <= t__last .
+H13:   not (currentlatch <> locked) .
+H14:   locked >= t__first .
+H15:   locked <= t__last .
+        ->
+C1:    locked >= t__first .
+C2:    locked <= t__last .
+ 
+
+procedure_updateinternallatch_10.
+H1:    true .
+H2:    currentlatch >= t__first .
+H3:    currentlatch <= t__last .
+H4:    true .
+H5:    true .
+H6:    not (clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), latchtimeout)) .
+H7:    unlocked >= t__first .
+H8:    unlocked <= t__last .
+H9:    audittypes__latchunlocked >= audittypes__elementt__first .
+H10:   audittypes__latchunlocked <= audittypes__elementt__last .
+H11:   unlocked >= t__first .
+H12:   unlocked <= t__last .
+H13:   not (currentlatch <> unlocked) .
+H14:   unlocked >= t__first .
+H15:   unlocked <= t__last .
+        ->
+C1:    unlocked >= t__first .
+C2:    unlocked <= t__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_updateinternallatch_11.
+H1:    true .
+H2:    currentlatch >= t__first .
+H3:    currentlatch <= t__last .
+H4:    true .
+H5:    true .
+H6:    clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), latchtimeout) .
+H7:    locked >= t__first .
+H8:    locked <= t__last .
+H9:    audittypes__latchlocked >= audittypes__elementt__first .
+H10:   audittypes__latchlocked <= audittypes__elementt__last .
+H11:   locked >= t__first .
+H12:   locked <= t__last .
+H13:   currentlatch <> locked .
+H14:   audittypes__latchlocked >= audittypes__elementt__first .
+H15:   audittypes__latchlocked <= audittypes__elementt__last .
+H16:   audittypes__information >= audittypes__severityt__first .
+H17:   audittypes__information <= audittypes__severityt__last .
+H18:   audittypes__latchlocked >= audittypes__elementt__first .
+H19:   audittypes__latchlocked <= audittypes__elementt__last .
+H20:   locked >= t__first .
+H21:   locked <= t__last .
+H22:   locked >= t__first .
+H23:   locked <= t__last .
+        ->
+C1:    islocked(locked) <-> clock__greaterthanorequal(
+           clock__thecurrenttime(clock__currenttime), 
+           latchtimeout) .
+ 
+
+procedure_updateinternallatch_12.
+H1:    true .
+H2:    currentlatch >= t__first .
+H3:    currentlatch <= t__last .
+H4:    true .
+H5:    true .
+H6:    not (clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), latchtimeout)) .
+H7:    unlocked >= t__first .
+H8:    unlocked <= t__last .
+H9:    audittypes__latchunlocked >= audittypes__elementt__first .
+H10:   audittypes__latchunlocked <= audittypes__elementt__last .
+H11:   unlocked >= t__first .
+H12:   unlocked <= t__last .
+H13:   currentlatch <> unlocked .
+H14:   audittypes__latchunlocked >= audittypes__elementt__first .
+H15:   audittypes__latchunlocked <= audittypes__elementt__last .
+H16:   audittypes__information >= audittypes__severityt__first .
+H17:   audittypes__information <= audittypes__severityt__last .
+H18:   audittypes__latchunlocked >= audittypes__elementt__first .
+H19:   audittypes__latchunlocked <= audittypes__elementt__last .
+H20:   unlocked >= t__first .
+H21:   unlocked <= t__last .
+H22:   unlocked >= t__first .
+H23:   unlocked <= t__last .
+        ->
+C1:    islocked(unlocked) <-> clock__greaterthanorequal(
+           clock__thecurrenttime(clock__currenttime), 
+           latchtimeout) .
+ 
+
+procedure_updateinternallatch_13.
+H1:    true .
+H2:    currentlatch >= t__first .
+H3:    currentlatch <= t__last .
+H4:    true .
+H5:    true .
+H6:    clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), latchtimeout) .
+H7:    locked >= t__first .
+H8:    locked <= t__last .
+H9:    audittypes__latchlocked >= audittypes__elementt__first .
+H10:   audittypes__latchlocked <= audittypes__elementt__last .
+H11:   locked >= t__first .
+H12:   locked <= t__last .
+H13:   not (currentlatch <> locked) .
+H14:   locked >= t__first .
+H15:   locked <= t__last .
+H16:   locked >= t__first .
+H17:   locked <= t__last .
+        ->
+C1:    islocked(locked) <-> clock__greaterthanorequal(
+           clock__thecurrenttime(clock__currenttime), 
+           latchtimeout) .
+ 
+
+procedure_updateinternallatch_14.
+H1:    true .
+H2:    currentlatch >= t__first .
+H3:    currentlatch <= t__last .
+H4:    true .
+H5:    true .
+H6:    not (clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), latchtimeout)) .
+H7:    unlocked >= t__first .
+H8:    unlocked <= t__last .
+H9:    audittypes__latchunlocked >= audittypes__elementt__first .
+H10:   audittypes__latchunlocked <= audittypes__elementt__last .
+H11:   unlocked >= t__first .
+H12:   unlocked <= t__last .
+H13:   not (currentlatch <> unlocked) .
+H14:   unlocked >= t__first .
+H15:   unlocked <= t__last .
+H16:   unlocked >= t__first .
+H17:   unlocked <= t__last .
+        ->
+C1:    islocked(unlocked) <-> clock__greaterthanorequal(
+           clock__thecurrenttime(clock__currenttime), 
+           latchtimeout) .
+ 
+
+For checks of refinement integrity: 
+
+procedure_updateinternallatch_15.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_updateinternallatch_16.
+H1:    true .
+H2:    true .
+H3:    latchtimeout = fld_latchtimeout(state~) .
+H4:    latchtimeout = fld_latchtimeout(state) .
+H5:    currentlatch~ = fld_currentlatch(state~) .
+H6:    currentlatch = fld_currentlatch(state) .
+H7:    currentlatch~ >= t__first .
+H8:    currentlatch~ <= t__last .
+H9:    currentlatch >= t__first .
+H10:   currentlatch <= t__last .
+H11:   islocked(currentlatch) <-> clock__greaterthanorequal(
+           clock__thecurrenttime(clock__currenttime), 
+           latchtimeout) .
+        ->
+C1:    latch__islocked(state) <-> clock__greaterthanorequal(
+           clock__thecurrenttime(clock__currenttime), 
+           prf_latchtimeout(state)) .
+C2:    prf_latchtimeout(state) = prf_latchtimeout(state~) .
+ 
+

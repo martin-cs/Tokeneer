@@ -1,0 +1,102 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:08  SIMPLIFIED 05-SEP-2011, 15:38:55
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure AuditLog.UpdateEndTimeFromFile
+
+
+
+
+
+
+@@@@@@@@@@  VC: procedure_updateendtimefromfile_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description, [i___1]) and element(description, [i___1]) <= 
+          character__last)
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  for_all(i___1 : integer, clock__timetexti__first <= i___1 and 
+          i___1 <= clock__timetexti__last -> character__first <= element(
+          clock__printtime(clock__zerotime), [i___1]) and element(
+          clock__printtime(clock__zerotime), [i___1]) <= character__last)
+-S-  Applied substitution rule updateendtim_rules(18).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New C1:  maxlogfileentries >= 2
+-S-  Applied substitution rule updateendtim_rules(1).
+     This was achieved by replacing all occurrences of maxlogfileentries by:
+          1024.
+<S>  New C2:  1023 <= positive__last
+<S>  New C3:  1023 >= integer__base__first
+<S>  New C4:  1023 <= integer__base__last
+<S>  New C1:  true
+-S-  Applied substitution rule updateendtim_rules(19).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New C2:  true
+-S-  Applied substitution rule updateendtim_rules(5).
+     This was achieved by replacing all occurrences of integer__base__first by:
+          - 2147483648.
+<S>  New C3:  true
+-S-  Applied substitution rule updateendtim_rules(6).
+     This was achieved by replacing all occurrences of integer__base__last by:
+          2147483647.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updateendtimefromfile_2.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description, [i___1]) and element(description, [i___1]) <= 
+          character__last)
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  for_all(i___1 : integer, clock__timetexti__first <= i___1 and 
+          i___1 <= clock__timetexti__last -> character__first <= element(
+          clock__printtime(clock__zerotime), [i___1]) and element(
+          clock__printtime(clock__zerotime), [i___1]) <= character__last)
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  for_all(i___1 : integer, clock__timetexti__first <= i___1 and 
+          i___1 <= clock__timetexti__last -> character__first <= element(
+          lasttime__3, [i___1]) and element(lasttime__3, [i___1]) <= 
+          character__last)
+***  Proved C1:  timecount__3 >= natural__first
+     using hypothesis H16.
+***  Proved C2:  timecount__3 <= natural__last
+     using hypothesis H17.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updateendtimefromfile_3.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updateendtimefromfile_4.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updateendtimefromfile_5.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updateendtimefromfile_6.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+

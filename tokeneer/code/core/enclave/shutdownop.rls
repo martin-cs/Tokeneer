@@ -1,0 +1,756 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:26.53*/
+
+                        /*procedure Enclave.ShutdownOp*/
+
+
+rule_family shutdownop_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+shutdownop_rules(1): integer__size >= 0 may_be_deduced.
+shutdownop_rules(2): integer__first may_be_replaced_by -2147483648.
+shutdownop_rules(3): integer__last may_be_replaced_by 2147483647.
+shutdownop_rules(4): integer__base__first may_be_replaced_by -2147483648.
+shutdownop_rules(5): integer__base__last may_be_replaced_by 2147483647.
+shutdownop_rules(6): character__size >= 0 may_be_deduced.
+shutdownop_rules(7): character__first may_be_replaced_by 0.
+shutdownop_rules(8): character__last may_be_replaced_by 255.
+shutdownop_rules(9): character__base__first may_be_replaced_by 0.
+shutdownop_rules(10): character__base__last may_be_replaced_by 255.
+shutdownop_rules(11): positive__size >= 0 may_be_deduced.
+shutdownop_rules(12): positive__first may_be_replaced_by 1.
+shutdownop_rules(13): positive__last may_be_replaced_by 2147483647.
+shutdownop_rules(14): positive__base__first may_be_replaced_by -2147483648.
+shutdownop_rules(15): positive__base__last may_be_replaced_by 2147483647.
+shutdownop_rules(16): audittypes__elementt__size >= 0 may_be_deduced.
+shutdownop_rules(17): audittypes__elementt__first may_be_replaced_by audittypes__startunenrolledtis.
+shutdownop_rules(18): audittypes__elementt__last may_be_replaced_by audittypes__systemfault.
+shutdownop_rules(19): audittypes__elementt__base__first may_be_replaced_by audittypes__startunenrolledtis.
+shutdownop_rules(20): audittypes__elementt__base__last may_be_replaced_by audittypes__systemfault.
+shutdownop_rules(21): audittypes__elementt__pos(
+     audittypes__elementt__first) may_be_replaced_by 0.
+shutdownop_rules(22): audittypes__elementt__pos(
+     audittypes__startunenrolledtis) may_be_replaced_by 0.
+shutdownop_rules(23): audittypes__elementt__val(0) may_be_replaced_by 
+     audittypes__startunenrolledtis.
+shutdownop_rules(24): audittypes__elementt__pos(
+     audittypes__startenrolledtis) may_be_replaced_by 1.
+shutdownop_rules(25): audittypes__elementt__val(1) may_be_replaced_by 
+     audittypes__startenrolledtis.
+shutdownop_rules(26): audittypes__elementt__pos(
+     audittypes__enrolmentcomplete) may_be_replaced_by 2.
+shutdownop_rules(27): audittypes__elementt__val(2) may_be_replaced_by 
+     audittypes__enrolmentcomplete.
+shutdownop_rules(28): audittypes__elementt__pos(
+     audittypes__enrolmentfailed) may_be_replaced_by 3.
+shutdownop_rules(29): audittypes__elementt__val(3) may_be_replaced_by 
+     audittypes__enrolmentfailed.
+shutdownop_rules(30): audittypes__elementt__pos(
+     audittypes__displaychanged) may_be_replaced_by 4.
+shutdownop_rules(31): audittypes__elementt__val(4) may_be_replaced_by 
+     audittypes__displaychanged.
+shutdownop_rules(32): audittypes__elementt__pos(
+     audittypes__screenchanged) may_be_replaced_by 5.
+shutdownop_rules(33): audittypes__elementt__val(5) may_be_replaced_by 
+     audittypes__screenchanged.
+shutdownop_rules(34): audittypes__elementt__pos(
+     audittypes__doorclosed) may_be_replaced_by 6.
+shutdownop_rules(35): audittypes__elementt__val(6) may_be_replaced_by 
+     audittypes__doorclosed.
+shutdownop_rules(36): audittypes__elementt__pos(
+     audittypes__dooropened) may_be_replaced_by 7.
+shutdownop_rules(37): audittypes__elementt__val(7) may_be_replaced_by 
+     audittypes__dooropened.
+shutdownop_rules(38): audittypes__elementt__pos(
+     audittypes__latchlocked) may_be_replaced_by 8.
+shutdownop_rules(39): audittypes__elementt__val(8) may_be_replaced_by 
+     audittypes__latchlocked.
+shutdownop_rules(40): audittypes__elementt__pos(
+     audittypes__latchunlocked) may_be_replaced_by 9.
+shutdownop_rules(41): audittypes__elementt__val(9) may_be_replaced_by 
+     audittypes__latchunlocked.
+shutdownop_rules(42): audittypes__elementt__pos(
+     audittypes__alarmraised) may_be_replaced_by 10.
+shutdownop_rules(43): audittypes__elementt__val(10) may_be_replaced_by 
+     audittypes__alarmraised.
+shutdownop_rules(44): audittypes__elementt__pos(
+     audittypes__alarmsilenced) may_be_replaced_by 11.
+shutdownop_rules(45): audittypes__elementt__val(11) may_be_replaced_by 
+     audittypes__alarmsilenced.
+shutdownop_rules(46): audittypes__elementt__pos(
+     audittypes__truncatelog) may_be_replaced_by 12.
+shutdownop_rules(47): audittypes__elementt__val(12) may_be_replaced_by 
+     audittypes__truncatelog.
+shutdownop_rules(48): audittypes__elementt__pos(
+     audittypes__auditalarmraised) may_be_replaced_by 13.
+shutdownop_rules(49): audittypes__elementt__val(13) may_be_replaced_by 
+     audittypes__auditalarmraised.
+shutdownop_rules(50): audittypes__elementt__pos(
+     audittypes__auditalarmsilenced) may_be_replaced_by 14.
+shutdownop_rules(51): audittypes__elementt__val(14) may_be_replaced_by 
+     audittypes__auditalarmsilenced.
+shutdownop_rules(52): audittypes__elementt__pos(
+     audittypes__usertokenremoved) may_be_replaced_by 15.
+shutdownop_rules(53): audittypes__elementt__val(15) may_be_replaced_by 
+     audittypes__usertokenremoved.
+shutdownop_rules(54): audittypes__elementt__pos(
+     audittypes__usertokenpresent) may_be_replaced_by 16.
+shutdownop_rules(55): audittypes__elementt__val(16) may_be_replaced_by 
+     audittypes__usertokenpresent.
+shutdownop_rules(56): audittypes__elementt__pos(
+     audittypes__usertokeninvalid) may_be_replaced_by 17.
+shutdownop_rules(57): audittypes__elementt__val(17) may_be_replaced_by 
+     audittypes__usertokeninvalid.
+shutdownop_rules(58): audittypes__elementt__pos(
+     audittypes__authcertvalid) may_be_replaced_by 18.
+shutdownop_rules(59): audittypes__elementt__val(18) may_be_replaced_by 
+     audittypes__authcertvalid.
+shutdownop_rules(60): audittypes__elementt__pos(
+     audittypes__authcertinvalid) may_be_replaced_by 19.
+shutdownop_rules(61): audittypes__elementt__val(19) may_be_replaced_by 
+     audittypes__authcertinvalid.
+shutdownop_rules(62): audittypes__elementt__pos(
+     audittypes__fingerdetected) may_be_replaced_by 20.
+shutdownop_rules(63): audittypes__elementt__val(20) may_be_replaced_by 
+     audittypes__fingerdetected.
+shutdownop_rules(64): audittypes__elementt__pos(
+     audittypes__fingertimeout) may_be_replaced_by 21.
+shutdownop_rules(65): audittypes__elementt__val(21) may_be_replaced_by 
+     audittypes__fingertimeout.
+shutdownop_rules(66): audittypes__elementt__pos(
+     audittypes__fingermatched) may_be_replaced_by 22.
+shutdownop_rules(67): audittypes__elementt__val(22) may_be_replaced_by 
+     audittypes__fingermatched.
+shutdownop_rules(68): audittypes__elementt__pos(
+     audittypes__fingernotmatched) may_be_replaced_by 23.
+shutdownop_rules(69): audittypes__elementt__val(23) may_be_replaced_by 
+     audittypes__fingernotmatched.
+shutdownop_rules(70): audittypes__elementt__pos(
+     audittypes__authcertwritten) may_be_replaced_by 24.
+shutdownop_rules(71): audittypes__elementt__val(24) may_be_replaced_by 
+     audittypes__authcertwritten.
+shutdownop_rules(72): audittypes__elementt__pos(
+     audittypes__authcertwritefailed) may_be_replaced_by 25.
+shutdownop_rules(73): audittypes__elementt__val(25) may_be_replaced_by 
+     audittypes__authcertwritefailed.
+shutdownop_rules(74): audittypes__elementt__pos(
+     audittypes__entrypermitted) may_be_replaced_by 26.
+shutdownop_rules(75): audittypes__elementt__val(26) may_be_replaced_by 
+     audittypes__entrypermitted.
+shutdownop_rules(76): audittypes__elementt__pos(
+     audittypes__entrytimeout) may_be_replaced_by 27.
+shutdownop_rules(77): audittypes__elementt__val(27) may_be_replaced_by 
+     audittypes__entrytimeout.
+shutdownop_rules(78): audittypes__elementt__pos(
+     audittypes__entrydenied) may_be_replaced_by 28.
+shutdownop_rules(79): audittypes__elementt__val(28) may_be_replaced_by 
+     audittypes__entrydenied.
+shutdownop_rules(80): audittypes__elementt__pos(
+     audittypes__admintokenpresent) may_be_replaced_by 29.
+shutdownop_rules(81): audittypes__elementt__val(29) may_be_replaced_by 
+     audittypes__admintokenpresent.
+shutdownop_rules(82): audittypes__elementt__pos(
+     audittypes__admintokenvalid) may_be_replaced_by 30.
+shutdownop_rules(83): audittypes__elementt__val(30) may_be_replaced_by 
+     audittypes__admintokenvalid.
+shutdownop_rules(84): audittypes__elementt__pos(
+     audittypes__admintokeninvalid) may_be_replaced_by 31.
+shutdownop_rules(85): audittypes__elementt__val(31) may_be_replaced_by 
+     audittypes__admintokeninvalid.
+shutdownop_rules(86): audittypes__elementt__pos(
+     audittypes__admintokenexpired) may_be_replaced_by 32.
+shutdownop_rules(87): audittypes__elementt__val(32) may_be_replaced_by 
+     audittypes__admintokenexpired.
+shutdownop_rules(88): audittypes__elementt__pos(
+     audittypes__admintokenremoved) may_be_replaced_by 33.
+shutdownop_rules(89): audittypes__elementt__val(33) may_be_replaced_by 
+     audittypes__admintokenremoved.
+shutdownop_rules(90): audittypes__elementt__pos(
+     audittypes__invalidoprequest) may_be_replaced_by 34.
+shutdownop_rules(91): audittypes__elementt__val(34) may_be_replaced_by 
+     audittypes__invalidoprequest.
+shutdownop_rules(92): audittypes__elementt__pos(
+     audittypes__operationstart) may_be_replaced_by 35.
+shutdownop_rules(93): audittypes__elementt__val(35) may_be_replaced_by 
+     audittypes__operationstart.
+shutdownop_rules(94): audittypes__elementt__pos(
+     audittypes__archivelog) may_be_replaced_by 36.
+shutdownop_rules(95): audittypes__elementt__val(36) may_be_replaced_by 
+     audittypes__archivelog.
+shutdownop_rules(96): audittypes__elementt__pos(
+     audittypes__archivecomplete) may_be_replaced_by 37.
+shutdownop_rules(97): audittypes__elementt__val(37) may_be_replaced_by 
+     audittypes__archivecomplete.
+shutdownop_rules(98): audittypes__elementt__pos(
+     audittypes__archivecheckfailed) may_be_replaced_by 38.
+shutdownop_rules(99): audittypes__elementt__val(38) may_be_replaced_by 
+     audittypes__archivecheckfailed.
+shutdownop_rules(100): audittypes__elementt__pos(
+     audittypes__updatedconfigdata) may_be_replaced_by 39.
+shutdownop_rules(101): audittypes__elementt__val(39) may_be_replaced_by 
+     audittypes__updatedconfigdata.
+shutdownop_rules(102): audittypes__elementt__pos(
+     audittypes__invalidconfigdata) may_be_replaced_by 40.
+shutdownop_rules(103): audittypes__elementt__val(40) may_be_replaced_by 
+     audittypes__invalidconfigdata.
+shutdownop_rules(104): audittypes__elementt__pos(
+     audittypes__shutdown) may_be_replaced_by 41.
+shutdownop_rules(105): audittypes__elementt__val(41) may_be_replaced_by 
+     audittypes__shutdown.
+shutdownop_rules(106): audittypes__elementt__pos(
+     audittypes__overridelock) may_be_replaced_by 42.
+shutdownop_rules(107): audittypes__elementt__val(42) may_be_replaced_by 
+     audittypes__overridelock.
+shutdownop_rules(108): audittypes__elementt__pos(
+     audittypes__systemfault) may_be_replaced_by 43.
+shutdownop_rules(109): audittypes__elementt__val(43) may_be_replaced_by 
+     audittypes__systemfault.
+shutdownop_rules(110): audittypes__elementt__pos(
+     audittypes__elementt__last) may_be_replaced_by 43.
+shutdownop_rules(111): audittypes__elementt__pos(succ(X)) may_be_replaced_by 
+     audittypes__elementt__pos(X) + 1
+     if [X <=audittypes__systemfault, X <> 
+     audittypes__systemfault].
+shutdownop_rules(112): audittypes__elementt__pos(pred(X)) may_be_replaced_by 
+     audittypes__elementt__pos(X) - 1
+     if [X >=audittypes__startunenrolledtis, X <> 
+     audittypes__startunenrolledtis].
+shutdownop_rules(113): audittypes__elementt__pos(X) >= 0 may_be_deduced_from
+     [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+shutdownop_rules(114): audittypes__elementt__pos(X) <= 43 may_be_deduced_from
+     [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+shutdownop_rules(115): audittypes__elementt__val(X) >= 
+     audittypes__startunenrolledtis may_be_deduced_from
+     [0 <= X, X <= 43].
+shutdownop_rules(116): audittypes__elementt__val(X) <= 
+     audittypes__systemfault may_be_deduced_from
+     [0 <= X, X <= 43].
+shutdownop_rules(117): succ(audittypes__elementt__val(X)) may_be_replaced_by 
+     audittypes__elementt__val(X+1)
+     if [0 <= X, X < 43].
+shutdownop_rules(118): pred(audittypes__elementt__val(X)) may_be_replaced_by 
+     audittypes__elementt__val(X-1)
+     if [0 < X, X <= 43].
+shutdownop_rules(119): audittypes__elementt__pos(
+     audittypes__elementt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 43].
+shutdownop_rules(120): audittypes__elementt__val(
+     audittypes__elementt__pos(X)) may_be_replaced_by X
+     if [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+shutdownop_rules(121): audittypes__elementt__pos(X) <= 
+     audittypes__elementt__pos(Y) & X <= Y are_interchangeable 
+     if [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault, audittypes__startunenrolledtis <= Y, Y <= 
+     audittypes__systemfault].
+shutdownop_rules(122): audittypes__elementt__val(X) <= 
+     audittypes__elementt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 43, 0 <= Y, Y <= 43].
+shutdownop_rules(123): audittypes__severityt__size >= 0 may_be_deduced.
+shutdownop_rules(124): audittypes__severityt__first may_be_replaced_by audittypes__information.
+shutdownop_rules(125): audittypes__severityt__last may_be_replaced_by audittypes__critical.
+shutdownop_rules(126): audittypes__severityt__base__first may_be_replaced_by audittypes__information.
+shutdownop_rules(127): audittypes__severityt__base__last may_be_replaced_by audittypes__critical.
+shutdownop_rules(128): audittypes__severityt__pos(
+     audittypes__severityt__first) may_be_replaced_by 0.
+shutdownop_rules(129): audittypes__severityt__pos(
+     audittypes__information) may_be_replaced_by 0.
+shutdownop_rules(130): audittypes__severityt__val(0) may_be_replaced_by 
+     audittypes__information.
+shutdownop_rules(131): audittypes__severityt__pos(
+     audittypes__warning) may_be_replaced_by 1.
+shutdownop_rules(132): audittypes__severityt__val(1) may_be_replaced_by 
+     audittypes__warning.
+shutdownop_rules(133): audittypes__severityt__pos(
+     audittypes__critical) may_be_replaced_by 2.
+shutdownop_rules(134): audittypes__severityt__val(2) may_be_replaced_by 
+     audittypes__critical.
+shutdownop_rules(135): audittypes__severityt__pos(
+     audittypes__severityt__last) may_be_replaced_by 2.
+shutdownop_rules(136): audittypes__severityt__pos(succ(X)) may_be_replaced_by 
+     audittypes__severityt__pos(X) + 1
+     if [X <=audittypes__critical, X <> audittypes__critical].
+shutdownop_rules(137): audittypes__severityt__pos(pred(X)) may_be_replaced_by 
+     audittypes__severityt__pos(X) - 1
+     if [X >=audittypes__information, X <> 
+     audittypes__information].
+shutdownop_rules(138): audittypes__severityt__pos(X) >= 0 may_be_deduced_from
+     [audittypes__information <= X, X <= audittypes__critical].
+shutdownop_rules(139): audittypes__severityt__pos(X) <= 2 may_be_deduced_from
+     [audittypes__information <= X, X <= audittypes__critical].
+shutdownop_rules(140): audittypes__severityt__val(X) >= 
+     audittypes__information may_be_deduced_from
+     [0 <= X, X <= 2].
+shutdownop_rules(141): audittypes__severityt__val(X) <= 
+     audittypes__critical may_be_deduced_from
+     [0 <= X, X <= 2].
+shutdownop_rules(142): succ(audittypes__severityt__val(X)) may_be_replaced_by 
+     audittypes__severityt__val(X+1)
+     if [0 <= X, X < 2].
+shutdownop_rules(143): pred(audittypes__severityt__val(X)) may_be_replaced_by 
+     audittypes__severityt__val(X-1)
+     if [0 < X, X <= 2].
+shutdownop_rules(144): audittypes__severityt__pos(
+     audittypes__severityt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 2].
+shutdownop_rules(145): audittypes__severityt__val(
+     audittypes__severityt__pos(X)) may_be_replaced_by X
+     if [audittypes__information <= X, X <= audittypes__critical].
+shutdownop_rules(146): audittypes__severityt__pos(X) <= 
+     audittypes__severityt__pos(Y) & X <= Y are_interchangeable 
+     if [audittypes__information <= X, X <= audittypes__critical, 
+     audittypes__information <= Y, Y <= audittypes__critical].
+shutdownop_rules(147): audittypes__severityt__val(X) <= 
+     audittypes__severityt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 2, 0 <= Y, Y <= 2].
+shutdownop_rules(148): audittypes__usertexti__size >= 0 may_be_deduced.
+shutdownop_rules(149): audittypes__usertexti__first may_be_replaced_by 1.
+shutdownop_rules(150): audittypes__usertexti__last may_be_replaced_by 50.
+shutdownop_rules(151): audittypes__usertexti__base__first may_be_replaced_by -2147483648.
+shutdownop_rules(152): audittypes__usertexti__base__last may_be_replaced_by 2147483647.
+shutdownop_rules(153): alarmtypes__statust__size >= 0 may_be_deduced.
+shutdownop_rules(154): alarmtypes__statust__first may_be_replaced_by alarmtypes__alarming.
+shutdownop_rules(155): alarmtypes__statust__last may_be_replaced_by alarmtypes__silent.
+shutdownop_rules(156): alarmtypes__statust__base__first may_be_replaced_by alarmtypes__alarming.
+shutdownop_rules(157): alarmtypes__statust__base__last may_be_replaced_by alarmtypes__silent.
+shutdownop_rules(158): alarmtypes__statust__pos(
+     alarmtypes__statust__first) may_be_replaced_by 0.
+shutdownop_rules(159): alarmtypes__statust__pos(
+     alarmtypes__alarming) may_be_replaced_by 0.
+shutdownop_rules(160): alarmtypes__statust__val(0) may_be_replaced_by 
+     alarmtypes__alarming.
+shutdownop_rules(161): alarmtypes__statust__pos(
+     alarmtypes__silent) may_be_replaced_by 1.
+shutdownop_rules(162): alarmtypes__statust__val(1) may_be_replaced_by 
+     alarmtypes__silent.
+shutdownop_rules(163): alarmtypes__statust__pos(
+     alarmtypes__statust__last) may_be_replaced_by 1.
+shutdownop_rules(164): alarmtypes__statust__pos(succ(X)) may_be_replaced_by 
+     alarmtypes__statust__pos(X) + 1
+     if [X <=alarmtypes__silent, X <> alarmtypes__silent].
+shutdownop_rules(165): alarmtypes__statust__pos(pred(X)) may_be_replaced_by 
+     alarmtypes__statust__pos(X) - 1
+     if [X >=alarmtypes__alarming, X <> alarmtypes__alarming].
+shutdownop_rules(166): alarmtypes__statust__pos(X) >= 0 may_be_deduced_from
+     [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+shutdownop_rules(167): alarmtypes__statust__pos(X) <= 1 may_be_deduced_from
+     [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+shutdownop_rules(168): alarmtypes__statust__val(X) >= 
+     alarmtypes__alarming may_be_deduced_from
+     [0 <= X, X <= 1].
+shutdownop_rules(169): alarmtypes__statust__val(X) <= 
+     alarmtypes__silent may_be_deduced_from
+     [0 <= X, X <= 1].
+shutdownop_rules(170): succ(alarmtypes__statust__val(X)) may_be_replaced_by 
+     alarmtypes__statust__val(X+1)
+     if [0 <= X, X < 1].
+shutdownop_rules(171): pred(alarmtypes__statust__val(X)) may_be_replaced_by 
+     alarmtypes__statust__val(X-1)
+     if [0 < X, X <= 1].
+shutdownop_rules(172): alarmtypes__statust__pos(
+     alarmtypes__statust__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+shutdownop_rules(173): alarmtypes__statust__val(
+     alarmtypes__statust__pos(X)) may_be_replaced_by X
+     if [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+shutdownop_rules(174): alarmtypes__statust__pos(X) <= 
+     alarmtypes__statust__pos(Y) & X <= Y are_interchangeable 
+     if [alarmtypes__alarming <= X, X <= alarmtypes__silent, 
+     alarmtypes__alarming <= Y, Y <= alarmtypes__silent].
+shutdownop_rules(175): alarmtypes__statust__val(X) <= 
+     alarmtypes__statust__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].
+shutdownop_rules(176): privtypes__privileget__size >= 0 may_be_deduced.
+shutdownop_rules(177): privtypes__privileget__first may_be_replaced_by privtypes__useronly.
+shutdownop_rules(178): privtypes__privileget__last may_be_replaced_by privtypes__securityofficer.
+shutdownop_rules(179): privtypes__privileget__base__first may_be_replaced_by privtypes__useronly.
+shutdownop_rules(180): privtypes__privileget__base__last may_be_replaced_by privtypes__securityofficer.
+shutdownop_rules(181): privtypes__privileget__pos(
+     privtypes__privileget__first) may_be_replaced_by 0.
+shutdownop_rules(182): privtypes__privileget__pos(
+     privtypes__useronly) may_be_replaced_by 0.
+shutdownop_rules(183): privtypes__privileget__val(0) may_be_replaced_by 
+     privtypes__useronly.
+shutdownop_rules(184): privtypes__privileget__pos(
+     privtypes__guard) may_be_replaced_by 1.
+shutdownop_rules(185): privtypes__privileget__val(1) may_be_replaced_by 
+     privtypes__guard.
+shutdownop_rules(186): privtypes__privileget__pos(
+     privtypes__auditmanager) may_be_replaced_by 2.
+shutdownop_rules(187): privtypes__privileget__val(2) may_be_replaced_by 
+     privtypes__auditmanager.
+shutdownop_rules(188): privtypes__privileget__pos(
+     privtypes__securityofficer) may_be_replaced_by 3.
+shutdownop_rules(189): privtypes__privileget__val(3) may_be_replaced_by 
+     privtypes__securityofficer.
+shutdownop_rules(190): privtypes__privileget__pos(
+     privtypes__privileget__last) may_be_replaced_by 3.
+shutdownop_rules(191): privtypes__privileget__pos(succ(X)) may_be_replaced_by 
+     privtypes__privileget__pos(X) + 1
+     if [X <=privtypes__securityofficer, X <> 
+     privtypes__securityofficer].
+shutdownop_rules(192): privtypes__privileget__pos(pred(X)) may_be_replaced_by 
+     privtypes__privileget__pos(X) - 1
+     if [X >=privtypes__useronly, X <> privtypes__useronly].
+shutdownop_rules(193): privtypes__privileget__pos(X) >= 0 may_be_deduced_from
+     [privtypes__useronly <= X, X <= privtypes__securityofficer].
+shutdownop_rules(194): privtypes__privileget__pos(X) <= 3 may_be_deduced_from
+     [privtypes__useronly <= X, X <= privtypes__securityofficer].
+shutdownop_rules(195): privtypes__privileget__val(X) >= 
+     privtypes__useronly may_be_deduced_from
+     [0 <= X, X <= 3].
+shutdownop_rules(196): privtypes__privileget__val(X) <= 
+     privtypes__securityofficer may_be_deduced_from
+     [0 <= X, X <= 3].
+shutdownop_rules(197): succ(privtypes__privileget__val(X)) may_be_replaced_by 
+     privtypes__privileget__val(X+1)
+     if [0 <= X, X < 3].
+shutdownop_rules(198): pred(privtypes__privileget__val(X)) may_be_replaced_by 
+     privtypes__privileget__val(X-1)
+     if [0 < X, X <= 3].
+shutdownop_rules(199): privtypes__privileget__pos(
+     privtypes__privileget__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 3].
+shutdownop_rules(200): privtypes__privileget__val(
+     privtypes__privileget__pos(X)) may_be_replaced_by X
+     if [privtypes__useronly <= X, X <= 
+     privtypes__securityofficer].
+shutdownop_rules(201): privtypes__privileget__pos(X) <= 
+     privtypes__privileget__pos(Y) & X <= Y are_interchangeable 
+     if [privtypes__useronly <= X, X <= 
+     privtypes__securityofficer, privtypes__useronly <= Y, Y <= 
+     privtypes__securityofficer].
+shutdownop_rules(202): privtypes__privileget__val(X) <= 
+     privtypes__privileget__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 3, 0 <= Y, Y <= 3].
+shutdownop_rules(203): privtypes__adminprivileget__size >= 0 may_be_deduced.
+shutdownop_rules(204): privtypes__adminprivileget__first may_be_replaced_by privtypes__guard.
+shutdownop_rules(205): privtypes__adminprivileget__last may_be_replaced_by privtypes__securityofficer.
+shutdownop_rules(206): privtypes__adminprivileget__base__first may_be_replaced_by privtypes__useronly.
+shutdownop_rules(207): privtypes__adminprivileget__base__last may_be_replaced_by privtypes__securityofficer.
+shutdownop_rules(208): door__t__size >= 0 may_be_deduced.
+shutdownop_rules(209): door__t__first may_be_replaced_by door__open.
+shutdownop_rules(210): door__t__last may_be_replaced_by door__closed.
+shutdownop_rules(211): door__t__base__first may_be_replaced_by door__open.
+shutdownop_rules(212): door__t__base__last may_be_replaced_by door__closed.
+shutdownop_rules(213): door__t__pos(door__t__first) may_be_replaced_by 0.
+shutdownop_rules(214): door__t__pos(door__open) may_be_replaced_by 0.
+shutdownop_rules(215): door__t__val(0) may_be_replaced_by 
+     door__open.
+shutdownop_rules(216): door__t__pos(door__closed) may_be_replaced_by 1.
+shutdownop_rules(217): door__t__val(1) may_be_replaced_by 
+     door__closed.
+shutdownop_rules(218): door__t__pos(door__t__last) may_be_replaced_by 1.
+shutdownop_rules(219): door__t__pos(succ(X)) may_be_replaced_by 
+     door__t__pos(X) + 1
+     if [X <=door__closed, X <> door__closed].
+shutdownop_rules(220): door__t__pos(pred(X)) may_be_replaced_by 
+     door__t__pos(X) - 1
+     if [X >=door__open, X <> door__open].
+shutdownop_rules(221): door__t__pos(X) >= 0 may_be_deduced_from
+     [door__open <= X, X <= door__closed].
+shutdownop_rules(222): door__t__pos(X) <= 1 may_be_deduced_from
+     [door__open <= X, X <= door__closed].
+shutdownop_rules(223): door__t__val(X) >= door__open may_be_deduced_from
+     [0 <= X, X <= 1].
+shutdownop_rules(224): door__t__val(X) <= door__closed may_be_deduced_from
+     [0 <= X, X <= 1].
+shutdownop_rules(225): succ(door__t__val(X)) may_be_replaced_by 
+     door__t__val(X+1)
+     if [0 <= X, X < 1].
+shutdownop_rules(226): pred(door__t__val(X)) may_be_replaced_by 
+     door__t__val(X-1)
+     if [0 < X, X <= 1].
+shutdownop_rules(227): door__t__pos(door__t__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+shutdownop_rules(228): door__t__val(door__t__pos(X)) may_be_replaced_by X
+     if [door__open <= X, X <= door__closed].
+shutdownop_rules(229): door__t__pos(X) <= door__t__pos(Y) & X <= Y are_interchangeable 
+     if [door__open <= X, X <= door__closed, door__open <= Y, Y <= 
+     door__closed].
+shutdownop_rules(230): door__t__val(X) <= door__t__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].
+shutdownop_rules(231): admin__opandnullt__size >= 0 may_be_deduced.
+shutdownop_rules(232): admin__opandnullt__first may_be_replaced_by admin__nullop.
+shutdownop_rules(233): admin__opandnullt__last may_be_replaced_by admin__shutdownop.
+shutdownop_rules(234): admin__opandnullt__base__first may_be_replaced_by admin__nullop.
+shutdownop_rules(235): admin__opandnullt__base__last may_be_replaced_by admin__shutdownop.
+shutdownop_rules(236): admin__opandnullt__pos(admin__opandnullt__first) may_be_replaced_by 0.
+shutdownop_rules(237): admin__opandnullt__pos(admin__nullop) may_be_replaced_by 0.
+shutdownop_rules(238): admin__opandnullt__val(0) may_be_replaced_by 
+     admin__nullop.
+shutdownop_rules(239): admin__opandnullt__pos(admin__archivelog) may_be_replaced_by 1.
+shutdownop_rules(240): admin__opandnullt__val(1) may_be_replaced_by 
+     admin__archivelog.
+shutdownop_rules(241): admin__opandnullt__pos(
+     admin__updateconfigdata) may_be_replaced_by 2.
+shutdownop_rules(242): admin__opandnullt__val(2) may_be_replaced_by 
+     admin__updateconfigdata.
+shutdownop_rules(243): admin__opandnullt__pos(admin__overridelock) may_be_replaced_by 3.
+shutdownop_rules(244): admin__opandnullt__val(3) may_be_replaced_by 
+     admin__overridelock.
+shutdownop_rules(245): admin__opandnullt__pos(admin__shutdownop) may_be_replaced_by 4.
+shutdownop_rules(246): admin__opandnullt__val(4) may_be_replaced_by 
+     admin__shutdownop.
+shutdownop_rules(247): admin__opandnullt__pos(admin__opandnullt__last) may_be_replaced_by 4.
+shutdownop_rules(248): admin__opandnullt__pos(succ(X)) may_be_replaced_by 
+     admin__opandnullt__pos(X) + 1
+     if [X <=admin__shutdownop, X <> admin__shutdownop].
+shutdownop_rules(249): admin__opandnullt__pos(pred(X)) may_be_replaced_by 
+     admin__opandnullt__pos(X) - 1
+     if [X >=admin__nullop, X <> admin__nullop].
+shutdownop_rules(250): admin__opandnullt__pos(X) >= 0 may_be_deduced_from
+     [admin__nullop <= X, X <= admin__shutdownop].
+shutdownop_rules(251): admin__opandnullt__pos(X) <= 4 may_be_deduced_from
+     [admin__nullop <= X, X <= admin__shutdownop].
+shutdownop_rules(252): admin__opandnullt__val(X) >= admin__nullop may_be_deduced_from
+     [0 <= X, X <= 4].
+shutdownop_rules(253): admin__opandnullt__val(X) <= 
+     admin__shutdownop may_be_deduced_from
+     [0 <= X, X <= 4].
+shutdownop_rules(254): succ(admin__opandnullt__val(X)) may_be_replaced_by 
+     admin__opandnullt__val(X+1)
+     if [0 <= X, X < 4].
+shutdownop_rules(255): pred(admin__opandnullt__val(X)) may_be_replaced_by 
+     admin__opandnullt__val(X-1)
+     if [0 < X, X <= 4].
+shutdownop_rules(256): admin__opandnullt__pos(admin__opandnullt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 4].
+shutdownop_rules(257): admin__opandnullt__val(admin__opandnullt__pos(X)) may_be_replaced_by X
+     if [admin__nullop <= X, X <= admin__shutdownop].
+shutdownop_rules(258): admin__opandnullt__pos(X) <= 
+     admin__opandnullt__pos(Y) & X <= Y are_interchangeable 
+     if [admin__nullop <= X, X <= admin__shutdownop, 
+     admin__nullop <= Y, Y <= admin__shutdownop].
+shutdownop_rules(259): admin__opandnullt__val(X) <= 
+     admin__opandnullt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 4, 0 <= Y, Y <= 4].
+shutdownop_rules(260): display__msgt__size >= 0 may_be_deduced.
+shutdownop_rules(261): display__msgt__first may_be_replaced_by display__blank.
+shutdownop_rules(262): display__msgt__last may_be_replaced_by display__doorunlocked.
+shutdownop_rules(263): display__msgt__base__first may_be_replaced_by display__blank.
+shutdownop_rules(264): display__msgt__base__last may_be_replaced_by display__doorunlocked.
+shutdownop_rules(265): display__msgt__pos(display__msgt__first) may_be_replaced_by 0.
+shutdownop_rules(266): display__msgt__pos(display__blank) may_be_replaced_by 0.
+shutdownop_rules(267): display__msgt__val(0) may_be_replaced_by 
+     display__blank.
+shutdownop_rules(268): display__msgt__pos(display__welcome) may_be_replaced_by 1.
+shutdownop_rules(269): display__msgt__val(1) may_be_replaced_by 
+     display__welcome.
+shutdownop_rules(270): display__msgt__pos(display__insertfinger) may_be_replaced_by 2.
+shutdownop_rules(271): display__msgt__val(2) may_be_replaced_by 
+     display__insertfinger.
+shutdownop_rules(272): display__msgt__pos(display__opendoor) may_be_replaced_by 3.
+shutdownop_rules(273): display__msgt__val(3) may_be_replaced_by 
+     display__opendoor.
+shutdownop_rules(274): display__msgt__pos(display__wait) may_be_replaced_by 4.
+shutdownop_rules(275): display__msgt__val(4) may_be_replaced_by 
+     display__wait.
+shutdownop_rules(276): display__msgt__pos(display__removetoken) may_be_replaced_by 5.
+shutdownop_rules(277): display__msgt__val(5) may_be_replaced_by 
+     display__removetoken.
+shutdownop_rules(278): display__msgt__pos(
+     display__tokenupdatefailed) may_be_replaced_by 6.
+shutdownop_rules(279): display__msgt__val(6) may_be_replaced_by 
+     display__tokenupdatefailed.
+shutdownop_rules(280): display__msgt__pos(display__doorunlocked) may_be_replaced_by 7.
+shutdownop_rules(281): display__msgt__val(7) may_be_replaced_by 
+     display__doorunlocked.
+shutdownop_rules(282): display__msgt__pos(display__msgt__last) may_be_replaced_by 7.
+shutdownop_rules(283): display__msgt__pos(succ(X)) may_be_replaced_by 
+     display__msgt__pos(X) + 1
+     if [X <=display__doorunlocked, X <> display__doorunlocked].
+shutdownop_rules(284): display__msgt__pos(pred(X)) may_be_replaced_by 
+     display__msgt__pos(X) - 1
+     if [X >=display__blank, X <> display__blank].
+shutdownop_rules(285): display__msgt__pos(X) >= 0 may_be_deduced_from
+     [display__blank <= X, X <= display__doorunlocked].
+shutdownop_rules(286): display__msgt__pos(X) <= 7 may_be_deduced_from
+     [display__blank <= X, X <= display__doorunlocked].
+shutdownop_rules(287): display__msgt__val(X) >= display__blank may_be_deduced_from
+     [0 <= X, X <= 7].
+shutdownop_rules(288): display__msgt__val(X) <= 
+     display__doorunlocked may_be_deduced_from
+     [0 <= X, X <= 7].
+shutdownop_rules(289): succ(display__msgt__val(X)) may_be_replaced_by 
+     display__msgt__val(X+1)
+     if [0 <= X, X < 7].
+shutdownop_rules(290): pred(display__msgt__val(X)) may_be_replaced_by 
+     display__msgt__val(X-1)
+     if [0 < X, X <= 7].
+shutdownop_rules(291): display__msgt__pos(display__msgt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 7].
+shutdownop_rules(292): display__msgt__val(display__msgt__pos(X)) may_be_replaced_by X
+     if [display__blank <= X, X <= display__doorunlocked].
+shutdownop_rules(293): display__msgt__pos(X) <= display__msgt__pos(Y) & X <= Y are_interchangeable 
+     if [display__blank <= X, X <= display__doorunlocked, 
+     display__blank <= Y, Y <= display__doorunlocked].
+shutdownop_rules(294): display__msgt__val(X) <= display__msgt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 7, 0 <= Y, Y <= 7].
+shutdownop_rules(295): screen__msgtextt__size >= 0 may_be_deduced.
+shutdownop_rules(296): screen__msgtextt__first may_be_replaced_by screen__clear.
+shutdownop_rules(297): screen__msgtextt__last may_be_replaced_by screen__insertconfigdata.
+shutdownop_rules(298): screen__msgtextt__base__first may_be_replaced_by screen__clear.
+shutdownop_rules(299): screen__msgtextt__base__last may_be_replaced_by screen__insertconfigdata.
+shutdownop_rules(300): screen__msgtextt__pos(screen__msgtextt__first) may_be_replaced_by 0.
+shutdownop_rules(301): screen__msgtextt__pos(screen__clear) may_be_replaced_by 0.
+shutdownop_rules(302): screen__msgtextt__val(0) may_be_replaced_by 
+     screen__clear.
+shutdownop_rules(303): screen__msgtextt__pos(screen__welcomeadmin) may_be_replaced_by 1.
+shutdownop_rules(304): screen__msgtextt__val(1) may_be_replaced_by 
+     screen__welcomeadmin.
+shutdownop_rules(305): screen__msgtextt__pos(screen__busy) may_be_replaced_by 2.
+shutdownop_rules(306): screen__msgtextt__val(2) may_be_replaced_by 
+     screen__busy.
+shutdownop_rules(307): screen__msgtextt__pos(
+     screen__removeadmintoken) may_be_replaced_by 3.
+shutdownop_rules(308): screen__msgtextt__val(3) may_be_replaced_by 
+     screen__removeadmintoken.
+shutdownop_rules(309): screen__msgtextt__pos(screen__closedoor) may_be_replaced_by 4.
+shutdownop_rules(310): screen__msgtextt__val(4) may_be_replaced_by 
+     screen__closedoor.
+shutdownop_rules(311): screen__msgtextt__pos(
+     screen__requestadminop) may_be_replaced_by 5.
+shutdownop_rules(312): screen__msgtextt__val(5) may_be_replaced_by 
+     screen__requestadminop.
+shutdownop_rules(313): screen__msgtextt__pos(screen__doingop) may_be_replaced_by 6.
+shutdownop_rules(314): screen__msgtextt__val(6) may_be_replaced_by 
+     screen__doingop.
+shutdownop_rules(315): screen__msgtextt__pos(
+     screen__invalidrequest) may_be_replaced_by 7.
+shutdownop_rules(316): screen__msgtextt__val(7) may_be_replaced_by 
+     screen__invalidrequest.
+shutdownop_rules(317): screen__msgtextt__pos(screen__invaliddata) may_be_replaced_by 8.
+shutdownop_rules(318): screen__msgtextt__val(8) may_be_replaced_by 
+     screen__invaliddata.
+shutdownop_rules(319): screen__msgtextt__pos(
+     screen__archivefailed) may_be_replaced_by 9.
+shutdownop_rules(320): screen__msgtextt__val(9) may_be_replaced_by 
+     screen__archivefailed.
+shutdownop_rules(321): screen__msgtextt__pos(
+     screen__insertenrolmentdata) may_be_replaced_by 10.
+shutdownop_rules(322): screen__msgtextt__val(10) may_be_replaced_by 
+     screen__insertenrolmentdata.
+shutdownop_rules(323): screen__msgtextt__pos(
+     screen__validatingenrolmentdata) may_be_replaced_by 11.
+shutdownop_rules(324): screen__msgtextt__val(11) may_be_replaced_by 
+     screen__validatingenrolmentdata.
+shutdownop_rules(325): screen__msgtextt__pos(
+     screen__enrolmentfailed) may_be_replaced_by 12.
+shutdownop_rules(326): screen__msgtextt__val(12) may_be_replaced_by 
+     screen__enrolmentfailed.
+shutdownop_rules(327): screen__msgtextt__pos(
+     screen__insertblankfloppy) may_be_replaced_by 13.
+shutdownop_rules(328): screen__msgtextt__val(13) may_be_replaced_by 
+     screen__insertblankfloppy.
+shutdownop_rules(329): screen__msgtextt__pos(
+     screen__insertconfigdata) may_be_replaced_by 14.
+shutdownop_rules(330): screen__msgtextt__val(14) may_be_replaced_by 
+     screen__insertconfigdata.
+shutdownop_rules(331): screen__msgtextt__pos(screen__msgtextt__last) may_be_replaced_by 14.
+shutdownop_rules(332): screen__msgtextt__pos(succ(X)) may_be_replaced_by 
+     screen__msgtextt__pos(X) + 1
+     if [X <=screen__insertconfigdata, X <> 
+     screen__insertconfigdata].
+shutdownop_rules(333): screen__msgtextt__pos(pred(X)) may_be_replaced_by 
+     screen__msgtextt__pos(X) - 1
+     if [X >=screen__clear, X <> screen__clear].
+shutdownop_rules(334): screen__msgtextt__pos(X) >= 0 may_be_deduced_from
+     [screen__clear <= X, X <= screen__insertconfigdata].
+shutdownop_rules(335): screen__msgtextt__pos(X) <= 14 may_be_deduced_from
+     [screen__clear <= X, X <= screen__insertconfigdata].
+shutdownop_rules(336): screen__msgtextt__val(X) >= screen__clear may_be_deduced_from
+     [0 <= X, X <= 14].
+shutdownop_rules(337): screen__msgtextt__val(X) <= 
+     screen__insertconfigdata may_be_deduced_from
+     [0 <= X, X <= 14].
+shutdownop_rules(338): succ(screen__msgtextt__val(X)) may_be_replaced_by 
+     screen__msgtextt__val(X+1)
+     if [0 <= X, X < 14].
+shutdownop_rules(339): pred(screen__msgtextt__val(X)) may_be_replaced_by 
+     screen__msgtextt__val(X-1)
+     if [0 < X, X <= 14].
+shutdownop_rules(340): screen__msgtextt__pos(screen__msgtextt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 14].
+shutdownop_rules(341): screen__msgtextt__val(screen__msgtextt__pos(X)) may_be_replaced_by X
+     if [screen__clear <= X, X <= screen__insertconfigdata].
+shutdownop_rules(342): screen__msgtextt__pos(X) <= 
+     screen__msgtextt__pos(Y) & X <= Y are_interchangeable 
+     if [screen__clear <= X, X <= screen__insertconfigdata, 
+     screen__clear <= Y, Y <= screen__insertconfigdata].
+shutdownop_rules(343): screen__msgtextt__val(X) <= 
+     screen__msgtextt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 14, 0 <= Y, Y <= 14].
+shutdownop_rules(344): statust__size >= 0 may_be_deduced.
+shutdownop_rules(345): statust__first may_be_replaced_by notenrolled.
+shutdownop_rules(346): statust__last may_be_replaced_by shutdown.
+shutdownop_rules(347): statust__base__first may_be_replaced_by notenrolled.
+shutdownop_rules(348): statust__base__last may_be_replaced_by shutdown.
+shutdownop_rules(349): statust__pos(statust__first) may_be_replaced_by 0.
+shutdownop_rules(350): statust__pos(notenrolled) may_be_replaced_by 0.
+shutdownop_rules(351): statust__val(0) may_be_replaced_by 
+     notenrolled.
+shutdownop_rules(352): statust__pos(waitingenrol) may_be_replaced_by 1.
+shutdownop_rules(353): statust__val(1) may_be_replaced_by 
+     waitingenrol.
+shutdownop_rules(354): statust__pos(waitingendenrol) may_be_replaced_by 2.
+shutdownop_rules(355): statust__val(2) may_be_replaced_by 
+     waitingendenrol.
+shutdownop_rules(356): statust__pos(enclavequiescent) may_be_replaced_by 3.
+shutdownop_rules(357): statust__val(3) may_be_replaced_by 
+     enclavequiescent.
+shutdownop_rules(358): statust__pos(waitingremoveadmintokenfail) may_be_replaced_by 4.
+shutdownop_rules(359): statust__val(4) may_be_replaced_by 
+     waitingremoveadmintokenfail.
+shutdownop_rules(360): statust__pos(gotadmintoken) may_be_replaced_by 5.
+shutdownop_rules(361): statust__val(5) may_be_replaced_by 
+     gotadmintoken.
+shutdownop_rules(362): statust__pos(waitingstartadminop) may_be_replaced_by 6.
+shutdownop_rules(363): statust__val(6) may_be_replaced_by 
+     waitingstartadminop.
+shutdownop_rules(364): statust__pos(waitingfinishadminop) may_be_replaced_by 7.
+shutdownop_rules(365): statust__val(7) may_be_replaced_by 
+     waitingfinishadminop.
+shutdownop_rules(366): statust__pos(shutdown) may_be_replaced_by 8.
+shutdownop_rules(367): statust__val(8) may_be_replaced_by 
+     shutdown.
+shutdownop_rules(368): statust__pos(statust__last) may_be_replaced_by 8.
+shutdownop_rules(369): statust__pos(succ(X)) may_be_replaced_by 
+     statust__pos(X) + 1
+     if [X <=shutdown, X <> shutdown].
+shutdownop_rules(370): statust__pos(pred(X)) may_be_replaced_by 
+     statust__pos(X) - 1
+     if [X >=notenrolled, X <> notenrolled].
+shutdownop_rules(371): statust__pos(X) >= 0 may_be_deduced_from
+     [notenrolled <= X, X <= shutdown].
+shutdownop_rules(372): statust__pos(X) <= 8 may_be_deduced_from
+     [notenrolled <= X, X <= shutdown].
+shutdownop_rules(373): statust__val(X) >= notenrolled may_be_deduced_from
+     [0 <= X, X <= 8].
+shutdownop_rules(374): statust__val(X) <= shutdown may_be_deduced_from
+     [0 <= X, X <= 8].
+shutdownop_rules(375): succ(statust__val(X)) may_be_replaced_by 
+     statust__val(X+1)
+     if [0 <= X, X < 8].
+shutdownop_rules(376): pred(statust__val(X)) may_be_replaced_by 
+     statust__val(X-1)
+     if [0 < X, X <= 8].
+shutdownop_rules(377): statust__pos(statust__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 8].
+shutdownop_rules(378): statust__val(statust__pos(X)) may_be_replaced_by X
+     if [notenrolled <= X, X <= shutdown].
+shutdownop_rules(379): statust__pos(X) <= statust__pos(Y) & X <= Y are_interchangeable 
+     if [notenrolled <= X, X <= shutdown, notenrolled <= Y, Y <= 
+     shutdown].
+shutdownop_rules(380): statust__val(X) <= statust__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 8, 0 <= Y, Y <= 8].

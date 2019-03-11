@@ -1,0 +1,78 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:20.38*/
+
+                /*procedure UserToken.ReadAndCheck.CheckIDCert*/
+
+
+rule_family checkidcert_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+checkidcert_rules(1): cert__id__contentst__size >= 0 may_be_deduced.
+checkidcert_rules(2): A = B may_be_deduced_from
+     [goal(checktype(A,cert__id__contentst)),
+      goal(checktype(B,cert__id__contentst)),
+      fld_inherit(A) = fld_inherit(B)].
+checkidcert_rules(3): certificatestatus__size >= 0 may_be_deduced.
+checkidcert_rules(4): certificatestatus__first may_be_replaced_by bad.
+checkidcert_rules(5): certificatestatus__last may_be_replaced_by validcert.
+checkidcert_rules(6): certificatestatus__base__first may_be_replaced_by bad.
+checkidcert_rules(7): certificatestatus__base__last may_be_replaced_by validcert.
+checkidcert_rules(8): certificatestatus__pos(certificatestatus__first) may_be_replaced_by 0.
+checkidcert_rules(9): certificatestatus__pos(bad) may_be_replaced_by 0.
+checkidcert_rules(10): certificatestatus__val(0) may_be_replaced_by 
+     bad.
+checkidcert_rules(11): certificatestatus__pos(notverified) may_be_replaced_by 1.
+checkidcert_rules(12): certificatestatus__val(1) may_be_replaced_by 
+     notverified.
+checkidcert_rules(13): certificatestatus__pos(notcurrent) may_be_replaced_by 2.
+checkidcert_rules(14): certificatestatus__val(2) may_be_replaced_by 
+     notcurrent.
+checkidcert_rules(15): certificatestatus__pos(validcert) may_be_replaced_by 3.
+checkidcert_rules(16): certificatestatus__val(3) may_be_replaced_by 
+     validcert.
+checkidcert_rules(17): certificatestatus__pos(certificatestatus__last) may_be_replaced_by 3.
+checkidcert_rules(18): certificatestatus__pos(succ(X)) may_be_replaced_by 
+     certificatestatus__pos(X) + 1
+     if [X <=validcert, X <> validcert].
+checkidcert_rules(19): certificatestatus__pos(pred(X)) may_be_replaced_by 
+     certificatestatus__pos(X) - 1
+     if [X >=bad, X <> bad].
+checkidcert_rules(20): certificatestatus__pos(X) >= 0 may_be_deduced_from
+     [bad <= X, X <= validcert].
+checkidcert_rules(21): certificatestatus__pos(X) <= 3 may_be_deduced_from
+     [bad <= X, X <= validcert].
+checkidcert_rules(22): certificatestatus__val(X) >= bad may_be_deduced_from
+     [0 <= X, X <= 3].
+checkidcert_rules(23): certificatestatus__val(X) <= validcert may_be_deduced_from
+     [0 <= X, X <= 3].
+checkidcert_rules(24): succ(certificatestatus__val(X)) may_be_replaced_by 
+     certificatestatus__val(X+1)
+     if [0 <= X, X < 3].
+checkidcert_rules(25): pred(certificatestatus__val(X)) may_be_replaced_by 
+     certificatestatus__val(X-1)
+     if [0 < X, X <= 3].
+checkidcert_rules(26): certificatestatus__pos(certificatestatus__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 3].
+checkidcert_rules(27): certificatestatus__val(certificatestatus__pos(X)) may_be_replaced_by X
+     if [bad <= X, X <= validcert].
+checkidcert_rules(28): certificatestatus__pos(X) <= 
+     certificatestatus__pos(Y) & X <= Y are_interchangeable 
+     if [bad <= X, X <= validcert, bad <= Y, Y <= validcert].
+checkidcert_rules(29): certificatestatus__val(X) <= 
+     certificatestatus__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 3, 0 <= Y, Y <= 3].
+checkidcert_rules(30): valididcertt__size >= 0 may_be_deduced.
+checkidcert_rules(31): A = B may_be_deduced_from
+     [goal(checktype(A,valididcertt)),
+      goal(checktype(B,valididcertt)),
+      fld_valid(A) = fld_valid(B),
+      fld_idstatus(A) = fld_idstatus(B),
+      fld_contents(A) = fld_contents(B)].

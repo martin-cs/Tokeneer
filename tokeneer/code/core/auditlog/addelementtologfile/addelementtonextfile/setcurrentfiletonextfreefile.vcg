@@ -1,0 +1,132 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:08.50
+
+procedure AuditLog.AddElementToLogFile.AddElementToNextFile.SetCurrentFileToNextFreeFile
+
+
+
+
+For path(s) from start to assertion of line 845:
+
+procedure_setcurrentfiletonextfreefile_1.
+H1:    true .
+H2:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H3:    currentlogfile >= logfileindext__first .
+H4:    currentlogfile <= logfileindext__last .
+        ->
+C1:    logfileindext__first >= logfileindext__first .
+C2:    logfileindext__first <= logfileindext__last .
+C3:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+C4:    currentlogfile >= logfileindext__first .
+C5:    currentlogfile <= logfileindext__last .
+C6:    logfileindext__first >= logfileindext__first .
+C7:    logfileindext__first <= logfileindext__last .
+C8:    logfileindext__first >= logfileindext__first .
+C9:    logfileindext__first <= logfileindext__last .
+ 
+
+For path(s) from assertion of line 845 to assertion of line 845:
+
+procedure_setcurrentfiletonextfreefile_2.
+H1:    loop__1__i >= logfileindext__first .
+H2:    loop__1__i <= logfileindext__last .
+H3:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H4:    currentlogfile >= logfileindext__first .
+H5:    currentlogfile <= logfileindext__last .
+H6:    loop__1__i >= logfileindext__first .
+H7:    loop__1__i <= logfileindext__last .
+H8:    loop__1__i >= logfileindext__first .
+H9:    loop__1__i <= logfileindext__last .
+H10:   loop__1__i >= logfileindext__first .
+H11:   loop__1__i <= logfileindext__last .
+H12:   not (element(logfilesstatus, [loop__1__i]) = free) .
+H13:   not (loop__1__i = logfileindext__last) .
+        ->
+C1:    loop__1__i + 1 >= logfileindext__first .
+C2:    loop__1__i + 1 <= logfileindext__last .
+C3:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+C4:    currentlogfile >= logfileindext__first .
+C5:    currentlogfile <= logfileindext__last .
+C6:    loop__1__i + 1 >= logfileindext__first .
+C7:    loop__1__i + 1 <= logfileindext__last .
+C8:    loop__1__i + 1 >= logfileindext__first .
+C9:    loop__1__i + 1 <= logfileindext__last .
+ 
+
+For path(s) from assertion of line 845 to run-time check associated with statement of line 846:
+
+procedure_setcurrentfiletonextfreefile_3.
+H1:    loop__1__i >= logfileindext__first .
+H2:    loop__1__i <= logfileindext__last .
+H3:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H4:    currentlogfile >= logfileindext__first .
+H5:    currentlogfile <= logfileindext__last .
+H6:    loop__1__i >= logfileindext__first .
+H7:    loop__1__i <= logfileindext__last .
+H8:    loop__1__i >= logfileindext__first .
+H9:    loop__1__i <= logfileindext__last .
+        ->
+C1:    loop__1__i >= logfileindext__first .
+C2:    loop__1__i <= logfileindext__last .
+ 
+
+For path(s) from assertion of line 845 to run-time check associated with statement of line 847:
+
+procedure_setcurrentfiletonextfreefile_4.
+H1:    loop__1__i >= logfileindext__first .
+H2:    loop__1__i <= logfileindext__last .
+H3:    for_all(i___1: logfilecountt, ((i___1 >= 
+           logfileindext__first) and (i___1 <= 
+           logfileindext__last)) -> ((element(
+           logfilesstatus, [i___1]) >= filestatust__first) and (element(
+           logfilesstatus, [i___1]) <= filestatust__last))) .
+H4:    currentlogfile >= logfileindext__first .
+H5:    currentlogfile <= logfileindext__last .
+H6:    loop__1__i >= logfileindext__first .
+H7:    loop__1__i <= logfileindext__last .
+H8:    loop__1__i >= logfileindext__first .
+H9:    loop__1__i <= logfileindext__last .
+H10:   loop__1__i >= logfileindext__first .
+H11:   loop__1__i <= logfileindext__last .
+H12:   element(logfilesstatus, [loop__1__i]) = free .
+        ->
+C1:    loop__1__i >= logfileindext__first .
+C2:    loop__1__i <= logfileindext__last .
+ 
+
+For path(s) from assertion of line 845 to finish:
+
+procedure_setcurrentfiletonextfreefile_5.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_setcurrentfiletonextfreefile_6.
+*** true .          /* trivially true VC removed by Examiner */
+
+

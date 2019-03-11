@@ -1,0 +1,200 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:27.49*/
+
+                    /*procedure Enclave.StartAdminActivity*/
+
+
+rule_family startadminac_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+startadminac_rules(1): privtypes__privileget__size >= 0 may_be_deduced.
+startadminac_rules(2): privtypes__privileget__first may_be_replaced_by privtypes__useronly.
+startadminac_rules(3): privtypes__privileget__last may_be_replaced_by privtypes__securityofficer.
+startadminac_rules(4): privtypes__privileget__base__first may_be_replaced_by privtypes__useronly.
+startadminac_rules(5): privtypes__privileget__base__last may_be_replaced_by privtypes__securityofficer.
+startadminac_rules(6): privtypes__privileget__pos(
+     privtypes__privileget__first) may_be_replaced_by 0.
+startadminac_rules(7): privtypes__privileget__pos(
+     privtypes__useronly) may_be_replaced_by 0.
+startadminac_rules(8): privtypes__privileget__val(0) may_be_replaced_by 
+     privtypes__useronly.
+startadminac_rules(9): privtypes__privileget__pos(
+     privtypes__guard) may_be_replaced_by 1.
+startadminac_rules(10): privtypes__privileget__val(1) may_be_replaced_by 
+     privtypes__guard.
+startadminac_rules(11): privtypes__privileget__pos(
+     privtypes__auditmanager) may_be_replaced_by 2.
+startadminac_rules(12): privtypes__privileget__val(2) may_be_replaced_by 
+     privtypes__auditmanager.
+startadminac_rules(13): privtypes__privileget__pos(
+     privtypes__securityofficer) may_be_replaced_by 3.
+startadminac_rules(14): privtypes__privileget__val(3) may_be_replaced_by 
+     privtypes__securityofficer.
+startadminac_rules(15): privtypes__privileget__pos(
+     privtypes__privileget__last) may_be_replaced_by 3.
+startadminac_rules(16): privtypes__privileget__pos(succ(X)) may_be_replaced_by 
+     privtypes__privileget__pos(X) + 1
+     if [X <=privtypes__securityofficer, X <> 
+     privtypes__securityofficer].
+startadminac_rules(17): privtypes__privileget__pos(pred(X)) may_be_replaced_by 
+     privtypes__privileget__pos(X) - 1
+     if [X >=privtypes__useronly, X <> privtypes__useronly].
+startadminac_rules(18): privtypes__privileget__pos(X) >= 0 may_be_deduced_from
+     [privtypes__useronly <= X, X <= privtypes__securityofficer].
+startadminac_rules(19): privtypes__privileget__pos(X) <= 3 may_be_deduced_from
+     [privtypes__useronly <= X, X <= privtypes__securityofficer].
+startadminac_rules(20): privtypes__privileget__val(X) >= 
+     privtypes__useronly may_be_deduced_from
+     [0 <= X, X <= 3].
+startadminac_rules(21): privtypes__privileget__val(X) <= 
+     privtypes__securityofficer may_be_deduced_from
+     [0 <= X, X <= 3].
+startadminac_rules(22): succ(privtypes__privileget__val(X)) may_be_replaced_by 
+     privtypes__privileget__val(X+1)
+     if [0 <= X, X < 3].
+startadminac_rules(23): pred(privtypes__privileget__val(X)) may_be_replaced_by 
+     privtypes__privileget__val(X-1)
+     if [0 < X, X <= 3].
+startadminac_rules(24): privtypes__privileget__pos(
+     privtypes__privileget__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 3].
+startadminac_rules(25): privtypes__privileget__val(
+     privtypes__privileget__pos(X)) may_be_replaced_by X
+     if [privtypes__useronly <= X, X <= 
+     privtypes__securityofficer].
+startadminac_rules(26): privtypes__privileget__pos(X) <= 
+     privtypes__privileget__pos(Y) & X <= Y are_interchangeable 
+     if [privtypes__useronly <= X, X <= 
+     privtypes__securityofficer, privtypes__useronly <= Y, Y <= 
+     privtypes__securityofficer].
+startadminac_rules(27): privtypes__privileget__val(X) <= 
+     privtypes__privileget__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 3, 0 <= Y, Y <= 3].
+startadminac_rules(28): admin__opandnullt__size >= 0 may_be_deduced.
+startadminac_rules(29): admin__opandnullt__first may_be_replaced_by admin__nullop.
+startadminac_rules(30): admin__opandnullt__last may_be_replaced_by admin__shutdownop.
+startadminac_rules(31): admin__opandnullt__base__first may_be_replaced_by admin__nullop.
+startadminac_rules(32): admin__opandnullt__base__last may_be_replaced_by admin__shutdownop.
+startadminac_rules(33): admin__opandnullt__pos(admin__opandnullt__first) may_be_replaced_by 0.
+startadminac_rules(34): admin__opandnullt__pos(admin__nullop) may_be_replaced_by 0.
+startadminac_rules(35): admin__opandnullt__val(0) may_be_replaced_by 
+     admin__nullop.
+startadminac_rules(36): admin__opandnullt__pos(admin__archivelog) may_be_replaced_by 1.
+startadminac_rules(37): admin__opandnullt__val(1) may_be_replaced_by 
+     admin__archivelog.
+startadminac_rules(38): admin__opandnullt__pos(
+     admin__updateconfigdata) may_be_replaced_by 2.
+startadminac_rules(39): admin__opandnullt__val(2) may_be_replaced_by 
+     admin__updateconfigdata.
+startadminac_rules(40): admin__opandnullt__pos(
+     admin__overridelock) may_be_replaced_by 3.
+startadminac_rules(41): admin__opandnullt__val(3) may_be_replaced_by 
+     admin__overridelock.
+startadminac_rules(42): admin__opandnullt__pos(admin__shutdownop) may_be_replaced_by 4.
+startadminac_rules(43): admin__opandnullt__val(4) may_be_replaced_by 
+     admin__shutdownop.
+startadminac_rules(44): admin__opandnullt__pos(admin__opandnullt__last) may_be_replaced_by 4.
+startadminac_rules(45): admin__opandnullt__pos(succ(X)) may_be_replaced_by 
+     admin__opandnullt__pos(X) + 1
+     if [X <=admin__shutdownop, X <> admin__shutdownop].
+startadminac_rules(46): admin__opandnullt__pos(pred(X)) may_be_replaced_by 
+     admin__opandnullt__pos(X) - 1
+     if [X >=admin__nullop, X <> admin__nullop].
+startadminac_rules(47): admin__opandnullt__pos(X) >= 0 may_be_deduced_from
+     [admin__nullop <= X, X <= admin__shutdownop].
+startadminac_rules(48): admin__opandnullt__pos(X) <= 4 may_be_deduced_from
+     [admin__nullop <= X, X <= admin__shutdownop].
+startadminac_rules(49): admin__opandnullt__val(X) >= 
+     admin__nullop may_be_deduced_from
+     [0 <= X, X <= 4].
+startadminac_rules(50): admin__opandnullt__val(X) <= 
+     admin__shutdownop may_be_deduced_from
+     [0 <= X, X <= 4].
+startadminac_rules(51): succ(admin__opandnullt__val(X)) may_be_replaced_by 
+     admin__opandnullt__val(X+1)
+     if [0 <= X, X < 4].
+startadminac_rules(52): pred(admin__opandnullt__val(X)) may_be_replaced_by 
+     admin__opandnullt__val(X-1)
+     if [0 < X, X <= 4].
+startadminac_rules(53): admin__opandnullt__pos(admin__opandnullt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 4].
+startadminac_rules(54): admin__opandnullt__val(admin__opandnullt__pos(X)) may_be_replaced_by X
+     if [admin__nullop <= X, X <= admin__shutdownop].
+startadminac_rules(55): admin__opandnullt__pos(X) <= 
+     admin__opandnullt__pos(Y) & X <= Y are_interchangeable 
+     if [admin__nullop <= X, X <= admin__shutdownop, 
+     admin__nullop <= Y, Y <= admin__shutdownop].
+startadminac_rules(56): admin__opandnullt__val(X) <= 
+     admin__opandnullt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 4, 0 <= Y, Y <= 4].
+startadminac_rules(57): statust__size >= 0 may_be_deduced.
+startadminac_rules(58): statust__first may_be_replaced_by notenrolled.
+startadminac_rules(59): statust__last may_be_replaced_by shutdown.
+startadminac_rules(60): statust__base__first may_be_replaced_by notenrolled.
+startadminac_rules(61): statust__base__last may_be_replaced_by shutdown.
+startadminac_rules(62): statust__pos(statust__first) may_be_replaced_by 0.
+startadminac_rules(63): statust__pos(notenrolled) may_be_replaced_by 0.
+startadminac_rules(64): statust__val(0) may_be_replaced_by 
+     notenrolled.
+startadminac_rules(65): statust__pos(waitingenrol) may_be_replaced_by 1.
+startadminac_rules(66): statust__val(1) may_be_replaced_by 
+     waitingenrol.
+startadminac_rules(67): statust__pos(waitingendenrol) may_be_replaced_by 2.
+startadminac_rules(68): statust__val(2) may_be_replaced_by 
+     waitingendenrol.
+startadminac_rules(69): statust__pos(enclavequiescent) may_be_replaced_by 3.
+startadminac_rules(70): statust__val(3) may_be_replaced_by 
+     enclavequiescent.
+startadminac_rules(71): statust__pos(waitingremoveadmintokenfail) may_be_replaced_by 4.
+startadminac_rules(72): statust__val(4) may_be_replaced_by 
+     waitingremoveadmintokenfail.
+startadminac_rules(73): statust__pos(gotadmintoken) may_be_replaced_by 5.
+startadminac_rules(74): statust__val(5) may_be_replaced_by 
+     gotadmintoken.
+startadminac_rules(75): statust__pos(waitingstartadminop) may_be_replaced_by 6.
+startadminac_rules(76): statust__val(6) may_be_replaced_by 
+     waitingstartadminop.
+startadminac_rules(77): statust__pos(waitingfinishadminop) may_be_replaced_by 7.
+startadminac_rules(78): statust__val(7) may_be_replaced_by 
+     waitingfinishadminop.
+startadminac_rules(79): statust__pos(shutdown) may_be_replaced_by 8.
+startadminac_rules(80): statust__val(8) may_be_replaced_by 
+     shutdown.
+startadminac_rules(81): statust__pos(statust__last) may_be_replaced_by 8.
+startadminac_rules(82): statust__pos(succ(X)) may_be_replaced_by 
+     statust__pos(X) + 1
+     if [X <=shutdown, X <> shutdown].
+startadminac_rules(83): statust__pos(pred(X)) may_be_replaced_by 
+     statust__pos(X) - 1
+     if [X >=notenrolled, X <> notenrolled].
+startadminac_rules(84): statust__pos(X) >= 0 may_be_deduced_from
+     [notenrolled <= X, X <= shutdown].
+startadminac_rules(85): statust__pos(X) <= 8 may_be_deduced_from
+     [notenrolled <= X, X <= shutdown].
+startadminac_rules(86): statust__val(X) >= notenrolled may_be_deduced_from
+     [0 <= X, X <= 8].
+startadminac_rules(87): statust__val(X) <= shutdown may_be_deduced_from
+     [0 <= X, X <= 8].
+startadminac_rules(88): succ(statust__val(X)) may_be_replaced_by 
+     statust__val(X+1)
+     if [0 <= X, X < 8].
+startadminac_rules(89): pred(statust__val(X)) may_be_replaced_by 
+     statust__val(X-1)
+     if [0 < X, X <= 8].
+startadminac_rules(90): statust__pos(statust__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 8].
+startadminac_rules(91): statust__val(statust__pos(X)) may_be_replaced_by X
+     if [notenrolled <= X, X <= shutdown].
+startadminac_rules(92): statust__pos(X) <= statust__pos(Y) & X <= Y are_interchangeable 
+     if [notenrolled <= X, X <= shutdown, notenrolled <= Y, Y <= 
+     shutdown].
+startadminac_rules(93): statust__val(X) <= statust__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 8, 0 <= Y, Y <= 8].

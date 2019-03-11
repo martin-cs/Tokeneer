@@ -1,0 +1,118 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:18.35
+
+                    function TokenReader.GetResponseCode
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 101:
+
+function_getresponsecode_1.
+H1:    true .
+H2:    responsecode >= basictypes__unsigned32t__first .
+H3:    responsecode <= basictypes__unsigned32t__last .
+H4:    responsecode >= tokenreader__interface__responsecodet__pos(
+           tokenreader__interface__responsecodet__first) .
+H5:    responsecode <= tokenreader__interface__responsecodet__pos(
+           tokenreader__interface__responsecodet__last) .
+        ->
+C1:    tokenreader__interface__responsecodet__val(
+           responsecode) >= 
+           tokenreader__interface__responsecodet__first .
+C2:    tokenreader__interface__responsecodet__val(
+           responsecode) <= 
+           tokenreader__interface__responsecodet__last .
+C3:    responsecode >= tokenreader__interface__responsecodet__pos(
+           tokenreader__interface__responsecodet__first) .
+C4:    responsecode <= tokenreader__interface__responsecodet__pos(
+           tokenreader__interface__responsecodet__last) .
+ 
+
+For path(s) from start to run-time check associated with statement of line 103:
+
+function_getresponsecode_2.
+H1:    true .
+H2:    responsecode >= basictypes__unsigned32t__first .
+H3:    responsecode <= basictypes__unsigned32t__last .
+H4:    not ((responsecode >= 
+           tokenreader__interface__responsecodet__pos(
+           tokenreader__interface__responsecodet__first)) and (
+           responsecode <= 
+           tokenreader__interface__responsecodet__pos(
+           tokenreader__interface__responsecodet__last))) .
+        ->
+C1:    tokenreader__interface__invalidresponsecode >= 
+           tokenreader__interface__responsecodet__first .
+C2:    tokenreader__interface__invalidresponsecode <= 
+           tokenreader__interface__responsecodet__last .
+ 
+
+For path(s) from start to finish:
+
+function_getresponsecode_3.
+H1:    true .
+H2:    responsecode >= basictypes__unsigned32t__first .
+H3:    responsecode <= basictypes__unsigned32t__last .
+H4:    responsecode >= tokenreader__interface__responsecodet__pos(
+           tokenreader__interface__responsecodet__first) .
+H5:    responsecode <= tokenreader__interface__responsecodet__pos(
+           tokenreader__interface__responsecodet__last) .
+H6:    tokenreader__interface__responsecodet__val(
+           responsecode) >= 
+           tokenreader__interface__responsecodet__first .
+H7:    tokenreader__interface__responsecodet__val(
+           responsecode) <= 
+           tokenreader__interface__responsecodet__last .
+H8:    responsecode >= tokenreader__interface__responsecodet__pos(
+           tokenreader__interface__responsecodet__first) .
+H9:    responsecode <= tokenreader__interface__responsecodet__pos(
+           tokenreader__interface__responsecodet__last) .
+H10:   tokenreader__interface__responsecodet__val(
+           responsecode) >= 
+           tokenreader__interface__responsecodet__first .
+H11:   tokenreader__interface__responsecodet__val(
+           responsecode) <= 
+           tokenreader__interface__responsecodet__last .
+        ->
+C1:    true .
+C2:    tokenreader__interface__responsecodet__val(
+           responsecode) >= 
+           tokenreader__interface__responsecodet__first .
+C3:    tokenreader__interface__responsecodet__val(
+           responsecode) <= 
+           tokenreader__interface__responsecodet__last .
+ 
+
+function_getresponsecode_4.
+H1:    true .
+H2:    responsecode >= basictypes__unsigned32t__first .
+H3:    responsecode <= basictypes__unsigned32t__last .
+H4:    not ((responsecode >= 
+           tokenreader__interface__responsecodet__pos(
+           tokenreader__interface__responsecodet__first)) and (
+           responsecode <= 
+           tokenreader__interface__responsecodet__pos(
+           tokenreader__interface__responsecodet__last))) .
+H5:    tokenreader__interface__invalidresponsecode >= 
+           tokenreader__interface__responsecodet__first .
+H6:    tokenreader__interface__invalidresponsecode <= 
+           tokenreader__interface__responsecodet__last .
+H7:    tokenreader__interface__invalidresponsecode >= 
+           tokenreader__interface__responsecodet__first .
+H8:    tokenreader__interface__invalidresponsecode <= 
+           tokenreader__interface__responsecodet__last .
+        ->
+C1:    true .
+C2:    tokenreader__interface__invalidresponsecode >= 
+           tokenreader__interface__responsecodet__first .
+C3:    tokenreader__interface__invalidresponsecode <= 
+           tokenreader__interface__responsecodet__last .
+ 
+

@@ -1,0 +1,1937 @@
+           *******************************************************
+                            Listing of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:30.82
+
+Line
+   1  ------------------------------------------------------------------
+   2  -- Tokeneer ID Station Core Software
+   3  --
+   4  -- Copyright (2003) United States Government, as represented
+   5  -- by the Director, National Security Agency. All rights reserved.
+   6  --
+   7  -- This material was originally developed by Praxis High Integrity
+   8  -- Systems Ltd. under contract to the National Security Agency.
+   9  ------------------------------------------------------------------
+  10  
+  11  ------------------------------------------------------------------
+  12  -- ConfigData
+  13  --
+  14  -- Description:
+  15  --    Implementation of ConfigData package
+  16  --
+  17  ------------------------------------------------------------------
+  18  with Clock;
+  19  use type Clock.DurationT;
+  20  
+  21  with PrivTypes;
+  22  use type PrivTypes.ClassT;
+  23  
+  24  with AuditTypes;
+  25  use type AuditTypes.FileSizeT;
+  26  
+  27  package body ConfigData
+  28  --# own State is
+  29  --#    LatchUnlockDuration,
+  30  --#    AlarmSilentDuration,
+  31  --#    FingerWaitDuration,
+  32  --#    TokenRemovalDuration,
+  33  --#    EnclaveClearance,
+  34  --#    WorkingHoursStart,
+  35  --#    WorkingHoursEnd,
+  36  --#    MaxAuthDuration,
+  37  --#    AccessPolicy,
+  38  --#    MinEntryClass,
+  39  --#    MinPreservedLogSize,
+  40  --#    AlarmThresholdSize,
+  41  --#    SystemMaxFar &
+  42  --# FileState is ConfigFile;
+  43  is
+  44  
+  45     ------------------------------------------------------------------
+  46     -- Types
+  47     --
+  48     ------------------------------------------------------------------
+  49  
+  50     subtype AlarmSilentTextI is Positive range 1..20;
+  51     subtype AlarmSilentTextT is String(AlarmSilentTextI);
+  52  
+  53     subtype LatchUnlockTextI is Positive range 1..20;
+  54     subtype LatchUnlockTextT is String(LatchUnlockTextI);
+  55  
+  56     subtype TokenRemovalTextI is Positive range 1..21;
+  57     subtype TokenRemovalTextT is String(TokenRemovalTextI);
+  58  
+  59     subtype FingerWaitTextI is Positive range 1..19;
+  60     subtype FingerWaitTextT is String(FingerWaitTextI);
+  61  
+  62     subtype ClearanceTextI is Positive range 1..17;
+  63     subtype ClearanceTextT is String(ClearanceTextI);
+  64  
+  65     subtype WorkingStartTextI is Positive range 1..18;
+  66     subtype WorkingStartTextT is String(WorkingStartTextI);
+  67  
+  68     subtype WorkingEndTextI is Positive range 1..16;
+  69     subtype WorkingEndTextT is String(WorkingEndTextI);
+  70  
+  71     subtype MaxAuthDurationTextI is Positive range 1..16;
+  72     subtype MaxAuthDurationTextT is String(MaxAuthDurationTextI);
+  73  
+  74     subtype MinEntryClassTextI is Positive range 1..14;
+  75     subtype MinEntryClassTextT is String(MinEntryClassTextI);
+  76  
+  77     subtype AccessPolicyTextI is Positive range 1..13;
+  78     subtype AccessPolicyTextT is String(AccessPolicyTextI);
+  79  
+  80     subtype MinPreservedLogSizeTextI is Positive range 1..20;
+  81     subtype MinPreservedLogSizeTextT is String(MinPreservedLogSizeTextI);
+  82  
+  83     subtype AlarmThresholdTextI is Positive range 1..19;
+  84     subtype AlarmThresholdTextT is String(AlarmThresholdTextI);
+  85  
+  86     subtype SystemMaxFarTextI is Positive range 1..13;
+  87     subtype SystemMaxFarTextT is String(SystemMaxFarTextI);
+  88  
+  89     AlarmSilentTitle         : constant AlarmSilentTextT
+  90       := "ALARMSILENTDURATION ";
+  91     LatchUnlockTitle         : constant LatchUnlockTextT
+  92       := "LATCHUNLOCKDURATION ";
+  93     TokenRemovalTitle        : constant TokenRemovalTextT
+  94       := "TOKENREMOVALDURATION ";
+  95     FingerWaitTitle          : constant FingerWaitTextT
+  96       := "FINGERWAITDURATION ";
+  97     ClearanceTitle           : constant ClearanceTextT
+  98       := "ENCLAVECLEARANCE ";
+  99     WorkingStartTitle        : constant WorkingStartTextT
+ 100       := "WORKINGHOURSSTART ";
+ 101     WorkingEndTitle          : constant WorkingEndTextT
+ 102       := "WORKINGHOURSEND ";
+ 103     MaxAuthDurationTitle     : constant MaxAuthDurationTextT
+ 104       := "MAXAUTHDURATION ";
+ 105     AccessPolicyTitle        : constant AccessPolicyTextT
+ 106       := "ACCESSPOLICY ";
+ 107     MinEntryClassTitle       : constant MinEntryClassTextT
+ 108       := "MINENTRYCLASS ";
+ 109     MinPreservedLogSizeTitle : constant MinPreservedLogSizeTextT
+ 110       := "MINPRESERVEDLOGSIZE ";
+ 111     AlarmThresholdTitle      : constant AlarmThresholdTextT
+ 112       := "ALARMTHRESHOLDSIZE ";
+ 113     SystemMaxFarTitle      : constant SystemMaxFarTextT
+ 114       := "SYSTEMMAXFAR ";
+ 115  
+ 116     subtype ClassTextI is Positive range 1..12;
+ 117     subtype ClassTextT is String(ClassTextI);
+ 118  
+ 119     type ClassStringT is record
+ 120        Text   : ClassTextT;
+ 121        Length : ClassTextI;
+ 122     end record;
+ 123  
+ 124     type ClassStringLookUpT is array (PrivTypes.ClassT) of ClassStringT;
+ 125     ClassStringLookUp : constant ClassStringLookUpT :=
+ 126       ClassStringLookUpT'
+ 127       (PrivTypes.Unmarked     => ClassStringT'("unmarked    ", 8),
+ 128        PrivTypes.UnClassified => ClassStringT'("unclassified", 12),
+ 129        PrivTypes.Restricted   => ClassStringT'("restricted  ", 10),
+ 130        PrivTypes.Confidential => ClassStringT'("confidential", 12),
+ 131        PrivTypes.Secret       => ClassStringT'("secret      ", 6),
+ 132        PrivTypes.TopSecret    => ClassStringT'("topsecret   ", 9));
+ 133  
+ 134     subtype AccessTextI is Positive range 1..12;
+ 135     subtype AccessTextT is String(AccessTextI);
+ 136  
+ 137     type AccessStringT is record
+ 138        Text   : AccessTextT;
+ 139        Length : AccessTextI;
+ 140     end record;
+ 141  
+ 142     type AccessStringLookUpT is array (AccessPolicyT) of AccessStringT;
+ 143     AccessStringLookUp : constant AccessStringLookUpT :=
+ 144       AccessStringLookUpT'
+ 145       (AllHours     => AccessStringT'("allhours    ", 8),
+ 146        WorkingHours => AccessStringT'("workinghours", 12));
+ 147  
+ 148     ------------------------------------------------------------------
+ 149     -- State
+ 150     --
+ 151     ------------------------------------------------------------------
+ 152     LatchUnlockDuration  : DurationT;
+ 153     AlarmSilentDuration  : DurationT;
+ 154     FingerWaitDuration   : DurationT;
+ 155     TokenRemovalDuration : DurationT;
+ 156     EnclaveClearance     : PrivTypes.ClassT;
+ 157     WorkingHoursStart    : Clock.DurationT;
+ 158     WorkingHoursEnd      : Clock.DurationT;
+ 159     MaxAuthDuration      : Clock.DurationT;
+ 160     AccessPolicy         : AccessPolicyT;
+ 161     MinEntryClass        : PrivTypes.ClassT;
+ 162     MinPreservedLogSize  : AuditTypes.FileSizeT;
+ 163     AlarmThresholdSize   : AuditTypes.FileSizeT;
+ 164     SystemMaxFar         : IandATypes.FarT;
+ 165  
+ 166     ConfigFile : File.T := File.NullFile;
+ 167     ------------------------------------------------------------------
+ 168     -- Public Operations
+ 169     --
+ 170     ------------------------------------------------------------------
+ 171  
+ 172     ------------------------------------------------------------------
+ 173     -- ValidateFile
+ 174     --
+ 175     -- Implementation Notes:
+ 176     --      None.
+ 177     --
+ 178     ------------------------------------------------------------------
+ 179     procedure ValidateFile
+ 180       (TheFile                 : in out File.T;
+ 181        Success                 :    out Boolean;
+ 182        TheLatchUnlockDuration  :    out DurationT;
+ 183        TheAlarmSilentDuration  :    out DurationT;
+ 184        TheFingerWaitDuration   :    out DurationT;
+ 185        TheTokenRemovalDuration :    out DurationT;
+ 186        TheEnclaveClearance     :    out PrivTypes.ClassT;
+ 187        TheWorkingHoursStart    :    out Clock.DurationT;
+ 188        TheWorkingHoursEnd      :    out Clock.DurationT;
+ 189        TheMaxAuthDuration      :    out Clock.DurationT;
+ 190        TheAccessPolicy         :    out AccessPolicyT;
+ 191        TheMinEntryClass        :    out PrivTypes.ClassT;
+ 192        TheMinPreservedLogSize  :    out AuditTypes.FileSizeT;
+ 193        TheAlarmThresholdSize   :    out AuditTypes.FileSizeT;
+ 194        TheSystemMaxFar         :    out IandATypes.FarT
+ 195        )
+ 196     is
+ 197  
+ 198        OK : Boolean;
+ 199  
+ 200        ------------------------------------------------------------------
+ 201        -- ReadDuration
+ 202        --
+ 203        -- Description:
+ 204        --      Reads a Duration from file.
+ 205        --
+ 206        -- Implementation Notes:
+ 207        --      Within the file duration is stored in seconds,
+ 208        --      convert to 1/10sec for storage.
+ 209        ------------------------------------------------------------------
+ 210        procedure ReadDuration( Value : out DurationT)
+ 211          --# global in out TheFile;
+ 212          --#           out Success;
+ 213          --# derives TheFile,
+ 214          --#         Value,
+ 215          --#         Success from TheFile;
+ 216        is
+ 217           RawDuration : Integer;
+ 218        begin
+ 219  
+ 220           Value := DurationT'First;
+ 221           File.GetInteger(TheFile, RawDuration, 0, Success);
+ 222  
+ 223           --------------------------------------------------------------
+ 224           -- The original Tokeneer code had a defect in the following
+ 225           -- condition. See the Reader's Guide for an explantion and
+ 226           -- root-cause analysis
+ 227           --
+ 228           --    if Success and then
+ 229           --      (RawDuration * 10 <= Integer(DurationT'Last) and
+ 230           --       RawDuration * 10 >= Integer(DurationT'First)) then
+ 231           --------------------------------------------------------------
+ 232  
+ 233           if Success and then
+ 234             (RawDuration <= Integer (DurationT'Last) / 10 and
+ 235                RawDuration >= Integer (DurationT'First) / 10) then
+ 236  
+ 237              Value := DurationT(RawDuration * 10);
+ 238           else
+ 239              Success := False;
+ 240           end if;
+ 241  
+ 242           if File.EndOfLine(TheFile) then
+ 243              File.SkipLine(TheFile, 1);
+ 244           else
+ 245              Success := False;
+ 246           end if;
+ 247  
+ 248        end ReadDuration;
+
++++        Flow analysis of subprogram ReadDuration 
+           performed: no errors found.
+
+ 249  
+ 250  
+ 251        ------------------------------------------------------------------
+ 252        -- ReadFileSize
+ 253        --
+ 254        -- Description:
+ 255        --      Reads an audit file size from file.
+ 256        --
+ 257        -- Implementation Notes:
+ 258        --      Within the file size is stored in Kbytes,
+ 259        --      convert to bytes for storage.
+ 260        ------------------------------------------------------------------
+ 261        procedure ReadFileSize( Value : out AuditTypes.FileSizeT)
+ 262          --# global in out TheFile;
+ 263          --#           out Success;
+ 264          --# derives TheFile,
+ 265          --#         Value,
+ 266          --#         Success from TheFile;
+ 267        is
+ 268           RawSize : Integer;
+ 269        begin
+ 270  
+ 271           Value := AuditTypes.FileSizeT'First;
+ 272           File.GetInteger(TheFile, RawSize, 0, Success);
+ 273           if Success and then
+ 274             (RawSize  <= Integer(AuditTypes.FileSizeT'Last)/2**10 and
+ 275              RawSize  >= Integer(AuditTypes.FileSizeT'First)/2**10) then
+ 276              Value := AuditTypes.FileSizeT(RawSize * 2**10);
+ 277           else
+ 278              Success := False;
+ 279           end if;
+ 280  
+ 281           if File.EndOfLine(TheFile) then
+ 282              File.SkipLine(TheFile, 1);
+ 283           else
+ 284              Success := False;
+ 285           end if;
+ 286  
+ 287        end ReadFileSize;
+
++++        Flow analysis of subprogram ReadFileSize 
+           performed: no errors found.
+
+ 288  
+ 289        ------------------------------------------------------------------
+ 290        -- ReadClass
+ 291        --
+ 292        -- Description:
+ 293        --      Reads a Class from file.
+ 294        --
+ 295        -- Implementation Notes:
+ 296        --      None.
+ 297        ------------------------------------------------------------------
+ 298        procedure ReadClass( Value : out PrivTypes.ClassT)
+ 299          --# global in out TheFile;
+ 300          --#           out Success;
+ 301          --# derives TheFile,
+ 302          --#         Value,
+ 303          --#         Success from TheFile;
+ 304        is
+ 305           RawClass : ClassTextT;
+ 306           Stop : Natural;
+ 307           Matched : Boolean := False;
+ 308        begin
+ 309           Value := PrivTypes.ClassT'First;
+ 310           File.GetLine(TheFile, RawClass, Stop);
+ 311           for C in PrivTypes.ClassT loop
+ 312  
+ 313              --# assert C in PrivTypes.ClassT;
+ 314  
+ 315              if Stop = ClassStringLookUp(C).Length then
+ 316  
+ 317                 --# assert Stop in ClassTextI and
+ 318                 --#        C in PrivTypes.ClassT;
+ 319  
+ 320                 -- could be the correct text
+ 321  
+ 322                 Matched := True;
+ 323                 for I in ClassTextI range 1 .. Stop loop
+ 324  
+ 325                    --# assert Stop in ClassTextI and
+ 326                    --#        Stop = Stop% and
+ 327                    --#        I in ClassTextI and
+ 328                    --#        C in PrivTypes.ClassT and
+ 329                    --#        I <= Stop;
+ 330  
+ 331                    if ClassStringLookUp(C).Text(I) /= RawClass(I) then
+ 332                       Matched := False;
+ 333                       exit;
+ 334                    end if;
+ 335                 end loop;
+ 336              end if;
+ 337              if Matched then
+ 338                 Value := C;
+ 339                 exit;
+ 340              end if;
+ 341           end loop;
+ 342  
+ 343           Success := Matched;
+ 344  
+ 345        end ReadClass;
+
++++        Flow analysis of subprogram ReadClass performed: 
+           no errors found.
+
+ 346  
+ 347        ------------------------------------------------------------------
+ 348        -- ReadWorkingHours
+ 349        --
+ 350        -- Description:
+ 351        --      Reads a working hour from file expect format hh:mm.
+ 352        --
+ 353        -- Implementation Notes:
+ 354        --     Working hours is held internally as a duration in 1/10 secs.
+ 355        ------------------------------------------------------------------
+ 356        procedure ReadWorkingHours( TheDuration : out Clock.DurationT)
+ 357          --# global in out TheFile;
+ 358          --#           out Success;
+ 359          --# derives TheFile,
+ 360          --#         Success,
+ 361          --#         TheDuration from TheFile;
+ 362        is
+ 363           RawHours : Integer;
+ 364           RawMinutes : Integer;
+ 365           Char : Character;
+ 366  
+ 367        begin
+ 368  
+ 369           TheDuration := Clock.DurationT'First;
+ 370           File.GetInteger(TheFile, RawHours, 2,Success);
+ 371           if Success and
+ 372             RawHours >= Integer(Clock.HoursT'First) and
+ 373             RawHours <= Integer(Clock.HoursT'Last) then
+ 374              File.GetChar(TheFile, Char);
+ 375              File.GetInteger(TheFile, RawMinutes, 2, Success);
+ 376              if Success and Char = ':' and
+ 377                RawMinutes >= Integer(Clock.MinutesT'First) and
+ 378                RawMinutes <= Integer(Clock.MinutesT'Last) then
+ 379                 TheDuration := 600 *
+ 380                   (Clock.DurationT(RawHours) * 60 + Clock.DurationT(RawMinutes));
+ 381              end if;
+ 382           end if;
+ 383  
+ 384           if File.EndOfLine(TheFile) then
+ 385              File.SkipLine(TheFile, 1);
+ 386           else
+ 387              Success := False;
+ 388           end if;
+ 389        end ReadWorkingHours;
+
++++        Flow analysis of subprogram ReadWorkingHours 
+           performed: no errors found.
+
+ 390  
+ 391  
+ 392        ------------------------------------------------------------------
+ 393        -- ReadFar
+ 394        --
+ 395        -- Description:
+ 396        --      Reads a Far from file.
+ 397        --
+ 398        -- Implementation Notes:
+ 399        --      None.
+ 400        ------------------------------------------------------------------
+ 401        procedure ReadFar( Value : out IandATypes.FarT)
+ 402          --# global in out TheFile;
+ 403          --#           out Success;
+ 404          --# derives TheFile,
+ 405          --#         Value,
+ 406          --#         Success from TheFile;
+ 407        is
+ 408           RawFar : Integer;
+ 409        begin
+ 410  
+ 411           Value := IandATypes.FarT'First;
+ 412           File.GetInteger(TheFile, RawFar, 0, Success);
+ 413           if Success and then
+ 414             (RawFar <= Integer(IandATypes.FarT'Last) and
+ 415              RawFar >= Integer(IandATypes.FarT'First)) then
+ 416              Value := IandATypes.FarT(RawFar);
+ 417           else
+ 418              Success := False;
+ 419           end if;
+ 420  
+ 421           if File.EndOfLine(TheFile) then
+ 422              File.SkipLine(TheFile, 1);
+ 423           else
+ 424              Success := False;
+ 425           end if;
+ 426  
+ 427        end ReadFar;
+
++++        Flow analysis of subprogram ReadFar performed: 
+           no errors found.
+
+ 428  
+ 429  
+ 430        ------------------------------------------------------------------
+ 431        -- ReadAlarmSilent
+ 432        --
+ 433        -- Description:
+ 434        --      Reads the alarm silent value from file.
+ 435        --
+ 436        -- Implementation Notes:
+ 437        --      None.
+ 438        ------------------------------------------------------------------
+ 439        procedure ReadAlarmSilent
+ 440          --# global in out TheFile;
+ 441          --#           out Success;
+ 442          --#           out TheAlarmSilentDuration;
+ 443          --# derives TheFile,
+ 444          --#         Success,
+ 445          --#         TheAlarmSilentDuration from TheFile;
+ 446        is
+ 447           TheTitle : AlarmSilentTextT;
+ 448           Stop : Natural;
+ 449        begin
+ 450  
+ 451           TheAlarmSilentDuration := DurationT'First;
+ 452           File.GetString(TheFile, TheTitle, Stop);
+ 453           if Stop = TheTitle'Last and then
+ 454             TheTitle = AlarmSilentTitle then
+ 455              ReadDuration(TheAlarmSilentDuration);
+ 456           else
+ 457              Success := False;
+ 458           end if;
+ 459  
+ 460        end ReadAlarmSilent;
+
++++        Flow analysis of subprogram ReadAlarmSilent 
+           performed: no errors found.
+
+ 461  
+ 462        ------------------------------------------------------------------
+ 463        -- ReadLatchUnlock
+ 464        --
+ 465        -- Description:
+ 466        --      Reads the latch unlock value from file.
+ 467        --
+ 468        -- Implementation Notes:
+ 469        --      None.
+ 470        ------------------------------------------------------------------
+ 471        procedure ReadLatchUnlock
+ 472          --# global in out TheFile;
+ 473          --#           out Success;
+ 474          --#           out TheLatchUnlockDuration;
+ 475          --# derives TheFile,
+ 476          --#         Success,
+ 477          --#         TheLatchUnlockDuration from TheFile;
+ 478        is
+ 479           TheTitle : LatchUnlockTextT;
+ 480           Stop : Natural;
+ 481        begin
+ 482  
+ 483           TheLatchUnlockDuration := DurationT'First;
+ 484           File.GetString(TheFile, TheTitle, Stop);
+ 485           if Stop = TheTitle'Last and then
+ 486             TheTitle = LatchUnlockTitle then
+ 487              ReadDuration(TheLatchUnlockDuration);
+ 488           else
+ 489              Success := False;
+ 490           end if;
+ 491  
+ 492        end ReadLatchUnlock;
+
++++        Flow analysis of subprogram ReadLatchUnlock 
+           performed: no errors found.
+
+ 493  
+ 494        ------------------------------------------------------------------
+ 495        -- ReadFingerWait
+ 496        --
+ 497        -- Description:
+ 498        --      Reads the finger wait value from file.
+ 499        --
+ 500        -- Implementation Notes:
+ 501        --      None.
+ 502        ------------------------------------------------------------------
+ 503        procedure ReadFingerWait
+ 504          --# global in out TheFile;
+ 505          --#           out Success;
+ 506          --#           out TheFingerWaitDuration;
+ 507          --# derives TheFile,
+ 508          --#         Success,
+ 509          --#         TheFingerWaitDuration from TheFile;
+ 510        is
+ 511           TheTitle : FingerWaitTextT;
+ 512           Stop : Natural;
+ 513        begin
+ 514  
+ 515           TheFingerWaitDuration := DurationT'First;
+ 516           File.GetString(TheFile, TheTitle, Stop);
+ 517           if Stop = TheTitle'Last and then
+ 518             TheTitle = FingerWaitTitle then
+ 519              ReadDuration(TheFingerWaitDuration);
+ 520           else
+ 521              Success := False;
+ 522           end if;
+ 523  
+ 524        end ReadFingerWait;
+
++++        Flow analysis of subprogram ReadFingerWait 
+           performed: no errors found.
+
+ 525  
+ 526        ------------------------------------------------------------------
+ 527        -- ReadTokenRemoval
+ 528        --
+ 529        -- Description:
+ 530        --      Reads the token removal value from file.
+ 531        --
+ 532        -- Implementation Notes:
+ 533        --      None.
+ 534        ------------------------------------------------------------------
+ 535        procedure ReadTokenRemoval
+ 536          --# global in out TheFile;
+ 537          --#           out Success;
+ 538          --#           out TheTokenRemovalDuration;
+ 539          --# derives TheFile,
+ 540          --#         Success,
+ 541          --#         TheTokenRemovalDuration from TheFile;
+ 542        is
+ 543           TheTitle : TokenRemovalTextT;
+ 544           Stop : Natural;
+ 545        begin
+ 546  
+ 547           TheTokenRemovalDuration := DurationT'First;
+ 548           File.GetString(TheFile, TheTitle, Stop);
+ 549           if Stop = TheTitle'Last and then
+ 550             TheTitle = TokenRemovalTitle then
+ 551              ReadDuration(TheTokenRemovalDuration);
+ 552           else
+ 553              Success := False;
+ 554           end if;
+ 555  
+ 556        end ReadTokenRemoval;
+
++++        Flow analysis of subprogram ReadTokenRemoval 
+           performed: no errors found.
+
+ 557  
+ 558        ------------------------------------------------------------------
+ 559        -- ReadClearance
+ 560        --
+ 561        -- Description:
+ 562        --      Reads the enclave clearance value from file.
+ 563        --
+ 564        -- Implementation Notes:
+ 565        --      None.
+ 566        ------------------------------------------------------------------
+ 567        procedure ReadClearance
+ 568          --# global in out TheFile;
+ 569          --#           out Success;
+ 570          --#           out TheEnclaveClearance;
+ 571          --# derives TheFile,
+ 572          --#         Success,
+ 573          --#         TheEnclaveClearance from TheFile;
+ 574        is
+ 575           TheTitle : ClearanceTextT;
+ 576           Stop : Natural;
+ 577        begin
+ 578  
+ 579           TheEnclaveClearance := PrivTypes.ClassT'First;
+ 580           File.GetString(TheFile, TheTitle, Stop);
+ 581           if Stop = TheTitle'Last and then
+ 582             TheTitle = ClearanceTitle then
+ 583              ReadClass(TheEnclaveClearance);
+ 584           else
+ 585              Success := False;
+ 586           end if;
+ 587  
+ 588        end ReadClearance;
+
++++        Flow analysis of subprogram ReadClearance 
+           performed: no errors found.
+
+ 589  
+ 590        ------------------------------------------------------------------
+ 591        -- ReadWorkingStart
+ 592        --
+ 593        -- Description:
+ 594        --      Reads the working hours start value from file.
+ 595        --
+ 596        -- Implementation Notes:
+ 597        --      None.
+ 598        ------------------------------------------------------------------
+ 599        procedure ReadWorkingStart
+ 600          --# global in out TheFile;
+ 601          --#           out Success;
+ 602          --#           out TheWorkingHoursStart;
+ 603          --# derives TheFile,
+ 604          --#         Success,
+ 605          --#         TheWorkingHoursStart from TheFile;
+ 606        is
+ 607           TheTitle : WorkingStartTextT;
+ 608           Stop : Natural;
+ 609        begin
+ 610  
+ 611           TheWorkingHoursStart := Clock.DurationT'First;
+ 612           File.GetString(TheFile, TheTitle, Stop);
+ 613           if Stop = TheTitle'Last and then
+ 614             TheTitle = WorkingStartTitle then
+ 615              ReadWorkingHours(TheWorkingHoursStart);
+ 616           else
+ 617              Success := False;
+ 618           end if;
+ 619  
+ 620        end ReadWorkingStart;
+
++++        Flow analysis of subprogram ReadWorkingStart 
+           performed: no errors found.
+
+ 621  
+ 622        ------------------------------------------------------------------
+ 623        -- ReadWorkingEnd
+ 624        --
+ 625        -- Description:
+ 626        --      Reads the working hours end value from file.
+ 627        --
+ 628        -- Implementation Notes:
+ 629        --      None.
+ 630        ------------------------------------------------------------------
+ 631        procedure ReadWorkingEnd
+ 632          --# global in out TheFile;
+ 633          --#           out Success;
+ 634          --#           out TheWorkingHoursEnd;
+ 635          --# derives TheFile,
+ 636          --#         Success,
+ 637          --#         TheWorkingHoursEnd from TheFile;
+ 638        is
+ 639           TheTitle : WorkingEndTextT;
+ 640           Stop : Natural;
+ 641        begin
+ 642  
+ 643           TheWorkingHoursEnd := Clock.DurationT'First;
+ 644           File.GetString(TheFile, TheTitle, Stop);
+ 645           if Stop = TheTitle'Last and then
+ 646             TheTitle = WorkingEndTitle then
+ 647              ReadWorkingHours(TheWorkingHoursEnd);
+ 648           else
+ 649              Success := False;
+ 650           end if;
+ 651  
+ 652        end ReadWorkingEnd;
+
++++        Flow analysis of subprogram ReadWorkingEnd 
+           performed: no errors found.
+
+ 653  
+ 654        ------------------------------------------------------------------
+ 655        -- ReadAuthDuration
+ 656        --
+ 657        -- Description:
+ 658        --      Reads the max auth duration value from file.
+ 659        --
+ 660        -- Implementation Notes:
+ 661        --      None.
+ 662        ------------------------------------------------------------------
+ 663        procedure ReadAuthDuration
+ 664          --# global in out TheFile;
+ 665          --#           out Success;
+ 666          --#           out TheMaxAuthDuration;
+ 667          --# derives TheFile,
+ 668          --#         Success,
+ 669          --#         TheMaxAuthDuration from TheFile;
+ 670        is
+ 671           TheTitle : MaxAuthDurationTextT;
+ 672           Stop : Natural;
+ 673        begin
+ 674  
+ 675           TheMaxAuthDuration := Clock.DurationT'First;
+ 676           File.GetString(TheFile, TheTitle, Stop);
+ 677           if Stop = TheTitle'Last and then
+ 678             TheTitle = MaxAuthDurationTitle then
+ 679              ReadWorkingHours(TheMaxAuthDuration);
+ 680           else
+ 681              Success := False;
+ 682           end if;
+ 683  
+ 684        end ReadAuthDuration;
+
++++        Flow analysis of subprogram ReadAuthDuration 
+           performed: no errors found.
+
+ 685  
+ 686        ------------------------------------------------------------------
+ 687        -- ReadAccessPolicy
+ 688        --
+ 689        -- Description:
+ 690        --      Reads the access policy value from file.
+ 691        --
+ 692        -- Implementation Notes:
+ 693        --      None.
+ 694        ------------------------------------------------------------------
+ 695        procedure ReadAccessPolicy
+ 696          --# global in out TheFile;
+ 697          --#           out Success;
+ 698          --#           out TheAccessPolicy;
+ 699          --# derives TheFile,
+ 700          --#         Success,
+ 701          --#         TheAccessPolicy from TheFile;
+ 702        is
+ 703           TheTitle : AccessPolicyTextT;
+ 704           RawAccessPolicy : AccessTextT;
+ 705           Stop : Natural;
+ 706           Matched : Boolean := False;
+ 707        begin
+ 708  
+ 709           TheAccessPolicy := AccessPolicyT'First;
+ 710           File.GetString(TheFile, TheTitle, Stop);
+ 711           if Stop = TheTitle'Last and then
+ 712             TheTitle = AccessPolicyTitle then
+ 713  
+ 714              File.GetLine(TheFile, RawAccessPolicy, Stop);
+ 715              for AP in AccessPolicyT loop
+ 716                 --# assert AP in AccessPolicyT;
+ 717                 if Stop = AccessStringLookUp(AP).Length then
+ 718                    --# assert AP in AccessPolicyT and
+ 719                    --#        Stop in AccessTextI;
+ 720  
+ 721                    -- could be the correct text
+ 722                    Matched := True;
+ 723                    for I in AccessTextI range 1 .. Stop loop
+ 724                       --# assert AP in AccessPolicyT and
+ 725                       --#        Stop in AccessTextI and
+ 726                       --#        Stop = Stop% and
+ 727                       --#        I in AccessTextI and
+ 728                       --#        I <= Stop;
+ 729                       if AccessStringLookUp(AP).Text(I) /= RawAccessPolicy(I) then
+ 730                          Matched := False;
+ 731                          exit;
+ 732                       end if;
+ 733                    end loop;
+ 734                 end if;
+ 735                 if Matched then
+ 736                    TheAccessPolicy := AP;
+ 737                    exit;
+ 738                 end if;
+ 739              end loop;
+ 740  
+ 741              Success := Matched;
+ 742  
+ 743           else
+ 744              Success := False;
+ 745           end if;
+ 746  
+ 747        end ReadAccessPolicy;
+
++++        Flow analysis of subprogram ReadAccessPolicy 
+           performed: no errors found.
+
+ 748  
+ 749        ------------------------------------------------------------------
+ 750        -- ReadMinEntryClass
+ 751        --
+ 752        -- Description:
+ 753        --      Reads the min entry class value from file.
+ 754        --
+ 755        -- Implementation Notes:
+ 756        --      None.
+ 757        ------------------------------------------------------------------
+ 758        procedure ReadMinEntryClass
+ 759          --# global in out TheFile;
+ 760          --#           out Success;
+ 761          --#           out TheMinEntryClass;
+ 762          --# derives TheFile,
+ 763          --#         Success,
+ 764          --#         TheMinEntryClass from TheFile;
+ 765        is
+ 766           TheTitle : MinEntryClassTextT;
+ 767           Stop : Natural;
+ 768        begin
+ 769  
+ 770           TheMinEntryClass := PrivTypes.ClassT'First;
+ 771           File.GetString(TheFile, TheTitle, Stop);
+ 772           if Stop = TheTitle'Last and then
+ 773             TheTitle = MinEntryClassTitle then
+ 774              ReadClass(TheMinEntryClass);
+ 775           else
+ 776              Success := False;
+ 777           end if;
+ 778  
+ 779        end ReadMinEntryClass;
+
++++        Flow analysis of subprogram ReadMinEntryClass 
+           performed: no errors found.
+
+ 780  
+ 781        ------------------------------------------------------------------
+ 782        -- ReadMinPreservedLog
+ 783        --
+ 784        -- Description:
+ 785        --      Reads the min preserved log size value from file.
+ 786        --
+ 787        -- Implementation Notes:
+ 788        --      None.
+ 789        ------------------------------------------------------------------
+ 790        procedure ReadMinPreservedLog
+ 791          --# global in out TheFile;
+ 792          --#           out Success;
+ 793          --#           out TheMinPreservedLogSize;
+ 794          --# derives TheFile,
+ 795          --#         Success,
+ 796          --#         TheMinPreservedLogSize from TheFile;
+ 797        is
+ 798           TheTitle : MinPreservedLogSizeTextT;
+ 799           Stop : Natural;
+ 800        begin
+ 801  
+ 802           TheMinPreservedLogSize := AuditTypes.FileSizeT'First;
+ 803           File.GetString(TheFile, TheTitle, Stop);
+ 804           if Stop = TheTitle'Last and then
+ 805             TheTitle = MinPreservedLogSizeTitle then
+ 806              ReadFileSize(TheMinPreservedLogSize);
+ 807           else
+ 808              Success := False;
+ 809           end if;
+ 810  
+ 811        end ReadMinPreservedLog;
+
++++        Flow analysis of subprogram ReadMinPreservedLog 
+           performed: no errors found.
+
+ 812  
+ 813        ------------------------------------------------------------------
+ 814        -- ReadAlarmThreshold
+ 815        --
+ 816        -- Description:
+ 817        --      Reads the log alarm threshold value from file.
+ 818        --
+ 819        -- Implementation Notes:
+ 820        --      None.
+ 821        ------------------------------------------------------------------
+ 822        procedure ReadAlarmThreshold
+ 823          --# global in out TheFile;
+ 824          --#           out Success;
+ 825          --#           out TheAlarmThresholdSize;
+ 826          --# derives TheFile,
+ 827          --#         Success,
+ 828          --#         TheAlarmThresholdSize from TheFile;
+ 829        is
+ 830           TheTitle : AlarmThresholdTextT;
+ 831           Stop : Natural;
+ 832        begin
+ 833  
+ 834           TheAlarmThresholdSize := AuditTypes.FileSizeT'First;
+ 835           File.GetString(TheFile, TheTitle, Stop);
+ 836           if Stop = TheTitle'Last and then
+ 837             TheTitle = AlarmThresholdTitle then
+ 838              ReadFileSize(TheAlarmThresholdSize);
+ 839           else
+ 840              Success := False;
+ 841           end if;
+ 842  
+ 843        end ReadAlarmThreshold;
+
++++        Flow analysis of subprogram ReadAlarmThreshold 
+           performed: no errors found.
+
+ 844  
+ 845  
+ 846        ------------------------------------------------------------------
+ 847        -- ReadSystemMaxFar
+ 848        --
+ 849        -- Description:
+ 850        --      Reads the system max FAR from file.
+ 851        --
+ 852        -- Implementation Notes:
+ 853        --      None.
+ 854        ------------------------------------------------------------------
+ 855        procedure ReadSystemMaxFar
+ 856          --# global in out TheFile;
+ 857          --#           out Success;
+ 858          --#           out TheSystemMaxFar;
+ 859          --# derives TheFile,
+ 860          --#         Success,
+ 861          --#         TheSystemMaxFar from TheFile;
+ 862        is
+ 863           TheTitle : SystemMaxFarTextT;
+ 864           Stop : Natural;
+ 865        begin
+ 866  
+ 867           TheSystemMaxFar := IandATypes.FarT'First;
+ 868           File.GetString(TheFile, TheTitle, Stop);
+ 869           if Stop = TheTitle'Last and then
+ 870             TheTitle = SystemMaxFarTitle then
+ 871              ReadFar(TheSystemMaxFar);
+ 872           else
+ 873              Success := False;
+ 874           end if;
+ 875  
+ 876        end ReadSystemMaxFar;
+
++++        Flow analysis of subprogram ReadSystemMaxFar 
+           performed: no errors found.
+
+ 877  
+ 878  
+ 879  
+ 880     ---------------------------------------------------------------
+ 881     -- begin ValidateFile
+ 882     ---------------------------------------------------------------
+ 883     begin
+ 884  
+ 885  
+ 886        File.OpenRead (TheFile => TheFile,
+ 887                       Success => Success);
+ 888        if Success then
+ 889           ReadAlarmSilent;
+ 890        else
+ 891           TheAlarmSilentDuration := DurationT'First;
+ 892        end if;
+ 893  
+ 894        --# assert True;
+ 895  
+ 896        if Success then
+ 897           ReadLatchUnlock;
+ 898        else
+ 899           TheLatchUnlockDuration  := DurationT'First;
+ 900        end if;
+ 901  
+ 902        --# assert True;
+ 903  
+ 904        if Success then
+ 905           ReadTokenRemoval;
+ 906        else
+ 907           TheTokenRemovalDuration  := DurationT'First;
+ 908        end if;
+ 909  
+ 910        --# assert True;
+ 911  
+ 912        if Success then
+ 913           ReadFingerWait;
+ 914        else
+ 915           TheFingerWaitDuration  := DurationT'First;
+ 916        end if;
+ 917  
+ 918        if Success then
+ 919           ReadClearance;
+ 920        else
+ 921           TheEnclaveClearance     := PrivTypes.ClassT'First;
+ 922        end if;
+ 923  
+ 924        --# assert True;
+ 925  
+ 926        if Success then
+ 927           ReadWorkingStart;
+ 928        else
+ 929           TheWorkingHoursStart    := Clock.DurationT'First;
+ 930        end if;
+ 931  
+ 932        --# assert True;
+ 933  
+ 934        if Success then
+ 935           ReadWorkingEnd;
+ 936        else
+ 937           TheWorkingHoursEnd    := Clock.DurationT'First;
+ 938        end if;
+ 939  
+ 940        --# assert True;
+ 941  
+ 942        if Success then
+ 943           ReadAuthDuration;
+ 944        else
+ 945           TheMaxAuthDuration    := Clock.DurationT'First;
+ 946        end if;
+ 947  
+ 948        --# assert True;
+ 949  
+ 950        if Success then
+ 951           ReadAccessPolicy;
+ 952        else
+ 953           TheAccessPolicy   := AccessPolicyT'First;
+ 954        end if;
+ 955  
+ 956        --# assert True;
+ 957  
+ 958        if Success then
+ 959           ReadMinEntryClass;
+ 960        else
+ 961           TheMinEntryClass   := PrivTypes.ClassT'First;
+ 962        end if;
+ 963  
+ 964        --# assert True;
+ 965  
+ 966        if Success then
+ 967           ReadMinPreservedLog;
+ 968        else
+ 969           TheMinPreservedLogSize  := AuditTypes.FileSizeT'First;
+ 970        end if;
+ 971  
+ 972        --# assert True;
+ 973  
+ 974        if Success then
+ 975           ReadAlarmThreshold;
+ 976        else
+ 977           TheAlarmThresholdSize  := AuditTypes.FileSizeT'First;
+ 978        end if;
+ 979  
+ 980        --# assert True;
+ 981  
+ 982        if Success then
+ 983           ReadSystemMaxFar;
+ 984        else
+ 985           TheSystemMaxFar  := IandATypes.FarT'First;
+ 986        end if;
+ 987  
+ 988        File.Close(TheFile => TheFile,
+ 989                   Success => OK);
+ 990  
+ 991        Success := Success and OK;
+ 992  
+ 993        if Success then
+ 994           -- check the added constraints on values.
+ 995           Success := (TheMinPreservedLogSize >= TheAlarmThresholdSize)
+ 996                       and (TheEnclaveClearance >= TheMinEntryClass);
+ 997        end if;
+ 998  
+ 999     end ValidateFile;
+
++++        Flow analysis of subprogram ValidateFile 
+           performed: no errors found.
+
+1000  
+1001     ------------------------------------------------------------------
+1002     -- WriteFile
+1003     --
+1004     -- Implementation Notes:
+1005     --      None.
+1006     --
+1007     ------------------------------------------------------------------
+1008     procedure WriteFile
+1009       (Success                 :    out Boolean;
+1010        TheLatchUnlockDuration  : in     DurationT;
+1011        TheAlarmSilentDuration  : in     DurationT;
+1012        TheFingerWaitDuration   : in     DurationT;
+1013        TheTokenRemovalDuration : in     DurationT;
+1014        TheEnclaveClearance     : in     PrivTypes.ClassT;
+1015        TheWorkingHoursStart    : in     Clock.DurationT;
+1016        TheWorkingHoursEnd      : in     Clock.DurationT;
+1017        TheMaxAuthDuration      : in     Clock.DurationT;
+1018        TheAccessPolicy         : in     AccessPolicyT;
+1019        TheMinEntryClass        : in     PrivTypes.ClassT;
+1020        TheMinPreservedLogSize  : in     AuditTypes.FileSizeT;
+1021        TheAlarmThresholdSize   : in     AuditTypes.FileSizeT;
+1022        TheSystemMaxFar         : in     IandATypes.FarT
+1023        )
+1024     --# global in out ConfigFile;
+1025     --# derives Success,
+1026     --#         ConfigFile from ConfigFile,
+1027     --#                         TheAlarmSilentDuration,
+1028     --#                         TheLatchUnlockDuration,
+1029     --#                         TheFingerWaitDuration,
+1030     --#                         TheTokenRemovalDuration,
+1031     --#                         TheEnclaveClearance,
+1032     --#                         TheWorkingHoursStart,
+1033     --#                         TheWorkingHoursEnd,
+1034     --#                         TheMaxAuthDuration,
+1035     --#                         TheAccessPolicy,
+1036     --#                         TheMinEntryClass,
+1037     --#                         TheMinPreservedLogSize,
+1038     --#                         TheAlarmThresholdSize,
+1039     --#                         TheSystemMaxFar;
+1040     is
+1041        CloseOK : Boolean;
+1042  
+1043        subtype String5I is Positive range 1 .. 5;
+1044        subtype String5T is String(String5I);
+1045  
+1046        ------------------------------------------------------------------
+1047        -- WorkingHoursText
+1048        --
+1049        -- Description:
+1050        --      converts a duration (1/10 sec) to HH:MM text string.
+1051        --
+1052        -- Implementation Notes:
+1053        --      None.
+1054        ------------------------------------------------------------------
+1055        function WorkingHoursText (Value : Clock.DurationT) return String5T
+1056        is
+1057           LocalText : String5T := "00:00";
+1058           LocalValue : Clock.DurationT;
+1059        begin
+1060  
+1061           -- extract the hours
+1062           LocalValue := Value / 36000;
+1063  
+1064           LocalText(1) := Character'Val(Character'Pos('0') + LocalValue / 10);
+1065           LocalText(2) := Character'Val(Character'Pos('0') + LocalValue mod 10);
+1066  
+1067           -- extract the minutes
+1068           LocalValue := (Value mod 36000) / 600;
+1069           LocalText(4) := Character'Val(Character'Pos('0') + LocalValue / 10);
+1070           LocalText(5) := Character'Val(Character'Pos('0') + LocalValue mod 10);
+1071  
+1072           return LocalText;
+1073        end WorkingHoursText;
+
++++        Flow analysis of subprogram WorkingHoursText 
+           performed: no errors found.
+
+1074  
+1075     begin
+1076  
+1077        if File.Exists (ConfigFile) then
+1078            File.OpenWrite (TheFile => ConfigFile,
+1079                            Success => Success);
+1080        else
+1081           File.Create (TheFile => ConfigFile,
+1082                        Success => Success);
+1083        end if;
+1084  
+1085        --# assert True;
+1086  
+1087        if Success then
+1088  
+1089           -- write AlarmSilentDuration (convert from 1/10s to secs)
+1090           File.PutString(TheFile => ConfigFile,
+1091                          Text    => AlarmSilentTitle,
+1092                          Stop    => 0);
+1093           File.PutInteger(TheFile => ConfigFile,
+1094                           Item    => Integer(TheAlarmSilentDuration) / 10,
+1095                           Width    => 0);
+1096           File.NewLine(TheFile   => ConfigFile,
+1097                        Spacing   => 1);
+1098  
+1099           -- write LatchUnlockDuration (convert from 1/10s to secs)
+1100           File.PutString(TheFile => ConfigFile,
+1101                          Text    => LatchUnlockTitle,
+1102                          Stop    => 0);
+1103           File.PutInteger(TheFile => ConfigFile,
+1104                           Item    => Integer(TheLatchUnlockDuration) / 10,
+1105                           Width    => 0);
+1106           File.NewLine(TheFile   => ConfigFile,
+1107                        Spacing   => 1);
+1108  
+1109           -- write TokenRemovalDuration (convert from 1/10s to secs)
+1110           File.PutString(TheFile => ConfigFile,
+1111                          Text    => TokenRemovalTitle,
+1112                          Stop    => 0);
+1113           File.PutInteger(TheFile => ConfigFile,
+1114                           Item    => Integer(TheTokenRemovalDuration) / 10,
+1115                           Width    => 0);
+1116           File.NewLine(TheFile   => ConfigFile,
+1117                        Spacing   => 1);
+1118  
+1119           -- write FingerWaitDuration (convert from 1/10s to secs)
+1120           File.PutString(TheFile => ConfigFile,
+1121                          Text    => FingerWaitTitle,
+1122                          Stop    => 0);
+1123           File.PutInteger(TheFile => ConfigFile,
+1124                           Item    => Integer(TheFingerWaitDuration) / 10,
+1125                           Width    => 0);
+1126           File.NewLine(TheFile   => ConfigFile,
+1127                        Spacing   => 1);
+1128  
+1129           -- write Clearance
+1130           File.PutString(TheFile => ConfigFile,
+1131                          Text    => ClearanceTitle,
+1132                          Stop    => 0);
+1133           File.PutString(TheFile => ConfigFile,
+1134                          Text    => ClassStringLookup(TheEnclaveClearance).Text,
+1135                          Stop    => ClassStringLookup(TheEnclaveClearance).Length);
+1136           File.NewLine(TheFile   => ConfigFile,
+1137                        Spacing   => 1);
+1138  
+1139           -- write WorkingStart (convert from 1/10 sec to HH:MM)
+1140           File.PutString(TheFile => ConfigFile,
+1141                          Text    => WorkingStartTitle,
+1142                          Stop    => 0);
+1143           File.PutString(TheFile => ConfigFile,
+1144                          Text    => WorkingHoursText(TheWorkingHoursStart),
+1145                          Stop    => 0);
+1146           File.NewLine(TheFile   => ConfigFile,
+1147                        Spacing   => 1);
+1148  
+1149           -- write WorkingEnd (convert from 1/10 sec to HH:MM)
+1150           File.PutString(TheFile => ConfigFile,
+1151                          Text    => WorkingEndTitle,
+1152                          Stop    => 0);
+1153           File.PutString(TheFile => ConfigFile,
+1154                          Text    => WorkingHoursText(TheWorkingHoursEnd),
+1155                          Stop    => 0);
+1156           File.NewLine(TheFile   => ConfigFile,
+1157                        Spacing   => 1);
+1158  
+1159           -- write MaxAuthDuration (convert from 1/10 sec to HH:MM)
+1160           File.PutString(TheFile => ConfigFile,
+1161                          Text    => MaxAuthDurationTitle,
+1162                          Stop    => 0);
+1163           File.PutString(TheFile => ConfigFile,
+1164                          Text    => WorkingHoursText(TheMaxAuthDuration),
+1165                          Stop    => 0);
+1166           File.NewLine(TheFile   => ConfigFile,
+1167                        Spacing   => 1);
+1168  
+1169           -- write AccessPolicy
+1170           File.PutString(TheFile => ConfigFile,
+1171                          Text    => AccessPolicyTitle,
+1172                          Stop    => 0);
+1173           File.PutString(TheFile => ConfigFile,
+1174                          Text    => AccessStringLookup(TheAccessPolicy).Text,
+1175                          Stop    => AccessStringLookup(TheAccessPolicy).Length);
+1176           File.NewLine(TheFile   => ConfigFile,
+1177                        Spacing   => 1);
+1178  
+1179           -- write MinEntryClass
+1180           File.PutString(TheFile => ConfigFile,
+1181                          Text    => MinEntryClassTitle,
+1182                          Stop    => 0);
+1183           File.PutString(TheFile => ConfigFile,
+1184                          Text    => ClassStringLookup(TheMinEntryClass).Text,
+1185                          Stop    => ClassStringLookup(TheMinEntryClass).Length);
+1186           File.NewLine(TheFile   => ConfigFile,
+1187                        Spacing   => 1);
+1188  
+1189           -- write MinPreservedLogSize (convert from Bytes to KBytes)
+1190           File.PutString(TheFile => ConfigFile,
+1191                          Text    => MinPreservedLogSizeTitle,
+1192                          Stop    => 0);
+1193           File.PutInteger(TheFile => ConfigFile,
+1194                           Item    => Integer(TheMinPreservedLogSize) / 2**10,
+1195                           Width    => 0);
+1196           File.NewLine(TheFile   => ConfigFile,
+1197                        Spacing   => 1);
+1198  
+1199           -- write AlarmThreshold (convert from Bytes to KBytes)
+1200           File.PutString(TheFile => ConfigFile,
+1201                          Text    => AlarmThresholdTitle,
+1202                          Stop    => 0);
+1203           File.PutInteger(TheFile => ConfigFile,
+1204                           Item    => Integer(TheAlarmThresholdSize) / 2**10,
+1205                           Width    => 0);
+1206           File.NewLine(TheFile   => ConfigFile,
+1207                        Spacing   => 1);
+1208  
+1209  
+1210           -- write SystemMaxFar
+1211           File.PutString(TheFile => ConfigFile,
+1212                          Text    => SystemMaxFarTitle,
+1213                          Stop    => 0);
+1214           File.PutInteger(TheFile => ConfigFile,
+1215                           Item    => Integer(TheSystemMaxFar),
+1216                           Width    => 0);
+1217           File.NewLine(TheFile   => ConfigFile,
+1218                        Spacing   => 1);
+1219  
+1220        end if;
+1221  
+1222        File.Close(TheFile => ConfigFile,
+1223                   Success => CloseOK);
+1224  
+1225        Success := CloseOK and Success;
+1226  
+1227     end WriteFile;
+
++++        Flow analysis of subprogram WriteFile performed: 
+           no errors found.
+
+1228  
+1229     ------------------------------------------------------------------
+1230     -- Init
+1231     --
+1232     -- Implementation Notes:
+1233     --        None.
+1234     ------------------------------------------------------------------
+1235     procedure Init
+1236     --# global in out ConfigFile;
+1237     --#           out LatchUnlockDuration;
+1238     --#           out AlarmSilentDuration;
+1239     --#           out FingerWaitDuration;
+1240     --#           out TokenRemovalDuration;
+1241     --#           out EnclaveClearance;
+1242     --#           out WorkingHoursStart;
+1243     --#           out WorkingHoursEnd;
+1244     --#           out MaxAuthDuration;
+1245     --#           out AccessPolicy;
+1246     --#           out MinEntryClass;
+1247     --#           out MinPreservedLogSize;
+1248     --#           out AlarmThresholdSize;
+1249     --#           out SystemMaxFar;
+1250     --# derives ConfigFile,
+1251     --#         LatchUnlockDuration,
+1252     --#         AlarmSilentDuration,
+1253     --#         FingerWaitDuration,
+1254     --#         TokenRemovalDuration,
+1255     --#         EnclaveClearance,
+1256     --#         WorkingHoursStart,
+1257     --#         WorkingHoursEnd,
+1258     --#         MaxAuthDuration,
+1259     --#         AccessPolicy,
+1260     --#         MinEntryClass,
+1261     --#         MinPreservedLogSize,
+1262     --#         AlarmThresholdSize,
+1263     --#         SystemMaxFar         from ConfigFile;
+1264     is
+1265  
+1266        OK, Unused : Boolean;
+1267        LocalLatchUnlockDuration  : DurationT;
+1268        LocalAlarmSilentDuration  : DurationT;
+1269        LocalFingerWaitDuration   : DurationT;
+1270        LocalTokenRemovalDuration : DurationT;
+1271        LocalEnclaveClearance     : PrivTypes.ClassT;
+1272        LocalWorkingHoursStart    : Clock.DurationT;
+1273        LocalWorkingHoursEnd      : Clock.DurationT;
+1274        LocalMaxAuthDuration      : Clock.DurationT;
+1275        LocalAccessPolicy         : AccessPolicyT;
+1276        LocalMinEntryClass        : PrivTypes.ClassT;
+1277        LocalMinPreservedLogSize  : AuditTypes.FileSizeT;
+1278        LocalAlarmThresholdSize   : AuditTypes.FileSizeT;
+1279        LocalSystemMaxFar         : IandATypes.FarT;
+1280  
+1281     ------------------------------------------------------------------
+1282     -- SetDefaults
+1283     --
+1284     -- Description:
+1285     --      Initialises the configuration data to default values.
+1286     --
+1287     -- Implementation Notes:
+1288     --    None.
+1289     --
+1290     ------------------------------------------------------------------
+1291        procedure SetDefaults
+1292     --# global out LatchUnlockDuration;
+1293     --#        out AlarmSilentDuration;
+1294     --#        out FingerWaitDuration;
+1295     --#        out TokenRemovalDuration;
+1296     --#        out EnclaveClearance;
+1297     --#        out WorkingHoursStart;
+1298     --#        out WorkingHoursEnd;
+1299     --#        out MaxAuthDuration;
+1300     --#        out AccessPolicy;
+1301     --#        out MinEntryClass;
+1302     --#        out MinPreservedLogSize;
+1303     --#        out AlarmThresholdSize;
+1304     --#        out SystemMaxFar;
+1305     --# derives LatchUnlockDuration,
+1306     --#         AlarmSilentDuration,
+1307     --#         FingerWaitDuration,
+1308     --#         TokenRemovalDuration,
+1309     --#         EnclaveClearance,
+1310     --#         WorkingHoursStart,
+1311     --#         WorkingHoursEnd,
+1312     --#         MaxAuthDuration,
+1313     --#         AccessPolicy,
+1314     --#         MinEntryClass,
+1315     --#         MinPreservedLogSize,
+1316     --#         AlarmThresholdSize,
+1317     --#         SystemMaxFar         from ;
+1318     is
+1319     begin
+1320  
+1321        LatchUnlockDuration  := 150;
+1322        AlarmSilentDuration  := 10;
+1323        FingerWaitDuration   := 100;
+1324        TokenRemovalDuration := 100;
+1325        EnclaveClearance     := PrivTypes.Unmarked;
+1326        WorkingHoursStart    := 3600;
+1327        WorkingHoursEnd      := 0;
+1328        MaxAuthDuration      := 72000;
+1329        AccessPolicy         := AllHours;
+1330        MinEntryClass        := PrivTypes.Unmarked;
+1331        MinPreservedLogSize  := 1024 * AuditTypes.SizeAuditElement;
+1332        AlarmThresholdSize   := 100 * AuditTypes.SizeAuditElement;
+1333        SystemMaxFar         := 1000;
+1334  
+1335     end SetDefaults;
+
++++        Flow analysis of subprogram SetDefaults 
+           performed: no errors found.
+
+1336  
+1337  
+1338     ----------------------------------------------------------------------
+1339     -- begin Init
+1340     ----------------------------------------------------------------------
+1341     begin
+1342        File.SetName( TheFile => ConfigFile,
+1343                      TheName => "./System/config.dat");
+1344  
+1345        File.CreateDirectory( DirName => "System",
+1346                              Success => OK);
+1347  
+1348        if OK and File.Exists (ConfigFile) then
+1349           ValidateFile
+1350             (TheFile                 => ConfigFile,
+1351              Success                 => OK,
+1352              TheLatchUnlockDuration  => LocalLatchUnlockDuration,
+1353              TheAlarmSilentDuration  => LocalAlarmSilentDuration,
+1354              TheFingerWaitDuration   => LocalFingerWaitDuration,
+1355              TheTokenRemovalDuration => LocalTokenRemovalDuration,
+1356              TheEnclaveClearance     => LocalEnclaveClearance,
+1357              TheWorkingHoursStart    => LocalWorkingHoursStart,
+1358              TheWorkingHoursEnd      => LocalWorkingHoursEnd,
+1359              TheMaxAuthDuration      => LocalMaxAuthDuration,
+1360              TheAccessPolicy         => LocalAccessPolicy,
+1361              TheMinEntryClass        => LocalMinEntryClass,
+1362              TheMinPreservedLogSize  => LocalMinPreservedLogSize,
+1363              TheAlarmThresholdSize   => LocalAlarmThresholdSize,
+1364              TheSystemMaxFar         => LocalSystemMaxFar);
+1365           if OK then
+1366              -- Set local values;
+1367              LatchUnlockDuration  := LocalLatchUnlockDuration;
+1368              AlarmSilentDuration  := LocalAlarmSilentDuration;
+1369              FingerWaitDuration   := LocalFingerWaitDuration;
+1370              TokenRemovalDuration := LocalTokenRemovalDuration;
+1371              EnclaveClearance     := LocalEnclaveClearance;
+1372              WorkingHoursStart    := LocalWorkingHoursStart;
+1373              WorkingHoursEnd      := LocalWorkingHoursEnd;
+1374              MaxAuthDuration      := LocalMaxAuthDuration;
+1375              AccessPolicy         := LocalAccessPolicy;
+1376              MinEntryClass        := LocalMinEntryClass;
+1377              MinPreservedLogSize  := LocalMinPreservedLogSize;
+1378              AlarmThresholdSize   := LocalAlarmThresholdSize;
+1379              SystemMaxFar         := LocalSystemMaxFar;
+1380  
+1381           else
+1382  
+1383              -- Set to default values;
+1384              SetDefaults;
+1385              -- Delete the faulty file.
+1386  
+1387              --# accept F, 10, Unused, "Ineffective assignment expected here" &
+1388              --#        F, 33, Unused, "Ineffective assignment expected here";
+1389              File.OpenRead (ConfigFile, Unused);
+1390              File.Delete (ConfigFile, Unused);
+1391           end if;
+1392  
+1393        else
+1394           SetDefaults;
+1395  
+1396        end if;
+1397  
+1398     end Init;
+
++++        Flow analysis of subprogram Init performed: no 
+           errors found.
+
+1399  
+1400  
+1401  
+1402     ------------------------------------------------------------------
+1403     -- UpdateData
+1404     --
+1405     -- Implementation Notes:
+1406     --    None.
+1407     --
+1408     ------------------------------------------------------------------
+1409     procedure UpdateData
+1410       (TheLatchUnlockDuration  : in     DurationT;
+1411        TheAlarmSilentDuration  : in     DurationT;
+1412        TheFingerWaitDuration   : in     DurationT;
+1413        TheTokenRemovalDuration : in     DurationT;
+1414        TheEnclaveClearance     : in     PrivTypes.ClassT;
+1415        TheWorkingHoursStart    : in     Clock.DurationT;
+1416        TheWorkingHoursEnd      : in     Clock.DurationT;
+1417        TheMaxAuthDuration      : in     Clock.DurationT;
+1418        TheAccessPolicy         : in     AccessPolicyT;
+1419        TheMinEntryClass        : in     PrivTypes.ClassT;
+1420        TheMinPreservedLogSize  : in     AuditTypes.FileSizeT;
+1421        TheAlarmThresholdSize   : in     AuditTypes.FileSizeT;
+1422        TheSystemMaxFar         : in     IandATypes.FarT
+1423        )
+1424     --# global out LatchUnlockDuration;
+1425     --#        out AlarmSilentDuration;
+1426     --#        out FingerWaitDuration;
+1427     --#        out TokenRemovalDuration;
+1428     --#        out EnclaveClearance;
+1429     --#        out WorkingHoursStart;
+1430     --#        out WorkingHoursEnd;
+1431     --#        out MaxAuthDuration;
+1432     --#        out AccessPolicy;
+1433     --#        out MinEntryClass;
+1434     --#        out MinPreservedLogSize;
+1435     --#        out AlarmThresholdSize;
+1436     --#        out SystemMaxFar;
+1437     --# derives LatchUnlockDuration  from TheLatchUnlockDuration &
+1438     --#         AlarmSilentDuration  from TheAlarmSilentDuration &
+1439     --#         FingerWaitDuration   from TheFingerWaitDuration &
+1440     --#         TokenRemovalDuration from TheTokenRemovalDuration &
+1441     --#         EnclaveClearance     from TheEnclaveClearance &
+1442     --#         WorkingHoursStart    from TheWorkingHoursStart &
+1443     --#         WorkingHoursEnd      from TheWorkingHoursEnd &
+1444     --#         MaxAuthDuration      from TheMaxAuthDuration &
+1445     --#         AccessPolicy         from TheAccessPolicy &
+1446     --#         MinEntryClass        from TheMinEntryClass &
+1447     --#         MinPreservedLogSize  from TheMinPreservedLogSize &
+1448     --#         AlarmThresholdSize   from TheAlarmThresholdSize &
+1449     --#         SystemMaxFar         from TheSystemMaxFar;
+1450     is
+1451     begin
+1452         LatchUnlockDuration  := TheLatchUnlockDuration;
+1453         AlarmSilentDuration  := TheAlarmSilentDuration;
+1454         FingerWaitDuration   := TheFingerWaitDuration;
+1455         TokenRemovalDuration := TheTokenRemovalDuration;
+1456         EnclaveClearance     := TheEnclaveClearance;
+1457         WorkingHoursStart    := TheWorkingHoursStart;
+1458         WorkingHoursEnd      := TheWorkingHoursEnd;
+1459         MaxAuthDuration      := TheMaxAuthDuration;
+1460         AccessPolicy         := TheAccessPolicy;
+1461         MinEntryClass        := TheMinEntryClass;
+1462         MinPreservedLogSize  := TheMinPreservedLogSize;
+1463         AlarmThresholdSize   := TheAlarmThresholdSize;
+1464         SystemMaxFar         := TheSystemMaxFar;
+1465  
+1466     end UpdateData;
+
++++        Flow analysis of subprogram UpdateData 
+           performed: no errors found.
+
+1467     ------------------------------------------------------------------
+1468     -- TheDisplayFields
+1469     --
+1470     -- Implementation Notes:
+1471     --    None.
+1472     --
+1473     ------------------------------------------------------------------
+1474     procedure TheDisplayFields
+1475       (TheLatchUnlockDuration  : out DurationT;
+1476        TheAlarmSilentDuration  : out DurationT;
+1477        TheFingerWaitDuration   : out DurationT;
+1478        TheTokenRemovalDuration : out DurationT;
+1479        TheEnclaveClearance     : out PrivTypes.ClassT;
+1480        TheWorkingHoursStart    : out Clock.DurationT;
+1481        TheWorkingHoursEnd      : out Clock.DurationT;
+1482        TheMaxAuthDuration      : out Clock.DurationT;
+1483        TheAccessPolicy         : out AccessPolicyT;
+1484        TheMinEntryClass        : out PrivTypes.ClassT;
+1485        TheMinPreservedLogSize  : out AuditTypes.FileSizeT;
+1486        TheAlarmThresholdSize   : out AuditTypes.FileSizeT;
+1487        TheSystemMaxFar         : out IandATypes.FarT
+1488        )
+1489     --# global in LatchUnlockDuration;
+1490     --#        in AlarmSilentDuration;
+1491     --#        in FingerWaitDuration;
+1492     --#        in TokenRemovalDuration;
+1493     --#        in EnclaveClearance;
+1494     --#        in WorkingHoursStart;
+1495     --#        in WorkingHoursEnd;
+1496     --#        in MaxAuthDuration;
+1497     --#        in AccessPolicy;
+1498     --#        in MinEntryClass;
+1499     --#        in MinPreservedLogSize;
+1500     --#        in AlarmThresholdSize;
+1501     --#        in SystemMaxFar;
+1502     --# derives TheAlarmSilentDuration  from AlarmSilentDuration &
+1503     --#         TheLatchUnlockDuration  from LatchUnlockDuration &
+1504     --#         TheFingerWaitDuration   from FingerWaitDuration &
+1505     --#         TheTokenRemovalDuration from TokenRemovalDuration &
+1506     --#         TheEnclaveClearance     from EnclaveClearance &
+1507     --#         TheWorkingHoursStart    from WorkingHoursStart &
+1508     --#         TheWorkingHoursEnd      from WorkingHoursEnd &
+1509     --#         TheMaxAuthDuration      from MaxAuthDuration &
+1510     --#         TheAccessPolicy         from AccessPolicy &
+1511     --#         TheMinEntryClass        from MinEntryClass &
+1512     --#         TheMinPreservedLogSize  from MinPreservedLogSize &
+1513     --#         TheAlarmThresholdSize   from AlarmThresholdSize &
+1514     --#         TheSystemMaxFar         from SystemMaxFar;
+1515  
+1516     is
+1517     begin
+1518         TheLatchUnlockDuration  := LatchUnlockDuration;
+1519         TheAlarmSilentDuration  := AlarmSilentDuration;
+1520         TheFingerWaitDuration   := FingerWaitDuration;
+1521         TheTokenRemovalDuration := TokenRemovalDuration;
+1522         TheEnclaveClearance     := EnclaveClearance;
+1523         TheWorkingHoursStart    := WorkingHoursStart;
+1524         TheWorkingHoursEnd      := WorkingHoursEnd;
+1525         TheMaxAuthDuration      := MaxAuthDuration;
+1526         TheAccessPolicy         := AccessPolicy;
+1527         TheMinEntryClass        := MinEntryClass;
+1528         TheMinPreservedLogSize  := MinPreservedLogSize;
+1529         TheAlarmThresholdSize   := AlarmThresholdSize;
+1530         TheSystemMaxFar         := SystemMaxFar;
+1531  
+1532     end TheDisplayFields;
+
++++        Flow analysis of subprogram TheDisplayFields 
+           performed: no errors found.
+
+1533  
+1534     ------------------------------------------------------------------
+1535     -- AuthPeriodIsEmpty
+1536     --
+1537     -- Implementation Notes:
+1538     --    None.
+1539     --
+1540     ------------------------------------------------------------------
+1541     function AuthPeriodIsEmpty return Boolean
+1542     --# global WorkingHoursStart,
+1543     --#        WorkingHoursEnd,
+1544     --#        MaxAuthDuration,
+1545     --#        AccessPolicy;
+1546     is
+1547        Result : Boolean;
+1548  
+1549     begin
+1550  
+1551        if AccessPolicy = AllHours then
+1552           if MaxAuthDuration > 0 then
+1553              Result := False;
+1554           else
+1555              Result := True;
+1556           end if;
+1557        else  -- AccessPolicy = WorkingHours
+1558  
+1559           if WorkingHoursStart > WorkingHoursEnd then
+1560              -- day start is after the end of the day.
+1561              Result := True;
+1562           else
+1563              Result := False;
+1564           end if;
+1565        end if;
+1566  
+1567        return Result;
+1568     end AuthPeriodIsEmpty;
+
++++        Flow analysis of subprogram AuthPeriodIsEmpty 
+           performed: no errors found.
+
+1569     ------------------------------------------------------------------
+1570     -- GetAuthPeriod
+1571     --
+1572     -- Implementation Notes:
+1573     --    None.
+1574     --
+1575     ------------------------------------------------------------------
+1576     procedure GetAuthPeriod
+1577       ( TheTime   : in     Clock.TimeT;
+1578         NotBefore :    out Clock.TimeT;
+1579         NotAfter  :    out Clock.TimeT)
+1580     --# global in WorkingHoursStart;
+1581     --#        in WorkingHoursEnd;
+1582     --#        in MaxAuthDuration;
+1583     --#        in AccessPolicy;
+1584     --# derives NotBefore from WorkingHoursStart,
+1585     --#                        AccessPolicy,
+1586     --#                        TheTime &
+1587     --#         NotAfter  from WorkingHoursEnd,
+1588     --#                        MaxAuthDuration,
+1589     --#                        AccessPolicy,
+1590     --#                        TheTime;
+1591     is
+1592        DayStart : Clock.TimeT;
+1593  
+1594     begin
+1595  
+1596        if AccessPolicy = AllHours then
+1597           NotBefore := TheTime;
+1598           if MaxAuthDuration > 0 then
+1599              NotAfter := Clock.AddDuration (TheTime, (MaxAuthDuration - 1));
+1600           else
+1601              NotAfter := Clock.ZeroTime;
+1602           end if;
+1603  
+1604        else  -- AccessPolicy = WorkingHours
+1605           DayStart := Clock.StartOfDay (TheTime => TheTime);
+1606  
+1607           NotBefore := Clock.AddDuration (DayStart, WorkingHoursStart);
+1608           NotAfter  := Clock.AddDuration (DayStart, WorkingHoursEnd);
+1609        end if;
+1610     end GetAuthPeriod;
+
++++        Flow analysis of subprogram GetAuthPeriod 
+           performed: no errors found.
+
+1611  
+1612     ------------------------------------------------------------------
+1613     -- IsInEntryPeriod
+1614     --
+1615     -- Implementation Notes:
+1616     --    None.
+1617     --
+1618     ------------------------------------------------------------------
+1619     function IsInEntryPeriod
+1620       ( Class : PrivTypes.ClassT;
+1621         TheTime : Clock.TimeT) return Boolean
+1622     --# global WorkingHoursStart,
+1623     --#        WorkingHoursEnd,
+1624     --#        AccessPolicy,
+1625     --#        MinEntryClass;
+1626     is
+1627        Result : Boolean;
+1628        DayStart : Clock.TimeT;
+1629  
+1630     begin
+1631        if Class >= MinEntryClass then
+1632           if AccessPolicy = AllHours then
+1633              Result := True;
+1634           else  -- AccessPolicy = WorkingHours
+1635              DayStart := Clock.StartOfDay (TheTime => TheTime);
+1636  
+1637              if Clock.LessThan  -- Not in working day.
+1638                   (TheTime,
+1639                    Clock.AddDuration(DayStart, WorkingHoursStart))
+1640                or Clock.GreaterThan
+1641                   (TheTime,
+1642                    Clock.AddDuration(DayStart, WorkingHoursEnd)) then
+1643                 Result := False;
+1644              else
+1645                 Result := True;
+1646              end if;
+1647           end if;
+1648        else    -- not Class >= MinEntryClass
+1649           Result := False;
+1650        end if;
+1651  
+1652        return Result;
+1653     end IsInEntryPeriod;
+
++++        Flow analysis of subprogram IsInEntryPeriod 
+           performed: no errors found.
+
+1654     ------------------------------------------------------------------
+1655     -- TheLatchUnlockDuration
+1656     --
+1657     -- Implementation Notes:
+1658     --    None.
+1659     --
+1660     ------------------------------------------------------------------
+1661     function TheLatchUnlockDuration return DurationT
+1662     --# global LatchUnlockDuration;
+1663     is
+1664     begin
+1665        return LatchUnlockDuration;
+1666     end TheLatchUnlockDuration;
+
++++        Flow analysis of subprogram 
+           TheLatchUnlockDuration performed: no errors found.
+
+1667     ------------------------------------------------------------------
+1668     -- TheAlarmSilentDuration
+1669     --
+1670     -- Implementation Notes:
+1671     --    None.
+1672     --
+1673     ------------------------------------------------------------------
+1674     function TheAlarmSilentDuration return DurationT
+1675     --# global AlarmSilentDuration;
+1676     is
+1677     begin
+1678        return AlarmSilentDuration;
+1679     end TheAlarmSilentDuration;
+
++++        Flow analysis of subprogram 
+           TheAlarmSilentDuration performed: no errors found.
+
+1680  
+1681     ------------------------------------------------------------------
+1682     -- TheFingerWaitDuration
+1683     --
+1684     -- Implementation Notes:
+1685     --    None.
+1686     --
+1687     ------------------------------------------------------------------
+1688     function TheFingerWaitDuration return DurationT
+1689     --# global FingerWaitDuration;
+1690     is
+1691     begin
+1692        return FingerWaitDuration;
+1693     end TheFingerWaitDuration;
+
++++        Flow analysis of subprogram 
+           TheFingerWaitDuration performed: no errors found.
+
+1694  
+1695     ------------------------------------------------------------------
+1696     -- TheTokenRemovalDuration
+1697     --
+1698     -- Implementation Notes:
+1699     --    None.
+1700     --
+1701     ------------------------------------------------------------------
+1702     function TheTokenRemovalDuration return DurationT
+1703     --# global TokenRemovalDuration;
+1704     is
+1705     begin
+1706        return TokenRemovalDuration;
+1707     end TheTokenRemovalDuration;
+
++++        Flow analysis of subprogram 
+           TheTokenRemovalDuration performed: no errors found.
+
+1708  
+1709     ------------------------------------------------------------------
+1710     -- TheEnclaveClearance
+1711     --
+1712     -- Implementation Notes:
+1713     --    None.
+1714     --
+1715     ------------------------------------------------------------------
+1716     function TheEnclaveClearance return PrivTypes.ClassT
+1717     --# global EnclaveClearance;
+1718     is
+1719     begin
+1720        return EnclaveClearance;
+1721     end TheEnclaveClearance;
+
++++        Flow analysis of subprogram TheEnclaveClearance 
+           performed: no errors found.
+
+1722  
+1723     ------------------------------------------------------------------
+1724     -- TheSystemMaxFar
+1725     --
+1726     -- Implementation Notes:
+1727     --    None.
+1728     --
+1729     ------------------------------------------------------------------
+1730     function TheSystemMaxFar return IandATypes.FarT
+1731     --# global SystemMaxFar;
+1732     is
+1733     begin
+1734        return SystemMaxFar;
+1735     end TheSystemMaxFar;
+
++++        Flow analysis of subprogram TheSystemMaxFar 
+           performed: no errors found.
+
+1736  
+1737     ------------------------------------------------------------------
+1738     -- TheAlarmThresholdEntries
+1739     --
+1740     -- Implementation Notes:
+1741     --    To ensure that alarm is raised when we EXCEED the AlarmThresholdSize
+1742     --    round up the number of entries.
+1743     --    From the Design:
+1744     --    alarmThresholdEntries * sizeAuditElement >= alarmThresholdSize
+1745     --    (alarmThresholdEntries -1) * sizeAuditElement < alarmThresholdSize
+1746     --    Hence
+1747     --    alarmThresholdEntries >= alarmThresholdSize/sizeAuditElement
+1748     --    alarmThresholdEntries <
+1749     --             (alarmThresholdSize + sizeAuditElement)/sizeAuditElement
+1750     --    Setting
+1751     --    alarmThresholdEntries =
+1752     --         (alarmThresholdSize + sizeAuditElement -1) div sizeAuditElement
+1753     --    always gives the next integer >= alarmThresholdSize/sizeAuditElement
+1754     ------------------------------------------------------------------
+1755     function TheAlarmThresholdEntries return AuditTypes.AuditEntryCountT
+1756     --# global AlarmThresholdSize;
+1757     is
+1758        LocalSize : AuditTypes.AuditEntryCountT;
+1759     begin
+1760        if AuditTypes.FileSizeT'Last - AlarmThresholdSize <
+1761          AuditTypes.FileSizeT'(AuditTypes.SizeAuditElement) - 1 then
+1762           LocalSize := AuditTypes.AuditEntryCountT'Last;
+1763        else
+1764           LocalSize := AuditTypes.AuditEntryCountT
+1765            (((AlarmThresholdSize
+1766               + AuditTypes.FileSizeT'(AuditTypes.SizeAuditElement)) - 1)
+1767                  / AuditTypes.SizeAuditElement);
+1768        end if;
+1769  
+1770        return LocalSize;
+1771  
+1772     end TheAlarmThresholdEntries;
+
++++        Flow analysis of subprogram 
+           TheAlarmThresholdEntries performed: no errors found.
+
+1773  
+1774  end ConfigData;
+
+Expected messages marked with the accept annotation
+Type Msg    Lines              Reason                    Match
+     No.  From    To                                    No.  Line
+Flow  10  1387   end  Ineffective assignment expected     2  1390
+Flow  33  1387   end  Ineffective assignment expected     1  1398
+
+
+No summarized warnings
+
+
+
+--End of file--------------------------------------------------

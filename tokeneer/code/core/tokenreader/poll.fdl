@@ -1,0 +1,192 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:19.30}
+
+                         {procedure TokenReader.Poll}
+
+
+title procedure poll;
+
+  function round__(real) : integer;
+  type character = integer;
+  type basictypes__unsigned32t = integer;
+  type audittypes__elementt = (audittypes__startunenrolledtis, 
+     audittypes__startenrolledtis, audittypes__enrolmentcomplete, 
+     audittypes__enrolmentfailed, audittypes__displaychanged, 
+     audittypes__screenchanged, audittypes__doorclosed, 
+     audittypes__dooropened, audittypes__latchlocked, 
+     audittypes__latchunlocked, audittypes__alarmraised, 
+     audittypes__alarmsilenced, audittypes__truncatelog, 
+     audittypes__auditalarmraised, audittypes__auditalarmsilenced, 
+     audittypes__usertokenremoved, audittypes__usertokenpresent, 
+     audittypes__usertokeninvalid, audittypes__authcertvalid, 
+     audittypes__authcertinvalid, audittypes__fingerdetected, 
+     audittypes__fingertimeout, audittypes__fingermatched, 
+     audittypes__fingernotmatched, audittypes__authcertwritten, 
+     audittypes__authcertwritefailed, audittypes__entrypermitted, 
+     audittypes__entrytimeout, audittypes__entrydenied, 
+     audittypes__admintokenpresent, audittypes__admintokenvalid, 
+     audittypes__admintokeninvalid, audittypes__admintokenexpired, 
+     audittypes__admintokenremoved, audittypes__invalidoprequest, 
+     audittypes__operationstart, audittypes__archivelog, 
+     audittypes__archivecomplete, audittypes__archivecheckfailed, 
+     audittypes__updatedconfigdata, audittypes__invalidconfigdata, 
+     audittypes__shutdown, audittypes__overridelock, 
+     audittypes__systemfault);
+  type audittypes__severityt = (audittypes__information, 
+     audittypes__warning, audittypes__critical);
+  type tokentypes__tryt = (tokentypes__notoken, 
+     tokentypes__badtoken, tokentypes__goodtoken);
+  type readert = (user, admin);
+  type tokenreader__interface__cardhandlet = pending;
+  type tokenreader__interface__responsecodet = (
+     tokenreader__interface__success, 
+     tokenreader__interface__invalidhandle, 
+     tokenreader__interface__invalidvalue, 
+     tokenreader__interface__cancelled, 
+     tokenreader__interface__nomemory, 
+     tokenreader__interface__insufficientbuffer, 
+     tokenreader__interface__unknownreader, 
+     tokenreader__interface__timedout, 
+     tokenreader__interface__sharingviolation, 
+     tokenreader__interface__nosmartcard, 
+     tokenreader__interface__unknowncard, 
+     tokenreader__interface__protomismatch, 
+     tokenreader__interface__notready, 
+     tokenreader__interface__systemcancelled, 
+     tokenreader__interface__readerunavailable, 
+     tokenreader__interface__unsupportedcard, 
+     tokenreader__interface__unresponsivecard, 
+     tokenreader__interface__unpoweredcard, 
+     tokenreader__interface__resetcard, 
+     tokenreader__interface__removedcard, 
+     tokenreader__interface__invalidresponsecode);
+  type tokenreader__interface__readerstatet = (
+     tokenreader__interface__invalidreaderstate, 
+     tokenreader__interface__unaware, 
+     tokenreader__interface__ignore, 
+     tokenreader__interface__unavailable, 
+     tokenreader__interface__empty, 
+     tokenreader__interface__cardpresent, 
+     tokenreader__interface__mute);
+  type string = array [integer] of character;
+  const null__string : string = pending;
+  type readerinfot = record
+        name : string;
+        tokentry : tokentypes__tryt;
+        tokenid : integer;
+        tokenconnected : boolean;
+        tokenhandle : integer;
+        currentstatus : tokenreader__interface__readerstatet;
+        lastfault : integer
+     end;
+  type readerinfoarrayt = array [readert] of readerinfot;
+  const statuschangetimeout : integer = pending;
+  const tokenreader__interface__validreaderstatet__base__first : 
+     tokenreader__interface__readerstatet = pending; 
+  const tokenreader__interface__validreaderstatet__base__last : 
+     tokenreader__interface__readerstatet = pending; 
+  const tokenreader__interface__readerstatet__base__first : 
+     tokenreader__interface__readerstatet = pending; 
+  const tokenreader__interface__readerstatet__base__last : 
+     tokenreader__interface__readerstatet = pending; 
+  const tokenreader__interface__responsecodet__base__first : 
+     tokenreader__interface__responsecodet = pending; 
+  const tokenreader__interface__responsecodet__base__last : 
+     tokenreader__interface__responsecodet = pending; 
+  const tokenreader__interface__readernamei__base__first : integer = pending; 
+  const tokenreader__interface__readernamei__base__last : integer = pending; 
+  const readert__base__first : readert = pending; 
+  const readert__base__last : readert = pending; 
+  const tokentypes__tryt__base__first : tokentypes__tryt = pending; 
+  const tokentypes__tryt__base__last : tokentypes__tryt = pending; 
+  const tokentypes__tokenidt__base__first : integer = pending; 
+  const tokentypes__tokenidt__base__last : integer = pending; 
+  const audittypes__descriptioni__base__first : integer = pending; 
+  const audittypes__descriptioni__base__last : integer = pending; 
+  const audittypes__severityt__base__first : 
+     audittypes__severityt = pending; 
+  const audittypes__severityt__base__last : audittypes__severityt = pending; 
+  const audittypes__elementt__base__first : audittypes__elementt = pending; 
+  const audittypes__elementt__base__last : audittypes__elementt = pending; 
+  const basictypes__unsigned32t__base__first : integer = pending; 
+  const basictypes__unsigned32t__base__last : integer = pending; 
+  const positive__base__first : integer = pending; 
+  const positive__base__last : integer = pending; 
+  const character__base__first : character = pending; 
+  const character__base__last : character = pending; 
+  const integer__base__first : integer = pending; 
+  const integer__base__last : integer = pending; 
+  const readerinfot__size : integer = pending; 
+  const tokenreader__interface__validreaderstatet__first : 
+     tokenreader__interface__readerstatet = pending; 
+  const tokenreader__interface__validreaderstatet__last : 
+     tokenreader__interface__readerstatet = pending; 
+  const tokenreader__interface__validreaderstatet__size : integer = pending; 
+  const tokenreader__interface__readerstatet__first : 
+     tokenreader__interface__readerstatet = pending; 
+  const tokenreader__interface__readerstatet__last : 
+     tokenreader__interface__readerstatet = pending; 
+  const tokenreader__interface__readerstatet__size : integer = pending; 
+  const tokenreader__interface__responsecodet__first : 
+     tokenreader__interface__responsecodet = pending; 
+  const tokenreader__interface__responsecodet__last : 
+     tokenreader__interface__responsecodet = pending; 
+  function tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__responsecodet) : integer;
+  const tokenreader__interface__responsecodet__size : integer = pending; 
+  const tokenreader__interface__readernamei__first : integer = pending; 
+  const tokenreader__interface__readernamei__last : integer = pending; 
+  const tokenreader__interface__readernamei__size : integer = pending; 
+  const readert__first : readert = pending; 
+  const readert__last : readert = pending; 
+  const readert__size : integer = pending; 
+  const tokentypes__tryt__first : tokentypes__tryt = pending; 
+  const tokentypes__tryt__last : tokentypes__tryt = pending; 
+  const tokentypes__tryt__size : integer = pending; 
+  const tokentypes__tokenidt__first : integer = pending; 
+  const tokentypes__tokenidt__last : integer = pending; 
+  const tokentypes__tokenidt__size : integer = pending; 
+  const audittypes__descriptioni__first : integer = pending; 
+  const audittypes__descriptioni__last : integer = pending; 
+  const audittypes__descriptioni__size : integer = pending; 
+  const audittypes__severityt__first : audittypes__severityt = pending; 
+  const audittypes__severityt__last : audittypes__severityt = pending; 
+  const audittypes__severityt__size : integer = pending; 
+  const audittypes__elementt__first : audittypes__elementt = pending; 
+  const audittypes__elementt__last : audittypes__elementt = pending; 
+  const audittypes__elementt__size : integer = pending; 
+  const basictypes__unsigned32t__first : integer = pending; 
+  const basictypes__unsigned32t__last : integer = pending; 
+  const basictypes__unsigned32t__size : integer = pending; 
+  const positive__first : integer = pending; 
+  const positive__last : integer = pending; 
+  const positive__size : integer = pending; 
+  const character__first : character = pending; 
+  const character__last : character = pending; 
+  const character__size : integer = pending; 
+  const integer__first : integer = pending; 
+  const integer__last : integer = pending; 
+  const integer__size : integer = pending; 
+  var reader : readert;
+  var readerstatus : readerinfoarrayt;
+  var responsecode : integer;
+  var rawnewstate : integer;
+  function getreaderstate(integer) : 
+     tokenreader__interface__readerstatet;
+  function makedescription(string, integer) : string;
+  var readerstatus__4 : readerinfoarrayt;
+  var readerstatus__3 : readerinfoarrayt;
+  var readerstatus__7 : readerinfoarrayt;
+  var readerstatus__6 : readerinfoarrayt;
+  var readerstatus__5 : readerinfoarrayt;
+  var readerstatus__2 : readerinfoarrayt;
+  var responsecode__1 : integer;
+  var rawnewstate__1 : integer;
+
+end;

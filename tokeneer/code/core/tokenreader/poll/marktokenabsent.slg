@@ -1,0 +1,264 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:18  SIMPLIFIED 05-SEP-2011, 15:42:07
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure TokenReader.Poll.MarkTokenAbsent
+
+
+
+
+
+
+@@@@@@@@@@  VC: procedure_marktokenabsent_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  readert__first <= reader
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> basictypes__unsigned32t__first <= fld_lastfault(
+          element(readerstatus, [i___1])) and fld_lastfault(element(
+          readerstatus, [i___1])) <= basictypes__unsigned32t__last)
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokenreader__interface__validreaderstatet__first <= 
+          fld_currentstatus(element(readerstatus, [i___1])) and 
+          fld_currentstatus(element(readerstatus, [i___1])) <= 
+          tokenreader__interface__validreaderstatet__last)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokentypes__tokenidt__first <= fld_tokenid(element(
+          readerstatus, [i___1])) and fld_tokenid(element(readerstatus, [i___1])
+          ) <= tokentypes__tokenidt__last)
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokentypes__tryt__first <= fld_tokentry(element(
+          readerstatus, [i___1])) and fld_tokentry(element(readerstatus, [i___1]
+          )) <= tokentypes__tryt__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  for_all(i___2 : integer, 
+          tokenreader__interface__readernamei__first <= i___2 and i___2 <= 
+          tokenreader__interface__readernamei__last -> for_all(i___1 : readert, 
+          readert__first <= i___1 and i___1 <= readert__last -> 
+          character__first <= element(fld_name(element(readerstatus, [i___1])), 
+          [i___2]) and element(fld_name(element(readerstatus, [i___1])), [i___2]
+          ) <= character__last))
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  tokentypes__tryt__first <= tokentypes__notoken
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  readert__first <= reader
+***  Proved C3:  readert__first <= reader
+     using hypothesis H2.
+***  Proved C4:  reader <= readert__last
+     using hypothesis H3.
+-S-  Applied substitution rule marktokenabs_rules(30).
+     This was achieved by replacing all occurrences of tokentypes__tryt__first 
+          by:
+          tokentypes__notoken.
+<S>  New H9:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokentypes__notoken <= fld_tokentry(element(
+          readerstatus, [i___1])) and fld_tokentry(element(readerstatus, [i___1]
+          )) <= tokentypes__tryt__last)
+<S>  New C1:  true
+-S-  Applied substitution rule marktokenabs_rules(31).
+     This was achieved by replacing all occurrences of tokentypes__tryt__last 
+          by:
+          tokentypes__goodtoken.
+<S>  New H9:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokentypes__notoken <= fld_tokentry(element(
+          readerstatus, [i___1])) and fld_tokentry(element(readerstatus, [i___1]
+          )) <= tokentypes__goodtoken)
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_marktokenabsent_2.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  readert__first <= reader
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> basictypes__unsigned32t__first <= fld_lastfault(
+          element(readerstatus, [i___1])) and fld_lastfault(element(
+          readerstatus, [i___1])) <= basictypes__unsigned32t__last)
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokenreader__interface__validreaderstatet__first <= 
+          fld_currentstatus(element(readerstatus, [i___1])) and 
+          fld_currentstatus(element(readerstatus, [i___1])) <= 
+          tokenreader__interface__validreaderstatet__last)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokentypes__tokenidt__first <= fld_tokenid(element(
+          readerstatus, [i___1])) and fld_tokenid(element(readerstatus, [i___1])
+          ) <= tokentypes__tokenidt__last)
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokentypes__tryt__first <= fld_tokentry(element(
+          readerstatus, [i___1])) and fld_tokentry(element(readerstatus, [i___1]
+          )) <= tokentypes__tryt__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  for_all(i___2 : integer, 
+          tokenreader__interface__readernamei__first <= i___2 and i___2 <= 
+          tokenreader__interface__readernamei__last -> for_all(i___1 : readert, 
+          readert__first <= i___1 and i___1 <= readert__last -> 
+          character__first <= element(fld_name(element(readerstatus, [i___1])), 
+          [i___2]) and element(fld_name(element(readerstatus, [i___1])), [i___2]
+          ) <= character__last))
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  tokentypes__tryt__first <= tokentypes__notoken
+---  Hypothesis H13 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as H3)
+          .
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  true
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  readert__first <= reader
+***  Proved C1:  true
+***  Proved C3:  readert__first <= reader
+     using hypothesis H2.
+***  Proved C4:  reader <= readert__last
+     using hypothesis H3.
+-S-  Applied substitution rule marktokenabs_rules(24).
+     This was achieved by replacing all occurrences of 
+          tokentypes__tokenidt__first by:
+          0.
+<S>  New H8:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> 0 <= fld_tokenid(element(readerstatus, [i___1])) and 
+          fld_tokenid(element(readerstatus, [i___1])) <= 
+          tokentypes__tokenidt__last)
+<S>  New C2:  0 <= tokentypes__tokenidt__last
+-S-  Applied substitution rule marktokenabs_rules(25).
+     This was achieved by replacing all occurrences of 
+          tokentypes__tokenidt__last by:
+          4294967295.
+<S>  New H8:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> 0 <= fld_tokenid(element(readerstatus, [i___1])) and 
+          fld_tokenid(element(readerstatus, [i___1])) <= 4294967295)
+<S>  New C2:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_marktokenabsent_3.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  readert__first <= reader
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> basictypes__unsigned32t__first <= fld_lastfault(
+          element(readerstatus, [i___1])) and fld_lastfault(element(
+          readerstatus, [i___1])) <= basictypes__unsigned32t__last)
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokenreader__interface__validreaderstatet__first <= 
+          fld_currentstatus(element(readerstatus, [i___1])) and 
+          fld_currentstatus(element(readerstatus, [i___1])) <= 
+          tokenreader__interface__validreaderstatet__last)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokentypes__tokenidt__first <= fld_tokenid(element(
+          readerstatus, [i___1])) and fld_tokenid(element(readerstatus, [i___1])
+          ) <= tokentypes__tokenidt__last)
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokentypes__tryt__first <= fld_tokentry(element(
+          readerstatus, [i___1])) and fld_tokentry(element(readerstatus, [i___1]
+          )) <= tokentypes__tryt__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  for_all(i___2 : integer, 
+          tokenreader__interface__readernamei__first <= i___2 and i___2 <= 
+          tokenreader__interface__readernamei__last -> for_all(i___1 : readert, 
+          readert__first <= i___1 and i___1 <= readert__last -> 
+          character__first <= element(fld_name(element(readerstatus, [i___1])), 
+          [i___2]) and element(fld_name(element(readerstatus, [i___1])), [i___2]
+          ) <= character__last))
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  tokentypes__tryt__first <= tokentypes__notoken
+---  Hypothesis H13 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as H3)
+          .
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  true
+---  Hypothesis H17 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H18 has been replaced by "true".  (It is already present, as H3)
+          .
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  readert__first <= reader
+***  Proved C1:  readert__first <= reader
+     using hypothesis H2.
+***  Proved C2:  reader <= readert__last
+     using hypothesis H3.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_marktokenabsent_4.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  readert__first <= reader
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> basictypes__unsigned32t__first <= fld_lastfault(
+          element(readerstatus, [i___1])) and fld_lastfault(element(
+          readerstatus, [i___1])) <= basictypes__unsigned32t__last)
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokenreader__interface__validreaderstatet__first <= 
+          fld_currentstatus(element(readerstatus, [i___1])) and 
+          fld_currentstatus(element(readerstatus, [i___1])) <= 
+          tokenreader__interface__validreaderstatet__last)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokentypes__tokenidt__first <= fld_tokenid(element(
+          readerstatus, [i___1])) and fld_tokenid(element(readerstatus, [i___1])
+          ) <= tokentypes__tokenidt__last)
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokentypes__tryt__first <= fld_tokentry(element(
+          readerstatus, [i___1])) and fld_tokentry(element(readerstatus, [i___1]
+          )) <= tokentypes__tryt__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  for_all(i___2 : integer, 
+          tokenreader__interface__readernamei__first <= i___2 and i___2 <= 
+          tokenreader__interface__readernamei__last -> for_all(i___1 : readert, 
+          readert__first <= i___1 and i___1 <= readert__last -> 
+          character__first <= element(fld_name(element(readerstatus, [i___1])), 
+          [i___2]) and element(fld_name(element(readerstatus, [i___1])), [i___2]
+          ) <= character__last))
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  tokentypes__tryt__first <= tokentypes__notoken
+---  Hypothesis H13 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as H3)
+          .
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  true
+---  Hypothesis H17 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H18 has been replaced by "true".  (It is already present, as H3)
+          .
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as H3)
+          .
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  readert__first <= reader
+***  Proved C1:  readert__first <= reader
+     using hypothesis H2.
+***  Proved C2:  reader <= readert__last
+     using hypothesis H3.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_marktokenabsent_5.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+

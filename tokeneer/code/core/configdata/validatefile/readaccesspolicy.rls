@@ -1,0 +1,104 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:28.96*/
+
+             /*procedure ConfigData.ValidateFile.ReadAccessPolicy*/
+
+
+rule_family readaccesspo_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+readaccesspo_rules(1): character__first <= element(accesspolicytitle, [I]) may_be_deduced_from [1 <= I, I <= 13].
+readaccesspo_rules(2): element(accesspolicytitle, [I]) <= 
+     character__last may_be_deduced_from [1 <= I, I <= 13].
+readaccesspo_rules(3): character__first <= element(fld_text(element(accessstringlookup, [I])), [J]) may_be_deduced_from [workinghours <= I, I <= allhours, 1 <= J, J <= 12].
+readaccesspo_rules(4): element(fld_text(element(accessstringlookup, [I])), [J]) <= 
+     character__last may_be_deduced_from [workinghours <= I, I <= allhours, 1 <= J, J <= 12].
+readaccesspo_rules(5): accesstexti__first <= fld_length(element(accessstringlookup, [I])) may_be_deduced_from [workinghours <= I, I <= allhours].
+readaccesspo_rules(6): fld_length(element(accessstringlookup, [I])) <= 
+     accesstexti__last may_be_deduced_from [workinghours <= I, I <= allhours].
+readaccesspo_rules(7): integer__size >= 0 may_be_deduced.
+readaccesspo_rules(8): integer__first may_be_replaced_by -2147483648.
+readaccesspo_rules(9): integer__last may_be_replaced_by 2147483647.
+readaccesspo_rules(10): integer__base__first may_be_replaced_by -2147483648.
+readaccesspo_rules(11): integer__base__last may_be_replaced_by 2147483647.
+readaccesspo_rules(12): character__size >= 0 may_be_deduced.
+readaccesspo_rules(13): character__first may_be_replaced_by 0.
+readaccesspo_rules(14): character__last may_be_replaced_by 255.
+readaccesspo_rules(15): character__base__first may_be_replaced_by 0.
+readaccesspo_rules(16): character__base__last may_be_replaced_by 255.
+readaccesspo_rules(17): natural__size >= 0 may_be_deduced.
+readaccesspo_rules(18): natural__first may_be_replaced_by 0.
+readaccesspo_rules(19): natural__last may_be_replaced_by 2147483647.
+readaccesspo_rules(20): natural__base__first may_be_replaced_by -2147483648.
+readaccesspo_rules(21): natural__base__last may_be_replaced_by 2147483647.
+readaccesspo_rules(22): positive__size >= 0 may_be_deduced.
+readaccesspo_rules(23): positive__first may_be_replaced_by 1.
+readaccesspo_rules(24): positive__last may_be_replaced_by 2147483647.
+readaccesspo_rules(25): positive__base__first may_be_replaced_by -2147483648.
+readaccesspo_rules(26): positive__base__last may_be_replaced_by 2147483647.
+readaccesspo_rules(27): accesspolicyt__size >= 0 may_be_deduced.
+readaccesspo_rules(28): accesspolicyt__first may_be_replaced_by workinghours.
+readaccesspo_rules(29): accesspolicyt__last may_be_replaced_by allhours.
+readaccesspo_rules(30): accesspolicyt__base__first may_be_replaced_by workinghours.
+readaccesspo_rules(31): accesspolicyt__base__last may_be_replaced_by allhours.
+readaccesspo_rules(32): accesspolicyt__pos(accesspolicyt__first) may_be_replaced_by 0.
+readaccesspo_rules(33): accesspolicyt__pos(workinghours) may_be_replaced_by 0.
+readaccesspo_rules(34): accesspolicyt__val(0) may_be_replaced_by 
+     workinghours.
+readaccesspo_rules(35): accesspolicyt__pos(allhours) may_be_replaced_by 1.
+readaccesspo_rules(36): accesspolicyt__val(1) may_be_replaced_by 
+     allhours.
+readaccesspo_rules(37): accesspolicyt__pos(accesspolicyt__last) may_be_replaced_by 1.
+readaccesspo_rules(38): accesspolicyt__pos(succ(X)) may_be_replaced_by 
+     accesspolicyt__pos(X) + 1
+     if [X <=allhours, X <> allhours].
+readaccesspo_rules(39): accesspolicyt__pos(pred(X)) may_be_replaced_by 
+     accesspolicyt__pos(X) - 1
+     if [X >=workinghours, X <> workinghours].
+readaccesspo_rules(40): accesspolicyt__pos(X) >= 0 may_be_deduced_from
+     [workinghours <= X, X <= allhours].
+readaccesspo_rules(41): accesspolicyt__pos(X) <= 1 may_be_deduced_from
+     [workinghours <= X, X <= allhours].
+readaccesspo_rules(42): accesspolicyt__val(X) >= workinghours may_be_deduced_from
+     [0 <= X, X <= 1].
+readaccesspo_rules(43): accesspolicyt__val(X) <= allhours may_be_deduced_from
+     [0 <= X, X <= 1].
+readaccesspo_rules(44): succ(accesspolicyt__val(X)) may_be_replaced_by 
+     accesspolicyt__val(X+1)
+     if [0 <= X, X < 1].
+readaccesspo_rules(45): pred(accesspolicyt__val(X)) may_be_replaced_by 
+     accesspolicyt__val(X-1)
+     if [0 < X, X <= 1].
+readaccesspo_rules(46): accesspolicyt__pos(accesspolicyt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+readaccesspo_rules(47): accesspolicyt__val(accesspolicyt__pos(X)) may_be_replaced_by X
+     if [workinghours <= X, X <= allhours].
+readaccesspo_rules(48): accesspolicyt__pos(X) <= accesspolicyt__pos(Y) & X <= Y are_interchangeable 
+     if [workinghours <= X, X <= allhours, workinghours <= Y, Y <= 
+     allhours].
+readaccesspo_rules(49): accesspolicyt__val(X) <= accesspolicyt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].
+readaccesspo_rules(50): accesspolicytexti__size >= 0 may_be_deduced.
+readaccesspo_rules(51): accesspolicytexti__first may_be_replaced_by 1.
+readaccesspo_rules(52): accesspolicytexti__last may_be_replaced_by 13.
+readaccesspo_rules(53): accesspolicytexti__base__first may_be_replaced_by -2147483648.
+readaccesspo_rules(54): accesspolicytexti__base__last may_be_replaced_by 2147483647.
+readaccesspo_rules(55): accesstexti__size >= 0 may_be_deduced.
+readaccesspo_rules(56): accesstexti__first may_be_replaced_by 1.
+readaccesspo_rules(57): accesstexti__last may_be_replaced_by 12.
+readaccesspo_rules(58): accesstexti__base__first may_be_replaced_by -2147483648.
+readaccesspo_rules(59): accesstexti__base__last may_be_replaced_by 2147483647.
+readaccesspo_rules(60): accessstringt__size >= 0 may_be_deduced.
+readaccesspo_rules(61): A = B may_be_deduced_from
+     [goal(checktype(A,accessstringt)),
+      goal(checktype(B,accessstringt)),
+      fld_text(A) = fld_text(B),
+      fld_length(A) = fld_length(B)].

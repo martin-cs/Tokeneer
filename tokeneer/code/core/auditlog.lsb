@@ -1,0 +1,1905 @@
+           *******************************************************
+                            Listing of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:10.22
+
+Line
+   1  ------------------------------------------------------------------
+   2  -- Tokeneer ID Station Core Software
+   3  --
+   4  -- Copyright (2003) United States Government, as represented
+   5  -- by the Director, National Security Agency. All rights reserved.
+   6  --
+   7  -- This material was originally developed by Praxis High Integrity
+   8  -- Systems Ltd. under contract to the National Security Agency.
+   9  --
+  10  -- Modifications to proof annotations by Phil Thornley, April 2009
+  11  ------------------------------------------------------------------
+  12  
+  13  ------------------------------------------------------------------
+  14  -- AuditLog
+  15  --
+  16  -- Description:
+  17  --    Implementation of the AuditLog.
+  18  --
+  19  ------------------------------------------------------------------
+  20  with Clock;
+  21  with ConfigData;
+  22  
+  23  with AlarmTypes;
+  24  use type AlarmTypes.StatusT;
+  25  
+  26  package body AuditLog
+  27  --# own State is AuditAlarm,
+  28  --#              CurrentLogFile,
+  29  --#              UsedLogFiles,
+  30  --#              LogFileEntries,
+  31  --#              LogFilesStatus,
+  32  --#              NumberLogEntries,
+  33  --#              AuditSystemFault &
+  34  --#    FileState is LogFiles;
+  35  is
+  36  
+  37     ------------------------------------------------------------------
+  38     -- Types
+  39     --
+  40     ------------------------------------------------------------------
+  41  
+  42     MaxNumberLogFiles : constant := 2**4 + 1;  -- 17
+  43     MaxNumberArchivableFiles : constant := 4;
+  44  
+  45     type LogFileCountT is range 0 .. MaxNumberLogFiles;
+  46     subtype LogFileIndexT is LogFileCountT range 1 .. MaxNumberLogFiles;
+  47  
+  48     type FileStatusT is (Free, Archived, Used);
+  49  
+  50     type LogFilesT is array (LogFileIndexT) of File.T;
+  51  
+  52     type LogFilesStatusT is array (LogFileIndexT) of FileStatusT;
+  53  
+  54     subtype FileNameI is Positive range 1 .. 16;
+  55     subtype FileNameT is String(FileNameI);
+  56  
+  57     type LogFileNamesT is array (LogFileIndexT) of FileNameT;
+  58  
+  59     type LogFileListEntriesT is array (LogFileIndexT) of LogFileIndexT;
+  60  
+  61     ----------------------------------------------------------------
+  62     -- LogFileListT
+  63     --
+  64     -- Description:
+  65     --   This represents a list.
+  66     --      List - is a cyclic buffer that can hold all the files
+  67     --      Head - is the current head of the list in the cyclic buffer
+  68     --      LastI - is the last index of the list in the cyclic buffer
+  69     --      Length - is the length of the list
+  70     --   The values of Head and LastI are not significant when Length=0.
+  71     -----------------------------------------------------------------
+  72  
+  73     type LogFileListT is record
+  74         List : LogFileListEntriesT;
+  75         Head : LogFileIndexT;
+  76         LastI : LogFileIndexT;
+  77         Length : LogFileCountT;
+  78     end record;
+  79  
+  80     EmptyList : constant LogFileListT :=
+  81       LogFileListT'(List => LogFileListEntriesT'
+  82                                 (others => LogFileIndexT'First),
+  83                     Head => LogFileIndexT'Last,
+  84                     LastI => LogFileIndexT'First,
+  85                     Length => 0);
+  86  
+  87  
+  88     subtype LogDirStringI is Positive range 1..3;
+  89     subtype LogDirStringT is String(LogDirStringI);
+  90  
+  91     LogDirectory : constant LogDirStringT := "Log";
+  92  
+  93     subtype ArchiveFileStringI is Positive range 1 .. 17;
+  94     subtype ArchiveFileStringT is String(ArchiveFileStringI);
+  95  
+  96     ArchiveFileName : constant ArchiveFileStringT := "./Log/archive.log";
+  97     --------------------------------------------------------------
+  98     --  ElementText
+  99     --
+ 100     --  Description:
+ 101     --     Text representation of Element name
+ 102     --
+ 103     --------------------------------------------------------------
+ 104     subtype ElementTextI is Positive range 1..20;
+ 105     subtype ElementTextT is String(ElementTextI);
+ 106  
+ 107     NoElement : constant ElementTextT := ElementTextT'(others => ' ');
+ 108  
+ 109     ------------------------------------------------------------------
+ 110     -- MaxLogFileEntries
+ 111     --
+ 112     --  Description:
+ 113     --     The max number of entries in a file.
+ 114     --     Note that it is a requirement of the Formal Design that
+ 115     --        MaxLogFileEntries * (NumberLogFiles - 1)
+ 116     --                                * AuditTypes.SizeAuditElement
+ 117     --             >= AuditTypes.MaxSupportedLogSize
+ 118     --
+ 119     -- Implementation Notes:
+ 120     --    None.
+ 121     ------------------------------------------------------------------
+ 122     MaxLogFileEntries : constant
+ 123       := AuditTypes.MaxSupportedLogEntries/(MaxNumberLogFiles - 1);
+ 124     MaxLogEntries     : constant := MaxLogFileEntries * MaxNumberLogFiles;
+ 125  
+ 126     type LogEntryCountT  is range 0 .. MaxLogEntries;
+ 127     subtype FileEntryCountT is LogEntryCountT range 0 .. MaxLogFileEntries;
+ 128  
+ 129     type LogFileEntryT is array (LogFileIndexT) of FileEntryCountT;
+ 130  
+ 131  
+ 132     ------------------------------------------------------------------
+ 133     -- State
+ 134     --
+ 135     ------------------------------------------------------------------
+ 136     LogFiles : LogFilesT := LogFilesT'(others => File.NullFile);
+ 137  
+ 138     CurrentLogFile : LogFileIndexT;
+ 139     LogFilesStatus : LogFilesStatusT;
+ 140     NumberLogEntries : LogEntryCountT;
+ 141     UsedLogFiles : LogFileListT;
+ 142     LogFileEntries : LogFileEntryT;
+ 143  
+ 144     AuditAlarm : AlarmTypes.StatusT;
+ 145  
+ 146     AuditSystemFault : Boolean;
+ 147     ------------------------------------------------------------------
+ 148     -- LogFileNames
+ 149     --
+ 150     -- Description:
+ 151     --       A look-up table giving file names.
+ 152     --
+ 153     ------------------------------------------------------------------
+ 154     LogFileNames : constant LogFileNamesT :=
+ 155       LogFileNamesT'(  1 => "./Log/File01.log",
+ 156                        2 => "./Log/File02.log",
+ 157                        3 => "./Log/File03.log",
+ 158                        4 => "./Log/File04.log",
+ 159                        5 => "./Log/File05.log",
+ 160                        6 => "./Log/File06.log",
+ 161                        7 => "./Log/File07.log",
+ 162                        8 => "./Log/File08.log",
+ 163                        9 => "./Log/File09.log",
+ 164                       10 => "./Log/File10.log",
+ 165                       11 => "./Log/File11.log",
+ 166                       12 => "./Log/File12.log",
+ 167                       13 => "./Log/File13.log",
+ 168                       14 => "./Log/File14.log",
+ 169                       15 => "./Log/File15.log",
+ 170                       16 => "./Log/File16.log",
+ 171                       17 => "./Log/File17.log"
+ 172                       );
+ 173  
+ 174     ------------------------------------------------------------------
+ 175     -- Private Operations
+ 176     --
+ 177     ------------------------------------------------------------------
+ 178  
+ 179     ------------------------------------------------------------------
+ 180     -- NextListIndex
+ 181     --
+ 182     --    Description:
+ 183     --       Returns the next index, wrapping if necessary.
+ 184     --
+ 185     --   Implementation Notes:
+ 186     --       None.
+ 187     --
+ 188     ------------------------------------------------------------------
+ 189     function NextListIndex(Value : LogFileIndexT) return  LogFileIndexT
+ 190     is
+ 191        Result : LogFileIndexT;
+ 192     begin
+ 193        if Value = LogFileIndexT'Last then
+ 194           Result := LogFileIndexT'First;
+ 195        else
+ 196           Result := Value + 1;
+ 197        end if;
+ 198        return Result;
+ 199     end NextListIndex;
+
++++        Flow analysis of subprogram NextListIndex 
+           performed: no errors found.
+
+ 200  
+ 201     ------------------------------------------------------------------
+ 202     -- CheckLogAlarm
+ 203     --
+ 204     --    Description:
+ 205     --       Raises the alarm if the log is too big.
+ 206     --
+ 207     --   Implementation Notes:
+ 208     --       None.
+ 209     --
+ 210     ------------------------------------------------------------------
+ 211     procedure CheckLogAlarm
+ 212     --# global in     NumberLogEntries;
+ 213     --#        in     ConfigData.State;
+ 214     --#        in out AuditAlarm;
+ 215     --# derives AuditAlarm from *,
+ 216     --#                         NumberLogEntries,
+ 217     --#                         ConfigData.State;
+ 218     is
+ 219     begin
+ 220  
+ 221        if NumberLogEntries >=
+ 222          LogEntryCountT(ConfigData.TheAlarmThresholdEntries) then
+ 223           AuditAlarm := AlarmTypes.Alarming;
+ 224        end if;
+ 225  
+ 226     end CheckLogAlarm;
+
++++        Flow analysis of subprogram CheckLogAlarm 
+           performed: no errors found.
+
+ 227  
+ 228     ------------------------------------------------------------------
+ 229     -- ConvertToAuditDescription
+ 230     --
+ 231     --    Description:
+ 232     --       Converts a string to an audit description.
+ 233     --       Truncating if necessary.
+ 234     --
+ 235     --   Implementation Notes:
+ 236     --      Hidden as uses slicing
+ 237     --
+ 238     ------------------------------------------------------------------
+ 239     function ConvertToAuditDescription(Description : String)
+ 240                                        return AuditTypes.DescriptionT
+ 241     is
+ 242        --# hide ConvertToAuditDescription;
+ 243        LocalDesc : AuditTypes.DescriptionT := AuditTypes.NoDescription;
+ 244     begin
+ 245        if Description'Last < LocalDesc'Last then
+ 246           LocalDesc(1 .. Description'Last) := Description;
+ 247        else
+ 248           LocalDesc := Description(1 .. LocalDesc'Last);
+ 249        end if;
+ 250        return LocalDesc;
+ 251     end ConvertToAuditDescription;
+ 252  
+ 253     ------------------------------------------------------------------
+ 254     -- GetStartAndEndTimeFromFile
+ 255     --
+ 256     --    Description:
+ 257     --       Extracts the start and end time from a full log file.
+ 258     --       As it is full we know how many entries are in the file.
+ 259     --
+ 260     --   Implementation Notes:
+ 261     --       Leaves the file closed.
+ 262     --
+ 263     ------------------------------------------------------------------
+ 264     procedure GetStartAndEndTimeFromFile
+ 265       (TheFile     : in out File.T;
+ 266        Description :    out AuditTypes.DescriptionT)
+ 267       --# global in out AuditSystemFault;
+ 268       --# derives AuditSystemFault,
+ 269       --#         TheFile          from *,
+ 270       --#                               TheFile &
+ 271       --#         Description      from TheFile;
+ 272     is
+ 273        OK : Boolean;
+ 274        FirstTime : Clock.TimeTextT;
+ 275        LastTime  : Clock.TimeTextT;
+ 276        TimeCount : Natural; -- type Natural to match formal parameter
+ 277                             -- in call to GetString
+ 278        TimeOK    : Boolean := True;
+ 279  
+ 280        ------------------------------------------------------------------
+ 281        -- ConvertTimesToText
+ 282        --
+ 283        --    Description:
+ 284        --       Returns a Description with Start and End Times of file..
+ 285        --
+ 286        --   Implementation Notes:
+ 287        --       Hidden from SPARK because of use of & in non-Static context.
+ 288        --
+ 289        ------------------------------------------------------------------
+ 290        function ConvertTimesToText return AuditTypes.DescriptionT
+ 291          --# global FirstTime,
+ 292          --#        LastTime,
+ 293          --#        TimeOK;
+ 294        is
+ 295           --# hide ConvertTimesToText;
+ 296           Descr : AuditTypes.DescriptionT;
+ 297        begin
+ 298           if TimeOK then
+ 299              Descr :=
+ 300                ConvertToAuditDescription("From: " & FirstTime & " to: " & LastTime);
+ 301           else
+ 302              Descr :=
+ 303                ConvertToAuditDescription("Error obtaining times from file. Best estimate is from: "
+ 304                                          & FirstTime & " to: " & LastTime);
+ 305           end if;
+ 306  
+ 307           return Descr;
+ 308  
+ 309        end ConvertTimesToText;
+ 310  
+ 311     -------------------------------------------------------------------
+ 312     -- begin GetStartAndEndTimeFromFile
+ 313     -------------------------------------------------------------------
+ 314     begin
+ 315  
+ 316        FirstTime := Clock.PrintTime(Clock.ZeroTime);
+ 317        LastTime := Clock.PrintTime(Clock.ZeroTime);
+ 318  
+ 319        if File.Exists( TheFile => TheFile) then
+ 320           File.OpenRead( TheFile => TheFile,
+ 321                          Success => OK );
+ 322  
+ 323           AuditSystemFault := AuditSystemFault or not OK;
+ 324  
+ 325           if OK then
+ 326              -- get the age of the first element
+ 327              -- time is the first field on the line
+ 328              File.GetString( TheFile => TheFile,
+ 329                              Text    => FirstTime,
+ 330                              Stop    => TimeCount);
+ 331  
+ 332              if TimeCount /= FirstTime'Last then
+ 333                 -- Time was corrupt
+ 334                 TimeOK := False;
+ 335              end if;
+ 336  
+ 337              File.SkipLine(TheFile, MaxLogFileEntries - 1 );
+ 338  
+ 339              -- get the age of the last element
+ 340              File.GetString( TheFile => TheFile,
+ 341                              Text    => LastTime,
+ 342                              Stop    => TimeCount);
+ 343  
+ 344              if TimeCount /= LastTime'Last then
+ 345                 -- Time was corrupt
+ 346                 TimeOK := False;
+ 347              end if;
+ 348  
+ 349          end if;
+ 350  
+ 351           File.Close( TheFile => TheFile,
+ 352                       Success => OK );
+ 353  
+ 354           AuditSystemFault := AuditSystemFault or not OK;
+ 355  
+ 356        end if;
+ 357  
+ 358        Description := ConvertTimesToText;
+ 359  
+ 360     end GetStartAndEndTimeFromFile;
+
++++        Flow analysis of subprogram 
+           GetStartAndEndTimeFromFile performed: no errors found.
+
+ 361  
+ 362     ------------------------------------------------------------------
+ 363     -- UpdateEndTimeFromFile
+ 364     --
+ 365     --    Description:
+ 366     --       Extracts the end time from a full log file.
+ 367     --       replaces the end time from the description
+ 368     --       with this new value.
+ 369     --
+ 370     --   Implementation Notes:
+ 371     --       Leaves the file closed.
+ 372     --
+ 373     ------------------------------------------------------------------
+ 374     procedure UpdateEndTimeFromFile
+ 375       (TheFile     : in out File.T;
+ 376        Description : in out AuditTypes.DescriptionT)
+ 377       --# global in out AuditSystemFault;
+ 378       --# derives AuditSystemFault,
+ 379       --#         TheFile,
+ 380       --#         Description      from *,
+ 381       --#                               TheFile;
+ 382     is
+ 383        OK : Boolean;
+ 384        LastTime  : Clock.TimeTextT;
+ 385        TimeCount : Natural; -- type Natural to match formal parameter
+ 386                             -- in call to GetString
+ 387        TimeOK    : Boolean := True;
+ 388  
+ 389        ------------------------------------------------------------------
+ 390        -- OverwriteTimeInText
+ 391        --
+ 392        --    Description:
+ 393        --       Returns a Description with Start and End Times of file.
+ 394        --
+ 395        --   Implementation Notes:
+ 396        --       Hidden from SPARK because of use of & in non-Static context.
+ 397        --
+ 398        ------------------------------------------------------------------
+ 399        function OverwriteTimeInText(Description : AuditTypes.DescriptionT )
+ 400                                     return AuditTypes.DescriptionT
+ 401          --# global LastTime,
+ 402          --#        TimeOK;
+ 403        is
+ 404           --# hide OverwriteTimeInText;
+ 405           Descr : AuditTypes.DescriptionT;
+ 406           FirstTime : Clock.TimeTextT;
+ 407           Offset : Positive;
+ 408           BothTimesOK : Boolean;
+ 409        begin
+ 410           BothTimesOK := TimeOK;
+ 411           -- get Start Time from Description:
+ 412           if Description(Description'First) = 'F' then
+ 413              Offset := 6;
+ 414           else
+ 415              Offset := 56;
+ 416              BothTimesOK := False;
+ 417           end if;
+ 418           FirstTime := Description(Offset + FirstTime'First ..
+ 419                                    Offset + FirstTime'Last);
+ 420  
+ 421           if BothTimesOK then
+ 422              Descr :=
+ 423                ConvertToAuditDescription("From: " & FirstTime & " to: " & LastTime);
+ 424           else
+ 425              Descr :=
+ 426                ConvertToAuditDescription("Error obtaining times from file. Best estimate is from: "
+ 427                                          & FirstTime & " to: " & LastTime);
+ 428           end if;
+ 429  
+ 430           return Descr;
+ 431  
+ 432        end OverwriteTimeInText;
+ 433  
+ 434     -------------------------------------------------------------------
+ 435     -- begin UpdateEndTimeFromFile
+ 436     -------------------------------------------------------------------
+ 437     begin
+ 438  
+ 439        LastTime := Clock.PrintTime(Clock.ZeroTime);
+ 440  
+ 441        if File.Exists( TheFile => TheFile) then
+ 442           File.OpenRead( TheFile => TheFile,
+ 443                          Success => OK );
+ 444  
+ 445           AuditSystemFault := AuditSystemFault or not OK;
+ 446  
+ 447           if OK then
+ 448              File.SkipLine(TheFile, MaxLogFileEntries - 1 );
+ 449  
+ 450              -- get the age of the last element
+ 451              -- the time is the first field on the line
+ 452              File.GetString( TheFile => TheFile,
+ 453                              Text    => LastTime,
+ 454                              Stop    => TimeCount);
+ 455  
+ 456              if TimeCount /= LastTime'Last then
+ 457                 -- Time was corrupt
+ 458                 TimeOK := False;
+ 459              end if;
+ 460  
+ 461          end if;
+ 462  
+ 463           File.Close( TheFile => TheFile,
+ 464                       Success => OK );
+ 465  
+ 466           AuditSystemFault := AuditSystemFault or not OK;
+ 467  
+ 468        end if;
+ 469  
+ 470        Description := OverwriteTimeInText(Description);
+ 471  
+ 472     end UpdateEndTimeFromFile;
+
++++        Flow analysis of subprogram 
+           UpdateEndTimeFromFile performed: no errors found.
+
+ 473  
+ 474     ------------------------------------------------------------------
+ 475     -- DeleteArchiveFile
+ 476     --
+ 477     --    Description:
+ 478     --       Deletes the local copy of the archive file.
+ 479     --
+ 480     --   Implementation Notes:
+ 481     --       Ignore all failures.
+ 482     --       This routine has no effect in the SPARK context,
+ 483     --       its purpose is to remove a temporary file - not modelled in SPARK.
+ 484     ------------------------------------------------------------------
+ 485     procedure DeleteArchiveFile
+ 486     --# derives ;
+ 487     is
+ 488        --# hide DeleteArchiveFile;
+ 489        Archive : File.T;
+ 490        Unused : Boolean;
+ 491     begin
+ 492  
+ 493        Archive := File.Construct (TheName => ArchiveFileName);
+ 494  
+ 495        File.OpenRead(TheFile => Archive,
+ 496                      Success => Unused);
+ 497        File.Delete(TheFile => Archive,
+ 498                    Success => Unused);
+ 499  
+ 500     end DeleteArchiveFile;
+ 501  
+ 502     ------------------------------------------------------------------
+ 503     -- DeleteLogFile
+ 504     --
+ 505     --    Description:
+ 506     --       Deletes the log file referenced by the index.
+ 507     --
+ 508     --   Implementation Notes:
+ 509     --       None.
+ 510     --
+ 511     ------------------------------------------------------------------
+ 512     procedure DeleteLogFile ( Index : LogFileIndexT)
+ 513     --# global in out AuditSystemFault;
+ 514     --#        in out LogFiles;
+ 515     --#        in out LogFilesStatus;
+ 516     --#        in out LogFileEntries;
+ 517     --# derives AuditSystemFault,
+ 518     --#         LogFiles         from *,
+ 519     --#                               LogFiles,
+ 520     --#                               Index &
+ 521     --#         LogFilesStatus,
+ 522     --#         LogFileEntries   from *,
+ 523     --#                               Index;
+ 524     is
+ 525        OK : Boolean;
+ 526        TheFile : File.T;
+ 527     begin
+ 528  
+ 529        TheFile := LogFiles (Index);
+ 530  
+ 531        File.OpenRead(TheFile => TheFile,
+ 532                      Success => OK);
+ 533        AuditSystemFault := AuditSystemFault and not OK;
+ 534        File.Delete(TheFile => TheFile,
+ 535                    Success => OK);
+ 536        AuditSystemFault := AuditSystemFault and not OK;
+ 537  
+ 538        LogFiles( Index) := TheFile;
+ 539  
+ 540        LogFilesStatus (Index) := Free;
+ 541        LogFileEntries (Index) := 0;
+ 542  
+ 543     end DeleteLogFile;
+
++++        Flow analysis of subprogram DeleteLogFile 
+           performed: no errors found.
+
+ 544     ------------------------------------------------------------------
+ 545     -- AddElementToFile
+ 546     --
+ 547     --    Description:
+ 548     --       Puts an entry in the log file.
+ 549     --
+ 550     --   Implementation Notes:
+ 551     --       Leaves the file closed.
+ 552     --
+ 553     ------------------------------------------------------------------
+ 554     procedure AddElementToFile (
+ 555                  TheFile      : in out File.T;
+ 556                  ElementID    : in     AuditTypes.ElementT;
+ 557                  Severity     : in     AuditTypes.SeverityT;
+ 558                  User         : in     AuditTypes.UserTextT;
+ 559                  Description  : in     AuditTypes.DescriptionT)
+ 560     --# global in     Clock.Now;
+ 561     --#        in out AuditSystemFault;
+ 562     --# derives AuditSystemFault,
+ 563     --#         TheFile          from *,
+ 564     --#                               TheFile,
+ 565     --#                               Description,
+ 566     --#                               Clock.Now,
+ 567     --#                               ElementID,
+ 568     --#                               Severity,
+ 569     --#                               User;
+ 570     is
+ 571        OK : Boolean;
+ 572        Now : Clock.TimeT;
+ 573  
+ 574  
+ 575     ------------------------------------------------------------------
+ 576     -- NameOfType
+ 577     --
+ 578     --   Description:
+ 579     --      Returns a string containing the name of the element type.
+ 580     --
+ 581     --   Implementation Notes:
+ 582     --       Hidden as it uses 'IMAGE and slicing.
+ 583     --
+ 584     ------------------------------------------------------------------
+ 585        function NameOfType (E : AuditTypes.ElementT ) return ElementTextT
+ 586        is
+ 587        --# hide NameOfType;
+ 588  
+ 589           ElementText : ElementTextT := NoElement;
+ 590  
+ 591        begin
+ 592  
+ 593           ElementText(1.. AuditTypes.ElementT'Image(ElementID)'Last)
+ 594             := AuditTypes.ElementT'Image(ElementID);
+ 595  
+ 596           return ElementText;
+ 597  
+ 598        end NameOfType;
+ 599  
+ 600     -------------------------------------------------------------------
+ 601     -- begin AddElementToFile
+ 602     -------------------------------------------------------------------
+ 603  
+ 604     begin
+ 605  
+ 606        Now := Clock.GetNow;
+ 607  
+ 608        File.OpenAppend (TheFile, OK);
+ 609        if not OK then
+ 610  
+ 611             -- if can't open then create it and it is empty
+ 612             File.Create( TheFile => TheFile,
+ 613                          Success => OK);
+ 614  
+ 615        end if;
+ 616  
+ 617        if OK then
+ 618           -- Write Time
+ 619           File.PutString( TheFile => TheFile,
+ 620                           Text    => Clock.PrintTime(Now),
+ 621                           Stop    => 0 );
+ 622  
+ 623           File.PutString( TheFile => TheFile,
+ 624                           Text    => ", ",
+ 625                           Stop    => 0);
+ 626  
+ 627           -- Write Severity
+ 628           File.PutInteger( TheFile => TheFile,
+ 629                            Item   => AuditTypes.SeverityT'Pos(Severity)+ 1,
+ 630                            Width  => 1);
+ 631  
+ 632           File.PutString( TheFile => TheFile,
+ 633                           Text    => ", ",
+ 634                           Stop    => 0);
+ 635  
+ 636           -- Write type
+ 637           File.PutInteger( TheFile => TheFile,
+ 638                            Item    => AuditTypes.ElementT'Pos(ElementID),
+ 639                            Width   => 2);
+ 640  
+ 641           File.PutString( TheFile => TheFile,
+ 642                           Text    => ", ",
+ 643                           Stop    => 0);
+ 644  
+ 645           File.PutString( TheFile => TheFile,
+ 646                           Text   => NameOfType (ElementID),
+ 647                           Stop => 0);
+ 648  
+ 649           File.PutString( TheFile => TheFile,
+ 650                           Text    => ", ",
+ 651                           Stop    => 0);
+ 652  
+ 653           -- Write user
+ 654           File.PutString( TheFile => TheFile,
+ 655                           Text    => User,
+ 656                           Stop    => 0);
+ 657  
+ 658           File.PutString( TheFile => TheFile,
+ 659                           Text    => ", ",
+ 660                           Stop    => 0);
+ 661  
+ 662           -- Write description
+ 663           File.PutString( TheFile => TheFile,
+ 664                           Text    => Description,
+ 665                           Stop    => 0);
+ 666  
+ 667           File.NewLine( TheFile => TheFile,
+ 668                         Spacing => 1);
+ 669  
+ 670        else
+ 671           AuditSystemFault := True;
+ 672        end if;
+ 673  
+ 674        File.Close (TheFile => TheFile,
+ 675                    Success => OK);
+ 676  
+ 677        if not OK then
+ 678           AuditSystemFault := True;
+ 679        end if;
+ 680  
+ 681     end AddElementToFile;
+
++++        Flow analysis of subprogram AddElementToFile 
+           performed: no errors found.
+
+ 682  
+ 683     ------------------------------------------------------------------
+ 684     -- AddElementToLogFile
+ 685     --
+ 686     --    Description:
+ 687     --       Puts the entry in the log file,
+ 688     --             either the current file or the next file..
+ 689     --
+ 690     --   Implementation Notes:
+ 691     --       Leaves the file closed.
+ 692     --
+ 693     ------------------------------------------------------------------
+ 694     procedure AddElementToLogFile
+ 695       ( ElementID    : in     AuditTypes.ElementT;
+ 696         Severity     : in     AuditTypes.SeverityT;
+ 697         User         : in     AuditTypes.UserTextT;
+ 698         Description  : in     AuditTypes.DescriptionT)
+ 699       --# global in     Clock.Now;
+ 700       --#        in out NumberLogEntries;
+ 701       --#        in out AuditSystemFault;
+ 702       --#        in out LogFiles;
+ 703       --#        in out LogFilesStatus;
+ 704       --#        in out LogFileEntries;
+ 705       --#        in out CurrentLogFile;
+ 706       --#        in out UsedLogFiles;
+ 707       --# derives AuditSystemFault,
+ 708       --#         LogFiles         from *,
+ 709       --#                               Description,
+ 710       --#                               LogFiles,
+ 711       --#                               LogFilesStatus,
+ 712       --#                               LogFileEntries,
+ 713       --#                               Clock.Now,
+ 714       --#                               ElementID,
+ 715       --#                               Severity,
+ 716       --#                               User,
+ 717       --#                               CurrentLogFile &
+ 718       --#         LogFilesStatus,
+ 719       --#         LogFileEntries,
+ 720       --#         CurrentLogFile,
+ 721       --#         UsedLogFiles     from *,
+ 722       --#                               LogFilesStatus,
+ 723       --#                               LogFileEntries,
+ 724       --#                               CurrentLogFile &
+ 725       --#         NumberLogEntries from *;
+ 726       --# pre NumberLogEntries < MaxLogEntries and
+ 727       --#     (LogFileEntries(CurrentLogFile) < MaxLogFileEntries or
+ 728       --#                 UsedLogFiles.Length < LogFileCountT'Last) and
+ 729       --#     NumberLogEntries = LogEntryCountT(UsedLogFiles.Length -1)*MaxLogFileEntries +
+ 730       --#                        LogFileEntries(CurrentLogFile);
+ 731       --#
+ 732       --# post NumberLogEntries = LogEntryCountT(UsedLogFiles.Length -1)*MaxLogFileEntries +
+ 733       --#                        LogFileEntries(CurrentLogFile) and
+ 734       --#      NumberLogEntries = NumberLogEntries~ + 1 and
+ 735       --#      (LogFileEntries~(CurrentLogFile~) = MaxLogFileEntries ->
+ 736       --#         (LogFileEntries(CurrentLogFile) = 1 and
+ 737       --#          UsedLogFiles.Length = UsedLogFiles~.Length + 1)) and
+ 738       --#      (LogFileEntries~(CurrentLogFile~) < MaxLogFileEntries ->
+ 739       --#         (LogFileEntries(CurrentLogFile) = LogFileEntries~(CurrentLogFile~) + 1 and
+ 740       --#          UsedLogFiles.Length = UsedLogFiles~.Length)) ;
+ 741     is
+ 742  
+ 743        ------------------------------------------------------------------
+ 744        -- AddElementToCurrentFile
+ 745        --
+ 746        --    Description:
+ 747        --       Adds an element to the current log file.
+ 748        --
+ 749        --   Implementation Notes:
+ 750        --       Leaves the file closed.
+ 751        --
+ 752        ------------------------------------------------------------------
+ 753        procedure AddElementToCurrentFile
+ 754          (ElementID    : in     AuditTypes.ElementT;
+ 755           Severity     : in     AuditTypes.SeverityT;
+ 756           User         : in     AuditTypes.UserTextT;
+ 757           Description  : in     AuditTypes.DescriptionT)
+ 758          --# global in     Clock.Now;
+ 759          --#        in     CurrentLogFile;
+ 760          --#        in out AuditSystemFault;
+ 761          --#        in out LogFiles;
+ 762          --#        in out LogFileEntries;
+ 763          --# derives AuditSystemFault,
+ 764          --#         LogFiles         from *,
+ 765          --#                               Description,
+ 766          --#                               LogFiles,
+ 767          --#                               Clock.Now,
+ 768          --#                               ElementID,
+ 769          --#                               Severity,
+ 770          --#                               User,
+ 771          --#                               CurrentLogFile &
+ 772          --#         LogFileEntries   from *,
+ 773          --#                               CurrentLogFile;
+ 774          --# pre LogFileEntries(CurrentLogFile) < MaxLogFileEntries;
+ 775          --# post LogFileEntries(CurrentLogFile) =
+ 776          --#             LogFileEntries~(CurrentLogFile) + 1;
+ 777  
+ 778        is
+ 779           TheFile : File.T ;
+ 780        begin
+ 781           TheFile := LogFiles (CurrentLogFile);
+ 782           AddElementToFile
+ 783             (TheFile => TheFile,
+ 784              ElementID    => ElementID,
+ 785              Severity     => Severity,
+ 786              User         => User,
+ 787              Description  => Description);
+ 788           LogFiles (CurrentLogFile) := TheFile;
+ 789  
+ 790           LogFileEntries(CurrentLogFile) := LogFileEntries(CurrentLogFile) + 1;
+ 791        end AddElementToCurrentFile;
+
++++        Flow analysis of subprogram 
+           AddElementToCurrentFile performed: no errors found.
+
+ 792  
+ 793        ------------------------------------------------------------------
+ 794        -- AddElementToNextFile
+ 795        --
+ 796        --    Description:
+ 797        --       Adds an element to the next empty log file.
+ 798        --
+ 799        --   Implementation Notes:
+ 800        --      Leaves file closed.
+ 801        --
+ 802        ------------------------------------------------------------------
+ 803        procedure AddElementToNextFile
+ 804          (ElementID    : in     AuditTypes.ElementT;
+ 805           Severity     : in     AuditTypes.SeverityT;
+ 806           User         : in     AuditTypes.UserTextT;
+ 807           Description  : in     AuditTypes.DescriptionT)
+ 808          --# global in     Clock.Now;
+ 809          --#        in out AuditSystemFault;
+ 810          --#        in out LogFiles;
+ 811          --#        in out LogFilesStatus;
+ 812          --#        in out LogFileEntries;
+ 813          --#        in out CurrentLogFile;
+ 814          --#        in out UsedLogFiles;
+ 815          --# derives AuditSystemFault,
+ 816          --#         LogFiles         from *,
+ 817          --#                               Description,
+ 818          --#                               LogFiles,
+ 819          --#                               LogFilesStatus,
+ 820          --#                               Clock.Now,
+ 821          --#                               ElementID,
+ 822          --#                               Severity,
+ 823          --#                               User,
+ 824          --#                               CurrentLogFile &
+ 825          --#         LogFilesStatus,
+ 826          --#         LogFileEntries,
+ 827          --#         CurrentLogFile,
+ 828          --#         UsedLogFiles     from *,
+ 829          --#                               LogFilesStatus,
+ 830          --#                               CurrentLogFile;
+ 831          --# pre UsedLogFiles.Length < LogFileCountT'Last;
+ 832          --# post  UsedLogFiles.Length = UsedLogFiles~.Length + 1 and
+ 833          --#                        LogFileEntries(CurrentLogFile) = 1;
+ 834        is
+ 835           TheFile : File.T ;
+ 836  
+ 837           procedure SetCurrentFileToNextFreeFile
+ 838           --# global in     LogFilesStatus;
+ 839           --#        in out CurrentLogFile;
+ 840           --# derives CurrentLogFile from *,
+ 841           --#                             LogFilesStatus;
+ 842           is
+ 843           begin
+ 844              for I in LogFileIndexT loop
+ 845                 --# assert I in LogFileIndexT;
+ 846                 if LogFilesStatus(I) = Free then
+ 847                    CurrentLogFile := I;
+ 848                    exit;
+ 849                 end if;
+ 850              end loop;
+ 851           end SetCurrentFileToNextFreeFile;
+
++++        Flow analysis of subprogram 
+           SetCurrentFileToNextFreeFile performed: no errors found.
+
+ 852  
+ 853           -------------------------------------------------
+ 854           -- AddElementToNextFile
+ 855           ------------------------------------------------
+ 856        begin
+ 857  
+ 858           SetCurrentFileToNextFreeFile;
+ 859  
+ 860           LogFilesStatus( CurrentLogFile) := Used;
+ 861  
+ 862           -- add currentLogFile' to end of list of UsedLogFiles.
+ 863           UsedLogFiles.Length := UsedLogFiles.Length + 1;
+ 864           UsedLogFiles.LastI := NextListIndex( UsedLogFiles.LastI);
+ 865           UsedLogFiles.List(UsedLogFiles.LastI) := CurrentLogFile;
+ 866  
+ 867           TheFile := LogFiles (CurrentLogFile);
+ 868           AddElementToFile
+ 869             (TheFile => TheFile,
+ 870              ElementID    => ElementID,
+ 871              Severity     => Severity,
+ 872              User         => User,
+ 873              Description  => Description);
+ 874           LogFiles (CurrentLogFile) := TheFile;
+ 875  
+ 876           LogFileEntries(CurrentLogFile) := 1;
+ 877  
+ 878        end AddElementToNextFile;
+
++++        Flow analysis of subprogram AddElementToNextFile 
+           performed: no errors found.
+
+ 879  
+ 880  
+ 881        -------------------------------------------------
+ 882        -- AddElementToLogFile
+ 883        ------------------------------------------------
+ 884     begin
+ 885  
+ 886        if LogFileEntries(CurrentLogFile) < MaxLogFileEntries then
+ 887  
+ 888           AddElementToCurrentFile
+ 889             ( ElementID   => ElementID,
+ 890               Severity    => Severity,
+ 891               User        => User,
+ 892               Description => Description);
+ 893  
+ 894        else
+ 895  
+ 896           --# check LogFileEntries(CurrentLogFile) = MaxLogFileEntries;
+ 897  
+ 898           AddElementToNextFile
+ 899             ( ElementID   => ElementID,
+ 900               Severity    => Severity,
+ 901               User        => User,
+ 902               Description => Description);
+ 903        end if;
+ 904  
+ 905        NumberLogEntries := NumberLogEntries + 1;
+ 906  
+ 907     end AddElementToLogFile;
+
++++        Flow analysis of subprogram AddElementToLogFile 
+           performed: no errors found.
+
+ 908  
+ 909     ------------------------------------------------------------------
+ 910     -- TruncateLog
+ 911     --
+ 912     --    Description:
+ 913     --       Truncates the log.
+ 914     --
+ 915     --   Implementation Notes:
+ 916     --       Leaves all files closed.
+ 917     --
+ 918     ------------------------------------------------------------------
+ 919     procedure TruncateLog( Description : out AuditTypes.DescriptionT)
+ 920       --# global in out NumberLogEntries;
+ 921       --#        in out AuditSystemFault;
+ 922       --#        in out LogFiles;
+ 923       --#        in out LogFilesStatus;
+ 924       --#        in out LogFileEntries;
+ 925       --#        in out UsedLogFiles;
+ 926       --#           out AuditAlarm;
+ 927       --# derives NumberLogEntries,
+ 928       --#         UsedLogFiles     from * &
+ 929       --#         AuditSystemFault,
+ 930       --#         LogFiles         from *,
+ 931       --#                               LogFiles,
+ 932       --#                               UsedLogFiles &
+ 933       --#         LogFilesStatus,
+ 934       --#         LogFileEntries   from *,
+ 935       --#                               UsedLogFiles &
+ 936       --#         AuditAlarm       from  &
+ 937       --#         Description      from LogFiles,
+ 938       --#                               UsedLogFiles;
+ 939       --# pre UsedLogFiles.Length = LogFileCountT'Last and
+ 940       --#  NumberLogEntries = LogEntryCountT(UsedLogFiles.Length)*MaxLogFileEntries;
+ 941       --# post UsedLogFiles.Length = LogFileCountT'Last - 1 and
+ 942       --#  NumberLogEntries = LogEntryCountT(UsedLogFiles.Length)*MaxLogFileEntries;
+ 943     is
+ 944        TheFile : File.T ;
+ 945        Head : LogFileIndexT;
+ 946  
+ 947     begin
+ 948  
+ 949        Head := UsedLogFiles.List(UsedLogFiles.Head);
+ 950  
+ 951        -- Make description
+ 952        TheFile := LogFiles (Head);
+ 953        GetStartAndEndTimeFromFile
+ 954          ( TheFile     => TheFile,
+ 955            Description => Description);
+ 956        LogFiles (Head) := TheFile;
+ 957  
+ 958        -- Empty the file.
+ 959        DeleteLogFile (Head);
+ 960  
+ 961        -- remove the head of the usedLogFiles
+ 962        UsedLogFiles.Head := NextListIndex (UsedLogFiles.Head);
+ 963        UsedLogFiles.Length := UsedLogFiles.Length - 1;
+ 964  
+ 965        NumberLogEntries := NumberLogEntries - MaxLogFileEntries;
+ 966  
+ 967        AuditAlarm := AlarmTypes.Alarming;
+ 968     end TruncateLog;
+
++++        Flow analysis of subprogram TruncateLog 
+           performed: no errors found.
+
+ 969  
+ 970     ------------------------------------------------------------------
+ 971     -- AddElementToLogFileWithTruncateChecks
+ 972     --
+ 973     --    Description:
+ 974     --       Checks whether the log is full - truncates if it is.
+ 975     --       If Truncation happened, put truncation entry in
+ 976     --           the log file.
+ 977     --       Finally puts the entry in the log file,
+ 978     --             either the current file or the next file.
+ 979     --
+ 980     --   Implementation Notes:
+ 981     --       Leaves the file closed.
+ 982     --
+ 983     ------------------------------------------------------------------
+ 984     procedure AddElementToLogFileWithTruncateChecks
+ 985       ( ElementID    : in     AuditTypes.ElementT;
+ 986         Severity     : in     AuditTypes.SeverityT;
+ 987         User         : in     AuditTypes.UserTextT;
+ 988         Description  : in     AuditTypes.DescriptionT)
+ 989       --# global in     Clock.Now;
+ 990       --#        in out AuditAlarm;
+ 991       --#        in out NumberLogEntries;
+ 992       --#        in out AuditSystemFault;
+ 993       --#        in out LogFiles;
+ 994       --#        in out LogFilesStatus;
+ 995       --#        in out LogFileEntries;
+ 996       --#        in out CurrentLogFile;
+ 997       --#        in out UsedLogFiles;
+ 998       --# derives AuditAlarm,
+ 999       --#         NumberLogEntries,
+1000       --#         LogFilesStatus   from *,
+1001       --#                               LogFileEntries,
+1002       --#                               CurrentLogFile,
+1003       --#                               UsedLogFiles &
+1004       --#         AuditSystemFault,
+1005       --#         LogFiles         from *,
+1006       --#                               Description,
+1007       --#                               LogFiles,
+1008       --#                               LogFilesStatus,
+1009       --#                               LogFileEntries,
+1010       --#                               Clock.Now,
+1011       --#                               ElementID,
+1012       --#                               Severity,
+1013       --#                               User,
+1014       --#                               CurrentLogFile,
+1015       --#                               UsedLogFiles &
+1016       --#         LogFileEntries,
+1017       --#         CurrentLogFile,
+1018       --#         UsedLogFiles     from LogFilesStatus,
+1019       --#                               LogFileEntries,
+1020       --#                               CurrentLogFile,
+1021       --#                               UsedLogFiles;
+1022       --# pre NumberLogEntries = LogEntryCountT(UsedLogFiles.Length -1)*MaxLogFileEntries +
+1023       --#                        LogFileEntries(CurrentLogFile);
+1024       --# post NumberLogEntries = LogEntryCountT(UsedLogFiles.Length -1)*MaxLogFileEntries +
+1025       --#                        LogFileEntries(CurrentLogFile);
+1026     is
+1027        TruncateDescription : AuditTypes.DescriptionT;
+1028  
+1029     begin
+1030        if LogFileEntries(CurrentLogFile) = MaxLogFileEntries
+1031          and UsedLogFiles.Length = LogFileCountT'Last then
+1032  
+1033           TruncateLog(Description => TruncateDescription);
+1034  
+1035           --# assert NumberLogEntries =
+1036           --#     LogEntryCountT(UsedLogFiles.Length -1)*MaxLogFileEntries +
+1037           --#     LogFileEntries(CurrentLogFile) and
+1038           --#     LogFileEntries(CurrentLogFile) = MaxLogFileEntries and
+1039           --#     UsedLogFiles.Length = LogFileCountT'Last - 1;
+1040  
+1041           AddElementToLogFile
+1042             ( ElementID   => AuditTypes.TruncateLog,
+1043               Severity    => AuditTypes.Critical,
+1044               User        => AuditTypes.NoUser,
+1045               Description => TruncateDescription);
+1046  
+1047           --# assert NumberLogEntries =
+1048           --#     LogEntryCountT(UsedLogFiles.Length -1)*MaxLogFileEntries +
+1049           --#     LogFileEntries(CurrentLogFile) and
+1050           --#     LogFileEntries(CurrentLogFile) = 1  and
+1051           --#     UsedLogFiles.Length = LogFileCountT'Last;
+1052  
+1053        end if;
+1054  
+1055           --# assert NumberLogEntries =
+1056           --#     LogEntryCountT(UsedLogFiles.Length -1)*MaxLogFileEntries +
+1057           --#     LogFileEntries(CurrentLogFile) and
+1058           --#     (LogFileEntries(CurrentLogFile) < MaxLogFileEntries or
+1059           --#      UsedLogFiles.Length < LogFileCountT'Last) and
+1060           --#     LogFileEntries(CurrentLogFile) <= MaxLogFileEntries;
+1061  
+1062        AddElementToLogFile
+1063          ( ElementID   => ElementID,
+1064            Severity    => Severity,
+1065            User        => User,
+1066            Description => Description);
+1067  
+1068     end AddElementToLogFileWithTruncateChecks;
+
++++        Flow analysis of subprogram 
+           AddElementToLogFileWithTruncateChecks performed: no errors found.
+
+1069  
+1070  
+1071     ------------------------------------------------------------------
+1072     -- Public Operations
+1073     --
+1074     ------------------------------------------------------------------
+1075  
+1076  
+1077     ------------------------------------------------------------------
+1078     -- Init
+1079     --
+1080     --    Implementation Notes:
+1081     --       All files are either free or used.
+1082     --
+1083     ------------------------------------------------------------------
+1084  
+1085     procedure Init
+1086     --# global in     ConfigData.State;
+1087     --#        in out LogFiles;
+1088     --#           out AuditAlarm;
+1089     --#           out NumberLogEntries;
+1090     --#           out AuditSystemFault;
+1091     --#           out LogFilesStatus;
+1092     --#           out LogFileEntries;
+1093     --#           out CurrentLogFile;
+1094     --#           out UsedLogFiles;
+1095     --# derives NumberLogEntries,
+1096     --#         AuditSystemFault,
+1097     --#         LogFiles,
+1098     --#         LogFilesStatus,
+1099     --#         LogFileEntries,
+1100     --#         CurrentLogFile,
+1101     --#         UsedLogFiles     from LogFiles &
+1102     --#         AuditAlarm       from ConfigData.State,
+1103     --#                               LogFiles;
+1104     --# post NumberLogEntries = LogEntryCountT(UsedLogFiles.Length -1)*MaxLogFileEntries +
+1105     --#                        LogFileEntries(CurrentLogFile);
+1106     is
+1107  
+1108       type FileAgeT is array (LogFileIndexT) of Clock.TimeTextT;
+1109       FileAges      : FileAgeT;
+1110       OK            : Boolean;
+1111  
+1112       --# for EmptyList declare Rule;
+1113  
+1114       ------------------------------------------------------------------
+1115       -- SetFileDetails
+1116       --
+1117       --    Description:
+1118       --       Sets much of the log file state.
+1119       --       In particular determines the logFileStatus, logFileEntries
+1120       --       and creates a handle to each of the logFiles.
+1121       --       It also obtains the oldest element in each log file as a
+1122       --       prelude to creating the sorted list of usedLogFiles.
+1123       --
+1124       --   Implementation Notes:
+1125       --      None
+1126       --
+1127       ------------------------------------------------------------------
+1128       procedure SetFileDetails
+1129         --# global in out AuditSystemFault;
+1130         --#        in out LogFiles;
+1131         --#           out LogFilesStatus;
+1132         --#           out LogFileEntries;
+1133         --#           out FileAges;
+1134         --# derives AuditSystemFault,
+1135         --#         LogFiles         from *,
+1136         --#                               LogFiles &
+1137         --#         LogFilesStatus,
+1138         --#         LogFileEntries,
+1139         --#         FileAges         from LogFiles;
+1140  
+1141       is
+1142          FileH         : File.T;
+1143          Status        : FileStatusT;
+1144          NumberEntries : FileEntryCountT;
+1145          FirstTime     : Clock.TimeTextT;
+1146  
+1147          ------------------------------------------------------------------
+1148          -- GetFileDetails
+1149          --
+1150          --    Description:
+1151          --       Gets all the necessary information from a single file.
+1152          --
+1153          --   Implementation Notes:
+1154          --      None.
+1155          --
+1156          ------------------------------------------------------------------
+1157          procedure GetFileDetails ( I : in LogFileIndexT)
+1158            --# global in     LogFiles;
+1159            --#        in out AuditSystemFault;
+1160            --#           out FirstTime;
+1161            --#           out Status;
+1162            --#           out NumberEntries;
+1163            --#           out FileH;
+1164            --# derives FirstTime,
+1165            --#         Status,
+1166            --#         NumberEntries,
+1167            --#         FileH            from LogFiles,
+1168            --#                               I &
+1169            --#         AuditSystemFault from *,
+1170            --#                               LogFiles,
+1171            --#                               I;
+1172          is
+1173             OK : Boolean;
+1174             TimeOK : Boolean := True;
+1175             TimeCount : Natural;
+1176          begin
+1177             -- Try to  open the file
+1178             NumberEntries := 0;
+1179             FirstTime := Clock.PrintTime(Clock.ZeroTime);
+1180             FileH := LogFiles(I);
+1181             File.SetName (TheName => LogFileNames(I),
+1182                           TheFile => FileH);
+1183  
+1184             if File.Exists( TheFile => FileH) then
+1185                File.OpenRead( TheFile => FileH,
+1186                               Success => OK );
+1187                if OK then
+1188                   -- if can open then see if it is empty
+1189                   if File.EndOfFile(FileH) then
+1190                      Status := Free;
+1191                   else
+1192                      Status := Used;
+1193                      -- get the age of the first element
+1194                      File.GetString( TheFile => FileH,
+1195                                      Text    => FirstTime,
+1196                                      Stop    => TimeCount);
+1197                      if TimeCount /= FirstTime'Last then
+1198                         -- Time was corrupt
+1199                         TimeOK := False;
+1200                      end if;
+1201                      -- See how full it is
+1202                      while not File.EndOfFile(FileH) loop
+1203                         --# assert NumberEntries >= 0 and
+1204                         --#        NumberEntries < MaxLogFileEntries;
+1205                         File.SkipLine(FileH, 1);
+1206                         NumberEntries := NumberEntries + 1;
+1207                         exit when NumberEntries = MaxLogFileEntries;
+1208                      end loop;
+1209                   end if;
+1210  
+1211                else -- File exists but can't be opened.
+1212                   Status := Used;
+1213                   AuditSystemFault := True;
+1214                end if;
+1215  
+1216                File.Close(TheFile => FileH,
+1217                           Success => OK);
+1218                if not OK or not TimeOK then
+1219                   AuditSystemFault := True;
+1220                end if;
+1221  
+1222             else -- File doesn't exist so it is free
+1223                -- (will be created when need to write to it).
+1224  
+1225                Status := Free;
+1226  
+1227             end if;
+1228  
+1229          end GetFileDetails;
+
++++        Flow analysis of subprogram GetFileDetails 
+           performed: no errors found.
+
+1230  
+1231          ------------------------------------------------------------------
+1232          -- begin SetFileDetails
+1233          ------------------------------------------------------------------
+1234       begin
+1235  
+1236          --# accept F, 23, LogFilesStatus, "Array initialization is total in loop" &
+1237          --#        F, 23, LogFileEntries, "Array initialization is total in loop" &
+1238          --#        F, 23, FileAges,       "Array initialization is total in loop";
+1239          for I in LogFileIndexT loop
+1240             --# assert I in LogFileIndexT;
+1241             GetFileDetails(I);
+1242             LogFilesStatus(I) := Status;
+1243             LogFiles(I)       := FileH;
+1244             FileAges(I)       := FirstTime;
+1245             LogFileEntries(I) := NumberEntries;
+1246          end loop;
+1247  
+1248          --# accept F, 602, LogFilesStatus, LogFilesStatus, "Array initialization is total in loop" &
+1249          --#        F, 602, LogFileEntries, LogFileEntries, "Array initialization is total in loop" &
+1250          --#        F, 602, FileAges,       FileAges,       "Array initialization is total in loop";
+1251       end SetFileDetails;
+
++++        Flow analysis of subprogram SetFileDetails 
+           performed: no errors found.
+
+1252  
+1253       ------------------------------------------------------------------
+1254       -- AgeLessThan
+1255       --
+1256       --    Description:
+1257       --       Compares two date strings.
+1258       --
+1259       --    Implementation Notes:
+1260       --       Hidden since string comparison not supported by VCG.
+1261       --
+1262       ------------------------------------------------------------------
+1263       function AgeLessThan (Left, Right : Clock.TimeTextT) return Boolean
+1264       is
+1265          --# hide AgeLessThan;
+1266       begin
+1267          return Left < Right;
+1268       end AgeLessThan;
+1269  
+1270       ------------------------------------------------------------------
+1271       -- begin Init
+1272       ------------------------------------------------------------------
+1273     begin
+1274        File.CreateDirectory(DirName => LogDirectory,
+1275                             Success => OK);
+1276  
+1277        AuditSystemFault := not OK;
+1278  
+1279        SetFileDetails;
+1280  
+1281        -- Now put the used files in order in the list.
+1282  
+1283        UsedLogFiles := EmptyList;
+1284        for I in LogFileIndexT loop
+1285           --# assert I in LogFileIndexT and
+1286           --#        UsedLogFiles.Length in LogFileCountT and
+1287           --#        UsedLogFiles.Length < I and
+1288           --#        UsedLogFiles.LastI in LogFileIndexT and
+1289           --#        (UsedLogFiles.Length > 0 -> UsedLogFiles.LastI < I) and
+1290           --#        (for all N in LogFileIndexT =>
+1291           --#             (LogFileEntries(N) in FileEntryCountT))  and
+1292           --#        (for all N in LogFileIndexT =>
+1293           --#             (UsedLogFiles.List(N) in LogFileIndexT)) ;
+1294           if LogFilesStatus(I) = Used then
+1295              if UsedLogFiles.Length = 0 then
+1296                 -- easy case list currently empty
+1297                 UsedLogFiles.Head := LogFileIndexT'First;
+1298                 UsedLogFiles.LastI := LogFileIndexT'First;
+1299                 UsedLogFiles.Length := 1;
+1300                 UsedLogFiles.List(UsedLogFiles.Head) := I;
+1301              else
+1302                 for J in LogFileIndexT  range 1 .. UsedLogFiles.LastI loop
+1303                    --# assert I in LogFileIndexT and
+1304                    --#        J in LogFileIndexT and
+1305                    --#        J <= UsedLogFiles.LastI and
+1306                    --#        UsedLogFiles.LastI in LogFileIndexT and
+1307                    --#        UsedLogFiles.Length in LogFileCountT and
+1308                    --#        UsedLogFiles.Length > 0 and
+1309                    --#        UsedLogFiles.Length < I and
+1310                    --#        (UsedLogFiles.Length > 0 -> UsedLogFiles.LastI < I) and
+1311                    --#        (for all N in LogFileIndexT =>
+1312                    --#             (LogFileEntries(N) in FileEntryCountT)) and
+1313                    --#        (for all N in LogFileIndexT =>
+1314                    --#             (UsedLogFiles.List(N) in LogFileIndexT)) ;
+1315                    if AgeLessThan( FileAges(I), FileAges( UsedLogFiles.List(J))) then
+1316                       -- this is where the new entry goes.
+1317                       -- move all other entries up the list to make room
+1318                       UsedLogFiles.LastI := UsedLogFiles.LastI + 1;
+1319                       UsedLogFiles.Length := UsedLogFiles.Length + 1;
+1320                       for K in reverse LogFileIndexT
+1321                         range J + 1 .. UsedLogFiles.LastI loop
+1322                          --# assert K in LogFileIndexT and
+1323                          --#        J in LogFileIndexT and
+1324                          --#        I in LogFileIndexT and
+1325                          --#        J = J% and
+1326                          --#        K >= J + 1 and K <= UsedLogFiles.LastI and
+1327                          --#        UsedLogFiles.LastI in LogFileIndexT and
+1328                          --#        UsedLogFiles.Length in LogFileCountT and
+1329                          --#        UsedLogFiles.Length > 0 and
+1330                          --#        UsedLogFiles.Length <= I and
+1331                          --#        UsedLogFiles.LastI <= I and
+1332                          --#        (for all N in LogFileIndexT =>
+1333                          --#             (LogFileEntries(N) in FileEntryCountT)) and
+1334                          --#        (for all N in LogFileIndexT =>
+1335                          --#             (UsedLogFiles.List(N) in LogFileIndexT)) ;
+1336                          UsedLogFiles.List(K) := UsedLogFiles.List(K - 1);
+1337                       end loop;
+1338                       UsedLogFiles.List(J) := I;
+1339                       exit;
+1340                    end if;
+1341                    if J = UsedLogFiles.LastI then
+1342                       -- entry goes at the end
+1343                       UsedLogFiles.LastI := UsedLogFiles.LastI + 1;
+1344                       UsedLogFiles.Length := UsedLogFiles.Length + 1;
+1345                       UsedLogFiles.List(UsedLogFiles.LastI) := I;
+1346                       exit;
+1347                    end if;
+1348                 end loop;
+1349              end if;
+1350           end if;
+1351        end loop;
+1352  
+1353        --# assert UsedLogFiles.Length in LogFileCountT and
+1354        --#        UsedLogFiles.LastI in LogFileIndexT and
+1355        --#        (for all N in LogFileIndexT =>
+1356        --#             (LogFileEntries(N) in FileEntryCountT))  and
+1357        --#        (for all N in LogFileIndexT =>
+1358        --#             (UsedLogFiles.List(N) in LogFileIndexT)) ;
+1359  
+1360        if UsedLogFiles.Length = 0 then
+1361           CurrentLogFile := LogFileIndexT'First;
+1362           -- The current file is the first used file.
+1363           UsedLogFiles.Head := LogFileIndexT'First;
+1364           UsedLogFiles.LastI := LogFileIndexT'First;
+1365           UsedLogFiles.Length := 1;
+1366           UsedLogFiles.List(UsedLogFiles.Head) := CurrentLogFile;
+1367           LogFilesStatus(CurrentLogFile) := Used;
+1368        else
+1369           CurrentLogFile := UsedLogFiles.List(UsedLogFiles.LastI);
+1370        end if;
+1371  
+1372        --# assert UsedLogFiles.Length in LogFileCountT and
+1373        --#        UsedLogFiles.Length > 0 and
+1374        --#        (LogFileEntries(CurrentLogFile) in FileEntryCountT) and
+1375        --#        CurrentLogFile in LogFileIndexT;
+1376  
+1377        NumberLogEntries := LogEntryCountT(UsedLogFiles.Length - 1) * MaxLogFileEntries
+1378          + LogFileEntries(CurrentLogFile);
+1379  
+1380        AuditAlarm := AlarmTypes.Silent;
+1381        CheckLogAlarm;
+1382  
+1383     end Init;
+
++++        Flow analysis of subprogram Init performed: no 
+           errors found.
+
+1384  
+1385     ------------------------------------------------------------------
+1386     -- AddElementToLog
+1387     --
+1388     -- Implementation Notes:
+1389     --    None.
+1390     --
+1391     ------------------------------------------------------------------
+1392  
+1393     procedure AddElementToLog (
+1394                  ElementID    : in     AuditTypes.ElementT;
+1395                  Severity     : in     AuditTypes.SeverityT;
+1396                  User         : in     AuditTypes.UserTextT;
+1397                  Description  : in     String)
+1398       --# global in     ConfigData.State;
+1399       --#        in     Clock.Now;
+1400       --#        in out AuditAlarm;
+1401       --#        in out NumberLogEntries;
+1402       --#        in out AuditSystemFault;
+1403       --#        in out LogFiles;
+1404       --#        in out LogFilesStatus;
+1405       --#        in out LogFileEntries;
+1406       --#        in out CurrentLogFile;
+1407       --#        in out UsedLogFiles;
+1408       --# derives AuditAlarm,
+1409       --#         NumberLogEntries,
+1410       --#         LogFilesStatus,
+1411       --#         LogFileEntries,
+1412       --#         CurrentLogFile,
+1413       --#         UsedLogFiles     from AuditAlarm,
+1414       --#                               NumberLogEntries,
+1415       --#                               ConfigData.State,
+1416       --#                               LogFilesStatus,
+1417       --#                               LogFileEntries,
+1418       --#                               CurrentLogFile,
+1419       --#                               UsedLogFiles &
+1420       --#         AuditSystemFault,
+1421       --#         LogFiles         from *,
+1422       --#                               AuditAlarm,
+1423       --#                               NumberLogEntries,
+1424       --#                               ConfigData.State,
+1425       --#                               Description,
+1426       --#                               LogFiles,
+1427       --#                               LogFilesStatus,
+1428       --#                               LogFileEntries,
+1429       --#                               Clock.Now,
+1430       --#                               ElementID,
+1431       --#                               Severity,
+1432       --#                               User,
+1433       --#                               CurrentLogFile,
+1434       --#                               UsedLogFiles;
+1435       --# pre NumberLogEntries =
+1436       --#     LogEntryCountT(UsedLogFiles.Length -1)*MaxLogFileEntries +
+1437       --#     LogFileEntries(CurrentLogFile);
+1438       --# post NumberLogEntries =
+1439       --#     LogEntryCountT(UsedLogFiles.Length -1)*MaxLogFileEntries +
+1440       --#     LogFileEntries(CurrentLogFile);
+1441     is
+1442        OldAlarm : AlarmTypes.StatusT;
+1443  
+1444     begin
+1445  
+1446        OldAlarm := AuditAlarm;
+1447  
+1448        AddElementToLogFileWithTruncateChecks
+1449          (ElementID    => ElementID,
+1450           Severity     => Severity,
+1451           User         => User,
+1452           Description  => ConvertToAuditDescription(Description));
+1453  
+1454        CheckLogAlarm;
+1455  
+1456        if OldAlarm /= AuditAlarm then
+1457           -- This will always raise alarms not clear them
+1458           AddElementToLogFileWithTruncateChecks
+1459             (ElementID    => AuditTypes.AuditAlarmRaised,
+1460              Severity     => AuditTypes.Warning,
+1461              User         => AuditTypes.NoUser,
+1462              Description  => AuditTypes.NoDescription);
+1463  
+1464        end if;
+1465  
+1466     end AddElementToLog;
+
++++        Flow analysis of subprogram AddElementToLog 
+           performed: no errors found.
+
+1467  
+1468     ------------------------------------------------------------------
+1469     -- ArchiveLog
+1470     --
+1471     --   Implementation Notes:
+1472     --      None.
+1473     ------------------------------------------------------------------
+1474  
+1475     procedure ArchiveLog (User    : in     AuditTypes.UserTextT;
+1476                           Archive :    out File.T)
+1477       --# global in     ConfigData.State;
+1478       --#        in     Clock.Now;
+1479       --#        in out AuditAlarm;
+1480       --#        in out NumberLogEntries;
+1481       --#        in out AuditSystemFault;
+1482       --#        in out LogFiles;
+1483       --#        in out LogFilesStatus;
+1484       --#        in out LogFileEntries;
+1485       --#        in out CurrentLogFile;
+1486       --#        in out UsedLogFiles;
+1487       --# derives AuditAlarm,
+1488       --#         NumberLogEntries,
+1489       --#         LogFilesStatus,
+1490       --#         LogFileEntries,
+1491       --#         CurrentLogFile,
+1492       --#         UsedLogFiles     from AuditAlarm,
+1493       --#                               NumberLogEntries,
+1494       --#                               ConfigData.State,
+1495       --#                               LogFiles,
+1496       --#                               LogFilesStatus,
+1497       --#                               LogFileEntries,
+1498       --#                               CurrentLogFile,
+1499       --#                               UsedLogFiles &
+1500       --#         AuditSystemFault,
+1501       --#         LogFiles         from *,
+1502       --#                               AuditAlarm,
+1503       --#                               NumberLogEntries,
+1504       --#                               ConfigData.State,
+1505       --#                               LogFiles,
+1506       --#                               LogFilesStatus,
+1507       --#                               LogFileEntries,
+1508       --#                               Clock.Now,
+1509       --#                               User,
+1510       --#                               CurrentLogFile,
+1511       --#                               UsedLogFiles &
+1512       --#         Archive          from LogFiles,
+1513       --#                               LogFileEntries,
+1514       --#                               UsedLogFiles;
+1515       --# pre NumberLogEntries =
+1516       --#     LogEntryCountT(UsedLogFiles.Length -1)*MaxLogFileEntries +
+1517       --#     LogFileEntries(CurrentLogFile);
+1518       --# post NumberLogEntries =
+1519       --#     LogEntryCountT(UsedLogFiles.Length -1)*MaxLogFileEntries +
+1520       --#     LogFileEntries(CurrentLogFile);
+1521  
+1522     is
+1523        Description : AuditTypes.DescriptionT;
+1524        TheFile : File.T;
+1525        OK : Boolean;
+1526        ArchiveFault : Boolean := False;
+1527        ArchivedFileCount : LogFileCountT;
+1528        FileIndex : LogFileIndexT;
+1529        FileIndexInUsedList : LogFileIndexT;
+1530     begin
+1531  
+1532        Archive := File.Construct (TheName => ArchiveFileName);
+1533  
+1534        Description := ConvertToAuditDescription("Nothing archived");
+1535  
+1536        if UsedLogFiles.Length = 0 or
+1537          (UsedLogFiles.Length = 1
+1538          and LogFileEntries(UsedLogFiles.List(UsedLogFiles.Head))
+1539                 < MaxLogFileEntries) then
+1540           -- Make an empty file to return
+1541  
+1542           File.OpenWrite( TheFile => Archive,
+1543                           Success => OK );
+1544  
+1545           --# accept F, 22, "Invariant expression expected and OK here";
+1546           if not OK then
+1547              File.Create( TheFile => Archive,
+1548                           Success => OK);
+1549           end if;
+1550           --# end accept;
+1551  
+1552           ArchiveFault := not OK;
+1553  
+1554           File.Close( TheFile => Archive,
+1555                       Success => OK);
+1556  
+1557           ArchiveFault := ArchiveFault or not OK;
+1558  
+1559        else
+1560           ArchivedFileCount := 0;
+1561           FileIndexInUsedList := UsedLogFiles.Head;
+1562  
+1563           while ArchivedFileCount < MaxNumberArchivableFiles
+1564              and ArchivedFileCount < UsedLogFiles.Length loop
+1565              --# assert FileIndexInUsedList in LogFileIndexT and
+1566              --#   ArchivedFileCount >= 0 and
+1567              --#   ArchivedFileCount < MaxNumberArchivableFiles and
+1568              --#   NumberLogEntries =
+1569              --#     LogEntryCountT(UsedLogFiles.Length -1)*MaxLogFileEntries +
+1570              --#     LogFileEntries(CurrentLogFile);
+1571  
+1572              FileIndex := UsedLogFiles.List(FileIndexInUsedList);
+1573              exit when LogFileEntries( FileIndex) < MaxLogFileEntries;
+1574  
+1575              TheFile := LogFiles (FileIndex);
+1576  
+1577              File.Copy (FileA   => TheFile,
+1578                         FileB   => Archive,
+1579                         Success => OK);
+1580  
+1581              ArchiveFault := not OK;
+1582  
+1583              exit when ArchiveFault; -- if the copy didn't work don't continue
+1584                                      -- file is not marked as archived.
+1585  
+1586              LogFilesStatus(FileIndex) := Archived;
+1587  
+1588              if ArchivedFileCount = 0 then
+1589                 GetStartAndEndTimeFromFile
+1590                   ( TheFile     => TheFile,
+1591                     Description => Description);
+1592              else
+1593                 UpdateEndTimeFromFile
+1594                   ( TheFile     => TheFile,
+1595                     Description => Description);
+1596              end if;
+1597  
+1598              LogFiles (FileIndex) := TheFile;
+1599              ArchivedFileCount := ArchivedFileCount + 1;
+1600              FileIndexInUsedList := NextListIndex ( FileIndexInUsedList);
+1601  
+1602           end loop;
+1603  
+1604        end if;
+1605  
+1606        --# assert NumberLogEntries =
+1607        --#     LogEntryCountT(UsedLogFiles.Length -1)*MaxLogFileEntries +
+1608        --#     LogFileEntries(CurrentLogFile);
+1609  
+1610        if ArchiveFault then
+1611           AddElementToLog
+1612             ( ElementID   => AuditTypes.SystemFault,
+1613               Severity    => AuditTypes.Warning,
+1614               User        => AuditTypes.NoUser,
+1615               Description => "Fault creating archive");
+1616        end if;
+1617  
+1618        -- As we always add at least one element to the log the CurrentLogFile cannot
+1619        -- be archived.
+1620  
+1621        AddElementToLog (
+1622                  ElementID   => AuditTypes.ArchiveLog,
+1623                  Severity    => AuditTypes.Information,
+1624                  User        => User,
+1625                  Description => Description);
+1626  
+1627     end ArchiveLog;
+
++++        Flow analysis of subprogram ArchiveLog 
+           performed: no errors found.
+
+1628  
+1629     ------------------------------------------------------------------
+1630     -- ClearLogEntries
+1631     --
+1632     --   Implementation Notes:
+1633     --      The archived files will be at the head of the
+1634     --      list of used files so search the list of used files.
+1635     ------------------------------------------------------------------
+1636  
+1637     procedure ClearLogEntries (User    : in     AuditTypes.UserTextT)
+1638       --# global in     ConfigData.State;
+1639       --#        in     Clock.Now;
+1640       --#        in out AuditAlarm;
+1641       --#        in out NumberLogEntries;
+1642       --#        in out AuditSystemFault;
+1643       --#        in out LogFiles;
+1644       --#        in out LogFilesStatus;
+1645       --#        in out LogFileEntries;
+1646       --#        in out CurrentLogFile;
+1647       --#        in out UsedLogFiles;
+1648       --# derives AuditAlarm,
+1649       --#         NumberLogEntries,
+1650       --#         LogFilesStatus,
+1651       --#         LogFileEntries,
+1652       --#         CurrentLogFile,
+1653       --#         UsedLogFiles     from AuditAlarm,
+1654       --#                               NumberLogEntries,
+1655       --#                               ConfigData.State,
+1656       --#                               LogFilesStatus,
+1657       --#                               LogFileEntries,
+1658       --#                               CurrentLogFile,
+1659       --#                               UsedLogFiles &
+1660       --#         AuditSystemFault,
+1661       --#         LogFiles         from *,
+1662       --#                               AuditAlarm,
+1663       --#                               NumberLogEntries,
+1664       --#                               ConfigData.State,
+1665       --#                               LogFiles,
+1666       --#                               LogFilesStatus,
+1667       --#                               LogFileEntries,
+1668       --#                               Clock.Now,
+1669       --#                               User,
+1670       --#                               CurrentLogFile,
+1671       --#                               UsedLogFiles;
+1672       --# pre NumberLogEntries = LogEntryCountT(UsedLogFiles.Length -1)*MaxLogFileEntries +
+1673       --#                        LogFileEntries(CurrentLogFile);
+1674       --# post NumberLogEntries = LogEntryCountT(UsedLogFiles.Length -1)*MaxLogFileEntries +
+1675       --#                        LogFileEntries(CurrentLogFile);
+1676     is
+1677        OldAlarm : AlarmTypes.StatusT;
+1678  
+1679     begin
+1680  
+1681  
+1682        -- Note the CurrentLogFile cannot be Archived.
+1683  
+1684        while UsedLogFiles.Length > 1 loop
+1685           --# assert UsedLogFiles.Length > 1 and
+1686           --#       NumberLogEntries =
+1687           --#          LogEntryCountT(UsedLogFiles.Length -1)*MaxLogFileEntries +
+1688           --#                        LogFileEntries(CurrentLogFile);
+1689           exit when LogFilesStatus(UsedLogFiles.List(UsedLogFiles.Head))
+1690             /= Archived;
+1691           --# assert UsedLogFiles.Length > 1 and
+1692           --#        LogFilesStatus(UsedLogFiles.List(UsedLogFiles.Head))
+1693           --#                = Archived and
+1694           --#       NumberLogEntries =
+1695           --#          LogEntryCountT(UsedLogFiles.Length -1)*MaxLogFileEntries +
+1696           --#                        LogFileEntries(CurrentLogFile);
+1697  
+1698           -- Empty the archived file.
+1699           DeleteLogFile (UsedLogFiles.List(UsedLogFiles.Head));
+1700  
+1701           UsedLogFiles.Length := UsedLogFiles.Length - 1;
+1702           UsedLogFiles.Head := NextListIndex (UsedLogFiles.Head);
+1703  
+1704           NumberLogEntries := NumberLogEntries - MaxLogFileEntries;
+1705  
+1706        end loop;
+1707  
+1708        --# assert NumberLogEntries =
+1709        --#          LogEntryCountT(UsedLogFiles.Length -1)*MaxLogFileEntries +
+1710        --#                        LogFileEntries(CurrentLogFile);
+1711        OldAlarm := AuditAlarm;
+1712  
+1713        AuditAlarm := AlarmTypes.Silent;
+1714        CheckLogAlarm;
+1715  
+1716        if OldAlarm /= AuditAlarm then
+1717           -- Archiving will always clear alarms not raise them.
+1718           -- Note that adding this entry could result in the alarm
+1719           -- being raised again (this will be handled by AddElementToLog).
+1720           AddElementToLog
+1721             (ElementID    => AuditTypes.AuditAlarmSilenced,
+1722              Severity     => AuditTypes.Information,
+1723              User         => AuditTypes.NoUser,
+1724              Description  => AuditTypes.NoDescription);
+1725  
+1726        end if;
+1727  
+1728        AddElementToLog
+1729          (ElementID   => AuditTypes.ArchiveComplete,
+1730           Severity    => AuditTypes.Information,
+1731           User        => User,
+1732           Description => AuditTypes.NoDescription);
+1733  
+1734        DeleteArchiveFile;
+1735  
+1736     end ClearLogEntries;
+
++++        Flow analysis of subprogram ClearLogEntries 
+           performed: no errors found.
+
+1737  
+1738  
+1739     ------------------------------------------------------------------
+1740     -- CancelArchive
+1741     --
+1742     --   Implementation Notes:
+1743     --      This does not add log entries.
+1744     ------------------------------------------------------------------
+1745  
+1746     procedure CancelArchive
+1747     --# global in out LogFilesStatus;
+1748     --# derives LogFilesStatus from *;
+1749     is
+1750     begin
+1751        for I in LogFileIndexT loop
+1752           --# assert I in LogFileIndexT ;
+1753           if LogFilesStatus(I) = Archived then
+1754              LogFilesStatus(I) := Used;
+1755           end if;
+1756        end loop;
+1757  
+1758        DeleteArchiveFile;
+1759  
+1760     end CancelArchive;
+
++++        Flow analysis of subprogram CancelArchive 
+           performed: no errors found.
+
+1761  
+1762     ------------------------------------------------------------------
+1763     -- TheAuditAlarm
+1764     --
+1765     --   Implementation Notes:
+1766     --      None
+1767     ------------------------------------------------------------------
+1768  
+1769     function TheAuditAlarm return AlarmTypes.StatusT
+1770     --# global AuditAlarm;
+1771     is
+1772     begin
+1773        return AuditAlarm;
+1774     end TheAuditAlarm;
+
++++        Flow analysis of subprogram TheAuditAlarm 
+           performed: no errors found.
+
+1775  
+1776     ------------------------------------------------------------------
+1777     -- SystemFaultOccurred
+1778     --
+1779     --   Implementation Notes:
+1780     --      None
+1781     ------------------------------------------------------------------
+1782  
+1783     function SystemFaultOccurred return Boolean
+1784     --# global AuditSystemFault;
+1785     is
+1786     begin
+1787        return AuditSystemFault;
+1788     end SystemFaultOccurred;
+
++++        Flow analysis of subprogram SystemFaultOccurred 
+           performed: no errors found.
+
+1789  
+1790  
+1791  end AuditLog;
+
+Expected messages marked with the accept annotation
+Type Msg    Lines              Reason                    Match
+     No.  From    To                                    No.  Line
+Flow  23  1236   end  Array initialization is total in    1  1242
+Flow  23  1236   end  Array initialization is total in    1  1245
+Flow  23  1236   end  Array initialization is total in    1  1244
+Flow 602  1248   end  Array initialization is total in    1  1251
+Flow 602  1248   end  Array initialization is total in    1  1251
+Flow 602  1248   end  Array initialization is total in    1  1251
+Flow  22  1545  1550  Invariant expression expected an    1  1546
+
+
+6 summarized warning(s), comprising:
+     6 hidden part(s)*
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+
+--End of file--------------------------------------------------

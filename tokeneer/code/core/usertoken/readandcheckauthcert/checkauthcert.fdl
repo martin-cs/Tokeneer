@@ -1,0 +1,45 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:20.25}
+
+           {procedure UserToken.ReadAndCheckAuthCert.CheckAuthCert}
+
+
+title procedure checkauthcert;
+
+  function round__(real) : integer;
+  type certtypes__certificatet = (certtypes__idcert, 
+     certtypes__authcert, certtypes__privcert, 
+     certtypes__iandacert);
+  type cert__contentst = pending;
+  type certificatestatus = (bad, notverified, notcurrent, 
+     validcert);
+  type cert__id__contentst = record
+        inherit : cert__contentst
+     end;
+  type valididcertt = record
+        valid : boolean;
+        idstatus : certificatestatus;
+        contents : cert__id__contentst
+     end;
+  const certificatestatus__base__first : certificatestatus = pending; 
+  const certificatestatus__base__last : certificatestatus = pending; 
+  const certtypes__certificatet__base__first : 
+     certtypes__certificatet = pending; 
+  const certtypes__certificatet__base__last : 
+     certtypes__certificatet = pending; 
+  const valididcertt__size : integer = pending; 
+  const certificatestatus__first : certificatestatus = pending; 
+  const certificatestatus__last : certificatestatus = pending; 
+  const certificatestatus__size : integer = pending; 
+  const certtypes__certificatet__first : certtypes__certificatet = pending; 
+  const certtypes__certificatet__last : certtypes__certificatet = pending; 
+  const certtypes__certificatet__size : integer = pending; 
+  var idcert : valididcertt;
+
+end;

@@ -1,0 +1,111 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:08.29}
+
+                    {procedure AuditLog.AddElementToFile}
+
+
+title procedure addelementtofile;
+
+  function round__(real) : integer;
+  type character = integer;
+  type clock__now__type = pending;
+  type clock__timet = pending;
+  type audittypes__elementt = (audittypes__startunenrolledtis, 
+     audittypes__startenrolledtis, audittypes__enrolmentcomplete, 
+     audittypes__enrolmentfailed, audittypes__displaychanged, 
+     audittypes__screenchanged, audittypes__doorclosed, 
+     audittypes__dooropened, audittypes__latchlocked, 
+     audittypes__latchunlocked, audittypes__alarmraised, 
+     audittypes__alarmsilenced, audittypes__truncatelog, 
+     audittypes__auditalarmraised, audittypes__auditalarmsilenced, 
+     audittypes__usertokenremoved, audittypes__usertokenpresent, 
+     audittypes__usertokeninvalid, audittypes__authcertvalid, 
+     audittypes__authcertinvalid, audittypes__fingerdetected, 
+     audittypes__fingertimeout, audittypes__fingermatched, 
+     audittypes__fingernotmatched, audittypes__authcertwritten, 
+     audittypes__authcertwritefailed, audittypes__entrypermitted, 
+     audittypes__entrytimeout, audittypes__entrydenied, 
+     audittypes__admintokenpresent, audittypes__admintokenvalid, 
+     audittypes__admintokeninvalid, audittypes__admintokenexpired, 
+     audittypes__admintokenremoved, audittypes__invalidoprequest, 
+     audittypes__operationstart, audittypes__archivelog, 
+     audittypes__archivecomplete, audittypes__archivecheckfailed, 
+     audittypes__updatedconfigdata, audittypes__invalidconfigdata, 
+     audittypes__shutdown, audittypes__overridelock, 
+     audittypes__systemfault);
+  type audittypes__severityt = (audittypes__information, 
+     audittypes__warning, audittypes__critical);
+  type string = array [integer] of character;
+  const null__string : string = pending;
+  const elementtexti__base__first : integer = pending; 
+  const elementtexti__base__last : integer = pending; 
+  const audittypes__usertexti__base__first : integer = pending; 
+  const audittypes__usertexti__base__last : integer = pending; 
+  const audittypes__descriptioni__base__first : integer = pending; 
+  const audittypes__descriptioni__base__last : integer = pending; 
+  const audittypes__severityt__base__first : 
+     audittypes__severityt = pending; 
+  const audittypes__severityt__base__last : audittypes__severityt = pending; 
+  const audittypes__elementt__base__first : audittypes__elementt = pending; 
+  const audittypes__elementt__base__last : audittypes__elementt = pending; 
+  const clock__timetexti__base__first : integer = pending; 
+  const clock__timetexti__base__last : integer = pending; 
+  const positive__base__first : integer = pending; 
+  const positive__base__last : integer = pending; 
+  const natural__base__first : integer = pending; 
+  const natural__base__last : integer = pending; 
+  const character__base__first : character = pending; 
+  const character__base__last : character = pending; 
+  const integer__base__first : integer = pending; 
+  const integer__base__last : integer = pending; 
+  const elementtexti__first : integer = pending; 
+  const elementtexti__last : integer = pending; 
+  const elementtexti__size : integer = pending; 
+  const audittypes__usertexti__first : integer = pending; 
+  const audittypes__usertexti__last : integer = pending; 
+  const audittypes__usertexti__size : integer = pending; 
+  const audittypes__descriptioni__first : integer = pending; 
+  const audittypes__descriptioni__last : integer = pending; 
+  const audittypes__descriptioni__size : integer = pending; 
+  const audittypes__severityt__first : audittypes__severityt = pending; 
+  const audittypes__severityt__last : audittypes__severityt = pending; 
+  function audittypes__severityt__pos(audittypes__severityt) : integer;
+  const audittypes__severityt__size : integer = pending; 
+  const audittypes__elementt__first : audittypes__elementt = pending; 
+  const audittypes__elementt__last : audittypes__elementt = pending; 
+  function audittypes__elementt__pos(audittypes__elementt) : integer;
+  const audittypes__elementt__size : integer = pending; 
+  const clock__timetexti__first : integer = pending; 
+  const clock__timetexti__last : integer = pending; 
+  const clock__timetexti__size : integer = pending; 
+  const positive__first : integer = pending; 
+  const positive__last : integer = pending; 
+  const positive__size : integer = pending; 
+  const natural__first : integer = pending; 
+  const natural__last : integer = pending; 
+  const natural__size : integer = pending; 
+  const character__first : character = pending; 
+  const character__last : character = pending; 
+  const character__size : integer = pending; 
+  const integer__first : integer = pending; 
+  const integer__last : integer = pending; 
+  const integer__size : integer = pending; 
+  var clock__now : clock__now__type;
+  var elementid : audittypes__elementt;
+  var severity : audittypes__severityt;
+  var user : string;
+  var description : string;
+  var ok : boolean;
+  function clock__getnow(clock__now__type) : clock__timet;
+  function clock__printtime(clock__timet) : string;
+  function nameoftype(audittypes__elementt) : string;
+  var ok__2 : boolean;
+  var ok__1 : boolean;
+
+end;

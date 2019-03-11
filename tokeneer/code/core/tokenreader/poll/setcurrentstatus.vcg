@@ -1,0 +1,66 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:19.23
+
+                procedure TokenReader.Poll.SetCurrentStatus
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 710:
+
+procedure_setcurrentstatus_1.
+H1:    true .
+H2:    thestatus >= tokenreader__interface__validreaderstatet__first .
+H3:    thestatus <= tokenreader__interface__validreaderstatet__last .
+H4:    reader >= readert__first .
+H5:    reader <= readert__last .
+H6:    for_all(i___1: readert, ((i___1 >= readert__first) and (
+           i___1 <= readert__last)) -> ((fld_lastfault(element(
+           readerstatus, [i___1])) >= basictypes__unsigned32t__first) and (
+           fld_lastfault(element(readerstatus, [i___1])) <= 
+           basictypes__unsigned32t__last))) .
+H7:    for_all(i___1: readert, ((i___1 >= readert__first) and (
+           i___1 <= readert__last)) -> ((fld_currentstatus(element(
+           readerstatus, [i___1])) >= 
+           tokenreader__interface__validreaderstatet__first) and (
+           fld_currentstatus(element(readerstatus, [i___1])) <= 
+           tokenreader__interface__validreaderstatet__last))) .
+H8:    true .
+H9:    true .
+H10:   for_all(i___1: readert, ((i___1 >= readert__first) and (
+           i___1 <= readert__last)) -> ((fld_tokenid(element(
+           readerstatus, [i___1])) >= tokentypes__tokenidt__first) and (
+           fld_tokenid(element(readerstatus, [i___1])) <= 
+           tokentypes__tokenidt__last))) .
+H11:   for_all(i___1: readert, ((i___1 >= readert__first) and (
+           i___1 <= readert__last)) -> ((fld_tokentry(element(
+           readerstatus, [i___1])) >= tokentypes__tryt__first) and (
+           fld_tokentry(element(readerstatus, [i___1])) <= 
+           tokentypes__tryt__last))) .
+H12:   for_all(i___2: integer, ((i___2 >= 
+           tokenreader__interface__readernamei__first) and (
+           i___2 <= tokenreader__interface__readernamei__last)) -> (for_all(
+           i___1: readert, ((i___1 >= readert__first) and (
+           i___1 <= readert__last)) -> ((element(fld_name(element(
+           readerstatus, [i___1])), [i___2]) >= character__first) and (element(
+           fld_name(element(readerstatus, [i___1])), [i___2]) <= 
+           character__last))))) .
+        ->
+C1:    thestatus >= tokenreader__interface__validreaderstatet__first .
+C2:    thestatus <= tokenreader__interface__validreaderstatet__last .
+C3:    reader >= readert__first .
+C4:    reader <= readert__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_setcurrentstatus_2.
+*** true .          /* trivially true VC removed by Examiner */
+
+

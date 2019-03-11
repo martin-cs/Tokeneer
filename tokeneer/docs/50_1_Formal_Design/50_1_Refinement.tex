@@ -1,0 +1,566 @@
+%==========================================================================
+\chapter{Example Refinement}
+\label{chap:refine}
+%==========================================================================
+%%ignore \shows
+\def\The{the~}%
+This chapter presents part of the refinement argument,
+showing that the Formal Design  is a correct refinement of the Formal Specification.
+
+The refinement that we have carried out from formal specification to design
+is not particularly complex.
+For this reason, and to constrain costs, we have focused on the parts we believe will give
+the best cost-benefit. We have therefore carried out hand proofs of pre-conditions
+(that the pre-conditions of the designed operations are at least as permissive as the
+pre-conditions of the specified operations)
+and of the correctness of the most complex design step:
+auditing.
+
+All of these proofs have hand-written documentation.
+The benefit to the correctness of the system stems from the action of doing
+the proofs, not of documenting them.
+If we expected this system to have a long life and be subject to maintenence,
+we would document the proofs in electronic form.
+
+For the purposes of this project,
+we have documented here the correctness proof for the audit actions.
+
+%--------------------------------------------------------------------------
+\section{Refinement proof obligations}
+\label{refine:ProofOb}
+%--------------------------------------------------------------------------
+The general proof rules for refinement in Z are given below.
+These are a simplification of the common `forward' proof rules, sufficient in most situations.
+
+We use the following general schemas:
+
+\begin{tabular}{ll}
+  Abstract State			&	$A$
+\\Abstract Initialisation	&	$AInit$
+\\Abstract Operation		&	$AOp$
+\\
+\\Concrete State			&	$C$
+\\Concrete Initialisation	&	$CInit$
+\\Concrete Operation		&	$COp$
+\\
+\\Retrieve between $A$ and $C$	&	$R$
+\end{tabular}
+
+{\bf Initialisation}
+
+Proof that whenever the concrete system can be initialised
+($CInit$), it is possible to find an abstract state that both retrieves ($R$)
+and correctly initialises ($AInit$).
+``If you can switch on the concrete,
+you could have achieved the same by switching on the abstract.''
+\begin{argue}
+	CInit \shows \exists A @ AInit \land R
+\end{argue}
+
+{\bf Applicability (pre-conditions)}
+Proof that whenever there is a concrete state that retrieves to an abstract state
+able to undergo the abstract operation ($R$ contains both $C$ and $A$),
+then the concrete state is also able to undergo the equivalent concrete operation ($COp$).
+``Concrete operations are applicable whenever the abstract operation is.''
+\begin{argue}
+	R | \pre AOp \shows \pre COp
+\end{argue}
+
+{\bf Correctness}
+Proof that whenever a concrete operation ($COp$) is carried out when the abstract operation
+would also have been allowed ($\pre AOp$),
+then the answer achieved (the $C'$ in $COp$) is an allowed answer ($\exists A'$)
+from the abstract operation ($AOp$).
+``A concrete operation always yields an answer that could have been seen in the abstract.''
+\begin{argue}
+	R; COp | \pre AOp \shows \exists A' @ AOp \land R'
+\end{argue}
+
+
+%--------------------------------------------------------------------------
+\section{Audit correctness proof}
+\label{refine:corr}
+%--------------------------------------------------------------------------
+The most complex step in the design is the realisation of the abstract
+auditing process as writing to a series of individual audit files.
+
+We can draw the auditing part out by noticing
+that it appears in the abstract and the concrete conjoined with the `meat' of each operation,
+but acting on entirely independent variables.
+$AddElementsToLog$ and $AddElementsToLogC$ act on $AuditLog$ and $AuditLogC$ respectively,
+using only the variable $newElements?$,
+which is defined by the meat of the operation.
+Therefore, it is valid to consider refining $AddElementsToLog$ by $AddElementsToLogC$ in isolation.
+
+The design tackles auditing in two stages:
+first strictly declaratively,
+and then recursively element-by-element.
+We will consider the refinement of the declarative version first.
+
+%--------------------------------------------------------------------------
+\subsection{Declarative version}
+\label{refine:decl}
+%--------------------------------------------------------------------------
+The abstract has the variable $newElements?$ embedded within it,
+existentially quantified.
+We can draw it out explicitly to make the signatures of the abstract and concrete compatible
+without altering the underlying meaning of the schemas.
+We can define a schema in the obvious way that has the property
+%%\begin{schema}{AddElementsToLogExplicit}
+%%	newElements: \finset Audit
+%%\\	AddElementsToLog
+%%\end{schema}
+\begin{argue}
+	AddElementsToLogExplicit \hide (newElements) \equiv AddElementsToLog
+\end{argue}
+
+The design is expressed as a disjunction of four behaviours.
+The abstract operation is total,
+provided that the recorded times in $newElements$
+are all newer that all the times already in the logs.
+This is equivalent to the concrete requirement that all $newElements?$
+have times newer than $nowC$,
+as all elements in the logs must have been added in previous cycles,
+and time only increases.
+
+(Note that we also require $newElements$ to be non-empty, which it will be in use.)
+
+The concrete is a little less total:
+$\# newElements? < maxLogFileEntries$.
+We accept this as a practical limitation,
+and ensure only that no cycle can ever produce more log entries than allowed by this constraint.
+
+We have now simplified the correctness proof obligation to:
+
+\begin{zed}
+%%\forall
+ConfigR; AuditLogR; AddElementsToLogC |
+0 < \# newElements? < maxLogFileEntries
+%%@
+\\ \shows
+\\ \exists AuditLog'; newElements: \finset Audit @ 
+\\ \t1	AddElementsToLogExplicit
+\\ \t1	\land newElements = auditR \limg newElements? \rimg
+\\ \t1	\land AuditLogR'
+\end{zed}
+
+The four disjuncts cover the range of inputs:
+no elements;
+enough for current file;
+too many, but got another file;
+and
+the rest.
+So having shown they cover the pre-condition sufficiently,
+we need only show that each one independently refines the abstract.
+
+For simplicity,
+we will take the bijection 
+%%unchecked
+\begin{zed}
+	auditR: AuditC \bij Audit
+\end{zed}
+as read,
+and identify $newElements?$ and $newElements$.
+
+%--------------------------------------------------------------------------
+\subsubsection{AddElementsToLog refined by AddNoElementsToLog}
+\label{refine:NoElements}
+%--------------------------------------------------------------------------
+\begin{zed}
+%%\forall
+ConfigR; AuditLogR; AddNoElementsToLog |
+0 < \# newElements? < maxLogFileEntries
+%%@
+\\ \shows
+\\ \exists AuditLog' 
+%% ; newElements: \finset Audit 
+@ 
+\\ \t1	AddElementsToLogExplicit
+\\ \t1	\land AuditLogR'
+\end{zed}
+
+Extends pre-condition to empty $newElements?$, so hypothesis is always false.
+
+The result is proved.
+
+%--------------------------------------------------------------------------
+\subsubsection{AddElementsToLog refined by AddElementsToCurrentFile}
+\label{refine:Current}
+%--------------------------------------------------------------------------
+\begin{zed}
+%%\forall
+ConfigR; AuditLogR; AddElementsToCurrentFile |
+0 < \# newElements? < maxLogFileEntries
+%%@
+\\ \shows
+\\ \exists AuditLog' 
+%% ; newElements: \finset Audit 
+@ 
+\\ \t1	AddElementsToLogExplicit
+\\ \t1	\land AuditLogR'
+\end{zed}
+
+We choose to prove the first disjunct of $AddElementsToLog$ only
+(which we are free to do,
+and will in fact be the case because we are not truncating the logs.)
+
+From the retrieve relation we know
+
+\begin{zed}
+%%\forall AuditLogR @
+	auditLog = 
+%%auditR 
+%%\limg 
+\bigcup (\ran logFiles)
+%%\rimg
+\end{zed}
+
+then the predicate in $AddElementsToLogExplicit$
+
+\begin{argue}
+	auditLog' = auditLog \cup newElements?
+\end{argue}
+
+clearly retrieves from the predicate in $AddElementsToCurrentFile$
+
+\begin{argue}
+	logFiles' = logFiles \oplus
+		\{ currentFile \mapsto logFiles~currentLogFile \cup newElements? \}
+\end{argue}
+
+(Note that the logic also works if we choose random log files rather than the current one.
+We need only ensure that the file whose size we check is the file we use.)
+
+To prove the predicates on $alarming$,
+we need to relate the concrete sizes and numbers of audit elements to the abstract size functions.
+From the $alarming$ predicate in $AddElementsToCurrentFile$ take
+
+\begin{argue}
+	numberLogEntries' \geq alarmThresholdEntries	
+\end{argue}
+
+Multiply both sides by $sizeAuditElement$
+
+\begin{argue}
+	numberLogEntries' * sizeAuditElement \geq alarmThresholdEntries * sizeAuditElements	
+\end{argue}
+
+But $ConfigC$ tells us that
+
+\begin{argue}
+	alarlThresholdEntries * sizeAuditElement \geq alarmThresholdSizeC
+\end{argue}
+
+and therefore we can deduce
+
+\begin{argue}
+	numberLogEntries' * sizeAuditElement \geq alarmThresholdSizeC
+\end{argue}
+
+From the retrieves,
+and the properties of $sizeLog$ given with the retrieves,
+these values can be replaced with
+
+\begin{argue}
+	sizeLog~auditLog' \geq alarmThresholdSize
+\end{argue}
+
+as needed for the abstract predicate.
+
+The second predicate is derived similarly:
+
+\begin{argue}
+	numberLogEntries' < alarmThresholdEntries	
+\end{argue}
+
+Replace the strict less-than by reducing the RHS by 1
+(they are integers)
+
+\begin{argue}
+	numberLogEntries' \leq alarmThresholdEntries - 1
+\end{argue}
+
+Multiply both sides by $sizeAuditElement$
+
+\begin{argue}
+	numberLogEntries' * sizeAuditElement \leq (alarmThresholdEntries - 1) * sizeAuditElements	
+\end{argue}
+
+But from $ConfigC$ the RHS is strictly less than $alarmThresholdSizeC$,
+giving us
+
+\begin{argue}
+	numberLogEntries' * sizeAuditElement < alarmThresholdSizeC
+\end{argue}
+
+From the retrieves,
+and the properties of $sizeLog$ given with the retrieves,
+these values can be replaced with
+
+\begin{argue}
+	sizeLog~auditLog' < alarmThresholdSize
+\end{argue}
+
+This gives us the predicates on alarming, and completes this branch.
+
+%--------------------------------------------------------------------------
+\subsubsection{AddElementsToLog refined by AddElementsToNextFileNoTruncate}
+\label{refine:NextFile}
+%--------------------------------------------------------------------------
+\begin{zed}
+%%\forall
+ConfigR; AuditLogR; AddElementsToNextFileNoTruncate |
+0 < \# newElements? < maxLogFileEntries
+%%@
+\\ \shows
+\\ \exists AuditLog' 
+%% ; newElements: \finset Audit 
+@ 
+\\ \t1	AddElementsToLogExplicit
+\\ \t1	\land AuditLogR'
+\end{zed}
+The argument runs exactly as above,
+but now $newElements?$ is split between $elementsInCurrentFile$ and $elementsInNextFile$.
+But these get combined directly in $\bigcup (\ran logFiles)$,
+so all the same arguments hold.
+
+%--------------------------------------------------------------------------
+\subsubsection{AddElementsToLog refined by AddElementsToNextFileWithTruncate}
+\label{refine:NextTrunc}
+%--------------------------------------------------------------------------
+\begin{zed}
+%%\forall
+ConfigR; AuditLogR; AddElementsToNextFileWithTruncate |
+0 < \# newElements? < maxLogFileEntries
+%%@
+\\ \shows
+\\ \exists AuditLog' 
+%% ; newElements: \finset Audit 
+@ 
+\\ \t1	AddElementsToLogExplicit
+\\ \t1	\land AuditLogR'
+\end{zed}
+Choose to refine the second branch of the abstract schema,
+which we can choose whenever
+\begin{argue}
+	sizeLog~auditLog + sizeLog~newElements? > minPreservedLogSize	
+\end{argue}
+
+We know this is true from the hypothesis because only one file is discarded,
+and as the implementation has the property that all-files-minus-one
+is bigger than $maxSupportedLogSize$
+(which is itself bigger than $minPreservedLogSize$),
+we always preserve at least this size of audit information,
+and we only ever consider truncating when larger than $minPreservedLogSize$.
+
+The property on audit log holding the correct elements is again achieved
+by the assignment of $logFiles'$,
+together with correct time constraints.
+The choice of the file to discard as the head of the list of used files ensures it is the oldest.
+
+Alarm is explicitly set in both concrete and abstract operations.
+
+Note the $numberLogEntries$ is calculated to preserve its correct value
+as the number of entires actually stored.
+
+%--------------------------------------------------------------------------
+\subsubsection{Refinement}
+\label{refine:end}
+%--------------------------------------------------------------------------
+We have therefore shown that the abstract audit operations,
+including the option of truncating the audit log,
+is correctly refined by the declarative design.
+
+%--------------------------------------------------------------------------
+\subsection{Recursive}
+\label{refine:Rec}
+%--------------------------------------------------------------------------
+We now show that the concrete element-by-element additions are an alternative representation
+of the same behaviour.
+
+First, we show that $AddElementToLogC$ is just a specialisation of $AddElementsToLogC$
+for single elements, i.e 
+
+\begin{argue}
+	[AddElementsToLogC | \# newElements? = 1] \equiv AddElementToLogC
+\end{argue}
+
+ We consider two cases:
+%..........................................................................
+\subsubsection{Truncate not required}
+\label{refine:truncNot}
+%..........................................................................
+The precondition for the single element schema can be derived from
+$TruncateLogNotRequired$ and $AddElementsToLogFile$.
+It is
+
+\begin{argue}
+	freeLogFiles \neq \emptyset
+	\land \# (logFiles~currentLogFile) = maxLogFileEntries
+\\ 	\lor \# (logFiles~currentLogFile) < maxLogFilesEntries
+\end{argue}
+
+The precondition for the multiple element schema is
+
+\begin{argue}
+	freeLogFiles \neq \emptyset
+ 	\land \# newElements? + \# (logFiles~currentLogFile) > maxLogFilesEntries
+\\ 	\lor \# newElements? + \# (logFiles~currentLogFile) \leq maxLogFilesEntries
+\end{argue}
+Assuming a single element in $newElements?$, 
+we can replace $\# newElements?$ with $1$,
+and given that the sizes are integers,
+these can be seen to be identical
+(given that we can show that the size of the log files never actually exceeds
+$maxLogFileEntries$).
+
+Both schemas break into two disjuncts:
+
+{\bf current file}:
+which can be seen to be identical in the two by inspection, and
+
+{\bf next file}:
+which can also be seen to be identical in the two by inspection,
+given that we can choose $elementsInCurrentFile$ to be empty and hence
+$elementsInNextFile = newElements?$.
+
+%..........................................................................
+\subsubsection{Truncate is required}
+\label{refine:trunc}
+%..........................................................................
+The precondition for the single element schema is derived from the
+sequential composition of three schemas,
+but can be seen to be the negation of the precondition for no truncation:
+
+\begin{argue}
+	freeLogFiles = \emptyset
+\\ 	\land \# (logFiles~currentLogFile) = maxLogFilesEntries
+\end{argue}
+
+(We do need to confirm that the apparent precondition seen in $TruncateLog$
+is not restricted by the later sequential compositions.
+But releasing a log file and reducing the number of log entries ensures
+that the two applications of $AddElementToLog$ will proceed.)
+
+The precondition for the multiple element schema is
+
+\begin{argue}
+	freeLogFiles = \emptyset
+\\ 	\land \# newElements? + \# (logFiles~currentLogFile) \geq maxLogFilesEntries
+\end{argue}
+As before, these are the same when $\# newElements? = 1$ .
+
+In the single element schema,
+the log is truncated,
+then the truncation element added,
+then the real audit element is added.
+
+We will now look at each predicate in the declarative version and see how its
+equivalent is constructed by these sequential operations in the single element version.
+
+{\em predicate 1:}
+\begin{argue}
+	numberLogEntries' = numberLogEntries + 1 - maxLogFileEntries + 1
+\end{argue}
+The subtraction is defined in $TruncateLog$,
+and each of the additions comes from an application of $AddElementToLogFile$.
+
+{\em predicate 2:}
+\begin{argue}
+	\exists truncElement \ldots
+\end{argue}
+Each component property can be compared with the equivalent in the single element
+version and seen to be the same.
+
+{\em predicate 3:}
+\begin{argue}
+	elementsInCurrentFile \subseteq newElements?
+\end{argue}
+Choose this to be empty.
+
+{\em predicate 4:}
+\begin{argue}
+	\# (logFiles~currentLogFile) + \# elementsInCurrentFile = maxLogFileEntries
+\end{argue}
+$\# elementsInCurrentFile$ is zero by choice.
+This predicate is then true by precondition.
+
+{\em predicate 5:}
+\begin{argue}
+	elementsInNextFile = newElements? \setminus elementsInCurrentFile
+\end{argue}
+By choosing $elementsInCurrentFile$ empty,
+this forces $elementsInNextFile$ to equal $newElements?$.
+
+{\em predicate 6:}
+\begin{argue}
+	oldestLogTime~elementsInNextFile \geq truncElement.logTime
+\end{argue}
+See predicate 7.
+
+{\em predicate 7:}
+\begin{argue}
+	truncElement.logTime \geq newestLogTimeC~elementsInCurrentFile 
+\end{argue}
+There are three time intervals in the sequential version:
+$Truncate$, $AddElementToLogFile$ 
+(which adds the truncate audit element),
+and $AddElementToLogFile$ 
+(which adds $newElement?$).
+Time is forced to move on between each of these intervals,
+and this constrains these two predicates 6 \& 7 to be true.
+
+{\em predicate 8:}
+\begin{argue}
+	logFiles' = \ldots
+\end{argue}
+Application of $TruncateLog$ updates $head~usedLogFiles$ to empty,
+then $AddElementToNextLogFile$ (this one because of pre-conditions)
+adds the truncation element (due to renaming in composition) to this file,
+updating $currentLogFile$ to this file
+(which is the only one in the list of $freeLogFiles$, put there by $TruncateLog$),
+and then $AddElementToCurrentLogFile$ 
+(because only single element in this file now,
+so conditions choose this one)
+adds the $newElement?$ to this.
+
+
+{\em predicate 9:}
+\begin{argue}
+	currentLogFile' = head~usedLogFiles
+\end{argue}
+Explained above with predicate 9.
+
+{\em predicate 10:}
+\begin{argue}
+	usedLogFiles' = tail~usedLogFiles \cat \langle currentLogFile' \rangle
+\end{argue}
+$Truncate$ tails, then next adds the new one, then next leaves it alone.
+
+{\em predicate 11:}
+\begin{argue}
+	freeLogFiles' = freeLogFiles
+\end{argue}
+Adds one, removes it, leaves alone.
+
+{\em predicate 12:}
+\begin{argue}
+	logFilesStatus' = logFileStatus \oplus \{ currentLogFile' \mapsto used \}
+\end{argue}
+Set to free, then used, then left.
+
+{\em predicate 13:}
+\begin{argue}
+	auditAlarmC' = alarming
+\end{argue}
+$Truncate$ sets, rest leave it alone.
+
+So $AddElementToLogC$ is equivalent to $AddElementsToLogC$ for an individual element,
+as we wished to show.
+
+(We don't actually need to check the recursive definition,
+because the implementation will actually apply $AddElementToLogC$ sequentially,
+chronologically.)
+
+This is sufficient to show that the design step made from the abstract
+formal specification to the more concrete design specification is correct.

@@ -1,0 +1,300 @@
+           *******************************************************
+                            Listing of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:25.43
+
+Line
+   1  ------------------------------------------------------------------
+   2  -- Tokeneer ID Station Core Software
+   3  --
+   4  -- Copyright (2003) United States Government, as represented
+   5  -- by the Director, National Security Agency. All rights reserved.
+   6  --
+   7  -- This material was originally developed by Praxis High Integrity
+   8  -- Systems Ltd. under contract to the National Security Agency.
+   9  ------------------------------------------------------------------
+  10  
+  11  ------------------------------------------------------------------
+  12  -- Enrolment
+  13  --
+  14  -- Implementation Notes:
+  15  --    None.
+  16  --
+  17  ------------------------------------------------------------------
+  18  
+  19  with Cert.ID;
+  20  with CertTypes;
+  21  with CryptoTypes;
+  22  with KeyStore;
+  23  with AuditLog;
+  24  with Clock;
+  25  
+  26  use type Clock.DurationT;
+  27  use type CryptoTypes.IssuerIDT;
+  28  
+  29  package body Enrolment
+  30  is
+  31  
+  32     ------------------------------------------------------------------
+  33     -- Types
+  34     --
+  35     ------------------------------------------------------------------
+  36  
+  37  
+  38     ------------------------------------------------------------------
+  39     -- Validate
+  40     --
+  41     -- Implementation Notes:
+  42     --      None.
+  43     ------------------------------------------------------------------
+  44     procedure Validate (TheFile     : in out File.T;
+  45                         DataOK      :    out Boolean;
+  46                         Description :    out AuditTypes.DescriptionT)
+  47     is
+  48        CertNo   : Positive := 1;
+  49        ClosedOK : Boolean;
+  50  
+  51        ------------------------------------------------------------------
+  52        -- MakeDescription
+  53        --
+  54        -- Description:
+  55        --    Constructs an enrolment failure description, adding the imported
+  56        --    Detail to the text. The description will be truncated if required.
+  57        --
+  58        -- Implementation Notes:
+  59        --    Hidden from SPARK because of use of slicing.
+  60        ------------------------------------------------------------------
+  61        function MakeDescription (Detail : in String)
+  62                                  return AuditTypes.DescriptionT
+  63        --# global CertNo;
+  64        is
+  65           --# hide MakeDescription;
+  66           Result  : AuditTypes.DescriptionT := AuditTypes.NoDescription;
+  67           TheDesc : constant String :=
+  68                                 "Enrolment failed at certificate" &
+  69                                 Positive'Image(CertNo) & " - " &
+  70                                 Detail;
+  71        begin
+  72           if TheDesc'Last < Result'Last then
+  73              Result( 1 .. TheDesc'Last) := TheDesc;
+  74           else
+  75              Result := TheDesc( 1 .. Result'Last);
+  76           end if;
+  77           return Result;
+  78  
+  79        end MakeDescription;
+  80  
+  81  
+  82        ------------------------------------------------------------------
+  83        -- ValidateAndAddKey
+  84        --
+  85        -- Description:
+  86        --    Validates that the key has come from a trusted source, and
+  87        --    if so adds the key to the Store. If a validation failure
+  88        --    occurs then this information is exported, in order to
+  89        --    create an audit entry.
+  90        --
+  91        -- Implementation Notes:
+  92        --    None
+  93        --
+  94        ------------------------------------------------------------------
+  95        procedure ValidateAndAddKey(IsTIS       : in     Boolean;
+  96                                    KeyAdded    :    out Boolean;
+  97                                    Description :    out AuditTypes.DescriptionT)
+  98        --# global in     CertNo;
+  99        --#        in     ConfigData.State;
+ 100        --#        in     Clock.Now;
+ 101        --#        in out KeyStore.Store;
+ 102        --#        in out TheFile;
+ 103        --#        in out AuditLog.State;
+ 104        --#        in out AuditLog.FileState;
+ 105        --#        in out KeyStore.State;
+ 106        --# derives KeyAdded,
+ 107        --#         KeyStore.Store     from KeyStore.Store,
+ 108        --#                                 IsTIS,
+ 109        --#                                 TheFile &
+ 110        --#         AuditLog.State,
+ 111        --#         AuditLog.FileState from KeyStore.Store,
+ 112        --#                                 IsTIS,
+ 113        --#                                 TheFile,
+ 114        --#                                 AuditLog.State,
+ 115        --#                                 AuditLog.FileState,
+ 116        --#                                 ConfigData.State,
+ 117        --#                                 Clock.Now &
+ 118        --#         TheFile            from * &
+ 119        --#         Description        from CertNo,
+ 120        --#                                 KeyStore.Store,
+ 121        --#                                 IsTIS,
+ 122        --#                                 TheFile &
+ 123        --#         KeyStore.State     from *,
+ 124        --#                                 KeyStore.Store,
+ 125        --#                                 IsTIS,
+ 126        --#                                 TheFile;
+ 127        --# post ((IsTIS and KeyAdded) ->
+ 128        --#          KeyStore.PrivateKeyPresent(KeyStore.State)) and
+ 129        --#      (not (IsTIS and KeyAdded) ->
+ 130        --#          KeyStore.PrivateKeyPresent(KeyStore.State) =
+ 131        --#             KeyStore.PrivateKeyPresent(KeyStore.State~));
+ 132        is
+ 133           TheCert      : CertTypes.RawCertificateT :=
+ 134                             CertTypes.NullRawCertificate;
+ 135           TheContents  : Cert.ID.ContentsT;
+ 136           TheSubject,
+ 137           TheIssuer    : CryptoTypes.IssuerT;
+ 138           ThePublicKey : CryptoTypes.KeyPartT;
+ 139  
+ 140           Extracted   : Boolean;
+ 141           AddedOK     : Boolean := True;
+ 142           VerifiedOK  : Boolean := False;
+ 143  
+ 144           Stop        : Natural := 0;
+ 145  
+ 146        begin
+ 147           Description := AuditTypes.NoDescription;
+ 148  
+ 149           while Stop = 0 and not File.EndOfFile(TheFile) loop
+ 150              -- Read the next (non-empty) line of the enrolment file
+ 151              --# assert KeyStore.PrivateKeyPresent(KeyStore.State) =
+ 152              --#           KeyStore.PrivateKeyPresent(KeyStore.State~);
+ 153              File.GetLine(TheFile, TheCert, Stop);
+ 154           end loop;
+ 155  
+ 156           Cert.ID.Extract
+ 157             (RawCert  => TheCert,
+ 158              Contents => TheContents,
+ 159              Success  => Extracted);
+ 160  
+ 161           TheSubject   := Cert.ID.TheSubject(TheContents);
+ 162           TheIssuer    := Cert.ID.TheIssuer(TheContents);
+ 163           ThePublicKey := Cert.ID.ThePublicKey(TheContents);
+ 164  
+ 165           if Extracted then
+ 166  
+ 167              -- Is this a CA?
+ 168              if TheSubject.ID = TheIssuer.ID then
+ 169  
+ 170                 -- If so, it is self-signed, so need to add the key
+ 171                 -- to the keystore before verifying
+ 172                 KeyStore.AddKey(TheOwner => TheSubject,
+ 173                                 TheKey   => ThePublicKey,
+ 174                                 IsPublic => True,
+ 175                                 Added    => AddedOK);
+ 176  
+ 177              end if;
+ 178           end if;
+ 179  
+ 180           --# assert KeyStore.PrivateKeyPresent(KeyStore.State) =
+ 181           --#           KeyStore.PrivateKeyPresent(KeyStore.State~);
+ 182  
+ 183           if Extracted and AddedOK then
+ 184  
+ 185              Cert.ID.IsOK
+ 186                ( RawCert => TheCert,
+ 187                  Contents => TheContents,
+ 188                  IsVerified => VerifiedOK);
+ 189  
+ 190           end if;
+ 191  
+ 192           if VerifiedOK and TheSubject.ID /= TheIssuer.ID then
+ 193              KeyStore.AddKey(TheOwner => TheSubject,
+ 194                              TheKey   => ThePublicKey,
+ 195                              IsPublic => True,
+ 196                              Added    => AddedOK);
+ 197           end if;
+ 198  
+ 199           --# assert KeyStore.PrivateKeyPresent(KeyStore.State) =
+ 200           --#           KeyStore.PrivateKeyPresent(KeyStore.State~);
+ 201  
+ 202           -- If this is the TIS, add a private key as well.
+ 203           if VerifiedOK and AddedOK and IsTIS then
+ 204              KeyStore.AddKey(TheOwner => TheSubject,
+ 205                              TheKey   => ThePublicKey,
+ 206                              IsPublic => False,
+ 207                              Added    => AddedOK);
+ 208           end if;
+ 209  
+ 210           if not Extracted then
+ 211              Description := MakeDescription("Certificate contents could not be extracted");
+ 212           elsif not AddedOK then
+ 213              Description := MakeDescription("Key could not be added to the Key Store");
+ 214           elsif not VerifiedOK then
+ 215              Description := MakeDescription("Certificate could not be verified");
+ 216           end if;
+ 217  
+ 218           KeyAdded := VerifiedOK and AddedOK;
+ 219  
+ 220        end ValidateAndAddKey;
+
++++        Flow analysis of subprogram ValidateAndAddKey 
+           performed: no errors found.
+
+ 221  
+ 222  
+ 223     begin
+ 224        File.OpenRead (TheFile => TheFile,
+ 225                       Success => DataOK);
+ 226  
+ 227        if DataOK then
+ 228           -- The first Cert should be the TIS issuer.
+ 229           ValidateAndAddKey(IsTIS       => False,
+ 230                             KeyAdded    => DataOK,
+ 231                             Description => Description);
+ 232        else
+ 233           Description := MakeDescription("The enrolment file is corrupt");
+ 234        end if;
+ 235  
+ 236        if DataOK then
+ 237           -- Next Cert should be the TIS issuer.
+ 238           CertNo := CertNo + 1;
+ 239           ValidateAndAddKey(IsTIS       => True,
+ 240                             KeyAdded    => DataOK,
+ 241                             Description => Description);
+ 242        end if;
+ 243  
+ 244        -- Continue through the certificates until the end is
+ 245        -- reached, or certificate validation fails
+ 246        while not File.EndOfFile(TheFile) and DataOK loop
+ 247           --# assert KeyStore.PrivateKeyPresent(KeyStore.State) and
+ 248           --#        CertNo >= 2;
+ 249  
+ 250           if not File.EndOfLine(TheFile) then
+ 251           CertNo := CertNo + 1;
+ 252           ValidateAndAddKey(IsTIS       => False,
+ 253                             KeyAdded    => DataOK,
+ 254                             Description => Description);
+ 255           else
+ 256              File.SkipLine(TheFile, 1);
+ 257           end if;
+ 258        end loop;
+ 259  
+ 260        File.Close (TheFile => TheFile,
+ 261                    Success => ClosedOK);
+ 262  
+ 263        if not ClosedOK then
+ 264           Description := MakeDescription("The enrolment file is corrupt");
+ 265           DataOK := False;
+ 266        end if;
+ 267  
+ 268        if not DataOK then
+ 269           -- enrolment has failed - delete the keystore
+ 270           KeyStore.Delete;
+ 271        end if;
+ 272  
+ 273     end Validate;
+
++++        Flow analysis of subprogram Validate performed: 
+           no errors found.
+
+ 274  
+ 275  end Enrolment;
+1 summarized warning(s), comprising:
+     1 hidden part(s)*
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+
+--End of file--------------------------------------------------

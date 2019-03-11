@@ -1,0 +1,128 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:25.74
+
+                    procedure Enclave.ReadEnrolmentData
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 197:
+
+procedure_readenrolmentdata_1.
+H1:    status >= enrolmentstates__first .
+H2:    status <= enrolmentstates__last .
+H3:    status >= statust__first .
+H4:    status <= statust__last .
+H5:    true .
+H6:    floppy__ispresent(floppy__state) .
+        ->
+C1:    screen__validatingenrolmentdata >= screen__msgtextt__first .
+C2:    screen__validatingenrolmentdata <= screen__msgtextt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 198:
+
+procedure_readenrolmentdata_2.
+H1:    status >= enrolmentstates__first .
+H2:    status <= enrolmentstates__last .
+H3:    status >= statust__first .
+H4:    status <= statust__last .
+H5:    true .
+H6:    floppy__ispresent(floppy__state) .
+H7:    screen__validatingenrolmentdata >= screen__msgtextt__first .
+H8:    screen__validatingenrolmentdata <= screen__msgtextt__last .
+        ->
+C1:    display__blank >= display__msgt__first .
+C2:    display__blank <= display__msgt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 200:
+
+procedure_readenrolmentdata_3.
+H1:    status >= enrolmentstates__first .
+H2:    status <= enrolmentstates__last .
+H3:    status >= statust__first .
+H4:    status <= statust__last .
+H5:    true .
+H6:    floppy__ispresent(floppy__state) .
+H7:    screen__validatingenrolmentdata >= screen__msgtextt__first .
+H8:    screen__validatingenrolmentdata <= screen__msgtextt__last .
+H9:    display__blank >= display__msgt__first .
+H10:   display__blank <= display__msgt__last .
+        ->
+C1:    waitingenrol >= statust__first .
+C2:    waitingenrol <= statust__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 204:
+
+procedure_readenrolmentdata_4.
+H1:    status >= enrolmentstates__first .
+H2:    status <= enrolmentstates__last .
+H3:    status >= statust__first .
+H4:    status <= statust__last .
+H5:    true .
+H6:    not (floppy__ispresent(floppy__state)) .
+        ->
+C1:    screen__insertenrolmentdata >= screen__msgtextt__first .
+C2:    screen__insertenrolmentdata <= screen__msgtextt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 205:
+
+procedure_readenrolmentdata_5.
+H1:    status >= enrolmentstates__first .
+H2:    status <= enrolmentstates__last .
+H3:    status >= statust__first .
+H4:    status <= statust__last .
+H5:    true .
+H6:    not (floppy__ispresent(floppy__state)) .
+H7:    screen__insertenrolmentdata >= screen__msgtextt__first .
+H8:    screen__insertenrolmentdata <= screen__msgtextt__last .
+        ->
+C1:    display__blank >= display__msgt__first .
+C2:    display__blank <= display__msgt__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_readenrolmentdata_6.
+H1:    status >= enrolmentstates__first .
+H2:    status <= enrolmentstates__last .
+H3:    status >= statust__first .
+H4:    status <= statust__last .
+H5:    true .
+H6:    floppy__ispresent(floppy__state) .
+H7:    screen__validatingenrolmentdata >= screen__msgtextt__first .
+H8:    screen__validatingenrolmentdata <= screen__msgtextt__last .
+H9:    display__blank >= display__msgt__first .
+H10:   display__blank <= display__msgt__last .
+H11:   waitingenrol >= statust__first .
+H12:   waitingenrol <= statust__last .
+        ->
+C1:    waitingenrol >= enrolmentstates__first .
+C2:    waitingenrol <= enrolmentstates__last .
+ 
+
+procedure_readenrolmentdata_7.
+H1:    status >= enrolmentstates__first .
+H2:    status <= enrolmentstates__last .
+H3:    status >= statust__first .
+H4:    status <= statust__last .
+H5:    true .
+H6:    not (floppy__ispresent(floppy__state)) .
+H7:    screen__insertenrolmentdata >= screen__msgtextt__first .
+H8:    screen__insertenrolmentdata <= screen__msgtextt__last .
+H9:    display__blank >= display__msgt__first .
+H10:   display__blank <= display__msgt__last .
+        ->
+C1:    status >= enrolmentstates__first .
+C2:    status <= enrolmentstates__last .
+ 
+

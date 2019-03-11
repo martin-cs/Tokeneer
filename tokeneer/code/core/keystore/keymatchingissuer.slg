@@ -1,0 +1,540 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:12  SIMPLIFIED 05-SEP-2011, 15:41:23
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure KeyStore.KeyMatchingIssuer
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/keystore/keystore.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_keymatchingissuer_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(issuer), [i___1]) and element(fld_name(issuer), [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule keymatchingi_rules(21).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__first by:
+          0.
+<S>  New C1:  true
+<S>  New C3:  true
+-S-  Applied substitution rule keymatchingi_rules(22).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__last by:
+          4294967295.
+<S>  New C2:  true
+<S>  New C4:  true
+-S-  Applied substitution rule keymatchingi_rules(178).
+     This was achieved by replacing all occurrences of 
+          keystore__interface__maskt__first by:
+          0.
+<S>  New C5:  bit__or(keystore__interface__ownermask, 
+          keystore__interface__ispublicmask) >= 0
+-S-  Applied substitution rule keymatchingi_rules(179).
+     This was achieved by replacing all occurrences of 
+          keystore__interface__maskt__last by:
+          15.
+<S>  New C6:  bit__or(keystore__interface__ownermask, 
+          keystore__interface__ispublicmask) <= 15
+***  Proved C1:  true
+***  Proved C3:  true
+***  Proved C2:  true
+***  Proved C4:  true
+-S-  Applied substitution rule keymatchingi_rules(1).
+     This was achieved by replacing all occurrences of 
+          keystore__interface__ownermask by:
+          1.
+<S>  New C5:  bit__or(1, keystore__interface__ispublicmask) >= 0
+<S>  New C6:  bit__or(1, keystore__interface__ispublicmask) <= 15
+-S-  Applied substitution rule keymatchingi_rules(2).
+     This was achieved by replacing all occurrences of 
+          keystore__interface__ispublicmask by:
+          8.
+<S>  New C5:  true
+<S>  New C6:  true
+-S-  Applied substitution rule keymatchingi_rules(10).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H2:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(issuer), [
+          i___1]) and element(fld_name(issuer), [i___1]) <= character__last)
+-S-  Applied substitution rule keymatchingi_rules(11).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H2:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(issuer), [
+          i___1]) and element(fld_name(issuer), [i___1]) <= 255)
+-S-  Applied substitution rule keymatchingi_rules(159).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namecountt__first by:
+          0.
+<S>  New H3:  fld_namelength(issuer) >= 0
+-S-  Applied substitution rule keymatchingi_rules(160).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namecountt__last by:
+          40.
+<S>  New H4:  fld_namelength(issuer) <= 40
+-S-  Applied substitution rule keymatchingi_rules(164).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namei__first by:
+          1.
+<S>  New H2:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          cryptotypes__namei__last -> 0 <= element(fld_name(issuer), [i___1]) 
+          and element(fld_name(issuer), [i___1]) <= 255)
+-S-  Applied substitution rule keymatchingi_rules(165).
+     This was achieved by replacing all occurrences of cryptotypes__namei__last 
+          by:
+          40.
+<S>  New H2:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 40 -> 0 <= 
+          element(fld_name(issuer), [i___1]) and element(fld_name(issuer), [
+          i___1]) <= 255)
+-S-  Applied substitution rule keymatchingi_rules(169).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__issueridt__first by:
+          0.
+<S>  New H5:  fld_id(issuer) >= 0
+-S-  Applied substitution rule keymatchingi_rules(170).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__issueridt__last by:
+          4294967295.
+<S>  New H6:  fld_id(issuer) <= 4294967295
+***  Proved C5:  true
+***  Proved C6:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_keymatchingissuer_2.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(issuer), [i___1]) and element(fld_name(issuer), [i___1]) <= 
+          character__last)
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H7).
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H8)
+          .
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  0 >= basictypes__unsigned32t__first
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  0 <= basictypes__unsigned32t__last
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  0 >= basictypes__unsigned32t__first
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  0 <= basictypes__unsigned32t__last
+%%%  Simplified H18 on reading formula in, to give:
+     %%%  H18:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(issuer), [i___1]) and element(fld_name(issuer), [i___1]) <= 
+          character__last)
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  fld_namelength(issuer) >= cryptotypes__namecountt__first
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  fld_namelength(issuer) <= cryptotypes__namecountt__last
+%%%  Simplified H21 on reading formula in, to give:
+     %%%  H21:  fld_id(issuer) >= cryptotypes__issueridt__first
+%%%  Simplified H22 on reading formula in, to give:
+     %%%  H22:  fld_id(issuer) <= cryptotypes__issueridt__last
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  bit__or(keystore__interface__ownermask, 
+          keystore__interface__ispublicmask) >= 
+          keystore__interface__maskt__first
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  bit__or(keystore__interface__ownermask, 
+          keystore__interface__ispublicmask) <= keystore__interface__maskt__last
+***  Proved C1:  expectedcount >= basictypes__unsigned32t__first
+     using hypothesis H25.
+***  Proved C2:  expectedcount <= basictypes__unsigned32t__last
+     using hypothesis H26.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_keymatchingissuer_3.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(issuer), [i___1]) and element(fld_name(issuer), [i___1]) <= 
+          character__last)
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H7).
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H8)
+          .
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  0 >= basictypes__unsigned32t__first
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  0 <= basictypes__unsigned32t__last
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  0 >= basictypes__unsigned32t__first
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  0 <= basictypes__unsigned32t__last
+%%%  Simplified H18 on reading formula in, to give:
+     %%%  H18:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(issuer), [i___1]) and element(fld_name(issuer), [i___1]) <= 
+          character__last)
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  fld_namelength(issuer) >= cryptotypes__namecountt__first
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  fld_namelength(issuer) <= cryptotypes__namecountt__last
+%%%  Simplified H21 on reading formula in, to give:
+     %%%  H21:  fld_id(issuer) >= cryptotypes__issueridt__first
+%%%  Simplified H22 on reading formula in, to give:
+     %%%  H22:  fld_id(issuer) <= cryptotypes__issueridt__last
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  bit__or(keystore__interface__ownermask, 
+          keystore__interface__ispublicmask) >= 
+          keystore__interface__maskt__first
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  bit__or(keystore__interface__ownermask, 
+          keystore__interface__ispublicmask) <= keystore__interface__maskt__last
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H28 has been replaced by "true".  (It is already present, as 
+          H26).
+%%%  Simplified H31 on reading formula in, to give:
+     %%%  H31:  for_all(i___1 : integer, 
+          keystore__interface__handlearrayi__first <= i___1 and i___1 <= 
+          keystore__interface__handlearrayi__last -> 
+          basictypes__unsigned32t__first <= element(handles__1, [i___1]) and 
+          element(handles__1, [i___1]) <= basictypes__unsigned32t__last)
+***  Proved C1:  actualcount__1 >= basictypes__unsigned32t__first
+     using hypothesis H29.
+***  Proved C2:  actualcount__1 <= basictypes__unsigned32t__last
+     using hypothesis H30.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_keymatchingissuer_4.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(issuer), [i___1]) and element(fld_name(issuer), [i___1]) <= 
+          character__last)
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H7).
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H8)
+          .
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  0 >= basictypes__unsigned32t__first
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  0 <= basictypes__unsigned32t__last
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  0 >= basictypes__unsigned32t__first
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  0 <= basictypes__unsigned32t__last
+%%%  Simplified H18 on reading formula in, to give:
+     %%%  H18:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(issuer), [i___1]) and element(fld_name(issuer), [i___1]) <= 
+          character__last)
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  fld_namelength(issuer) >= cryptotypes__namecountt__first
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  fld_namelength(issuer) <= cryptotypes__namecountt__last
+%%%  Simplified H21 on reading formula in, to give:
+     %%%  H21:  fld_id(issuer) >= cryptotypes__issueridt__first
+%%%  Simplified H22 on reading formula in, to give:
+     %%%  H22:  fld_id(issuer) <= cryptotypes__issueridt__last
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  bit__or(keystore__interface__ownermask, 
+          keystore__interface__ispublicmask) >= 
+          keystore__interface__maskt__first
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  bit__or(keystore__interface__ownermask, 
+          keystore__interface__ispublicmask) <= keystore__interface__maskt__last
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H28 has been replaced by "true".  (It is already present, as 
+          H26).
+%%%  Simplified H31 on reading formula in, to give:
+     %%%  H31:  for_all(i___1 : integer, 
+          keystore__interface__handlearrayi__first <= i___1 and i___1 <= 
+          keystore__interface__handlearrayi__last -> 
+          basictypes__unsigned32t__first <= element(handles__1, [i___1]) and 
+          element(handles__1, [i___1]) <= basictypes__unsigned32t__last)
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H34 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H35 has been replaced by "true".  (It is already present, as 
+          H30).
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__systemfault
+-S-  Applied substitution rule keymatchingi_rules(134).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule keymatchingi_rules(135).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule keymatchingi_rules(27).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule keymatchingi_rules(28).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_keymatchingissuer_5.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(issuer), [i___1]) and element(fld_name(issuer), [i___1]) <= 
+          character__last)
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H7).
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H8)
+          .
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  0 >= basictypes__unsigned32t__first
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  0 <= basictypes__unsigned32t__last
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  0 >= basictypes__unsigned32t__first
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  0 <= basictypes__unsigned32t__last
+%%%  Simplified H18 on reading formula in, to give:
+     %%%  H18:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(issuer), [i___1]) and element(fld_name(issuer), [i___1]) <= 
+          character__last)
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  fld_namelength(issuer) >= cryptotypes__namecountt__first
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  fld_namelength(issuer) <= cryptotypes__namecountt__last
+%%%  Simplified H21 on reading formula in, to give:
+     %%%  H21:  fld_id(issuer) >= cryptotypes__issueridt__first
+%%%  Simplified H22 on reading formula in, to give:
+     %%%  H22:  fld_id(issuer) <= cryptotypes__issueridt__last
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  bit__or(keystore__interface__ownermask, 
+          keystore__interface__ispublicmask) >= 
+          keystore__interface__maskt__first
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  bit__or(keystore__interface__ownermask, 
+          keystore__interface__ispublicmask) <= keystore__interface__maskt__last
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H28 has been replaced by "true".  (It is already present, as 
+          H26).
+%%%  Simplified H31 on reading formula in, to give:
+     %%%  H31:  for_all(i___1 : integer, 
+          keystore__interface__handlearrayi__first <= i___1 and i___1 <= 
+          keystore__interface__handlearrayi__last -> 
+          basictypes__unsigned32t__first <= element(handles__1, [i___1]) and 
+          element(handles__1, [i___1]) <= basictypes__unsigned32t__last)
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H34 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H35 has been replaced by "true".  (It is already present, as 
+          H30).
+%%%  Simplified H37 on reading formula in, to give:
+     %%%  H37:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified H39 on reading formula in, to give:
+     %%%  H39:  audittypes__elementt__first <= audittypes__systemfault
+---  Hypothesis H41 has been replaced by "true".  (It is already present, as 
+          H31).
+-S-  Applied substitution rule keymatchingi_rules(21).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__first by:
+          0.
+<S>  New H7:  true
+<S>  New H14:  true
+<S>  New H16:  true
+<S>  New H25:  expectedcount >= 0
+<S>  New H29:  actualcount__1 >= 0
+<S>  New H31:  for_all(i___1 : integer, 
+          keystore__interface__handlearrayi__first <= i___1 and i___1 <= 
+          keystore__interface__handlearrayi__last -> 0 <= element(handles__1, [
+          i___1]) and element(handles__1, [i___1]) <= 
+          basictypes__unsigned32t__last)
+<S>  New C1:  element(handles__1, [1]) >= 0
+-S-  Applied substitution rule keymatchingi_rules(22).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__last by:
+          4294967295.
+<S>  New H8:  true
+<S>  New H15:  true
+<S>  New H17:  true
+<S>  New H26:  expectedcount <= 4294967295
+<S>  New H30:  actualcount__1 <= 4294967295
+<S>  New H31:  for_all(i___1 : integer, 
+          keystore__interface__handlearrayi__first <= i___1 and i___1 <= 
+          keystore__interface__handlearrayi__last -> 0 <= element(handles__1, [
+          i___1]) and element(handles__1, [i___1]) <= 4294967295)
+<S>  New C2:  element(handles__1, [1]) <= 4294967295
+-S-  Applied substitution rule keymatchingi_rules(192).
+     This was achieved by replacing all occurrences of 
+          keystore__interface__handlearrayi__first by:
+          1.
+<S>  New H31:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          keystore__interface__handlearrayi__last -> 0 <= element(handles__1, [
+          i___1]) and element(handles__1, [i___1]) <= 4294967295)
+<S>  New C3:  true
+-S-  Applied substitution rule keymatchingi_rules(193).
+     This was achieved by replacing all occurrences of 
+          keystore__interface__handlearrayi__last by:
+          20.
+<S>  New H31:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 20 -> 0 <= 
+          element(handles__1, [i___1]) and element(handles__1, [i___1]) <= 
+          4294967295)
+<S>  New C4:  true
+***  Proved C1:  element(handles__1, [1]) >= 0
+     using hypothesis H31.
+***  Proved C2:  element(handles__1, [1]) <= 4294967295
+     using hypothesis H31.
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_keymatchingissuer_6.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(issuer), [i___1]) and element(fld_name(issuer), [i___1]) <= 
+          character__last)
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H7).
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H8)
+          .
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  0 >= basictypes__unsigned32t__first
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  0 <= basictypes__unsigned32t__last
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  0 >= basictypes__unsigned32t__first
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  0 <= basictypes__unsigned32t__last
+%%%  Simplified H18 on reading formula in, to give:
+     %%%  H18:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(issuer), [i___1]) and element(fld_name(issuer), [i___1]) <= 
+          character__last)
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  fld_namelength(issuer) >= cryptotypes__namecountt__first
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  fld_namelength(issuer) <= cryptotypes__namecountt__last
+%%%  Simplified H21 on reading formula in, to give:
+     %%%  H21:  fld_id(issuer) >= cryptotypes__issueridt__first
+%%%  Simplified H22 on reading formula in, to give:
+     %%%  H22:  fld_id(issuer) <= cryptotypes__issueridt__last
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  bit__or(keystore__interface__ownermask, 
+          keystore__interface__ispublicmask) >= 
+          keystore__interface__maskt__first
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  bit__or(keystore__interface__ownermask, 
+          keystore__interface__ispublicmask) <= keystore__interface__maskt__last
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H28 has been replaced by "true".  (It is already present, as 
+          H26).
+%%%  Simplified H31 on reading formula in, to give:
+     %%%  H31:  for_all(i___1 : integer, 
+          keystore__interface__handlearrayi__first <= i___1 and i___1 <= 
+          keystore__interface__handlearrayi__last -> 
+          basictypes__unsigned32t__first <= element(handles__1, [i___1]) and 
+          element(handles__1, [i___1]) <= basictypes__unsigned32t__last)
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H34 has been replaced by "true".  (It is already present, as 
+          H29).
+---  Hypothesis H35 has been replaced by "true".  (It is already present, as 
+          H30).
+---  Hypothesis H37 has been replaced by "true".  (It is already present, as 
+          H31).
+-S-  Applied substitution rule keymatchingi_rules(21).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__first by:
+          0.
+<S>  New H7:  true
+<S>  New H14:  true
+<S>  New H16:  true
+<S>  New H25:  expectedcount >= 0
+<S>  New H29:  actualcount__1 >= 0
+<S>  New H31:  for_all(i___1 : integer, 
+          keystore__interface__handlearrayi__first <= i___1 and i___1 <= 
+          keystore__interface__handlearrayi__last -> 0 <= element(handles__1, [
+          i___1]) and element(handles__1, [i___1]) <= 
+          basictypes__unsigned32t__last)
+<S>  New C1:  element(handles__1, [1]) >= 0
+-S-  Applied substitution rule keymatchingi_rules(22).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__last by:
+          4294967295.
+<S>  New H8:  true
+<S>  New H15:  true
+<S>  New H17:  true
+<S>  New H26:  expectedcount <= 4294967295
+<S>  New H30:  actualcount__1 <= 4294967295
+<S>  New H31:  for_all(i___1 : integer, 
+          keystore__interface__handlearrayi__first <= i___1 and i___1 <= 
+          keystore__interface__handlearrayi__last -> 0 <= element(handles__1, [
+          i___1]) and element(handles__1, [i___1]) <= 4294967295)
+<S>  New C2:  element(handles__1, [1]) <= 4294967295
+-S-  Applied substitution rule keymatchingi_rules(192).
+     This was achieved by replacing all occurrences of 
+          keystore__interface__handlearrayi__first by:
+          1.
+<S>  New H31:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          keystore__interface__handlearrayi__last -> 0 <= element(handles__1, [
+          i___1]) and element(handles__1, [i___1]) <= 4294967295)
+<S>  New C3:  true
+-S-  Applied substitution rule keymatchingi_rules(193).
+     This was achieved by replacing all occurrences of 
+          keystore__interface__handlearrayi__last by:
+          20.
+<S>  New H31:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 20 -> 0 <= 
+          element(handles__1, [i___1]) and element(handles__1, [i___1]) <= 
+          4294967295)
+<S>  New C4:  true
+***  Proved C1:  element(handles__1, [1]) >= 0
+     using hypothesis H31.
+***  Proved C2:  element(handles__1, [1]) <= 4294967295
+     using hypothesis H31.
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_keymatchingissuer_7.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_keymatchingissuer_8.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+

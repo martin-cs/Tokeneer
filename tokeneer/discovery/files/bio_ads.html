@@ -1,0 +1,98 @@
+<pre>
+     1	------------------------------------------------------------------
+     2	-- Tokeneer ID Station Core Software
+     3	--
+     4	-- Copyright (2003) United States Government, as represented
+     5	-- by the Director, National Security Agency. All rights reserved.
+     6	--
+     7	-- This material was originally developed by Praxis High Integrity
+     8	-- Systems Ltd. under contract to the National Security Agency.
+     9	------------------------------------------------------------------
+    10	
+    11	------------------------------------------------------------------
+    12	-- Bio
+    13	--
+    14	-- Description:
+    15	--    The TIS core interface to the biometric device.
+    16	--
+    17	------------------------------------------------------------------
+    18	with BasicTypes,
+    19	     IandATypes;
+    20	use type IandATypes.TemplateT;
+    21	--# inherit AuditLog,
+    22	--#         AuditTypes,
+    23	--#         BasicTypes,
+    24	--#         Clock,
+    25	--#         ConfigData,
+    26	--#         IandATypes;
+    27	
+    28	package Bio
+    29	--# own in Input;
+    30	is
+    31	
+    32	
+    33	   ------------------------------------------------------------------
+    34	   -- Poll
+    35	   --
+    36	   -- Description:
+    37	   --    Determines whether a finger is present at the biometric reader.
+    38	   --    Only logs system fault - does not log a 'FingerDetected' or
+    39	   --    'FingerTimeout' element.
+    40	   --
+    41	   -- Traceunit : C.Bio.Poll
+    42	   -- Traceto   : FD.Interface.TISPoll
+    43	   ------------------------------------------------------------------
+    44	
+    45	   procedure Poll(FingerPresent :    out BasicTypes.PresenceT);
+    46	   --# global in Input;
+    47	   --# derives FingerPresent from Input;
+    48	
+    49	
+    50	   ------------------------------------------------------------------
+    51	   -- Verify
+    52	   --
+    53	   -- Description:
+    54	   --    Attempts to verify the current sample against the template.
+    55	   --    Only logs system fault - does not log a 'Finger(Not)Matched' element.
+    56	   --
+    57	   -- Traceunit : C.Bio.Verify
+    58	   -- Traceto   : FD.Types.Fingerprint
+    59	   ------------------------------------------------------------------
+    60	   procedure Verify(Template       : in     IandATypes.TemplateT;
+    61	                    MaxFAR         : in     IandATypes.FarT;
+    62	                    MatchResult    :    out IandATypes.MatchResultT;
+    63	                    AchievedFAR    :    out IandATypes.FarT);
+    64	   --# global in     Input;
+    65	   --#        in     Clock.Now;
+    66	   --#        in     ConfigData.State;
+    67	   --#        in out AuditLog.State;
+    68	   --#        in out AuditLog.FileState;
+    69	   --# derives AuditLog.State,
+    70	   --#         AuditLog.FileState from Input,
+    71	   --#                                 AuditLog.State,
+    72	   --#                                 AuditLog.FileState,
+    73	   --#                                 Template,
+    74	   --#                                 Clock.Now,
+    75	   --#                                 ConfigData.State &
+    76	   --#         MatchResult        from Input,
+    77	   --#                                 Template,
+    78	   --#                                 MaxFAR &
+    79	   --#         AchievedFAR        from Input,
+    80	   --#                                 Template;
+    81	
+    82	
+    83	   ------------------------------------------------------------------
+    84	   -- Flush
+    85	   --
+    86	   -- Description:
+    87	   --    Flushes the Bio device of stale data.
+    88	   --
+    89	   -- Traceunit : C.Bio.Flush
+    90	   -- Traceto   : FD.Interface.FlushFingerData
+    91	   ------------------------------------------------------------------
+    92	   procedure Flush;
+    93	   --# global in Input;
+    94	   --# derives null from Input;
+    95	
+    96	end Bio;
+</pre>

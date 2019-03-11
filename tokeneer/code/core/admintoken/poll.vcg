@@ -1,0 +1,80 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:21.11
+
+                         procedure AdminToken.Poll
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 185:
+
+procedure_poll_1.
+H1:    true .
+H2:    admintoken__interface__thetokenpresence(
+           admintoken__interface__state__1) >= 
+           basictypes__presencet__first .
+H3:    admintoken__interface__thetokenpresence(
+           admintoken__interface__state__1) <= 
+           basictypes__presencet__last .
+        ->
+C1:    admintoken__interface__thetokenpresence(
+           admintoken__interface__state__1) >= 
+           basictypes__presencet__first .
+C2:    admintoken__interface__thetokenpresence(
+           admintoken__interface__state__1) <= 
+           basictypes__presencet__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_poll_2.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+For checks of refinement integrity: 
+
+procedure_poll_3.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_poll_4.
+H1:    true .
+H2:    true .
+H3:    admintoken__interface__input~ = fld_admintoken__interface__input(
+           input~) .
+H4:    admintoken__interface__input = fld_admintoken__interface__input(
+           input) .
+H5:    admintoken__interface__status~ = 
+           fld_admintoken__interface__status(status~) .
+H6:    admintoken__interface__status = 
+           fld_admintoken__interface__status(status) .
+H7:    admintoken__interface__state~ = fld_admintoken__interface__state(
+           state~) .
+H8:    admintoken__interface__state = fld_admintoken__interface__state(
+           state) .
+H9:    tokenpresence = fld_tokenpresence(state) .
+H10:   idcert = fld_idcert(state~) .
+H11:   idcert = fld_idcert(state) .
+H12:   authcert = fld_authcert(state~) .
+H13:   authcert = fld_authcert(state) .
+H14:   tokenid = fld_tokenid(state~) .
+H15:   tokenid = fld_tokenid(state) .
+H16:   tokentry = fld_tokentry(state~) .
+H17:   tokentry = fld_tokentry(state) .
+H18:   tokenpresence >= basictypes__presencet__first .
+H19:   tokenpresence <= basictypes__presencet__last .
+H20:   true .
+        ->
+C1:    prf_isgood(state~) <-> prf_isgood(state) .
+C2:    prf_authcertvalid(state~) <-> prf_authcertvalid(
+           state) .
+C3:    (theauthcertrole(state~) = privtypes__guard) <-> (
+           theauthcertrole(state) = privtypes__guard) .
+ 
+

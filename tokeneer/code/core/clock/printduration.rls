@@ -1,0 +1,58 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:07.70*/
+
+                        /*function Clock.PrintDuration*/
+
+
+rule_family printduratio_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+printduratio_rules(1): firsthourindex may_be_replaced_by 1.
+printduratio_rules(2): lasthourindex may_be_replaced_by 2.
+printduratio_rules(3): firstminindex may_be_replaced_by 4.
+printduratio_rules(4): lastminindex may_be_replaced_by 5.
+printduratio_rules(5): firstsecindex may_be_replaced_by 7.
+printduratio_rules(6): lastsecindex may_be_replaced_by 8.
+printduratio_rules(7): tenthsecindex may_be_replaced_by 10.
+printduratio_rules(8): tenthsecsinsec may_be_replaced_by 10.
+printduratio_rules(9): tenthsecsinmin may_be_replaced_by 600.
+printduratio_rules(10): tenthsecsinhr may_be_replaced_by 36000.
+printduratio_rules(11): integer__size >= 0 may_be_deduced.
+printduratio_rules(12): integer__first may_be_replaced_by -2147483648.
+printduratio_rules(13): integer__last may_be_replaced_by 2147483647.
+printduratio_rules(14): integer__base__first may_be_replaced_by -2147483648.
+printduratio_rules(15): integer__base__last may_be_replaced_by 2147483647.
+printduratio_rules(16): character__size >= 0 may_be_deduced.
+printduratio_rules(17): character__first may_be_replaced_by 0.
+printduratio_rules(18): character__last may_be_replaced_by 255.
+printduratio_rules(19): character__base__first may_be_replaced_by 0.
+printduratio_rules(20): character__base__last may_be_replaced_by 255.
+printduratio_rules(21): natural__size >= 0 may_be_deduced.
+printduratio_rules(22): natural__first may_be_replaced_by 0.
+printduratio_rules(23): natural__last may_be_replaced_by 2147483647.
+printduratio_rules(24): natural__base__first may_be_replaced_by -2147483648.
+printduratio_rules(25): natural__base__last may_be_replaced_by 2147483647.
+printduratio_rules(26): positive__size >= 0 may_be_deduced.
+printduratio_rules(27): positive__first may_be_replaced_by 1.
+printduratio_rules(28): positive__last may_be_replaced_by 2147483647.
+printduratio_rules(29): positive__base__first may_be_replaced_by -2147483648.
+printduratio_rules(30): positive__base__last may_be_replaced_by 2147483647.
+printduratio_rules(31): durationt__size >= 0 may_be_deduced.
+printduratio_rules(32): durationt__first may_be_replaced_by 0.
+printduratio_rules(33): durationt__last may_be_replaced_by 864000.
+printduratio_rules(34): durationt__base__first <= durationt__base__last may_be_deduced.
+printduratio_rules(35): durationt__base__first <= durationt__first may_be_deduced.
+printduratio_rules(36): durationt__base__last >= durationt__last may_be_deduced.
+printduratio_rules(37): durationtexti__size >= 0 may_be_deduced.
+printduratio_rules(38): durationtexti__first may_be_replaced_by 1.
+printduratio_rules(39): durationtexti__last may_be_replaced_by 10.
+printduratio_rules(40): durationtexti__base__first may_be_replaced_by -2147483648.
+printduratio_rules(41): durationtexti__base__last may_be_replaced_by 2147483647.

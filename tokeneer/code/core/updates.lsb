@@ -1,0 +1,83 @@
+           *******************************************************
+                            Listing of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:27.86
+
+Line
+   1  ------------------------------------------------------------------
+   2  -- Tokeneer ID Station Core Software
+   3  --
+   4  -- Copyright (2003) United States Government, as represented
+   5  -- by the Director, National Security Agency. All rights reserved.
+   6  --
+   7  -- This material was originally developed by Praxis High Integrity
+   8  -- Systems Ltd. under contract to the National Security Agency.
+   9  ------------------------------------------------------------------
+  10  
+  11  ------------------------------------------------------------------
+  12  -- Updates
+  13  --
+  14  -- Implementation Notes:
+  15  --    None.
+  16  --
+  17  ------------------------------------------------------------------
+  18  with Alarm;
+  19  with Display;
+  20  with Latch;
+  21  with Screen;
+  22  
+  23  package body Updates
+  24  is
+  25  
+  26  
+  27     ------------------------------------------------------------------
+  28     -- EarlyActivity
+  29     --
+  30     -- Implementation Notes:
+  31     --    Alarm is updated last so as to ensure it is completely up to
+  32     --    date with the audit alarm.
+  33     ------------------------------------------------------------------
+  34     procedure EarlyActivity (SystemFault :    out Boolean)
+  35     is
+  36     begin
+  37        Latch.UpdateDevice(SystemFault => SystemFault);
+  38        Alarm.UpdateDevice;
+  39     end EarlyActivity;
+
++++        Flow analysis of subprogram EarlyActivity 
+           performed: no errors found.
+
+  40  
+  41     ------------------------------------------------------------------
+  42     -- Activity
+  43     --
+  44     -- Implementation Notes:
+  45     --    None.
+  46     ------------------------------------------------------------------
+  47     procedure Activity (TheStats    : in     Stats.T;
+  48                         TheAdmin    : in     Admin.T;
+  49                         SystemFault :    out Boolean)
+  50     is
+  51     begin
+  52        Display.UpdateDevice;
+  53        Screen.UpdateScreen
+  54          (TheStats => TheStats,
+  55           TheAdmin => TheAdmin);
+  56        EarlyActivity( SystemFault => SystemFault);
+  57     end Activity;
+
++++        Flow analysis of subprogram Activity performed: 
+           no errors found.
+
+  58  
+  59  
+  60  end Updates;
+No summarized warnings
+
+
+
+--End of file--------------------------------------------------

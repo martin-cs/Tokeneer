@@ -1,0 +1,44 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:16.68
+
+                          procedure Admin.FinishOp
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 219:
+
+procedure_finishop_1.
+H1:    ispresent(theadmin) .
+H2:    fld_currentop(theadmin) >= opandnullt__first .
+H3:    fld_currentop(theadmin) <= opandnullt__last .
+H4:    fld_rolepresent(theadmin) >= privtypes__privileget__first .
+H5:    fld_rolepresent(theadmin) <= privtypes__privileget__last .
+        ->
+C1:    nullop >= opandnullt__first .
+C2:    nullop <= opandnullt__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_finishop_2.
+H1:    ispresent(theadmin) .
+H2:    fld_currentop(theadmin) >= opandnullt__first .
+H3:    fld_currentop(theadmin) <= opandnullt__last .
+H4:    fld_rolepresent(theadmin) >= privtypes__privileget__first .
+H5:    fld_rolepresent(theadmin) <= privtypes__privileget__last .
+H6:    nullop >= opandnullt__first .
+H7:    nullop <= opandnullt__last .
+        ->
+C1:    not (isdoingop(upf_currentop(theadmin, nullop))) .
+C2:    prf_rolepresent(upf_currentop(theadmin, nullop)) = 
+           prf_rolepresent(theadmin) .
+C3:    ispresent(upf_currentop(theadmin, nullop)) .
+ 
+

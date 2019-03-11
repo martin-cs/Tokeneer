@@ -1,0 +1,64 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:28.20*/
+
+             /*procedure ConfigData.ValidateFile.ReadWorkingHours*/
+
+
+rule_family readworkingh_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+readworkingh_rules(1): integer__size >= 0 may_be_deduced.
+readworkingh_rules(2): integer__first may_be_replaced_by -2147483648.
+readworkingh_rules(3): integer__last may_be_replaced_by 2147483647.
+readworkingh_rules(4): integer__base__first may_be_replaced_by -2147483648.
+readworkingh_rules(5): integer__base__last may_be_replaced_by 2147483647.
+readworkingh_rules(6): character__size >= 0 may_be_deduced.
+readworkingh_rules(7): character__first may_be_replaced_by 0.
+readworkingh_rules(8): character__last may_be_replaced_by 255.
+readworkingh_rules(9): character__base__first may_be_replaced_by 0.
+readworkingh_rules(10): character__base__last may_be_replaced_by 255.
+readworkingh_rules(11): natural__size >= 0 may_be_deduced.
+readworkingh_rules(12): natural__first may_be_replaced_by 0.
+readworkingh_rules(13): natural__last may_be_replaced_by 2147483647.
+readworkingh_rules(14): natural__base__first may_be_replaced_by -2147483648.
+readworkingh_rules(15): natural__base__last may_be_replaced_by 2147483647.
+readworkingh_rules(16): positive__size >= 0 may_be_deduced.
+readworkingh_rules(17): positive__first may_be_replaced_by 1.
+readworkingh_rules(18): positive__last may_be_replaced_by 2147483647.
+readworkingh_rules(19): positive__base__first may_be_replaced_by -2147483648.
+readworkingh_rules(20): positive__base__last may_be_replaced_by 2147483647.
+readworkingh_rules(21): clock__hourst__size >= 0 may_be_deduced.
+readworkingh_rules(22): clock__hourst__first may_be_replaced_by 0.
+readworkingh_rules(23): clock__hourst__last may_be_replaced_by 23.
+readworkingh_rules(24): clock__hourst__base__first <= 
+     clock__hourst__base__last may_be_deduced.
+readworkingh_rules(25): clock__hourst__base__first <= 
+     clock__hourst__first may_be_deduced.
+readworkingh_rules(26): clock__hourst__base__last >= 
+     clock__hourst__last may_be_deduced.
+readworkingh_rules(27): clock__minutest__size >= 0 may_be_deduced.
+readworkingh_rules(28): clock__minutest__first may_be_replaced_by 0.
+readworkingh_rules(29): clock__minutest__last may_be_replaced_by 59.
+readworkingh_rules(30): clock__minutest__base__first <= 
+     clock__minutest__base__last may_be_deduced.
+readworkingh_rules(31): clock__minutest__base__first <= 
+     clock__minutest__first may_be_deduced.
+readworkingh_rules(32): clock__minutest__base__last >= 
+     clock__minutest__last may_be_deduced.
+readworkingh_rules(33): clock__durationt__size >= 0 may_be_deduced.
+readworkingh_rules(34): clock__durationt__first may_be_replaced_by 0.
+readworkingh_rules(35): clock__durationt__last may_be_replaced_by 864000.
+readworkingh_rules(36): clock__durationt__base__first <= 
+     clock__durationt__base__last may_be_deduced.
+readworkingh_rules(37): clock__durationt__base__first <= 
+     clock__durationt__first may_be_deduced.
+readworkingh_rules(38): clock__durationt__base__last >= 
+     clock__durationt__last may_be_deduced.

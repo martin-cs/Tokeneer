@@ -1,0 +1,41 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:27.84}
+
+                         {procedure Updates.Activity}
+
+
+title procedure activity;
+
+  function round__(real) : integer;
+  type alarmtypes__statust = (alarmtypes__alarming, 
+     alarmtypes__silent);
+  type latch__statetype = pending;
+  type latch__outtype = pending;
+  type door__statetype = pending;
+  type alarm__outtype = pending;
+  const alarmtypes__statust__base__first : alarmtypes__statust = pending; 
+  const alarmtypes__statust__base__last : alarmtypes__statust = pending; 
+  const alarmtypes__statust__first : alarmtypes__statust = pending; 
+  const alarmtypes__statust__last : alarmtypes__statust = pending; 
+  const alarmtypes__statust__size : integer = pending; 
+  var latch__state : latch__statetype;
+  var latch__output : latch__outtype;
+  var door__state : door__statetype;
+  var alarm__output : alarm__outtype;
+  var systemfault : boolean;
+  function latch__prf_islocked(latch__outtype) : boolean;
+  function latch__islocked(latch__statetype) : boolean;
+  function door__thedooralarm(door__statetype) : 
+     alarmtypes__statust;
+  function alarm__prf_isalarming(alarm__outtype) : boolean;
+  var systemfault__3 : boolean;
+  var latch__output__3 : latch__outtype;
+  var alarm__output__3 : alarm__outtype;
+
+end;

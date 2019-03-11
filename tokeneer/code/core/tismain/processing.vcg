@@ -1,0 +1,1439 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:31.20
+
+                        procedure TISMain.Processing
+
+
+
+
+For path(s) from start to precondition check associated with statement of line 715:
+
+procedure_processing_1.
+H1:    (not (enclave__enrolmentisinprogress(enclave__state))) <-> 
+           keystore__privatekeypresent(keystore__state) .
+H2:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H3:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H4:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H6:    (not (admin__ispresent(theadmin))) -> (not (
+           admin__isdoingop(theadmin))) .
+H7:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__shutdownop)) -> 
+           enclave__prf_statusiswaitingstartadminop(
+           enclave__state) .
+H8:    (enclave__prf_statusisgotadmintoken(enclave__state) or 
+           enclave__prf_statusiswaitingremoveadmintokenfail(
+           enclave__state)) -> (not (admin__ispresent(
+           theadmin))) .
+H9:    (enclave__prf_statusiswaitingstartadminop(
+           enclave__state) or 
+           enclave__prf_statusiswaitingfinishadminop(
+           enclave__state)) -> (admin__ispresent(theadmin) and 
+           admin__isdoingop(theadmin)) .
+H10:   enclave__prf_statusisenclavequiescent(enclave__state) -> (not (
+           admin__isdoingop(theadmin))) .
+H11:   enclave__prf_statusisshutdown(enclave__state) -> ((not (
+           admin__isdoingop(theadmin))) and (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__useronly)) .
+H12:   enclave__enrolmentisinprogress(enclave__state) -> ((not (
+           admin__ispresent(theadmin))) and (not (
+           admin__isdoingop(theadmin)))) .
+H13:   true .
+H14:   enclave__enrolmentisinprogress(enclave__state) .
+        ->
+C1:    enclave__enrolmentisinprogress(enclave__state) .
+C2:    not (keystore__privatekeypresent(keystore__state)) .
+ 
+
+For path(s) from start to check associated with statement of line 716:
+
+procedure_processing_2.
+H1:    (not (enclave__enrolmentisinprogress(enclave__state))) <-> 
+           keystore__privatekeypresent(keystore__state) .
+H2:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H3:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H4:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H6:    (not (admin__ispresent(theadmin))) -> (not (
+           admin__isdoingop(theadmin))) .
+H7:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__shutdownop)) -> 
+           enclave__prf_statusiswaitingstartadminop(
+           enclave__state) .
+H8:    (enclave__prf_statusisgotadmintoken(enclave__state) or 
+           enclave__prf_statusiswaitingremoveadmintokenfail(
+           enclave__state)) -> (not (admin__ispresent(
+           theadmin))) .
+H9:    (enclave__prf_statusiswaitingstartadminop(
+           enclave__state) or 
+           enclave__prf_statusiswaitingfinishadminop(
+           enclave__state)) -> (admin__ispresent(theadmin) and 
+           admin__isdoingop(theadmin)) .
+H10:   enclave__prf_statusisenclavequiescent(enclave__state) -> (not (
+           admin__isdoingop(theadmin))) .
+H11:   enclave__prf_statusisshutdown(enclave__state) -> ((not (
+           admin__isdoingop(theadmin))) and (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__useronly)) .
+H12:   enclave__enrolmentisinprogress(enclave__state) -> ((not (
+           admin__ispresent(theadmin))) and (not (
+           admin__isdoingop(theadmin)))) .
+H13:   true .
+H14:   enclave__enrolmentisinprogress(enclave__state) .
+H15:   enclave__enrolmentisinprogress(enclave__state) .
+H16:   not (keystore__privatekeypresent(keystore__state)) .
+H17:   keystore__privatekeypresent(keystore__state__1) <-> (not (
+           enclave__enrolmentisinprogress(enclave__state__1))) .
+H18:   enclave__enrolmentisinprogress(enclave__state__1) or 
+           enclave__prf_statusisenclavequiescent(enclave__state__1) .
+        ->
+C1:    not (enclave__prf_statusiswaitingstartadminop(enclave__state__1)) .
+C2:    not (enclave__prf_statusiswaitingfinishadminop(enclave__state__1)) .
+C3:    not (enclave__prf_statusisshutdown(enclave__state__1)) .
+ 
+
+For path(s) from start to precondition check associated with statement of line 721:
+
+procedure_processing_3.
+H1:    (not (enclave__enrolmentisinprogress(enclave__state))) <-> 
+           keystore__privatekeypresent(keystore__state) .
+H2:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H3:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H4:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H6:    (not (admin__ispresent(theadmin))) -> (not (
+           admin__isdoingop(theadmin))) .
+H7:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__shutdownop)) -> 
+           enclave__prf_statusiswaitingstartadminop(
+           enclave__state) .
+H8:    (enclave__prf_statusisgotadmintoken(enclave__state) or 
+           enclave__prf_statusiswaitingremoveadmintokenfail(
+           enclave__state)) -> (not (admin__ispresent(
+           theadmin))) .
+H9:    (enclave__prf_statusiswaitingstartadminop(
+           enclave__state) or 
+           enclave__prf_statusiswaitingfinishadminop(
+           enclave__state)) -> (admin__ispresent(theadmin) and 
+           admin__isdoingop(theadmin)) .
+H10:   enclave__prf_statusisenclavequiescent(enclave__state) -> (not (
+           admin__isdoingop(theadmin))) .
+H11:   enclave__prf_statusisshutdown(enclave__state) -> ((not (
+           admin__isdoingop(theadmin))) and (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__useronly)) .
+H12:   enclave__enrolmentisinprogress(enclave__state) -> ((not (
+           admin__ispresent(theadmin))) and (not (
+           admin__isdoingop(theadmin)))) .
+H13:   true .
+H14:   not (enclave__enrolmentisinprogress(enclave__state)) .
+H15:   true .
+H16:   enclave__adminmustlogout(theadmin, enclave__state, 
+           clock__currenttime, admintoken__state) .
+        ->
+C1:    not (enclave__enrolmentisinprogress(enclave__state)) .
+C2:    (enclave__prf_statusiswaitingstartadminop(
+           enclave__state) or 
+           enclave__prf_statusiswaitingfinishadminop(
+           enclave__state)) -> (admin__isdoingop(theadmin) and 
+           admin__ispresent(theadmin)) .
+ 
+
+For path(s) from start to check associated with statement of line 723:
+
+procedure_processing_4.
+H1:    (not (enclave__enrolmentisinprogress(enclave__state))) <-> 
+           keystore__privatekeypresent(keystore__state) .
+H2:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H3:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H4:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H6:    (not (admin__ispresent(theadmin))) -> (not (
+           admin__isdoingop(theadmin))) .
+H7:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__shutdownop)) -> 
+           enclave__prf_statusiswaitingstartadminop(
+           enclave__state) .
+H8:    (enclave__prf_statusisgotadmintoken(enclave__state) or 
+           enclave__prf_statusiswaitingremoveadmintokenfail(
+           enclave__state)) -> (not (admin__ispresent(
+           theadmin))) .
+H9:    (enclave__prf_statusiswaitingstartadminop(
+           enclave__state) or 
+           enclave__prf_statusiswaitingfinishadminop(
+           enclave__state)) -> (admin__ispresent(theadmin) and 
+           admin__isdoingop(theadmin)) .
+H10:   enclave__prf_statusisenclavequiescent(enclave__state) -> (not (
+           admin__isdoingop(theadmin))) .
+H11:   enclave__prf_statusisshutdown(enclave__state) -> ((not (
+           admin__isdoingop(theadmin))) and (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__useronly)) .
+H12:   enclave__enrolmentisinprogress(enclave__state) -> ((not (
+           admin__ispresent(theadmin))) and (not (
+           admin__isdoingop(theadmin)))) .
+H13:   true .
+H14:   not (enclave__enrolmentisinprogress(enclave__state)) .
+H15:   true .
+H16:   enclave__adminmustlogout(theadmin, enclave__state, 
+           clock__currenttime, admintoken__state) .
+H17:   not (enclave__enrolmentisinprogress(enclave__state)) .
+H18:   (enclave__prf_statusiswaitingstartadminop(
+           enclave__state) or 
+           enclave__prf_statusiswaitingfinishadminop(
+           enclave__state)) -> (admin__isdoingop(theadmin) and 
+           admin__ispresent(theadmin)) .
+H19:   not (enclave__enrolmentisinprogress(enclave__state__2)) .
+H20:   admin__prf_rolepresent(theadmin__2) = 
+           privtypes__useronly .
+H21:   not (admin__isdoingop(theadmin__2)) .
+H22:   enclave__prf_statusisenclavequiescent(enclave__state__2) or (
+           enclave__prf_statusiswaitingremoveadmintokenfail(
+           enclave__state__2) or (enclave__state__2 = 
+           enclave__state)) .
+H23:   not (enclave__prf_statusiswaitingstartadminop(enclave__state__2) or 
+           enclave__prf_statusiswaitingfinishadminop(enclave__state__2)) .
+        ->
+C1:    not (admin__ispresent(theadmin__2)) .
+ 
+
+For path(s) from start to precondition check associated with statement of line 726:
+
+procedure_processing_5.
+H1:    (not (enclave__enrolmentisinprogress(enclave__state))) <-> 
+           keystore__privatekeypresent(keystore__state) .
+H2:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H3:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H4:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H6:    (not (admin__ispresent(theadmin))) -> (not (
+           admin__isdoingop(theadmin))) .
+H7:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__shutdownop)) -> 
+           enclave__prf_statusiswaitingstartadminop(
+           enclave__state) .
+H8:    (enclave__prf_statusisgotadmintoken(enclave__state) or 
+           enclave__prf_statusiswaitingremoveadmintokenfail(
+           enclave__state)) -> (not (admin__ispresent(
+           theadmin))) .
+H9:    (enclave__prf_statusiswaitingstartadminop(
+           enclave__state) or 
+           enclave__prf_statusiswaitingfinishadminop(
+           enclave__state)) -> (admin__ispresent(theadmin) and 
+           admin__isdoingop(theadmin)) .
+H10:   enclave__prf_statusisenclavequiescent(enclave__state) -> (not (
+           admin__isdoingop(theadmin))) .
+H11:   enclave__prf_statusisshutdown(enclave__state) -> ((not (
+           admin__isdoingop(theadmin))) and (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__useronly)) .
+H12:   enclave__enrolmentisinprogress(enclave__state) -> ((not (
+           admin__ispresent(theadmin))) and (not (
+           admin__isdoingop(theadmin)))) .
+H13:   true .
+H14:   not (enclave__enrolmentisinprogress(enclave__state)) .
+H15:   true .
+H16:   not (enclave__adminmustlogout(theadmin, enclave__state, 
+           clock__currenttime, admintoken__state)) .
+H17:   true .
+H18:   userentry__currentactivitypossible(userentry__state, 
+           usertoken__state) .
+        ->
+C1:    userentry__currentactivitypossible(userentry__state, 
+           usertoken__state) .
+C2:    keystore__privatekeypresent(keystore__state) .
+C3:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+ 
+
+For path(s) from start to precondition check associated with statement of line 730:
+
+procedure_processing_6.
+H1:    (not (enclave__enrolmentisinprogress(enclave__state))) <-> 
+           keystore__privatekeypresent(keystore__state) .
+H2:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H3:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H4:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H6:    (not (admin__ispresent(theadmin))) -> (not (
+           admin__isdoingop(theadmin))) .
+H7:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__shutdownop)) -> 
+           enclave__prf_statusiswaitingstartadminop(
+           enclave__state) .
+H8:    (enclave__prf_statusisgotadmintoken(enclave__state) or 
+           enclave__prf_statusiswaitingremoveadmintokenfail(
+           enclave__state)) -> (not (admin__ispresent(
+           theadmin))) .
+H9:    (enclave__prf_statusiswaitingstartadminop(
+           enclave__state) or 
+           enclave__prf_statusiswaitingfinishadminop(
+           enclave__state)) -> (admin__ispresent(theadmin) and 
+           admin__isdoingop(theadmin)) .
+H10:   enclave__prf_statusisenclavequiescent(enclave__state) -> (not (
+           admin__isdoingop(theadmin))) .
+H11:   enclave__prf_statusisshutdown(enclave__state) -> ((not (
+           admin__isdoingop(theadmin))) and (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__useronly)) .
+H12:   enclave__enrolmentisinprogress(enclave__state) -> ((not (
+           admin__ispresent(theadmin))) and (not (
+           admin__isdoingop(theadmin)))) .
+H13:   true .
+H14:   not (enclave__enrolmentisinprogress(enclave__state)) .
+H15:   true .
+H16:   not (enclave__adminmustlogout(theadmin, enclave__state, 
+           clock__currenttime, admintoken__state)) .
+H17:   true .
+H18:   not (userentry__currentactivitypossible(
+           userentry__state, usertoken__state)) .
+H19:   true .
+H20:   enclave__currentadminactivitypossible(enclave__state, 
+           admintoken__state) .
+        ->
+C1:    not (enclave__enrolmentisinprogress(enclave__state)) .
+C2:    enclave__currentadminactivitypossible(enclave__state, 
+           admintoken__state) .
+C3:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+C4:    (enclave__prf_statusisgotadmintoken(enclave__state) or 
+           enclave__prf_statusiswaitingremoveadmintokenfail(
+           enclave__state)) -> (not (admin__ispresent(
+           theadmin))) .
+C5:    (not (admin__ispresent(theadmin))) -> (not (
+           admin__isdoingop(theadmin))) .
+C6:    (enclave__prf_statusiswaitingstartadminop(
+           enclave__state) or 
+           enclave__prf_statusiswaitingfinishadminop(
+           enclave__state)) -> (admin__ispresent(theadmin) and 
+           admin__isdoingop(theadmin)) .
+C7:    enclave__prf_statusisenclavequiescent(enclave__state) -> (not (
+           admin__isdoingop(theadmin))) .
+C8:    enclave__prf_statusisshutdown(enclave__state) -> ((not (
+           admin__isdoingop(theadmin))) and (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__useronly)) .
+C9:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__shutdownop)) -> 
+           enclave__prf_statusiswaitingstartadminop(
+           enclave__state) .
+C10:   (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+C11:   (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+C12:   (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+ 
+
+For path(s) from start to precondition check associated with statement of line 737:
+
+procedure_processing_7.
+H1:    (not (enclave__enrolmentisinprogress(enclave__state))) <-> 
+           keystore__privatekeypresent(keystore__state) .
+H2:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H3:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H4:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H6:    (not (admin__ispresent(theadmin))) -> (not (
+           admin__isdoingop(theadmin))) .
+H7:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__shutdownop)) -> 
+           enclave__prf_statusiswaitingstartadminop(
+           enclave__state) .
+H8:    (enclave__prf_statusisgotadmintoken(enclave__state) or 
+           enclave__prf_statusiswaitingremoveadmintokenfail(
+           enclave__state)) -> (not (admin__ispresent(
+           theadmin))) .
+H9:    (enclave__prf_statusiswaitingstartadminop(
+           enclave__state) or 
+           enclave__prf_statusiswaitingfinishadminop(
+           enclave__state)) -> (admin__ispresent(theadmin) and 
+           admin__isdoingop(theadmin)) .
+H10:   enclave__prf_statusisenclavequiescent(enclave__state) -> (not (
+           admin__isdoingop(theadmin))) .
+H11:   enclave__prf_statusisshutdown(enclave__state) -> ((not (
+           admin__isdoingop(theadmin))) and (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__useronly)) .
+H12:   enclave__enrolmentisinprogress(enclave__state) -> ((not (
+           admin__ispresent(theadmin))) and (not (
+           admin__isdoingop(theadmin)))) .
+H13:   true .
+H14:   not (enclave__enrolmentisinprogress(enclave__state)) .
+H15:   true .
+H16:   not (enclave__adminmustlogout(theadmin, enclave__state, 
+           clock__currenttime, admintoken__state)) .
+H17:   true .
+H18:   not (userentry__currentactivitypossible(
+           userentry__state, usertoken__state)) .
+H19:   true .
+H20:   not (enclave__currentadminactivitypossible(
+           enclave__state, admintoken__state)) .
+H21:   true .
+H22:   not (userentry__canstart(userentry__state, 
+           usertoken__state)) .
+        ->
+C1:    not (enclave__enrolmentisinprogress(enclave__state)) .
+C2:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+C3:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+C4:    (not (admin__ispresent(theadmin))) -> (not (
+           admin__isdoingop(theadmin))) .
+C5:    (enclave__prf_statusisgotadmintoken(enclave__state) or 
+           enclave__prf_statusiswaitingremoveadmintokenfail(
+           enclave__state)) -> (not (admin__ispresent(
+           theadmin))) .
+C6:    (enclave__prf_statusiswaitingstartadminop(
+           enclave__state) or 
+           enclave__prf_statusiswaitingfinishadminop(
+           enclave__state)) -> (admin__ispresent(theadmin) and 
+           admin__isdoingop(theadmin)) .
+C7:    enclave__prf_statusisenclavequiescent(enclave__state) -> (not (
+           admin__isdoingop(theadmin))) .
+C8:    enclave__prf_statusisshutdown(enclave__state) -> ((not (
+           admin__isdoingop(theadmin))) and (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__useronly)) .
+C9:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__shutdownop)) -> 
+           enclave__prf_statusiswaitingstartadminop(
+           enclave__state) .
+C10:   (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+ 
+
+For path(s) from start to finish:
+
+procedure_processing_8.
+H1:    (not (enclave__enrolmentisinprogress(enclave__state))) <-> 
+           keystore__privatekeypresent(keystore__state) .
+H2:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H3:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H4:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H6:    (not (admin__ispresent(theadmin))) -> (not (
+           admin__isdoingop(theadmin))) .
+H7:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__shutdownop)) -> 
+           enclave__prf_statusiswaitingstartadminop(
+           enclave__state) .
+H8:    (enclave__prf_statusisgotadmintoken(enclave__state) or 
+           enclave__prf_statusiswaitingremoveadmintokenfail(
+           enclave__state)) -> (not (admin__ispresent(
+           theadmin))) .
+H9:    (enclave__prf_statusiswaitingstartadminop(
+           enclave__state) or 
+           enclave__prf_statusiswaitingfinishadminop(
+           enclave__state)) -> (admin__ispresent(theadmin) and 
+           admin__isdoingop(theadmin)) .
+H10:   enclave__prf_statusisenclavequiescent(enclave__state) -> (not (
+           admin__isdoingop(theadmin))) .
+H11:   enclave__prf_statusisshutdown(enclave__state) -> ((not (
+           admin__isdoingop(theadmin))) and (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__useronly)) .
+H12:   enclave__enrolmentisinprogress(enclave__state) -> ((not (
+           admin__ispresent(theadmin))) and (not (
+           admin__isdoingop(theadmin)))) .
+H13:   true .
+H14:   enclave__enrolmentisinprogress(enclave__state) .
+H15:   enclave__enrolmentisinprogress(enclave__state) .
+H16:   not (keystore__privatekeypresent(keystore__state)) .
+H17:   keystore__privatekeypresent(keystore__state__1) <-> (not (
+           enclave__enrolmentisinprogress(enclave__state__1))) .
+H18:   enclave__enrolmentisinprogress(enclave__state__1) or 
+           enclave__prf_statusisenclavequiescent(enclave__state__1) .
+H19:   not (enclave__prf_statusiswaitingstartadminop(enclave__state__1)) .
+H20:   not (enclave__prf_statusiswaitingfinishadminop(enclave__state__1)) .
+H21:   not (enclave__prf_statusisshutdown(enclave__state__1)) .
+        ->
+C1:    (not (enclave__enrolmentisinprogress(enclave__state__1))) <-> 
+           keystore__privatekeypresent(keystore__state__1) .
+C2:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+C3:    ((not (latch__islocked(latch__state))) and 
+           latch__islocked(latch__state)) -> (
+           userentry__prf_userentryunlockdoor or (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard)))) .
+C4:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+C5:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+C6:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+C7:    (not (admin__ispresent(theadmin))) -> (not (
+           admin__isdoingop(theadmin))) .
+C8:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__shutdownop)) -> 
+           enclave__prf_statusiswaitingstartadminop(enclave__state__1) .
+C9:    (enclave__prf_statusisgotadmintoken(enclave__state__1) or 
+           enclave__prf_statusiswaitingremoveadmintokenfail(
+           enclave__state__1)) -> (not (admin__ispresent(
+           theadmin))) .
+C10:   (enclave__prf_statusiswaitingstartadminop(enclave__state__1) or 
+           enclave__prf_statusiswaitingfinishadminop(enclave__state__1)) -> (
+           admin__isdoingop(theadmin) and (admin__ispresent(
+           theadmin) and (admin__prf_rolepresent(theadmin) = 
+           admin__prf_rolepresent(theadmin)))) .
+C11:   enclave__prf_statusisenclavequiescent(enclave__state__1) -> (not (
+           admin__isdoingop(theadmin))) .
+C12:   enclave__prf_statusisshutdown(enclave__state__1) -> ((not (
+           admin__isdoingop(theadmin))) and (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__useronly)) .
+C13:   enclave__enrolmentisinprogress(enclave__state__1) -> ((not (
+           admin__ispresent(theadmin))) and (not (
+           admin__isdoingop(theadmin)))) .
+ 
+
+procedure_processing_9.
+H1:    (not (enclave__enrolmentisinprogress(enclave__state))) <-> 
+           keystore__privatekeypresent(keystore__state) .
+H2:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H3:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H4:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H6:    (not (admin__ispresent(theadmin))) -> (not (
+           admin__isdoingop(theadmin))) .
+H7:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__shutdownop)) -> 
+           enclave__prf_statusiswaitingstartadminop(
+           enclave__state) .
+H8:    (enclave__prf_statusisgotadmintoken(enclave__state) or 
+           enclave__prf_statusiswaitingremoveadmintokenfail(
+           enclave__state)) -> (not (admin__ispresent(
+           theadmin))) .
+H9:    (enclave__prf_statusiswaitingstartadminop(
+           enclave__state) or 
+           enclave__prf_statusiswaitingfinishadminop(
+           enclave__state)) -> (admin__ispresent(theadmin) and 
+           admin__isdoingop(theadmin)) .
+H10:   enclave__prf_statusisenclavequiescent(enclave__state) -> (not (
+           admin__isdoingop(theadmin))) .
+H11:   enclave__prf_statusisshutdown(enclave__state) -> ((not (
+           admin__isdoingop(theadmin))) and (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__useronly)) .
+H12:   enclave__enrolmentisinprogress(enclave__state) -> ((not (
+           admin__ispresent(theadmin))) and (not (
+           admin__isdoingop(theadmin)))) .
+H13:   true .
+H14:   not (enclave__enrolmentisinprogress(enclave__state)) .
+H15:   true .
+H16:   enclave__adminmustlogout(theadmin, enclave__state, 
+           clock__currenttime, admintoken__state) .
+H17:   not (enclave__enrolmentisinprogress(enclave__state)) .
+H18:   (enclave__prf_statusiswaitingstartadminop(
+           enclave__state) or 
+           enclave__prf_statusiswaitingfinishadminop(
+           enclave__state)) -> (admin__isdoingop(theadmin) and 
+           admin__ispresent(theadmin)) .
+H19:   not (enclave__enrolmentisinprogress(enclave__state__2)) .
+H20:   admin__prf_rolepresent(theadmin__2) = 
+           privtypes__useronly .
+H21:   not (admin__isdoingop(theadmin__2)) .
+H22:   enclave__prf_statusisenclavequiescent(enclave__state__2) or (
+           enclave__prf_statusiswaitingremoveadmintokenfail(
+           enclave__state__2) or (enclave__state__2 = 
+           enclave__state)) .
+H23:   not (enclave__prf_statusiswaitingstartadminop(enclave__state__2) or 
+           enclave__prf_statusiswaitingfinishadminop(enclave__state__2)) .
+H24:   not (admin__ispresent(theadmin__2)) .
+        ->
+C1:    (not (enclave__enrolmentisinprogress(enclave__state__2))) <-> 
+           keystore__privatekeypresent(keystore__state) .
+C2:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+C3:    ((not (latch__islocked(latch__state))) and 
+           latch__islocked(latch__state)) -> (
+           userentry__prf_userentryunlockdoor or (
+           admintoken__prf_isgood(admintoken__state__2) and (
+           admintoken__prf_authcertvalid(admintoken__state__2) and (
+           admintoken__theauthcertrole(admintoken__state__2) = 
+           privtypes__guard)))) .
+C4:    (admin__prf_rolepresent(theadmin__2) = 
+           privtypes__guard) -> (admintoken__prf_isgood(
+           admintoken__state__2) and (
+           admintoken__prf_authcertvalid(admintoken__state__2) and (
+           admintoken__theauthcertrole(admintoken__state__2) = 
+           privtypes__guard))) .
+C5:    (admin__isdoingop(theadmin__2) and (
+           admin__thecurrentop(theadmin__2) = 
+           admin__overridelock)) -> (admin__prf_rolepresent(theadmin__2) = 
+           privtypes__guard) .
+C6:    (admin__prf_rolepresent(theadmin__2) = 
+           privtypes__guard) -> ((admin__isdoingop(theadmin__2) and (
+           admin__thecurrentop(theadmin__2) = 
+           admin__overridelock)) or (not (admin__isdoingop(theadmin__2)))) .
+C7:    (not (admin__ispresent(theadmin__2))) -> (not (
+           admin__isdoingop(theadmin__2))) .
+C8:    (admin__isdoingop(theadmin__2) and (
+           admin__thecurrentop(theadmin__2) = 
+           admin__shutdownop)) -> 
+           enclave__prf_statusiswaitingstartadminop(enclave__state__2) .
+C9:    (enclave__prf_statusisgotadmintoken(enclave__state__2) or 
+           enclave__prf_statusiswaitingremoveadmintokenfail(
+           enclave__state__2)) -> (not (admin__ispresent(theadmin__2))) .
+C10:   (enclave__prf_statusiswaitingstartadminop(enclave__state__2) or 
+           enclave__prf_statusiswaitingfinishadminop(enclave__state__2)) -> (
+           admin__isdoingop(theadmin__2) and (
+           admin__ispresent(theadmin__2) and (
+           admin__prf_rolepresent(theadmin__2) = 
+           admin__prf_rolepresent(theadmin)))) .
+C11:   enclave__prf_statusisenclavequiescent(enclave__state__2) -> (not (
+           admin__isdoingop(theadmin__2))) .
+C12:   enclave__prf_statusisshutdown(enclave__state__2) -> ((not (
+           admin__isdoingop(theadmin__2))) and (
+           admin__prf_rolepresent(theadmin__2) = 
+           privtypes__useronly)) .
+C13:   enclave__enrolmentisinprogress(enclave__state__2) -> ((not (
+           admin__ispresent(theadmin__2))) and (not (
+           admin__isdoingop(theadmin__2)))) .
+ 
+
+procedure_processing_10.
+H1:    (not (enclave__enrolmentisinprogress(enclave__state))) <-> 
+           keystore__privatekeypresent(keystore__state) .
+H2:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H3:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H4:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H6:    (not (admin__ispresent(theadmin))) -> (not (
+           admin__isdoingop(theadmin))) .
+H7:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__shutdownop)) -> 
+           enclave__prf_statusiswaitingstartadminop(
+           enclave__state) .
+H8:    (enclave__prf_statusisgotadmintoken(enclave__state) or 
+           enclave__prf_statusiswaitingremoveadmintokenfail(
+           enclave__state)) -> (not (admin__ispresent(
+           theadmin))) .
+H9:    (enclave__prf_statusiswaitingstartadminop(
+           enclave__state) or 
+           enclave__prf_statusiswaitingfinishadminop(
+           enclave__state)) -> (admin__ispresent(theadmin) and 
+           admin__isdoingop(theadmin)) .
+H10:   enclave__prf_statusisenclavequiescent(enclave__state) -> (not (
+           admin__isdoingop(theadmin))) .
+H11:   enclave__prf_statusisshutdown(enclave__state) -> ((not (
+           admin__isdoingop(theadmin))) and (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__useronly)) .
+H12:   enclave__enrolmentisinprogress(enclave__state) -> ((not (
+           admin__ispresent(theadmin))) and (not (
+           admin__isdoingop(theadmin)))) .
+H13:   true .
+H14:   not (enclave__enrolmentisinprogress(enclave__state)) .
+H15:   true .
+H16:   not (enclave__adminmustlogout(theadmin, enclave__state, 
+           clock__currenttime, admintoken__state)) .
+H17:   true .
+H18:   userentry__currentactivitypossible(userentry__state, 
+           usertoken__state) .
+H19:   userentry__currentactivitypossible(userentry__state, 
+           usertoken__state) .
+H20:   keystore__privatekeypresent(keystore__state) .
+H21:   (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H22:   (latch__islocked(latch__state__4) and ((
+           door__thecurrentdoor(door__state__4) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(door__state__4)))) <-> (
+           door__thedooralarm(door__state__4) = 
+           alarmtypes__alarming) .
+H23:   (latch__islocked(latch__state) and (not (
+           latch__islocked(latch__state__4)))) <-> 
+           userentry__prf_userentryunlockdoor .
+        ->
+C1:    (not (enclave__enrolmentisinprogress(enclave__state))) <-> 
+           keystore__privatekeypresent(keystore__state) .
+C2:    (latch__islocked(latch__state__4) and ((
+           door__thecurrentdoor(door__state__4) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(door__state__4)))) <-> (
+           door__thedooralarm(door__state__4) = 
+           alarmtypes__alarming) .
+C3:    ((not (latch__islocked(latch__state__4))) and 
+           latch__islocked(latch__state)) -> (
+           userentry__prf_userentryunlockdoor or (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard)))) .
+C4:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+C5:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+C6:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+C7:    (not (admin__ispresent(theadmin))) -> (not (
+           admin__isdoingop(theadmin))) .
+C8:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__shutdownop)) -> 
+           enclave__prf_statusiswaitingstartadminop(
+           enclave__state) .
+C9:    (enclave__prf_statusisgotadmintoken(enclave__state) or 
+           enclave__prf_statusiswaitingremoveadmintokenfail(
+           enclave__state)) -> (not (admin__ispresent(
+           theadmin))) .
+C10:   (enclave__prf_statusiswaitingstartadminop(
+           enclave__state) or 
+           enclave__prf_statusiswaitingfinishadminop(
+           enclave__state)) -> (admin__isdoingop(theadmin) and (
+           admin__ispresent(theadmin) and (
+           admin__prf_rolepresent(theadmin) = 
+           admin__prf_rolepresent(theadmin)))) .
+C11:   enclave__prf_statusisenclavequiescent(enclave__state) -> (not (
+           admin__isdoingop(theadmin))) .
+C12:   enclave__prf_statusisshutdown(enclave__state) -> ((not (
+           admin__isdoingop(theadmin))) and (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__useronly)) .
+C13:   enclave__enrolmentisinprogress(enclave__state) -> ((not (
+           admin__ispresent(theadmin))) and (not (
+           admin__isdoingop(theadmin)))) .
+ 
+
+procedure_processing_11.
+H1:    (not (enclave__enrolmentisinprogress(enclave__state))) <-> 
+           keystore__privatekeypresent(keystore__state) .
+H2:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H3:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H4:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H6:    (not (admin__ispresent(theadmin))) -> (not (
+           admin__isdoingop(theadmin))) .
+H7:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__shutdownop)) -> 
+           enclave__prf_statusiswaitingstartadminop(
+           enclave__state) .
+H8:    (enclave__prf_statusisgotadmintoken(enclave__state) or 
+           enclave__prf_statusiswaitingremoveadmintokenfail(
+           enclave__state)) -> (not (admin__ispresent(
+           theadmin))) .
+H9:    (enclave__prf_statusiswaitingstartadminop(
+           enclave__state) or 
+           enclave__prf_statusiswaitingfinishadminop(
+           enclave__state)) -> (admin__ispresent(theadmin) and 
+           admin__isdoingop(theadmin)) .
+H10:   enclave__prf_statusisenclavequiescent(enclave__state) -> (not (
+           admin__isdoingop(theadmin))) .
+H11:   enclave__prf_statusisshutdown(enclave__state) -> ((not (
+           admin__isdoingop(theadmin))) and (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__useronly)) .
+H12:   enclave__enrolmentisinprogress(enclave__state) -> ((not (
+           admin__ispresent(theadmin))) and (not (
+           admin__isdoingop(theadmin)))) .
+H13:   true .
+H14:   not (enclave__enrolmentisinprogress(enclave__state)) .
+H15:   true .
+H16:   not (enclave__adminmustlogout(theadmin, enclave__state, 
+           clock__currenttime, admintoken__state)) .
+H17:   true .
+H18:   not (userentry__currentactivitypossible(
+           userentry__state, usertoken__state)) .
+H19:   true .
+H20:   enclave__currentadminactivitypossible(enclave__state, 
+           admintoken__state) .
+H21:   not (enclave__enrolmentisinprogress(enclave__state)) .
+H22:   enclave__currentadminactivitypossible(enclave__state, 
+           admintoken__state) .
+H23:   (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H24:   (enclave__prf_statusisgotadmintoken(enclave__state) or 
+           enclave__prf_statusiswaitingremoveadmintokenfail(
+           enclave__state)) -> (not (admin__ispresent(
+           theadmin))) .
+H25:   (not (admin__ispresent(theadmin))) -> (not (
+           admin__isdoingop(theadmin))) .
+H26:   (enclave__prf_statusiswaitingstartadminop(
+           enclave__state) or 
+           enclave__prf_statusiswaitingfinishadminop(
+           enclave__state)) -> (admin__ispresent(theadmin) and 
+           admin__isdoingop(theadmin)) .
+H27:   enclave__prf_statusisenclavequiescent(enclave__state) -> (not (
+           admin__isdoingop(theadmin))) .
+H28:   enclave__prf_statusisshutdown(enclave__state) -> ((not (
+           admin__isdoingop(theadmin))) and (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__useronly)) .
+H29:   (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__shutdownop)) -> 
+           enclave__prf_statusiswaitingstartadminop(
+           enclave__state) .
+H30:   (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H31:   (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H32:   (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H33:   not (enclave__enrolmentisinprogress(enclave__state__6)) .
+H34:   (latch__islocked(latch__state__6) and ((
+           door__thecurrentdoor(door__state__6) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(door__state__6)))) <-> (
+           door__thedooralarm(door__state__6) = 
+           alarmtypes__alarming) .
+H35:   (enclave__prf_statusisgotadmintoken(enclave__state__6) or 
+           enclave__prf_statusiswaitingremoveadmintokenfail(
+           enclave__state__6)) -> (not (admin__ispresent(theadmin__6))) .
+H36:   (enclave__prf_statusiswaitingstartadminop(enclave__state__6) or 
+           enclave__prf_statusiswaitingfinishadminop(enclave__state__6)) -> (
+           admin__isdoingop(theadmin__6) and (
+           admin__ispresent(theadmin__6) and (
+           admin__prf_rolepresent(theadmin__6) = 
+           admin__prf_rolepresent(theadmin)))) .
+H37:   enclave__prf_statusisenclavequiescent(enclave__state__6) -> (not (
+           admin__isdoingop(theadmin__6))) .
+H38:   enclave__prf_statusisshutdown(enclave__state__6) -> ((not (
+           admin__isdoingop(theadmin__6))) and (
+           admin__prf_rolepresent(theadmin__6) = 
+           privtypes__useronly)) .
+H39:   (admin__isdoingop(theadmin__6) and (
+           admin__thecurrentop(theadmin__6) = 
+           admin__shutdownop)) -> 
+           enclave__prf_statusiswaitingstartadminop(enclave__state__6) .
+H40:   (admin__prf_rolepresent(theadmin__6) = 
+           privtypes__guard) -> (admintoken__prf_isgood(
+           admintoken__state__6) and (
+           admintoken__prf_authcertvalid(admintoken__state__6) and (
+           admintoken__theauthcertrole(admintoken__state__6) = 
+           privtypes__guard))) .
+H41:   (admin__isdoingop(theadmin__6) and (
+           admin__thecurrentop(theadmin__6) = 
+           admin__overridelock)) -> (admin__prf_rolepresent(theadmin__6) = 
+           privtypes__guard) .
+H42:   (admin__prf_rolepresent(theadmin__6) = 
+           privtypes__guard) -> ((admin__isdoingop(theadmin__6) and (
+           admin__thecurrentop(theadmin__6) = 
+           admin__overridelock)) or (not (admin__isdoingop(theadmin__6)))) .
+H43:   (not (admin__ispresent(theadmin__6))) -> (not (
+           admin__isdoingop(theadmin__6))) .
+H44:   ((not (latch__islocked(latch__state__6))) and 
+           latch__islocked(latch__state)) -> (
+           admintoken__prf_isgood(admintoken__state__6) and (
+           admintoken__prf_authcertvalid(admintoken__state__6) and (
+           admintoken__theauthcertrole(admintoken__state__6) = 
+           privtypes__guard))) .
+H45:   ((not (latch__islocked(latch__state__6))) and 
+           latch__islocked(latch__state)) -> (
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) .
+        ->
+C1:    (not (enclave__enrolmentisinprogress(enclave__state__6))) <-> 
+           keystore__privatekeypresent(keystore__state) .
+C2:    (latch__islocked(latch__state__6) and ((
+           door__thecurrentdoor(door__state__6) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(door__state__6)))) <-> (
+           door__thedooralarm(door__state__6) = 
+           alarmtypes__alarming) .
+C3:    ((not (latch__islocked(latch__state__6))) and 
+           latch__islocked(latch__state)) -> (
+           userentry__prf_userentryunlockdoor or (
+           admintoken__prf_isgood(admintoken__state__6) and (
+           admintoken__prf_authcertvalid(admintoken__state__6) and (
+           admintoken__theauthcertrole(admintoken__state__6) = 
+           privtypes__guard)))) .
+C4:    (admin__prf_rolepresent(theadmin__6) = 
+           privtypes__guard) -> (admintoken__prf_isgood(
+           admintoken__state__6) and (
+           admintoken__prf_authcertvalid(admintoken__state__6) and (
+           admintoken__theauthcertrole(admintoken__state__6) = 
+           privtypes__guard))) .
+C5:    (admin__isdoingop(theadmin__6) and (
+           admin__thecurrentop(theadmin__6) = 
+           admin__overridelock)) -> (admin__prf_rolepresent(theadmin__6) = 
+           privtypes__guard) .
+C6:    (admin__prf_rolepresent(theadmin__6) = 
+           privtypes__guard) -> ((admin__isdoingop(theadmin__6) and (
+           admin__thecurrentop(theadmin__6) = 
+           admin__overridelock)) or (not (admin__isdoingop(theadmin__6)))) .
+C7:    (not (admin__ispresent(theadmin__6))) -> (not (
+           admin__isdoingop(theadmin__6))) .
+C8:    (admin__isdoingop(theadmin__6) and (
+           admin__thecurrentop(theadmin__6) = 
+           admin__shutdownop)) -> 
+           enclave__prf_statusiswaitingstartadminop(enclave__state__6) .
+C9:    (enclave__prf_statusisgotadmintoken(enclave__state__6) or 
+           enclave__prf_statusiswaitingremoveadmintokenfail(
+           enclave__state__6)) -> (not (admin__ispresent(theadmin__6))) .
+C10:   (enclave__prf_statusiswaitingstartadminop(enclave__state__6) or 
+           enclave__prf_statusiswaitingfinishadminop(enclave__state__6)) -> (
+           admin__isdoingop(theadmin__6) and (
+           admin__ispresent(theadmin__6) and (
+           admin__prf_rolepresent(theadmin__6) = 
+           admin__prf_rolepresent(theadmin)))) .
+C11:   enclave__prf_statusisenclavequiescent(enclave__state__6) -> (not (
+           admin__isdoingop(theadmin__6))) .
+C12:   enclave__prf_statusisshutdown(enclave__state__6) -> ((not (
+           admin__isdoingop(theadmin__6))) and (
+           admin__prf_rolepresent(theadmin__6) = 
+           privtypes__useronly)) .
+C13:   enclave__enrolmentisinprogress(enclave__state__6) -> ((not (
+           admin__ispresent(theadmin__6))) and (not (
+           admin__isdoingop(theadmin__6)))) .
+ 
+
+procedure_processing_12.
+H1:    (not (enclave__enrolmentisinprogress(enclave__state))) <-> 
+           keystore__privatekeypresent(keystore__state) .
+H2:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H3:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H4:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H6:    (not (admin__ispresent(theadmin))) -> (not (
+           admin__isdoingop(theadmin))) .
+H7:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__shutdownop)) -> 
+           enclave__prf_statusiswaitingstartadminop(
+           enclave__state) .
+H8:    (enclave__prf_statusisgotadmintoken(enclave__state) or 
+           enclave__prf_statusiswaitingremoveadmintokenfail(
+           enclave__state)) -> (not (admin__ispresent(
+           theadmin))) .
+H9:    (enclave__prf_statusiswaitingstartadminop(
+           enclave__state) or 
+           enclave__prf_statusiswaitingfinishadminop(
+           enclave__state)) -> (admin__ispresent(theadmin) and 
+           admin__isdoingop(theadmin)) .
+H10:   enclave__prf_statusisenclavequiescent(enclave__state) -> (not (
+           admin__isdoingop(theadmin))) .
+H11:   enclave__prf_statusisshutdown(enclave__state) -> ((not (
+           admin__isdoingop(theadmin))) and (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__useronly)) .
+H12:   enclave__enrolmentisinprogress(enclave__state) -> ((not (
+           admin__ispresent(theadmin))) and (not (
+           admin__isdoingop(theadmin)))) .
+H13:   true .
+H14:   not (enclave__enrolmentisinprogress(enclave__state)) .
+H15:   true .
+H16:   not (enclave__adminmustlogout(theadmin, enclave__state, 
+           clock__currenttime, admintoken__state)) .
+H17:   true .
+H18:   not (userentry__currentactivitypossible(
+           userentry__state, usertoken__state)) .
+H19:   true .
+H20:   not (enclave__currentadminactivitypossible(
+           enclave__state, admintoken__state)) .
+H21:   true .
+H22:   userentry__canstart(userentry__state, usertoken__state) .
+        ->
+C1:    (not (enclave__enrolmentisinprogress(enclave__state))) <-> 
+           keystore__privatekeypresent(keystore__state) .
+C2:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+C3:    ((not (latch__islocked(latch__state))) and 
+           latch__islocked(latch__state)) -> (
+           userentry__prf_userentryunlockdoor or (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard)))) .
+C4:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+C5:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+C6:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+C7:    (not (admin__ispresent(theadmin))) -> (not (
+           admin__isdoingop(theadmin))) .
+C8:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__shutdownop)) -> 
+           enclave__prf_statusiswaitingstartadminop(
+           enclave__state) .
+C9:    (enclave__prf_statusisgotadmintoken(enclave__state) or 
+           enclave__prf_statusiswaitingremoveadmintokenfail(
+           enclave__state)) -> (not (admin__ispresent(
+           theadmin))) .
+C10:   (enclave__prf_statusiswaitingstartadminop(
+           enclave__state) or 
+           enclave__prf_statusiswaitingfinishadminop(
+           enclave__state)) -> (admin__isdoingop(theadmin) and (
+           admin__ispresent(theadmin) and (
+           admin__prf_rolepresent(theadmin) = 
+           admin__prf_rolepresent(theadmin)))) .
+C11:   enclave__prf_statusisenclavequiescent(enclave__state) -> (not (
+           admin__isdoingop(theadmin))) .
+C12:   enclave__prf_statusisshutdown(enclave__state) -> ((not (
+           admin__isdoingop(theadmin))) and (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__useronly)) .
+C13:   enclave__enrolmentisinprogress(enclave__state) -> ((not (
+           admin__ispresent(theadmin))) and (not (
+           admin__isdoingop(theadmin)))) .
+ 
+
+procedure_processing_13.
+H1:    (not (enclave__enrolmentisinprogress(enclave__state))) <-> 
+           keystore__privatekeypresent(keystore__state) .
+H2:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+H3:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H4:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H5:    (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H6:    (not (admin__ispresent(theadmin))) -> (not (
+           admin__isdoingop(theadmin))) .
+H7:    (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__shutdownop)) -> 
+           enclave__prf_statusiswaitingstartadminop(
+           enclave__state) .
+H8:    (enclave__prf_statusisgotadmintoken(enclave__state) or 
+           enclave__prf_statusiswaitingremoveadmintokenfail(
+           enclave__state)) -> (not (admin__ispresent(
+           theadmin))) .
+H9:    (enclave__prf_statusiswaitingstartadminop(
+           enclave__state) or 
+           enclave__prf_statusiswaitingfinishadminop(
+           enclave__state)) -> (admin__ispresent(theadmin) and 
+           admin__isdoingop(theadmin)) .
+H10:   enclave__prf_statusisenclavequiescent(enclave__state) -> (not (
+           admin__isdoingop(theadmin))) .
+H11:   enclave__prf_statusisshutdown(enclave__state) -> ((not (
+           admin__isdoingop(theadmin))) and (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__useronly)) .
+H12:   enclave__enrolmentisinprogress(enclave__state) -> ((not (
+           admin__ispresent(theadmin))) and (not (
+           admin__isdoingop(theadmin)))) .
+H13:   true .
+H14:   not (enclave__enrolmentisinprogress(enclave__state)) .
+H15:   true .
+H16:   not (enclave__adminmustlogout(theadmin, enclave__state, 
+           clock__currenttime, admintoken__state)) .
+H17:   true .
+H18:   not (userentry__currentactivitypossible(
+           userentry__state, usertoken__state)) .
+H19:   true .
+H20:   not (enclave__currentadminactivitypossible(
+           enclave__state, admintoken__state)) .
+H21:   true .
+H22:   not (userentry__canstart(userentry__state, 
+           usertoken__state)) .
+H23:   not (enclave__enrolmentisinprogress(enclave__state)) .
+H24:   (admin__prf_rolepresent(theadmin) = privtypes__guard) -> (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H25:   (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__overridelock)) -> (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__guard) .
+H26:   (not (admin__ispresent(theadmin))) -> (not (
+           admin__isdoingop(theadmin))) .
+H27:   (enclave__prf_statusisgotadmintoken(enclave__state) or 
+           enclave__prf_statusiswaitingremoveadmintokenfail(
+           enclave__state)) -> (not (admin__ispresent(
+           theadmin))) .
+H28:   (enclave__prf_statusiswaitingstartadminop(
+           enclave__state) or 
+           enclave__prf_statusiswaitingfinishadminop(
+           enclave__state)) -> (admin__ispresent(theadmin) and 
+           admin__isdoingop(theadmin)) .
+H29:   enclave__prf_statusisenclavequiescent(enclave__state) -> (not (
+           admin__isdoingop(theadmin))) .
+H30:   enclave__prf_statusisshutdown(enclave__state) -> ((not (
+           admin__isdoingop(theadmin))) and (
+           admin__prf_rolepresent(theadmin) = 
+           privtypes__useronly)) .
+H31:   (admin__isdoingop(theadmin) and (admin__thecurrentop(
+           theadmin) = admin__shutdownop)) -> 
+           enclave__prf_statusiswaitingstartadminop(
+           enclave__state) .
+H32:   (admin__prf_rolepresent(theadmin) = privtypes__guard) -> ((
+           admin__isdoingop(theadmin) and (
+           admin__thecurrentop(theadmin) = 
+           admin__overridelock)) or (not (admin__isdoingop(
+           theadmin)))) .
+H33:   not (enclave__enrolmentisinprogress(enclave__state__9)) .
+H34:   (not (admin__ispresent(theadmin__9))) -> (not (
+           admin__isdoingop(theadmin__9))) .
+H35:   (enclave__prf_statusisgotadmintoken(enclave__state__9) or 
+           enclave__prf_statusiswaitingremoveadmintokenfail(
+           enclave__state__9)) -> (not (admin__ispresent(theadmin__9))) .
+H36:   (enclave__prf_statusiswaitingstartadminop(enclave__state__9) or 
+           enclave__prf_statusiswaitingfinishadminop(enclave__state__9)) -> (
+           admin__isdoingop(theadmin__9) and (
+           admin__ispresent(theadmin__9) and (
+           admin__prf_rolepresent(theadmin__9) = 
+           admin__prf_rolepresent(theadmin)))) .
+H37:   enclave__prf_statusisenclavequiescent(enclave__state__9) -> ((not (
+           admin__isdoingop(theadmin__9))) and (
+           admin__prf_rolepresent(theadmin__9) = 
+           admin__prf_rolepresent(theadmin))) .
+H38:   enclave__prf_statusisshutdown(enclave__state__9) -> ((not (
+           admin__isdoingop(theadmin__9))) and (
+           admin__prf_rolepresent(theadmin__9) = 
+           privtypes__useronly)) .
+H39:   (admin__isdoingop(theadmin__9) and (
+           admin__thecurrentop(theadmin__9) = 
+           admin__shutdownop)) -> 
+           enclave__prf_statusiswaitingstartadminop(enclave__state__9) .
+H40:   (admin__prf_rolepresent(theadmin__9) = 
+           privtypes__guard) -> (admintoken__prf_isgood(
+           admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+H41:   (admin__isdoingop(theadmin__9) and (
+           admin__thecurrentop(theadmin__9) = 
+           admin__overridelock)) -> (admin__prf_rolepresent(theadmin__9) = 
+           privtypes__guard) .
+H42:   (admin__prf_rolepresent(theadmin__9) = 
+           privtypes__guard) -> ((admin__isdoingop(theadmin__9) and (
+           admin__thecurrentop(theadmin__9) = 
+           admin__overridelock)) or (not (admin__isdoingop(theadmin__9)))) .
+        ->
+C1:    (not (enclave__enrolmentisinprogress(enclave__state__9))) <-> 
+           keystore__privatekeypresent(keystore__state) .
+C2:    (latch__islocked(latch__state) and ((
+           door__thecurrentdoor(door__state) = door__open) and 
+           clock__greaterthanorequal(clock__thecurrenttime(
+           clock__currenttime), door__prf_alarmtimeout(
+           door__state)))) <-> (door__thedooralarm(
+           door__state) = alarmtypes__alarming) .
+C3:    ((not (latch__islocked(latch__state))) and 
+           latch__islocked(latch__state)) -> (
+           userentry__prf_userentryunlockdoor or (
+           admintoken__prf_isgood(admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard)))) .
+C4:    (admin__prf_rolepresent(theadmin__9) = 
+           privtypes__guard) -> (admintoken__prf_isgood(
+           admintoken__state) and (
+           admintoken__prf_authcertvalid(admintoken__state) and (
+           admintoken__theauthcertrole(admintoken__state) = 
+           privtypes__guard))) .
+C5:    (admin__isdoingop(theadmin__9) and (
+           admin__thecurrentop(theadmin__9) = 
+           admin__overridelock)) -> (admin__prf_rolepresent(theadmin__9) = 
+           privtypes__guard) .
+C6:    (admin__prf_rolepresent(theadmin__9) = 
+           privtypes__guard) -> ((admin__isdoingop(theadmin__9) and (
+           admin__thecurrentop(theadmin__9) = 
+           admin__overridelock)) or (not (admin__isdoingop(theadmin__9)))) .
+C7:    (not (admin__ispresent(theadmin__9))) -> (not (
+           admin__isdoingop(theadmin__9))) .
+C8:    (admin__isdoingop(theadmin__9) and (
+           admin__thecurrentop(theadmin__9) = 
+           admin__shutdownop)) -> 
+           enclave__prf_statusiswaitingstartadminop(enclave__state__9) .
+C9:    (enclave__prf_statusisgotadmintoken(enclave__state__9) or 
+           enclave__prf_statusiswaitingremoveadmintokenfail(
+           enclave__state__9)) -> (not (admin__ispresent(theadmin__9))) .
+C10:   (enclave__prf_statusiswaitingstartadminop(enclave__state__9) or 
+           enclave__prf_statusiswaitingfinishadminop(enclave__state__9)) -> (
+           admin__isdoingop(theadmin__9) and (
+           admin__ispresent(theadmin__9) and (
+           admin__prf_rolepresent(theadmin__9) = 
+           admin__prf_rolepresent(theadmin)))) .
+C11:   enclave__prf_statusisenclavequiescent(enclave__state__9) -> (not (
+           admin__isdoingop(theadmin__9))) .
+C12:   enclave__prf_statusisshutdown(enclave__state__9) -> ((not (
+           admin__isdoingop(theadmin__9))) and (
+           admin__prf_rolepresent(theadmin__9) = 
+           privtypes__useronly)) .
+C13:   enclave__enrolmentisinprogress(enclave__state__9) -> ((not (
+           admin__ispresent(theadmin__9))) and (not (
+           admin__isdoingop(theadmin__9)))) .
+ 
+

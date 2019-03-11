@@ -1,0 +1,208 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:29.62*/
+
+                       /*procedure ConfigData.WriteFile*/
+
+
+rule_family writefile_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+writefile_rules(1): character__first <= element(fld_text(element(classstringlookup, [I])), [J]) may_be_deduced_from [privtypes__unmarked <= I, I <= privtypes__topsecret, 1 <= J, J <= 12].
+writefile_rules(2): element(fld_text(element(classstringlookup, [I])), [J]) <= 
+     character__last may_be_deduced_from [privtypes__unmarked <= I, I <= privtypes__topsecret, 1 <= J, J <= 12].
+writefile_rules(3): classtexti__first <= fld_length(element(classstringlookup, [I])) may_be_deduced_from [privtypes__unmarked <= I, I <= privtypes__topsecret].
+writefile_rules(4): fld_length(element(classstringlookup, [I])) <= 
+     classtexti__last may_be_deduced_from [privtypes__unmarked <= I, I <= privtypes__topsecret].
+writefile_rules(5): character__first <= element(fld_text(element(accessstringlookup, [I])), [J]) may_be_deduced_from [workinghours <= I, I <= allhours, 1 <= J, J <= 12].
+writefile_rules(6): element(fld_text(element(accessstringlookup, [I])), [J]) <= 
+     character__last may_be_deduced_from [workinghours <= I, I <= allhours, 1 <= J, J <= 12].
+writefile_rules(7): accesstexti__first <= fld_length(element(accessstringlookup, [I])) may_be_deduced_from [workinghours <= I, I <= allhours].
+writefile_rules(8): fld_length(element(accessstringlookup, [I])) <= 
+     accesstexti__last may_be_deduced_from [workinghours <= I, I <= allhours].
+writefile_rules(9): integer__size >= 0 may_be_deduced.
+writefile_rules(10): integer__first may_be_replaced_by -2147483648.
+writefile_rules(11): integer__last may_be_replaced_by 2147483647.
+writefile_rules(12): integer__base__first may_be_replaced_by -2147483648.
+writefile_rules(13): integer__base__last may_be_replaced_by 2147483647.
+writefile_rules(14): character__size >= 0 may_be_deduced.
+writefile_rules(15): character__first may_be_replaced_by 0.
+writefile_rules(16): character__last may_be_replaced_by 255.
+writefile_rules(17): character__base__first may_be_replaced_by 0.
+writefile_rules(18): character__base__last may_be_replaced_by 255.
+writefile_rules(19): natural__size >= 0 may_be_deduced.
+writefile_rules(20): natural__first may_be_replaced_by 0.
+writefile_rules(21): natural__last may_be_replaced_by 2147483647.
+writefile_rules(22): natural__base__first may_be_replaced_by -2147483648.
+writefile_rules(23): natural__base__last may_be_replaced_by 2147483647.
+writefile_rules(24): positive__size >= 0 may_be_deduced.
+writefile_rules(25): positive__first may_be_replaced_by 1.
+writefile_rules(26): positive__last may_be_replaced_by 2147483647.
+writefile_rules(27): positive__base__first may_be_replaced_by -2147483648.
+writefile_rules(28): positive__base__last may_be_replaced_by 2147483647.
+writefile_rules(29): clock__durationt__size >= 0 may_be_deduced.
+writefile_rules(30): clock__durationt__first may_be_replaced_by 0.
+writefile_rules(31): clock__durationt__last may_be_replaced_by 864000.
+writefile_rules(32): clock__durationt__base__first <= 
+     clock__durationt__base__last may_be_deduced.
+writefile_rules(33): clock__durationt__base__first <= 
+     clock__durationt__first may_be_deduced.
+writefile_rules(34): clock__durationt__base__last >= 
+     clock__durationt__last may_be_deduced.
+writefile_rules(35): audittypes__filesizet__size >= 0 may_be_deduced.
+writefile_rules(36): audittypes__filesizet__first may_be_replaced_by 0.
+writefile_rules(37): audittypes__filesizet__last may_be_replaced_by 4194304.
+writefile_rules(38): audittypes__filesizet__base__first may_be_replaced_by -2147483648.
+writefile_rules(39): audittypes__filesizet__base__last may_be_replaced_by 2147483647.
+writefile_rules(40): privtypes__classt__size >= 0 may_be_deduced.
+writefile_rules(41): privtypes__classt__first may_be_replaced_by privtypes__unmarked.
+writefile_rules(42): privtypes__classt__last may_be_replaced_by privtypes__topsecret.
+writefile_rules(43): privtypes__classt__base__first may_be_replaced_by privtypes__unmarked.
+writefile_rules(44): privtypes__classt__base__last may_be_replaced_by privtypes__topsecret.
+writefile_rules(45): privtypes__classt__pos(privtypes__classt__first) may_be_replaced_by 0.
+writefile_rules(46): privtypes__classt__pos(privtypes__unmarked) may_be_replaced_by 0.
+writefile_rules(47): privtypes__classt__val(0) may_be_replaced_by 
+     privtypes__unmarked.
+writefile_rules(48): privtypes__classt__pos(
+     privtypes__unclassified) may_be_replaced_by 1.
+writefile_rules(49): privtypes__classt__val(1) may_be_replaced_by 
+     privtypes__unclassified.
+writefile_rules(50): privtypes__classt__pos(privtypes__restricted) may_be_replaced_by 2.
+writefile_rules(51): privtypes__classt__val(2) may_be_replaced_by 
+     privtypes__restricted.
+writefile_rules(52): privtypes__classt__pos(
+     privtypes__confidential) may_be_replaced_by 3.
+writefile_rules(53): privtypes__classt__val(3) may_be_replaced_by 
+     privtypes__confidential.
+writefile_rules(54): privtypes__classt__pos(privtypes__secret) may_be_replaced_by 4.
+writefile_rules(55): privtypes__classt__val(4) may_be_replaced_by 
+     privtypes__secret.
+writefile_rules(56): privtypes__classt__pos(privtypes__topsecret) may_be_replaced_by 5.
+writefile_rules(57): privtypes__classt__val(5) may_be_replaced_by 
+     privtypes__topsecret.
+writefile_rules(58): privtypes__classt__pos(privtypes__classt__last) may_be_replaced_by 5.
+writefile_rules(59): privtypes__classt__pos(succ(X)) may_be_replaced_by 
+     privtypes__classt__pos(X) + 1
+     if [X <=privtypes__topsecret, X <> privtypes__topsecret].
+writefile_rules(60): privtypes__classt__pos(pred(X)) may_be_replaced_by 
+     privtypes__classt__pos(X) - 1
+     if [X >=privtypes__unmarked, X <> privtypes__unmarked].
+writefile_rules(61): privtypes__classt__pos(X) >= 0 may_be_deduced_from
+     [privtypes__unmarked <= X, X <= privtypes__topsecret].
+writefile_rules(62): privtypes__classt__pos(X) <= 5 may_be_deduced_from
+     [privtypes__unmarked <= X, X <= privtypes__topsecret].
+writefile_rules(63): privtypes__classt__val(X) >= 
+     privtypes__unmarked may_be_deduced_from
+     [0 <= X, X <= 5].
+writefile_rules(64): privtypes__classt__val(X) <= 
+     privtypes__topsecret may_be_deduced_from
+     [0 <= X, X <= 5].
+writefile_rules(65): succ(privtypes__classt__val(X)) may_be_replaced_by 
+     privtypes__classt__val(X+1)
+     if [0 <= X, X < 5].
+writefile_rules(66): pred(privtypes__classt__val(X)) may_be_replaced_by 
+     privtypes__classt__val(X-1)
+     if [0 < X, X <= 5].
+writefile_rules(67): privtypes__classt__pos(privtypes__classt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 5].
+writefile_rules(68): privtypes__classt__val(privtypes__classt__pos(X)) may_be_replaced_by X
+     if [privtypes__unmarked <= X, X <= privtypes__topsecret].
+writefile_rules(69): privtypes__classt__pos(X) <= 
+     privtypes__classt__pos(Y) & X <= Y are_interchangeable 
+     if [privtypes__unmarked <= X, X <= privtypes__topsecret, 
+     privtypes__unmarked <= Y, Y <= privtypes__topsecret].
+writefile_rules(70): privtypes__classt__val(X) <= 
+     privtypes__classt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 5, 0 <= Y, Y <= 5].
+writefile_rules(71): iandatypes__fart__size >= 0 may_be_deduced.
+writefile_rules(72): iandatypes__fart__size may_be_replaced_by 32.
+writefile_rules(73): iandatypes__fart__first may_be_replaced_by 0.
+writefile_rules(74): iandatypes__fart__last may_be_replaced_by 2147483647.
+writefile_rules(75): iandatypes__fart__base__first <= 
+     iandatypes__fart__base__last may_be_deduced.
+writefile_rules(76): iandatypes__fart__base__first <= 
+     iandatypes__fart__first may_be_deduced.
+writefile_rules(77): iandatypes__fart__base__last >= 
+     iandatypes__fart__last may_be_deduced.
+writefile_rules(78): durationt__size >= 0 may_be_deduced.
+writefile_rules(79): durationt__first may_be_replaced_by 0.
+writefile_rules(80): durationt__last may_be_replaced_by 2000.
+writefile_rules(81): durationt__base__first <= durationt__base__last may_be_deduced.
+writefile_rules(82): durationt__base__first <= durationt__first may_be_deduced.
+writefile_rules(83): durationt__base__last >= durationt__last may_be_deduced.
+writefile_rules(84): accesspolicyt__size >= 0 may_be_deduced.
+writefile_rules(85): accesspolicyt__first may_be_replaced_by workinghours.
+writefile_rules(86): accesspolicyt__last may_be_replaced_by allhours.
+writefile_rules(87): accesspolicyt__base__first may_be_replaced_by workinghours.
+writefile_rules(88): accesspolicyt__base__last may_be_replaced_by allhours.
+writefile_rules(89): accesspolicyt__pos(accesspolicyt__first) may_be_replaced_by 0.
+writefile_rules(90): accesspolicyt__pos(workinghours) may_be_replaced_by 0.
+writefile_rules(91): accesspolicyt__val(0) may_be_replaced_by 
+     workinghours.
+writefile_rules(92): accesspolicyt__pos(allhours) may_be_replaced_by 1.
+writefile_rules(93): accesspolicyt__val(1) may_be_replaced_by 
+     allhours.
+writefile_rules(94): accesspolicyt__pos(accesspolicyt__last) may_be_replaced_by 1.
+writefile_rules(95): accesspolicyt__pos(succ(X)) may_be_replaced_by 
+     accesspolicyt__pos(X) + 1
+     if [X <=allhours, X <> allhours].
+writefile_rules(96): accesspolicyt__pos(pred(X)) may_be_replaced_by 
+     accesspolicyt__pos(X) - 1
+     if [X >=workinghours, X <> workinghours].
+writefile_rules(97): accesspolicyt__pos(X) >= 0 may_be_deduced_from
+     [workinghours <= X, X <= allhours].
+writefile_rules(98): accesspolicyt__pos(X) <= 1 may_be_deduced_from
+     [workinghours <= X, X <= allhours].
+writefile_rules(99): accesspolicyt__val(X) >= workinghours may_be_deduced_from
+     [0 <= X, X <= 1].
+writefile_rules(100): accesspolicyt__val(X) <= allhours may_be_deduced_from
+     [0 <= X, X <= 1].
+writefile_rules(101): succ(accesspolicyt__val(X)) may_be_replaced_by 
+     accesspolicyt__val(X+1)
+     if [0 <= X, X < 1].
+writefile_rules(102): pred(accesspolicyt__val(X)) may_be_replaced_by 
+     accesspolicyt__val(X-1)
+     if [0 < X, X <= 1].
+writefile_rules(103): accesspolicyt__pos(accesspolicyt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+writefile_rules(104): accesspolicyt__val(accesspolicyt__pos(X)) may_be_replaced_by X
+     if [workinghours <= X, X <= allhours].
+writefile_rules(105): accesspolicyt__pos(X) <= accesspolicyt__pos(Y) & X <= Y are_interchangeable 
+     if [workinghours <= X, X <= allhours, workinghours <= Y, Y <= 
+     allhours].
+writefile_rules(106): accesspolicyt__val(X) <= accesspolicyt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].
+writefile_rules(107): classtexti__size >= 0 may_be_deduced.
+writefile_rules(108): classtexti__first may_be_replaced_by 1.
+writefile_rules(109): classtexti__last may_be_replaced_by 12.
+writefile_rules(110): classtexti__base__first may_be_replaced_by -2147483648.
+writefile_rules(111): classtexti__base__last may_be_replaced_by 2147483647.
+writefile_rules(112): classstringt__size >= 0 may_be_deduced.
+writefile_rules(113): A = B may_be_deduced_from
+     [goal(checktype(A,classstringt)),
+      goal(checktype(B,classstringt)),
+      fld_text(A) = fld_text(B),
+      fld_length(A) = fld_length(B)].
+writefile_rules(114): accesstexti__size >= 0 may_be_deduced.
+writefile_rules(115): accesstexti__first may_be_replaced_by 1.
+writefile_rules(116): accesstexti__last may_be_replaced_by 12.
+writefile_rules(117): accesstexti__base__first may_be_replaced_by -2147483648.
+writefile_rules(118): accesstexti__base__last may_be_replaced_by 2147483647.
+writefile_rules(119): accessstringt__size >= 0 may_be_deduced.
+writefile_rules(120): A = B may_be_deduced_from
+     [goal(checktype(A,accessstringt)),
+      goal(checktype(B,accessstringt)),
+      fld_text(A) = fld_text(B),
+      fld_length(A) = fld_length(B)].
+writefile_rules(121): string5i__size >= 0 may_be_deduced.
+writefile_rules(122): string5i__first may_be_replaced_by 1.
+writefile_rules(123): string5i__last may_be_replaced_by 5.
+writefile_rules(124): string5i__base__first may_be_replaced_by -2147483648.
+writefile_rules(125): string5i__base__last may_be_replaced_by 2147483647.

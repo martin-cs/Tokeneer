@@ -1,0 +1,76 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:24.66
+
+                 function UserEntry.CurrentActivityPossible
+
+
+
+
+For path(s) from start to check associated with statement of line 1034:
+
+function_currentactivitypossible_1.
+H1:    true .
+H2:    status >= statust__first .
+H3:    status <= statust__last .
+        ->
+C1:    inprogress(status) <-> ((status > quiescent) and (
+           status < waitingremovetokenfail)) .
+ 
+
+For path(s) from start to check associated with statement of line 1036:
+
+function_currentactivitypossible_2.
+H1:    true .
+H2:    status >= statust__first .
+H3:    status <= statust__last .
+H4:    inprogress(status) <-> ((status > quiescent) and (
+           status < waitingremovetokenfail)) .
+        ->
+C1:    userhasdeparted(status, usertoken__state) <-> ((
+           status > quiescent) and (not (usertoken__ispresent(
+           usertoken__state)))) .
+ 
+
+For path(s) from start to finish:
+
+function_currentactivitypossible_3.
+H1:    true .
+H2:    status >= statust__first .
+H3:    status <= statust__last .
+H4:    inprogress(status) <-> ((status > quiescent) and (
+           status < waitingremovetokenfail)) .
+H5:    userhasdeparted(status, usertoken__state) <-> ((
+           status > quiescent) and (not (usertoken__ispresent(
+           usertoken__state)))) .
+H6:    true .
+H7:    true .
+        ->
+C1:    (inprogress(status) or userhasdeparted(status, 
+           usertoken__state)) = (((status > quiescent) and (
+           status < waitingremovetokenfail)) or ((status > 
+           quiescent) and (not (usertoken__ispresent(
+           usertoken__state))))) .
+C2:    (inprogress(status) or userhasdeparted(status, 
+           usertoken__state)) -> (status > quiescent) .
+C3:    (inprogress(status) or userhasdeparted(status, 
+           usertoken__state)) -> ((status = 
+           waitingremovetokenfail) -> (not (
+           usertoken__ispresent(usertoken__state)))) .
+ 
+
+For checks of refinement integrity: 
+
+function_currentactivitypossible_4.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+function_currentactivitypossible_5.
+*** true .          /* trivially true VC removed by Examiner */
+
+

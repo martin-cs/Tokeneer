@@ -1,0 +1,552 @@
+%==========================================================================
+\chapter{Introduction}
+%==========================================================================
+In order to demonstrate that developing highly secure systems to the
+level of rigour required by the higher assurance levels of the Common
+Criteria is possible, the NSA has asked Praxis High Integrity Systems to
+undertake a research project to develop part of an existing secure
+system (the Tokeneer System) in accordance with their high-integrity
+development process. This development work will then be used to
+show the security community that is is possible to develop secure
+systems rigorously in a cost effective manner.
+
+This document is the formal statement of the key security properties
+the Token ID Station (TIS) shall possess,
+written using the Z notation.
+
+%--------------------------------------------------------------------------
+\section{Structure of this Document}
+%--------------------------------------------------------------------------
+This document should be read in conjunction with the formal specification,
+\cite{FS}.
+
+Section \ref{sec:SecProp} states the key security properties as theorems
+on the formal specification.
+
+Section \ref{sec:Arg} gives mathematical arguments that the formal specification
+given in \cite{FS} does in fact possess each of the properties stated.
+
+%==========================================================================
+\chapter{Security Properties}
+\label{chap:SecProp}
+%==========================================================================
+%%ignore \shows
+\def\The{the~}%
+We define a general operation, 
+representing all the calculation and decisions,
+but excluding the Polling of the peripherals and the Updating of the peripherals.
+Many of the security properties refer to properties that hold during one execution of this
+general operation.
+
+\begin{zed}
+	TISOp \defs (TISEnrolOp
+\\ \t1			\lor TISUserEntryOp
+\\ \t1			\lor TISAdminLogon
+\\ \t1			\lor TISStartAdminOp
+\\ \t1			\lor TISAdminOp
+\\ \t1			\lor TISAdminLogout
+\\ \t1			\lor TISIdle) 
+\\ \t2				\land LogChange
+\end{zed}
+%--------------------------------------------------------------------------
+\section{Security Properties}
+\label{sec:SecProp}
+%--------------------------------------------------------------------------
+%--------------------------------------------------------------------------
+\subsection{Property 1: Unlock with Token}
+\label{sec:UnlockProp}
+%--------------------------------------------------------------------------
+{\em If the latch is unlocked by the TIS,
+then the TIS must be in possession of either a User Token or an Admin Token.
+The User Token must either have a valid Authorisation Certificate,
+or must have valid ID, Privilege, and I\&A Certificates,
+together with
+a template that allowed the TIS to successfully validate the user's fingerprint.
+Or, if the User Token does not meet this,
+the Admin Token must have a valid Authorisation Certificate,
+with role of ``guard''.
+}
+
+As the property refers to the real world ($latch$),
+we must look at the combined effect of carrying out a TIS calculation
+and then updating the world.
+Hence we define:
+
+\begin{zed}
+	TISOpThenUpdate \defs TISOp \semi TISUpdate
+\end{zed}
+
+We also make statements about validity in the absence of currency checks.
+We therefore define the following two schemas,
+which are direct copies of the schemas
+$UserTokenWithOKAuthCert$ and
+$UserTokenOK$,
+but with the currency checks removed.
+
+\begin{schema}{UserTokenWithOKAuthCertNoCurrencyCheck}
+        KeyStore
+\\      UserToken
+\\      currentTime : TIME
+\where
+        currentUserToken \in \ran goodT
+\\	\exists TokenWithValidAuth @ 
+\\ \t1		(
+		goodT(\theta TokenWithValidAuth) = currentUserToken
+\\ \t1          \land (\exists AuthCert @ \theta AuthCert = \The
+authCert \land AuthCertOK )  
+		)
+\end{schema}
+
+
+\begin{schema}{UserTokenOKNoCurrencyCheck}
+        KeyStore
+\\      UserToken
+\\      currentTime : TIME
+\where
+ 	currentUserToken \in \ran goodT
+\\	\exists CurrentToken @ 
+\\ \t1		(
+		goodT(\theta ValidToken) = currentUserToken
+\\ \t1          \land (\exists IDCert @ \theta IDCert = idCert \land CertOK )
+\\ \t1          \land (\exists PrivCert @ \theta PrivCert = privCert
+\land CertOK )
+\\ \t1          \land (\exists IandACert @ \theta IandACert =
+iandACert \land CertOK )  
+                )
+\end{schema}
+
+\begin{zed}
+%%\forall
+\Delta IDStation; \Delta RealWorld |
+\\ \t1	TISOpThenUpdate
+\\ \t1	\land latch = locked \land latch' = unlocked
+%%@
+\\ \shows
+\\ \t1	(\exists ValidToken @
+			goodT(\theta ValidToken) = currentUserToken
+\\ \t2		\land UserTokenOKNoCurrencyCheck
+\\ \t2		\land FingerOK
+		)
+\\ \t1	\lor
+\\ \t1	(\exists TokenWithValidAuth @
+			goodT(\theta TokenWithValidAuth) = currentUserToken
+\\ \t2		\land UserTokenWithOKAuthCertNoCurrencyCheck
+		)
+\\ \t1 	\lor
+\\ \t1  	(\exists ValidToken @
+			goodT(\theta ValidToken) = currentAdminToken
+\\ \t2			\land authCert \neq \emptyset 
+				\land (\The authCert).role = guard
+		)
+\end{zed}
+
+%--------------------------------------------------------------------------
+\subsection{Property 2: Unlock at allowed time}
+\label{sec:UnlockTimeProp}
+%--------------------------------------------------------------------------
+{\em If the latch is unlocked automatically by the TIS,
+then the current time must be close to being within the allowed entry period defined
+for the User requesting access.
+}
+
+``close'' needs to be defined,
+but is intended to allow a period of grace between checking that access is allowed and
+actually unlocking the latch.
+``Automatically'' refers to the latch being unlocked by the system in response to a user token
+insertion,
+rather than being manually unlocked by the guard.
+
+\begin{zed}
+%%\forall
+\Delta IDStation; \Delta RealWorld |
+\\ \t1	TISOpThenUpdate
+\\ \t1	\land latch = locked \land latch' = unlocked
+\\ \t1	\land adminTokenPresence = absent
+%%@
+\\ \shows
+\\ \t1	(\exists ValidToken @ goodT(\theta ValidToken) = currentUserToken
+\\ \t2	\land
+		(\exists recentTime: timesRecentTo~currentTime @
+\\ \t3			recentTime \in entryPeriod~privCert.role~privCert.clearance.class
+		)
+	)
+\end{zed}
+
+where we define a function $timesRecentTo$
+that gives a set of times close to a given time.
+We define it here loosely.
+\begin{axdef}
+	timesRecentTo: TIME \fun \power TIME
+\where
+	\forall t:TIME @ t \in timesRecentTo~t
+\end{axdef}
+%--------------------------------------------------------------------------
+\subsection{Property 3: Alarm when insecure}
+\label{sec:AlarmProp}
+%--------------------------------------------------------------------------
+{\em An alarm will be raised whenever the door/latch is insecure.
+}
+
+``insecure'' is defined to mean the latch is locked,
+the door is open,
+and too much time has passed since the last explicit request to lock the latch.
+
+There are two places in which real world updates occur:
+\begin{zed}
+	Update \defs 
+\\ \t1		TISEarlyUpdate \lor TISUpdate
+\end{zed}
+\begin{zed}
+%%\forall
+Update |
+\\ \t1	latch' = locked 
+\\ \t1	\land currentDoor' = open
+\\ \t1	\land currentTime' \geq alarmTimeout
+%%@
+\\ \shows
+\\ \t1	alarm' = alarming
+\end{zed}
+
+%--------------------------------------------------------------------------
+\subsection{Property 4: No loss of audit}
+\label{sec:AuditLossProp}
+%--------------------------------------------------------------------------
+{\em No audit data is lost without an audit alarm being raised.
+}
+
+\begin{zed}
+%%\forall
+TISOp | auditAlarm = auditAlarm' = silent
+%%@
+\\ \shows
+\\ \t1	auditLog \cup 	(\IF currentFloppy \in \ran auditFile
+			\THEN auditFile \inv currentFloppy
+			\ELSE \emptyset
+			)
+		\subseteq
+\\ \t2	auditLog' \cup 	(\IF currentFloppy' \in \ran auditFile
+			\THEN auditFile \inv currentFloppy'
+			\ELSE \emptyset
+			)
+\end{zed}
+%--------------------------------------------------------------------------
+\subsection{Property 5: Audit records are consistent}
+\label{sec:AuditLinksProp}
+%--------------------------------------------------------------------------
+The presence of an audit record of one type
+(e.g. recording the unlocking of the latch)
+will always be preceded by certain other audit records
+(e.g. recording the successful checking of certificates, fingerprints, etc.)
+
+Such a property would need to be defined in detail,
+explaining the data relationship rules exactly for each case.
+This has not been done.
+%--------------------------------------------------------------------------
+\subsection{Property 6: Configuration/floppy changed by admin}
+\label{sec:ConfigProp}
+%--------------------------------------------------------------------------
+The configuration data will be changed,
+or information written to the floppy,
+only if there is an Admin person logged on to the TIS.
+
+\begin{zed}
+%%\forall
+TISOp | adminTokenPresence = absent
+%%@
+\\ \shows
+\\ \t1	\Xi Config \land \Xi Floppy
+\end{zed}
+
+
+
+
+
+
+
+
+%--------------------------------------------------------------------------
+\section{Arguments that Security Properties hold}
+\label{sec:Arg}
+%--------------------------------------------------------------------------
+We present informal arguments that each of the security properties is indeed a property
+of the system as specified.
+
+
+Note that $TISOp$ has signature
+\[
+	\Delta IDStation
+\\	\Xi TISControlledRealWorld
+\\	\Delta TISMonitoredRealWorld
+\]
+and $TISUpdate$ has signature
+\[
+	\Xi IDStation
+\\	\Delta TISControlledRealWorld
+\\	\Delta TISMonitoredRealWorld
+\]
+	
+%--------------------------------------------------------------------------
+\subsection{Property 1: Unlock with Token}
+\label{sec:UnlockArg}
+%--------------------------------------------------------------------------
+Restating the property:
+
+\begin{zed}
+%%\forall
+\Delta IDStation; \Delta RealWorld |
+\\ \t1	TISOpThenUpdate
+\\ \t1	\land latch = locked \land latch' = unlocked
+\\ \t1	\land (latch = currentLatch)
+%%@
+\\ \shows
+\\ \t1	(\exists ValidToken @
+			goodT(\theta ValidToken) = currentUserToken
+\\ \t2		\land UserTokenOKNoCurrencyCheck
+\\ \t2		\land FingerOK
+		)
+\\ \t1	\lor
+\\ \t1	(\exists TokenWithValidAuth @
+			goodT(\theta TokenWithValidAuth) = currentUserToken
+\\ \t2		\land UserTokenWithOKAuthCertNoCurrencyCheck
+		)
+\\ \t1 	\lor
+\\ \t1  	(\exists ValidToken @
+			goodT(\theta ValidToken) = currentAdminToken
+\\ \t2			\land authCert \neq \emptyset 
+				\land (\The authCert).role = guard
+		)
+\end{zed}
+The hypothesis considers only the combination of the general operation and
+the standard update step.
+This is justified because $latch$ can only change in an $Update$,
+which is always either
+\[
+	TISOp \semi TISUpdate
+\]
+or
+\[
+	Poll \semi TISEarlyUpdate
+\]
+The second of these can only result in an increase in $currentTime$,
+which means that the only change to $latch$ possible is to become $locked$.
+This is not the change we are investigating here.
+
+It is therefore reasonable to limit our hypothesis to the case
+$TISOp \semi TISUpdate$.
+
+We have started by adding the predicate $latch = currentLatch$
+to the hypothosis.
+This is justified because we are concerned only with the case when
+the latch is entirely under the control of the TIS,
+and has been to date.
+We can therefore assume that at the beginning of this operation
+the TIS's view of the position of the latch
+($currentLatch$) agrees with the actual state of the latch ($latch$).
+
+We will refer to the intermediate state by double-dash, the before-state
+by no dashes, and the after-state by a single dash.
+
+Taking the hypothesis $latch' = unlocked$,
+we deduce that $currentLatch''=unlocked$,
+from the behaviour of $TISUpdate$.
+$currentLatch = locked$ from the predicates in the hypothesis.
+
+So we have a change of $currentLatch$.
+This state of $currentLatch$ is entirely defined in the invariant to
+$DoorLatchAlarm$ by $currentTime$ and $latchTimeout$.
+A change can only happen in $TISOp$, due to $\Xi IDStation$ in $TISUpdate$.
+
+There are three components of $TISOp$ that do not have 
+$\Xi DoorLatchAlarm$:
+$UnlockDoorOK$,
+$ShutdownOK$,
+and $OverrideDoorLockOK$.
+
+We can ignore $ShutdownOK$ because it involves a change to $locked$,
+not $unlocked$.
+
+{\bf UnlockDoorOK}
+
+$status = waitingRemoveTokenSuccess$
+
+The sequence of states that must have been passed through is therefore either:
+
+$quiescent$ to $gotUserToken$ to $waitingFinger$ to $gotFinger$ to 
+$waitingUpdateToken$ to $waitingEntry$ to $waitingRemoveTokenSuccess$
+
+or
+
+$quiescent$ to $gotUserToken$ to 
+$waitingEntry$ to $waitingRemoveTokenSuccess$
+
+In the first, $ValidToken$ and $UserTokenOK$ are assured in passing 
+to the $waitingFinger$
+state,
+and $FingerOK$ is assured in passing to the $waitingUpdateToken$ state.
+This proves the first branch.
+
+In the second, $TokenWithValidAuth$ and $UserTokenWithOKAuthCert$ are both
+assured in passing to the $waitingEntry$ state.
+This proves the first branch of the theorem.
+
+{\bf OverrideDoorLockOK}
+
+$enclaveStatus = waitingStartAdminOp$
+
+and
+
+$\The currentAdminOp = overrideLock$.
+
+This means that the system must have passed through the following states:
+
+$enclaveQuiescent, role=nil$ to $gotAdminToken$
+to $enclaveQuiescent, roll \neq nil$ to $waitingStartAdminOp$
+
+In passing to the $enclaveQuiescent, role \neq nil$ state
+the $rolePresent$ is set from the $role$ in the $authCert$,
+and the Admin Token is checked for validity
+(and in particular, checked for being present).
+
+In passing to the $waitingStartAdminOp$ state the check on the validity
+of the requested operation ensures that
+$currentAdminOp \in keyedOp \inv \limg availableOps \rimg$,
+and in turn the value of $availableOps$ is tied to the value of the
+$rolePresent$ by a state invariant.
+The state invariant ensures that the operation to override the door lock
+(the operation we must be considering here)
+is only available to the $guard$.
+Therefore, as we know that the hypothesis implies that the operation being
+carried out is $OverrideDoorLockOK$,
+we know that $\The currentAdminOp = overrideLock$,
+so we know that the $rolePresent$ is a $guard$,
+and hence the role in the $authCert$ is a $guard$, as required.
+%--------------------------------------------------------------------------
+\subsection{Property 2: Unlock at allowed time}
+\label{sec:UnlockTimeArg}
+%--------------------------------------------------------------------------
+Restating the property:
+
+\begin{zed}
+%%\forall
+\Delta IDStation; \Delta RealWorld |
+\\ \t1	TISOpThenUpdate
+\\ \t1	\land latch = locked \land latch' = unlocked
+\\ \t1	\land adminTokenPresence = absent
+\\ \t1	\land (latch = currentLatch)
+\\ \t1	\land (\forall t:TIME @
+\\ \t2		((t-tokenRemovalDuration) \upto (t + tokenRemovalDuration)) \cap TIME \subseteq timesRecentTo~t)
+%%@
+\\ \shows
+\\ \t1	(\exists ValidToken @ goodT(\theta ValidToken) = currentUserToken
+\\ \t2	\land
+		(\exists recentTime: timesRecentTo~currentTime @
+\\ \t3			recentTime \in entryPeriod~privCert.role~privCert.clearance.class)
+	)
+\end{zed}
+
+As in the proof of Property 1,
+we consider the combination of one general operation and one update.
+
+We add the assumption that all times within $tokenRemovalDuration$ of a given
+time are considered to be ``recent'' to that time.
+
+We can follow the same proof as for Property 1,
+and with the additional hypothesis of $adminTokenPresence = absent$
+we can exclude the $OverrideDoorLockOK$ operation,
+as intended.
+
+Following the sequence of state changes,
+we find that in passing to the $waitingRemoveTokenSuccess$ state
+we carry out the $EntryOK$ operation,
+which checks that the $currentTime$ is within the entry period defined
+for the class and role given in the Privilege Cert:
+
+$currentTime \in entryPeriod~privCert.role~privCert.clearance.class$.
+
+However, this relates to the $currentTime$ given in passing {\em to}
+this state, 
+whereas the security property we are proving relates to the $currentTime$
+{\em leaving} this state, to $quiescent$.
+
+To deal with this, consider the state changes allowed subsequently.
+$WaitingTokenRemoval$ allows the system to stay in this state,
+but for no longer than $tokenRemovalDuration$. 
+After this time, the system is forced into $waitingRemoveTokenFail$,
+via $TokenRemovalTimeout$,
+and ceases to be of concern.
+The only other exit from this state is via $UnlockDoor$,
+which actually carries out the change to $currentLatch$ we are investigating.
+
+Therefore, we can show that the value of $currentTime$ when the latch is
+unlocked cannot differ from the value of $currentTime$ when the validity
+period is checked by more than $tokenRemovalDuration$.
+
+The additional assumption on the proof is that our definition of ``recently''
+is sufficiently broad to accommodate the time lag that our system
+actually works with.
+
+%--------------------------------------------------------------------------
+\subsection{Property 3: Alarm when insecure}
+\label{sec:AlarmArg}
+%--------------------------------------------------------------------------
+Restating the property:
+
+\begin{zed}
+%%\forall
+Update |
+\\ \t1	latch' = locked 
+\\ \t1	\land currentDoor' = open
+\\ \t1	\land currentTime' \geq alarmTimeout
+%%@
+\\ \shows
+\\ \t1	alarm' = alarming
+\end{zed}
+
+This follows quite directly from the state invariant in $DoorLatchAlarm$.
+
+$alarm'$ is set to $currentAlarm''$ (the only way it is ever set)
+in both of the Update operations in the hypothesis,
+and the invariant in the included $\Xi DoorLatchAlarm$ specifically
+ties the conclusion to the remaining predicates in the hypothesis.
+
+%--------------------------------------------------------------------------
+\subsection{Property 4: No loss of audit}
+\label{sec:AuditLossArg}
+%--------------------------------------------------------------------------
+Proof not done.
+%--------------------------------------------------------------------------
+\subsection{Property 5: Audit records are consistent}
+\label{sec:AuditLinksArg}
+%--------------------------------------------------------------------------
+Proof not done.
+%--------------------------------------------------------------------------
+\subsection{Property 6: Configuration/floppy changed by admin}
+\label{sec:ConfigArg}
+%--------------------------------------------------------------------------
+Proof not done.
+%--------------------------------------------------------------------------
+\section{Note on arguments}
+\label{sec:NoteArg}
+%--------------------------------------------------------------------------
+Many of these arguments depend upon a sequence of state transitions.
+The arguments presented argue that because the system is in a state with
+a certain $status$,
+then a specific series of states (different $status$es) must have been passed
+through.
+But because Z specifies the system in terms of atomic state transitions,
+this argument is not fully justified.
+
+It can be made fully justified by augmenting the state invariants
+with the properties relied upon in each state.
+It is possible to prove that these properties are established as the
+system passes through its state transitions,
+and because they are carried in the state invariant,
+they are available to support the proofs.
+
+We have not done this,
+as we believe it will add little to the assurance of correctess,
+and is very time consuming.
+At higher levels of the CC assurance we would be required to carry out
+more formal proofs,
+in which case these modifications would be done.
+

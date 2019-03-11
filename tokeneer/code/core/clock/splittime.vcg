@@ -1,0 +1,155 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:07.64
+
+                         procedure Clock.SplitTime
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 272:
+
+procedure_splittime_1.
+H1:    true .
+H2:    fld_millisec(thetime) >= millisecst__first .
+H3:    fld_millisec(thetime) <= millisecst__last .
+H4:    fld_day(thetime) >= dayst__first .
+H5:    fld_day(thetime) <= dayst__last .
+H6:    fld_month(thetime) >= monthst__first .
+H7:    fld_month(thetime) <= monthst__last .
+H8:    fld_year(thetime) >= yearst__first .
+H9:    fld_year(thetime) <= yearst__last .
+        ->
+C1:    fld_year(thetime) >= yearst__first .
+C2:    fld_year(thetime) <= yearst__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 273:
+
+procedure_splittime_2.
+H1:    true .
+H2:    fld_millisec(thetime) >= millisecst__first .
+H3:    fld_millisec(thetime) <= millisecst__last .
+H4:    fld_day(thetime) >= dayst__first .
+H5:    fld_day(thetime) <= dayst__last .
+H6:    fld_month(thetime) >= monthst__first .
+H7:    fld_month(thetime) <= monthst__last .
+H8:    fld_year(thetime) >= yearst__first .
+H9:    fld_year(thetime) <= yearst__last .
+H10:   fld_year(thetime) >= yearst__first .
+H11:   fld_year(thetime) <= yearst__last .
+        ->
+C1:    fld_month(thetime) >= monthst__first .
+C2:    fld_month(thetime) <= monthst__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 274:
+
+procedure_splittime_3.
+H1:    true .
+H2:    fld_millisec(thetime) >= millisecst__first .
+H3:    fld_millisec(thetime) <= millisecst__last .
+H4:    fld_day(thetime) >= dayst__first .
+H5:    fld_day(thetime) <= dayst__last .
+H6:    fld_month(thetime) >= monthst__first .
+H7:    fld_month(thetime) <= monthst__last .
+H8:    fld_year(thetime) >= yearst__first .
+H9:    fld_year(thetime) <= yearst__last .
+H10:   fld_year(thetime) >= yearst__first .
+H11:   fld_year(thetime) <= yearst__last .
+H12:   fld_month(thetime) >= monthst__first .
+H13:   fld_month(thetime) <= monthst__last .
+        ->
+C1:    fld_day(thetime) >= dayst__first .
+C2:    fld_day(thetime) <= dayst__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 275:
+
+procedure_splittime_4.
+H1:    true .
+H2:    fld_millisec(thetime) >= millisecst__first .
+H3:    fld_millisec(thetime) <= millisecst__last .
+H4:    fld_day(thetime) >= dayst__first .
+H5:    fld_day(thetime) <= dayst__last .
+H6:    fld_month(thetime) >= monthst__first .
+H7:    fld_month(thetime) <= monthst__last .
+H8:    fld_year(thetime) >= yearst__first .
+H9:    fld_year(thetime) <= yearst__last .
+H10:   fld_year(thetime) >= yearst__first .
+H11:   fld_year(thetime) <= yearst__last .
+H12:   fld_month(thetime) >= monthst__first .
+H13:   fld_month(thetime) <= monthst__last .
+H14:   fld_day(thetime) >= dayst__first .
+H15:   fld_day(thetime) <= dayst__last .
+        ->
+C1:    fld_millisec(thetime) div millisecsinhr >= hourst__first .
+C2:    fld_millisec(thetime) div millisecsinhr <= hourst__last .
+C3:    fld_millisec(thetime) div millisecsinhr >= hourst__first .
+C4:    fld_millisec(thetime) div millisecsinhr <= hourst__last .
+C5:    fld_millisec(thetime) div millisecsinhr >= 
+           millisecst__base__first .
+C6:    fld_millisec(thetime) div millisecsinhr <= 
+           millisecst__base__last .
+C7:    millisecsinhr <> 0 .
+ 
+
+For path(s) from start to run-time check associated with statement of line 276:
+
+procedure_splittime_5.
+H1:    true .
+H2:    fld_millisec(thetime) >= millisecst__first .
+H3:    fld_millisec(thetime) <= millisecst__last .
+H4:    fld_day(thetime) >= dayst__first .
+H5:    fld_day(thetime) <= dayst__last .
+H6:    fld_month(thetime) >= monthst__first .
+H7:    fld_month(thetime) <= monthst__last .
+H8:    fld_year(thetime) >= yearst__first .
+H9:    fld_year(thetime) <= yearst__last .
+H10:   fld_year(thetime) >= yearst__first .
+H11:   fld_year(thetime) <= yearst__last .
+H12:   fld_month(thetime) >= monthst__first .
+H13:   fld_month(thetime) <= monthst__last .
+H14:   fld_day(thetime) >= dayst__first .
+H15:   fld_day(thetime) <= dayst__last .
+H16:   fld_millisec(thetime) div millisecsinhr >= hourst__first .
+H17:   fld_millisec(thetime) div millisecsinhr <= hourst__last .
+H18:   fld_millisec(thetime) div millisecsinhr >= hourst__first .
+H19:   fld_millisec(thetime) div millisecsinhr <= hourst__last .
+H20:   fld_millisec(thetime) div millisecsinhr >= 
+           millisecst__base__first .
+H21:   fld_millisec(thetime) div millisecsinhr <= 
+           millisecst__base__last .
+H22:   millisecsinhr <> 0 .
+        ->
+C1:    fld_millisec(thetime) mod millisecsinhr div 
+           millisecsinmin >= minutest__first .
+C2:    fld_millisec(thetime) mod millisecsinhr div 
+           millisecsinmin <= minutest__last .
+C3:    fld_millisec(thetime) mod millisecsinhr div 
+           millisecsinmin >= minutest__first .
+C4:    fld_millisec(thetime) mod millisecsinhr div 
+           millisecsinmin <= minutest__last .
+C5:    fld_millisec(thetime) mod millisecsinhr div 
+           millisecsinmin >= millisecst__base__first .
+C6:    fld_millisec(thetime) mod millisecsinhr div 
+           millisecsinmin <= millisecst__base__last .
+C7:    millisecsinmin <> 0 .
+C8:    fld_millisec(thetime) mod millisecsinhr >= 
+           millisecst__base__first .
+C9:    fld_millisec(thetime) mod millisecsinhr <= 
+           millisecst__base__last .
+C10:   millisecsinhr <> 0 .
+ 
+
+For path(s) from start to finish:
+
+procedure_splittime_6.
+*** true .          /* trivially true VC removed by Examiner */
+
+

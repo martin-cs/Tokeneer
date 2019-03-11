@@ -1,0 +1,167 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:24.76*/
+
+                        /*procedure UserEntry.Progress*/
+
+
+rule_family progress_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+progress_rules(1): alarmtypes__statust__size >= 0 may_be_deduced.
+progress_rules(2): alarmtypes__statust__first may_be_replaced_by alarmtypes__alarming.
+progress_rules(3): alarmtypes__statust__last may_be_replaced_by alarmtypes__silent.
+progress_rules(4): alarmtypes__statust__base__first may_be_replaced_by alarmtypes__alarming.
+progress_rules(5): alarmtypes__statust__base__last may_be_replaced_by alarmtypes__silent.
+progress_rules(6): alarmtypes__statust__pos(alarmtypes__statust__first) may_be_replaced_by 0.
+progress_rules(7): alarmtypes__statust__pos(alarmtypes__alarming) may_be_replaced_by 0.
+progress_rules(8): alarmtypes__statust__val(0) may_be_replaced_by 
+     alarmtypes__alarming.
+progress_rules(9): alarmtypes__statust__pos(alarmtypes__silent) may_be_replaced_by 1.
+progress_rules(10): alarmtypes__statust__val(1) may_be_replaced_by 
+     alarmtypes__silent.
+progress_rules(11): alarmtypes__statust__pos(alarmtypes__statust__last) may_be_replaced_by 1.
+progress_rules(12): alarmtypes__statust__pos(succ(X)) may_be_replaced_by 
+     alarmtypes__statust__pos(X) + 1
+     if [X <=alarmtypes__silent, X <> alarmtypes__silent].
+progress_rules(13): alarmtypes__statust__pos(pred(X)) may_be_replaced_by 
+     alarmtypes__statust__pos(X) - 1
+     if [X >=alarmtypes__alarming, X <> alarmtypes__alarming].
+progress_rules(14): alarmtypes__statust__pos(X) >= 0 may_be_deduced_from
+     [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+progress_rules(15): alarmtypes__statust__pos(X) <= 1 may_be_deduced_from
+     [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+progress_rules(16): alarmtypes__statust__val(X) >= 
+     alarmtypes__alarming may_be_deduced_from
+     [0 <= X, X <= 1].
+progress_rules(17): alarmtypes__statust__val(X) <= 
+     alarmtypes__silent may_be_deduced_from
+     [0 <= X, X <= 1].
+progress_rules(18): succ(alarmtypes__statust__val(X)) may_be_replaced_by 
+     alarmtypes__statust__val(X+1)
+     if [0 <= X, X < 1].
+progress_rules(19): pred(alarmtypes__statust__val(X)) may_be_replaced_by 
+     alarmtypes__statust__val(X-1)
+     if [0 < X, X <= 1].
+progress_rules(20): alarmtypes__statust__pos(alarmtypes__statust__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+progress_rules(21): alarmtypes__statust__val(alarmtypes__statust__pos(X)) may_be_replaced_by X
+     if [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+progress_rules(22): alarmtypes__statust__pos(X) <= 
+     alarmtypes__statust__pos(Y) & X <= Y are_interchangeable 
+     if [alarmtypes__alarming <= X, X <= alarmtypes__silent, 
+     alarmtypes__alarming <= Y, Y <= alarmtypes__silent].
+progress_rules(23): alarmtypes__statust__val(X) <= 
+     alarmtypes__statust__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].
+progress_rules(24): door__t__size >= 0 may_be_deduced.
+progress_rules(25): door__t__first may_be_replaced_by door__open.
+progress_rules(26): door__t__last may_be_replaced_by door__closed.
+progress_rules(27): door__t__base__first may_be_replaced_by door__open.
+progress_rules(28): door__t__base__last may_be_replaced_by door__closed.
+progress_rules(29): door__t__pos(door__t__first) may_be_replaced_by 0.
+progress_rules(30): door__t__pos(door__open) may_be_replaced_by 0.
+progress_rules(31): door__t__val(0) may_be_replaced_by door__open.
+progress_rules(32): door__t__pos(door__closed) may_be_replaced_by 1.
+progress_rules(33): door__t__val(1) may_be_replaced_by 
+     door__closed.
+progress_rules(34): door__t__pos(door__t__last) may_be_replaced_by 1.
+progress_rules(35): door__t__pos(succ(X)) may_be_replaced_by 
+     door__t__pos(X) + 1
+     if [X <=door__closed, X <> door__closed].
+progress_rules(36): door__t__pos(pred(X)) may_be_replaced_by 
+     door__t__pos(X) - 1
+     if [X >=door__open, X <> door__open].
+progress_rules(37): door__t__pos(X) >= 0 may_be_deduced_from
+     [door__open <= X, X <= door__closed].
+progress_rules(38): door__t__pos(X) <= 1 may_be_deduced_from
+     [door__open <= X, X <= door__closed].
+progress_rules(39): door__t__val(X) >= door__open may_be_deduced_from
+     [0 <= X, X <= 1].
+progress_rules(40): door__t__val(X) <= door__closed may_be_deduced_from
+     [0 <= X, X <= 1].
+progress_rules(41): succ(door__t__val(X)) may_be_replaced_by 
+     door__t__val(X+1)
+     if [0 <= X, X < 1].
+progress_rules(42): pred(door__t__val(X)) may_be_replaced_by 
+     door__t__val(X-1)
+     if [0 < X, X <= 1].
+progress_rules(43): door__t__pos(door__t__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+progress_rules(44): door__t__val(door__t__pos(X)) may_be_replaced_by X
+     if [door__open <= X, X <= door__closed].
+progress_rules(45): door__t__pos(X) <= door__t__pos(Y) & X <= Y are_interchangeable 
+     if [door__open <= X, X <= door__closed, door__open <= Y, Y <= 
+     door__closed].
+progress_rules(46): door__t__val(X) <= door__t__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].
+progress_rules(47): statust__size >= 0 may_be_deduced.
+progress_rules(48): statust__first may_be_replaced_by quiescent.
+progress_rules(49): statust__last may_be_replaced_by waitingremovetokenfail.
+progress_rules(50): statust__base__first may_be_replaced_by quiescent.
+progress_rules(51): statust__base__last may_be_replaced_by waitingremovetokenfail.
+progress_rules(52): statust__pos(statust__first) may_be_replaced_by 0.
+progress_rules(53): statust__pos(quiescent) may_be_replaced_by 0.
+progress_rules(54): statust__val(0) may_be_replaced_by quiescent.
+progress_rules(55): statust__pos(gotusertoken) may_be_replaced_by 1.
+progress_rules(56): statust__val(1) may_be_replaced_by 
+     gotusertoken.
+progress_rules(57): statust__pos(waitingfinger) may_be_replaced_by 2.
+progress_rules(58): statust__val(2) may_be_replaced_by 
+     waitingfinger.
+progress_rules(59): statust__pos(gotfinger) may_be_replaced_by 3.
+progress_rules(60): statust__val(3) may_be_replaced_by gotfinger.
+progress_rules(61): statust__pos(waitingupdatetoken) may_be_replaced_by 4.
+progress_rules(62): statust__val(4) may_be_replaced_by 
+     waitingupdatetoken.
+progress_rules(63): statust__pos(waitingentry) may_be_replaced_by 5.
+progress_rules(64): statust__val(5) may_be_replaced_by 
+     waitingentry.
+progress_rules(65): statust__pos(waitingremovetokensuccess) may_be_replaced_by 6.
+progress_rules(66): statust__val(6) may_be_replaced_by 
+     waitingremovetokensuccess.
+progress_rules(67): statust__pos(waitingremovetokenfail) may_be_replaced_by 7.
+progress_rules(68): statust__val(7) may_be_replaced_by 
+     waitingremovetokenfail.
+progress_rules(69): statust__pos(statust__last) may_be_replaced_by 7.
+progress_rules(70): statust__pos(succ(X)) may_be_replaced_by 
+     statust__pos(X) + 1
+     if [X <=waitingremovetokenfail, X <> waitingremovetokenfail].
+progress_rules(71): statust__pos(pred(X)) may_be_replaced_by 
+     statust__pos(X) - 1
+     if [X >=quiescent, X <> quiescent].
+progress_rules(72): statust__pos(X) >= 0 may_be_deduced_from
+     [quiescent <= X, X <= waitingremovetokenfail].
+progress_rules(73): statust__pos(X) <= 7 may_be_deduced_from
+     [quiescent <= X, X <= waitingremovetokenfail].
+progress_rules(74): statust__val(X) >= quiescent may_be_deduced_from
+     [0 <= X, X <= 7].
+progress_rules(75): statust__val(X) <= waitingremovetokenfail may_be_deduced_from
+     [0 <= X, X <= 7].
+progress_rules(76): succ(statust__val(X)) may_be_replaced_by 
+     statust__val(X+1)
+     if [0 <= X, X < 7].
+progress_rules(77): pred(statust__val(X)) may_be_replaced_by 
+     statust__val(X-1)
+     if [0 < X, X <= 7].
+progress_rules(78): statust__pos(statust__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 7].
+progress_rules(79): statust__val(statust__pos(X)) may_be_replaced_by X
+     if [quiescent <= X, X <= waitingremovetokenfail].
+progress_rules(80): statust__pos(X) <= statust__pos(Y) & X <= Y are_interchangeable 
+     if [quiescent <= X, X <= waitingremovetokenfail, quiescent <= Y, Y <= 
+     waitingremovetokenfail].
+progress_rules(81): statust__val(X) <= statust__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 7, 0 <= Y, Y <= 7].
+progress_rules(82): activestatust__size >= 0 may_be_deduced.
+progress_rules(83): activestatust__first may_be_replaced_by gotusertoken.
+progress_rules(84): activestatust__last may_be_replaced_by waitingremovetokenfail.
+progress_rules(85): activestatust__base__first may_be_replaced_by quiescent.
+progress_rules(86): activestatust__base__last may_be_replaced_by waitingremovetokenfail.

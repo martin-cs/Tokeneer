@@ -1,0 +1,124 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:08  SIMPLIFIED 05-SEP-2011, 15:38:42
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure AuditLog.AddElementToLogFile
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 886:
+
+procedure_addelementtologfile_1.
+*** true .          /* all conclusions proved */
+
+
+For path(s) from start to precondition check associated with statement of line 
+          888:
+
+procedure_addelementtologfile_2.
+*** true .          /* all conclusions proved */
+
+
+For path(s) from start to check associated with statement of line 896:
+
+procedure_addelementtologfile_3.
+*** true .          /* all conclusions proved */
+
+
+For path(s) from start to precondition check associated with statement of line 
+          898:
+
+procedure_addelementtologfile_4.
+*** true .          /* all conclusions proved */
+
+
+For path(s) from start to run-time check associated with statement of line 905:
+
+procedure_addelementtologfile_5.
+*** true .          /* all conclusions proved */
+
+
+procedure_addelementtologfile_6.
+*** true .          /* all conclusions proved */
+
+
+For path(s) from start to finish:
+
+procedure_addelementtologfile_7.
+H1:    (fld_length(usedlogfiles) - 1) * 1024 + element(logfileentries, [
+          currentlogfile]) < 17408 .
+H2:    audittypes__startunenrolledtis <= elementid .
+H3:    elementid <= audittypes__systemfault .
+H4:    audittypes__information <= severity .
+H5:    severity <= audittypes__critical .
+H6:    for_all(i___1 : integer, 1 <= i___1 and i___1 <= 50 -> 0 <= element(
+          user, [i___1]) and element(user, [i___1]) <= 255) .
+H7:    for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= element(
+          description, [i___1]) and element(description, [i___1]) <= 255) .
+H8:    (fld_length(usedlogfiles) - 1) * 1024 + element(logfileentries, [
+          currentlogfile]) >= 0 .
+H9:    for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> free <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= used)
+           .
+H10:   for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> 0 <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 1024)
+           .
+H11:   currentlogfile >= 1 .
+H12:   currentlogfile <= 17 .
+H13:   fld_length(usedlogfiles) <= 17 .
+H14:   fld_lasti(usedlogfiles) >= 1 .
+H15:   fld_lasti(usedlogfiles) <= 17 .
+H16:   fld_head(usedlogfiles) >= 1 .
+H17:   fld_head(usedlogfiles) <= 17 .
+H18:   for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> 1 <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= 17) .
+H19:   element(logfileentries, [currentlogfile]) < 1024 .
+H20:   element(logfileentries__1, [currentlogfile]) = element(logfileentries, [
+          currentlogfile]) + 1 .
+H21:   for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> 0 <= element(
+          logfileentries__1, [i___1]) and element(logfileentries__1, [i___1]) 
+          <= 1024) .
+H22:   integer__size >= 0 .
+H23:   character__size >= 0 .
+H24:   positive__size >= 0 .
+H25:   audittypes__elementt__size >= 0 .
+H26:   audittypes__severityt__size >= 0 .
+H27:   audittypes__descriptioni__size >= 0 .
+H28:   audittypes__usertexti__size >= 0 .
+H29:   logfilecountt__size >= 0 .
+H30:   logfilecountt__base__first <= logfilecountt__base__last .
+H31:   logfileindext__size >= 0 .
+H32:   logfileindext__base__first <= logfileindext__base__last .
+H33:   filestatust__size >= 0 .
+H34:   logfilelistt__size >= 0 .
+H35:   logentrycountt__size >= 0 .
+H36:   logentrycountt__base__first <= logentrycountt__base__last .
+H37:   fileentrycountt__size >= 0 .
+H38:   fileentrycountt__base__first <= fileentrycountt__base__last .
+H39:   logfilecountt__base__first <= 0 .
+H40:   logfilecountt__base__last >= 17 .
+H41:   logfileindext__base__first <= 1 .
+H42:   logfileindext__base__last >= 17 .
+H43:   logentrycountt__base__first <= 0 .
+H44:   logentrycountt__base__last >= 17408 .
+H45:   fileentrycountt__base__first <= 0 .
+H46:   fileentrycountt__base__last >= 1024 .
+       ->
+C1:    element(logfileentries, [currentlogfile]) - element(logfileentries__1, [
+          currentlogfile]) = - 1 .
+
+
+procedure_addelementtologfile_8.
+*** true .   /* proved using user-defined proof rules. */
+
+

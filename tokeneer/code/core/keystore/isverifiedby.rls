@@ -1,0 +1,661 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:12.47*/
+
+                      /*procedure KeyStore.IsVerifiedBy*/
+
+
+rule_family isverifiedby_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+isverifiedby_rules(1): integer__size >= 0 may_be_deduced.
+isverifiedby_rules(2): integer__first may_be_replaced_by -2147483648.
+isverifiedby_rules(3): integer__last may_be_replaced_by 2147483647.
+isverifiedby_rules(4): integer__base__first may_be_replaced_by -2147483648.
+isverifiedby_rules(5): integer__base__last may_be_replaced_by 2147483647.
+isverifiedby_rules(6): character__size >= 0 may_be_deduced.
+isverifiedby_rules(7): character__first may_be_replaced_by 0.
+isverifiedby_rules(8): character__last may_be_replaced_by 255.
+isverifiedby_rules(9): character__base__first may_be_replaced_by 0.
+isverifiedby_rules(10): character__base__last may_be_replaced_by 255.
+isverifiedby_rules(11): positive__size >= 0 may_be_deduced.
+isverifiedby_rules(12): positive__first may_be_replaced_by 1.
+isverifiedby_rules(13): positive__last may_be_replaced_by 2147483647.
+isverifiedby_rules(14): positive__base__first may_be_replaced_by -2147483648.
+isverifiedby_rules(15): positive__base__last may_be_replaced_by 2147483647.
+isverifiedby_rules(16): basictypes__unsigned32t__size >= 0 may_be_deduced.
+isverifiedby_rules(17): basictypes__unsigned32t__size may_be_replaced_by 32.
+isverifiedby_rules(18): basictypes__unsigned32t__first may_be_replaced_by 0.
+isverifiedby_rules(19): basictypes__unsigned32t__last may_be_replaced_by 4294967295.
+isverifiedby_rules(20): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__base__last may_be_deduced.
+isverifiedby_rules(21): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__first may_be_deduced.
+isverifiedby_rules(22): basictypes__unsigned32t__base__last >= 
+     basictypes__unsigned32t__last may_be_deduced.
+isverifiedby_rules(23): basictypes__bytet__size >= 0 may_be_deduced.
+isverifiedby_rules(24): basictypes__bytet__size may_be_replaced_by 8.
+isverifiedby_rules(25): basictypes__bytet__first may_be_replaced_by 0.
+isverifiedby_rules(26): basictypes__bytet__last may_be_replaced_by 255.
+isverifiedby_rules(27): basictypes__bytet__base__first <= 
+     basictypes__bytet__base__last may_be_deduced.
+isverifiedby_rules(28): basictypes__bytet__base__first <= 
+     basictypes__bytet__first may_be_deduced.
+isverifiedby_rules(29): basictypes__bytet__base__last >= 
+     basictypes__bytet__last may_be_deduced.
+isverifiedby_rules(30): audittypes__elementt__size >= 0 may_be_deduced.
+isverifiedby_rules(31): audittypes__elementt__first may_be_replaced_by audittypes__startunenrolledtis.
+isverifiedby_rules(32): audittypes__elementt__last may_be_replaced_by audittypes__systemfault.
+isverifiedby_rules(33): audittypes__elementt__base__first may_be_replaced_by audittypes__startunenrolledtis.
+isverifiedby_rules(34): audittypes__elementt__base__last may_be_replaced_by audittypes__systemfault.
+isverifiedby_rules(35): audittypes__elementt__pos(
+     audittypes__elementt__first) may_be_replaced_by 0.
+isverifiedby_rules(36): audittypes__elementt__pos(
+     audittypes__startunenrolledtis) may_be_replaced_by 0.
+isverifiedby_rules(37): audittypes__elementt__val(0) may_be_replaced_by 
+     audittypes__startunenrolledtis.
+isverifiedby_rules(38): audittypes__elementt__pos(
+     audittypes__startenrolledtis) may_be_replaced_by 1.
+isverifiedby_rules(39): audittypes__elementt__val(1) may_be_replaced_by 
+     audittypes__startenrolledtis.
+isverifiedby_rules(40): audittypes__elementt__pos(
+     audittypes__enrolmentcomplete) may_be_replaced_by 2.
+isverifiedby_rules(41): audittypes__elementt__val(2) may_be_replaced_by 
+     audittypes__enrolmentcomplete.
+isverifiedby_rules(42): audittypes__elementt__pos(
+     audittypes__enrolmentfailed) may_be_replaced_by 3.
+isverifiedby_rules(43): audittypes__elementt__val(3) may_be_replaced_by 
+     audittypes__enrolmentfailed.
+isverifiedby_rules(44): audittypes__elementt__pos(
+     audittypes__displaychanged) may_be_replaced_by 4.
+isverifiedby_rules(45): audittypes__elementt__val(4) may_be_replaced_by 
+     audittypes__displaychanged.
+isverifiedby_rules(46): audittypes__elementt__pos(
+     audittypes__screenchanged) may_be_replaced_by 5.
+isverifiedby_rules(47): audittypes__elementt__val(5) may_be_replaced_by 
+     audittypes__screenchanged.
+isverifiedby_rules(48): audittypes__elementt__pos(
+     audittypes__doorclosed) may_be_replaced_by 6.
+isverifiedby_rules(49): audittypes__elementt__val(6) may_be_replaced_by 
+     audittypes__doorclosed.
+isverifiedby_rules(50): audittypes__elementt__pos(
+     audittypes__dooropened) may_be_replaced_by 7.
+isverifiedby_rules(51): audittypes__elementt__val(7) may_be_replaced_by 
+     audittypes__dooropened.
+isverifiedby_rules(52): audittypes__elementt__pos(
+     audittypes__latchlocked) may_be_replaced_by 8.
+isverifiedby_rules(53): audittypes__elementt__val(8) may_be_replaced_by 
+     audittypes__latchlocked.
+isverifiedby_rules(54): audittypes__elementt__pos(
+     audittypes__latchunlocked) may_be_replaced_by 9.
+isverifiedby_rules(55): audittypes__elementt__val(9) may_be_replaced_by 
+     audittypes__latchunlocked.
+isverifiedby_rules(56): audittypes__elementt__pos(
+     audittypes__alarmraised) may_be_replaced_by 10.
+isverifiedby_rules(57): audittypes__elementt__val(10) may_be_replaced_by 
+     audittypes__alarmraised.
+isverifiedby_rules(58): audittypes__elementt__pos(
+     audittypes__alarmsilenced) may_be_replaced_by 11.
+isverifiedby_rules(59): audittypes__elementt__val(11) may_be_replaced_by 
+     audittypes__alarmsilenced.
+isverifiedby_rules(60): audittypes__elementt__pos(
+     audittypes__truncatelog) may_be_replaced_by 12.
+isverifiedby_rules(61): audittypes__elementt__val(12) may_be_replaced_by 
+     audittypes__truncatelog.
+isverifiedby_rules(62): audittypes__elementt__pos(
+     audittypes__auditalarmraised) may_be_replaced_by 13.
+isverifiedby_rules(63): audittypes__elementt__val(13) may_be_replaced_by 
+     audittypes__auditalarmraised.
+isverifiedby_rules(64): audittypes__elementt__pos(
+     audittypes__auditalarmsilenced) may_be_replaced_by 14.
+isverifiedby_rules(65): audittypes__elementt__val(14) may_be_replaced_by 
+     audittypes__auditalarmsilenced.
+isverifiedby_rules(66): audittypes__elementt__pos(
+     audittypes__usertokenremoved) may_be_replaced_by 15.
+isverifiedby_rules(67): audittypes__elementt__val(15) may_be_replaced_by 
+     audittypes__usertokenremoved.
+isverifiedby_rules(68): audittypes__elementt__pos(
+     audittypes__usertokenpresent) may_be_replaced_by 16.
+isverifiedby_rules(69): audittypes__elementt__val(16) may_be_replaced_by 
+     audittypes__usertokenpresent.
+isverifiedby_rules(70): audittypes__elementt__pos(
+     audittypes__usertokeninvalid) may_be_replaced_by 17.
+isverifiedby_rules(71): audittypes__elementt__val(17) may_be_replaced_by 
+     audittypes__usertokeninvalid.
+isverifiedby_rules(72): audittypes__elementt__pos(
+     audittypes__authcertvalid) may_be_replaced_by 18.
+isverifiedby_rules(73): audittypes__elementt__val(18) may_be_replaced_by 
+     audittypes__authcertvalid.
+isverifiedby_rules(74): audittypes__elementt__pos(
+     audittypes__authcertinvalid) may_be_replaced_by 19.
+isverifiedby_rules(75): audittypes__elementt__val(19) may_be_replaced_by 
+     audittypes__authcertinvalid.
+isverifiedby_rules(76): audittypes__elementt__pos(
+     audittypes__fingerdetected) may_be_replaced_by 20.
+isverifiedby_rules(77): audittypes__elementt__val(20) may_be_replaced_by 
+     audittypes__fingerdetected.
+isverifiedby_rules(78): audittypes__elementt__pos(
+     audittypes__fingertimeout) may_be_replaced_by 21.
+isverifiedby_rules(79): audittypes__elementt__val(21) may_be_replaced_by 
+     audittypes__fingertimeout.
+isverifiedby_rules(80): audittypes__elementt__pos(
+     audittypes__fingermatched) may_be_replaced_by 22.
+isverifiedby_rules(81): audittypes__elementt__val(22) may_be_replaced_by 
+     audittypes__fingermatched.
+isverifiedby_rules(82): audittypes__elementt__pos(
+     audittypes__fingernotmatched) may_be_replaced_by 23.
+isverifiedby_rules(83): audittypes__elementt__val(23) may_be_replaced_by 
+     audittypes__fingernotmatched.
+isverifiedby_rules(84): audittypes__elementt__pos(
+     audittypes__authcertwritten) may_be_replaced_by 24.
+isverifiedby_rules(85): audittypes__elementt__val(24) may_be_replaced_by 
+     audittypes__authcertwritten.
+isverifiedby_rules(86): audittypes__elementt__pos(
+     audittypes__authcertwritefailed) may_be_replaced_by 25.
+isverifiedby_rules(87): audittypes__elementt__val(25) may_be_replaced_by 
+     audittypes__authcertwritefailed.
+isverifiedby_rules(88): audittypes__elementt__pos(
+     audittypes__entrypermitted) may_be_replaced_by 26.
+isverifiedby_rules(89): audittypes__elementt__val(26) may_be_replaced_by 
+     audittypes__entrypermitted.
+isverifiedby_rules(90): audittypes__elementt__pos(
+     audittypes__entrytimeout) may_be_replaced_by 27.
+isverifiedby_rules(91): audittypes__elementt__val(27) may_be_replaced_by 
+     audittypes__entrytimeout.
+isverifiedby_rules(92): audittypes__elementt__pos(
+     audittypes__entrydenied) may_be_replaced_by 28.
+isverifiedby_rules(93): audittypes__elementt__val(28) may_be_replaced_by 
+     audittypes__entrydenied.
+isverifiedby_rules(94): audittypes__elementt__pos(
+     audittypes__admintokenpresent) may_be_replaced_by 29.
+isverifiedby_rules(95): audittypes__elementt__val(29) may_be_replaced_by 
+     audittypes__admintokenpresent.
+isverifiedby_rules(96): audittypes__elementt__pos(
+     audittypes__admintokenvalid) may_be_replaced_by 30.
+isverifiedby_rules(97): audittypes__elementt__val(30) may_be_replaced_by 
+     audittypes__admintokenvalid.
+isverifiedby_rules(98): audittypes__elementt__pos(
+     audittypes__admintokeninvalid) may_be_replaced_by 31.
+isverifiedby_rules(99): audittypes__elementt__val(31) may_be_replaced_by 
+     audittypes__admintokeninvalid.
+isverifiedby_rules(100): audittypes__elementt__pos(
+     audittypes__admintokenexpired) may_be_replaced_by 32.
+isverifiedby_rules(101): audittypes__elementt__val(32) may_be_replaced_by 
+     audittypes__admintokenexpired.
+isverifiedby_rules(102): audittypes__elementt__pos(
+     audittypes__admintokenremoved) may_be_replaced_by 33.
+isverifiedby_rules(103): audittypes__elementt__val(33) may_be_replaced_by 
+     audittypes__admintokenremoved.
+isverifiedby_rules(104): audittypes__elementt__pos(
+     audittypes__invalidoprequest) may_be_replaced_by 34.
+isverifiedby_rules(105): audittypes__elementt__val(34) may_be_replaced_by 
+     audittypes__invalidoprequest.
+isverifiedby_rules(106): audittypes__elementt__pos(
+     audittypes__operationstart) may_be_replaced_by 35.
+isverifiedby_rules(107): audittypes__elementt__val(35) may_be_replaced_by 
+     audittypes__operationstart.
+isverifiedby_rules(108): audittypes__elementt__pos(
+     audittypes__archivelog) may_be_replaced_by 36.
+isverifiedby_rules(109): audittypes__elementt__val(36) may_be_replaced_by 
+     audittypes__archivelog.
+isverifiedby_rules(110): audittypes__elementt__pos(
+     audittypes__archivecomplete) may_be_replaced_by 37.
+isverifiedby_rules(111): audittypes__elementt__val(37) may_be_replaced_by 
+     audittypes__archivecomplete.
+isverifiedby_rules(112): audittypes__elementt__pos(
+     audittypes__archivecheckfailed) may_be_replaced_by 38.
+isverifiedby_rules(113): audittypes__elementt__val(38) may_be_replaced_by 
+     audittypes__archivecheckfailed.
+isverifiedby_rules(114): audittypes__elementt__pos(
+     audittypes__updatedconfigdata) may_be_replaced_by 39.
+isverifiedby_rules(115): audittypes__elementt__val(39) may_be_replaced_by 
+     audittypes__updatedconfigdata.
+isverifiedby_rules(116): audittypes__elementt__pos(
+     audittypes__invalidconfigdata) may_be_replaced_by 40.
+isverifiedby_rules(117): audittypes__elementt__val(40) may_be_replaced_by 
+     audittypes__invalidconfigdata.
+isverifiedby_rules(118): audittypes__elementt__pos(
+     audittypes__shutdown) may_be_replaced_by 41.
+isverifiedby_rules(119): audittypes__elementt__val(41) may_be_replaced_by 
+     audittypes__shutdown.
+isverifiedby_rules(120): audittypes__elementt__pos(
+     audittypes__overridelock) may_be_replaced_by 42.
+isverifiedby_rules(121): audittypes__elementt__val(42) may_be_replaced_by 
+     audittypes__overridelock.
+isverifiedby_rules(122): audittypes__elementt__pos(
+     audittypes__systemfault) may_be_replaced_by 43.
+isverifiedby_rules(123): audittypes__elementt__val(43) may_be_replaced_by 
+     audittypes__systemfault.
+isverifiedby_rules(124): audittypes__elementt__pos(
+     audittypes__elementt__last) may_be_replaced_by 43.
+isverifiedby_rules(125): audittypes__elementt__pos(succ(X)) may_be_replaced_by 
+     audittypes__elementt__pos(X) + 1
+     if [X <=audittypes__systemfault, X <> 
+     audittypes__systemfault].
+isverifiedby_rules(126): audittypes__elementt__pos(pred(X)) may_be_replaced_by 
+     audittypes__elementt__pos(X) - 1
+     if [X >=audittypes__startunenrolledtis, X <> 
+     audittypes__startunenrolledtis].
+isverifiedby_rules(127): audittypes__elementt__pos(X) >= 0 may_be_deduced_from
+     [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+isverifiedby_rules(128): audittypes__elementt__pos(X) <= 43 may_be_deduced_from
+     [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+isverifiedby_rules(129): audittypes__elementt__val(X) >= 
+     audittypes__startunenrolledtis may_be_deduced_from
+     [0 <= X, X <= 43].
+isverifiedby_rules(130): audittypes__elementt__val(X) <= 
+     audittypes__systemfault may_be_deduced_from
+     [0 <= X, X <= 43].
+isverifiedby_rules(131): succ(audittypes__elementt__val(X)) may_be_replaced_by 
+     audittypes__elementt__val(X+1)
+     if [0 <= X, X < 43].
+isverifiedby_rules(132): pred(audittypes__elementt__val(X)) may_be_replaced_by 
+     audittypes__elementt__val(X-1)
+     if [0 < X, X <= 43].
+isverifiedby_rules(133): audittypes__elementt__pos(
+     audittypes__elementt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 43].
+isverifiedby_rules(134): audittypes__elementt__val(
+     audittypes__elementt__pos(X)) may_be_replaced_by X
+     if [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+isverifiedby_rules(135): audittypes__elementt__pos(X) <= 
+     audittypes__elementt__pos(Y) & X <= Y are_interchangeable 
+     if [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault, audittypes__startunenrolledtis <= Y, Y <= 
+     audittypes__systemfault].
+isverifiedby_rules(136): audittypes__elementt__val(X) <= 
+     audittypes__elementt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 43, 0 <= Y, Y <= 43].
+isverifiedby_rules(137): audittypes__severityt__size >= 0 may_be_deduced.
+isverifiedby_rules(138): audittypes__severityt__first may_be_replaced_by audittypes__information.
+isverifiedby_rules(139): audittypes__severityt__last may_be_replaced_by audittypes__critical.
+isverifiedby_rules(140): audittypes__severityt__base__first may_be_replaced_by audittypes__information.
+isverifiedby_rules(141): audittypes__severityt__base__last may_be_replaced_by audittypes__critical.
+isverifiedby_rules(142): audittypes__severityt__pos(
+     audittypes__severityt__first) may_be_replaced_by 0.
+isverifiedby_rules(143): audittypes__severityt__pos(
+     audittypes__information) may_be_replaced_by 0.
+isverifiedby_rules(144): audittypes__severityt__val(0) may_be_replaced_by 
+     audittypes__information.
+isverifiedby_rules(145): audittypes__severityt__pos(
+     audittypes__warning) may_be_replaced_by 1.
+isverifiedby_rules(146): audittypes__severityt__val(1) may_be_replaced_by 
+     audittypes__warning.
+isverifiedby_rules(147): audittypes__severityt__pos(
+     audittypes__critical) may_be_replaced_by 2.
+isverifiedby_rules(148): audittypes__severityt__val(2) may_be_replaced_by 
+     audittypes__critical.
+isverifiedby_rules(149): audittypes__severityt__pos(
+     audittypes__severityt__last) may_be_replaced_by 2.
+isverifiedby_rules(150): audittypes__severityt__pos(succ(X)) may_be_replaced_by 
+     audittypes__severityt__pos(X) + 1
+     if [X <=audittypes__critical, X <> audittypes__critical].
+isverifiedby_rules(151): audittypes__severityt__pos(pred(X)) may_be_replaced_by 
+     audittypes__severityt__pos(X) - 1
+     if [X >=audittypes__information, X <> 
+     audittypes__information].
+isverifiedby_rules(152): audittypes__severityt__pos(X) >= 0 may_be_deduced_from
+     [audittypes__information <= X, X <= audittypes__critical].
+isverifiedby_rules(153): audittypes__severityt__pos(X) <= 2 may_be_deduced_from
+     [audittypes__information <= X, X <= audittypes__critical].
+isverifiedby_rules(154): audittypes__severityt__val(X) >= 
+     audittypes__information may_be_deduced_from
+     [0 <= X, X <= 2].
+isverifiedby_rules(155): audittypes__severityt__val(X) <= 
+     audittypes__critical may_be_deduced_from
+     [0 <= X, X <= 2].
+isverifiedby_rules(156): succ(audittypes__severityt__val(X)) may_be_replaced_by 
+     audittypes__severityt__val(X+1)
+     if [0 <= X, X < 2].
+isverifiedby_rules(157): pred(audittypes__severityt__val(X)) may_be_replaced_by 
+     audittypes__severityt__val(X-1)
+     if [0 < X, X <= 2].
+isverifiedby_rules(158): audittypes__severityt__pos(
+     audittypes__severityt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 2].
+isverifiedby_rules(159): audittypes__severityt__val(
+     audittypes__severityt__pos(X)) may_be_replaced_by X
+     if [audittypes__information <= X, X <= audittypes__critical].
+isverifiedby_rules(160): audittypes__severityt__pos(X) <= 
+     audittypes__severityt__pos(Y) & X <= Y are_interchangeable 
+     if [audittypes__information <= X, X <= audittypes__critical, 
+     audittypes__information <= Y, Y <= audittypes__critical].
+isverifiedby_rules(161): audittypes__severityt__val(X) <= 
+     audittypes__severityt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 2, 0 <= Y, Y <= 2].
+isverifiedby_rules(162): audittypes__descriptioni__size >= 0 may_be_deduced.
+isverifiedby_rules(163): audittypes__descriptioni__first may_be_replaced_by 1.
+isverifiedby_rules(164): audittypes__descriptioni__last may_be_replaced_by 150.
+isverifiedby_rules(165): audittypes__descriptioni__base__first may_be_replaced_by -2147483648.
+isverifiedby_rules(166): audittypes__descriptioni__base__last may_be_replaced_by 2147483647.
+isverifiedby_rules(167): cryptotypes__namecountt__size >= 0 may_be_deduced.
+isverifiedby_rules(168): cryptotypes__namecountt__first may_be_replaced_by 0.
+isverifiedby_rules(169): cryptotypes__namecountt__last may_be_replaced_by 40.
+isverifiedby_rules(170): cryptotypes__namecountt__base__first may_be_replaced_by -2147483648.
+isverifiedby_rules(171): cryptotypes__namecountt__base__last may_be_replaced_by 2147483647.
+isverifiedby_rules(172): cryptotypes__namei__size >= 0 may_be_deduced.
+isverifiedby_rules(173): cryptotypes__namei__first may_be_replaced_by 1.
+isverifiedby_rules(174): cryptotypes__namei__last may_be_replaced_by 40.
+isverifiedby_rules(175): cryptotypes__namei__base__first may_be_replaced_by -2147483648.
+isverifiedby_rules(176): cryptotypes__namei__base__last may_be_replaced_by 2147483647.
+isverifiedby_rules(177): cryptotypes__issueridt__size >= 0 may_be_deduced.
+isverifiedby_rules(178): cryptotypes__issueridt__first may_be_replaced_by 0.
+isverifiedby_rules(179): cryptotypes__issueridt__last may_be_replaced_by 4294967295.
+isverifiedby_rules(180): cryptotypes__issueridt__base__first <= 
+     cryptotypes__issueridt__base__last may_be_deduced.
+isverifiedby_rules(181): cryptotypes__issueridt__base__first <= 
+     cryptotypes__issueridt__first may_be_deduced.
+isverifiedby_rules(182): cryptotypes__issueridt__base__last >= 
+     cryptotypes__issueridt__last may_be_deduced.
+isverifiedby_rules(183): cryptotypes__issuert__size >= 0 may_be_deduced.
+isverifiedby_rules(184): A = B may_be_deduced_from
+     [goal(checktype(A,cryptotypes__issuert)),
+      goal(checktype(B,cryptotypes__issuert)),
+      fld_id(A) = fld_id(B),
+      fld_namelength(A) = fld_namelength(B),
+      fld_name(A) = fld_name(B)].
+isverifiedby_rules(185): cryptotypes__algorithmt__size >= 0 may_be_deduced.
+isverifiedby_rules(186): cryptotypes__algorithmt__first may_be_replaced_by cryptotypes__rsa.
+isverifiedby_rules(187): cryptotypes__algorithmt__last may_be_replaced_by cryptotypes__ripemd160_rsa.
+isverifiedby_rules(188): cryptotypes__algorithmt__base__first may_be_replaced_by cryptotypes__rsa.
+isverifiedby_rules(189): cryptotypes__algorithmt__base__last may_be_replaced_by cryptotypes__ripemd160_rsa.
+isverifiedby_rules(190): cryptotypes__algorithmt__pos(
+     cryptotypes__algorithmt__first) may_be_replaced_by 0.
+isverifiedby_rules(191): cryptotypes__algorithmt__pos(
+     cryptotypes__rsa) may_be_replaced_by 0.
+isverifiedby_rules(192): cryptotypes__algorithmt__val(0) may_be_replaced_by 
+     cryptotypes__rsa.
+isverifiedby_rules(193): cryptotypes__algorithmt__pos(
+     cryptotypes__md2) may_be_replaced_by 1.
+isverifiedby_rules(194): cryptotypes__algorithmt__val(1) may_be_replaced_by 
+     cryptotypes__md2.
+isverifiedby_rules(195): cryptotypes__algorithmt__pos(
+     cryptotypes__md5) may_be_replaced_by 2.
+isverifiedby_rules(196): cryptotypes__algorithmt__val(2) may_be_replaced_by 
+     cryptotypes__md5.
+isverifiedby_rules(197): cryptotypes__algorithmt__pos(
+     cryptotypes__sha_1) may_be_replaced_by 3.
+isverifiedby_rules(198): cryptotypes__algorithmt__val(3) may_be_replaced_by 
+     cryptotypes__sha_1.
+isverifiedby_rules(199): cryptotypes__algorithmt__pos(
+     cryptotypes__ripemd128) may_be_replaced_by 4.
+isverifiedby_rules(200): cryptotypes__algorithmt__val(4) may_be_replaced_by 
+     cryptotypes__ripemd128.
+isverifiedby_rules(201): cryptotypes__algorithmt__pos(
+     cryptotypes__ripemd160) may_be_replaced_by 5.
+isverifiedby_rules(202): cryptotypes__algorithmt__val(5) may_be_replaced_by 
+     cryptotypes__ripemd160.
+isverifiedby_rules(203): cryptotypes__algorithmt__pos(
+     cryptotypes__md2_rsa) may_be_replaced_by 6.
+isverifiedby_rules(204): cryptotypes__algorithmt__val(6) may_be_replaced_by 
+     cryptotypes__md2_rsa.
+isverifiedby_rules(205): cryptotypes__algorithmt__pos(
+     cryptotypes__md5_rsa) may_be_replaced_by 7.
+isverifiedby_rules(206): cryptotypes__algorithmt__val(7) may_be_replaced_by 
+     cryptotypes__md5_rsa.
+isverifiedby_rules(207): cryptotypes__algorithmt__pos(
+     cryptotypes__sha1_rsa) may_be_replaced_by 8.
+isverifiedby_rules(208): cryptotypes__algorithmt__val(8) may_be_replaced_by 
+     cryptotypes__sha1_rsa.
+isverifiedby_rules(209): cryptotypes__algorithmt__pos(
+     cryptotypes__ripemd128_rsa) may_be_replaced_by 9.
+isverifiedby_rules(210): cryptotypes__algorithmt__val(9) may_be_replaced_by 
+     cryptotypes__ripemd128_rsa.
+isverifiedby_rules(211): cryptotypes__algorithmt__pos(
+     cryptotypes__ripemd160_rsa) may_be_replaced_by 10.
+isverifiedby_rules(212): cryptotypes__algorithmt__val(10) may_be_replaced_by 
+     cryptotypes__ripemd160_rsa.
+isverifiedby_rules(213): cryptotypes__algorithmt__pos(
+     cryptotypes__algorithmt__last) may_be_replaced_by 10.
+isverifiedby_rules(214): cryptotypes__algorithmt__pos(succ(X)) may_be_replaced_by 
+     cryptotypes__algorithmt__pos(X) + 1
+     if [X <=cryptotypes__ripemd160_rsa, X <> 
+     cryptotypes__ripemd160_rsa].
+isverifiedby_rules(215): cryptotypes__algorithmt__pos(pred(X)) may_be_replaced_by 
+     cryptotypes__algorithmt__pos(X) - 1
+     if [X >=cryptotypes__rsa, X <> cryptotypes__rsa].
+isverifiedby_rules(216): cryptotypes__algorithmt__pos(X) >= 0 may_be_deduced_from
+     [cryptotypes__rsa <= X, X <= cryptotypes__ripemd160_rsa].
+isverifiedby_rules(217): cryptotypes__algorithmt__pos(X) <= 10 may_be_deduced_from
+     [cryptotypes__rsa <= X, X <= cryptotypes__ripemd160_rsa].
+isverifiedby_rules(218): cryptotypes__algorithmt__val(X) >= 
+     cryptotypes__rsa may_be_deduced_from
+     [0 <= X, X <= 10].
+isverifiedby_rules(219): cryptotypes__algorithmt__val(X) <= 
+     cryptotypes__ripemd160_rsa may_be_deduced_from
+     [0 <= X, X <= 10].
+isverifiedby_rules(220): succ(cryptotypes__algorithmt__val(X)) may_be_replaced_by 
+     cryptotypes__algorithmt__val(X+1)
+     if [0 <= X, X < 10].
+isverifiedby_rules(221): pred(cryptotypes__algorithmt__val(X)) may_be_replaced_by 
+     cryptotypes__algorithmt__val(X-1)
+     if [0 < X, X <= 10].
+isverifiedby_rules(222): cryptotypes__algorithmt__pos(
+     cryptotypes__algorithmt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 10].
+isverifiedby_rules(223): cryptotypes__algorithmt__val(
+     cryptotypes__algorithmt__pos(X)) may_be_replaced_by X
+     if [cryptotypes__rsa <= X, X <= cryptotypes__ripemd160_rsa].
+isverifiedby_rules(224): cryptotypes__algorithmt__pos(X) <= 
+     cryptotypes__algorithmt__pos(Y) & X <= Y are_interchangeable 
+     if [cryptotypes__rsa <= X, X <= cryptotypes__ripemd160_rsa, 
+     cryptotypes__rsa <= Y, Y <= cryptotypes__ripemd160_rsa].
+isverifiedby_rules(225): cryptotypes__algorithmt__val(X) <= 
+     cryptotypes__algorithmt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 10, 0 <= Y, Y <= 10].
+isverifiedby_rules(226): certtypes__rawcertificatei__size >= 0 may_be_deduced.
+isverifiedby_rules(227): certtypes__rawcertificatei__first may_be_replaced_by 1.
+isverifiedby_rules(228): certtypes__rawcertificatei__last may_be_replaced_by 4096.
+isverifiedby_rules(229): certtypes__rawcertificatei__base__first may_be_replaced_by -2147483648.
+isverifiedby_rules(230): certtypes__rawcertificatei__base__last may_be_replaced_by 2147483647.
+isverifiedby_rules(231): certtypes__rawdatat__size >= 0 may_be_deduced.
+isverifiedby_rules(232): A = B may_be_deduced_from
+     [goal(checktype(A,certtypes__rawdatat)),
+      goal(checktype(B,certtypes__rawdatat)),
+      fld_rawdata(A) = fld_rawdata(B),
+      fld_datalength(A) = fld_datalength(B)].
+isverifiedby_rules(233): certtypes__sigdatai__size >= 0 may_be_deduced.
+isverifiedby_rules(234): certtypes__sigdatai__first may_be_replaced_by 1.
+isverifiedby_rules(235): certtypes__sigdatai__last may_be_replaced_by 4096.
+isverifiedby_rules(236): certtypes__sigdatai__base__first may_be_replaced_by -2147483648.
+isverifiedby_rules(237): certtypes__sigdatai__base__last may_be_replaced_by 2147483647.
+isverifiedby_rules(238): certtypes__signaturet__size >= 0 may_be_deduced.
+isverifiedby_rules(239): A = B may_be_deduced_from
+     [goal(checktype(A,certtypes__signaturet)),
+      goal(checktype(B,certtypes__signaturet)),
+      fld_sigdata(A) = fld_sigdata(B),
+      fld_siglength(A) = fld_siglength(B)].
+isverifiedby_rules(240): keystore__interface__returnvaluet__size >= 0 may_be_deduced.
+isverifiedby_rules(241): keystore__interface__returnvaluet__first may_be_replaced_by keystore__interface__ok.
+isverifiedby_rules(242): keystore__interface__returnvaluet__last may_be_replaced_by keystore__interface__cryptokialreadyinitialized.
+isverifiedby_rules(243): keystore__interface__returnvaluet__base__first may_be_replaced_by keystore__interface__ok.
+isverifiedby_rules(244): keystore__interface__returnvaluet__base__last may_be_replaced_by keystore__interface__cryptokialreadyinitialized.
+isverifiedby_rules(245): keystore__interface__returnvaluet__pos(
+     keystore__interface__returnvaluet__first) may_be_replaced_by 0.
+isverifiedby_rules(246): keystore__interface__returnvaluet__pos(
+     keystore__interface__ok) may_be_replaced_by 0.
+isverifiedby_rules(247): keystore__interface__returnvaluet__val(0) may_be_replaced_by 
+     keystore__interface__ok.
+isverifiedby_rules(248): keystore__interface__returnvaluet__pos(
+     keystore__interface__hostmemory) may_be_replaced_by 1.
+isverifiedby_rules(249): keystore__interface__returnvaluet__val(1) may_be_replaced_by 
+     keystore__interface__hostmemory.
+isverifiedby_rules(250): keystore__interface__returnvaluet__pos(
+     keystore__interface__generalerror) may_be_replaced_by 2.
+isverifiedby_rules(251): keystore__interface__returnvaluet__val(2) may_be_replaced_by 
+     keystore__interface__generalerror.
+isverifiedby_rules(252): keystore__interface__returnvaluet__pos(
+     keystore__interface__functionfailed) may_be_replaced_by 3.
+isverifiedby_rules(253): keystore__interface__returnvaluet__val(3) may_be_replaced_by 
+     keystore__interface__functionfailed.
+isverifiedby_rules(254): keystore__interface__returnvaluet__pos(
+     keystore__interface__argumentsbad) may_be_replaced_by 4.
+isverifiedby_rules(255): keystore__interface__returnvaluet__val(4) may_be_replaced_by 
+     keystore__interface__argumentsbad.
+isverifiedby_rules(256): keystore__interface__returnvaluet__pos(
+     keystore__interface__attributereadonly) may_be_replaced_by 5.
+isverifiedby_rules(257): keystore__interface__returnvaluet__val(5) may_be_replaced_by 
+     keystore__interface__attributereadonly.
+isverifiedby_rules(258): keystore__interface__returnvaluet__pos(
+     keystore__interface__attributetypeinvalid) may_be_replaced_by 6.
+isverifiedby_rules(259): keystore__interface__returnvaluet__val(6) may_be_replaced_by 
+     keystore__interface__attributetypeinvalid.
+isverifiedby_rules(260): keystore__interface__returnvaluet__pos(
+     keystore__interface__attributevalueinvalid) may_be_replaced_by 7.
+isverifiedby_rules(261): keystore__interface__returnvaluet__val(7) may_be_replaced_by 
+     keystore__interface__attributevalueinvalid.
+isverifiedby_rules(262): keystore__interface__returnvaluet__pos(
+     keystore__interface__datainvalid) may_be_replaced_by 8.
+isverifiedby_rules(263): keystore__interface__returnvaluet__val(8) may_be_replaced_by 
+     keystore__interface__datainvalid.
+isverifiedby_rules(264): keystore__interface__returnvaluet__pos(
+     keystore__interface__datalenrange) may_be_replaced_by 9.
+isverifiedby_rules(265): keystore__interface__returnvaluet__val(9) may_be_replaced_by 
+     keystore__interface__datalenrange.
+isverifiedby_rules(266): keystore__interface__returnvaluet__pos(
+     keystore__interface__deviceerror) may_be_replaced_by 10.
+isverifiedby_rules(267): keystore__interface__returnvaluet__val(10) may_be_replaced_by 
+     keystore__interface__deviceerror.
+isverifiedby_rules(268): keystore__interface__returnvaluet__pos(
+     keystore__interface__devicememory) may_be_replaced_by 11.
+isverifiedby_rules(269): keystore__interface__returnvaluet__val(11) may_be_replaced_by 
+     keystore__interface__devicememory.
+isverifiedby_rules(270): keystore__interface__returnvaluet__pos(
+     keystore__interface__functioncanceled) may_be_replaced_by 12.
+isverifiedby_rules(271): keystore__interface__returnvaluet__val(12) may_be_replaced_by 
+     keystore__interface__functioncanceled.
+isverifiedby_rules(272): keystore__interface__returnvaluet__pos(
+     keystore__interface__keyhandleinvalid) may_be_replaced_by 13.
+isverifiedby_rules(273): keystore__interface__returnvaluet__val(13) may_be_replaced_by 
+     keystore__interface__keyhandleinvalid.
+isverifiedby_rules(274): keystore__interface__returnvaluet__pos(
+     keystore__interface__keysizerange) may_be_replaced_by 14.
+isverifiedby_rules(275): keystore__interface__returnvaluet__val(14) may_be_replaced_by 
+     keystore__interface__keysizerange.
+isverifiedby_rules(276): keystore__interface__returnvaluet__pos(
+     keystore__interface__keytypeinconsistent) may_be_replaced_by 15.
+isverifiedby_rules(277): keystore__interface__returnvaluet__val(15) may_be_replaced_by 
+     keystore__interface__keytypeinconsistent.
+isverifiedby_rules(278): keystore__interface__returnvaluet__pos(
+     keystore__interface__keyfunctionnotpermitted) may_be_replaced_by 16.
+isverifiedby_rules(279): keystore__interface__returnvaluet__val(16) may_be_replaced_by 
+     keystore__interface__keyfunctionnotpermitted.
+isverifiedby_rules(280): keystore__interface__returnvaluet__pos(
+     keystore__interface__mechanisminvalid) may_be_replaced_by 17.
+isverifiedby_rules(281): keystore__interface__returnvaluet__val(17) may_be_replaced_by 
+     keystore__interface__mechanisminvalid.
+isverifiedby_rules(282): keystore__interface__returnvaluet__pos(
+     keystore__interface__mechanismparaminvalid) may_be_replaced_by 18.
+isverifiedby_rules(283): keystore__interface__returnvaluet__val(18) may_be_replaced_by 
+     keystore__interface__mechanismparaminvalid.
+isverifiedby_rules(284): keystore__interface__returnvaluet__pos(
+     keystore__interface__objecthandleinvalid) may_be_replaced_by 19.
+isverifiedby_rules(285): keystore__interface__returnvaluet__val(19) may_be_replaced_by 
+     keystore__interface__objecthandleinvalid.
+isverifiedby_rules(286): keystore__interface__returnvaluet__pos(
+     keystore__interface__operationactive) may_be_replaced_by 20.
+isverifiedby_rules(287): keystore__interface__returnvaluet__val(20) may_be_replaced_by 
+     keystore__interface__operationactive.
+isverifiedby_rules(288): keystore__interface__returnvaluet__pos(
+     keystore__interface__operationnotinitialized) may_be_replaced_by 21.
+isverifiedby_rules(289): keystore__interface__returnvaluet__val(21) may_be_replaced_by 
+     keystore__interface__operationnotinitialized.
+isverifiedby_rules(290): keystore__interface__returnvaluet__pos(
+     keystore__interface__signatureinvalid) may_be_replaced_by 22.
+isverifiedby_rules(291): keystore__interface__returnvaluet__val(22) may_be_replaced_by 
+     keystore__interface__signatureinvalid.
+isverifiedby_rules(292): keystore__interface__returnvaluet__pos(
+     keystore__interface__signaturelenrange) may_be_replaced_by 23.
+isverifiedby_rules(293): keystore__interface__returnvaluet__val(23) may_be_replaced_by 
+     keystore__interface__signaturelenrange.
+isverifiedby_rules(294): keystore__interface__returnvaluet__pos(
+     keystore__interface__templateincomplete) may_be_replaced_by 24.
+isverifiedby_rules(295): keystore__interface__returnvaluet__val(24) may_be_replaced_by 
+     keystore__interface__templateincomplete.
+isverifiedby_rules(296): keystore__interface__returnvaluet__pos(
+     keystore__interface__templateinconsistent) may_be_replaced_by 25.
+isverifiedby_rules(297): keystore__interface__returnvaluet__val(25) may_be_replaced_by 
+     keystore__interface__templateinconsistent.
+isverifiedby_rules(298): keystore__interface__returnvaluet__pos(
+     keystore__interface__buffertoosmall) may_be_replaced_by 26.
+isverifiedby_rules(299): keystore__interface__returnvaluet__val(26) may_be_replaced_by 
+     keystore__interface__buffertoosmall.
+isverifiedby_rules(300): keystore__interface__returnvaluet__pos(
+     keystore__interface__cryptokinotinitialized) may_be_replaced_by 27.
+isverifiedby_rules(301): keystore__interface__returnvaluet__val(27) may_be_replaced_by 
+     keystore__interface__cryptokinotinitialized.
+isverifiedby_rules(302): keystore__interface__returnvaluet__pos(
+     keystore__interface__cryptokialreadyinitialized) may_be_replaced_by 28.
+isverifiedby_rules(303): keystore__interface__returnvaluet__val(28) may_be_replaced_by 
+     keystore__interface__cryptokialreadyinitialized.
+isverifiedby_rules(304): keystore__interface__returnvaluet__pos(
+     keystore__interface__returnvaluet__last) may_be_replaced_by 28.
+isverifiedby_rules(305): keystore__interface__returnvaluet__pos(succ(X)) may_be_replaced_by 
+     keystore__interface__returnvaluet__pos(X) + 1
+     if [X <=keystore__interface__cryptokialreadyinitialized, X <> 
+     keystore__interface__cryptokialreadyinitialized].
+isverifiedby_rules(306): keystore__interface__returnvaluet__pos(pred(X)) may_be_replaced_by 
+     keystore__interface__returnvaluet__pos(X) - 1
+     if [X >=keystore__interface__ok, X <> 
+     keystore__interface__ok].
+isverifiedby_rules(307): keystore__interface__returnvaluet__pos(X) >= 0 may_be_deduced_from
+     [keystore__interface__ok <= X, X <= 
+     keystore__interface__cryptokialreadyinitialized].
+isverifiedby_rules(308): keystore__interface__returnvaluet__pos(X) <= 28 may_be_deduced_from
+     [keystore__interface__ok <= X, X <= 
+     keystore__interface__cryptokialreadyinitialized].
+isverifiedby_rules(309): keystore__interface__returnvaluet__val(X) >= 
+     keystore__interface__ok may_be_deduced_from
+     [0 <= X, X <= 28].
+isverifiedby_rules(310): keystore__interface__returnvaluet__val(X) <= 
+     keystore__interface__cryptokialreadyinitialized may_be_deduced_from
+     [0 <= X, X <= 28].
+isverifiedby_rules(311): succ(keystore__interface__returnvaluet__val(X)) may_be_replaced_by 
+     keystore__interface__returnvaluet__val(X+1)
+     if [0 <= X, X < 28].
+isverifiedby_rules(312): pred(keystore__interface__returnvaluet__val(X)) may_be_replaced_by 
+     keystore__interface__returnvaluet__val(X-1)
+     if [0 < X, X <= 28].
+isverifiedby_rules(313): keystore__interface__returnvaluet__pos(
+     keystore__interface__returnvaluet__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 28].
+isverifiedby_rules(314): keystore__interface__returnvaluet__val(
+     keystore__interface__returnvaluet__pos(X)) may_be_replaced_by X
+     if [keystore__interface__ok <= X, X <= 
+     keystore__interface__cryptokialreadyinitialized].
+isverifiedby_rules(315): keystore__interface__returnvaluet__pos(X) <= 
+     keystore__interface__returnvaluet__pos(Y) & X <= Y are_interchangeable 
+     if [keystore__interface__ok <= X, X <= 
+     keystore__interface__cryptokialreadyinitialized, 
+     keystore__interface__ok <= Y, Y <= 
+     keystore__interface__cryptokialreadyinitialized].
+isverifiedby_rules(316): keystore__interface__returnvaluet__val(X) <= 
+     keystore__interface__returnvaluet__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 28, 0 <= Y, Y <= 28].
+isverifiedby_rules(317): keystore__interface__digestpadi__size >= 0 may_be_deduced.
+isverifiedby_rules(318): keystore__interface__digestpadi__first may_be_replaced_by 1.
+isverifiedby_rules(319): keystore__interface__digestpadi__last may_be_replaced_by 20.
+isverifiedby_rules(320): keystore__interface__digestpadi__base__first <= 
+     keystore__interface__digestpadi__base__last may_be_deduced.
+isverifiedby_rules(321): keystore__interface__digestpadi__base__first <= 
+     keystore__interface__digestpadi__first may_be_deduced.
+isverifiedby_rules(322): keystore__interface__digestpadi__base__last >= 
+     keystore__interface__digestpadi__last may_be_deduced.
+isverifiedby_rules(323): keystore__interface__digestt__size >= 0 may_be_deduced.
+isverifiedby_rules(324): A = B may_be_deduced_from
+     [goal(checktype(A,keystore__interface__digestt)),
+      goal(checktype(B,keystore__interface__digestt)),
+      fld_digestid(A) = fld_digestid(B),
+      fld_signreturn(A) = fld_signreturn(B),
+      fld_verifyreturn(A) = fld_verifyreturn(B),
+      fld_pad(A) = fld_pad(B)].

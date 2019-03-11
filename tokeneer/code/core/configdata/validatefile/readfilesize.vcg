@@ -1,0 +1,249 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:28.02
+
+               procedure ConfigData.ValidateFile.ReadFileSize
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 271:
+
+procedure_readfilesize_1.
+H1:    true .
+        ->
+C1:    audittypes__filesizet__first >= audittypes__filesizet__first .
+C2:    audittypes__filesizet__first <= audittypes__filesizet__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 272:
+
+procedure_readfilesize_2.
+H1:    true .
+H2:    audittypes__filesizet__first >= audittypes__filesizet__first .
+H3:    audittypes__filesizet__first <= audittypes__filesizet__last .
+        ->
+C1:    0 >= natural__first .
+C2:    0 <= natural__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 272:
+
+procedure_readfilesize_3.
+H1:    true .
+H2:    audittypes__filesizet__first >= audittypes__filesizet__first .
+H3:    audittypes__filesizet__first <= audittypes__filesizet__last .
+H4:    0 >= natural__first .
+H5:    0 <= natural__last .
+H6:    rawsize__1 >= integer__first .
+H7:    rawsize__1 <= integer__last .
+H8:    true .
+        ->
+C1:    rawsize__1 >= integer__first .
+C2:    rawsize__1 <= integer__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 273:
+
+procedure_readfilesize_4.
+H1:    true .
+H2:    audittypes__filesizet__first >= audittypes__filesizet__first .
+H3:    audittypes__filesizet__first <= audittypes__filesizet__last .
+H4:    0 >= natural__first .
+H5:    0 <= natural__last .
+H6:    rawsize__1 >= integer__first .
+H7:    rawsize__1 <= integer__last .
+H8:    true .
+H9:    rawsize__1 >= integer__first .
+H10:   rawsize__1 <= integer__last .
+H11:   rawsize__1 >= integer__first .
+H12:   rawsize__1 <= integer__last .
+        ->
+C1:    success__1 -> ((audittypes__filesizet__first div 2 ** 10 >= 
+           integer__base__first) and (audittypes__filesizet__first div 
+           2 ** 10 <= integer__base__last)) .
+C2:    success__1 -> (2 ** 10 <> 0) .
+C3:    success__1 -> ((2 ** 10 >= system__min_int) and (2 ** 10 <= system__max_int)) .
+C4:    success__1 -> (10 >= 0) .
+C5:    success__1 -> ((audittypes__filesizet__first >= 
+           integer__first) and (audittypes__filesizet__first <= 
+           integer__last)) .
+C6:    success__1 -> ((audittypes__filesizet__last div 2 ** 10 >= 
+           integer__base__first) and (audittypes__filesizet__last div 2 ** 
+           10 <= integer__base__last)) .
+C7:    success__1 -> (2 ** 10 <> 0) .
+C8:    success__1 -> ((2 ** 10 >= system__min_int) and (2 ** 10 <= system__max_int)) .
+C9:    success__1 -> (10 >= 0) .
+C10:   success__1 -> ((audittypes__filesizet__last >= 
+           integer__first) and (audittypes__filesizet__last <= 
+           integer__last)) .
+ 
+
+For path(s) from start to run-time check associated with statement of line 276:
+
+procedure_readfilesize_5.
+H1:    true .
+H2:    audittypes__filesizet__first >= audittypes__filesizet__first .
+H3:    audittypes__filesizet__first <= audittypes__filesizet__last .
+H4:    0 >= natural__first .
+H5:    0 <= natural__last .
+H6:    rawsize__1 >= integer__first .
+H7:    rawsize__1 <= integer__last .
+H8:    true .
+H9:    rawsize__1 >= integer__first .
+H10:   rawsize__1 <= integer__last .
+H11:   rawsize__1 >= integer__first .
+H12:   rawsize__1 <= integer__last .
+H13:   success__1 -> ((audittypes__filesizet__first div 2 ** 10 >= 
+           integer__base__first) and (audittypes__filesizet__first div 
+           2 ** 10 <= integer__base__last)) .
+H14:   success__1 -> (2 ** 10 <> 0) .
+H15:   success__1 -> ((2 ** 10 >= system__min_int) and (2 ** 10 <= system__max_int)) .
+H16:   success__1 -> (10 >= 0) .
+H17:   success__1 -> ((audittypes__filesizet__first >= 
+           integer__first) and (audittypes__filesizet__first <= 
+           integer__last)) .
+H18:   success__1 -> ((audittypes__filesizet__last div 2 ** 10 >= 
+           integer__base__first) and (audittypes__filesizet__last div 2 ** 
+           10 <= integer__base__last)) .
+H19:   success__1 -> (2 ** 10 <> 0) .
+H20:   success__1 -> ((2 ** 10 >= system__min_int) and (2 ** 10 <= system__max_int)) .
+H21:   success__1 -> (10 >= 0) .
+H22:   success__1 -> ((audittypes__filesizet__last >= 
+           integer__first) and (audittypes__filesizet__last <= 
+           integer__last)) .
+H23:   success__1 .
+H24:   rawsize__1 <= audittypes__filesizet__last div 2 ** 10 .
+H25:   rawsize__1 >= audittypes__filesizet__first div 2 ** 10 .
+H26:   rawsize__1 >= integer__first .
+H27:   rawsize__1 <= integer__last .
+        ->
+C1:    rawsize__1 * 2 ** 10 >= audittypes__filesizet__first .
+C2:    rawsize__1 * 2 ** 10 <= audittypes__filesizet__last .
+C3:    rawsize__1 * 2 ** 10 >= audittypes__filesizet__first .
+C4:    rawsize__1 * 2 ** 10 <= audittypes__filesizet__last .
+C5:    rawsize__1 * 2 ** 10 >= integer__base__first .
+C6:    rawsize__1 * 2 ** 10 <= integer__base__last .
+C7:    2 ** 10 >= system__min_int .
+C8:    2 ** 10 <= system__max_int .
+C9:    10 >= 0 .
+ 
+
+For path(s) from start to run-time check associated with statement of line 282:
+
+procedure_readfilesize_6.
+H1:    true .
+H2:    audittypes__filesizet__first >= audittypes__filesizet__first .
+H3:    audittypes__filesizet__first <= audittypes__filesizet__last .
+H4:    0 >= natural__first .
+H5:    0 <= natural__last .
+H6:    rawsize__1 >= integer__first .
+H7:    rawsize__1 <= integer__last .
+H8:    true .
+H9:    rawsize__1 >= integer__first .
+H10:   rawsize__1 <= integer__last .
+H11:   rawsize__1 >= integer__first .
+H12:   rawsize__1 <= integer__last .
+H13:   success__1 -> ((audittypes__filesizet__first div 2 ** 10 >= 
+           integer__base__first) and (audittypes__filesizet__first div 
+           2 ** 10 <= integer__base__last)) .
+H14:   success__1 -> (2 ** 10 <> 0) .
+H15:   success__1 -> ((2 ** 10 >= system__min_int) and (2 ** 10 <= system__max_int)) .
+H16:   success__1 -> (10 >= 0) .
+H17:   success__1 -> ((audittypes__filesizet__first >= 
+           integer__first) and (audittypes__filesizet__first <= 
+           integer__last)) .
+H18:   success__1 -> ((audittypes__filesizet__last div 2 ** 10 >= 
+           integer__base__first) and (audittypes__filesizet__last div 2 ** 
+           10 <= integer__base__last)) .
+H19:   success__1 -> (2 ** 10 <> 0) .
+H20:   success__1 -> ((2 ** 10 >= system__min_int) and (2 ** 10 <= system__max_int)) .
+H21:   success__1 -> (10 >= 0) .
+H22:   success__1 -> ((audittypes__filesizet__last >= 
+           integer__first) and (audittypes__filesizet__last <= 
+           integer__last)) .
+H23:   success__1 .
+H24:   rawsize__1 <= audittypes__filesizet__last div 2 ** 10 .
+H25:   rawsize__1 >= audittypes__filesizet__first div 2 ** 10 .
+H26:   rawsize__1 >= integer__first .
+H27:   rawsize__1 <= integer__last .
+H28:   rawsize__1 * 2 ** 10 >= audittypes__filesizet__first .
+H29:   rawsize__1 * 2 ** 10 <= audittypes__filesizet__last .
+H30:   rawsize__1 * 2 ** 10 >= audittypes__filesizet__first .
+H31:   rawsize__1 * 2 ** 10 <= audittypes__filesizet__last .
+H32:   rawsize__1 * 2 ** 10 >= integer__base__first .
+H33:   rawsize__1 * 2 ** 10 <= integer__base__last .
+H34:   2 ** 10 >= system__min_int .
+H35:   2 ** 10 <= system__max_int .
+H36:   10 >= 0 .
+H37:   true .
+H38:   file__endofline(thefile__1) .
+        ->
+C1:    1 >= positive__first .
+C2:    1 <= positive__last .
+ 
+
+procedure_readfilesize_7.
+H1:    true .
+H2:    audittypes__filesizet__first >= audittypes__filesizet__first .
+H3:    audittypes__filesizet__first <= audittypes__filesizet__last .
+H4:    0 >= natural__first .
+H5:    0 <= natural__last .
+H6:    rawsize__1 >= integer__first .
+H7:    rawsize__1 <= integer__last .
+H8:    true .
+H9:    rawsize__1 >= integer__first .
+H10:   rawsize__1 <= integer__last .
+H11:   rawsize__1 >= integer__first .
+H12:   rawsize__1 <= integer__last .
+H13:   success__1 -> ((audittypes__filesizet__first div 2 ** 10 >= 
+           integer__base__first) and (audittypes__filesizet__first div 
+           2 ** 10 <= integer__base__last)) .
+H14:   success__1 -> (2 ** 10 <> 0) .
+H15:   success__1 -> ((2 ** 10 >= system__min_int) and (2 ** 10 <= system__max_int)) .
+H16:   success__1 -> (10 >= 0) .
+H17:   success__1 -> ((audittypes__filesizet__first >= 
+           integer__first) and (audittypes__filesizet__first <= 
+           integer__last)) .
+H18:   success__1 -> ((audittypes__filesizet__last div 2 ** 10 >= 
+           integer__base__first) and (audittypes__filesizet__last div 2 ** 
+           10 <= integer__base__last)) .
+H19:   success__1 -> (2 ** 10 <> 0) .
+H20:   success__1 -> ((2 ** 10 >= system__min_int) and (2 ** 10 <= system__max_int)) .
+H21:   success__1 -> (10 >= 0) .
+H22:   success__1 -> ((audittypes__filesizet__last >= 
+           integer__first) and (audittypes__filesizet__last <= 
+           integer__last)) .
+H23:   not (success__1 and ((rawsize__1 <= 
+           audittypes__filesizet__last div 2 ** 10) and (rawsize__1 >= 
+           audittypes__filesizet__first div 2 ** 10))) .
+H24:   true .
+H25:   file__endofline(thefile__1) .
+        ->
+C1:    1 >= positive__first .
+C2:    1 <= positive__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_readfilesize_8.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_readfilesize_9.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_readfilesize_10.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_readfilesize_11.
+*** true .          /* trivially true VC removed by Examiner */
+
+

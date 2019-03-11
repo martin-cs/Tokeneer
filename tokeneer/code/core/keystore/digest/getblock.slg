@@ -1,0 +1,629 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:11  SIMPLIFIED 05-SEP-2011, 15:41:07
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+function KeyStore.Digest.GetBlock
+
+
+
+
+
+
+@@@@@@@@@@  VC: function_getblock_1.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(data, [i___1]) and element(data, [i___1]) 
+          <= character__last)
+-S-  Applied substitution rule getblock_rules(2).
+     This was achieved by replacing all occurrences of integer__first by:
+          - 2147483648.
+<S>  New C1:  true
+<S>  New C3:  true
+-S-  Applied substitution rule getblock_rules(3).
+     This was achieved by replacing all occurrences of integer__last by:
+          2147483647.
+<S>  New C2:  true
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C3:  true
+***  Proved C2:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_getblock_2.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(data, [i___1]) and element(data, [i___1]) 
+          <= character__last)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  100 >= certtypes__rawcertificatei__first and 100 <= 
+          certtypes__rawcertificatei__last
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  1 >= certtypes__rawcertificatei__first and 1 <= 
+          certtypes__rawcertificatei__last
+>>>  Conclusion C1 has now been split into two, giving:
+     >>>  C1:  100 >= certtypes__rawcertificatei__first
+     >>>  C3:  100 <= certtypes__rawcertificatei__last
+>>>  Conclusion C2 has now been split into two, giving:
+     >>>  C2:  1 >= certtypes__rawcertificatei__first
+     >>>  C4:  1 <= certtypes__rawcertificatei__last
+-S-  Applied substitution rule getblock_rules(2).
+     This was achieved by replacing all occurrences of integer__first by:
+          - 2147483648.
+<S>  New H11:  true
+<S>  New H13:  true
+-S-  Applied substitution rule getblock_rules(3).
+     This was achieved by replacing all occurrences of integer__last by:
+          2147483647.
+<S>  New H12:  true
+<S>  New H14:  true
+-S-  Applied substitution rule getblock_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 0 <= element(
+          data, [i___1]) and element(data, [i___1]) <= character__last)
+-S-  Applied substitution rule getblock_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 0 <= element(
+          data, [i___1]) and element(data, [i___1]) <= 255)
+-S-  Applied substitution rule getblock_rules(12).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New H7:  blockno >= 1
+-S-  Applied substitution rule getblock_rules(13).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New H8:  blockno <= 2147483647
+-S-  Applied substitution rule getblock_rules(18).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__first by:
+          0.
+<S>  New H9:  blocksize >= 0
+-S-  Applied substitution rule getblock_rules(19).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__last by:
+          4294967295.
+<S>  New H10:  blocksize <= 4294967295
+-S-  Applied substitution rule getblock_rules(24).
+     This was achieved by replacing all occurrences of 
+          certtypes__rawcertificatei__first by:
+          1.
+<S>  New H6:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          certtypes__rawcertificatei__last -> 0 <= element(data, [i___1]) and 
+          element(data, [i___1]) <= 255)
+<S>  New C1:  true
+<S>  New C2:  true
+-S-  Applied substitution rule getblock_rules(25).
+     This was achieved by replacing all occurrences of 
+          certtypes__rawcertificatei__last by:
+          4096.
+<S>  New H5:  blocksize + (blockno - 1) * 100 <= 4096
+<S>  New H6:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 4096 -> 0 <= 
+          element(data, [i___1]) and element(data, [i___1]) <= 255)
+<S>  New C3:  true
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_getblock_3.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(data, [i___1]) and element(data, [i___1]) 
+          <= character__last)
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  100 >= certtypes__rawcertificatei__first and 100 <= 
+          certtypes__rawcertificatei__last
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  1 >= certtypes__rawcertificatei__first and 1 <= 
+          certtypes__rawcertificatei__last
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  true
+%%%  Simplified C5 on reading formula in, to give:
+     %%%  C5:  true
+%%%  Simplified C6 on reading formula in, to give:
+     %%%  C6:  true
+%%%  Simplified C8 on reading formula in, to give:
+     %%%  C8:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(data, [i___1]) and element(data, [i___1]) 
+          <= character__last)
+%%%  Simplified C20 on reading formula in, to give:
+     %%%  C20:  true
+%%%  Simplified C21 on reading formula in, to give:
+     %%%  C21:  true
+***  Proved C1:  1 <= blockno
+     using hypothesis H1.
+***  Proved C2:  blockno <= 41
+     using hypothesis H2.
+***  Proved C3:  1 <= blocksize
+     using hypothesis H3.
+***  Proved C4:  blocksize <= 100
+     using hypothesis H4.
+***  Proved C5:  true
+***  Proved C6:  true
+***  Proved C7:  1 <= blocksize
+     using hypothesis H3.
+***  Proved C8:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(data, [i___1]) and element(data, [i___1]) 
+          <= character__last)
+     using hypothesis H6.
+***  Proved C9:  blockno >= positive__first
+     using hypothesis H7.
+***  Proved C10:  blockno <= positive__last
+     using hypothesis H8.
+***  Proved C11:  blocksize >= basictypes__unsigned32t__first
+     using hypothesis H9.
+***  Proved C12:  blocksize <= basictypes__unsigned32t__last
+     using hypothesis H10.
+***  Proved C13:  1 <= blockno
+     using hypothesis H1.
+***  Proved C14:  blockno <= 41
+     using hypothesis H2.
+***  Proved C15:  1 <= blocksize
+     using hypothesis H3.
+***  Proved C16:  blocksize <= 100
+     using hypothesis H4.
+***  Proved C17:  blocksize + (blockno - 1) * 100 <= 
+          certtypes__rawcertificatei__last
+     using hypothesis H5.
+***  Proved C20:  true
+***  Proved C21:  true
+-S-  Applied substitution rule getblock_rules(24).
+     This was achieved by replacing all occurrences of 
+          certtypes__rawcertificatei__first by:
+          1.
+<S>  New H6:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          certtypes__rawcertificatei__last -> character__first <= element(data, 
+          [i___1]) and element(data, [i___1]) <= character__last)
+<S>  New H15:  100 <= certtypes__rawcertificatei__last
+<S>  New H16:  1 <= certtypes__rawcertificatei__last
+<S>  New C18:  true
+-S-  Applied substitution rule getblock_rules(25).
+     This was achieved by replacing all occurrences of 
+          certtypes__rawcertificatei__last by:
+          4096.
+<S>  New H5:  blocksize + (blockno - 1) * 100 <= 4096
+<S>  New H6:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 4096 -> 
+          character__first <= element(data, [i___1]) and element(data, [i___1]) 
+          <= character__last)
+<S>  New H15:  true
+<S>  New H16:  true
+<S>  New C19:  true
+***  Proved C18:  true
+***  Proved C19:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_getblock_4.  @@@@@@@@@@
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(data, [i___1]) and element(data, [i___1]) 
+          <= character__last)
+---  Hypothesis H13 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H15 has been replaced by "true".  (It is already present, as H3)
+          .
+---  Hypothesis H16 has been replaced by "true".  (It is already present, as H4)
+          .
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as H6)
+          .
+%%%  Simplified C5 on reading formula in, to give:
+     %%%  C5:  0 <= loop__1__i
+%%%  Simplified C6 on reading formula in, to give:
+     %%%  C6:  loop__1__i <= 99
+%%%  Simplified C8 on reading formula in, to give:
+     %%%  C8:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(data, [i___1]) and element(data, [i___1]) 
+          <= character__last)
+%%%  Simplified C20 on reading formula in, to give:
+     %%%  C20:  loop__1__i >= 0
+%%%  Simplified C21 on reading formula in, to give:
+     %%%  C21:  loop__1__i <= 99
+***  Proved C1:  1 <= blockno
+     using hypothesis H1.
+***  Proved C2:  blockno <= 41
+     using hypothesis H2.
+***  Proved C3:  1 <= blocksize
+     using hypothesis H3.
+***  Proved C4:  blocksize <= 100
+     using hypothesis H4.
+***  Proved C5:  0 <= loop__1__i
+     using hypothesis H5.
+***  Proved C6:  loop__1__i <= 99
+     using hypotheses H6 & H39.
+***  Proved C8:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(data, [i___1]) and element(data, [i___1]) 
+          <= character__last)
+     using hypothesis H8.
+***  Proved C9:  blockno >= positive__first
+     using hypothesis H9.
+***  Proved C10:  blockno <= positive__last
+     using hypothesis H10.
+***  Proved C11:  blocksize >= basictypes__unsigned32t__first
+     using hypothesis H11.
+***  Proved C12:  blocksize <= basictypes__unsigned32t__last
+     using hypothesis H12.
+***  Proved C13:  1 <= blockno
+     using hypothesis H1.
+***  Proved C14:  blockno <= 41
+     using hypothesis H2.
+***  Proved C15:  1 <= blocksize
+     using hypothesis H3.
+***  Proved C16:  blocksize <= 100
+     using hypothesis H4.
+***  Proved C17:  blocksize + (blockno - 1) * 100 <= 
+          certtypes__rawcertificatei__last
+     using hypothesis H17.
+***  Proved C18:  loop__1__i + 1 >= certtypes__rawcertificatei__first
+     using hypothesis H18.
+***  Proved C20:  loop__1__i >= 0
+     using hypothesis H5.
+***  Proved C21:  loop__1__i <= 99
+     using hypotheses H6 & H39.
+-S-  Applied substitution rule getblock_rules(25).
+     This was achieved by replacing all occurrences of 
+          certtypes__rawcertificatei__last by:
+          4096.
+<S>  New H8:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= 4096 -> character__first <= element(data, [i___1]) 
+          and element(data, [i___1]) <= character__last)
+<S>  New H17:  blocksize + (blockno - 1) * 100 <= 4096
+<S>  New H19:  loop__1__i <= 4096
+<S>  New H27:  loop__1__i + (blockno - 1) * 100 <= 4096
+<S>  New C19:  loop__1__i <= 4095
+***  Proved C19:  loop__1__i <= 4095
+     using hypotheses H6 & H39.
+>>>  Restructured hypothesis H38 into:
+     >>>  H38:  loop__1__i <> blocksize
+>>>  Restructured hypothesis H39 into:
+     >>>  H39:  loop__1__i <> 100
+-S-  Applied substitution rule getblock_rules(4).
+     This was achieved by replacing all occurrences of integer__base__first by:
+          - 2147483648.
+<S>  New H28:  loop__1__i + (blockno - 1) * 100 >= - 2147483648
+<S>  New H30:  (blockno - 1) * 100 >= - 2147483648
+<S>  New H32:  blockno >= - 2147483647
+-S-  Applied substitution rule getblock_rules(5).
+     This was achieved by replacing all occurrences of integer__base__last by:
+          2147483647.
+<S>  New H29:  loop__1__i + (blockno - 1) * 100 <= 2147483647
+<S>  New H31:  (blockno - 1) * 100 <= 2147483647
+<S>  New H33:  blockno <= 2147483648
+-S-  Applied substitution rule getblock_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H8:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= 4096 -> 0 <= element(data, [i___1]) and element(
+          data, [i___1]) <= character__last)
+<S>  New H24:  element(data, [loop__1__i + (blockno - 1) * 100]) >= 0
+-S-  Applied substitution rule getblock_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H25:  element(data, [loop__1__i + (blockno - 1) * 100]) <= 255
+<S>  New H8:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= 4096 -> 0 <= element(data, [i___1]) and element(
+          data, [i___1]) <= 255)
+-S-  Applied substitution rule getblock_rules(12).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New H9:  blockno >= 1
+-S-  Applied substitution rule getblock_rules(13).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New H10:  blockno <= 2147483647
+-S-  Applied substitution rule getblock_rules(18).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__first by:
+          0.
+<S>  New H11:  blocksize >= 0
+<S>  New H36:  loop__1__i >= 0
+-S-  Applied substitution rule getblock_rules(19).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__last by:
+          4294967295.
+<S>  New H12:  blocksize <= 4294967295
+<S>  New H37:  loop__1__i <= 4294967295
+-S-  Applied substitution rule getblock_rules(24).
+     This was achieved by replacing all occurrences of 
+          certtypes__rawcertificatei__first by:
+          1.
+<S>  New H18:  loop__1__i >= 1
+<S>  New H26:  loop__1__i + (blockno - 1) * 100 >= 1
+<S>  New H8:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 4096 -> 0 <= 
+          element(data, [i___1]) and element(data, [i___1]) <= 255)
+-S-  Applied substitution rule getblock_rules(29).
+     This was achieved by replacing all occurrences of 
+          keystore__interface__hundredbyteindext__first by:
+          1.
+<S>  New H34:  loop__1__i >= 1
+-S-  Applied substitution rule getblock_rules(30).
+     This was achieved by replacing all occurrences of 
+          keystore__interface__hundredbyteindext__last by:
+          100.
+<S>  New H35:  loop__1__i <= 100
+%%%  Hypotheses H6 & H39 together imply that
+          loop__1__i < 100.
+     H6 & H39 have therefore been deleted and a new H40 added to this effect.
+%%%  Hypotheses H7 & H38 together imply that
+          loop__1__i < blocksize.
+     H7 & H38 have therefore been deleted and a new H41 added to this effect.
+***  Proved C7:  loop__1__i + 1 <= blocksize
+     via its standard form, which is:
+     Std.Fm C7:  blocksize - loop__1__i > 0
+     using hypothesis H41.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_getblock_5.  @@@@@@@@@@
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(data, [i___1]) and element(data, [i___1]) 
+          <= character__last)
+---  Hypothesis H13 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H15 has been replaced by "true".  (It is already present, as H3)
+          .
+---  Hypothesis H16 has been replaced by "true".  (It is already present, as H4)
+          .
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as H6)
+          .
+-S-  Applied substitution rule getblock_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H8:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 0 <= element(
+          data, [i___1]) and element(data, [i___1]) <= character__last)
+-S-  Applied substitution rule getblock_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H8:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 0 <= element(
+          data, [i___1]) and element(data, [i___1]) <= 255)
+-S-  Applied substitution rule getblock_rules(12).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New H9:  blockno >= 1
+-S-  Applied substitution rule getblock_rules(13).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New H10:  blockno <= 2147483647
+-S-  Applied substitution rule getblock_rules(18).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__first by:
+          0.
+<S>  New H11:  blocksize >= 0
+-S-  Applied substitution rule getblock_rules(19).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__last by:
+          4294967295.
+<S>  New H12:  blocksize <= 4294967295
+-S-  Applied substitution rule getblock_rules(24).
+     This was achieved by replacing all occurrences of 
+          certtypes__rawcertificatei__first by:
+          1.
+<S>  New H18:  loop__1__i >= 1
+<S>  New H8:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          certtypes__rawcertificatei__last -> 0 <= element(data, [i___1]) and 
+          element(data, [i___1]) <= 255)
+-S-  Applied substitution rule getblock_rules(25).
+     This was achieved by replacing all occurrences of 
+          certtypes__rawcertificatei__last by:
+          4096.
+<S>  New H17:  blocksize + (blockno - 1) * 100 <= 4096
+<S>  New H19:  loop__1__i <= 4096
+<S>  New H8:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 4096 -> 0 <= 
+          element(data, [i___1]) and element(data, [i___1]) <= 255)
+***  Proved C1:  loop__1__i + (blockno - 1) * 100 >= 1
+     via its standard form, which is:
+     Std.Fm C1:  - 100 + (100 * blockno + loop__1__i) >= 1
+     using hypotheses H9 & H20.
+---  Eliminated hypothesis H13 (true-hypothesis).
+---  Eliminated hypothesis H14 (true-hypothesis).
+---  Eliminated hypothesis H15 (true-hypothesis).
+---  Eliminated hypothesis H16 (true-hypothesis).
+---  Eliminated hypothesis H21 (true-hypothesis).
+---  Eliminated hypothesis H20 (duplicate of H18).
+---  Eliminated hypothesis H9 (duplicate of H1).
+---  Eliminated hypothesis H18 (duplicate of H5).
+---  Eliminated hypothesis H2 (redundant, given H3 & H17).
+---  Eliminated hypothesis H10 (redundant, given H3 & H17).
+---  Eliminated hypothesis H11 (redundant, given H3).
+---  Eliminated hypothesis H12 (redundant, given H4).
+---  Eliminated hypothesis H19 (redundant, given H6).
+***  Proved C2:  loop__1__i + (blockno - 1) * 100 <= 4096
+     via its standard form, which is:
+     Std.Fm C2:  - (100 * blockno) - loop__1__i > - 4197
+     using hypotheses H7 & H17.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_getblock_6.  @@@@@@@@@@
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(data, [i___1]) and element(data, [i___1]) 
+          <= character__last)
+---  Hypothesis H13 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H15 has been replaced by "true".  (It is already present, as H3)
+          .
+---  Hypothesis H16 has been replaced by "true".  (It is already present, as H4)
+          .
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as H6)
+          .
+-S-  Applied substitution rule getblock_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H8:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 0 <= element(
+          data, [i___1]) and element(data, [i___1]) <= character__last)
+<S>  New C1:  element(data, [loop__1__i + (blockno - 1) * 100]) >= 0
+-S-  Applied substitution rule getblock_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H8:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 0 <= element(
+          data, [i___1]) and element(data, [i___1]) <= 255)
+<S>  New C2:  element(data, [loop__1__i + (blockno - 1) * 100]) <= 255
+-S-  Applied substitution rule getblock_rules(24).
+     This was achieved by replacing all occurrences of 
+          certtypes__rawcertificatei__first by:
+          1.
+<S>  New H18:  loop__1__i >= 1
+<S>  New H8:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          certtypes__rawcertificatei__last -> 0 <= element(data, [i___1]) and 
+          element(data, [i___1]) <= 255)
+<S>  New C3:  loop__1__i + (blockno - 1) * 100 >= 1
+-S-  Applied substitution rule getblock_rules(25).
+     This was achieved by replacing all occurrences of 
+          certtypes__rawcertificatei__last by:
+          4096.
+<S>  New H17:  blocksize + (blockno - 1) * 100 <= 4096
+<S>  New H19:  loop__1__i <= 4096
+<S>  New H8:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 4096 -> 0 <= 
+          element(data, [i___1]) and element(data, [i___1]) <= 255)
+<S>  New C4:  loop__1__i + (blockno - 1) * 100 <= 4096
+-S-  Applied substitution rule getblock_rules(4).
+     This was achieved by replacing all occurrences of integer__base__first by:
+          - 2147483648.
+<S>  New C5:  loop__1__i + (blockno - 1) * 100 >= - 2147483648
+<S>  New C7:  (blockno - 1) * 100 >= - 2147483648
+<S>  New C9:  blockno >= - 2147483647
+-S-  Applied substitution rule getblock_rules(5).
+     This was achieved by replacing all occurrences of integer__base__last by:
+          2147483647.
+<S>  New C6:  loop__1__i + (blockno - 1) * 100 <= 2147483647
+<S>  New C8:  (blockno - 1) * 100 <= 2147483647
+<S>  New C10:  blockno <= 2147483648
+-S-  Applied substitution rule getblock_rules(29).
+     This was achieved by replacing all occurrences of 
+          keystore__interface__hundredbyteindext__first by:
+          1.
+<S>  New C11:  loop__1__i >= 1
+-S-  Applied substitution rule getblock_rules(30).
+     This was achieved by replacing all occurrences of 
+          keystore__interface__hundredbyteindext__last by:
+          100.
+<S>  New C12:  loop__1__i <= 100
+***  Proved C1:  element(data, [loop__1__i + (blockno - 1) * 100]) >= 0
+     using hypotheses H8, H22 & H23.
+***  Proved C2:  element(data, [loop__1__i + (blockno - 1) * 100]) <= 255
+     using hypotheses H8, H22 & H23.
+***  Proved C3:  loop__1__i + (blockno - 1) * 100 >= 1
+     using hypothesis H22.
+***  Proved C4:  loop__1__i + (blockno - 1) * 100 <= 4096
+     using hypothesis H23.
+***  Proved C5:  loop__1__i + (blockno - 1) * 100 >= - 2147483648
+     using hypothesis H22.
+***  Proved C9:  blockno >= - 2147483647
+     using hypothesis H1.
+***  Proved C6:  loop__1__i + (blockno - 1) * 100 <= 2147483647
+     using hypothesis H23.
+***  Proved C10:  blockno <= 2147483648
+     using hypothesis H2.
+***  Proved C11:  loop__1__i >= 1
+     using hypothesis H20.
+***  Proved C12:  loop__1__i <= 100
+     using hypothesis H6.
+-S-  Applied substitution rule getblock_rules(12).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New H9:  blockno >= 1
+-S-  Applied substitution rule getblock_rules(13).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New H10:  blockno <= 2147483647
+-S-  Applied substitution rule getblock_rules(18).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__first by:
+          0.
+<S>  New H11:  blocksize >= 0
+-S-  Applied substitution rule getblock_rules(19).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__last by:
+          4294967295.
+<S>  New H12:  blocksize <= 4294967295
+***  Proved C7:  (blockno - 1) * 100 >= - 2147483648
+     via its standard form, which is:
+     Std.Fm C7:  100 * blockno > - 2147483549
+     using hypothesis H9.
+***  Proved C8:  (blockno - 1) * 100 <= 2147483647
+     via its standard form, which is:
+     Std.Fm C8:  - 100 + 100 * blockno <= 2147483647
+     using hypothesis H2.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_getblock_7.  @@@@@@@@@@
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(data, [i___1]) and element(data, [i___1]) 
+          <= character__last)
+---  Hypothesis H13 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H15 has been replaced by "true".  (It is already present, as H3)
+          .
+---  Hypothesis H16 has been replaced by "true".  (It is already present, as H4)
+          .
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as H6)
+          .
+***  Proved C2:  loop__1__i <= basictypes__unsigned32t__last
+     using hypotheses H7 & H12.
+-S-  Applied substitution rule getblock_rules(18).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__first by:
+          0.
+<S>  New H11:  blocksize >= 0
+<S>  New C1:  loop__1__i >= 0
+***  Proved C1:  loop__1__i >= 0
+     using hypothesis H5.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_getblock_8.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_getblock_9.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_getblock_10.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+

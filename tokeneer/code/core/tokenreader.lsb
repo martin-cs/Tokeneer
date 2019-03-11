@@ -1,0 +1,1057 @@
+           *******************************************************
+                            Listing of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:19.79
+
+Line
+   1  ------------------------------------------------------------------
+   2  -- Tokeneer ID Station Core Software
+   3  --
+   4  -- Copyright (2003) United States Government, as represented
+   5  -- by the Director, National Security Agency. All rights reserved.
+   6  --
+   7  -- This material was originally developed by Praxis High Integrity
+   8  -- Systems Ltd. under contract to the National Security Agency.
+   9  ------------------------------------------------------------------
+  10  
+  11  ------------------------------------------------------------------
+  12  -- TokenReader
+  13  --
+  14  -- Implementation Notes:
+  15  --     None.
+  16  --
+  17  ------------------------------------------------------------------
+  18  with TokenReader.Interface;
+  19  use type TokenReader.Interface.ReaderStateT;
+  20  
+  21  with AuditTypes;
+  22  with AuditLog;
+  23  
+  24  with TokenTypes;
+  25  use type TokenTypes.TryT;
+  26  
+  27  with BasicTypes;
+  28  use type BasicTypes.Unsigned32T;
+  29  
+  30  package body TokenReader
+  31  --# own State is ReaderStatus &
+  32  --#     Status is in TokenReader.Interface.ReaderStatus &
+  33  --#     Input is in TokenReader.Interface.ReaderInput &
+  34  --#     Output is out TokenReader.Interface.ReaderOutput;
+  35  is
+  36  
+  37     ------------------------------------------------------------------
+  38     -- Types
+  39     --
+  40     ------------------------------------------------------------------
+  41     type ReaderInfoT is record
+  42        Name           : Interface.ReaderNameT;
+  43        TokenTry       : TokenTypes.TryT;
+  44        TokenID        : TokenTypes.TokenIDT;
+  45        TokenConnected : Boolean;
+  46        TokenHandle    : Interface.CardHandleT;
+  47        CurrentStatus  : Interface.ValidReaderStateT;
+  48        LastFault      : BasicTypes.Unsigned32T;
+  49     end record;
+  50  
+  51     NoReaderInfo : constant ReaderInfoT :=
+  52       ReaderInfoT'(Name           => "UNKNOWN ",
+  53                    TokenTry       => TokenTypes.NoToken,
+  54                    TokenID        => TokenTypes.TokenIDT'First,
+  55                    TokenConnected => False,
+  56                    TokenHandle    => Interface.NullHandle,
+  57                    CurrentStatus  => Interface.Unaware,
+  58                    LastFault      => BasicTypes.Unsigned32T'First);
+  59  
+  60     type ReaderInfoArrayT is array (ReaderT) of ReaderInfoT;
+  61  
+  62     NoReaders : constant ReaderInfoArrayT
+  63       := ReaderInfoArrayT'(others => NoReaderInfo);
+  64  
+  65     type ReaderNameArrayT is array (ReaderT) of Interface.ReaderNameT;
+  66  
+  67     ExpectedReaderNames : constant ReaderNameArrayT
+  68       := ReaderNameArrayT'(User  => "EXTREAD ",
+  69                            Admin => "INTREAD ");
+  70  
+  71  
+  72     ------------------------------------------------------------------
+  73     -- State
+  74     --
+  75     ------------------------------------------------------------------
+  76     ReaderStatus : ReaderInfoArrayT;
+  77  
+  78  
+  79     ------------------------------------------------------------------
+  80     -- Private Operations
+  81     ------------------------------------------------------------------
+  82     ------------------------------------------------------------------
+  83     -- GetResponseCode
+  84     --
+  85     -- Description:
+  86     --    Converts a supplied numeric response code to the
+  87     --    correct enumeration.
+  88     --
+  89     -- Implementation Notes:
+  90     --    None
+  91     ------------------------------------------------------------------
+  92     function GetResponseCode (ResponseCode : BasicTypes.Unsigned32T) return
+  93       Interface.ResponseCodeT
+  94     is
+  95        Result : Interface.ResponseCodeT;
+  96     begin
+  97        if ResponseCode >=
+  98          Interface.ResponseCodeT'Pos(Interface.ResponseCodeT'First)
+  99          and ResponseCode <=
+ 100          Interface.ResponseCodeT'Pos(Interface.ResponseCodeT'Last) then
+ 101           Result := Interface.ResponseCodeT'Val(ResponseCode);
+ 102        else
+ 103           Result := Interface.InvalidResponseCode;
+ 104        end if;
+ 105        return Result;
+ 106     end GetResponseCode;
+
++++        Flow analysis of subprogram GetResponseCode 
+           performed: no errors found.
+
+ 107  
+ 108     ------------------------------------------------------------------
+ 109     -- GetReaderState
+ 110     --
+ 111     -- Description:
+ 112     --    Converts a supplied numeric reader state to the
+ 113     --    correct enumeration.
+ 114     --
+ 115     -- Implementation Notes:
+ 116     --    None
+ 117     ------------------------------------------------------------------
+ 118     function GetReaderState (ReaderState : BasicTypes.Unsigned32T) return
+ 119       Interface.ReaderStateT
+ 120     is
+ 121        Result : Interface.ReaderStateT;
+ 122     begin
+ 123        if ReaderState >=
+ 124          Interface.ReaderStateT'Pos(Interface.ReaderStateT'First)
+ 125          and ReaderState <=
+ 126          Interface.ReaderStateT'Pos(Interface.ReaderStateT'Last) then
+ 127           Result := Interface.ReaderStateT'Val(ReaderState);
+ 128        else
+ 129           Result := Interface.InvalidReaderState;
+ 130        end if;
+ 131        return Result;
+ 132     end GetReaderState;
+
++++        Flow analysis of subprogram GetReaderState 
+           performed: no errors found.
+
+ 133  
+ 134     ------------------------------------------------------------------
+ 135     -- GetCardState
+ 136     --
+ 137     -- Description:
+ 138     --    Converts a supplied numeric card state to the
+ 139     --    correct enumeration.
+ 140     --
+ 141     -- Implementation Notes:
+ 142     --    None
+ 143     ------------------------------------------------------------------
+ 144     function GetCardState (CardState : BasicTypes.Unsigned32T) return
+ 145       Interface.CardStateT
+ 146     is
+ 147        Result : Interface.CardStateT;
+ 148     begin
+ 149        if CardState >=
+ 150          Interface.CardStateT'Pos(Interface.CardStateT'First)
+ 151          and CardState <=
+ 152          Interface.CardStateT'Pos(Interface.CardStateT'Last) then
+ 153           Result := Interface.CardStateT'Val(CardState);
+ 154        else
+ 155           Result := Interface.InvalidCardState;
+ 156        end if;
+ 157        return Result;
+ 158     end GetCardState;
+
++++        Flow analysis of subprogram GetCardState 
+           performed: no errors found.
+
+ 159  
+ 160     ------------------------------------------------------------------
+ 161     -- MakeDescription
+ 162     --
+ 163     -- Description:
+ 164     --    Produces a description for the Audit log from the
+ 165     --    supplied text and response code.
+ 166     --
+ 167     -- Implementation Notes:
+ 168     --    None
+ 169     ------------------------------------------------------------------
+ 170     function MakeDescription
+ 171       (Text         : String;
+ 172        ResponseCode : BasicTypes.Unsigned32T) return AuditTypes.DescriptionT
+ 173     is
+ 174        Result : AuditTypes.DescriptionT := AuditTypes.NoDescription;
+ 175        TheCodeName : Interface.ResponseCodeT;
+ 176  
+ 177        ------------------------------------------------------------------
+ 178        -- SetResultString
+ 179        --
+ 180        -- Description:
+ 181        --    Sets the Result string allowing for overflow.
+ 182        --
+ 183        -- Implementation Notes:
+ 184        --    None
+ 185        ------------------------------------------------------------------
+ 186        procedure SetResultString
+ 187        --# global in     Text;
+ 188        --#        in     TheCodeName;
+ 189        --#        in     ResponseCode;
+ 190        --#        in out Result;
+ 191        --# derives Result from *,
+ 192        --#                     Text,
+ 193        --#                     TheCodeName,
+ 194        --#                     ResponseCode;
+ 195        is
+ 196           --# hide SetResultString;
+ 197  
+ 198           FullString : String := Text & ": "
+ 199             & Interface.ResponseCodeT'Image(TheCodeName) & " ( "
+ 200             & BasicTypes.Unsigned32T'Image(ResponseCode) & " )";
+ 201        begin
+ 202  
+ 203           -- if the Full string is shorter then use it all otherwise
+ 204           -- truncate it.
+ 205           if FullString'Last <= AuditTypes.DescriptionI'Last then
+ 206              Result (1.. FullString'Last) := FullString;
+ 207           else
+ 208              Result := FullString (1 .. AuditTypes.DescriptionI'Last);
+ 209           end if;
+ 210        end SetResultString;
+ 211  
+ 212  
+ 213     begin
+ 214  
+ 215        TheCodeName := GetResponseCode (ResponseCode);
+ 216  
+ 217        SetResultString;
+ 218  
+ 219        return Result;
+ 220  
+ 221     end MakeDescription;
+
++++        Flow analysis of subprogram MakeDescription 
+           performed: no errors found.
+
+ 222  
+ 223     ------------------------------------------------------------------
+ 224     -- Public Operations
+ 225     ------------------------------------------------------------------
+ 226  
+ 227     ------------------------------------------------------------------
+ 228     -- Init
+ 229     --
+ 230     -- Implementation Notes:
+ 231     --    This routine gets a list of the available readers
+ 232     --    it raises an error if the required readers are not present.
+ 233     ------------------------------------------------------------------
+ 234  
+ 235     procedure Init
+ 236     --# global in     Interface.ReaderStatus;
+ 237     --#        in     Clock.Now;
+ 238     --#        in     ConfigData.State;
+ 239     --#        in out AuditLog.FileState;
+ 240     --#        in out AuditLog.State;
+ 241     --#           out ReaderStatus;
+ 242     --# derives AuditLog.FileState,
+ 243     --#         AuditLog.State     from AuditLog.FileState,
+ 244     --#                                 AuditLog.State,
+ 245     --#                                 Interface.ReaderStatus,
+ 246     --#                                 Clock.Now,
+ 247     --#                                 ConfigData.State &
+ 248     --#         ReaderStatus       from Interface.ReaderStatus;
+ 249     is
+ 250        NumberReaders : BasicTypes.Unsigned32T;
+ 251        ResponseCode  : BasicTypes.Unsigned32T;
+ 252        Readers       : Interface.ReaderNameArrayT;
+ 253  
+ 254        ------------------------------------------------------------------
+ 255        -- SetReaderName
+ 256        --
+ 257        -- Description:
+ 258        --    Sets the Reader's name to the provided value.
+ 259        --
+ 260        -- Implementation Notes:
+ 261        --    Presented as a subroutine to aid VCG.
+ 262        ------------------------------------------------------------------
+ 263         procedure SetReaderName (TheReader : in ReaderT;
+ 264                                 TheName   : in Interface.ReaderNameT)
+ 265        --# global in out ReaderStatus;
+ 266        --# derives ReaderStatus from *,
+ 267        --#                           TheReader,
+ 268        --#                           TheName;
+ 269        is
+ 270        begin
+ 271           ReaderStatus(TheReader).Name := TheName;
+ 272        end SetReaderName;
+
++++        Flow analysis of subprogram SetReaderName 
+           performed: no errors found.
+
+ 273  
+ 274        ------------------------------------------------------------------
+ 275        -- Clears all reader information.
+ 276        --
+ 277        -- Description:
+ 278        --    Sets the Reader's name to the provided value.
+ 279        --
+ 280        -- Implementation Notes:
+ 281        --    Presented as a subroutine to aid VCG.
+ 282        ------------------------------------------------------------------
+ 283        procedure ClearReaders
+ 284        --# global out ReaderStatus;
+ 285        --# derives ReaderStatus from ;
+ 286        is
+ 287        begin
+ 288           ReaderStatus := NoReaders;
+ 289        end ClearReaders;
+
++++        Flow analysis of subprogram ClearReaders 
+           performed: no errors found.
+
+ 290  
+ 291        -----------------------------------------------------------------
+ 292        -- begin Init
+ 293        ----------------------------------------------------------------
+ 294     begin
+ 295  
+ 296        ClearReaders;
+ 297  
+ 298        -- We are looking for 2 readers.
+ 299        NumberReaders := 2;
+ 300        Interface.ListReaders(List         => Readers,
+ 301                              Number       => NumberReaders,
+ 302                              ResponseCode => ResponseCode);
+ 303  
+ 304        if ResponseCode = Interface.ResponseCodeT'Pos(Interface.Success) then
+ 305  
+ 306           if NumberReaders >=
+ 307             BasicTypes.Unsigned32T(Interface.ReaderArrayI'First) and
+ 308             NumberReaders <=
+ 309             BasicTypes.Unsigned32T(Interface.ReaderArrayI'Last) then
+ 310              for I in Interface.ReaderArrayI
+ 311                range 1 .. Interface.ReaderArrayI(NumberReaders) loop
+ 312                 --# assert I in Interface.ReaderArrayI and
+ 313                 --#        I <= Interface.ReaderArrayI(NumberReaders) and
+ 314                 --#        Interface.ReaderArrayI(NumberReaders) >=
+ 315                 --#           Interface.ReaderArrayI'First and
+ 316                 --#        Interface.ReaderArrayI(NumberReaders) <=
+ 317                 --#           Interface.ReaderArrayI'Last and
+ 318                 --#        ReaderStatus in ReaderInfoArrayT and
+ 319                 --#        NumberReaders = NumberReaders% and
+ 320                 --#        ( for all L in Interface.ReaderNameI =>
+ 321                 --#            (for all K in ReaderT =>
+ 322                 --#         (ReaderStatus(K).Name(L) in Character))) and
+ 323                 --#        (for all K in ReaderT =>
+ 324                 --#         (ReaderStatus(K).TokenTry in TokenTypes.TryT)) and
+ 325                 --#        (for all K in ReaderT =>
+ 326                 --#         (ReaderStatus(K).TokenID in TokenTypes.TokenIDT))  and
+ 327                 --#        (for all K in ReaderT =>
+ 328                 --#         (ReaderStatus(K).TokenHandle
+ 329                 --#                    in Interface.CardHandleT)) and
+ 330                 --#        (for all K in ReaderT =>
+ 331                 --#         (ReaderStatus(K).CurrentStatus
+ 332                 --#                    in Interface.ValidReaderStateT)) and
+ 333                 --#        (for all K in ReaderT =>
+ 334                 --#         (ReaderStatus(K).LastFault in BasicTypes.Unsigned32T));
+ 335                 for R in ReaderT loop
+ 336                    --# assert I in Interface.ReaderArrayI and
+ 337                    --#        I <= Interface.ReaderArrayI(NumberReaders) and
+ 338                    --#        Interface.ReaderArrayI(NumberReaders) >=
+ 339                    --#           Interface.ReaderArrayI'First and
+ 340                    --#        Interface.ReaderArrayI(NumberReaders) <=
+ 341                    --#           Interface.ReaderArrayI'Last and
+ 342                    --#        R in ReaderT and
+ 343                    --#        NumberReaders = NumberReaders% and
+ 344                    --#       ( for all L in Interface.ReaderNameI =>
+ 345                    --#            (for all K in ReaderT =>
+ 346                    --#         (ReaderStatus(K).Name(L) in Character))) and
+ 347                    --#        (for all K in ReaderT =>
+ 348                    --#         (ReaderStatus(K).TokenTry in TokenTypes.TryT)) and
+ 349                    --#        (for all K in ReaderT =>
+ 350                    --#         (ReaderStatus(K).TokenID
+ 351                    --#             in TokenTypes.TokenIDT))  and
+ 352                    --#        (for all K in ReaderT =>
+ 353                    --#         (ReaderStatus(K).TokenHandle
+ 354                    --#             in Interface.CardHandleT)) and
+ 355                    --#        (for all K in ReaderT =>
+ 356                    --#         (ReaderStatus(K).CurrentStatus
+ 357                    --#             in Interface.ValidReaderStateT)) and
+ 358                    --#        (for all K in ReaderT =>
+ 359                    --#         (ReaderStatus(K).LastFault in BasicTypes.Unsigned32T));
+ 360  
+ 361                    if ExpectedReaderNames(R) = Readers(I) then
+ 362                       SetReaderName(TheReader => R,
+ 363                                     TheName   => Readers(I));
+ 364                       exit;
+ 365                    end if;
+ 366                 end loop;
+ 367              end loop;
+ 368  
+ 369                if ReaderStatus(User).Name /= ExpectedReaderNames(User) then
+ 370  
+ 371                   AuditLog.AddElementToLog
+ 372                     ( ElementID   => AuditTypes.SystemFault,
+ 373                       Severity    => AuditTypes.Warning,
+ 374                       User        => AuditTypes.NoUser,
+ 375                       Description => "Token Reader initialisation failure : " &
+ 376                       "External token reader not found");
+ 377  
+ 378                end if;
+ 379  
+ 380                if ReaderStatus(Admin).Name /= ExpectedReaderNames(Admin) then
+ 381  
+ 382                   AuditLog.AddElementToLog
+ 383                     ( ElementID   => AuditTypes.SystemFault,
+ 384                       Severity    => AuditTypes.Warning,
+ 385                       User        => AuditTypes.NoUser,
+ 386                       Description => "Token Reader initialisation failure : " &
+ 387                       "Internal token reader not found");
+ 388  
+ 389                end if;
+ 390  
+ 391           else
+ 392  
+ 393              AuditLog.AddElementToLog
+ 394                ( ElementID   => AuditTypes.SystemFault,
+ 395                  Severity    => AuditTypes.Warning,
+ 396                  User        => AuditTypes.NoUser,
+ 397                  Description => "Token Reader initialisation failure : "
+ 398                  & "Invalid Number of Token Readers found");
+ 399  
+ 400           end if;
+ 401  
+ 402        else
+ 403  
+ 404           AuditLog.AddElementToLog
+ 405             ( ElementID   => AuditTypes.SystemFault,
+ 406               Severity    => AuditTypes.Warning,
+ 407               User        => AuditTypes.NoUser,
+ 408               Description =>
+ 409                 MakeDescription("Token Reader initialisation failure : ",
+ 410                                 ResponseCode));
+ 411  
+ 412        end if;
+ 413  
+ 414     end Init;
+
++++        Flow analysis of subprogram Init performed: no 
+           errors found.
+
+ 415  
+ 416     ------------------------------------------------------------------
+ 417     -- Poll
+ 418     --
+ 419     -- Implementation Notes:
+ 420     --    This logs a system fault of we can't obtain a sensible
+ 421     --    reader status.
+ 422     ------------------------------------------------------------------
+ 423  
+ 424     procedure Poll ( Reader : in ReaderT)
+ 425     --# global in     Interface.ReaderStatus;
+ 426     --#        in     Clock.Now;
+ 427     --#        in     ConfigData.State;
+ 428     --#        in     Interface.ReaderInput;
+ 429     --#        in out AuditLog.FileState;
+ 430     --#        in out AuditLog.State;
+ 431     --#        in out ReaderStatus;
+ 432     --# derives AuditLog.FileState,
+ 433     --#         AuditLog.State     from AuditLog.FileState,
+ 434     --#                                 AuditLog.State,
+ 435     --#                                 ReaderStatus,
+ 436     --#                                 Interface.ReaderStatus,
+ 437     --#                                 Clock.Now,
+ 438     --#                                 ConfigData.State,
+ 439     --#                                 Reader &
+ 440     --#         ReaderStatus       from *,
+ 441     --#                                 Interface.ReaderStatus,
+ 442     --#                                 Interface.ReaderInput,
+ 443     --#                                 Reader;
+ 444     is
+ 445        ResponseCode  : BasicTypes.Unsigned32T;
+ 446        RawNewState   : BasicTypes.Unsigned32T;
+ 447        NewState      : Interface.ReaderStateT;
+ 448  
+ 449        StatusChangeTimeout : constant := 0;
+ 450  
+ 451        ------------------------------------------------------------------
+ 452        -- DisconnectToken
+ 453        --
+ 454        -- Description:
+ 455        --    Disconnects from the current token if there is one connected.
+ 456        --
+ 457        -- Implementation Notes:
+ 458        --    None.
+ 459        ------------------------------------------------------------------
+ 460        procedure DisconnectToken
+ 461        --# global in ReaderStatus;
+ 462        --#        in Interface.ReaderStatus;
+ 463        --#        in Reader;
+ 464        --# derives null from ReaderStatus,
+ 465        --#                   Interface.ReaderStatus,
+ 466        --#                   Reader;
+ 467        is
+ 468          UnusedResponseCode : BasicTypes.Unsigned32T;
+ 469        begin
+ 470           --# accept F, 10, UnusedResponseCode, "Ineffective assignment expected here" &
+ 471           --#        F, 33, UnusedResponseCode, "Ineffective assignment expected here";
+ 472           if ReaderStatus(Reader).TokenConnected then
+ 473              Interface.Disconnect
+ 474                (CardHandle   => ReaderStatus(Reader).TokenHandle,
+ 475                 ResponseCode => UnusedResponseCode);
+ 476           end if;
+ 477        end DisconnectToken;
+
++++        Flow analysis of subprogram DisconnectToken 
+           performed: no errors found.
+
+ 478  
+ 479        ------------------------------------------------------------------
+ 480        -- MarkTokenBad
+ 481        --
+ 482        -- Description:
+ 483        --    Marks the current token as bad.
+ 484        --
+ 485        -- Implementation Notes:
+ 486        --    None.
+ 487        ------------------------------------------------------------------
+ 488        procedure MarkTokenBad
+ 489        --# global in     Interface.ReaderStatus;
+ 490        --#        in     Reader;
+ 491        --#        in out ReaderStatus;
+ 492        --# derives ReaderStatus from *,
+ 493        --#                           Reader &
+ 494        --#         null         from Interface.ReaderStatus;
+ 495        is
+ 496        begin
+ 497           DisconnectToken;
+ 498           ReaderStatus(Reader).TokenTry       := TokenTypes.BadToken;
+ 499           ReaderStatus(Reader).TokenID        := TokenTypes.TokenIDT'First;
+ 500           ReaderStatus(Reader).TokenHandle    := Interface.NullHandle;
+ 501           ReaderStatus(Reader).TokenConnected := False;
+ 502  
+ 503        end MarkTokenBad;
+
++++        Flow analysis of subprogram MarkTokenBad 
+           performed: no errors found.
+
+ 504  
+ 505        ------------------------------------------------------------------
+ 506        -- MarkTokenAbsent
+ 507        --
+ 508        -- Description:
+ 509        --    Marks the token as absent.
+ 510        --
+ 511        -- Implementation Notes:
+ 512        --    None.
+ 513        ------------------------------------------------------------------
+ 514        procedure MarkTokenAbsent
+ 515        --# global in     Interface.ReaderStatus;
+ 516        --#        in     Reader;
+ 517        --#        in out ReaderStatus;
+ 518        --# derives ReaderStatus from *,
+ 519        --#                           Reader &
+ 520        --#         null         from Interface.ReaderStatus;
+ 521        is
+ 522        begin
+ 523           DisconnectToken;
+ 524           ReaderStatus(Reader).TokenTry       := TokenTypes.NoToken;
+ 525           ReaderStatus(Reader).TokenID        := TokenTypes.TokenIDT'First;
+ 526           ReaderStatus(Reader).TokenHandle    := Interface.NullHandle;
+ 527           ReaderStatus(Reader).TokenConnected := False;
+ 528  
+ 529        end MarkTokenAbsent;
+
++++        Flow analysis of subprogram MarkTokenAbsent 
+           performed: no errors found.
+
+ 530  
+ 531  
+ 532        ------------------------------------------------------------------
+ 533        -- ProcessReaderStateChange
+ 534        --
+ 535        -- Description:
+ 536        --    Processes the detected change in reader state.
+ 537        --
+ 538        -- Implementation Notes:
+ 539        --    None.
+ 540        ------------------------------------------------------------------
+ 541        procedure ProcessReaderStateChange
+ 542        --# global in     Interface.ReaderStatus;
+ 543        --#        in     Reader;
+ 544        --#        in     NewState;
+ 545        --#        in out ReaderStatus;
+ 546        --# derives ReaderStatus from *,
+ 547        --#                           Interface.ReaderStatus,
+ 548        --#                           Reader,
+ 549        --#                           NewState;
+ 550        is
+ 551          TheCardHandle : Interface.CardHandleT;
+ 552          ResponseCode  : BasicTypes.Unsigned32T;
+ 553  
+ 554          ------------------------------------------------------------------
+ 555          -- MarkTokenConnected
+ 556          --
+ 557          -- Description:
+ 558          --    Indicate that a token has become connected.
+ 559          --
+ 560          -- Implementation Notes:
+ 561          --    None.
+ 562          ------------------------------------------------------------------
+ 563          procedure MarkTokenConnected
+ 564            --# global in     Reader;
+ 565            --#        in     TheCardHandle;
+ 566            --#        in out ReaderStatus;
+ 567            --# derives ReaderStatus from *,
+ 568            --#                           Reader,
+ 569            --#                           TheCardHandle;
+ 570          is
+ 571          begin
+ 572             ReaderStatus(Reader).TokenHandle    := TheCardHandle;
+ 573             ReaderStatus(Reader).TokenConnected := True;
+ 574  
+ 575          end MarkTokenConnected;
+
++++        Flow analysis of subprogram MarkTokenConnected 
+           performed: no errors found.
+
+ 576  
+ 577          -----------------------------------------------------------------
+ 578          -- begin ProcessReaderStateChange
+ 579          -----------------------------------------------------------------
+ 580        begin
+ 581  
+ 582           case NewState is
+ 583              when Interface.Unaware .. Interface.Empty =>
+ 584                 MarkTokenAbsent;
+ 585  
+ 586              when Interface.CardPresent =>
+ 587                 if not ReaderStatus(Reader).TokenConnected then
+ 588                    Interface.Connect
+ 589                      (Reader       => ReaderStatus(Reader).Name,
+ 590                       CardHandle   => TheCardHandle,
+ 591                       ResponseCode => ResponseCode);
+ 592  
+ 593                      if ResponseCode = Interface.ResponseCodeT'Pos(Interface.Success) then
+ 594                         MarkTokenConnected;
+ 595                      else
+ 596                         MarkTokenBad;
+ 597                      end if;
+ 598                 end if;
+ 599  
+ 600              when Interface.Mute =>
+ 601                 MarkTokenBad;
+ 602  
+ 603              when Interface.InvalidReaderState =>
+ 604                 MarkTokenAbsent;
+ 605  
+ 606           end case;
+ 607        end ProcessReaderStateChange;
+
++++        Flow analysis of subprogram 
+           ProcessReaderStateChange performed: no errors found.
+
+ 608  
+ 609        ------------------------------------------------------------------
+ 610        -- CheckCardState
+ 611        --
+ 612        -- Description:
+ 613        --    Checks the card state where the reader claims there is
+ 614        --    a card present.
+ 615        --
+ 616        -- Implementation Notes:
+ 617        --    None.
+ 618        ------------------------------------------------------------------
+ 619        procedure CheckCardState
+ 620        --# global in     Interface.ReaderStatus;
+ 621        --#        in     Interface.ReaderInput;
+ 622        --#        in     Reader;
+ 623        --#        in out ReaderStatus;
+ 624        --# derives ReaderStatus from *,
+ 625        --#                           Interface.ReaderStatus,
+ 626        --#                           Interface.ReaderInput,
+ 627        --#                           Reader;
+ 628        is
+ 629          RawCardState        : BasicTypes.Unsigned32T;
+ 630          CardState           : Interface.CardStateT;
+ 631          ResponseCode        : BasicTypes.Unsigned32T;
+ 632          TheATR              : TokenTypes.TokenIDT;
+ 633  
+ 634          ------------------------------------------------------------------
+ 635          -- MarkTokenGood
+ 636          --
+ 637          -- Description:
+ 638          --    Indicate that a token has extablished communications
+ 639          --    so can be assumed good.
+ 640          --
+ 641          -- Implementation Notes:
+ 642          --    None.
+ 643          ------------------------------------------------------------------
+ 644          procedure MarkTokenGood
+ 645            --# global in     Reader;
+ 646            --#        in     TheATR;
+ 647            --#        in out ReaderStatus;
+ 648            --# derives ReaderStatus from *,
+ 649            --#                           Reader,
+ 650            --#                           TheATR;
+ 651          is
+ 652          begin
+ 653             ReaderStatus(Reader).TokenTry       := TokenTypes.GoodToken;
+ 654             ReaderStatus(Reader).TokenID        := TheATR;
+ 655  
+ 656          end MarkTokenGood;
+
++++        Flow analysis of subprogram MarkTokenGood 
+           performed: no errors found.
+
+ 657  
+ 658          -----------------------------------------------------------------
+ 659          -- begin CheckCardState
+ 660          -----------------------------------------------------------------
+ 661        begin
+ 662           Interface.Status
+ 663             (CardHandle   => ReaderStatus(Reader).TokenHandle,
+ 664              CState       => RawCardState,
+ 665              ATR          => TheATR,
+ 666              ResponseCode => ResponseCode);
+ 667  
+ 668  
+ 669           if ResponseCode = Interface.ResponseCodeT'Pos(Interface.Success) then
+ 670  
+ 671              CardState := GetCardState(RawCardState);
+ 672  
+ 673              case CardState is
+ 674                 when Interface.Absent =>
+ 675                    MarkTokenAbsent;
+ 676                 when Interface.Present  .. Interface.Powered =>
+ 677                    null;
+ 678                    -- keep waiting
+ 679                 when Interface.Negotiable .. Interface.Specific =>
+ 680                    MarkTokenGood;
+ 681  
+ 682                 when Interface.InvalidCardState =>
+ 683                    MarkTokenBad;
+ 684              end case;
+ 685  
+ 686           else
+ 687  
+ 688              MarkTokenBad;
+ 689           end if;
+ 690  
+ 691        end CheckCardState;
+
++++        Flow analysis of subprogram CheckCardState 
+           performed: no errors found.
+
+ 692  
+ 693        ------------------------------------------------------------------
+ 694        -- SetCurrentStatus
+ 695        --
+ 696        -- Description:
+ 697        --    Sets the Reader Status to the supplied value.
+ 698        --
+ 699        -- Implementation Notes:
+ 700        --    Presented as a subroutine to aid VCG.
+ 701        ------------------------------------------------------------------
+ 702        procedure SetCurrentStatus (TheStatus : in Interface.ValidReaderStateT)
+ 703          --# global in     Reader;
+ 704          --#        in out ReaderStatus;
+ 705          --# derives ReaderStatus from *,
+ 706          --#                           Reader,
+ 707          --#                           TheStatus;
+ 708        is
+ 709        begin
+ 710           ReaderStatus(Reader).CurrentStatus := TheStatus;
+ 711        end SetCurrentStatus;
+
++++        Flow analysis of subprogram SetCurrentStatus 
+           performed: no errors found.
+
+ 712  
+ 713        ------------------------------------------------------------------
+ 714        -- SetLastFault
+ 715        --
+ 716        -- Description:
+ 717        --    Sets the Reader's last fault to the ResponseCode.
+ 718        --
+ 719        -- Implementation Notes:
+ 720        --    Presented as a subroutine to aid VCG.
+ 721        ------------------------------------------------------------------
+ 722       procedure SetLastFault
+ 723       --# global in     ResponseCode;
+ 724       --#        in     Reader;
+ 725       --#        in out ReaderStatus;
+ 726       --# derives ReaderStatus from *,
+ 727       --#                           ResponseCode,
+ 728       --#                           Reader;
+ 729       is
+ 730       begin
+ 731          ReaderStatus(Reader).LastFault := ResponseCode;
+ 732       end SetLastFault;
+
++++        Flow analysis of subprogram SetLastFault 
+           performed: no errors found.
+
+ 733  
+ 734        -----------------------------------------------------------------
+ 735        -- begin Poll
+ 736        -----------------------------------------------------------------
+ 737     begin
+ 738  
+ 739        Interface.GetStatusChange
+ 740          (Timeout      => StatusChangeTimeout,
+ 741           Reader       => ReaderStatus(Reader).Name,
+ 742           CurrentState => ReaderStatus(Reader).CurrentStatus,
+ 743           NewState     => RawNewState,
+ 744           ResponseCode => ResponseCode);
+ 745  
+ 746        if ResponseCode = Interface.ResponseCodeT'Pos(Interface.Success) then
+ 747  
+ 748           NewState := GetReaderState(RawNewState);
+ 749           ProcessReaderStateChange;
+ 750           if NewState in Interface.ValidReaderStateT then
+ 751              SetCurrentStatus(TheStatus => NewState);
+ 752           else
+ 753              SetCurrentStatus(TheStatus => Interface.Unaware);
+ 754           end if;
+ 755  
+ 756        elsif ResponseCode = Interface.ResponseCodeT'Pos(Interface.Timedout)then
+ 757  
+ 758           -- no change to the state.
+ 759           null;
+ 760  
+ 761        else
+ 762  
+ 763           MarkTokenAbsent;
+ 764           SetCurrentStatus(TheStatus => Interface.Unaware);
+ 765  
+ 766           -- only log the fault the first time it happens:
+ 767           if ReaderStatus(Reader).LastFault /= ResponseCode then
+ 768  
+ 769              SetLastFault;
+ 770  
+ 771              AuditLog.AddElementToLog
+ 772                ( ElementID   => AuditTypes.SystemFault,
+ 773                  Severity    => AuditTypes.Warning,
+ 774                  User        => AuditTypes.NoUser,
+ 775                  Description =>
+ 776                    MakeDescription("Token Reader status change failure : ",
+ 777                                    ResponseCode));
+ 778  
+ 779           end if;
+ 780  
+ 781        end if;
+ 782  
+ 783        if ReaderStatus(Reader).CurrentStatus = Interface.CardPresent and
+ 784          ReaderStatus(Reader).TokenConnected then
+ 785           CheckCardState;
+ 786        end if;
+ 787  
+ 788     end Poll;
+
++++        Flow analysis of subprogram Poll performed: no 
+           errors found.
+
+ 789  
+ 790     ------------------------------------------------------------------
+ 791     -- TheTokenTry
+ 792     --
+ 793     -- Implementation Notes:
+ 794     --    None.
+ 795     ------------------------------------------------------------------
+ 796  
+ 797     function TheTokenTry (Reader : ReaderT) return  TokenTypes.TryT
+ 798     --# global ReaderStatus;
+ 799     is
+ 800     begin
+ 801        return ReaderStatus(Reader).TokenTry;
+ 802     end TheTokenTry;
+
++++        Flow analysis of subprogram TheTokenTry 
+           performed: no errors found.
+
+ 803  
+ 804     ------------------------------------------------------------------
+ 805     -- TheTokenPresence
+ 806     --
+ 807     -- Implementation Notes:
+ 808     --    None.
+ 809     ------------------------------------------------------------------
+ 810  
+ 811     function TheTokenPresence (Reader  :  ReaderT) return BasicTypes.PresenceT
+ 812     --# global ReaderStatus;
+ 813     is
+ 814        Result : BasicTypes.PresenceT;
+ 815     begin
+ 816        if ReaderStatus(Reader).TokenTry = TokenTypes.NoToken then
+ 817           Result := BasicTypes.Absent;
+ 818        else
+ 819           Result := BasicTypes.Present;
+ 820        end if;
+ 821        return Result;
+ 822     end TheTokenPresence;
+
++++        Flow analysis of subprogram TheTokenPresence 
+           performed: no errors found.
+
+ 823  
+ 824     ------------------------------------------------------------------
+ 825     -- TheTokenID
+ 826     --
+ 827     -- Implementation Notes:
+ 828     --    None.
+ 829     ------------------------------------------------------------------
+ 830  
+ 831     function TheTokenID (Reader : ReaderT) return  TokenTypes.TokenIDT
+ 832     --# global ReaderStatus;
+ 833     is
+ 834     begin
+ 835        return ReaderStatus(Reader).TokenID;
+ 836     end TheTokenID;
+
++++        Flow analysis of subprogram TheTokenID 
+           performed: no errors found.
+
+ 837  
+ 838     ------------------------------------------------------------------
+ 839     -- GetCertificate
+ 840     --
+ 841     -- Implementation Notes:
+ 842     --    None.
+ 843     ------------------------------------------------------------------
+ 844  
+ 845     procedure GetCertificate (Reader    : in     ReaderT;
+ 846                               CertType  : in     CertTypes.CertificateT;
+ 847                               RawCert   :    out CertTypes.RawCertificateT;
+ 848                               Found     :    out Boolean)
+ 849     --# global in ReaderStatus;
+ 850     --#        in Interface.ReaderStatus;
+ 851     --#        in Interface.ReaderInput;
+ 852     --# derives Found   from ReaderStatus,
+ 853     --#                      Interface.ReaderStatus,
+ 854     --#                      Reader,
+ 855     --#                      CertType &
+ 856     --#         RawCert from ReaderStatus,
+ 857     --#                      Interface.ReaderStatus,
+ 858     --#                      Interface.ReaderInput,
+ 859     --#                      Reader,
+ 860     --#                      CertType;
+ 861     is
+ 862        StatusOK     : Boolean;
+ 863        Exists       : Boolean := True;
+ 864        ResponseCode : BasicTypes.Unsigned32T;
+ 865     begin
+ 866  
+ 867        RawCert := CertTypes.NullRawCertificate;
+ 868  
+ 869        if ReaderStatus(Reader).TokenTry = TokenTypes.GoodToken then
+ 870           case CertType is
+ 871              when CertTypes.IDCert =>
+ 872                 Interface.GetIDCert
+ 873                   (CardHandle   => ReaderStatus(Reader).TokenHandle,
+ 874                    RawIDCert    => RawCert,
+ 875                    StatusOK     => StatusOK,
+ 876                    ResponseCode => ResponseCode);
+ 877              when CertTypes.AuthCert =>
+ 878                 Interface.GetAuthCert
+ 879                   (CardHandle   => ReaderStatus(Reader).TokenHandle,
+ 880                    RawAuthCert  => RawCert,
+ 881                    StatusOK     => StatusOK,
+ 882                    Exists       => Exists,
+ 883                    ResponseCode => ResponseCode);
+ 884              when CertTypes.PrivCert =>
+ 885                 Interface.GetPrivCert
+ 886                   (CardHandle   => ReaderStatus(Reader).TokenHandle,
+ 887                    RawPrivCert  => RawCert,
+ 888                    StatusOK     => StatusOK,
+ 889                    ResponseCode => ResponseCode);
+ 890              when CertTypes.IandACert =>
+ 891                 Interface.GetIACert
+ 892                   (CardHandle   => ReaderStatus(Reader).TokenHandle,
+ 893                    RawIACert  => RawCert,
+ 894                    StatusOK     => StatusOK,
+ 895                    ResponseCode => ResponseCode);
+ 896           end case;
+ 897  
+ 898           Found := StatusOK and Exists and
+ 899                (ResponseCode = Interface.ResponseCodeT'Pos(Interface.Success));
+ 900  
+ 901        else
+ 902           Found := False;
+ 903        end if;
+ 904  
+ 905     end GetCertificate;
+
++++        Flow analysis of subprogram GetCertificate 
+           performed: no errors found.
+
+ 906  
+ 907  
+ 908  
+ 909     ------------------------------------------------------------------
+ 910     -- WriteAuthCertificate
+ 911     --
+ 912     -- Implementation Notes:
+ 913     --     None.
+ 914     ------------------------------------------------------------------
+ 915  
+ 916     procedure WriteAuthCertificate
+ 917       (RawCert   : in     CertTypes.RawCertificateT;
+ 918        Success   :    out Boolean)
+ 919     --# global in     ReaderStatus;
+ 920     --#        in     Interface.ReaderStatus;
+ 921     --#           out Interface.ReaderOutput;
+ 922     --# derives Interface.ReaderOutput from ReaderStatus,
+ 923     --#                                     Interface.ReaderStatus,
+ 924     --#                                     RawCert &
+ 925     --#         Success                from ReaderStatus,
+ 926     --#                                     Interface.ReaderStatus;
+ 927  
+ 928     is
+ 929        StatusOK     : Boolean;
+ 930        ResponseCode : BasicTypes.Unsigned32T;
+ 931     begin
+ 932          Interface.UpdateAuthCert
+ 933           (CardHandle   => ReaderStatus(User).TokenHandle ,
+ 934            RawAuthCert  => RawCert,
+ 935            StatusOK     => StatusOK,
+ 936            ResponseCode => ResponseCode);
+ 937  
+ 938          Success := StatusOK and
+ 939                (ResponseCode = Interface.ResponseCodeT'Pos(Interface.Success));
+ 940  
+ 941     end WriteAuthCertificate;
+
++++        Flow analysis of subprogram WriteAuthCertificate 
+           performed: no errors found.
+
+ 942  
+ 943  end TokenReader;
+
+Expected messages marked with the accept annotation
+Type Msg    Lines              Reason                    Match
+     No.  From    To                                    No.  Line
+Flow  10   470   end  Ineffective assignment expected     1   473
+Flow  33   470   end  Ineffective assignment expected     1   477
+
+
+137 summarized warning(s), comprising:
+     1 hidden part(s)*
+   136 use(s) of Ada2005 reserved words
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+
+--End of file--------------------------------------------------

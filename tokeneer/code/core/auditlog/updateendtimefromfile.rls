@@ -1,0 +1,48 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:08.20*/
+
+                  /*procedure AuditLog.UpdateEndTimeFromFile*/
+
+
+rule_family updateendtim_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+updateendtim_rules(1): maxlogfileentries may_be_replaced_by 1024.
+updateendtim_rules(2): integer__size >= 0 may_be_deduced.
+updateendtim_rules(3): integer__first may_be_replaced_by -2147483648.
+updateendtim_rules(4): integer__last may_be_replaced_by 2147483647.
+updateendtim_rules(5): integer__base__first may_be_replaced_by -2147483648.
+updateendtim_rules(6): integer__base__last may_be_replaced_by 2147483647.
+updateendtim_rules(7): character__size >= 0 may_be_deduced.
+updateendtim_rules(8): character__first may_be_replaced_by 0.
+updateendtim_rules(9): character__last may_be_replaced_by 255.
+updateendtim_rules(10): character__base__first may_be_replaced_by 0.
+updateendtim_rules(11): character__base__last may_be_replaced_by 255.
+updateendtim_rules(12): natural__size >= 0 may_be_deduced.
+updateendtim_rules(13): natural__first may_be_replaced_by 0.
+updateendtim_rules(14): natural__last may_be_replaced_by 2147483647.
+updateendtim_rules(15): natural__base__first may_be_replaced_by -2147483648.
+updateendtim_rules(16): natural__base__last may_be_replaced_by 2147483647.
+updateendtim_rules(17): positive__size >= 0 may_be_deduced.
+updateendtim_rules(18): positive__first may_be_replaced_by 1.
+updateendtim_rules(19): positive__last may_be_replaced_by 2147483647.
+updateendtim_rules(20): positive__base__first may_be_replaced_by -2147483648.
+updateendtim_rules(21): positive__base__last may_be_replaced_by 2147483647.
+updateendtim_rules(22): clock__timetexti__size >= 0 may_be_deduced.
+updateendtim_rules(23): clock__timetexti__first may_be_replaced_by 1.
+updateendtim_rules(24): clock__timetexti__last may_be_replaced_by 21.
+updateendtim_rules(25): clock__timetexti__base__first may_be_replaced_by -2147483648.
+updateendtim_rules(26): clock__timetexti__base__last may_be_replaced_by 2147483647.
+updateendtim_rules(27): audittypes__descriptioni__size >= 0 may_be_deduced.
+updateendtim_rules(28): audittypes__descriptioni__first may_be_replaced_by 1.
+updateendtim_rules(29): audittypes__descriptioni__last may_be_replaced_by 150.
+updateendtim_rules(30): audittypes__descriptioni__base__first may_be_replaced_by -2147483648.
+updateendtim_rules(31): audittypes__descriptioni__base__last may_be_replaced_by 2147483647.

@@ -1,0 +1,112 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:21.05
+
+                         procedure AdminToken.Clear
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 108:
+
+procedure_clear_1.
+H1:    true .
+        ->
+C1:    basictypes__absent >= basictypes__presencet__first .
+C2:    basictypes__absent <= basictypes__presencet__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 109:
+
+procedure_clear_2.
+H1:    true .
+H2:    basictypes__absent >= basictypes__presencet__first .
+H3:    basictypes__absent <= basictypes__presencet__last .
+        ->
+C1:    tokentypes__notoken >= tokentypes__tryt__first .
+C2:    tokentypes__notoken <= tokentypes__tryt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 110:
+
+procedure_clear_3.
+H1:    true .
+H2:    basictypes__absent >= basictypes__presencet__first .
+H3:    basictypes__absent <= basictypes__presencet__last .
+H4:    tokentypes__notoken >= tokentypes__tryt__first .
+H5:    tokentypes__notoken <= tokentypes__tryt__last .
+        ->
+C1:    tokentypes__tokenidt__first >= tokentypes__tokenidt__first .
+C2:    tokentypes__tokenidt__first <= tokentypes__tokenidt__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_clear_4.
+H1:    true .
+H2:    basictypes__absent >= basictypes__presencet__first .
+H3:    basictypes__absent <= basictypes__presencet__last .
+H4:    tokentypes__notoken >= tokentypes__tryt__first .
+H5:    tokentypes__notoken <= tokentypes__tryt__last .
+H6:    tokentypes__tokenidt__first >= tokentypes__tokenidt__first .
+H7:    tokentypes__tokenidt__first <= tokentypes__tokenidt__last .
+H8:    cert__attr__auth__therole(authcertcontents__1) = 
+           privtypes__privileget__first .
+H9:    true .
+H10:   true .
+        ->
+C1:    not (fld_valid(mk__valididcertt(valid := false, 
+           contents := idcertcontents__2))) .
+C2:    not (fld_valid(mk__validauthcertt(valid := false, 
+           contents := authcertcontents__1))) .
+C3:    cert__attr__auth__therole(fld_contents(
+           mk__validauthcertt(valid := false, contents := 
+           authcertcontents__1))) = privtypes__privileget__first .
+ 
+
+For checks of refinement integrity: 
+
+procedure_clear_5.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_clear_6.
+H1:    true .
+H2:    true .
+H3:    tokenpresence = fld_tokenpresence(state) .
+H4:    tokentry = fld_tokentry(state) .
+H5:    tokenid = fld_tokenid(state) .
+H6:    authcert = fld_authcert(state) .
+H7:    idcert = fld_idcert(state) .
+H8:    admintoken__interface__state = fld_admintoken__interface__state(
+           state~) .
+H9:    admintoken__interface__state = fld_admintoken__interface__state(
+           state) .
+H10:   tokenpresence >= basictypes__presencet__first .
+H11:   tokenpresence <= basictypes__presencet__last .
+H12:   tokentry >= tokentypes__tryt__first .
+H13:   tokentry <= tokentypes__tryt__last .
+H14:   tokenid >= tokentypes__tokenidt__first .
+H15:   tokenid <= tokentypes__tokenidt__last .
+H16:   true .
+H17:   true .
+H18:   true .
+H19:   true .
+H20:   not (fld_valid(idcert)) .
+H21:   not (fld_valid(authcert)) .
+H22:   cert__attr__auth__therole(fld_contents(authcert)) = 
+           privtypes__privileget__first .
+        ->
+C1:    not (prf_isgood(state)) .
+C2:    not (prf_authcertvalid(state)) .
+C3:    not ((theauthcertrole(state) >= 
+           privtypes__adminprivileget__first) and (
+           theauthcertrole(state) <= 
+           privtypes__adminprivileget__last)) .
+ 
+

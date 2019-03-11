@@ -1,0 +1,104 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:09.14}
+
+                          {procedure AuditLog.Init}
+
+
+title procedure init;
+
+  function round__(real) : integer;
+  type character = integer;
+  type alarmtypes__statust = (alarmtypes__alarming, 
+     alarmtypes__silent);
+  type logfilecountt = integer;
+  type filestatust = (free, archived, used);
+  type logentrycountt = integer;
+  type string = array [integer] of character;
+  const null__string : string = pending;
+  type logfilesstatust = array [integer] of filestatust;
+  type logfilelistentriest = array [integer] of integer;
+  type logfileentryt = array [integer] of integer;
+  type logfilelistt = record
+        list : logfilelistentriest;
+        head : integer;
+        lasti : integer;
+        length : integer
+     end;
+  type fileaget = array [integer] of string;
+  const emptylist : logfilelistt = pending;
+  const maxlogfileentries : integer = pending;
+  const fileentrycountt__base__first : integer = pending; 
+  const fileentrycountt__base__last : integer = pending; 
+  const logentrycountt__base__first : integer = pending; 
+  const logentrycountt__base__last : integer = pending; 
+  const filestatust__base__first : filestatust = pending; 
+  const filestatust__base__last : filestatust = pending; 
+  const logfileindext__base__first : integer = pending; 
+  const logfileindext__base__last : integer = pending; 
+  const logfilecountt__base__first : integer = pending; 
+  const logfilecountt__base__last : integer = pending; 
+  const alarmtypes__statust__base__first : alarmtypes__statust = pending; 
+  const alarmtypes__statust__base__last : alarmtypes__statust = pending; 
+  const clock__timetexti__base__first : integer = pending; 
+  const clock__timetexti__base__last : integer = pending; 
+  const positive__base__first : integer = pending; 
+  const positive__base__last : integer = pending; 
+  const character__base__first : character = pending; 
+  const character__base__last : character = pending; 
+  const integer__base__first : integer = pending; 
+  const integer__base__last : integer = pending; 
+  const fileentrycountt__first : integer = pending; 
+  const fileentrycountt__last : integer = pending; 
+  const fileentrycountt__size : integer = pending; 
+  const logentrycountt__first : integer = pending; 
+  const logentrycountt__last : integer = pending; 
+  const logentrycountt__size : integer = pending; 
+  const logfilelistt__size : integer = pending; 
+  const filestatust__first : filestatust = pending; 
+  const filestatust__last : filestatust = pending; 
+  const filestatust__size : integer = pending; 
+  const logfileindext__first : integer = pending; 
+  const logfileindext__last : integer = pending; 
+  const logfileindext__size : integer = pending; 
+  const logfilecountt__first : integer = pending; 
+  const logfilecountt__last : integer = pending; 
+  const logfilecountt__size : integer = pending; 
+  const alarmtypes__statust__first : alarmtypes__statust = pending; 
+  const alarmtypes__statust__last : alarmtypes__statust = pending; 
+  const alarmtypes__statust__size : integer = pending; 
+  const clock__timetexti__first : integer = pending; 
+  const clock__timetexti__last : integer = pending; 
+  const clock__timetexti__size : integer = pending; 
+  const positive__first : integer = pending; 
+  const positive__last : integer = pending; 
+  const positive__size : integer = pending; 
+  const character__first : character = pending; 
+  const character__last : character = pending; 
+  const character__size : integer = pending; 
+  const integer__first : integer = pending; 
+  const integer__last : integer = pending; 
+  const integer__size : integer = pending; 
+  var auditalarm : alarmtypes__statust;
+  var currentlogfile : integer;
+  var usedlogfiles : logfilelistt;
+  var logfileentries : logfileentryt;
+  var logfilesstatus : logfilesstatust;
+  var fileages : fileaget;
+  var loop__1__i : integer;
+  var loop__2__j : integer;
+  var loop__3__k : integer;
+  var usedlogfiles__entry__loop__2 : logfilelistt;
+  var loop__2__j__entry__loop__3 : integer;
+  function agelessthan(string, string) : boolean;
+  var auditalarm__3 : alarmtypes__statust;
+  var fileages__2 : fileaget;
+  var logfileentries__2 : logfileentryt;
+  var logfilesstatus__2 : logfilesstatust;
+
+end;

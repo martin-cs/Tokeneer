@@ -1,0 +1,295 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:24.39
+
+                      procedure UserEntry.UpdateToken
+
+
+
+
+For path(s) from start to precondition check associated with statement of line 680:
+
+procedure_updatetoken_1.
+H1:    keystore__privatekeypresent(keystore__state) .
+H2:    true .
+H3:    not (not (usertoken__ispresent(usertoken__state))) .
+        ->
+C1:    keystore__privatekeypresent(keystore__state) .
+ 
+
+For path(s) from start to run-time check associated with statement of line 684:
+
+procedure_updatetoken_2.
+H1:    keystore__privatekeypresent(keystore__state) .
+H2:    true .
+H3:    not (not (usertoken__ispresent(usertoken__state))) .
+H4:    keystore__privatekeypresent(keystore__state) .
+H5:    true .
+        ->
+C1:    waitingentry >= statust__first .
+C2:    waitingentry <= statust__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 696:
+
+procedure_updatetoken_3.
+H1:    keystore__privatekeypresent(keystore__state) .
+H2:    true .
+H3:    not (not (usertoken__ispresent(usertoken__state))) .
+H4:    keystore__privatekeypresent(keystore__state) .
+H5:    true .
+H6:    waitingentry >= statust__first .
+H7:    waitingentry <= statust__last .
+H8:    true .
+H9:    updateok__2 .
+H10:   true .
+H11:   true .
+H12:   updateok__3 .
+H13:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           usertoken__extractuser(usertoken__state__2), [
+           i___1]) >= character__first) and (element(
+           usertoken__extractuser(usertoken__state__2), [
+           i___1]) <= character__last))) .
+        ->
+C1:    audittypes__information >= audittypes__severityt__first .
+C2:    audittypes__information <= audittypes__severityt__last .
+C3:    audittypes__authcertwritten >= audittypes__elementt__first .
+C4:    audittypes__authcertwritten <= audittypes__elementt__last .
+ 
+
+procedure_updatetoken_4.
+H1:    keystore__privatekeypresent(keystore__state) .
+H2:    true .
+H3:    not (not (usertoken__ispresent(usertoken__state))) .
+H4:    keystore__privatekeypresent(keystore__state) .
+H5:    true .
+H6:    waitingentry >= statust__first .
+H7:    waitingentry <= statust__last .
+H8:    true .
+H9:    not updateok__2 .
+H10:   true .
+H11:   updateok__2 .
+H12:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           usertoken__extractuser(usertoken__state__2), [
+           i___1]) >= character__first) and (element(
+           usertoken__extractuser(usertoken__state__2), [
+           i___1]) <= character__last))) .
+        ->
+C1:    audittypes__information >= audittypes__severityt__first .
+C2:    audittypes__information <= audittypes__severityt__last .
+C3:    audittypes__authcertwritten >= audittypes__elementt__first .
+C4:    audittypes__authcertwritten <= audittypes__elementt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 703:
+
+procedure_updatetoken_5.
+H1:    keystore__privatekeypresent(keystore__state) .
+H2:    true .
+H3:    not (not (usertoken__ispresent(usertoken__state))) .
+H4:    keystore__privatekeypresent(keystore__state) .
+H5:    true .
+H6:    waitingentry >= statust__first .
+H7:    waitingentry <= statust__last .
+H8:    true .
+H9:    updateok__2 .
+H10:   true .
+H11:   true .
+H12:   updateok__3 .
+H13:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           usertoken__extractuser(usertoken__state__2), [
+           i___1]) >= character__first) and (element(
+           usertoken__extractuser(usertoken__state__2), [
+           i___1]) <= character__last))) .
+H14:   audittypes__information >= audittypes__severityt__first .
+H15:   audittypes__information <= audittypes__severityt__last .
+H16:   audittypes__authcertwritten >= audittypes__elementt__first .
+H17:   audittypes__authcertwritten <= audittypes__elementt__last .
+        ->
+C1:    display__wait >= display__msgt__first .
+C2:    display__wait <= display__msgt__last .
+ 
+
+procedure_updatetoken_6.
+H1:    keystore__privatekeypresent(keystore__state) .
+H2:    true .
+H3:    not (not (usertoken__ispresent(usertoken__state))) .
+H4:    keystore__privatekeypresent(keystore__state) .
+H5:    true .
+H6:    waitingentry >= statust__first .
+H7:    waitingentry <= statust__last .
+H8:    true .
+H9:    not updateok__2 .
+H10:   true .
+H11:   updateok__2 .
+H12:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           usertoken__extractuser(usertoken__state__2), [
+           i___1]) >= character__first) and (element(
+           usertoken__extractuser(usertoken__state__2), [
+           i___1]) <= character__last))) .
+H13:   audittypes__information >= audittypes__severityt__first .
+H14:   audittypes__information <= audittypes__severityt__last .
+H15:   audittypes__authcertwritten >= audittypes__elementt__first .
+H16:   audittypes__authcertwritten <= audittypes__elementt__last .
+        ->
+C1:    display__wait >= display__msgt__first .
+C2:    display__wait <= display__msgt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 711:
+
+procedure_updatetoken_7.
+H1:    keystore__privatekeypresent(keystore__state) .
+H2:    true .
+H3:    not (not (usertoken__ispresent(usertoken__state))) .
+H4:    keystore__privatekeypresent(keystore__state) .
+H5:    true .
+H6:    waitingentry >= statust__first .
+H7:    waitingentry <= statust__last .
+H8:    true .
+H9:    updateok__2 .
+H10:   true .
+H11:   true .
+H12:   not updateok__3 .
+H13:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           usertoken__extractuser(usertoken__state__2), [
+           i___1]) >= character__first) and (element(
+           usertoken__extractuser(usertoken__state__2), [
+           i___1]) <= character__last))) .
+        ->
+C1:    audittypes__warning >= audittypes__severityt__first .
+C2:    audittypes__warning <= audittypes__severityt__last .
+C3:    audittypes__authcertwritefailed >= 
+           audittypes__elementt__first .
+C4:    audittypes__authcertwritefailed <= 
+           audittypes__elementt__last .
+ 
+
+procedure_updatetoken_8.
+H1:    keystore__privatekeypresent(keystore__state) .
+H2:    true .
+H3:    not (not (usertoken__ispresent(usertoken__state))) .
+H4:    keystore__privatekeypresent(keystore__state) .
+H5:    true .
+H6:    waitingentry >= statust__first .
+H7:    waitingentry <= statust__last .
+H8:    true .
+H9:    not updateok__2 .
+H10:   true .
+H11:   not updateok__2 .
+H12:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           usertoken__extractuser(usertoken__state__2), [
+           i___1]) >= character__first) and (element(
+           usertoken__extractuser(usertoken__state__2), [
+           i___1]) <= character__last))) .
+        ->
+C1:    audittypes__warning >= audittypes__severityt__first .
+C2:    audittypes__warning <= audittypes__severityt__last .
+C3:    audittypes__authcertwritefailed >= 
+           audittypes__elementt__first .
+C4:    audittypes__authcertwritefailed <= 
+           audittypes__elementt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 718:
+
+procedure_updatetoken_9.
+H1:    keystore__privatekeypresent(keystore__state) .
+H2:    true .
+H3:    not (not (usertoken__ispresent(usertoken__state))) .
+H4:    keystore__privatekeypresent(keystore__state) .
+H5:    true .
+H6:    waitingentry >= statust__first .
+H7:    waitingentry <= statust__last .
+H8:    true .
+H9:    updateok__2 .
+H10:   true .
+H11:   true .
+H12:   not updateok__3 .
+H13:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           usertoken__extractuser(usertoken__state__2), [
+           i___1]) >= character__first) and (element(
+           usertoken__extractuser(usertoken__state__2), [
+           i___1]) <= character__last))) .
+H14:   audittypes__warning >= audittypes__severityt__first .
+H15:   audittypes__warning <= audittypes__severityt__last .
+H16:   audittypes__authcertwritefailed >= 
+           audittypes__elementt__first .
+H17:   audittypes__authcertwritefailed <= 
+           audittypes__elementt__last .
+        ->
+C1:    display__tokenupdatefailed >= display__msgt__first .
+C2:    display__tokenupdatefailed <= display__msgt__last .
+ 
+
+procedure_updatetoken_10.
+H1:    keystore__privatekeypresent(keystore__state) .
+H2:    true .
+H3:    not (not (usertoken__ispresent(usertoken__state))) .
+H4:    keystore__privatekeypresent(keystore__state) .
+H5:    true .
+H6:    waitingentry >= statust__first .
+H7:    waitingentry <= statust__last .
+H8:    true .
+H9:    not updateok__2 .
+H10:   true .
+H11:   not updateok__2 .
+H12:   for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           usertoken__extractuser(usertoken__state__2), [
+           i___1]) >= character__first) and (element(
+           usertoken__extractuser(usertoken__state__2), [
+           i___1]) <= character__last))) .
+H13:   audittypes__warning >= audittypes__severityt__first .
+H14:   audittypes__warning <= audittypes__severityt__last .
+H15:   audittypes__authcertwritefailed >= 
+           audittypes__elementt__first .
+H16:   audittypes__authcertwritefailed <= 
+           audittypes__elementt__last .
+        ->
+C1:    display__tokenupdatefailed >= display__msgt__first .
+C2:    display__tokenupdatefailed <= display__msgt__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_updatetoken_11.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_updatetoken_12.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_updatetoken_13.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_updatetoken_14.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_updatetoken_15.
+*** true .          /* trivially true VC removed by Examiner */
+
+

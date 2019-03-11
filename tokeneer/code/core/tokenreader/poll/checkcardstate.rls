@@ -1,0 +1,464 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:19.16*/
+
+                 /*procedure TokenReader.Poll.CheckCardState*/
+
+
+rule_family checkcardsta_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+checkcardsta_rules(1): integer__size >= 0 may_be_deduced.
+checkcardsta_rules(2): integer__first may_be_replaced_by -2147483648.
+checkcardsta_rules(3): integer__last may_be_replaced_by 2147483647.
+checkcardsta_rules(4): integer__base__first may_be_replaced_by -2147483648.
+checkcardsta_rules(5): integer__base__last may_be_replaced_by 2147483647.
+checkcardsta_rules(6): character__size >= 0 may_be_deduced.
+checkcardsta_rules(7): character__first may_be_replaced_by 0.
+checkcardsta_rules(8): character__last may_be_replaced_by 255.
+checkcardsta_rules(9): character__base__first may_be_replaced_by 0.
+checkcardsta_rules(10): character__base__last may_be_replaced_by 255.
+checkcardsta_rules(11): positive__size >= 0 may_be_deduced.
+checkcardsta_rules(12): positive__first may_be_replaced_by 1.
+checkcardsta_rules(13): positive__last may_be_replaced_by 2147483647.
+checkcardsta_rules(14): positive__base__first may_be_replaced_by -2147483648.
+checkcardsta_rules(15): positive__base__last may_be_replaced_by 2147483647.
+checkcardsta_rules(16): basictypes__unsigned32t__size >= 0 may_be_deduced.
+checkcardsta_rules(17): basictypes__unsigned32t__size may_be_replaced_by 32.
+checkcardsta_rules(18): basictypes__unsigned32t__first may_be_replaced_by 0.
+checkcardsta_rules(19): basictypes__unsigned32t__last may_be_replaced_by 4294967295.
+checkcardsta_rules(20): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__base__last may_be_deduced.
+checkcardsta_rules(21): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__first may_be_deduced.
+checkcardsta_rules(22): basictypes__unsigned32t__base__last >= 
+     basictypes__unsigned32t__last may_be_deduced.
+checkcardsta_rules(23): tokentypes__tokenidt__size >= 0 may_be_deduced.
+checkcardsta_rules(24): tokentypes__tokenidt__first may_be_replaced_by 0.
+checkcardsta_rules(25): tokentypes__tokenidt__last may_be_replaced_by 4294967295.
+checkcardsta_rules(26): tokentypes__tokenidt__base__first <= 
+     tokentypes__tokenidt__base__last may_be_deduced.
+checkcardsta_rules(27): tokentypes__tokenidt__base__first <= 
+     tokentypes__tokenidt__first may_be_deduced.
+checkcardsta_rules(28): tokentypes__tokenidt__base__last >= 
+     tokentypes__tokenidt__last may_be_deduced.
+checkcardsta_rules(29): tokentypes__tryt__size >= 0 may_be_deduced.
+checkcardsta_rules(30): tokentypes__tryt__first may_be_replaced_by tokentypes__notoken.
+checkcardsta_rules(31): tokentypes__tryt__last may_be_replaced_by tokentypes__goodtoken.
+checkcardsta_rules(32): tokentypes__tryt__base__first may_be_replaced_by tokentypes__notoken.
+checkcardsta_rules(33): tokentypes__tryt__base__last may_be_replaced_by tokentypes__goodtoken.
+checkcardsta_rules(34): tokentypes__tryt__pos(tokentypes__tryt__first) may_be_replaced_by 0.
+checkcardsta_rules(35): tokentypes__tryt__pos(tokentypes__notoken) may_be_replaced_by 0.
+checkcardsta_rules(36): tokentypes__tryt__val(0) may_be_replaced_by 
+     tokentypes__notoken.
+checkcardsta_rules(37): tokentypes__tryt__pos(
+     tokentypes__badtoken) may_be_replaced_by 1.
+checkcardsta_rules(38): tokentypes__tryt__val(1) may_be_replaced_by 
+     tokentypes__badtoken.
+checkcardsta_rules(39): tokentypes__tryt__pos(
+     tokentypes__goodtoken) may_be_replaced_by 2.
+checkcardsta_rules(40): tokentypes__tryt__val(2) may_be_replaced_by 
+     tokentypes__goodtoken.
+checkcardsta_rules(41): tokentypes__tryt__pos(tokentypes__tryt__last) may_be_replaced_by 2.
+checkcardsta_rules(42): tokentypes__tryt__pos(succ(X)) may_be_replaced_by 
+     tokentypes__tryt__pos(X) + 1
+     if [X <=tokentypes__goodtoken, X <> tokentypes__goodtoken].
+checkcardsta_rules(43): tokentypes__tryt__pos(pred(X)) may_be_replaced_by 
+     tokentypes__tryt__pos(X) - 1
+     if [X >=tokentypes__notoken, X <> tokentypes__notoken].
+checkcardsta_rules(44): tokentypes__tryt__pos(X) >= 0 may_be_deduced_from
+     [tokentypes__notoken <= X, X <= tokentypes__goodtoken].
+checkcardsta_rules(45): tokentypes__tryt__pos(X) <= 2 may_be_deduced_from
+     [tokentypes__notoken <= X, X <= tokentypes__goodtoken].
+checkcardsta_rules(46): tokentypes__tryt__val(X) >= 
+     tokentypes__notoken may_be_deduced_from
+     [0 <= X, X <= 2].
+checkcardsta_rules(47): tokentypes__tryt__val(X) <= 
+     tokentypes__goodtoken may_be_deduced_from
+     [0 <= X, X <= 2].
+checkcardsta_rules(48): succ(tokentypes__tryt__val(X)) may_be_replaced_by 
+     tokentypes__tryt__val(X+1)
+     if [0 <= X, X < 2].
+checkcardsta_rules(49): pred(tokentypes__tryt__val(X)) may_be_replaced_by 
+     tokentypes__tryt__val(X-1)
+     if [0 < X, X <= 2].
+checkcardsta_rules(50): tokentypes__tryt__pos(tokentypes__tryt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 2].
+checkcardsta_rules(51): tokentypes__tryt__val(tokentypes__tryt__pos(X)) may_be_replaced_by X
+     if [tokentypes__notoken <= X, X <= tokentypes__goodtoken].
+checkcardsta_rules(52): tokentypes__tryt__pos(X) <= 
+     tokentypes__tryt__pos(Y) & X <= Y are_interchangeable 
+     if [tokentypes__notoken <= X, X <= tokentypes__goodtoken, 
+     tokentypes__notoken <= Y, Y <= tokentypes__goodtoken].
+checkcardsta_rules(53): tokentypes__tryt__val(X) <= 
+     tokentypes__tryt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 2, 0 <= Y, Y <= 2].
+checkcardsta_rules(54): readert__size >= 0 may_be_deduced.
+checkcardsta_rules(55): readert__first may_be_replaced_by user.
+checkcardsta_rules(56): readert__last may_be_replaced_by admin.
+checkcardsta_rules(57): readert__base__first may_be_replaced_by user.
+checkcardsta_rules(58): readert__base__last may_be_replaced_by admin.
+checkcardsta_rules(59): readert__pos(readert__first) may_be_replaced_by 0.
+checkcardsta_rules(60): readert__pos(user) may_be_replaced_by 0.
+checkcardsta_rules(61): readert__val(0) may_be_replaced_by user.
+checkcardsta_rules(62): readert__pos(admin) may_be_replaced_by 1.
+checkcardsta_rules(63): readert__val(1) may_be_replaced_by admin.
+checkcardsta_rules(64): readert__pos(readert__last) may_be_replaced_by 1.
+checkcardsta_rules(65): readert__pos(succ(X)) may_be_replaced_by 
+     readert__pos(X) + 1
+     if [X <=admin, X <> admin].
+checkcardsta_rules(66): readert__pos(pred(X)) may_be_replaced_by 
+     readert__pos(X) - 1
+     if [X >=user, X <> user].
+checkcardsta_rules(67): readert__pos(X) >= 0 may_be_deduced_from
+     [user <= X, X <= admin].
+checkcardsta_rules(68): readert__pos(X) <= 1 may_be_deduced_from
+     [user <= X, X <= admin].
+checkcardsta_rules(69): readert__val(X) >= user may_be_deduced_from
+     [0 <= X, X <= 1].
+checkcardsta_rules(70): readert__val(X) <= admin may_be_deduced_from
+     [0 <= X, X <= 1].
+checkcardsta_rules(71): succ(readert__val(X)) may_be_replaced_by 
+     readert__val(X+1)
+     if [0 <= X, X < 1].
+checkcardsta_rules(72): pred(readert__val(X)) may_be_replaced_by 
+     readert__val(X-1)
+     if [0 < X, X <= 1].
+checkcardsta_rules(73): readert__pos(readert__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+checkcardsta_rules(74): readert__val(readert__pos(X)) may_be_replaced_by X
+     if [user <= X, X <= admin].
+checkcardsta_rules(75): readert__pos(X) <= readert__pos(Y) & X <= Y are_interchangeable 
+     if [user <= X, X <= admin, user <= Y, Y <= admin].
+checkcardsta_rules(76): readert__val(X) <= readert__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].
+checkcardsta_rules(77): tokenreader__interface__readernamei__size >= 0 may_be_deduced.
+checkcardsta_rules(78): tokenreader__interface__readernamei__first may_be_replaced_by 1.
+checkcardsta_rules(79): tokenreader__interface__readernamei__last may_be_replaced_by 8.
+checkcardsta_rules(80): tokenreader__interface__readernamei__base__first may_be_replaced_by -2147483648.
+checkcardsta_rules(81): tokenreader__interface__readernamei__base__last may_be_replaced_by 2147483647.
+checkcardsta_rules(82): tokenreader__interface__responsecodet__size >= 0 may_be_deduced.
+checkcardsta_rules(83): tokenreader__interface__responsecodet__first may_be_replaced_by tokenreader__interface__success.
+checkcardsta_rules(84): tokenreader__interface__responsecodet__last may_be_replaced_by tokenreader__interface__invalidresponsecode.
+checkcardsta_rules(85): tokenreader__interface__responsecodet__base__first may_be_replaced_by tokenreader__interface__success.
+checkcardsta_rules(86): tokenreader__interface__responsecodet__base__last may_be_replaced_by tokenreader__interface__invalidresponsecode.
+checkcardsta_rules(87): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__responsecodet__first) may_be_replaced_by 0.
+checkcardsta_rules(88): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__success) may_be_replaced_by 0.
+checkcardsta_rules(89): tokenreader__interface__responsecodet__val(0) may_be_replaced_by 
+     tokenreader__interface__success.
+checkcardsta_rules(90): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__invalidhandle) may_be_replaced_by 1.
+checkcardsta_rules(91): tokenreader__interface__responsecodet__val(1) may_be_replaced_by 
+     tokenreader__interface__invalidhandle.
+checkcardsta_rules(92): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__invalidvalue) may_be_replaced_by 2.
+checkcardsta_rules(93): tokenreader__interface__responsecodet__val(2) may_be_replaced_by 
+     tokenreader__interface__invalidvalue.
+checkcardsta_rules(94): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__cancelled) may_be_replaced_by 3.
+checkcardsta_rules(95): tokenreader__interface__responsecodet__val(3) may_be_replaced_by 
+     tokenreader__interface__cancelled.
+checkcardsta_rules(96): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__nomemory) may_be_replaced_by 4.
+checkcardsta_rules(97): tokenreader__interface__responsecodet__val(4) may_be_replaced_by 
+     tokenreader__interface__nomemory.
+checkcardsta_rules(98): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__insufficientbuffer) may_be_replaced_by 5.
+checkcardsta_rules(99): tokenreader__interface__responsecodet__val(5) may_be_replaced_by 
+     tokenreader__interface__insufficientbuffer.
+checkcardsta_rules(100): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__unknownreader) may_be_replaced_by 6.
+checkcardsta_rules(101): tokenreader__interface__responsecodet__val(6) may_be_replaced_by 
+     tokenreader__interface__unknownreader.
+checkcardsta_rules(102): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__timedout) may_be_replaced_by 7.
+checkcardsta_rules(103): tokenreader__interface__responsecodet__val(7) may_be_replaced_by 
+     tokenreader__interface__timedout.
+checkcardsta_rules(104): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__sharingviolation) may_be_replaced_by 8.
+checkcardsta_rules(105): tokenreader__interface__responsecodet__val(8) may_be_replaced_by 
+     tokenreader__interface__sharingviolation.
+checkcardsta_rules(106): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__nosmartcard) may_be_replaced_by 9.
+checkcardsta_rules(107): tokenreader__interface__responsecodet__val(9) may_be_replaced_by 
+     tokenreader__interface__nosmartcard.
+checkcardsta_rules(108): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__unknowncard) may_be_replaced_by 10.
+checkcardsta_rules(109): tokenreader__interface__responsecodet__val(10) may_be_replaced_by 
+     tokenreader__interface__unknowncard.
+checkcardsta_rules(110): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__protomismatch) may_be_replaced_by 11.
+checkcardsta_rules(111): tokenreader__interface__responsecodet__val(11) may_be_replaced_by 
+     tokenreader__interface__protomismatch.
+checkcardsta_rules(112): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__notready) may_be_replaced_by 12.
+checkcardsta_rules(113): tokenreader__interface__responsecodet__val(12) may_be_replaced_by 
+     tokenreader__interface__notready.
+checkcardsta_rules(114): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__systemcancelled) may_be_replaced_by 13.
+checkcardsta_rules(115): tokenreader__interface__responsecodet__val(13) may_be_replaced_by 
+     tokenreader__interface__systemcancelled.
+checkcardsta_rules(116): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__readerunavailable) may_be_replaced_by 14.
+checkcardsta_rules(117): tokenreader__interface__responsecodet__val(14) may_be_replaced_by 
+     tokenreader__interface__readerunavailable.
+checkcardsta_rules(118): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__unsupportedcard) may_be_replaced_by 15.
+checkcardsta_rules(119): tokenreader__interface__responsecodet__val(15) may_be_replaced_by 
+     tokenreader__interface__unsupportedcard.
+checkcardsta_rules(120): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__unresponsivecard) may_be_replaced_by 16.
+checkcardsta_rules(121): tokenreader__interface__responsecodet__val(16) may_be_replaced_by 
+     tokenreader__interface__unresponsivecard.
+checkcardsta_rules(122): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__unpoweredcard) may_be_replaced_by 17.
+checkcardsta_rules(123): tokenreader__interface__responsecodet__val(17) may_be_replaced_by 
+     tokenreader__interface__unpoweredcard.
+checkcardsta_rules(124): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__resetcard) may_be_replaced_by 18.
+checkcardsta_rules(125): tokenreader__interface__responsecodet__val(18) may_be_replaced_by 
+     tokenreader__interface__resetcard.
+checkcardsta_rules(126): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__removedcard) may_be_replaced_by 19.
+checkcardsta_rules(127): tokenreader__interface__responsecodet__val(19) may_be_replaced_by 
+     tokenreader__interface__removedcard.
+checkcardsta_rules(128): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__invalidresponsecode) may_be_replaced_by 20.
+checkcardsta_rules(129): tokenreader__interface__responsecodet__val(20) may_be_replaced_by 
+     tokenreader__interface__invalidresponsecode.
+checkcardsta_rules(130): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__responsecodet__last) may_be_replaced_by 20.
+checkcardsta_rules(131): tokenreader__interface__responsecodet__pos(succ(X)) may_be_replaced_by 
+     tokenreader__interface__responsecodet__pos(X) + 1
+     if [X <=tokenreader__interface__invalidresponsecode, X <> 
+     tokenreader__interface__invalidresponsecode].
+checkcardsta_rules(132): tokenreader__interface__responsecodet__pos(pred(X)) may_be_replaced_by 
+     tokenreader__interface__responsecodet__pos(X) - 1
+     if [X >=tokenreader__interface__success, X <> 
+     tokenreader__interface__success].
+checkcardsta_rules(133): tokenreader__interface__responsecodet__pos(X) >= 0 may_be_deduced_from
+     [tokenreader__interface__success <= X, X <= 
+     tokenreader__interface__invalidresponsecode].
+checkcardsta_rules(134): tokenreader__interface__responsecodet__pos(X) <= 20 may_be_deduced_from
+     [tokenreader__interface__success <= X, X <= 
+     tokenreader__interface__invalidresponsecode].
+checkcardsta_rules(135): tokenreader__interface__responsecodet__val(X) >= 
+     tokenreader__interface__success may_be_deduced_from
+     [0 <= X, X <= 20].
+checkcardsta_rules(136): tokenreader__interface__responsecodet__val(X) <= 
+     tokenreader__interface__invalidresponsecode may_be_deduced_from
+     [0 <= X, X <= 20].
+checkcardsta_rules(137): succ(
+     tokenreader__interface__responsecodet__val(X)) may_be_replaced_by 
+     tokenreader__interface__responsecodet__val(X+1)
+     if [0 <= X, X < 20].
+checkcardsta_rules(138): pred(
+     tokenreader__interface__responsecodet__val(X)) may_be_replaced_by 
+     tokenreader__interface__responsecodet__val(X-1)
+     if [0 < X, X <= 20].
+checkcardsta_rules(139): tokenreader__interface__responsecodet__pos(
+     tokenreader__interface__responsecodet__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 20].
+checkcardsta_rules(140): tokenreader__interface__responsecodet__val(
+     tokenreader__interface__responsecodet__pos(X)) may_be_replaced_by X
+     if [tokenreader__interface__success <= X, X <= 
+     tokenreader__interface__invalidresponsecode].
+checkcardsta_rules(141): tokenreader__interface__responsecodet__pos(X) <= 
+     tokenreader__interface__responsecodet__pos(Y) & X <= Y are_interchangeable 
+     if [tokenreader__interface__success <= X, X <= 
+     tokenreader__interface__invalidresponsecode, 
+     tokenreader__interface__success <= Y, Y <= 
+     tokenreader__interface__invalidresponsecode].
+checkcardsta_rules(142): tokenreader__interface__responsecodet__val(X) <= 
+     tokenreader__interface__responsecodet__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 20, 0 <= Y, Y <= 20].
+checkcardsta_rules(143): tokenreader__interface__cardstatet__size >= 0 may_be_deduced.
+checkcardsta_rules(144): tokenreader__interface__cardstatet__first may_be_replaced_by tokenreader__interface__invalidcardstate.
+checkcardsta_rules(145): tokenreader__interface__cardstatet__last may_be_replaced_by tokenreader__interface__specific.
+checkcardsta_rules(146): tokenreader__interface__cardstatet__base__first may_be_replaced_by tokenreader__interface__invalidcardstate.
+checkcardsta_rules(147): tokenreader__interface__cardstatet__base__last may_be_replaced_by tokenreader__interface__specific.
+checkcardsta_rules(148): tokenreader__interface__cardstatet__pos(
+     tokenreader__interface__cardstatet__first) may_be_replaced_by 0.
+checkcardsta_rules(149): tokenreader__interface__cardstatet__pos(
+     tokenreader__interface__invalidcardstate) may_be_replaced_by 0.
+checkcardsta_rules(150): tokenreader__interface__cardstatet__val(0) may_be_replaced_by 
+     tokenreader__interface__invalidcardstate.
+checkcardsta_rules(151): tokenreader__interface__cardstatet__pos(
+     tokenreader__interface__absent) may_be_replaced_by 1.
+checkcardsta_rules(152): tokenreader__interface__cardstatet__val(1) may_be_replaced_by 
+     tokenreader__interface__absent.
+checkcardsta_rules(153): tokenreader__interface__cardstatet__pos(
+     tokenreader__interface__present) may_be_replaced_by 2.
+checkcardsta_rules(154): tokenreader__interface__cardstatet__val(2) may_be_replaced_by 
+     tokenreader__interface__present.
+checkcardsta_rules(155): tokenreader__interface__cardstatet__pos(
+     tokenreader__interface__swallowed) may_be_replaced_by 3.
+checkcardsta_rules(156): tokenreader__interface__cardstatet__val(3) may_be_replaced_by 
+     tokenreader__interface__swallowed.
+checkcardsta_rules(157): tokenreader__interface__cardstatet__pos(
+     tokenreader__interface__powered) may_be_replaced_by 4.
+checkcardsta_rules(158): tokenreader__interface__cardstatet__val(4) may_be_replaced_by 
+     tokenreader__interface__powered.
+checkcardsta_rules(159): tokenreader__interface__cardstatet__pos(
+     tokenreader__interface__negotiable) may_be_replaced_by 5.
+checkcardsta_rules(160): tokenreader__interface__cardstatet__val(5) may_be_replaced_by 
+     tokenreader__interface__negotiable.
+checkcardsta_rules(161): tokenreader__interface__cardstatet__pos(
+     tokenreader__interface__specific) may_be_replaced_by 6.
+checkcardsta_rules(162): tokenreader__interface__cardstatet__val(6) may_be_replaced_by 
+     tokenreader__interface__specific.
+checkcardsta_rules(163): tokenreader__interface__cardstatet__pos(
+     tokenreader__interface__cardstatet__last) may_be_replaced_by 6.
+checkcardsta_rules(164): tokenreader__interface__cardstatet__pos(succ(X)) may_be_replaced_by 
+     tokenreader__interface__cardstatet__pos(X) + 1
+     if [X <=tokenreader__interface__specific, X <> 
+     tokenreader__interface__specific].
+checkcardsta_rules(165): tokenreader__interface__cardstatet__pos(pred(X)) may_be_replaced_by 
+     tokenreader__interface__cardstatet__pos(X) - 1
+     if [X >=tokenreader__interface__invalidcardstate, X <> 
+     tokenreader__interface__invalidcardstate].
+checkcardsta_rules(166): tokenreader__interface__cardstatet__pos(X) >= 0 may_be_deduced_from
+     [tokenreader__interface__invalidcardstate <= X, X <= 
+     tokenreader__interface__specific].
+checkcardsta_rules(167): tokenreader__interface__cardstatet__pos(X) <= 6 may_be_deduced_from
+     [tokenreader__interface__invalidcardstate <= X, X <= 
+     tokenreader__interface__specific].
+checkcardsta_rules(168): tokenreader__interface__cardstatet__val(X) >= 
+     tokenreader__interface__invalidcardstate may_be_deduced_from
+     [0 <= X, X <= 6].
+checkcardsta_rules(169): tokenreader__interface__cardstatet__val(X) <= 
+     tokenreader__interface__specific may_be_deduced_from
+     [0 <= X, X <= 6].
+checkcardsta_rules(170): succ(tokenreader__interface__cardstatet__val(X)) may_be_replaced_by 
+     tokenreader__interface__cardstatet__val(X+1)
+     if [0 <= X, X < 6].
+checkcardsta_rules(171): pred(tokenreader__interface__cardstatet__val(X)) may_be_replaced_by 
+     tokenreader__interface__cardstatet__val(X-1)
+     if [0 < X, X <= 6].
+checkcardsta_rules(172): tokenreader__interface__cardstatet__pos(
+     tokenreader__interface__cardstatet__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 6].
+checkcardsta_rules(173): tokenreader__interface__cardstatet__val(
+     tokenreader__interface__cardstatet__pos(X)) may_be_replaced_by X
+     if [tokenreader__interface__invalidcardstate <= X, X <= 
+     tokenreader__interface__specific].
+checkcardsta_rules(174): tokenreader__interface__cardstatet__pos(X) <= 
+     tokenreader__interface__cardstatet__pos(Y) & X <= Y are_interchangeable 
+     if [tokenreader__interface__invalidcardstate <= X, X <= 
+     tokenreader__interface__specific, 
+     tokenreader__interface__invalidcardstate <= Y, Y <= 
+     tokenreader__interface__specific].
+checkcardsta_rules(175): tokenreader__interface__cardstatet__val(X) <= 
+     tokenreader__interface__cardstatet__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 6, 0 <= Y, Y <= 6].
+checkcardsta_rules(176): tokenreader__interface__readerstatet__size >= 0 may_be_deduced.
+checkcardsta_rules(177): tokenreader__interface__readerstatet__first may_be_replaced_by tokenreader__interface__invalidreaderstate.
+checkcardsta_rules(178): tokenreader__interface__readerstatet__last may_be_replaced_by tokenreader__interface__mute.
+checkcardsta_rules(179): tokenreader__interface__readerstatet__base__first may_be_replaced_by tokenreader__interface__invalidreaderstate.
+checkcardsta_rules(180): tokenreader__interface__readerstatet__base__last may_be_replaced_by tokenreader__interface__mute.
+checkcardsta_rules(181): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__readerstatet__first) may_be_replaced_by 0.
+checkcardsta_rules(182): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__invalidreaderstate) may_be_replaced_by 0.
+checkcardsta_rules(183): tokenreader__interface__readerstatet__val(0) may_be_replaced_by 
+     tokenreader__interface__invalidreaderstate.
+checkcardsta_rules(184): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__unaware) may_be_replaced_by 1.
+checkcardsta_rules(185): tokenreader__interface__readerstatet__val(1) may_be_replaced_by 
+     tokenreader__interface__unaware.
+checkcardsta_rules(186): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__ignore) may_be_replaced_by 2.
+checkcardsta_rules(187): tokenreader__interface__readerstatet__val(2) may_be_replaced_by 
+     tokenreader__interface__ignore.
+checkcardsta_rules(188): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__unavailable) may_be_replaced_by 3.
+checkcardsta_rules(189): tokenreader__interface__readerstatet__val(3) may_be_replaced_by 
+     tokenreader__interface__unavailable.
+checkcardsta_rules(190): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__empty) may_be_replaced_by 4.
+checkcardsta_rules(191): tokenreader__interface__readerstatet__val(4) may_be_replaced_by 
+     tokenreader__interface__empty.
+checkcardsta_rules(192): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__cardpresent) may_be_replaced_by 5.
+checkcardsta_rules(193): tokenreader__interface__readerstatet__val(5) may_be_replaced_by 
+     tokenreader__interface__cardpresent.
+checkcardsta_rules(194): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__mute) may_be_replaced_by 6.
+checkcardsta_rules(195): tokenreader__interface__readerstatet__val(6) may_be_replaced_by 
+     tokenreader__interface__mute.
+checkcardsta_rules(196): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__readerstatet__last) may_be_replaced_by 6.
+checkcardsta_rules(197): tokenreader__interface__readerstatet__pos(succ(X)) may_be_replaced_by 
+     tokenreader__interface__readerstatet__pos(X) + 1
+     if [X <=tokenreader__interface__mute, X <> 
+     tokenreader__interface__mute].
+checkcardsta_rules(198): tokenreader__interface__readerstatet__pos(pred(X)) may_be_replaced_by 
+     tokenreader__interface__readerstatet__pos(X) - 1
+     if [X >=tokenreader__interface__invalidreaderstate, X <> 
+     tokenreader__interface__invalidreaderstate].
+checkcardsta_rules(199): tokenreader__interface__readerstatet__pos(X) >= 0 may_be_deduced_from
+     [tokenreader__interface__invalidreaderstate <= X, X <= 
+     tokenreader__interface__mute].
+checkcardsta_rules(200): tokenreader__interface__readerstatet__pos(X) <= 6 may_be_deduced_from
+     [tokenreader__interface__invalidreaderstate <= X, X <= 
+     tokenreader__interface__mute].
+checkcardsta_rules(201): tokenreader__interface__readerstatet__val(X) >= 
+     tokenreader__interface__invalidreaderstate may_be_deduced_from
+     [0 <= X, X <= 6].
+checkcardsta_rules(202): tokenreader__interface__readerstatet__val(X) <= 
+     tokenreader__interface__mute may_be_deduced_from
+     [0 <= X, X <= 6].
+checkcardsta_rules(203): succ(
+     tokenreader__interface__readerstatet__val(X)) may_be_replaced_by 
+     tokenreader__interface__readerstatet__val(X+1)
+     if [0 <= X, X < 6].
+checkcardsta_rules(204): pred(
+     tokenreader__interface__readerstatet__val(X)) may_be_replaced_by 
+     tokenreader__interface__readerstatet__val(X-1)
+     if [0 < X, X <= 6].
+checkcardsta_rules(205): tokenreader__interface__readerstatet__pos(
+     tokenreader__interface__readerstatet__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 6].
+checkcardsta_rules(206): tokenreader__interface__readerstatet__val(
+     tokenreader__interface__readerstatet__pos(X)) may_be_replaced_by X
+     if [tokenreader__interface__invalidreaderstate <= X, X <= 
+     tokenreader__interface__mute].
+checkcardsta_rules(207): tokenreader__interface__readerstatet__pos(X) <= 
+     tokenreader__interface__readerstatet__pos(Y) & X <= Y are_interchangeable 
+     if [tokenreader__interface__invalidreaderstate <= X, X <= 
+     tokenreader__interface__mute, 
+     tokenreader__interface__invalidreaderstate <= Y, Y <= 
+     tokenreader__interface__mute].
+checkcardsta_rules(208): tokenreader__interface__readerstatet__val(X) <= 
+     tokenreader__interface__readerstatet__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 6, 0 <= Y, Y <= 6].
+checkcardsta_rules(209): 
+     tokenreader__interface__validreaderstatet__size >= 0 may_be_deduced.
+checkcardsta_rules(210): 
+     tokenreader__interface__validreaderstatet__first may_be_replaced_by tokenreader__interface__unaware.
+checkcardsta_rules(211): 
+     tokenreader__interface__validreaderstatet__last may_be_replaced_by tokenreader__interface__mute.
+checkcardsta_rules(212): 
+     tokenreader__interface__validreaderstatet__base__first may_be_replaced_by tokenreader__interface__invalidreaderstate.
+checkcardsta_rules(213): 
+     tokenreader__interface__validreaderstatet__base__last may_be_replaced_by tokenreader__interface__mute.
+checkcardsta_rules(214): readerinfot__size >= 0 may_be_deduced.
+checkcardsta_rules(215): A = B may_be_deduced_from
+     [goal(checktype(A,readerinfot)),
+      goal(checktype(B,readerinfot)),
+      fld_name(A) = fld_name(B),
+      fld_tokentry(A) = fld_tokentry(B),
+      fld_tokenid(A) = fld_tokenid(B),
+      fld_tokenconnected(A) = fld_tokenconnected(B),
+      fld_tokenhandle(A) = fld_tokenhandle(B),
+      fld_currentstatus(A) = fld_currentstatus(B),
+      fld_lastfault(A) = fld_lastfault(B)].

@@ -1,0 +1,126 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:15  SIMPLIFIED 05-SEP-2011, 15:39:03
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+function CertificateStore.GetNextSerialNumber.StringIsOverflowed
+
+
+
+
+
+
+@@@@@@@@@@  VC: function_stringisoverflowed_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, rawnexti__first <= i___1 and i___1 <= 
+          rawnexti__last -> character__first <= element(text, [i___1]) and 
+          element(text, [i___1]) <= character__last)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  for_all(i___1 : integer, rawnexti__first <= i___1 and i___1 <= 
+          rawnexti__last -> character__first <= element(text, [i___1]) and 
+          element(text, [i___1]) <= character__last)
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  true
+%%%  Simplified C4 on reading formula in, to give:
+     %%%  C4:  true
+***  Proved C1:  for_all(i___1 : integer, rawnexti__first <= i___1 and i___1 <= 
+          rawnexti__last -> character__first <= element(text, [i___1]) and 
+          element(text, [i___1]) <= character__last)
+     using hypothesis H2.
+***  Proved C2:  true
+***  Proved C4:  true
+-S-  Applied substitution rule stringisover_rules(19).
+     This was achieved by replacing all occurrences of rawnexti__first by:
+          1.
+<S>  New H2:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= rawnexti__last 
+          -> character__first <= element(text, [i___1]) and element(text, [
+          i___1]) <= character__last)
+<S>  New C3:  1 <= rawnexti__last
+<S>  New C5:  1 <= rawnexti__last
+-S-  Applied substitution rule stringisover_rules(20).
+     This was achieved by replacing all occurrences of rawnexti__last by:
+          10.
+<S>  New H2:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 
+          character__first <= element(text, [i___1]) and element(text, [i___1]) 
+          <= character__last)
+<S>  New C3:  true
+<S>  New C5:  true
+***  Proved C3:  true
+***  Proved C5:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_stringisoverflowed_2.  @@@@@@@@@@
+%%%  Simplified H1 on reading formula in, to give:
+     %%%  H1:  for_all(i___1 : integer, rawnexti__first <= i___1 and i___1 <= 
+          rawnexti__last -> character__first <= element(text, [i___1]) and 
+          element(text, [i___1]) <= character__last)
+---  Hypothesis H4 has been replaced by "true".  (It is already present, as H2).
+---  Hypothesis H5 has been replaced by "true".  (It is already present, as H3).
+---  Hypothesis H6 has been replaced by "true".  (It is already present, as H2).
+---  Hypothesis H7 has been replaced by "true".  (It is already present, as H3).
+---  Hypothesis H8 has been replaced by "true".  (It is already present, as H2).
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H3).
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  for_all(i___1 : integer, rawnexti__first <= i___1 and i___1 <= 
+          rawnexti__last -> character__first <= element(text, [i___1]) and 
+          element(text, [i___1]) <= character__last)
+***  Proved C1:  for_all(i___1 : integer, rawnexti__first <= i___1 and i___1 <= 
+          rawnexti__last -> character__first <= element(text, [i___1]) and 
+          element(text, [i___1]) <= character__last)
+     using hypothesis H1.
+***  Proved C2:  loop__1__i + 1 >= rawnexti__first
+     using hypothesis H2.
+***  Proved C4:  loop__1__i + 1 >= rawnexti__first
+     using hypothesis H2.
+-S-  Applied substitution rule stringisover_rules(20).
+     This was achieved by replacing all occurrences of rawnexti__last by:
+          10.
+<S>  New H1:  for_all(i___1 : integer, rawnexti__first <= i___1 and i___1 <= 10 
+          -> character__first <= element(text, [i___1]) and element(text, [
+          i___1]) <= character__last)
+<S>  New H3:  loop__1__i <= 10
+<S>  New H11:  not loop__1__i = 10
+<S>  New C3:  loop__1__i <= 9
+<S>  New C5:  loop__1__i <= 9
+***  Proved C3:  loop__1__i <= 9
+     using hypotheses H3 & H11.
+***  Proved C5:  loop__1__i <= 9
+     using hypotheses H3 & H11.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_stringisoverflowed_3.  @@@@@@@@@@
+%%%  Simplified H1 on reading formula in, to give:
+     %%%  H1:  for_all(i___1 : integer, rawnexti__first <= i___1 and i___1 <= 
+          rawnexti__last -> character__first <= element(text, [i___1]) and 
+          element(text, [i___1]) <= character__last)
+---  Hypothesis H4 has been replaced by "true".  (It is already present, as H2).
+---  Hypothesis H5 has been replaced by "true".  (It is already present, as H3).
+***  Proved C1:  loop__1__i >= rawnexti__first
+     using hypothesis H2.
+***  Proved C2:  loop__1__i <= rawnexti__last
+     using hypothesis H3.
+***  Proved C3:  loop__1__i >= rawnexti__first
+     using hypothesis H2.
+***  Proved C4:  loop__1__i <= rawnexti__last
+     using hypothesis H3.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_stringisoverflowed_4.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_stringisoverflowed_5.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+

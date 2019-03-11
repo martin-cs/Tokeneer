@@ -1,0 +1,228 @@
+%============================================================================
+\chapter{Commentary on this Specification}
+\label{sec:Summary}
+%============================================================================
+
+This specification is intended to give a representative formal
+specification of a realistic system. Budgetary restricitions have
+meant that the number of administrative operations have been kept to a
+minimum, although we intend that sufficient have been provided to make
+the specification representative.
+
+%--------------------------------------------------------------------------
+\section{The structure of the Z}
+%--------------------------------------------------------------------------
+Throughout the specification care has been taken to ensure that each
+schema is relatively simple. This is an important characteristic in
+ensuring that a reader can understand the purpose of each
+schema. Excessive complexity risks making the specification obscure. 
+Schema composition has been used to build up complex
+operations from simple schemas.
+
+This Z specification is larger than was originally anticipated. We
+have considered the reason for this and conclude that it is because
+\begin{itemize}
+\item
+the functionality is larger than originally expected (especially at
+the administrative interface).
+\item
+The core TIS has a fairly large number of interfaces to its
+environment, two card readers, biometric verifier, door, latch, alarm,
+internal and external display, floppy disk and keyboard. Each of these
+has been modelled and the formal notation requires us to explicitly
+describe what happens to each of these during every operation.
+\item
+The entry process contains more steps than originally expected - each
+interaction with an interface requires a new step.
+\end{itemize}
+
+The relatively large number of interfaces and the desire to compose
+the system from a number of relatively 
+simple schemas has resulted in the size of specification presented here.
+
+%--------------------------------------------------------------------------
+\section{Issues}
+%--------------------------------------------------------------------------
+A few issues arose while writing this specification; this is expected
+when formalizing requirements that are stated in any natural language.
+
+We present the more interesting observations here:
+
+\subsection{The choice of Real World Model}
+The way in which the real world was modelled is interesting. We would
+conventionally  use Z $inputs?$ and $outputs!$, however, these are
+global through schema composition, which means that one cannot compose
+two schemas with common inputs or outputs without constraining these
+entities to be the same. 
+
+Within our main loop we want to be able to update the alarm and latch
+twice; once directly after polling and once after the main
+processing.
+Avoiding $inputs?$ and $outputs!$ allows us to reason about the main loop as
+a composition of polling, calculations and updates.
+
+This has resulted in us defining the real world using a state schema
+$RealWorld$ and modelling the possible changes to this state. This
+gives a model that is easier to reason about formally. In particular
+we can sensibly consider the effect of composing several iterations
+around the main loop.
+
+We are also able to state and reason about security properties
+involving real world entities.
+
+\subsection{Denial of service}
+When this specification was written the assumption was taken that
+only one operation could be performed at a time, so once a user had
+started to attempt authentication and entry in to the enclave, no
+administrive functions could be supported within the enclave. This
+assumption was first introduced in the SRS \cite{SRS}. With this
+assumption it seemed natural that there only need be one internal
+state component tracking what the system was doing. 
+
+The model does not cover the details of how a token interacts with the
+card reader, in particular there is no modelling of the
+Answer-to-Reset (ATR), which is
+transmitted when a token is first presented to a reader. This was a
+deliberate abstraction. Within the model we capture the presence of a
+token and the values held on the token. For operations that are
+triggered by the presence of a token we allow the operation to start
+if the system is quiescent and the token is present. One such
+operation is the user authentication and entry operation. We
+also require that the token is removed in order for the user
+authentication and entry process to be considered complete. 
+Otherwise, the system would countinually reprocess 
+a token with bad data until the point that it is removed. 
+The result of this modelling assumption was that we needed an
+internal state where the system was waiting for a token to be removed
+following a failure. 
+
+The result of having only one internal state component was that
+placing an invalid token in the reader outside the enclave and leaving
+it there would block any adminstrator use of the system. Similarly
+leaving an invalid token in the reader inside the enclave and leaving
+it there would block any attempt by a user to enter the enclave. This
+was an unacceptable denial of service. A malicious user could lockup the
+system. To overcome this problem the internal state was divided in
+two. One part, $status$, manages the multi-phase user authentication and
+entry process, the other part, $enclaveStatus$, manages all the
+activities which involve interaction with TIS from within the enclave.
+The result of this change was that we were able to eliminate the
+denial of service attack resulting from a token being left in a
+reader. A token left in a reader now only blocks other activities that
+would make use of that reader.
+
+There are other points in the model where the system will wait
+indefinitely, these have been left as they all arise during operations
+that can only be performed by an authenticated administrator. We make
+the assumption that an administrator with privileges to perform these
+operations will not maliciously leave the system waiting for a floppy
+disk in order to deny user entry. 
+
+\subsection{The Audit Log}
+The audit log was the most complex component of the system to
+model. We wanted the model of the log to be abstract within this
+specification and we wanted to postpone details of the exact elements
+that would be placed in the log until the formal design. However we did
+want to capture some of the key points such as the effect of log
+overflow and the fact that entries were made to the audit log when key
+events occurred.
+
+We had to take care that the specification was not too tight, for
+example we need to allow both the specification and the design to add 
+several entries to the log during the course of an operation and the
+design may introduce more log entries than are captured in the
+specification. If the model had been too prescriptive in this area
+then 
+there would be no viable refinement relation allowing additional 
+log entries in the design over those introduced in the specificaiton.
+To achieve this within this model we allow a number of entries to be
+added to the log at a time. 
+
+This specification only details when the audit log
+must be updated, it places no restriction on further entries being
+added than are detailed in this specification. Once all audit entries
+have been defined in the design we can place further restrictions on
+when values may or may not be added to the log.
+
+\subsection{Malicious attack on the audit log}
+The Protection Profile \cite{PP} requires that old entries in the
+audit log should be overwritten in the event of the audit log becoming
+full. This has been modelled in this specification. However this
+functionality raises
+the possibility of data being erased from the audit log by performing
+events that are audited. For example a user could replace the audit
+log with events corresponding to repeated attempts to log on as an
+administrator. We did consider preventing all operations, other than
+archiving the log once the $auditAlarm$ has been raised, but since
+this requires the $AuditManager$ to be logged on to the system we
+cannot exclude the administrator logon activity. 
+
+The only other obvious solution would be to shutdown TIS once there
+was a risk of the audit log becoming full. This assumes that there is
+a mechanism outside of the TIS function for archiving the log. 
+We have therefore left the functionality allowing unlimited
+overwriting on the grounds that the alarm is sufficient protection.
+
+\subsection{Relating enclave entry and Auth Cert generation}
+
+The final specification presented here uses indepentent configuration
+information to determine the authorisation period applied to
+authorisation certificates and the times at which entry to the enclave
+should be allowed. 
+
+Originally we only allowed entry if the current time was within the
+authorisation period on the certificate. This seemed to confuse the
+distinct activities of issuing an Authorisation Certificate and
+allowing user entry. The original restriction can still be achieved by
+constraints on the configuration data.
+
+We have also decided not to write an authorisation certificate if its
+authorisation period is empty. This is a requirements issue that was
+raised during the production of the specification.
+
+\subsection{Detail postponed until the design}
+
+There are a number of points of detail which are not required to
+express the system functionality at the abstract level presented
+within this specification. 
+
+One example of this is the deliberate omission of the serial number
+from the formal model of the certificate Id. It was found that for the
+purpose of describing the functionality of the TIS the serial number
+of a certificate was irrelevant. This is because there is no need to
+demonstrate uniqueness of certificate ids. All that is important
+within this model is that we can deduce who issued a certificate; this
+enables us to validate the certificate. The serial number will be
+introduced in the design where it appears in the detailed information
+that is audited. 
+
+\subsection{Assumptions on Real World behaviour}
+In order for the specified TIS to function correctly we need to make a
+number of assumptions on the behaviour of the modelled real world and
+its interactions with TIS.
+
+The first assumption is made explicitly in Section
+\ref{sec:ReadWorld} and is a requirement that the 
+time source can be trusted to provide us with time that increases.
+
+The second assumption is more subtle and was uncovered while
+performing the precondition proof for $TISPoll$ (see page
+\pageref{sec:PollPre}). The second assumption
+is that TIS polls the real world sufficiently frequently that it will
+always observe the absence of a token before it observes the presence
+of the next token. This assumption ensures that the Tokens in the
+reader cannot be swapped without TIS noticing. TIS is capable of
+noticing token tears, the case where a token is removed mid-processing.
+However the system as specified will not notice a change in the token
+contents if it can be swapped without TIS detecting the absence of the
+first token. This assumption ensures that TIS only makes use of a
+token that it has previously validated and guarantees that errors such
+as writing an Authorisation certificate to the wrong token do not occur.
+
+It is necessary to validate both these assumptions to ensure that the 
+system implemented from this specification is indeed secure. 
+If, for example, analysis of the second assumption indicates that 
+it is unreasonable then 
+it would be necessary to reconsider the mechanism by which we monitor 
+the token readers. For instance, it might be necessary to introduce an 
+interrupt triggered by the removal of a token.

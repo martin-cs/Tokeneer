@@ -1,0 +1,108 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:21.11}
+
+                         {procedure AdminToken.Poll}
+
+
+title procedure poll;
+
+  function round__(real) : integer;
+  type basictypes__unsigned32t = integer;
+  type basictypes__presencet = (basictypes__present, 
+     basictypes__absent);
+  type privtypes__privileget = (privtypes__useronly, 
+     privtypes__guard, privtypes__auditmanager, 
+     privtypes__securityofficer);
+  type cert__contentst = pending;
+  type tokentypes__tryt = (tokentypes__notoken, 
+     tokentypes__badtoken, tokentypes__goodtoken);
+  type admintoken__interface__state__type = pending;
+  type admintoken__interface__status__type = pending;
+  type admintoken__interface__input__type = pending;
+  type cert__attr__contentst = record
+        inherit : cert__contentst
+     end;
+  type cert__id__contentst = record
+        inherit : cert__contentst
+     end;
+  type status__type = record
+        admintoken__interface__status : 
+     admintoken__interface__status__type
+     end;
+  type input__type = record
+        admintoken__interface__input : 
+     admintoken__interface__input__type
+     end;
+  type cert__attr__auth__contentst = record
+        inherit : cert__attr__contentst
+     end;
+  type valididcertt = record
+        valid : boolean;
+        contents : cert__id__contentst
+     end;
+  type validauthcertt = record
+        valid : boolean;
+        contents : cert__attr__auth__contentst
+     end;
+  type statetype = record
+        admintoken__interface__state : 
+     admintoken__interface__state__type;
+        idcert : valididcertt;
+        authcert : validauthcertt;
+        tokenid : integer;
+        tokentry : tokentypes__tryt;
+        tokenpresence : basictypes__presencet
+     end;
+  const tokentypes__tryt__base__first : tokentypes__tryt = pending; 
+  const tokentypes__tryt__base__last : tokentypes__tryt = pending; 
+  const privtypes__privileget__base__first : 
+     privtypes__privileget = pending; 
+  const privtypes__privileget__base__last : privtypes__privileget = pending; 
+  const basictypes__presencet__base__first : 
+     basictypes__presencet = pending; 
+  const basictypes__presencet__base__last : basictypes__presencet = pending; 
+  const basictypes__unsigned32t__base__first : integer = pending; 
+  const basictypes__unsigned32t__base__last : integer = pending; 
+  const valididcertt__size : integer = pending; 
+  const validauthcertt__size : integer = pending; 
+  const tokentypes__tryt__first : tokentypes__tryt = pending; 
+  const tokentypes__tryt__last : tokentypes__tryt = pending; 
+  const tokentypes__tryt__size : integer = pending; 
+  const privtypes__privileget__first : privtypes__privileget = pending; 
+  const privtypes__privileget__last : privtypes__privileget = pending; 
+  const privtypes__privileget__size : integer = pending; 
+  const basictypes__presencet__first : basictypes__presencet = pending; 
+  const basictypes__presencet__last : basictypes__presencet = pending; 
+  const basictypes__presencet__size : integer = pending; 
+  const basictypes__unsigned32t__first : integer = pending; 
+  const basictypes__unsigned32t__last : integer = pending; 
+  const basictypes__unsigned32t__size : integer = pending; 
+  var state : statetype;
+  var status : status__type;
+  var input : input__type;
+  var admintoken__interface__state : 
+     admintoken__interface__state__type;
+  var admintoken__interface__status : 
+     admintoken__interface__status__type;
+  var admintoken__interface__input : 
+     admintoken__interface__input__type;
+  var tokenpresence : basictypes__presencet;
+  var tokentry : tokentypes__tryt;
+  var tokenid : integer;
+  var authcert : validauthcertt;
+  var idcert : valididcertt;
+  function theauthcertrole(statetype) : privtypes__privileget;
+  function prf_isgood(statetype) : boolean;
+  function prf_authcertvalid(statetype) : boolean;
+  function admintoken__interface__thetokenpresence(
+     admintoken__interface__state__type) : basictypes__presencet;
+  var admintoken__interface__state__1 : 
+     admintoken__interface__state__type;
+
+end;

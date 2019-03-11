@@ -1,0 +1,75 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:17.90*/
+
+                           /*procedure Display.Init*/
+
+
+rule_family init_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+init_rules(1): basictypes__unsigned32t__size >= 0 may_be_deduced.
+init_rules(2): basictypes__unsigned32t__size may_be_replaced_by 32.
+init_rules(3): basictypes__unsigned32t__first may_be_replaced_by 0.
+init_rules(4): basictypes__unsigned32t__last may_be_replaced_by 4294967295.
+init_rules(5): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__base__last may_be_deduced.
+init_rules(6): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__first may_be_deduced.
+init_rules(7): basictypes__unsigned32t__base__last >= 
+     basictypes__unsigned32t__last may_be_deduced.
+init_rules(8): msgt__size >= 0 may_be_deduced.
+init_rules(9): msgt__first may_be_replaced_by blank.
+init_rules(10): msgt__last may_be_replaced_by doorunlocked.
+init_rules(11): msgt__base__first may_be_replaced_by blank.
+init_rules(12): msgt__base__last may_be_replaced_by doorunlocked.
+init_rules(13): msgt__pos(msgt__first) may_be_replaced_by 0.
+init_rules(14): msgt__pos(blank) may_be_replaced_by 0.
+init_rules(15): msgt__val(0) may_be_replaced_by blank.
+init_rules(16): msgt__pos(welcome) may_be_replaced_by 1.
+init_rules(17): msgt__val(1) may_be_replaced_by welcome.
+init_rules(18): msgt__pos(insertfinger) may_be_replaced_by 2.
+init_rules(19): msgt__val(2) may_be_replaced_by insertfinger.
+init_rules(20): msgt__pos(opendoor) may_be_replaced_by 3.
+init_rules(21): msgt__val(3) may_be_replaced_by opendoor.
+init_rules(22): msgt__pos(wait) may_be_replaced_by 4.
+init_rules(23): msgt__val(4) may_be_replaced_by wait.
+init_rules(24): msgt__pos(removetoken) may_be_replaced_by 5.
+init_rules(25): msgt__val(5) may_be_replaced_by removetoken.
+init_rules(26): msgt__pos(tokenupdatefailed) may_be_replaced_by 6.
+init_rules(27): msgt__val(6) may_be_replaced_by tokenupdatefailed.
+init_rules(28): msgt__pos(doorunlocked) may_be_replaced_by 7.
+init_rules(29): msgt__val(7) may_be_replaced_by doorunlocked.
+init_rules(30): msgt__pos(msgt__last) may_be_replaced_by 7.
+init_rules(31): msgt__pos(succ(X)) may_be_replaced_by msgt__pos(X) + 1
+     if [X <=doorunlocked, X <> doorunlocked].
+init_rules(32): msgt__pos(pred(X)) may_be_replaced_by msgt__pos(X) - 1
+     if [X >=blank, X <> blank].
+init_rules(33): msgt__pos(X) >= 0 may_be_deduced_from
+     [blank <= X, X <= doorunlocked].
+init_rules(34): msgt__pos(X) <= 7 may_be_deduced_from
+     [blank <= X, X <= doorunlocked].
+init_rules(35): msgt__val(X) >= blank may_be_deduced_from
+     [0 <= X, X <= 7].
+init_rules(36): msgt__val(X) <= doorunlocked may_be_deduced_from
+     [0 <= X, X <= 7].
+init_rules(37): succ(msgt__val(X)) may_be_replaced_by msgt__val(X+1)
+     if [0 <= X, X < 7].
+init_rules(38): pred(msgt__val(X)) may_be_replaced_by msgt__val(X-1)
+     if [0 < X, X <= 7].
+init_rules(39): msgt__pos(msgt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 7].
+init_rules(40): msgt__val(msgt__pos(X)) may_be_replaced_by X
+     if [blank <= X, X <= doorunlocked].
+init_rules(41): msgt__pos(X) <= msgt__pos(Y) & X <= Y are_interchangeable 
+     if [blank <= X, X <= doorunlocked, blank <= Y, Y <= 
+     doorunlocked].
+init_rules(42): msgt__val(X) <= msgt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 7, 0 <= Y, Y <= 7].

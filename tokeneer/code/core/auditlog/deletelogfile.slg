@@ -1,0 +1,150 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:08  SIMPLIFIED 05-SEP-2011, 15:38:47
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure AuditLog.DeleteLogFile
+
+
+
+
+
+
+@@@@@@@@@@  VC: procedure_deletelogfile_1.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+***  Proved C1:  index >= logfileindext__first
+     using hypothesis H2.
+***  Proved C2:  index <= logfileindext__last
+     using hypothesis H3.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_deletelogfile_2.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+---  Hypothesis H8 has been replaced by "true".  (It is already present, as H2).
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H3).
+***  Proved C1:  index >= logfileindext__first
+     using hypothesis H2.
+***  Proved C2:  index <= logfileindext__last
+     using hypothesis H3.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_deletelogfile_3.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+---  Hypothesis H8 has been replaced by "true".  (It is already present, as H2).
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H3).
+---  Hypothesis H17 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H18 has been replaced by "true".  (It is already present, as H3)
+          .
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  filestatust__first <= free
+***  Proved C3:  index >= logfileindext__first
+     using hypothesis H2.
+***  Proved C4:  index <= logfileindext__last
+     using hypothesis H3.
+-S-  Applied substitution rule deletelogfil_rules(14).
+     This was achieved by replacing all occurrences of filestatust__first by:
+          free.
+<S>  New H6:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> free <= element(logfilesstatus, [i___1]) 
+          and element(logfilesstatus, [i___1]) <= filestatust__last)
+<S>  New C1:  true
+-S-  Applied substitution rule deletelogfil_rules(15).
+     This was achieved by replacing all occurrences of filestatust__last by:
+          used.
+<S>  New H6:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> free <= element(logfilesstatus, [i___1]) 
+          and element(logfilesstatus, [i___1]) <= used)
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_deletelogfile_4.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+---  Hypothesis H8 has been replaced by "true".  (It is already present, as H2).
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H3).
+---  Hypothesis H17 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H18 has been replaced by "true".  (It is already present, as H3)
+          .
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  filestatust__first <= free
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H22 has been replaced by "true".  (It is already present, as H3)
+          .
+***  Proved C3:  index >= logfileindext__first
+     using hypothesis H2.
+***  Proved C4:  index <= logfileindext__last
+     using hypothesis H3.
+-S-  Applied substitution rule deletelogfil_rules(45).
+     This was achieved by replacing all occurrences of fileentrycountt__first 
+          by:
+          0.
+<S>  New H7:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> 0 <= element(logfileentries, [i___1]) and 
+          element(logfileentries, [i___1]) <= fileentrycountt__last)
+<S>  New C1:  true
+-S-  Applied substitution rule deletelogfil_rules(46).
+     This was achieved by replacing all occurrences of fileentrycountt__last by:
+          1024.
+<S>  New H7:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> 0 <= element(logfileentries, [i___1]) and 
+          element(logfileentries, [i___1]) <= 1024)
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_deletelogfile_5.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+

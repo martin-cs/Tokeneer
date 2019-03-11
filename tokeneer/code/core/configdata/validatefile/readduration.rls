@@ -1,0 +1,47 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:27.98*/
+
+               /*procedure ConfigData.ValidateFile.ReadDuration*/
+
+
+rule_family readduration_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+readduration_rules(1): integer__size >= 0 may_be_deduced.
+readduration_rules(2): integer__first may_be_replaced_by -2147483648.
+readduration_rules(3): integer__last may_be_replaced_by 2147483647.
+readduration_rules(4): integer__base__first may_be_replaced_by -2147483648.
+readduration_rules(5): integer__base__last may_be_replaced_by 2147483647.
+readduration_rules(6): natural__size >= 0 may_be_deduced.
+readduration_rules(7): natural__first may_be_replaced_by 0.
+readduration_rules(8): natural__last may_be_replaced_by 2147483647.
+readduration_rules(9): natural__base__first may_be_replaced_by -2147483648.
+readduration_rules(10): natural__base__last may_be_replaced_by 2147483647.
+readduration_rules(11): positive__size >= 0 may_be_deduced.
+readduration_rules(12): positive__first may_be_replaced_by 1.
+readduration_rules(13): positive__last may_be_replaced_by 2147483647.
+readduration_rules(14): positive__base__first may_be_replaced_by -2147483648.
+readduration_rules(15): positive__base__last may_be_replaced_by 2147483647.
+readduration_rules(16): clock__durationt__size >= 0 may_be_deduced.
+readduration_rules(17): clock__durationt__first may_be_replaced_by 0.
+readduration_rules(18): clock__durationt__last may_be_replaced_by 864000.
+readduration_rules(19): clock__durationt__base__first <= 
+     clock__durationt__base__last may_be_deduced.
+readduration_rules(20): clock__durationt__base__first <= 
+     clock__durationt__first may_be_deduced.
+readduration_rules(21): clock__durationt__base__last >= 
+     clock__durationt__last may_be_deduced.
+readduration_rules(22): durationt__size >= 0 may_be_deduced.
+readduration_rules(23): durationt__first may_be_replaced_by 0.
+readduration_rules(24): durationt__last may_be_replaced_by 2000.
+readduration_rules(25): durationt__base__first <= durationt__base__last may_be_deduced.
+readduration_rules(26): durationt__base__first <= durationt__first may_be_deduced.
+readduration_rules(27): durationt__base__last >= durationt__last may_be_deduced.

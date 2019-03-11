@@ -1,0 +1,108 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:21.17}
+
+              {procedure AdminToken.ReadAndCheck.CheckIDCertOK}
+
+
+title procedure checkidcertok;
+
+  function round__(real) : integer;
+  type character = integer;
+  type basictypes__unsigned32t = integer;
+  type cryptotypes__issueridt = integer;
+  type certtypes__certificatet = (certtypes__idcert, 
+     certtypes__authcert, certtypes__privcert, 
+     certtypes__iandacert);
+  type certtypes__serialnumbert = integer;
+  type cert__contentst = pending;
+  type string = array [integer] of character;
+  const null__string : string = pending;
+  type cert__id__contentst = record
+        inherit : cert__contentst
+     end;
+  type cryptotypes__issuert = record
+        id : integer;
+        namelength : integer;
+        name : string
+     end;
+  type certtypes__idt = record
+        issuer : cryptotypes__issuert;
+        serialnumber : integer
+     end;
+  const tokentypes__tokenidt__base__first : integer = pending; 
+  const tokentypes__tokenidt__base__last : integer = pending; 
+  const certtypes__serialnumbert__base__first : integer = pending; 
+  const certtypes__serialnumbert__base__last : integer = pending; 
+  const certtypes__certificatet__base__first : 
+     certtypes__certificatet = pending; 
+  const certtypes__certificatet__base__last : 
+     certtypes__certificatet = pending; 
+  const certtypes__rawcertificatei__base__first : integer = pending; 
+  const certtypes__rawcertificatei__base__last : integer = pending; 
+  const cryptotypes__issueridt__base__first : integer = pending; 
+  const cryptotypes__issueridt__base__last : integer = pending; 
+  const cryptotypes__namei__base__first : integer = pending; 
+  const cryptotypes__namei__base__last : integer = pending; 
+  const cryptotypes__namecountt__base__first : integer = pending; 
+  const cryptotypes__namecountt__base__last : integer = pending; 
+  const basictypes__unsigned32t__base__first : integer = pending; 
+  const basictypes__unsigned32t__base__last : integer = pending; 
+  const positive__base__first : integer = pending; 
+  const positive__base__last : integer = pending; 
+  const character__base__first : character = pending; 
+  const character__base__last : character = pending; 
+  const integer__base__first : integer = pending; 
+  const integer__base__last : integer = pending; 
+  const tokentypes__tokenidt__first : integer = pending; 
+  const tokentypes__tokenidt__last : integer = pending; 
+  const tokentypes__tokenidt__size : integer = pending; 
+  const certtypes__idt__size : integer = pending; 
+  const certtypes__serialnumbert__first : integer = pending; 
+  const certtypes__serialnumbert__last : integer = pending; 
+  const certtypes__serialnumbert__size : integer = pending; 
+  const certtypes__certificatet__first : certtypes__certificatet = pending; 
+  const certtypes__certificatet__last : certtypes__certificatet = pending; 
+  const certtypes__certificatet__size : integer = pending; 
+  const certtypes__rawcertificatei__first : integer = pending; 
+  const certtypes__rawcertificatei__last : integer = pending; 
+  const certtypes__rawcertificatei__size : integer = pending; 
+  const cryptotypes__issuert__size : integer = pending; 
+  const cryptotypes__issueridt__first : integer = pending; 
+  const cryptotypes__issueridt__last : integer = pending; 
+  const cryptotypes__issueridt__size : integer = pending; 
+  const cryptotypes__namei__first : integer = pending; 
+  const cryptotypes__namei__last : integer = pending; 
+  const cryptotypes__namei__size : integer = pending; 
+  const cryptotypes__namecountt__first : integer = pending; 
+  const cryptotypes__namecountt__last : integer = pending; 
+  const cryptotypes__namecountt__size : integer = pending; 
+  const basictypes__unsigned32t__first : integer = pending; 
+  const basictypes__unsigned32t__last : integer = pending; 
+  const basictypes__unsigned32t__size : integer = pending; 
+  const positive__first : integer = pending; 
+  const positive__last : integer = pending; 
+  const positive__size : integer = pending; 
+  const character__first : character = pending; 
+  const character__last : character = pending; 
+  const character__size : integer = pending; 
+  const integer__first : integer = pending; 
+  const integer__last : integer = pending; 
+  const integer__size : integer = pending; 
+  var tokenid : integer;
+  var idcertcontents : cert__id__contentst;
+  var rawcert : string;
+  var certfound : boolean;
+  var extractok : boolean;
+  function cert__theid(cert__contentst) : certtypes__idt;
+  var idcertcontents__2 : cert__id__contentst;
+  var extractok__2 : boolean;
+  var certfound__1 : boolean;
+  var rawcert__1 : string;
+
+end;

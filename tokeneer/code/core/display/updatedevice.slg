@@ -1,0 +1,362 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:17  SIMPLIFIED 05-SEP-2011, 15:40:16
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure Display.UpdateDevice
+
+
+
+
+
+
+@@@@@@@@@@  VC: procedure_updatedevice_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  msgt__first <= currentdisplay
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  msgt__first <= currentlydisplayed
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  msgt__first <= currentdisplay
+***  Proved C1:  msgt__first <= currentdisplay
+     using hypothesis H2.
+***  Proved C2:  currentdisplay <= msgt__last
+     using hypothesis H3.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatedevice_2.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  msgt__first <= currentdisplay
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  msgt__first <= currentlydisplayed
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H12 has been replaced by "true".  (It is already present, as H3)
+          .
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  msgt__first <= currentdisplay
+***  Proved C1:  msgt__first <= currentdisplay
+     using hypothesis H2.
+***  Proved C2:  currentdisplay <= msgt__last
+     using hypothesis H3.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatedevice_3.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  msgt__first <= currentdisplay
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  msgt__first <= currentlydisplayed
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H12 has been replaced by "true".  (It is already present, as H3)
+          .
+---  Hypothesis H13 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as H3)
+          .
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  for_all(i___2 : integer, msgtexti__first <= i___2 and i___2 <= 
+          msgtexti__last -> character__first <= element(fld_text(fld_bottom(
+          element(msgtostrings, [currentdisplay]))), [i___2]) and element(
+          fld_text(fld_bottom(element(msgtostrings, [currentdisplay]))), [i___2]
+          ) <= character__last)
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  for_all(i___1 : integer, msgtexti__first <= i___1 and i___1 <= 
+          msgtexti__last -> character__first <= element(fld_text(fld_top(
+          element(msgtostrings, [currentdisplay]))), [i___1]) and element(
+          fld_text(fld_top(element(msgtostrings, [currentdisplay]))), [i___1]) 
+          <= character__last)
+-S-  Applied substitution rule updatedevice_rules(26).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__first by:
+          0.
+<S>  New H4:  fld_bottom(sizes) >= 0
+<S>  New H6:  fld_top(sizes) >= 0
+<S>  New C1:  fld_len(fld_bottom(element(msgtostrings, [currentdisplay]))) >= 0
+<S>  New C3:  fld_len(fld_top(element(msgtostrings, [currentdisplay]))) >= 0
+-S-  Applied substitution rule updatedevice_rules(27).
+     This was achieved by replacing all occurrences of 
+          basictypes__unsigned32t__last by:
+          4294967295.
+<S>  New H5:  fld_bottom(sizes) <= 4294967295
+<S>  New H7:  fld_top(sizes) <= 4294967295
+<S>  New C2:  fld_len(fld_bottom(element(msgtostrings, [currentdisplay]))) <= 
+          4294967295
+<S>  New C4:  fld_len(fld_top(element(msgtostrings, [currentdisplay]))) <= 
+          4294967295
+-S-  Applied substitution rule updatedevice_rules(15).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H17:  for_all(i___2 : integer, msgtexti__first <= i___2 and i___2 <= 
+          msgtexti__last -> 0 <= element(fld_text(fld_bottom(element(
+          msgtostrings, [currentdisplay]))), [i___2]) and element(fld_text(
+          fld_bottom(element(msgtostrings, [currentdisplay]))), [i___2]) <= 
+          character__last)
+<S>  New H20:  for_all(i___1 : integer, msgtexti__first <= i___1 and i___1 <= 
+          msgtexti__last -> 0 <= element(fld_text(fld_top(element(msgtostrings, 
+          [currentdisplay]))), [i___1]) and element(fld_text(fld_top(element(
+          msgtostrings, [currentdisplay]))), [i___1]) <= character__last)
+-S-  Applied substitution rule updatedevice_rules(16).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H17:  for_all(i___2 : integer, msgtexti__first <= i___2 and i___2 <= 
+          msgtexti__last -> 0 <= element(fld_text(fld_bottom(element(
+          msgtostrings, [currentdisplay]))), [i___2]) and element(fld_text(
+          fld_bottom(element(msgtostrings, [currentdisplay]))), [i___2]) <= 255)
+<S>  New H20:  for_all(i___1 : integer, msgtexti__first <= i___1 and i___1 <= 
+          msgtexti__last -> 0 <= element(fld_text(fld_top(element(msgtostrings, 
+          [currentdisplay]))), [i___1]) and element(fld_text(fld_top(element(
+          msgtostrings, [currentdisplay]))), [i___1]) <= 255)
+-S-  Applied substitution rule updatedevice_rules(164).
+     This was achieved by replacing all occurrences of msgt__first by:
+          blank.
+<S>  New H2:  blank <= currentdisplay
+<S>  New H8:  blank <= currentlydisplayed
+-S-  Applied substitution rule updatedevice_rules(165).
+     This was achieved by replacing all occurrences of msgt__last by:
+          doorunlocked.
+<S>  New H3:  currentdisplay <= doorunlocked
+<S>  New H9:  currentlydisplayed <= doorunlocked
+-S-  Applied substitution rule updatedevice_rules(199).
+     This was achieved by replacing all occurrences of msgtextcount__first by:
+          0.
+<S>  New H15:  fld_len(fld_bottom(element(msgtostrings, [currentdisplay]))) >= 0
+<S>  New H18:  fld_len(fld_top(element(msgtostrings, [currentdisplay]))) >= 0
+-S-  Applied substitution rule updatedevice_rules(200).
+     This was achieved by replacing all occurrences of msgtextcount__last by:
+          23.
+<S>  New H16:  fld_len(fld_bottom(element(msgtostrings, [currentdisplay]))) <= 
+          23
+<S>  New H19:  fld_len(fld_top(element(msgtostrings, [currentdisplay]))) <= 23
+-S-  Applied substitution rule updatedevice_rules(204).
+     This was achieved by replacing all occurrences of msgtexti__first by:
+          1.
+<S>  New H17:  for_all(i___2 : integer, 1 <= i___2 and i___2 <= msgtexti__last 
+          -> 0 <= element(fld_text(fld_bottom(element(msgtostrings, [
+          currentdisplay]))), [i___2]) and element(fld_text(fld_bottom(element(
+          msgtostrings, [currentdisplay]))), [i___2]) <= 255)
+<S>  New H20:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= msgtexti__last 
+          -> 0 <= element(fld_text(fld_top(element(msgtostrings, [
+          currentdisplay]))), [i___1]) and element(fld_text(fld_top(element(
+          msgtostrings, [currentdisplay]))), [i___1]) <= 255)
+-S-  Applied substitution rule updatedevice_rules(205).
+     This was achieved by replacing all occurrences of msgtexti__last by:
+          23.
+<S>  New H17:  for_all(i___2 : integer, 1 <= i___2 and i___2 <= 23 -> 0 <= 
+          element(fld_text(fld_bottom(element(msgtostrings, [currentdisplay])))
+          , [i___2]) and element(fld_text(fld_bottom(element(msgtostrings, [
+          currentdisplay]))), [i___2]) <= 255)
+<S>  New H20:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 23 -> 0 <= 
+          element(fld_text(fld_top(element(msgtostrings, [currentdisplay]))), [
+          i___1]) and element(fld_text(fld_top(element(msgtostrings, [
+          currentdisplay]))), [i___1]) <= 255)
+***  Proved C1:  fld_len(fld_bottom(element(msgtostrings, [currentdisplay]))) 
+          >= 0
+     using hypothesis H15.
+***  Proved C3:  fld_len(fld_top(element(msgtostrings, [currentdisplay]))) >= 0
+     using hypothesis H18.
+***  Proved C2:  fld_len(fld_bottom(element(msgtostrings, [currentdisplay]))) 
+          <= 4294967295
+     using hypothesis H16.
+***  Proved C4:  fld_len(fld_top(element(msgtostrings, [currentdisplay]))) <= 
+          4294967295
+     using hypothesis H19.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatedevice_4.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  msgt__first <= currentdisplay
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  msgt__first <= currentlydisplayed
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H12 has been replaced by "true".  (It is already present, as H3)
+          .
+---  Hypothesis H13 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as H3)
+          .
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  for_all(i___2 : integer, msgtexti__first <= i___2 and i___2 <= 
+          msgtexti__last -> character__first <= element(fld_text(fld_bottom(
+          element(msgtostrings, [currentdisplay]))), [i___2]) and element(
+          fld_text(fld_bottom(element(msgtostrings, [currentdisplay]))), [i___2]
+          ) <= character__last)
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  for_all(i___1 : integer, msgtexti__first <= i___1 and i___1 <= 
+          msgtexti__last -> character__first <= element(fld_text(fld_top(
+          element(msgtostrings, [currentdisplay]))), [i___1]) and element(
+          fld_text(fld_top(element(msgtostrings, [currentdisplay]))), [i___1]) 
+          <= character__last)
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H28 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H34 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H35 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H36 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H37 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H38 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H39 has been replaced by "true".  (It is already present, as 
+          H20).
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__systemfault
+-S-  Applied substitution rule updatedevice_rules(139).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule updatedevice_rules(140).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule updatedevice_rules(32).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule updatedevice_rules(33).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatedevice_5.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  msgt__first <= currentdisplay
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  msgt__first <= currentlydisplayed
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H12 has been replaced by "true".  (It is already present, as H3)
+          .
+---  Hypothesis H13 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as H3)
+          .
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  for_all(i___2 : integer, msgtexti__first <= i___2 and i___2 <= 
+          msgtexti__last -> character__first <= element(fld_text(fld_bottom(
+          element(msgtostrings, [currentdisplay]))), [i___2]) and element(
+          fld_text(fld_bottom(element(msgtostrings, [currentdisplay]))), [i___2]
+          ) <= character__last)
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  for_all(i___1 : integer, msgtexti__first <= i___1 and i___1 <= 
+          msgtexti__last -> character__first <= element(fld_text(fld_top(
+          element(msgtostrings, [currentdisplay]))), [i___1]) and element(
+          fld_text(fld_top(element(msgtostrings, [currentdisplay]))), [i___1]) 
+          <= character__last)
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as 
+          H15).
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H28 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as 
+          H20).
+%%%  Simplified H34 on reading formula in, to give:
+     %%%  H34:  for_all(i___1 : integer, scrolltexti__first <= i___1 and i___1 
+          <= scrolltexti__last -> character__first <= element(fld_text(
+          combinelines(element(msgtostrings, [currentdisplay]))), [i___1]) and 
+          element(fld_text(combinelines(element(msgtostrings, [currentdisplay]))
+          ), [i___1]) <= character__last)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__systemfault
+-S-  Applied substitution rule updatedevice_rules(139).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule updatedevice_rules(140).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule updatedevice_rules(32).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule updatedevice_rules(33).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatedevice_6.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatedevice_7.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatedevice_8.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatedevice_9.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatedevice_10.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatedevice_11.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatedevice_12.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+

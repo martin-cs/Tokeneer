@@ -1,0 +1,512 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:32  SIMPLIFIED 05-SEP-2011, 15:41:58
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure TISMain
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/tismain.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_tismain_1.  @@@@@@@@@@
+%%%  Simplified C4 on reading formula in, to give:
+     %%%  C4:  latch__islocked(latch__state__1) <-> latch__prf_islocked(
+          latch__output)
+***  Proved C1:  not enclave__enrolmentisinprogress(enclave__state__1) <-> 
+          keystore__privatekeypresent(keystore__state__1)
+     using hypothesis H2.
+***  Proved C5:  admin__prf_rolepresent(theadmin__1) = privtypes__guard -> 
+          admintoken__prf_isgood(admintoken__state__1) and (
+          admintoken__prf_authcertvalid(admintoken__state__1) and 
+          admintoken__theauthcertrole(admintoken__state__1) = privtypes__guard)
+     using hypothesis H6.
+***  Proved C6:  admin__isdoingop(theadmin__1) and admin__thecurrentop(
+          theadmin__1) = admin__overridelock -> admin__prf_rolepresent(
+          theadmin__1) = privtypes__guard
+     using hypothesis H5.
+***  Proved C7:  admin__prf_rolepresent(theadmin__1) = privtypes__guard -> 
+          admin__isdoingop(theadmin__1) and admin__thecurrentop(theadmin__1) = 
+          admin__overridelock or not admin__isdoingop(theadmin__1)
+     using hypothesis H5.
+***  Proved C8:  not admin__ispresent(theadmin__1) -> not admin__isdoingop(
+          theadmin__1)
+     using hypothesis H5.
+***  Proved C9:  admin__isdoingop(theadmin__1) and admin__thecurrentop(
+          theadmin__1) = admin__shutdownop -> 
+          enclave__prf_statusiswaitingstartadminop(enclave__state__1)
+     using hypothesis H5.
+***  Proved C10:  enclave__prf_statusisgotadmintoken(enclave__state__1) or 
+          enclave__prf_statusiswaitingremoveadmintokenfail(enclave__state__1) 
+          -> not admin__ispresent(theadmin__1)
+     using hypothesis H4.
+***  Proved C11:  enclave__prf_statusiswaitingstartadminop(enclave__state__1) 
+          or enclave__prf_statusiswaitingfinishadminop(enclave__state__1) -> 
+          admin__ispresent(theadmin__1) and admin__isdoingop(theadmin__1)
+     using hypotheses H7 & H8.
+***  Proved C12:  enclave__prf_statusisenclavequiescent(enclave__state__1) -> 
+          not admin__isdoingop(theadmin__1)
+     using hypothesis H5.
+***  Proved C13:  enclave__prf_statusisshutdown(enclave__state__1) -> not 
+          admin__isdoingop(theadmin__1) and admin__prf_rolepresent(theadmin__1) 
+          = privtypes__useronly
+     using hypothesis H9.
+***  Proved C14:  enclave__enrolmentisinprogress(enclave__state__1) -> not 
+          admin__ispresent(theadmin__1) and not admin__isdoingop(theadmin__1)
+     using hypotheses H4 & H5.
+---  Eliminated hypothesis H1 (true-hypothesis).
+     +++  New H13:  privtypes__privileget__size >= 0
+     +++  New H14:  door__t__size >= 0
+     +++  New H15:  admin__opandnullt__size >= 0
+
+
+@@@@@@@@@@  VC: procedure_tismain_2.  @@@@@@@@@@
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  latch__prf_islocked(prf_prelatchoutput) and (not 
+          latch__prf_islocked(latch__output) and (latch__islocked(
+          prf_prelatchstate) <-> latch__prf_islocked(prf_prelatchoutput))) -> 
+          userentry__prf_userentryunlockdoor or admintoken__prf_isgood(
+          admintoken__state) and (admintoken__prf_authcertvalid(
+          admintoken__state) and admintoken__theauthcertrole(admintoken__state) 
+          = privtypes__guard)
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  (latch__islocked(latch__state) <-> latch__prf_islocked(
+          latch__output)) or systemfault
+%%%  Simplified C4 on reading formula in, to give:
+     %%%  C4:  latch__islocked(latch__state) <-> latch__prf_islocked(
+          latch__output)
+***  Proved C1:  not enclave__enrolmentisinprogress(enclave__state) <-> 
+          keystore__privatekeypresent(keystore__state)
+     using hypothesis H3.
+***  Proved C5:  admin__prf_rolepresent(theadmin) = privtypes__guard -> 
+          admintoken__prf_isgood(admintoken__state) and (
+          admintoken__prf_authcertvalid(admintoken__state) and 
+          admintoken__theauthcertrole(admintoken__state) = privtypes__guard)
+     using hypothesis H7.
+***  Proved C6:  admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__overridelock -> admin__prf_rolepresent(theadmin) = 
+          privtypes__guard
+     using hypothesis H8.
+***  Proved C7:  admin__prf_rolepresent(theadmin) = privtypes__guard -> 
+          admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__overridelock or not admin__isdoingop(theadmin)
+     using hypothesis H9.
+***  Proved C8:  not admin__ispresent(theadmin) -> not admin__isdoingop(
+          theadmin)
+     using hypothesis H10.
+***  Proved C9:  admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__shutdownop -> enclave__prf_statusiswaitingstartadminop(
+          enclave__state)
+     using hypothesis H11.
+***  Proved C10:  enclave__prf_statusisgotadmintoken(enclave__state) or 
+          enclave__prf_statusiswaitingremoveadmintokenfail(enclave__state) -> 
+          not admin__ispresent(theadmin)
+     using hypothesis H12.
+***  Proved C12:  enclave__prf_statusisenclavequiescent(enclave__state) -> not 
+          admin__isdoingop(theadmin)
+     using hypothesis H14.
+***  Proved C13:  enclave__prf_statusisshutdown(enclave__state) -> not 
+          admin__isdoingop(theadmin) and admin__prf_rolepresent(theadmin) = 
+          privtypes__useronly
+     using hypothesis H15.
+***  Proved C14:  enclave__enrolmentisinprogress(enclave__state) -> not 
+          admin__ispresent(theadmin) and not admin__isdoingop(theadmin)
+     using hypothesis H16.
+%%%  Simplified H6 further (given H2), to give:
+     %%%  H6:  latch__islocked(latch__state) <-> latch__prf_islocked(
+          latch__output)
+---  Eliminated hypothesis H1, which only specifies a value for 
+          shutdowncompleted.
+     This is not referred to anywhere else in the VC.
+-S-  Eliminated hypothesis H2.
+     This was achieved by replacing all occurrences of systemfault by:
+          false.
+<S>  New H4:  latch__islocked(latch__state) and (door__thecurrentdoor(
+          door__state) = door__open and clock__greaterthanorequal(
+          clock__thecurrenttime(clock__currenttime), door__prf_alarmtimeout(
+          door__state))) -> alarm__prf_isalarming(alarm__output)
+***  Proved C4:  latch__islocked(latch__state) <-> latch__prf_islocked(
+          latch__output)
+     using hypothesis H6.
+***  Proved C11:  enclave__prf_statusiswaitingstartadminop(enclave__state) or 
+          enclave__prf_statusiswaitingfinishadminop(enclave__state) -> 
+          admin__ispresent(theadmin) and admin__isdoingop(theadmin)
+     using hypothesis H13.
+     +++  New H17:  privtypes__privileget__size >= 0
+     +++  New H18:  door__t__size >= 0
+     +++  New H19:  admin__opandnullt__size >= 0
+
+
+@@@@@@@@@@  VC: procedure_tismain_3.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  latch__islocked(latch__state) <-> latch__prf_islocked(
+          latch__output)
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  latch__islocked(latch__state) <-> latch__prf_islocked(
+          latch__output)
+***  Proved C1:  not enclave__enrolmentisinprogress(enclave__state) <-> 
+          keystore__privatekeypresent(keystore__state)
+     using hypothesis H1.
+***  Proved C2:  latch__islocked(latch__state) <-> latch__prf_islocked(
+          latch__output)
+     using hypothesis H4.
+***  Proved C3:  admin__prf_rolepresent(theadmin) = privtypes__guard -> 
+          admintoken__prf_isgood(admintoken__state) and (
+          admintoken__prf_authcertvalid(admintoken__state) and 
+          admintoken__theauthcertrole(admintoken__state) = privtypes__guard)
+     using hypothesis H5.
+***  Proved C4:  admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__overridelock -> admin__prf_rolepresent(theadmin) = 
+          privtypes__guard
+     using hypothesis H6.
+***  Proved C5:  admin__prf_rolepresent(theadmin) = privtypes__guard -> 
+          admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__overridelock or not admin__isdoingop(theadmin)
+     using hypothesis H7.
+***  Proved C6:  not admin__ispresent(theadmin) -> not admin__isdoingop(
+          theadmin)
+     using hypothesis H8.
+***  Proved C7:  admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__shutdownop -> enclave__prf_statusiswaitingstartadminop(
+          enclave__state)
+     using hypothesis H9.
+***  Proved C8:  enclave__prf_statusisgotadmintoken(enclave__state) or 
+          enclave__prf_statusiswaitingremoveadmintokenfail(enclave__state) -> 
+          not admin__ispresent(theadmin)
+     using hypothesis H10.
+***  Proved C9:  enclave__prf_statusiswaitingstartadminop(enclave__state) or 
+          enclave__prf_statusiswaitingfinishadminop(enclave__state) -> 
+          admin__ispresent(theadmin) and admin__isdoingop(theadmin)
+     using hypothesis H11.
+***  Proved C10:  enclave__prf_statusisenclavequiescent(enclave__state) -> not 
+          admin__isdoingop(theadmin)
+     using hypothesis H12.
+***  Proved C11:  enclave__prf_statusisshutdown(enclave__state) -> not 
+          admin__isdoingop(theadmin) and admin__prf_rolepresent(theadmin) = 
+          privtypes__useronly
+     using hypothesis H13.
+***  Proved C12:  enclave__enrolmentisinprogress(enclave__state) -> not 
+          admin__ispresent(theadmin) and not admin__isdoingop(theadmin)
+     using hypothesis H14.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_tismain_4.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  latch__islocked(latch__state) <-> latch__prf_islocked(
+          latch__output)
+---  Hypothesis H15 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H16 has been replaced by "true".  (It is already present, as H4)
+          .
+---  Hypothesis H17 has been replaced by "true".  (It is already present, as H5)
+          .
+---  Hypothesis H18 has been replaced by "true".  (It is already present, as H6)
+          .
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H22 has been replaced by "true".  (It is already present, as 
+          H10).
+---  Hypothesis H23 has been replaced by "true".  (It is already present, as 
+          H11).
+---  Hypothesis H24 has been replaced by "true".  (It is already present, as 
+          H12).
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as 
+          H14).
+%%%  Simplified H28 on reading formula in, to give:
+     %%%  H28:  (latch__islocked(latch__state__2) <-> latch__prf_islocked(
+          latch__output__2)) or systemfault__2
+%%%  Simplified H30 on reading formula in, to give:
+     %%%  H30:  (latch__prf_islocked(latch__output) and (not 
+          latch__prf_islocked(latch__output__2) and not latch__islocked(
+          latch__state__2) and (latch__islocked(latch__state) <-> 
+          latch__prf_islocked(latch__output))) -> 
+          userentry__prf_userentryunlockdoor or admintoken__prf_isgood(
+          admintoken__state__2) and (admintoken__prf_authcertvalid(
+          admintoken__state__2) and admintoken__theauthcertrole(
+          admintoken__state__2) = privtypes__guard)) or systemfault__2
+%%%  Simplified C4 on reading formula in, to give:
+     %%%  C4:  (latch__prf_islocked(prf_prelatchoutput) and (not 
+          latch__prf_islocked(latch__output__2) and (latch__islocked(
+          prf_prelatchstate) <-> latch__prf_islocked(prf_prelatchoutput))) -> 
+          userentry__prf_userentryunlockdoor or admintoken__prf_isgood(
+          admintoken__state__2) and (admintoken__prf_authcertvalid(
+          admintoken__state__2) and admintoken__theauthcertrole(
+          admintoken__state__2) = privtypes__guard)) or systemfault__2
+%%%  Simplified C5 on reading formula in, to give:
+     %%%  C5:  (latch__islocked(latch__state__2) <-> latch__prf_islocked(
+          latch__output__2)) or systemfault__2
+***  Proved C1:  not enclave__hasshutdown(enclave__state__2)
+     using hypothesis H44.
+***  Proved C2:  not enclave__enrolmentisinprogress(enclave__state__2) <-> 
+          keystore__privatekeypresent(keystore__state__2)
+     using hypothesis H27.
+***  Proved C3:  latch__islocked(latch__state__2) and (door__thecurrentdoor(
+          door__state__2) = door__open and clock__greaterthanorequal(
+          clock__thecurrenttime(clock__currenttime__2), door__prf_alarmtimeout(
+          door__state__2))) -> alarm__prf_isalarming(alarm__output__2) or 
+          systemfault__2
+     using hypothesis H29.
+***  Proved C5:  (latch__islocked(latch__state__2) <-> latch__prf_islocked(
+          latch__output__2)) or systemfault__2
+     using hypothesis H28.
+***  Proved C6:  admin__prf_rolepresent(theadmin__2) = privtypes__guard -> 
+          admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and 
+          admintoken__theauthcertrole(admintoken__state__2) = privtypes__guard)
+     using hypothesis H31.
+***  Proved C7:  admin__isdoingop(theadmin__2) and admin__thecurrentop(
+          theadmin__2) = admin__overridelock -> admin__prf_rolepresent(
+          theadmin__2) = privtypes__guard
+     using hypothesis H32.
+***  Proved C8:  admin__prf_rolepresent(theadmin__2) = privtypes__guard -> 
+          admin__isdoingop(theadmin__2) and admin__thecurrentop(theadmin__2) = 
+          admin__overridelock or not admin__isdoingop(theadmin__2)
+     using hypothesis H33.
+***  Proved C9:  not admin__ispresent(theadmin__2) -> not admin__isdoingop(
+          theadmin__2)
+     using hypothesis H34.
+***  Proved C10:  admin__isdoingop(theadmin__2) and admin__thecurrentop(
+          theadmin__2) = admin__shutdownop -> 
+          enclave__prf_statusiswaitingstartadminop(enclave__state__2)
+     using hypothesis H35.
+***  Proved C11:  enclave__prf_statusisgotadmintoken(enclave__state__2) or 
+          enclave__prf_statusiswaitingremoveadmintokenfail(enclave__state__2) 
+          -> not admin__ispresent(theadmin__2)
+     using hypothesis H36.
+***  Proved C13:  enclave__prf_statusisenclavequiescent(enclave__state__2) -> 
+          not admin__isdoingop(theadmin__2)
+     using hypothesis H38.
+***  Proved C14:  enclave__prf_statusisshutdown(enclave__state__2) -> not 
+          admin__isdoingop(theadmin__2) and admin__prf_rolepresent(theadmin__2) 
+          = privtypes__useronly
+     using hypothesis H39.
+***  Proved C15:  enclave__enrolmentisinprogress(enclave__state__2) -> not 
+          admin__ispresent(theadmin__2) and not admin__isdoingop(theadmin__2)
+     using hypothesis H40.
+---  Eliminated hypothesis H15 (true-hypothesis).
+---  Eliminated hypothesis H16 (true-hypothesis).
+---  Eliminated hypothesis H17 (true-hypothesis).
+---  Eliminated hypothesis H18 (true-hypothesis).
+---  Eliminated hypothesis H19 (true-hypothesis).
+---  Eliminated hypothesis H20 (true-hypothesis).
+---  Eliminated hypothesis H21 (true-hypothesis).
+---  Eliminated hypothesis H22 (true-hypothesis).
+---  Eliminated hypothesis H23 (true-hypothesis).
+---  Eliminated hypothesis H24 (true-hypothesis).
+---  Eliminated hypothesis H25 (true-hypothesis).
+---  Eliminated hypothesis H26 (true-hypothesis).
+---  Eliminated hypothesis H41 (true-hypothesis).
+---  Eliminated hypothesis H42 (true-hypothesis).
+---  Eliminated hypothesis H43 (true-hypothesis).
+-S-  Eliminated hypothesis H2.
+     This was achieved by replacing all occurrences of latch__state by:
+          prf_prelatchstate.
+<S>  New H4:  latch__islocked(prf_prelatchstate) <-> latch__prf_islocked(
+          latch__output)
+<S>  New H30:  (latch__prf_islocked(latch__output) and (not latch__prf_islocked(
+          latch__output__2) and not latch__islocked(latch__state__2) and (
+          latch__islocked(prf_prelatchstate) <-> latch__prf_islocked(
+          latch__output))) -> userentry__prf_userentryunlockdoor or 
+          admintoken__prf_isgood(admintoken__state__2) and (
+          admintoken__prf_authcertvalid(admintoken__state__2) and 
+          admintoken__theauthcertrole(admintoken__state__2) = privtypes__guard))
+           or systemfault__2
+-S-  Eliminated hypothesis H3.
+     This was achieved by replacing all occurrences of latch__output by:
+          prf_prelatchoutput.
+<S>  New H4:  latch__islocked(prf_prelatchstate) <-> latch__prf_islocked(
+          prf_prelatchoutput)
+<S>  New H30:  (latch__prf_islocked(prf_prelatchoutput) and (not 
+          latch__prf_islocked(latch__output__2) and not latch__islocked(
+          latch__state__2) and (latch__islocked(prf_prelatchstate) <-> 
+          latch__prf_islocked(prf_prelatchoutput))) -> 
+          userentry__prf_userentryunlockdoor or admintoken__prf_isgood(
+          admintoken__state__2) and (admintoken__prf_authcertvalid(
+          admintoken__state__2) and admintoken__theauthcertrole(
+          admintoken__state__2) = privtypes__guard)) or systemfault__2
+***  Proved C12:  enclave__prf_statusiswaitingstartadminop(enclave__state__2) 
+          or enclave__prf_statusiswaitingfinishadminop(enclave__state__2) -> 
+          admin__isdoingop(theadmin__2) and admin__ispresent(theadmin__2)
+     using hypothesis H37.
+     +++  New H45:  privtypes__privileget__size >= 0
+     +++  New H46:  door__t__size >= 0
+     +++  New H47:  admin__opandnullt__size >= 0
+***  Proved C4:  (latch__prf_islocked(prf_prelatchoutput) and (not 
+          latch__prf_islocked(latch__output__2) and (latch__islocked(
+          prf_prelatchstate) <-> latch__prf_islocked(prf_prelatchoutput))) -> 
+          userentry__prf_userentryunlockdoor or admintoken__prf_isgood(
+          admintoken__state__2) and (admintoken__prf_authcertvalid(
+          admintoken__state__2) and admintoken__theauthcertrole(
+          admintoken__state__2) = privtypes__guard)) or systemfault__2
+     This was achieved by applying the inference rule main_tismain_user(1)
+     [from rulefile tismain.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H30, proved: (latch__prf_islocked(prf_prelatchoutput) and (not 
+          latch__prf_islocked(latch__output__2) and not latch__islocked(
+          latch__state__2) and (latch__islocked(prf_prelatchstate) <-> 
+          latch__prf_islocked(prf_prelatchoutput))) -> 
+          userentry__prf_userentryunlockdoor or admintoken__prf_isgood(
+          admintoken__state__2) and (admintoken__prf_authcertvalid(
+          admintoken__state__2) and admintoken__theauthcertrole(
+          admintoken__state__2) = privtypes__guard)) or systemfault__2
+     <<<  From H28, proved: (latch__islocked(latch__state__2) <-> 
+          latch__prf_islocked(latch__output__2)) or systemfault__2
+***  PROVED VC.
+
+VCN  4: Summary of user rule application.
+FIL  tismain.rlu
+RUL     main_tismain_user(1)
+CON        4
+
+
+@@@@@@@@@@  VC: procedure_tismain_5.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  (latch__prf_islocked(prf_prelatchoutput) and (not 
+          latch__prf_islocked(latch__output) and (latch__islocked(
+          prf_prelatchstate) <-> latch__prf_islocked(prf_prelatchoutput))) -> 
+          userentry__prf_userentryunlockdoor or admintoken__prf_isgood(
+          admintoken__state) and (admintoken__prf_authcertvalid(
+          admintoken__state) and admintoken__theauthcertrole(admintoken__state) 
+          = privtypes__guard)) or systemfault
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  (latch__islocked(latch__state) <-> latch__prf_islocked(
+          latch__output)) or systemfault
+%%%  Simplified C5 on reading formula in, to give:
+     %%%  C5:  latch__prf_islocked(prf_prelatchoutput) and (not 
+          latch__prf_islocked(latch__output) and (latch__islocked(
+          prf_prelatchstate) <-> latch__prf_islocked(prf_prelatchoutput))) -> 
+          userentry__prf_userentryunlockdoor or admintoken__prf_isgood(
+          admintoken__state) and (admintoken__prf_authcertvalid(
+          admintoken__state) and admintoken__theauthcertrole(admintoken__state) 
+          = privtypes__guard)
+%%%  Simplified C6 on reading formula in, to give:
+     %%%  C6:  (latch__islocked(latch__state) <-> latch__prf_islocked(
+          latch__output)) or systemfault
+***  Proved C1:  not shutdowncompleted
+     using hypothesis H1.
+***  Proved C2:  not systemfault
+     using hypothesis H17.
+***  Proved C3:  not enclave__enrolmentisinprogress(enclave__state) <-> 
+          keystore__privatekeypresent(keystore__state)
+     using hypothesis H2.
+***  Proved C4:  latch__islocked(latch__state) and (door__thecurrentdoor(
+          door__state) = door__open and clock__greaterthanorequal(
+          clock__thecurrenttime(clock__currenttime), door__prf_alarmtimeout(
+          door__state))) -> alarm__prf_isalarming(alarm__output) or systemfault
+     using hypothesis H3.
+***  Proved C6:  (latch__islocked(latch__state) <-> latch__prf_islocked(
+          latch__output)) or systemfault
+     using hypothesis H5.
+***  Proved C7:  admin__prf_rolepresent(theadmin) = privtypes__guard -> 
+          admintoken__prf_isgood(admintoken__state) and (
+          admintoken__prf_authcertvalid(admintoken__state) and 
+          admintoken__theauthcertrole(admintoken__state) = privtypes__guard)
+     using hypothesis H6.
+***  Proved C8:  admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__overridelock -> admin__prf_rolepresent(theadmin) = 
+          privtypes__guard
+     using hypothesis H7.
+***  Proved C9:  admin__prf_rolepresent(theadmin) = privtypes__guard -> 
+          admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__overridelock or not admin__isdoingop(theadmin)
+     using hypothesis H8.
+***  Proved C10:  not admin__ispresent(theadmin) -> not admin__isdoingop(
+          theadmin)
+     using hypothesis H9.
+***  Proved C11:  admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) 
+          = admin__shutdownop -> enclave__prf_statusiswaitingstartadminop(
+          enclave__state)
+     using hypothesis H10.
+***  Proved C12:  enclave__prf_statusisgotadmintoken(enclave__state) or 
+          enclave__prf_statusiswaitingremoveadmintokenfail(enclave__state) -> 
+          not admin__ispresent(theadmin)
+     using hypothesis H11.
+***  Proved C13:  enclave__prf_statusiswaitingstartadminop(enclave__state) or 
+          enclave__prf_statusiswaitingfinishadminop(enclave__state) -> 
+          admin__isdoingop(theadmin) and admin__ispresent(theadmin)
+     using hypothesis H12.
+***  Proved C14:  enclave__prf_statusisenclavequiescent(enclave__state) -> not 
+          admin__isdoingop(theadmin)
+     using hypothesis H13.
+***  Proved C15:  enclave__prf_statusisshutdown(enclave__state) -> not 
+          admin__isdoingop(theadmin) and admin__prf_rolepresent(theadmin) = 
+          privtypes__useronly
+     using hypothesis H14.
+***  Proved C16:  enclave__enrolmentisinprogress(enclave__state) -> not 
+          admin__ispresent(theadmin) and not admin__isdoingop(theadmin)
+     using hypothesis H15.
+---  Eliminated hypothesis H16 (true-hypothesis).
+---  Eliminated hypothesis H18 (true-hypothesis).
+%%%  Simplified H4 further (given H17), to give:
+     %%%  H4:  latch__prf_islocked(prf_prelatchoutput) and (not 
+          latch__prf_islocked(latch__output) and (latch__islocked(
+          prf_prelatchstate) <-> latch__prf_islocked(prf_prelatchoutput))) -> 
+          userentry__prf_userentryunlockdoor or admintoken__prf_isgood(
+          admintoken__state) and (admintoken__prf_authcertvalid(
+          admintoken__state) and admintoken__theauthcertrole(admintoken__state) 
+          = privtypes__guard)
+%%%  Simplified H5 further (given H17), to give:
+     %%%  H5:  latch__islocked(latch__state) <-> latch__prf_islocked(
+          latch__output)
+---  Eliminated hypothesis H1, which only specifies a value for 
+          shutdowncompleted.
+     This is not referred to anywhere else in the VC.
+-S-  Eliminated hypothesis H17.
+     This was achieved by replacing all occurrences of systemfault by:
+          false.
+<S>  New H3:  latch__islocked(latch__state) and (door__thecurrentdoor(
+          door__state) = door__open and clock__greaterthanorequal(
+          clock__thecurrenttime(clock__currenttime), door__prf_alarmtimeout(
+          door__state))) -> alarm__prf_isalarming(alarm__output)
+***  Proved C5:  latch__prf_islocked(prf_prelatchoutput) and (not 
+          latch__prf_islocked(latch__output) and (latch__islocked(
+          prf_prelatchstate) <-> latch__prf_islocked(prf_prelatchoutput))) -> 
+          userentry__prf_userentryunlockdoor or admintoken__prf_isgood(
+          admintoken__state) and (admintoken__prf_authcertvalid(
+          admintoken__state) and admintoken__theauthcertrole(admintoken__state) 
+          = privtypes__guard)
+     using hypothesis H4.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_tismain_6.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_tismain_7.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_tismain_8.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+OVR  Overall summary of VCs using user rules.
+FIL  tismain.rlu
+RUL     main_tismain_user(1)
+VCS        4
+

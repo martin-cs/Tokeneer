@@ -1,0 +1,87 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:26.83
+
+                           procedure Enclave.Init
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 1576:
+
+procedure_init_1.
+H1:    true .
+H2:    true .
+H3:    keystore__privatekeypresent(keystore__state) .
+        ->
+C1:    enclavequiescent >= statust__first .
+C2:    enclavequiescent <= statust__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 1578:
+
+procedure_init_2.
+H1:    true .
+H2:    true .
+H3:    not (keystore__privatekeypresent(keystore__state)) .
+        ->
+C1:    notenrolled >= statust__first .
+C2:    notenrolled <= statust__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_init_3.
+H1:    true .
+H2:    true .
+H3:    keystore__privatekeypresent(keystore__state) .
+H4:    enclavequiescent >= statust__first .
+H5:    enclavequiescent <= statust__last .
+        ->
+C1:    keystore__privatekeypresent(keystore__state) <-> (not (
+           enrolmentisinprogress(enclavequiescent))) .
+C2:    enrolmentisinprogress(enclavequiescent) or (
+           enclavequiescent = enclavequiescent) .
+ 
+
+procedure_init_4.
+H1:    true .
+H2:    true .
+H3:    not (keystore__privatekeypresent(keystore__state)) .
+H4:    notenrolled >= statust__first .
+H5:    notenrolled <= statust__last .
+        ->
+C1:    keystore__privatekeypresent(keystore__state) <-> (not (
+           enrolmentisinprogress(notenrolled))) .
+C2:    enrolmentisinprogress(notenrolled) or (notenrolled = 
+           enclavequiescent) .
+ 
+
+For checks of refinement integrity: 
+
+procedure_init_5.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_init_6.
+H1:    true .
+H2:    true .
+H3:    status = fld_status(state) .
+H4:    status >= statust__first .
+H5:    status <= statust__last .
+H6:    keystore__privatekeypresent(keystore__state) <-> (not (
+           enrolmentisinprogress(status))) .
+H7:    enrolmentisinprogress(status) or (status = 
+           enclavequiescent) .
+        ->
+C1:    keystore__privatekeypresent(keystore__state) <-> (not (
+           enclave__enrolmentisinprogress(state))) .
+C2:    enclave__enrolmentisinprogress(state) or 
+           prf_statusisenclavequiescent(state) .
+ 
+

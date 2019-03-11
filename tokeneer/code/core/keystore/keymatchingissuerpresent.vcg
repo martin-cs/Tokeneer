@@ -1,0 +1,66 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:12.37
+
+                procedure KeyStore.KeyMatchingIssuerPresent
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 615:
+
+procedure_keymatchingissuerpresent_1.
+H1:    true .
+H2:    for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           issuer), [i___1]) >= character__first) and (element(fld_name(
+           issuer), [i___1]) <= character__last))) .
+H3:    fld_namelength(issuer) >= cryptotypes__namecountt__first .
+H4:    fld_namelength(issuer) <= cryptotypes__namecountt__last .
+H5:    fld_id(issuer) >= cryptotypes__issueridt__first .
+H6:    fld_id(issuer) <= cryptotypes__issueridt__last .
+H7:    theissuerkey__1 >= basictypes__unsigned32t__first .
+H8:    theissuerkey__1 <= basictypes__unsigned32t__last .
+        ->
+C1:    theissuerkey__1 >= basictypes__unsigned32t__first .
+C2:    theissuerkey__1 <= basictypes__unsigned32t__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_keymatchingissuerpresent_2.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+For checks of refinement integrity: 
+
+procedure_keymatchingissuerpresent_3.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_keymatchingissuerpresent_4.
+H1:    true .
+H2:    true .
+H3:    keystore__interface__store = fld_keystore__interface__store(
+           store~) .
+H4:    keystore__interface__store = fld_keystore__interface__store(
+           store) .
+H5:    for_all(i___1: integer, ((i___1 >= cryptotypes__namei__first) and (
+           i___1 <= cryptotypes__namei__last)) -> ((element(fld_name(
+           issuer), [i___1]) >= character__first) and (element(fld_name(
+           issuer), [i___1]) <= character__last))) .
+H6:    fld_namelength(issuer) >= cryptotypes__namecountt__first .
+H7:    fld_namelength(issuer) <= cryptotypes__namecountt__last .
+H8:    fld_id(issuer) >= cryptotypes__issueridt__first .
+H9:    fld_id(issuer) <= cryptotypes__issueridt__last .
+H10:   true .
+H11:   true .
+        ->
+C1:    ispresent <-> prf_issuerkeynotnull(issuer, store) .
+ 
+

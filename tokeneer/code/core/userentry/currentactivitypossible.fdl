@@ -1,0 +1,31 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:24.66}
+
+                 {function UserEntry.CurrentActivityPossible}
+
+
+title function currentactivitypossible;
+
+  function round__(real) : integer;
+  type usertoken__state__type = pending;
+  type statust = (quiescent, gotusertoken, waitingfinger, 
+     gotfinger, waitingupdatetoken, waitingentry, 
+     waitingremovetokensuccess, waitingremovetokenfail);
+  const statust__base__first : statust = pending; 
+  const statust__base__last : statust = pending; 
+  const statust__first : statust = pending; 
+  const statust__last : statust = pending; 
+  const statust__size : integer = pending; 
+  var usertoken__state : usertoken__state__type;
+  var status : statust;
+  function usertoken__ispresent(usertoken__state__type) : boolean;
+  function userhasdeparted(statust, usertoken__state__type) : boolean;
+  function inprogress(statust) : boolean;
+
+end;

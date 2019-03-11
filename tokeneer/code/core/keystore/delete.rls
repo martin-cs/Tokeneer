@@ -1,0 +1,73 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:12.86*/
+
+                         /*procedure KeyStore.Delete*/
+
+
+rule_family delete_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+delete_rules(1): cryptotypes__issueridt__first <= fld_id(cryptotypes__nullissuer) may_be_deduced.
+delete_rules(2): fld_id(cryptotypes__nullissuer) <= 
+     cryptotypes__issueridt__last may_be_deduced.
+delete_rules(3): cryptotypes__namecountt__first <= fld_namelength(cryptotypes__nullissuer) may_be_deduced.
+delete_rules(4): fld_namelength(cryptotypes__nullissuer) <= 
+     cryptotypes__namecountt__last may_be_deduced.
+delete_rules(5): character__first <= element(fld_name(cryptotypes__nullissuer), [I]) may_be_deduced_from [1 <= I, I <= 40].
+delete_rules(6): element(fld_name(cryptotypes__nullissuer), [I]) <= 
+     character__last may_be_deduced_from [1 <= I, I <= 40].
+delete_rules(7): integer__size >= 0 may_be_deduced.
+delete_rules(8): integer__first may_be_replaced_by -2147483648.
+delete_rules(9): integer__last may_be_replaced_by 2147483647.
+delete_rules(10): integer__base__first may_be_replaced_by -2147483648.
+delete_rules(11): integer__base__last may_be_replaced_by 2147483647.
+delete_rules(12): character__size >= 0 may_be_deduced.
+delete_rules(13): character__first may_be_replaced_by 0.
+delete_rules(14): character__last may_be_replaced_by 255.
+delete_rules(15): character__base__first may_be_replaced_by 0.
+delete_rules(16): character__base__last may_be_replaced_by 255.
+delete_rules(17): positive__size >= 0 may_be_deduced.
+delete_rules(18): positive__first may_be_replaced_by 1.
+delete_rules(19): positive__last may_be_replaced_by 2147483647.
+delete_rules(20): positive__base__first may_be_replaced_by -2147483648.
+delete_rules(21): positive__base__last may_be_replaced_by 2147483647.
+delete_rules(22): cryptotypes__namecountt__size >= 0 may_be_deduced.
+delete_rules(23): cryptotypes__namecountt__first may_be_replaced_by 0.
+delete_rules(24): cryptotypes__namecountt__last may_be_replaced_by 40.
+delete_rules(25): cryptotypes__namecountt__base__first may_be_replaced_by -2147483648.
+delete_rules(26): cryptotypes__namecountt__base__last may_be_replaced_by 2147483647.
+delete_rules(27): cryptotypes__namei__size >= 0 may_be_deduced.
+delete_rules(28): cryptotypes__namei__first may_be_replaced_by 1.
+delete_rules(29): cryptotypes__namei__last may_be_replaced_by 40.
+delete_rules(30): cryptotypes__namei__base__first may_be_replaced_by -2147483648.
+delete_rules(31): cryptotypes__namei__base__last may_be_replaced_by 2147483647.
+delete_rules(32): cryptotypes__issueridt__size >= 0 may_be_deduced.
+delete_rules(33): cryptotypes__issueridt__first may_be_replaced_by 0.
+delete_rules(34): cryptotypes__issueridt__last may_be_replaced_by 4294967295.
+delete_rules(35): cryptotypes__issueridt__base__first <= 
+     cryptotypes__issueridt__base__last may_be_deduced.
+delete_rules(36): cryptotypes__issueridt__base__first <= 
+     cryptotypes__issueridt__first may_be_deduced.
+delete_rules(37): cryptotypes__issueridt__base__last >= 
+     cryptotypes__issueridt__last may_be_deduced.
+delete_rules(38): cryptotypes__issuert__size >= 0 may_be_deduced.
+delete_rules(39): A = B may_be_deduced_from
+     [goal(checktype(A,cryptotypes__issuert)),
+      goal(checktype(B,cryptotypes__issuert)),
+      fld_id(A) = fld_id(B),
+      fld_namelength(A) = fld_namelength(B),
+      fld_name(A) = fld_name(B)].
+delete_rules(40): optionalprivatekeyt__size >= 0 may_be_deduced.
+delete_rules(41): A = B may_be_deduced_from
+     [goal(checktype(A,optionalprivatekeyt)),
+      goal(checktype(B,optionalprivatekeyt)),
+      fld_ispresent(A) = fld_ispresent(B),
+      fld_owner(A) = fld_owner(B)].

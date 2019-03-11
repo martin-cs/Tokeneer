@@ -1,0 +1,737 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:07.76
+
+                          function Clock.PrintTime
+
+
+
+
+For path(s) from start to assertion of line 380:
+
+function_printtime_1.
+H1:    true .
+H2:    fld_millisec(thetime) >= millisecst__first .
+H3:    fld_millisec(thetime) <= millisecst__last .
+H4:    fld_day(thetime) >= dayst__first .
+H5:    fld_day(thetime) <= dayst__last .
+H6:    fld_month(thetime) >= monthst__first .
+H7:    fld_month(thetime) <= monthst__last .
+H8:    fld_year(thetime) >= yearst__first .
+H9:    fld_year(thetime) <= yearst__last .
+        ->
+C1:    timetexti__first = timetexti__first .
+C2:    timetexti__last = timetexti__last .
+C3:    fld_millisec(thetime) >= millisecst__first .
+C4:    fld_millisec(thetime) <= millisecst__last .
+C5:    fld_day(thetime) >= dayst__first .
+C6:    fld_day(thetime) <= dayst__last .
+C7:    fld_month(thetime) >= monthst__first .
+C8:    fld_month(thetime) <= monthst__last .
+C9:    fld_year(thetime) >= yearst__first .
+C10:   fld_year(thetime) <= yearst__last .
+ 
+
+For path(s) from assertion of line 380 to precondition check associated with statement of line 383:
+
+function_printtime_2.
+H1:    timetexti__first = timetexti__first .
+H2:    timetexti__last = timetexti__last .
+H3:    fld_millisec(thetime) >= millisecst__first .
+H4:    fld_millisec(thetime) <= millisecst__last .
+H5:    fld_day(thetime) >= dayst__first .
+H6:    fld_day(thetime) <= dayst__last .
+H7:    fld_month(thetime) >= monthst__first .
+H8:    fld_month(thetime) <= monthst__last .
+H9:    fld_year(thetime) >= yearst__first .
+H10:   fld_year(thetime) <= yearst__last .
+H11:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(
+           localtext, [i___1]) >= character__first) and (element(
+           localtext, [i___1]) <= character__last))) .
+        ->
+C1:    lastyearindex >= positive__first .
+C2:    lastyearindex <= positive__last .
+C3:    firstyearindex >= positive__first .
+C4:    firstyearindex <= positive__last .
+C5:    fld_year(thetime) >= natural__first .
+C6:    fld_year(thetime) <= natural__last .
+C7:    timetexti__last >= lastyearindex .
+C8:    timetexti__first <= firstyearindex .
+C9:    fld_year(thetime) >= natural__first .
+C10:   fld_year(thetime) <= natural__last .
+ 
+
+For path(s) from assertion of line 380 to precondition check associated with statement of line 388:
+
+function_printtime_3.
+H1:    timetexti__first = timetexti__first .
+H2:    timetexti__last = timetexti__last .
+H3:    fld_millisec(thetime) >= millisecst__first .
+H4:    fld_millisec(thetime) <= millisecst__last .
+H5:    fld_day(thetime) >= dayst__first .
+H6:    fld_day(thetime) <= dayst__last .
+H7:    fld_month(thetime) >= monthst__first .
+H8:    fld_month(thetime) <= monthst__last .
+H9:    fld_year(thetime) >= yearst__first .
+H10:   fld_year(thetime) <= yearst__last .
+H11:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(
+           localtext, [i___1]) >= character__first) and (element(
+           localtext, [i___1]) <= character__last))) .
+H12:   lastyearindex >= positive__first .
+H13:   lastyearindex <= positive__last .
+H14:   firstyearindex >= positive__first .
+H15:   firstyearindex <= positive__last .
+H16:   fld_year(thetime) >= natural__first .
+H17:   fld_year(thetime) <= natural__last .
+H18:   timetexti__last >= lastyearindex .
+H19:   timetexti__first <= firstyearindex .
+H20:   fld_year(thetime) >= natural__first .
+H21:   fld_year(thetime) <= natural__last .
+H22:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__1, [
+           i___1]) >= character__first) and (element(localtext__1, [
+           i___1]) <= character__last))) .
+H23:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__1, [
+           i___1]) >= character__first) and (element(localtext__1, [
+           i___1]) <= character__last))) .
+        ->
+C1:    lastmonthindex >= positive__first .
+C2:    lastmonthindex <= positive__last .
+C3:    firstmonthindex >= positive__first .
+C4:    firstmonthindex <= positive__last .
+C5:    fld_month(thetime) >= natural__first .
+C6:    fld_month(thetime) <= natural__last .
+C7:    timetexti__last >= lastmonthindex .
+C8:    timetexti__first <= firstmonthindex .
+C9:    fld_month(thetime) >= natural__first .
+C10:   fld_month(thetime) <= natural__last .
+ 
+
+For path(s) from assertion of line 380 to precondition check associated with statement of line 393:
+
+function_printtime_4.
+H1:    timetexti__first = timetexti__first .
+H2:    timetexti__last = timetexti__last .
+H3:    fld_millisec(thetime) >= millisecst__first .
+H4:    fld_millisec(thetime) <= millisecst__last .
+H5:    fld_day(thetime) >= dayst__first .
+H6:    fld_day(thetime) <= dayst__last .
+H7:    fld_month(thetime) >= monthst__first .
+H8:    fld_month(thetime) <= monthst__last .
+H9:    fld_year(thetime) >= yearst__first .
+H10:   fld_year(thetime) <= yearst__last .
+H11:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(
+           localtext, [i___1]) >= character__first) and (element(
+           localtext, [i___1]) <= character__last))) .
+H12:   lastyearindex >= positive__first .
+H13:   lastyearindex <= positive__last .
+H14:   firstyearindex >= positive__first .
+H15:   firstyearindex <= positive__last .
+H16:   fld_year(thetime) >= natural__first .
+H17:   fld_year(thetime) <= natural__last .
+H18:   timetexti__last >= lastyearindex .
+H19:   timetexti__first <= firstyearindex .
+H20:   fld_year(thetime) >= natural__first .
+H21:   fld_year(thetime) <= natural__last .
+H22:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__1, [
+           i___1]) >= character__first) and (element(localtext__1, [
+           i___1]) <= character__last))) .
+H23:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__1, [
+           i___1]) >= character__first) and (element(localtext__1, [
+           i___1]) <= character__last))) .
+H24:   lastmonthindex >= positive__first .
+H25:   lastmonthindex <= positive__last .
+H26:   firstmonthindex >= positive__first .
+H27:   firstmonthindex <= positive__last .
+H28:   fld_month(thetime) >= natural__first .
+H29:   fld_month(thetime) <= natural__last .
+H30:   timetexti__last >= lastmonthindex .
+H31:   timetexti__first <= firstmonthindex .
+H32:   fld_month(thetime) >= natural__first .
+H33:   fld_month(thetime) <= natural__last .
+H34:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__2, [
+           i___1]) >= character__first) and (element(localtext__2, [
+           i___1]) <= character__last))) .
+H35:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__2, [
+           i___1]) >= character__first) and (element(localtext__2, [
+           i___1]) <= character__last))) .
+        ->
+C1:    lastdayindex >= positive__first .
+C2:    lastdayindex <= positive__last .
+C3:    firstdayindex >= positive__first .
+C4:    firstdayindex <= positive__last .
+C5:    fld_day(thetime) >= natural__first .
+C6:    fld_day(thetime) <= natural__last .
+C7:    timetexti__last >= lastdayindex .
+C8:    timetexti__first <= firstdayindex .
+C9:    fld_day(thetime) >= natural__first .
+C10:   fld_day(thetime) <= natural__last .
+ 
+
+For path(s) from assertion of line 380 to precondition check associated with statement of line 398:
+
+function_printtime_5.
+H1:    timetexti__first = timetexti__first .
+H2:    timetexti__last = timetexti__last .
+H3:    fld_millisec(thetime) >= millisecst__first .
+H4:    fld_millisec(thetime) <= millisecst__last .
+H5:    fld_day(thetime) >= dayst__first .
+H6:    fld_day(thetime) <= dayst__last .
+H7:    fld_month(thetime) >= monthst__first .
+H8:    fld_month(thetime) <= monthst__last .
+H9:    fld_year(thetime) >= yearst__first .
+H10:   fld_year(thetime) <= yearst__last .
+H11:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(
+           localtext, [i___1]) >= character__first) and (element(
+           localtext, [i___1]) <= character__last))) .
+H12:   lastyearindex >= positive__first .
+H13:   lastyearindex <= positive__last .
+H14:   firstyearindex >= positive__first .
+H15:   firstyearindex <= positive__last .
+H16:   fld_year(thetime) >= natural__first .
+H17:   fld_year(thetime) <= natural__last .
+H18:   timetexti__last >= lastyearindex .
+H19:   timetexti__first <= firstyearindex .
+H20:   fld_year(thetime) >= natural__first .
+H21:   fld_year(thetime) <= natural__last .
+H22:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__1, [
+           i___1]) >= character__first) and (element(localtext__1, [
+           i___1]) <= character__last))) .
+H23:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__1, [
+           i___1]) >= character__first) and (element(localtext__1, [
+           i___1]) <= character__last))) .
+H24:   lastmonthindex >= positive__first .
+H25:   lastmonthindex <= positive__last .
+H26:   firstmonthindex >= positive__first .
+H27:   firstmonthindex <= positive__last .
+H28:   fld_month(thetime) >= natural__first .
+H29:   fld_month(thetime) <= natural__last .
+H30:   timetexti__last >= lastmonthindex .
+H31:   timetexti__first <= firstmonthindex .
+H32:   fld_month(thetime) >= natural__first .
+H33:   fld_month(thetime) <= natural__last .
+H34:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__2, [
+           i___1]) >= character__first) and (element(localtext__2, [
+           i___1]) <= character__last))) .
+H35:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__2, [
+           i___1]) >= character__first) and (element(localtext__2, [
+           i___1]) <= character__last))) .
+H36:   lastdayindex >= positive__first .
+H37:   lastdayindex <= positive__last .
+H38:   firstdayindex >= positive__first .
+H39:   firstdayindex <= positive__last .
+H40:   fld_day(thetime) >= natural__first .
+H41:   fld_day(thetime) <= natural__last .
+H42:   timetexti__last >= lastdayindex .
+H43:   timetexti__first <= firstdayindex .
+H44:   fld_day(thetime) >= natural__first .
+H45:   fld_day(thetime) <= natural__last .
+H46:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__3, [
+           i___1]) >= character__first) and (element(localtext__3, [
+           i___1]) <= character__last))) .
+H47:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__3, [
+           i___1]) >= character__first) and (element(localtext__3, [
+           i___1]) <= character__last))) .
+        ->
+C1:    lasthourindex >= positive__first .
+C2:    lasthourindex <= positive__last .
+C3:    firsthourindex >= positive__first .
+C4:    firsthourindex <= positive__last .
+C5:    fld_millisec(thetime) div millisecsinhr >= natural__first .
+C6:    fld_millisec(thetime) div millisecsinhr <= natural__last .
+C7:    timetexti__last >= lasthourindex .
+C8:    timetexti__first <= firsthourindex .
+C9:    fld_millisec(thetime) div millisecsinhr >= natural__first .
+C10:   fld_millisec(thetime) div millisecsinhr <= natural__last .
+C11:   fld_millisec(thetime) div millisecsinhr >= 
+           millisecst__base__first .
+C12:   fld_millisec(thetime) div millisecsinhr <= 
+           millisecst__base__last .
+C13:   millisecsinhr <> 0 .
+ 
+
+For path(s) from assertion of line 380 to precondition check associated with statement of line 403:
+
+function_printtime_6.
+H1:    timetexti__first = timetexti__first .
+H2:    timetexti__last = timetexti__last .
+H3:    fld_millisec(thetime) >= millisecst__first .
+H4:    fld_millisec(thetime) <= millisecst__last .
+H5:    fld_day(thetime) >= dayst__first .
+H6:    fld_day(thetime) <= dayst__last .
+H7:    fld_month(thetime) >= monthst__first .
+H8:    fld_month(thetime) <= monthst__last .
+H9:    fld_year(thetime) >= yearst__first .
+H10:   fld_year(thetime) <= yearst__last .
+H11:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(
+           localtext, [i___1]) >= character__first) and (element(
+           localtext, [i___1]) <= character__last))) .
+H12:   lastyearindex >= positive__first .
+H13:   lastyearindex <= positive__last .
+H14:   firstyearindex >= positive__first .
+H15:   firstyearindex <= positive__last .
+H16:   fld_year(thetime) >= natural__first .
+H17:   fld_year(thetime) <= natural__last .
+H18:   timetexti__last >= lastyearindex .
+H19:   timetexti__first <= firstyearindex .
+H20:   fld_year(thetime) >= natural__first .
+H21:   fld_year(thetime) <= natural__last .
+H22:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__1, [
+           i___1]) >= character__first) and (element(localtext__1, [
+           i___1]) <= character__last))) .
+H23:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__1, [
+           i___1]) >= character__first) and (element(localtext__1, [
+           i___1]) <= character__last))) .
+H24:   lastmonthindex >= positive__first .
+H25:   lastmonthindex <= positive__last .
+H26:   firstmonthindex >= positive__first .
+H27:   firstmonthindex <= positive__last .
+H28:   fld_month(thetime) >= natural__first .
+H29:   fld_month(thetime) <= natural__last .
+H30:   timetexti__last >= lastmonthindex .
+H31:   timetexti__first <= firstmonthindex .
+H32:   fld_month(thetime) >= natural__first .
+H33:   fld_month(thetime) <= natural__last .
+H34:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__2, [
+           i___1]) >= character__first) and (element(localtext__2, [
+           i___1]) <= character__last))) .
+H35:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__2, [
+           i___1]) >= character__first) and (element(localtext__2, [
+           i___1]) <= character__last))) .
+H36:   lastdayindex >= positive__first .
+H37:   lastdayindex <= positive__last .
+H38:   firstdayindex >= positive__first .
+H39:   firstdayindex <= positive__last .
+H40:   fld_day(thetime) >= natural__first .
+H41:   fld_day(thetime) <= natural__last .
+H42:   timetexti__last >= lastdayindex .
+H43:   timetexti__first <= firstdayindex .
+H44:   fld_day(thetime) >= natural__first .
+H45:   fld_day(thetime) <= natural__last .
+H46:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__3, [
+           i___1]) >= character__first) and (element(localtext__3, [
+           i___1]) <= character__last))) .
+H47:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__3, [
+           i___1]) >= character__first) and (element(localtext__3, [
+           i___1]) <= character__last))) .
+H48:   lasthourindex >= positive__first .
+H49:   lasthourindex <= positive__last .
+H50:   firsthourindex >= positive__first .
+H51:   firsthourindex <= positive__last .
+H52:   fld_millisec(thetime) div millisecsinhr >= natural__first .
+H53:   fld_millisec(thetime) div millisecsinhr <= natural__last .
+H54:   timetexti__last >= lasthourindex .
+H55:   timetexti__first <= firsthourindex .
+H56:   fld_millisec(thetime) div millisecsinhr >= natural__first .
+H57:   fld_millisec(thetime) div millisecsinhr <= natural__last .
+H58:   fld_millisec(thetime) div millisecsinhr >= 
+           millisecst__base__first .
+H59:   fld_millisec(thetime) div millisecsinhr <= 
+           millisecst__base__last .
+H60:   millisecsinhr <> 0 .
+H61:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__4, [
+           i___1]) >= character__first) and (element(localtext__4, [
+           i___1]) <= character__last))) .
+H62:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__4, [
+           i___1]) >= character__first) and (element(localtext__4, [
+           i___1]) <= character__last))) .
+        ->
+C1:    lastminindex >= positive__first .
+C2:    lastminindex <= positive__last .
+C3:    firstminindex >= positive__first .
+C4:    firstminindex <= positive__last .
+C5:    fld_millisec(thetime) mod millisecsinhr div 
+           millisecsinmin >= natural__first .
+C6:    fld_millisec(thetime) mod millisecsinhr div 
+           millisecsinmin <= natural__last .
+C7:    timetexti__last >= lastminindex .
+C8:    timetexti__first <= firstminindex .
+C9:    fld_millisec(thetime) mod millisecsinhr div 
+           millisecsinmin >= natural__first .
+C10:   fld_millisec(thetime) mod millisecsinhr div 
+           millisecsinmin <= natural__last .
+C11:   fld_millisec(thetime) mod millisecsinhr div 
+           millisecsinmin >= millisecst__base__first .
+C12:   fld_millisec(thetime) mod millisecsinhr div 
+           millisecsinmin <= millisecst__base__last .
+C13:   millisecsinmin <> 0 .
+C14:   fld_millisec(thetime) mod millisecsinhr >= 
+           millisecst__base__first .
+C15:   fld_millisec(thetime) mod millisecsinhr <= 
+           millisecst__base__last .
+C16:   millisecsinhr <> 0 .
+ 
+
+For path(s) from assertion of line 380 to precondition check associated with statement of line 409:
+
+function_printtime_7.
+H1:    timetexti__first = timetexti__first .
+H2:    timetexti__last = timetexti__last .
+H3:    fld_millisec(thetime) >= millisecst__first .
+H4:    fld_millisec(thetime) <= millisecst__last .
+H5:    fld_day(thetime) >= dayst__first .
+H6:    fld_day(thetime) <= dayst__last .
+H7:    fld_month(thetime) >= monthst__first .
+H8:    fld_month(thetime) <= monthst__last .
+H9:    fld_year(thetime) >= yearst__first .
+H10:   fld_year(thetime) <= yearst__last .
+H11:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(
+           localtext, [i___1]) >= character__first) and (element(
+           localtext, [i___1]) <= character__last))) .
+H12:   lastyearindex >= positive__first .
+H13:   lastyearindex <= positive__last .
+H14:   firstyearindex >= positive__first .
+H15:   firstyearindex <= positive__last .
+H16:   fld_year(thetime) >= natural__first .
+H17:   fld_year(thetime) <= natural__last .
+H18:   timetexti__last >= lastyearindex .
+H19:   timetexti__first <= firstyearindex .
+H20:   fld_year(thetime) >= natural__first .
+H21:   fld_year(thetime) <= natural__last .
+H22:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__1, [
+           i___1]) >= character__first) and (element(localtext__1, [
+           i___1]) <= character__last))) .
+H23:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__1, [
+           i___1]) >= character__first) and (element(localtext__1, [
+           i___1]) <= character__last))) .
+H24:   lastmonthindex >= positive__first .
+H25:   lastmonthindex <= positive__last .
+H26:   firstmonthindex >= positive__first .
+H27:   firstmonthindex <= positive__last .
+H28:   fld_month(thetime) >= natural__first .
+H29:   fld_month(thetime) <= natural__last .
+H30:   timetexti__last >= lastmonthindex .
+H31:   timetexti__first <= firstmonthindex .
+H32:   fld_month(thetime) >= natural__first .
+H33:   fld_month(thetime) <= natural__last .
+H34:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__2, [
+           i___1]) >= character__first) and (element(localtext__2, [
+           i___1]) <= character__last))) .
+H35:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__2, [
+           i___1]) >= character__first) and (element(localtext__2, [
+           i___1]) <= character__last))) .
+H36:   lastdayindex >= positive__first .
+H37:   lastdayindex <= positive__last .
+H38:   firstdayindex >= positive__first .
+H39:   firstdayindex <= positive__last .
+H40:   fld_day(thetime) >= natural__first .
+H41:   fld_day(thetime) <= natural__last .
+H42:   timetexti__last >= lastdayindex .
+H43:   timetexti__first <= firstdayindex .
+H44:   fld_day(thetime) >= natural__first .
+H45:   fld_day(thetime) <= natural__last .
+H46:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__3, [
+           i___1]) >= character__first) and (element(localtext__3, [
+           i___1]) <= character__last))) .
+H47:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__3, [
+           i___1]) >= character__first) and (element(localtext__3, [
+           i___1]) <= character__last))) .
+H48:   lasthourindex >= positive__first .
+H49:   lasthourindex <= positive__last .
+H50:   firsthourindex >= positive__first .
+H51:   firsthourindex <= positive__last .
+H52:   fld_millisec(thetime) div millisecsinhr >= natural__first .
+H53:   fld_millisec(thetime) div millisecsinhr <= natural__last .
+H54:   timetexti__last >= lasthourindex .
+H55:   timetexti__first <= firsthourindex .
+H56:   fld_millisec(thetime) div millisecsinhr >= natural__first .
+H57:   fld_millisec(thetime) div millisecsinhr <= natural__last .
+H58:   fld_millisec(thetime) div millisecsinhr >= 
+           millisecst__base__first .
+H59:   fld_millisec(thetime) div millisecsinhr <= 
+           millisecst__base__last .
+H60:   millisecsinhr <> 0 .
+H61:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__4, [
+           i___1]) >= character__first) and (element(localtext__4, [
+           i___1]) <= character__last))) .
+H62:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__4, [
+           i___1]) >= character__first) and (element(localtext__4, [
+           i___1]) <= character__last))) .
+H63:   lastminindex >= positive__first .
+H64:   lastminindex <= positive__last .
+H65:   firstminindex >= positive__first .
+H66:   firstminindex <= positive__last .
+H67:   fld_millisec(thetime) mod millisecsinhr div 
+           millisecsinmin >= natural__first .
+H68:   fld_millisec(thetime) mod millisecsinhr div 
+           millisecsinmin <= natural__last .
+H69:   timetexti__last >= lastminindex .
+H70:   timetexti__first <= firstminindex .
+H71:   fld_millisec(thetime) mod millisecsinhr div 
+           millisecsinmin >= natural__first .
+H72:   fld_millisec(thetime) mod millisecsinhr div 
+           millisecsinmin <= natural__last .
+H73:   fld_millisec(thetime) mod millisecsinhr div 
+           millisecsinmin >= millisecst__base__first .
+H74:   fld_millisec(thetime) mod millisecsinhr div 
+           millisecsinmin <= millisecst__base__last .
+H75:   millisecsinmin <> 0 .
+H76:   fld_millisec(thetime) mod millisecsinhr >= 
+           millisecst__base__first .
+H77:   fld_millisec(thetime) mod millisecsinhr <= 
+           millisecst__base__last .
+H78:   millisecsinhr <> 0 .
+H79:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__5, [
+           i___1]) >= character__first) and (element(localtext__5, [
+           i___1]) <= character__last))) .
+H80:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__5, [
+           i___1]) >= character__first) and (element(localtext__5, [
+           i___1]) <= character__last))) .
+        ->
+C1:    lastsecindex >= positive__first .
+C2:    lastsecindex <= positive__last .
+C3:    firstsecindex >= positive__first .
+C4:    firstsecindex <= positive__last .
+C5:    fld_millisec(thetime) mod millisecsinmin div 
+           millisecsinsec >= natural__first .
+C6:    fld_millisec(thetime) mod millisecsinmin div 
+           millisecsinsec <= natural__last .
+C7:    timetexti__last >= lastsecindex .
+C8:    timetexti__first <= firstsecindex .
+C9:    fld_millisec(thetime) mod millisecsinmin div 
+           millisecsinsec >= natural__first .
+C10:   fld_millisec(thetime) mod millisecsinmin div 
+           millisecsinsec <= natural__last .
+C11:   fld_millisec(thetime) mod millisecsinmin div 
+           millisecsinsec >= millisecst__base__first .
+C12:   fld_millisec(thetime) mod millisecsinmin div 
+           millisecsinsec <= millisecst__base__last .
+C13:   millisecsinsec <> 0 .
+C14:   fld_millisec(thetime) mod millisecsinmin >= 
+           millisecst__base__first .
+C15:   fld_millisec(thetime) mod millisecsinmin <= 
+           millisecst__base__last .
+C16:   millisecsinmin <> 0 .
+ 
+
+For path(s) from assertion of line 380 to precondition check associated with statement of line 415:
+
+function_printtime_8.
+H1:    timetexti__first = timetexti__first .
+H2:    timetexti__last = timetexti__last .
+H3:    fld_millisec(thetime) >= millisecst__first .
+H4:    fld_millisec(thetime) <= millisecst__last .
+H5:    fld_day(thetime) >= dayst__first .
+H6:    fld_day(thetime) <= dayst__last .
+H7:    fld_month(thetime) >= monthst__first .
+H8:    fld_month(thetime) <= monthst__last .
+H9:    fld_year(thetime) >= yearst__first .
+H10:   fld_year(thetime) <= yearst__last .
+H11:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(
+           localtext, [i___1]) >= character__first) and (element(
+           localtext, [i___1]) <= character__last))) .
+H12:   lastyearindex >= positive__first .
+H13:   lastyearindex <= positive__last .
+H14:   firstyearindex >= positive__first .
+H15:   firstyearindex <= positive__last .
+H16:   fld_year(thetime) >= natural__first .
+H17:   fld_year(thetime) <= natural__last .
+H18:   timetexti__last >= lastyearindex .
+H19:   timetexti__first <= firstyearindex .
+H20:   fld_year(thetime) >= natural__first .
+H21:   fld_year(thetime) <= natural__last .
+H22:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__1, [
+           i___1]) >= character__first) and (element(localtext__1, [
+           i___1]) <= character__last))) .
+H23:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__1, [
+           i___1]) >= character__first) and (element(localtext__1, [
+           i___1]) <= character__last))) .
+H24:   lastmonthindex >= positive__first .
+H25:   lastmonthindex <= positive__last .
+H26:   firstmonthindex >= positive__first .
+H27:   firstmonthindex <= positive__last .
+H28:   fld_month(thetime) >= natural__first .
+H29:   fld_month(thetime) <= natural__last .
+H30:   timetexti__last >= lastmonthindex .
+H31:   timetexti__first <= firstmonthindex .
+H32:   fld_month(thetime) >= natural__first .
+H33:   fld_month(thetime) <= natural__last .
+H34:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__2, [
+           i___1]) >= character__first) and (element(localtext__2, [
+           i___1]) <= character__last))) .
+H35:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__2, [
+           i___1]) >= character__first) and (element(localtext__2, [
+           i___1]) <= character__last))) .
+H36:   lastdayindex >= positive__first .
+H37:   lastdayindex <= positive__last .
+H38:   firstdayindex >= positive__first .
+H39:   firstdayindex <= positive__last .
+H40:   fld_day(thetime) >= natural__first .
+H41:   fld_day(thetime) <= natural__last .
+H42:   timetexti__last >= lastdayindex .
+H43:   timetexti__first <= firstdayindex .
+H44:   fld_day(thetime) >= natural__first .
+H45:   fld_day(thetime) <= natural__last .
+H46:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__3, [
+           i___1]) >= character__first) and (element(localtext__3, [
+           i___1]) <= character__last))) .
+H47:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__3, [
+           i___1]) >= character__first) and (element(localtext__3, [
+           i___1]) <= character__last))) .
+H48:   lasthourindex >= positive__first .
+H49:   lasthourindex <= positive__last .
+H50:   firsthourindex >= positive__first .
+H51:   firsthourindex <= positive__last .
+H52:   fld_millisec(thetime) div millisecsinhr >= natural__first .
+H53:   fld_millisec(thetime) div millisecsinhr <= natural__last .
+H54:   timetexti__last >= lasthourindex .
+H55:   timetexti__first <= firsthourindex .
+H56:   fld_millisec(thetime) div millisecsinhr >= natural__first .
+H57:   fld_millisec(thetime) div millisecsinhr <= natural__last .
+H58:   fld_millisec(thetime) div millisecsinhr >= 
+           millisecst__base__first .
+H59:   fld_millisec(thetime) div millisecsinhr <= 
+           millisecst__base__last .
+H60:   millisecsinhr <> 0 .
+H61:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__4, [
+           i___1]) >= character__first) and (element(localtext__4, [
+           i___1]) <= character__last))) .
+H62:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__4, [
+           i___1]) >= character__first) and (element(localtext__4, [
+           i___1]) <= character__last))) .
+H63:   lastminindex >= positive__first .
+H64:   lastminindex <= positive__last .
+H65:   firstminindex >= positive__first .
+H66:   firstminindex <= positive__last .
+H67:   fld_millisec(thetime) mod millisecsinhr div 
+           millisecsinmin >= natural__first .
+H68:   fld_millisec(thetime) mod millisecsinhr div 
+           millisecsinmin <= natural__last .
+H69:   timetexti__last >= lastminindex .
+H70:   timetexti__first <= firstminindex .
+H71:   fld_millisec(thetime) mod millisecsinhr div 
+           millisecsinmin >= natural__first .
+H72:   fld_millisec(thetime) mod millisecsinhr div 
+           millisecsinmin <= natural__last .
+H73:   fld_millisec(thetime) mod millisecsinhr div 
+           millisecsinmin >= millisecst__base__first .
+H74:   fld_millisec(thetime) mod millisecsinhr div 
+           millisecsinmin <= millisecst__base__last .
+H75:   millisecsinmin <> 0 .
+H76:   fld_millisec(thetime) mod millisecsinhr >= 
+           millisecst__base__first .
+H77:   fld_millisec(thetime) mod millisecsinhr <= 
+           millisecst__base__last .
+H78:   millisecsinhr <> 0 .
+H79:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__5, [
+           i___1]) >= character__first) and (element(localtext__5, [
+           i___1]) <= character__last))) .
+H80:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__5, [
+           i___1]) >= character__first) and (element(localtext__5, [
+           i___1]) <= character__last))) .
+H81:   lastsecindex >= positive__first .
+H82:   lastsecindex <= positive__last .
+H83:   firstsecindex >= positive__first .
+H84:   firstsecindex <= positive__last .
+H85:   fld_millisec(thetime) mod millisecsinmin div 
+           millisecsinsec >= natural__first .
+H86:   fld_millisec(thetime) mod millisecsinmin div 
+           millisecsinsec <= natural__last .
+H87:   timetexti__last >= lastsecindex .
+H88:   timetexti__first <= firstsecindex .
+H89:   fld_millisec(thetime) mod millisecsinmin div 
+           millisecsinsec >= natural__first .
+H90:   fld_millisec(thetime) mod millisecsinmin div 
+           millisecsinsec <= natural__last .
+H91:   fld_millisec(thetime) mod millisecsinmin div 
+           millisecsinsec >= millisecst__base__first .
+H92:   fld_millisec(thetime) mod millisecsinmin div 
+           millisecsinsec <= millisecst__base__last .
+H93:   millisecsinsec <> 0 .
+H94:   fld_millisec(thetime) mod millisecsinmin >= 
+           millisecst__base__first .
+H95:   fld_millisec(thetime) mod millisecsinmin <= 
+           millisecst__base__last .
+H96:   millisecsinmin <> 0 .
+H97:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__6, [
+           i___1]) >= character__first) and (element(localtext__6, [
+           i___1]) <= character__last))) .
+H98:   for_all(i___1: integer, ((i___1 >= timetexti__first) and (
+           i___1 <= timetexti__last)) -> ((element(localtext__6, [
+           i___1]) >= character__first) and (element(localtext__6, [
+           i___1]) <= character__last))) .
+        ->
+C1:    tenthsecindex >= positive__first .
+C2:    tenthsecindex <= positive__last .
+C3:    tenthsecindex >= positive__first .
+C4:    tenthsecindex <= positive__last .
+C5:    fld_millisec(thetime) mod millisecsinsec div 
+           millisecsintenthsec >= natural__first .
+C6:    fld_millisec(thetime) mod millisecsinsec div 
+           millisecsintenthsec <= natural__last .
+C7:    timetexti__last >= tenthsecindex .
+C8:    timetexti__first <= tenthsecindex .
+C9:    fld_millisec(thetime) mod millisecsinsec div 
+           millisecsintenthsec >= natural__first .
+C10:   fld_millisec(thetime) mod millisecsinsec div 
+           millisecsintenthsec <= natural__last .
+C11:   fld_millisec(thetime) mod millisecsinsec div 
+           millisecsintenthsec >= millisecst__base__first .
+C12:   fld_millisec(thetime) mod millisecsinsec div 
+           millisecsintenthsec <= millisecst__base__last .
+C13:   millisecsintenthsec <> 0 .
+C14:   fld_millisec(thetime) mod millisecsinsec >= 
+           millisecst__base__first .
+C15:   fld_millisec(thetime) mod millisecsinsec <= 
+           millisecst__base__last .
+C16:   millisecsinsec <> 0 .
+ 
+
+For path(s) from assertion of line 380 to finish:
+
+function_printtime_9.
+*** true .          /* trivially true VC removed by Examiner */
+
+

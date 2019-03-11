@@ -1,0 +1,133 @@
+           *******************************************************
+                            Listing of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:16.27
+
+Line
+   1  ------------------------------------------------------------------
+   2  -- Tokeneer ID Station Core Software
+   3  --
+   4  -- Copyright (2003) United States Government, as represented
+   5  -- by the Director, National Security Agency. All rights reserved.
+   6  --
+   7  -- This material was originally developed by Praxis High Integrity
+   8  -- Systems Ltd. under contract to the National Security Agency.
+   9  ------------------------------------------------------------------
+  10  
+  11  ------------------------------------------------------------------
+  12  -- Keyboard
+  13  --
+  14  -- Implementation Notes:
+  15  --    None.
+  16  --
+  17  ------------------------------------------------------------------
+  18  
+  19  with Keyboard.Interface;
+  20  with BasicTypes;
+  21  use type BasicTypes.PresenceT;
+  22  
+  23  package body Keyboard
+  24  --# own Input is in Keyboard.Interface.Input;
+  25  is
+  26  
+  27     ------------------------------------------------------------------
+  28     -- Init
+  29     --
+  30     -- Implementation Notes:
+  31     --   None.
+  32     ------------------------------------------------------------------
+  33  
+  34     procedure Init
+  35     --# global in Interface.Input;
+  36     --# derives null from Interface.Input;
+  37     is
+  38     begin
+  39        Interface.Init;
+  40     end Init;
+
++++        Flow analysis of subprogram Init performed: no 
+           errors found.
+
+  41  
+  42     ------------------------------------------------------------------
+  43     -- Finalise
+  44     --
+  45     -- Implementation Notes:
+  46     --   None.
+  47     ------------------------------------------------------------------
+  48  
+  49     procedure Finalise
+  50     --# global in Interface.Input;
+  51     --# derives null from Interface.Input;
+  52     is
+  53     begin
+  54        Interface.Finalise;
+  55     end Finalise;
+
++++        Flow analysis of subprogram Finalise performed: 
+           no errors found.
+
+  56  
+  57  
+  58     ------------------------------------------------------------------
+  59     -- Read
+  60     --
+  61     -- Implementation Notes:
+  62     --   None.
+  63     ------------------------------------------------------------------
+  64  
+  65     procedure Read
+  66       (DataPresence :    out BasicTypes.PresenceT;
+  67        Data         :    out DataT )
+  68     --# global in Interface.Input;
+  69     --# derives DataPresence,
+  70     --#         Data         from Interface.Input;
+  71     is
+  72        LocalData : DataTextT;
+  73        LocalLength : DataLengthT;
+  74  
+  75     begin
+  76  
+  77        Interface.ReadKeyboardData(KeyedDataPresence => DataPresence,
+  78                                   KeyedData         => LocalData,
+  79                                   KeyedDataLength   => LocalLength);
+  80  
+  81        Data := DataT'(Length => LocalLength,
+  82                       Text   => LocalData);
+  83  
+  84     end Read;
+
++++        Flow analysis of subprogram Read performed: no 
+           errors found.
+
+  85  
+  86     ------------------------------------------------------------------
+  87     -- Poll
+  88     --
+  89     -- Implementation Notes:
+  90     --   None.
+  91     ------------------------------------------------------------------
+  92     procedure Poll
+  93     --# global in Interface.Input;
+  94     --# derives null from Interface.Input;
+  95     is
+  96     begin
+  97        Interface.Poll;
+  98     end Poll;
+
++++        Flow analysis of subprogram Poll performed: no 
+           errors found.
+
+  99  
+ 100  
+ 101  end Keyboard;
+14 summarized warning(s), comprising:
+    14 use(s) of Ada2005 reserved words
+
+
+
+--End of file--------------------------------------------------

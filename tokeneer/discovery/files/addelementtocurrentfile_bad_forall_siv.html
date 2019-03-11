@@ -1,0 +1,101 @@
+<pre>
+     1	*****************************************************************************
+     2	                       Semantic Analysis of SPARK Text
+     3	 SPARK Examiner Pro Edition, Version 8.1.0, Build Date 20090416, Build 13003
+     4	      Copyright (C) 2009 Praxis High Integrity Systems Ltd., Bath, U.K.
+     5	*****************************************************************************
+     6	
+     7	
+     8	CREATED 08-MAY-2009, 15:17:41  SIMPLIFIED 08-MAY-2009, 15:18:05
+     9	
+    10	SPARK Simplifier Pro Edition, Version 8.1.0, Build Date 20090424, Build 
+    11	Copyright (C) 2009 Praxis High Integrity Systems Ltd., Bath, U.K.
+    12	
+    13	procedure AuditLog.AddElementToLogFile.AddElementToCurrentFile
+    14	
+    15	
+    16	
+    17	
+    18	For path(s) from start to run-time check associated with statement of line 783:
+    19	
+    20	procedure_addelementtocurrentfile_1.
+    21	*** true .          /* all conclusions proved */
+    22	
+    23	
+    24	For path(s) from start to run-time check associated with statement of line 784:
+    25	
+    26	procedure_addelementtocurrentfile_2.
+    27	*** true .          /* all conclusions proved */
+    28	
+    29	
+    30	For path(s) from start to run-time check associated with statement of line 790:
+    31	
+    32	procedure_addelementtocurrentfile_3.
+    33	*** true .          /* all conclusions proved */
+    34	
+    35	
+    36	For path(s) from start to run-time check associated with statement of line 792:
+    37	
+    38	procedure_addelementtocurrentfile_4.
+    39	*** true .          /* all conclusions proved */
+    40	
+    41	
+    42	For path(s) from start to run-time check associated with statement of line 794:
+    43	
+    44	procedure_addelementtocurrentfile_5.
+    45	*** true .          /* all conclusions proved */
+    46	
+    47	
+    48	For path(s) from start to finish:
+    49	
+    50	procedure_addelementtocurrentfile_6.
+    51	H1:    element(logfileentries, [currentlogfile]) < 1024 .
+    52	H2:    audittypes__startunenrolledtis <= elementid .
+    53	H3:    elementid <= audittypes__systemfault .
+    54	H4:    audittypes__information <= severity .
+    55	H5:    severity <= audittypes__critical .
+    56	H6:    for_all(i___1 : integer, 1 <= i___1 and i___1 <= 50 -> 0 <= element(
+    57	          user, [i___1]) and element(user, [i___1]) <= 255) .
+    58	H7:    for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= element(
+    59	          description, [i___1]) and element(description, [i___1]) <= 255) .
+    60	H8:    1 < currentlogfile .
+    61	H9:    currentlogfile <= 17 .
+    62	H10:   for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> 0 <= element(
+    63	          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 1024)
+    64	           .
+    65	H11:   element(logfileentries, [currentlogfile]) >= - 1 .
+    66	H12:   integer__size >= 0 .
+    67	H13:   character__size >= 0 .
+    68	H14:   positive__size >= 0 .
+    69	H15:   audittypes__elementt__size >= 0 .
+    70	H16:   audittypes__severityt__size >= 0 .
+    71	H17:   audittypes__descriptioni__size >= 0 .
+    72	H18:   audittypes__usertexti__size >= 0 .
+    73	H19:   logfilecountt__size >= 0 .
+    74	H20:   logfilecountt__base__first <= logfilecountt__base__last .
+    75	H21:   logfileindext__size >= 0 .
+    76	H22:   logfileindext__base__first <= logfileindext__base__last .
+    77	H23:   logentrycountt__size >= 0 .
+    78	H24:   logentrycountt__base__first <= logentrycountt__base__last .
+    79	H25:   fileentrycountt__size >= 0 .
+    80	H26:   fileentrycountt__base__first <= fileentrycountt__base__last .
+    81	H27:   logfilecountt__base__first <= 0 .
+    82	H28:   logfilecountt__base__last >= 17 .
+    83	H29:   logfileindext__base__first <= 1 .
+    84	H30:   logfileindext__base__last >= 17 .
+    85	H31:   logentrycountt__base__first <= 0 .
+    86	H32:   logentrycountt__base__last >= 17408 .
+    87	H33:   fileentrycountt__base__first <= 0 .
+    88	H34:   fileentrycountt__base__last >= 1024 .
+    89	       ->
+    90	C1:    for_all(i_ : integer, 1 <= i_ and i_ <= 17 and i_ <> currentlogfile -> 
+    91	          element(update(update(logfileentries, [currentlogfile], element(
+    92	          logfileentries, [currentlogfile]) + 1), [1], 10), [i_]) = element(
+    93	          logfileentries, [i_])) .
+    94	
+    95	
+    96	procedure_addelementtocurrentfile_7.
+    97	*** true .          /* all conclusions proved */
+    98	
+    99	
+</pre>

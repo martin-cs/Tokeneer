@@ -1,0 +1,295 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:26.35*/
+
+                    /*procedure Enclave.UpdateConfigDataOp*/
+
+
+rule_family updateconfig_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+updateconfig_rules(1): privtypes__privileget__size >= 0 may_be_deduced.
+updateconfig_rules(2): privtypes__privileget__first may_be_replaced_by privtypes__useronly.
+updateconfig_rules(3): privtypes__privileget__last may_be_replaced_by privtypes__securityofficer.
+updateconfig_rules(4): privtypes__privileget__base__first may_be_replaced_by privtypes__useronly.
+updateconfig_rules(5): privtypes__privileget__base__last may_be_replaced_by privtypes__securityofficer.
+updateconfig_rules(6): privtypes__privileget__pos(
+     privtypes__privileget__first) may_be_replaced_by 0.
+updateconfig_rules(7): privtypes__privileget__pos(
+     privtypes__useronly) may_be_replaced_by 0.
+updateconfig_rules(8): privtypes__privileget__val(0) may_be_replaced_by 
+     privtypes__useronly.
+updateconfig_rules(9): privtypes__privileget__pos(
+     privtypes__guard) may_be_replaced_by 1.
+updateconfig_rules(10): privtypes__privileget__val(1) may_be_replaced_by 
+     privtypes__guard.
+updateconfig_rules(11): privtypes__privileget__pos(
+     privtypes__auditmanager) may_be_replaced_by 2.
+updateconfig_rules(12): privtypes__privileget__val(2) may_be_replaced_by 
+     privtypes__auditmanager.
+updateconfig_rules(13): privtypes__privileget__pos(
+     privtypes__securityofficer) may_be_replaced_by 3.
+updateconfig_rules(14): privtypes__privileget__val(3) may_be_replaced_by 
+     privtypes__securityofficer.
+updateconfig_rules(15): privtypes__privileget__pos(
+     privtypes__privileget__last) may_be_replaced_by 3.
+updateconfig_rules(16): privtypes__privileget__pos(succ(X)) may_be_replaced_by 
+     privtypes__privileget__pos(X) + 1
+     if [X <=privtypes__securityofficer, X <> 
+     privtypes__securityofficer].
+updateconfig_rules(17): privtypes__privileget__pos(pred(X)) may_be_replaced_by 
+     privtypes__privileget__pos(X) - 1
+     if [X >=privtypes__useronly, X <> privtypes__useronly].
+updateconfig_rules(18): privtypes__privileget__pos(X) >= 0 may_be_deduced_from
+     [privtypes__useronly <= X, X <= privtypes__securityofficer].
+updateconfig_rules(19): privtypes__privileget__pos(X) <= 3 may_be_deduced_from
+     [privtypes__useronly <= X, X <= privtypes__securityofficer].
+updateconfig_rules(20): privtypes__privileget__val(X) >= 
+     privtypes__useronly may_be_deduced_from
+     [0 <= X, X <= 3].
+updateconfig_rules(21): privtypes__privileget__val(X) <= 
+     privtypes__securityofficer may_be_deduced_from
+     [0 <= X, X <= 3].
+updateconfig_rules(22): succ(privtypes__privileget__val(X)) may_be_replaced_by 
+     privtypes__privileget__val(X+1)
+     if [0 <= X, X < 3].
+updateconfig_rules(23): pred(privtypes__privileget__val(X)) may_be_replaced_by 
+     privtypes__privileget__val(X-1)
+     if [0 < X, X <= 3].
+updateconfig_rules(24): privtypes__privileget__pos(
+     privtypes__privileget__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 3].
+updateconfig_rules(25): privtypes__privileget__val(
+     privtypes__privileget__pos(X)) may_be_replaced_by X
+     if [privtypes__useronly <= X, X <= 
+     privtypes__securityofficer].
+updateconfig_rules(26): privtypes__privileget__pos(X) <= 
+     privtypes__privileget__pos(Y) & X <= Y are_interchangeable 
+     if [privtypes__useronly <= X, X <= 
+     privtypes__securityofficer, privtypes__useronly <= Y, Y <= 
+     privtypes__securityofficer].
+updateconfig_rules(27): privtypes__privileget__val(X) <= 
+     privtypes__privileget__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 3, 0 <= Y, Y <= 3].
+updateconfig_rules(28): admin__opandnullt__size >= 0 may_be_deduced.
+updateconfig_rules(29): admin__opandnullt__first may_be_replaced_by admin__nullop.
+updateconfig_rules(30): admin__opandnullt__last may_be_replaced_by admin__shutdownop.
+updateconfig_rules(31): admin__opandnullt__base__first may_be_replaced_by admin__nullop.
+updateconfig_rules(32): admin__opandnullt__base__last may_be_replaced_by admin__shutdownop.
+updateconfig_rules(33): admin__opandnullt__pos(admin__opandnullt__first) may_be_replaced_by 0.
+updateconfig_rules(34): admin__opandnullt__pos(admin__nullop) may_be_replaced_by 0.
+updateconfig_rules(35): admin__opandnullt__val(0) may_be_replaced_by 
+     admin__nullop.
+updateconfig_rules(36): admin__opandnullt__pos(admin__archivelog) may_be_replaced_by 1.
+updateconfig_rules(37): admin__opandnullt__val(1) may_be_replaced_by 
+     admin__archivelog.
+updateconfig_rules(38): admin__opandnullt__pos(
+     admin__updateconfigdata) may_be_replaced_by 2.
+updateconfig_rules(39): admin__opandnullt__val(2) may_be_replaced_by 
+     admin__updateconfigdata.
+updateconfig_rules(40): admin__opandnullt__pos(
+     admin__overridelock) may_be_replaced_by 3.
+updateconfig_rules(41): admin__opandnullt__val(3) may_be_replaced_by 
+     admin__overridelock.
+updateconfig_rules(42): admin__opandnullt__pos(admin__shutdownop) may_be_replaced_by 4.
+updateconfig_rules(43): admin__opandnullt__val(4) may_be_replaced_by 
+     admin__shutdownop.
+updateconfig_rules(44): admin__opandnullt__pos(admin__opandnullt__last) may_be_replaced_by 4.
+updateconfig_rules(45): admin__opandnullt__pos(succ(X)) may_be_replaced_by 
+     admin__opandnullt__pos(X) + 1
+     if [X <=admin__shutdownop, X <> admin__shutdownop].
+updateconfig_rules(46): admin__opandnullt__pos(pred(X)) may_be_replaced_by 
+     admin__opandnullt__pos(X) - 1
+     if [X >=admin__nullop, X <> admin__nullop].
+updateconfig_rules(47): admin__opandnullt__pos(X) >= 0 may_be_deduced_from
+     [admin__nullop <= X, X <= admin__shutdownop].
+updateconfig_rules(48): admin__opandnullt__pos(X) <= 4 may_be_deduced_from
+     [admin__nullop <= X, X <= admin__shutdownop].
+updateconfig_rules(49): admin__opandnullt__val(X) >= 
+     admin__nullop may_be_deduced_from
+     [0 <= X, X <= 4].
+updateconfig_rules(50): admin__opandnullt__val(X) <= 
+     admin__shutdownop may_be_deduced_from
+     [0 <= X, X <= 4].
+updateconfig_rules(51): succ(admin__opandnullt__val(X)) may_be_replaced_by 
+     admin__opandnullt__val(X+1)
+     if [0 <= X, X < 4].
+updateconfig_rules(52): pred(admin__opandnullt__val(X)) may_be_replaced_by 
+     admin__opandnullt__val(X-1)
+     if [0 < X, X <= 4].
+updateconfig_rules(53): admin__opandnullt__pos(admin__opandnullt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 4].
+updateconfig_rules(54): admin__opandnullt__val(admin__opandnullt__pos(X)) may_be_replaced_by X
+     if [admin__nullop <= X, X <= admin__shutdownop].
+updateconfig_rules(55): admin__opandnullt__pos(X) <= 
+     admin__opandnullt__pos(Y) & X <= Y are_interchangeable 
+     if [admin__nullop <= X, X <= admin__shutdownop, 
+     admin__nullop <= Y, Y <= admin__shutdownop].
+updateconfig_rules(56): admin__opandnullt__val(X) <= 
+     admin__opandnullt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 4, 0 <= Y, Y <= 4].
+updateconfig_rules(57): screen__msgtextt__size >= 0 may_be_deduced.
+updateconfig_rules(58): screen__msgtextt__first may_be_replaced_by screen__clear.
+updateconfig_rules(59): screen__msgtextt__last may_be_replaced_by screen__insertconfigdata.
+updateconfig_rules(60): screen__msgtextt__base__first may_be_replaced_by screen__clear.
+updateconfig_rules(61): screen__msgtextt__base__last may_be_replaced_by screen__insertconfigdata.
+updateconfig_rules(62): screen__msgtextt__pos(screen__msgtextt__first) may_be_replaced_by 0.
+updateconfig_rules(63): screen__msgtextt__pos(screen__clear) may_be_replaced_by 0.
+updateconfig_rules(64): screen__msgtextt__val(0) may_be_replaced_by 
+     screen__clear.
+updateconfig_rules(65): screen__msgtextt__pos(
+     screen__welcomeadmin) may_be_replaced_by 1.
+updateconfig_rules(66): screen__msgtextt__val(1) may_be_replaced_by 
+     screen__welcomeadmin.
+updateconfig_rules(67): screen__msgtextt__pos(screen__busy) may_be_replaced_by 2.
+updateconfig_rules(68): screen__msgtextt__val(2) may_be_replaced_by 
+     screen__busy.
+updateconfig_rules(69): screen__msgtextt__pos(
+     screen__removeadmintoken) may_be_replaced_by 3.
+updateconfig_rules(70): screen__msgtextt__val(3) may_be_replaced_by 
+     screen__removeadmintoken.
+updateconfig_rules(71): screen__msgtextt__pos(screen__closedoor) may_be_replaced_by 4.
+updateconfig_rules(72): screen__msgtextt__val(4) may_be_replaced_by 
+     screen__closedoor.
+updateconfig_rules(73): screen__msgtextt__pos(
+     screen__requestadminop) may_be_replaced_by 5.
+updateconfig_rules(74): screen__msgtextt__val(5) may_be_replaced_by 
+     screen__requestadminop.
+updateconfig_rules(75): screen__msgtextt__pos(screen__doingop) may_be_replaced_by 6.
+updateconfig_rules(76): screen__msgtextt__val(6) may_be_replaced_by 
+     screen__doingop.
+updateconfig_rules(77): screen__msgtextt__pos(
+     screen__invalidrequest) may_be_replaced_by 7.
+updateconfig_rules(78): screen__msgtextt__val(7) may_be_replaced_by 
+     screen__invalidrequest.
+updateconfig_rules(79): screen__msgtextt__pos(screen__invaliddata) may_be_replaced_by 8.
+updateconfig_rules(80): screen__msgtextt__val(8) may_be_replaced_by 
+     screen__invaliddata.
+updateconfig_rules(81): screen__msgtextt__pos(
+     screen__archivefailed) may_be_replaced_by 9.
+updateconfig_rules(82): screen__msgtextt__val(9) may_be_replaced_by 
+     screen__archivefailed.
+updateconfig_rules(83): screen__msgtextt__pos(
+     screen__insertenrolmentdata) may_be_replaced_by 10.
+updateconfig_rules(84): screen__msgtextt__val(10) may_be_replaced_by 
+     screen__insertenrolmentdata.
+updateconfig_rules(85): screen__msgtextt__pos(
+     screen__validatingenrolmentdata) may_be_replaced_by 11.
+updateconfig_rules(86): screen__msgtextt__val(11) may_be_replaced_by 
+     screen__validatingenrolmentdata.
+updateconfig_rules(87): screen__msgtextt__pos(
+     screen__enrolmentfailed) may_be_replaced_by 12.
+updateconfig_rules(88): screen__msgtextt__val(12) may_be_replaced_by 
+     screen__enrolmentfailed.
+updateconfig_rules(89): screen__msgtextt__pos(
+     screen__insertblankfloppy) may_be_replaced_by 13.
+updateconfig_rules(90): screen__msgtextt__val(13) may_be_replaced_by 
+     screen__insertblankfloppy.
+updateconfig_rules(91): screen__msgtextt__pos(
+     screen__insertconfigdata) may_be_replaced_by 14.
+updateconfig_rules(92): screen__msgtextt__val(14) may_be_replaced_by 
+     screen__insertconfigdata.
+updateconfig_rules(93): screen__msgtextt__pos(screen__msgtextt__last) may_be_replaced_by 14.
+updateconfig_rules(94): screen__msgtextt__pos(succ(X)) may_be_replaced_by 
+     screen__msgtextt__pos(X) + 1
+     if [X <=screen__insertconfigdata, X <> 
+     screen__insertconfigdata].
+updateconfig_rules(95): screen__msgtextt__pos(pred(X)) may_be_replaced_by 
+     screen__msgtextt__pos(X) - 1
+     if [X >=screen__clear, X <> screen__clear].
+updateconfig_rules(96): screen__msgtextt__pos(X) >= 0 may_be_deduced_from
+     [screen__clear <= X, X <= screen__insertconfigdata].
+updateconfig_rules(97): screen__msgtextt__pos(X) <= 14 may_be_deduced_from
+     [screen__clear <= X, X <= screen__insertconfigdata].
+updateconfig_rules(98): screen__msgtextt__val(X) >= screen__clear may_be_deduced_from
+     [0 <= X, X <= 14].
+updateconfig_rules(99): screen__msgtextt__val(X) <= 
+     screen__insertconfigdata may_be_deduced_from
+     [0 <= X, X <= 14].
+updateconfig_rules(100): succ(screen__msgtextt__val(X)) may_be_replaced_by 
+     screen__msgtextt__val(X+1)
+     if [0 <= X, X < 14].
+updateconfig_rules(101): pred(screen__msgtextt__val(X)) may_be_replaced_by 
+     screen__msgtextt__val(X-1)
+     if [0 < X, X <= 14].
+updateconfig_rules(102): screen__msgtextt__pos(screen__msgtextt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 14].
+updateconfig_rules(103): screen__msgtextt__val(screen__msgtextt__pos(X)) may_be_replaced_by X
+     if [screen__clear <= X, X <= screen__insertconfigdata].
+updateconfig_rules(104): screen__msgtextt__pos(X) <= 
+     screen__msgtextt__pos(Y) & X <= Y are_interchangeable 
+     if [screen__clear <= X, X <= screen__insertconfigdata, 
+     screen__clear <= Y, Y <= screen__insertconfigdata].
+updateconfig_rules(105): screen__msgtextt__val(X) <= 
+     screen__msgtextt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 14, 0 <= Y, Y <= 14].
+updateconfig_rules(106): statust__size >= 0 may_be_deduced.
+updateconfig_rules(107): statust__first may_be_replaced_by notenrolled.
+updateconfig_rules(108): statust__last may_be_replaced_by shutdown.
+updateconfig_rules(109): statust__base__first may_be_replaced_by notenrolled.
+updateconfig_rules(110): statust__base__last may_be_replaced_by shutdown.
+updateconfig_rules(111): statust__pos(statust__first) may_be_replaced_by 0.
+updateconfig_rules(112): statust__pos(notenrolled) may_be_replaced_by 0.
+updateconfig_rules(113): statust__val(0) may_be_replaced_by 
+     notenrolled.
+updateconfig_rules(114): statust__pos(waitingenrol) may_be_replaced_by 1.
+updateconfig_rules(115): statust__val(1) may_be_replaced_by 
+     waitingenrol.
+updateconfig_rules(116): statust__pos(waitingendenrol) may_be_replaced_by 2.
+updateconfig_rules(117): statust__val(2) may_be_replaced_by 
+     waitingendenrol.
+updateconfig_rules(118): statust__pos(enclavequiescent) may_be_replaced_by 3.
+updateconfig_rules(119): statust__val(3) may_be_replaced_by 
+     enclavequiescent.
+updateconfig_rules(120): statust__pos(waitingremoveadmintokenfail) may_be_replaced_by 4.
+updateconfig_rules(121): statust__val(4) may_be_replaced_by 
+     waitingremoveadmintokenfail.
+updateconfig_rules(122): statust__pos(gotadmintoken) may_be_replaced_by 5.
+updateconfig_rules(123): statust__val(5) may_be_replaced_by 
+     gotadmintoken.
+updateconfig_rules(124): statust__pos(waitingstartadminop) may_be_replaced_by 6.
+updateconfig_rules(125): statust__val(6) may_be_replaced_by 
+     waitingstartadminop.
+updateconfig_rules(126): statust__pos(waitingfinishadminop) may_be_replaced_by 7.
+updateconfig_rules(127): statust__val(7) may_be_replaced_by 
+     waitingfinishadminop.
+updateconfig_rules(128): statust__pos(shutdown) may_be_replaced_by 8.
+updateconfig_rules(129): statust__val(8) may_be_replaced_by 
+     shutdown.
+updateconfig_rules(130): statust__pos(statust__last) may_be_replaced_by 8.
+updateconfig_rules(131): statust__pos(succ(X)) may_be_replaced_by 
+     statust__pos(X) + 1
+     if [X <=shutdown, X <> shutdown].
+updateconfig_rules(132): statust__pos(pred(X)) may_be_replaced_by 
+     statust__pos(X) - 1
+     if [X >=notenrolled, X <> notenrolled].
+updateconfig_rules(133): statust__pos(X) >= 0 may_be_deduced_from
+     [notenrolled <= X, X <= shutdown].
+updateconfig_rules(134): statust__pos(X) <= 8 may_be_deduced_from
+     [notenrolled <= X, X <= shutdown].
+updateconfig_rules(135): statust__val(X) >= notenrolled may_be_deduced_from
+     [0 <= X, X <= 8].
+updateconfig_rules(136): statust__val(X) <= shutdown may_be_deduced_from
+     [0 <= X, X <= 8].
+updateconfig_rules(137): succ(statust__val(X)) may_be_replaced_by 
+     statust__val(X+1)
+     if [0 <= X, X < 8].
+updateconfig_rules(138): pred(statust__val(X)) may_be_replaced_by 
+     statust__val(X-1)
+     if [0 < X, X <= 8].
+updateconfig_rules(139): statust__pos(statust__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 8].
+updateconfig_rules(140): statust__val(statust__pos(X)) may_be_replaced_by X
+     if [notenrolled <= X, X <= shutdown].
+updateconfig_rules(141): statust__pos(X) <= statust__pos(Y) & X <= Y are_interchangeable 
+     if [notenrolled <= X, X <= shutdown, notenrolled <= Y, Y <= 
+     shutdown].
+updateconfig_rules(142): statust__val(X) <= statust__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 8, 0 <= Y, Y <= 8].

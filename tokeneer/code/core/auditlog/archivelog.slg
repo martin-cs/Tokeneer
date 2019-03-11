@@ -1,0 +1,3233 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:09  SIMPLIFIED 05-SEP-2011, 15:38:44
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure AuditLog.ArchiveLog
+
+
+
+
+
+
+@@@@@@@@@@  VC: procedure_archivelog_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+-S-  Applied substitution rule archivelog_rules(225).
+     This was achieved by replacing all occurrences of archivefilestringi__last 
+          by:
+          17.
+<S>  New C1:  17 <= file__maxnamelength
+-S-  Applied substitution rule archivelog_rules(1).
+     This was achieved by replacing all occurrences of file__maxnamelength by:
+          255.
+<S>  New C1:  true
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_2.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H22 on reading formula in, to give:
+     %%%  H22:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(converttoauditdescription(mk__string([1] := 78, [2] := 
+          111, [3] := 116, [4] := 104, [5] := 105, [6] := 110, [7] := 103, [8] 
+          := 32, [9] := 97, [10] := 114, [11] := 99, [12] := 104, [13] := 105, [
+          14] := 118, [15] := 101, [16] := 100)), [i___1]) and element(
+          converttoauditdescription(mk__string([1] := 78, [2] := 111, [3] := 
+          116, [4] := 104, [5] := 105, [6] := 110, [7] := 103, [8] := 32, [9] 
+          := 97, [10] := 114, [11] := 99, [12] := 104, [13] := 105, [14] := 
+          118, [15] := 101, [16] := 100)), [i___1]) <= character__last)
+***  Proved C1:  element(fld_list(usedlogfiles), [fld_head(usedlogfiles)]) >= 
+          logfileindext__first
+     using hypotheses H17, H18 & H19.
+***  Proved C2:  element(fld_list(usedlogfiles), [fld_head(usedlogfiles)]) <= 
+          logfileindext__last
+     using hypotheses H17, H18 & H19.
+***  Proved C3:  fld_head(usedlogfiles) >= logfileindext__first
+     using hypothesis H17.
+***  Proved C4:  fld_head(usedlogfiles) <= logfileindext__last
+     using hypothesis H18.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_3.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H22 on reading formula in, to give:
+     %%%  H22:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(converttoauditdescription(mk__string([1] := 78, [2] := 
+          111, [3] := 116, [4] := 104, [5] := 105, [6] := 110, [7] := 103, [8] 
+          := 32, [9] := 97, [10] := 114, [11] := 99, [12] := 104, [13] := 105, [
+          14] := 118, [15] := 101, [16] := 100)), [i___1]) and element(
+          converttoauditdescription(mk__string([1] := 78, [2] := 111, [3] := 
+          116, [4] := 104, [5] := 105, [6] := 110, [7] := 103, [8] := 32, [9] 
+          := 97, [10] := 114, [11] := 99, [12] := 104, [13] := 105, [14] := 
+          118, [15] := 101, [16] := 100)), [i___1]) <= character__last)
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as 
+          H18).
+-S-  Applied substitution rule archivelog_rules(185).
+     This was achieved by replacing all occurrences of logfilecountt__first by:
+          0.
+<S>  New H13:  fld_length(usedlogfiles) >= 0
+<S>  New C1:  true
+-S-  Applied substitution rule archivelog_rules(186).
+     This was achieved by replacing all occurrences of logfilecountt__last by:
+          17.
+<S>  New H14:  fld_length(usedlogfiles) <= 17
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_4.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H22 on reading formula in, to give:
+     %%%  H22:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(converttoauditdescription(mk__string([1] := 78, [2] := 
+          111, [3] := 116, [4] := 104, [5] := 105, [6] := 110, [7] := 103, [8] 
+          := 32, [9] := 97, [10] := 114, [11] := 99, [12] := 104, [13] := 105, [
+          14] := 118, [15] := 101, [16] := 100)), [i___1]) and element(
+          converttoauditdescription(mk__string([1] := 78, [2] := 111, [3] := 
+          116, [4] := 104, [5] := 105, [6] := 110, [7] := 103, [8] := 32, [9] 
+          := 97, [10] := 114, [11] := 99, [12] := 104, [13] := 105, [14] := 
+          118, [15] := 101, [16] := 100)), [i___1]) <= character__last)
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as 
+          H18).
+***  Proved C1:  fld_head(usedlogfiles) >= logfileindext__first
+     using hypothesis H17.
+***  Proved C2:  fld_head(usedlogfiles) <= logfileindext__last
+     using hypothesis H18.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_5.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H22 on reading formula in, to give:
+     %%%  H22:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(converttoauditdescription(mk__string([1] := 78, [2] := 
+          111, [3] := 116, [4] := 104, [5] := 105, [6] := 110, [7] := 103, [8] 
+          := 32, [9] := 97, [10] := 114, [11] := 99, [12] := 104, [13] := 105, [
+          14] := 118, [15] := 101, [16] := 100)), [i___1]) and element(
+          converttoauditdescription(mk__string([1] := 78, [2] := 111, [3] := 
+          116, [4] := 104, [5] := 105, [6] := 110, [7] := 103, [8] := 32, [9] 
+          := 97, [10] := 114, [11] := 99, [12] := 104, [13] := 105, [14] := 
+          118, [15] := 101, [16] := 100)), [i___1]) <= character__last)
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as 
+          H29).
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  true
+%%%  Simplified C6 on reading formula in, to give:
+     %%%  C6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified C7 on reading formula in, to give:
+     %%%  C7:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified C13 on reading formula in, to give:
+     %%%  C13:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified C14 on reading formula in, to give:
+     %%%  C14:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified C23 on reading formula in, to give:
+     %%%  C23:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+***  Proved C1:  fld_head(usedlogfiles) >= logfileindext__first
+     using hypothesis H17.
+***  Proved C2:  fld_head(usedlogfiles) <= logfileindext__last
+     using hypothesis H18.
+***  Proved C3:  true
+***  Proved C4:  0 < maxnumberarchivablefiles
+     using hypothesis H34.
+***  Proved C5:  numberlogentries = (fld_length(usedlogfiles) - 1) * 
+          maxlogfileentries + element(logfileentries, [currentlogfile])
+     using hypothesis H1.
+***  Proved C6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+     using hypothesis H2.
+***  Proved C7:  alarmtypes__statust__first <= auditalarm
+     using hypothesis H3.
+***  Proved C8:  auditalarm <= alarmtypes__statust__last
+     using hypothesis H4.
+***  Proved C9:  numberlogentries >= logentrycountt__first
+     using hypothesis H5.
+***  Proved C10:  numberlogentries <= logentrycountt__last
+     using hypothesis H6.
+***  Proved C11:  true
+***  Proved C12:  true
+***  Proved C13:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+     using hypothesis H9.
+***  Proved C14:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+     using hypothesis H10.
+***  Proved C15:  currentlogfile >= logfileindext__first
+     using hypothesis H11.
+***  Proved C16:  currentlogfile <= logfileindext__last
+     using hypothesis H12.
+***  Proved C17:  fld_length(usedlogfiles) >= logfilecountt__first
+     using hypothesis H13.
+***  Proved C18:  fld_length(usedlogfiles) <= logfilecountt__last
+     using hypothesis H14.
+***  Proved C19:  fld_lasti(usedlogfiles) >= logfileindext__first
+     using hypothesis H15.
+***  Proved C20:  fld_lasti(usedlogfiles) <= logfileindext__last
+     using hypothesis H16.
+***  Proved C21:  fld_head(usedlogfiles) >= logfileindext__first
+     using hypothesis H17.
+***  Proved C22:  fld_head(usedlogfiles) <= logfileindext__last
+     using hypothesis H18.
+***  Proved C23:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+     using hypothesis H19.
+***  Proved C24:  numberlogentries = (fld_length(usedlogfiles) - 1) * 
+          maxlogfileentries + element(logfileentries, [currentlogfile])
+     using hypothesis H1.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_6.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H34 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H36 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H37 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H38 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H39 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  ok__4
+%%%  Simplified H46 on reading formula in, to give:
+     %%%  H46:  filestatust__first <= archived
+---  Hypothesis H48 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__5, [i___1]) and element(description__5, [
+          i___1]) <= character__last)
+---  Hypothesis H57 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H58 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H59 has been replaced by "true".  (It is already present, as 
+          H50).
+---  Hypothesis H60 has been replaced by "true".  (It is already present, as 
+          H51).
+---  Hypothesis H63 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H64 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H65 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H66 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H69 has been replaced by "true".  (It is already present, as 
+          H67).
+---  Hypothesis H70 has been replaced by "true".  (It is already present, as 
+          H68).
+---  Hypothesis H71 has been replaced by "true".  (It is already present, as 
+          H61).
+---  Hypothesis H72 has been replaced by "true".  (It is already present, as 
+          H62).
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  archivedfilecount >= - 1
+%%%  Simplified C6 on reading formula in, to give:
+     %%%  C6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified C7 on reading formula in, to give:
+     %%%  C7:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified C13 on reading formula in, to give:
+     %%%  C13:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(update(
+          logfilesstatus, [element(fld_list(usedlogfiles), [fileindexinusedlist]
+          )], archived), [i___1]) and element(update(logfilesstatus, [element(
+          fld_list(usedlogfiles), [fileindexinusedlist])], archived), [i___1]) 
+          <= filestatust__last)
+%%%  Simplified C14 on reading formula in, to give:
+     %%%  C14:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified C23 on reading formula in, to give:
+     %%%  C23:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified C24 on reading formula in, to give:
+     %%%  C24:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+***  Proved C1:  nextlistindex(fileindexinusedlist) >= logfileindext__first
+     using hypothesis H67.
+***  Proved C2:  nextlistindex(fileindexinusedlist) <= logfileindext__last
+     using hypothesis H68.
+***  Proved C3:  archivedfilecount >= - 1
+     using hypothesis H3.
+***  Proved C4:  archivedfilecount + 1 < maxnumberarchivablefiles
+     using hypothesis H73.
+***  Proved C5:  numberlogentries = (fld_length(usedlogfiles) - 1) * 
+          maxlogfileentries + element(logfileentries, [currentlogfile])
+     using hypothesis H5.
+***  Proved C6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+     using hypothesis H6.
+***  Proved C7:  alarmtypes__statust__first <= auditalarm
+     using hypothesis H7.
+***  Proved C8:  auditalarm <= alarmtypes__statust__last
+     using hypothesis H8.
+***  Proved C9:  numberlogentries >= logentrycountt__first
+     using hypothesis H9.
+***  Proved C10:  numberlogentries <= logentrycountt__last
+     using hypothesis H10.
+***  Proved C11:  true
+***  Proved C12:  true
+***  Proved C13:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(update(
+          logfilesstatus, [element(fld_list(usedlogfiles), [fileindexinusedlist]
+          )], archived), [i___1]) and element(update(logfilesstatus, [element(
+          fld_list(usedlogfiles), [fileindexinusedlist])], archived), [i___1]) 
+          <= filestatust__last)
+     using hypotheses H13, H27, H28, H46 & H47.
+***  Proved C14:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+     using hypothesis H14.
+***  Proved C15:  currentlogfile >= logfileindext__first
+     using hypothesis H15.
+***  Proved C16:  currentlogfile <= logfileindext__last
+     using hypothesis H16.
+***  Proved C17:  fld_length(usedlogfiles) >= logfilecountt__first
+     using hypothesis H17.
+***  Proved C18:  fld_length(usedlogfiles) <= logfilecountt__last
+     using hypothesis H18.
+***  Proved C19:  fld_lasti(usedlogfiles) >= logfileindext__first
+     using hypothesis H19.
+***  Proved C20:  fld_lasti(usedlogfiles) <= logfileindext__last
+     using hypothesis H20.
+***  Proved C21:  fld_head(usedlogfiles) >= logfileindext__first
+     using hypothesis H21.
+***  Proved C22:  fld_head(usedlogfiles) <= logfileindext__last
+     using hypothesis H22.
+***  Proved C23:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+     using hypothesis H23.
+***  Proved C24:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+     using hypothesis H24.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_7.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H34 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H36 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H37 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H38 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H39 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  ok__4
+%%%  Simplified H46 on reading formula in, to give:
+     %%%  H46:  filestatust__first <= archived
+---  Hypothesis H48 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description, [i___1]) and element(description, [i___1]) <= 
+          character__last)
+%%%  Simplified H55 on reading formula in, to give:
+     %%%  H55:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__6, [i___1]) and element(description__6, [
+          i___1]) <= character__last)
+---  Hypothesis H58 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H59 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H60 has been replaced by "true".  (It is already present, as 
+          H50).
+---  Hypothesis H61 has been replaced by "true".  (It is already present, as 
+          H51).
+---  Hypothesis H64 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H65 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H66 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H67 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H70 has been replaced by "true".  (It is already present, as 
+          H68).
+---  Hypothesis H71 has been replaced by "true".  (It is already present, as 
+          H69).
+---  Hypothesis H72 has been replaced by "true".  (It is already present, as 
+          H62).
+---  Hypothesis H73 has been replaced by "true".  (It is already present, as 
+          H63).
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  archivedfilecount >= - 1
+%%%  Simplified C6 on reading formula in, to give:
+     %%%  C6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified C7 on reading formula in, to give:
+     %%%  C7:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified C13 on reading formula in, to give:
+     %%%  C13:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(update(
+          logfilesstatus, [element(fld_list(usedlogfiles), [fileindexinusedlist]
+          )], archived), [i___1]) and element(update(logfilesstatus, [element(
+          fld_list(usedlogfiles), [fileindexinusedlist])], archived), [i___1]) 
+          <= filestatust__last)
+%%%  Simplified C14 on reading formula in, to give:
+     %%%  C14:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified C23 on reading formula in, to give:
+     %%%  C23:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified C24 on reading formula in, to give:
+     %%%  C24:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+***  Proved C1:  nextlistindex(fileindexinusedlist) >= logfileindext__first
+     using hypothesis H68.
+***  Proved C2:  nextlistindex(fileindexinusedlist) <= logfileindext__last
+     using hypothesis H69.
+***  Proved C3:  archivedfilecount >= - 1
+     using hypotheses H3 & H52.
+***  Proved C4:  archivedfilecount + 1 < maxnumberarchivablefiles
+     using hypothesis H74.
+***  Proved C5:  numberlogentries = (fld_length(usedlogfiles) - 1) * 
+          maxlogfileentries + element(logfileentries, [currentlogfile])
+     using hypothesis H5.
+***  Proved C6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+     using hypothesis H6.
+***  Proved C7:  alarmtypes__statust__first <= auditalarm
+     using hypothesis H7.
+***  Proved C8:  auditalarm <= alarmtypes__statust__last
+     using hypothesis H8.
+***  Proved C9:  numberlogentries >= logentrycountt__first
+     using hypothesis H9.
+***  Proved C10:  numberlogentries <= logentrycountt__last
+     using hypothesis H10.
+***  Proved C11:  true
+***  Proved C12:  true
+***  Proved C13:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(update(
+          logfilesstatus, [element(fld_list(usedlogfiles), [fileindexinusedlist]
+          )], archived), [i___1]) and element(update(logfilesstatus, [element(
+          fld_list(usedlogfiles), [fileindexinusedlist])], archived), [i___1]) 
+          <= filestatust__last)
+     using hypotheses H13, H27, H28, H46 & H47.
+***  Proved C14:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+     using hypothesis H14.
+***  Proved C15:  currentlogfile >= logfileindext__first
+     using hypothesis H15.
+***  Proved C16:  currentlogfile <= logfileindext__last
+     using hypothesis H16.
+***  Proved C17:  fld_length(usedlogfiles) >= logfilecountt__first
+     using hypothesis H17.
+***  Proved C18:  fld_length(usedlogfiles) <= logfilecountt__last
+     using hypothesis H18.
+***  Proved C19:  fld_lasti(usedlogfiles) >= logfileindext__first
+     using hypothesis H19.
+***  Proved C20:  fld_lasti(usedlogfiles) <= logfileindext__last
+     using hypothesis H20.
+***  Proved C21:  fld_head(usedlogfiles) >= logfileindext__first
+     using hypothesis H21.
+***  Proved C22:  fld_head(usedlogfiles) <= logfileindext__last
+     using hypothesis H22.
+***  Proved C23:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+     using hypothesis H23.
+***  Proved C24:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+     using hypothesis H24.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_8.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as H2)
+          .
+***  Proved C1:  element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+          logfileindext__first
+     using hypotheses H1, H2 & H23.
+***  Proved C2:  element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+          logfileindext__last
+     using hypotheses H1, H2 & H23.
+***  Proved C3:  fileindexinusedlist >= logfileindext__first
+     using hypothesis H1.
+***  Proved C4:  fileindexinusedlist <= logfileindext__last
+     using hypothesis H2.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_9.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as 
+          H28).
+***  Proved C1:  element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+          logfileindext__first
+     using hypothesis H27.
+***  Proved C2:  element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+          logfileindext__last
+     using hypothesis H28.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_10.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H34 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H36 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H37 has been replaced by "true".  (It is already present, as 
+          H28).
+***  Proved C1:  element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+          logfileindext__first
+     using hypothesis H27.
+***  Proved C2:  element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+          logfileindext__last
+     using hypothesis H28.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_11.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H34 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H36 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H37 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H38 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H39 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  ok__4
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  filestatust__first <= archived
+***  Proved C3:  element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+          logfileindext__first
+     using hypothesis H27.
+***  Proved C4:  element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+          logfileindext__last
+     using hypothesis H28.
+-S-  Applied substitution rule archivelog_rules(197).
+     This was achieved by replacing all occurrences of filestatust__first by:
+          free.
+<S>  New H13:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> free <= element(logfilesstatus, [i___1]) 
+          and element(logfilesstatus, [i___1]) <= filestatust__last)
+<S>  New C1:  true
+-S-  Applied substitution rule archivelog_rules(198).
+     This was achieved by replacing all occurrences of filestatust__last by:
+          used.
+<S>  New H13:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> free <= element(logfilesstatus, [i___1]) 
+          and element(logfilesstatus, [i___1]) <= used)
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_12.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H34 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H36 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H37 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H38 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H39 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  ok__4
+%%%  Simplified H46 on reading formula in, to give:
+     %%%  H46:  filestatust__first <= archived
+---  Hypothesis H48 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__5, [i___1]) and element(description__5, [
+          i___1]) <= character__last)
+***  Proved C1:  element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+          logfileindext__first
+     using hypothesis H27.
+***  Proved C2:  element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+          logfileindext__last
+     using hypothesis H28.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_13.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H34 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H36 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H37 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H38 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H39 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  ok__4
+%%%  Simplified H46 on reading formula in, to give:
+     %%%  H46:  filestatust__first <= archived
+---  Hypothesis H48 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description, [i___1]) and element(description, [i___1]) <= 
+          character__last)
+%%%  Simplified H55 on reading formula in, to give:
+     %%%  H55:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__6, [i___1]) and element(description__6, [
+          i___1]) <= character__last)
+***  Proved C1:  element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 
+          logfileindext__first
+     using hypothesis H27.
+***  Proved C2:  element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 
+          logfileindext__last
+     using hypothesis H28.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_14.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H34 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H36 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H37 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H38 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H39 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  ok__4
+%%%  Simplified H46 on reading formula in, to give:
+     %%%  H46:  filestatust__first <= archived
+---  Hypothesis H48 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__5, [i___1]) and element(description__5, [
+          i___1]) <= character__last)
+---  Hypothesis H57 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H58 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H59 has been replaced by "true".  (It is already present, as 
+          H50).
+---  Hypothesis H60 has been replaced by "true".  (It is already present, as 
+          H51).
+***  Proved C1:  archivedfilecount + 1 >= logfilecountt__first
+     using hypothesis H50.
+-S-  Applied substitution rule archivelog_rules(186).
+     This was achieved by replacing all occurrences of logfilecountt__last by:
+          17.
+<S>  New H18:  fld_length(usedlogfiles) <= 17
+<S>  New H51:  archivedfilecount <= 17
+<S>  New C2:  archivedfilecount <= 16
+***  Proved C2:  archivedfilecount <= 16
+     using hypothesis H52.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_15.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H34 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H36 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H37 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H38 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H39 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  ok__4
+%%%  Simplified H46 on reading formula in, to give:
+     %%%  H46:  filestatust__first <= archived
+---  Hypothesis H48 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description, [i___1]) and element(description, [i___1]) <= 
+          character__last)
+%%%  Simplified H55 on reading formula in, to give:
+     %%%  H55:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__6, [i___1]) and element(description__6, [
+          i___1]) <= character__last)
+---  Hypothesis H58 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H59 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H60 has been replaced by "true".  (It is already present, as 
+          H50).
+---  Hypothesis H61 has been replaced by "true".  (It is already present, as 
+          H51).
+***  Proved C1:  archivedfilecount + 1 >= logfilecountt__first
+     using hypothesis H50.
+-S-  Applied substitution rule archivelog_rules(186).
+     This was achieved by replacing all occurrences of logfilecountt__last by:
+          17.
+<S>  New H18:  fld_length(usedlogfiles) <= 17
+<S>  New H51:  archivedfilecount <= 17
+<S>  New C2:  archivedfilecount <= 16
+>>>  Restructured hypothesis H35 into:
+     >>>  H35:  maxlogfileentries <= element(logfileentries, [element(fld_list(
+          usedlogfiles), [fileindexinusedlist])])
+>>>  Restructured hypothesis H52 into:
+     >>>  H52:  archivedfilecount <> 0
+-S-  Applied substitution rule archivelog_rules(2).
+     This was achieved by replacing all occurrences of maxnumberarchivablefiles 
+          by:
+          4.
+<S>  New H4:  archivedfilecount < 4
+-S-  Applied substitution rule archivelog_rules(3).
+     This was achieved by replacing all occurrences of maxlogfileentries by:
+          1024.
+<S>  New H5:  numberlogentries = (fld_length(usedlogfiles) - 1) * 1024 + 
+          element(logfileentries, [currentlogfile])
+<S>  New H24:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 1024 + 
+          element(logfileentries~, [currentlogfile~])
+<S>  New H35:  1024 <= element(logfileentries, [element(fld_list(usedlogfiles), 
+          [fileindexinusedlist])])
+-S-  Applied substitution rule archivelog_rules(10).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> 0 <= element(user, [i___1]
+          ) and element(user, [i___1]) <= character__last)
+<S>  New H54:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description, [i___1]) and element(description, [i___1]) <= 
+          character__last)
+<S>  New H55:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__6, [i___1]) and element(description__6, [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule archivelog_rules(11).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> 0 <= element(user, [i___1]
+          ) and element(user, [i___1]) <= 255)
+<S>  New H54:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description, [i___1]) and element(description, [i___1]) <= 255)
+<S>  New H55:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> 0 <= element(
+          description__6, [i___1]) and element(description__6, [i___1]) <= 255)
+-S-  Applied substitution rule archivelog_rules(152).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__first by:
+          1.
+<S>  New H54:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(description, [i___1]) 
+          and element(description, [i___1]) <= 255)
+<S>  New H55:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__descriptioni__last -> 0 <= element(description__6, [i___1]
+          ) and element(description__6, [i___1]) <= 255)
+-S-  Applied substitution rule archivelog_rules(153).
+     This was achieved by replacing all occurrences of 
+          audittypes__descriptioni__last by:
+          150.
+<S>  New H54:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(description, [i___1]) and element(description, [i___1]) <= 
+          255)
+<S>  New H55:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 150 -> 0 <= 
+          element(description__6, [i___1]) and element(description__6, [i___1]) 
+          <= 255)
+-S-  Applied substitution rule archivelog_rules(157).
+     This was achieved by replacing all occurrences of 
+          audittypes__usertexti__first by:
+          1.
+<S>  New H6:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__usertexti__last -> 0 <= element(user, [i___1]) and 
+          element(user, [i___1]) <= 255)
+-S-  Applied substitution rule archivelog_rules(158).
+     This was achieved by replacing all occurrences of 
+          audittypes__usertexti__last by:
+          50.
+<S>  New H6:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 50 -> 0 <= 
+          element(user, [i___1]) and element(user, [i___1]) <= 255)
+-S-  Applied substitution rule archivelog_rules(162).
+     This was achieved by replacing all occurrences of 
+          alarmtypes__statust__first by:
+          alarmtypes__alarming.
+<S>  New H7:  alarmtypes__alarming <= auditalarm
+-S-  Applied substitution rule archivelog_rules(163).
+     This was achieved by replacing all occurrences of 
+          alarmtypes__statust__last by:
+          alarmtypes__silent.
+<S>  New H8:  auditalarm <= alarmtypes__silent
+-S-  Applied substitution rule archivelog_rules(185).
+     This was achieved by replacing all occurrences of logfilecountt__first by:
+          0.
+<S>  New H17:  fld_length(usedlogfiles) >= 0
+<S>  New H50:  archivedfilecount >= 0
+-S-  Applied substitution rule archivelog_rules(191).
+     This was achieved by replacing all occurrences of logfileindext__first by:
+          1.
+<S>  New H1:  fileindexinusedlist >= 1
+<S>  New H13:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          logfileindext__last -> filestatust__first <= element(logfilesstatus, [
+          i___1]) and element(logfilesstatus, [i___1]) <= filestatust__last)
+<S>  New H14:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+<S>  New H15:  currentlogfile >= 1
+<S>  New H19:  fld_lasti(usedlogfiles) >= 1
+<S>  New H21:  fld_head(usedlogfiles) >= 1
+<S>  New H23:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          logfileindext__last -> 1 <= element(fld_list(usedlogfiles), [i___1]) 
+          and element(fld_list(usedlogfiles), [i___1]) <= logfileindext__last)
+<S>  New H27:  element(fld_list(usedlogfiles), [fileindexinusedlist]) >= 1
+-S-  Applied substitution rule archivelog_rules(192).
+     This was achieved by replacing all occurrences of logfileindext__last by:
+          17.
+<S>  New H2:  fileindexinusedlist <= 17
+<S>  New H16:  currentlogfile <= 17
+<S>  New H20:  fld_lasti(usedlogfiles) <= 17
+<S>  New H22:  fld_head(usedlogfiles) <= 17
+<S>  New H28:  element(fld_list(usedlogfiles), [fileindexinusedlist]) <= 17
+<S>  New H13:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> 
+          filestatust__first <= element(logfilesstatus, [i___1]) and element(
+          logfilesstatus, [i___1]) <= filestatust__last)
+<S>  New H14:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> 
+          fileentrycountt__first <= element(logfileentries, [i___1]) and 
+          element(logfileentries, [i___1]) <= fileentrycountt__last)
+<S>  New H23:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> 1 <= 
+          element(fld_list(usedlogfiles), [i___1]) and element(fld_list(
+          usedlogfiles), [i___1]) <= 17)
+-S-  Applied substitution rule archivelog_rules(197).
+     This was achieved by replacing all occurrences of filestatust__first by:
+          free.
+<S>  New H46:  true
+<S>  New H13:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> free <= 
+          element(logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) 
+          <= filestatust__last)
+-S-  Applied substitution rule archivelog_rules(198).
+     This was achieved by replacing all occurrences of filestatust__last by:
+          used.
+<S>  New H47:  true
+<S>  New H13:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> free <= 
+          element(logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) 
+          <= used)
+-S-  Applied substitution rule archivelog_rules(229).
+     This was achieved by replacing all occurrences of logentrycountt__first by:
+          0.
+<S>  New H9:  numberlogentries >= 0
+-S-  Applied substitution rule archivelog_rules(230).
+     This was achieved by replacing all occurrences of logentrycountt__last by:
+          17408.
+<S>  New H10:  numberlogentries <= 17408
+-S-  Applied substitution rule archivelog_rules(235).
+     This was achieved by replacing all occurrences of fileentrycountt__first 
+          by:
+          0.
+<S>  New H14:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> 0 <= 
+          element(logfileentries, [i___1]) and element(logfileentries, [i___1]) 
+          <= fileentrycountt__last)
+-S-  Applied substitution rule archivelog_rules(236).
+     This was achieved by replacing all occurrences of fileentrycountt__last by:
+          1024.
+<S>  New H14:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> 0 <= 
+          element(logfileentries, [i___1]) and element(logfileentries, [i___1]) 
+          <= 1024)
+%%%  Hypotheses H3 & H52 together imply that
+          0 < archivedfilecount.
+     H3 & H52 have therefore been deleted and a new H62 added to this effect.
+***  Proved C2:  archivedfilecount <= 16
+     using hypothesis H4.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_16.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H34 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H36 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H37 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H38 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H39 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  ok__4
+%%%  Simplified H46 on reading formula in, to give:
+     %%%  H46:  filestatust__first <= archived
+---  Hypothesis H48 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__5, [i___1]) and element(description__5, [
+          i___1]) <= character__last)
+---  Hypothesis H57 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H58 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H59 has been replaced by "true".  (It is already present, as 
+          H50).
+---  Hypothesis H60 has been replaced by "true".  (It is already present, as 
+          H51).
+---  Hypothesis H63 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H64 has been replaced by "true".  (It is already present, as H2)
+          .
+***  Proved C1:  fileindexinusedlist >= logfileindext__first
+     using hypothesis H1.
+***  Proved C2:  fileindexinusedlist <= logfileindext__last
+     using hypothesis H2.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_17.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H34 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H36 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H37 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H38 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H39 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  ok__4
+%%%  Simplified H46 on reading formula in, to give:
+     %%%  H46:  filestatust__first <= archived
+---  Hypothesis H48 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description, [i___1]) and element(description, [i___1]) <= 
+          character__last)
+%%%  Simplified H55 on reading formula in, to give:
+     %%%  H55:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__6, [i___1]) and element(description__6, [
+          i___1]) <= character__last)
+---  Hypothesis H58 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H59 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H60 has been replaced by "true".  (It is already present, as 
+          H50).
+---  Hypothesis H61 has been replaced by "true".  (It is already present, as 
+          H51).
+---  Hypothesis H64 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H65 has been replaced by "true".  (It is already present, as H2)
+          .
+***  Proved C1:  fileindexinusedlist >= logfileindext__first
+     using hypothesis H1.
+***  Proved C2:  fileindexinusedlist <= logfileindext__last
+     using hypothesis H2.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_18.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H34 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H36 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H37 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H38 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H39 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  ok__4
+%%%  Simplified H46 on reading formula in, to give:
+     %%%  H46:  filestatust__first <= archived
+---  Hypothesis H48 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__5, [i___1]) and element(description__5, [
+          i___1]) <= character__last)
+---  Hypothesis H57 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H58 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H59 has been replaced by "true".  (It is already present, as 
+          H50).
+---  Hypothesis H60 has been replaced by "true".  (It is already present, as 
+          H51).
+---  Hypothesis H63 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H64 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H65 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H66 has been replaced by "true".  (It is already present, as H2)
+          .
+***  Proved C1:  nextlistindex(fileindexinusedlist) >= logfileindext__first
+     using hypothesis H67.
+***  Proved C2:  nextlistindex(fileindexinusedlist) <= logfileindext__last
+     using hypothesis H68.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_19.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H34 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H36 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H37 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H38 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H39 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  ok__4
+%%%  Simplified H46 on reading formula in, to give:
+     %%%  H46:  filestatust__first <= archived
+---  Hypothesis H48 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description, [i___1]) and element(description, [i___1]) <= 
+          character__last)
+%%%  Simplified H55 on reading formula in, to give:
+     %%%  H55:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__6, [i___1]) and element(description__6, [
+          i___1]) <= character__last)
+---  Hypothesis H58 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H59 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H60 has been replaced by "true".  (It is already present, as 
+          H50).
+---  Hypothesis H61 has been replaced by "true".  (It is already present, as 
+          H51).
+---  Hypothesis H64 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H65 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H66 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H67 has been replaced by "true".  (It is already present, as H2)
+          .
+***  Proved C1:  nextlistindex(fileindexinusedlist) >= logfileindext__first
+     using hypothesis H68.
+***  Proved C2:  nextlistindex(fileindexinusedlist) <= logfileindext__last
+     using hypothesis H69.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_20.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H22 on reading formula in, to give:
+     %%%  H22:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(converttoauditdescription(mk__string([1] := 78, [2] := 
+          111, [3] := 116, [4] := 104, [5] := 105, [6] := 110, [7] := 103, [8] 
+          := 32, [9] := 97, [10] := 114, [11] := 99, [12] := 104, [13] := 105, [
+          14] := 118, [15] := 101, [16] := 100)), [i___1]) and element(
+          converttoauditdescription(mk__string([1] := 78, [2] := 111, [3] := 
+          116, [4] := 104, [5] := 105, [6] := 110, [7] := 103, [8] := 32, [9] 
+          := 97, [10] := 114, [11] := 99, [12] := 104, [13] := 105, [14] := 
+          118, [15] := 101, [16] := 100)), [i___1]) <= character__last)
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as 
+          H18).
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified C9 on reading formula in, to give:
+     %%%  C9:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified C10 on reading formula in, to give:
+     %%%  C10:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified C19 on reading formula in, to give:
+     %%%  C19:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+***  Proved C1:  numberlogentries = (fld_length(usedlogfiles) - 1) * 
+          maxlogfileentries + element(logfileentries, [currentlogfile])
+     using hypothesis H1.
+***  Proved C2:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+     using hypothesis H2.
+***  Proved C3:  alarmtypes__statust__first <= auditalarm
+     using hypothesis H3.
+***  Proved C4:  auditalarm <= alarmtypes__statust__last
+     using hypothesis H4.
+***  Proved C5:  numberlogentries >= logentrycountt__first
+     using hypothesis H5.
+***  Proved C6:  numberlogentries <= logentrycountt__last
+     using hypothesis H6.
+***  Proved C7:  true
+***  Proved C8:  true
+***  Proved C9:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+     using hypothesis H9.
+***  Proved C10:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+     using hypothesis H10.
+***  Proved C11:  currentlogfile >= logfileindext__first
+     using hypothesis H11.
+***  Proved C12:  currentlogfile <= logfileindext__last
+     using hypothesis H12.
+***  Proved C13:  fld_length(usedlogfiles) >= logfilecountt__first
+     using hypothesis H13.
+***  Proved C14:  fld_length(usedlogfiles) <= logfilecountt__last
+     using hypothesis H14.
+***  Proved C15:  fld_lasti(usedlogfiles) >= logfileindext__first
+     using hypothesis H15.
+***  Proved C16:  fld_lasti(usedlogfiles) <= logfileindext__last
+     using hypothesis H16.
+***  Proved C17:  fld_head(usedlogfiles) >= logfileindext__first
+     using hypothesis H17.
+***  Proved C18:  fld_head(usedlogfiles) <= logfileindext__last
+     using hypothesis H18.
+***  Proved C19:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+     using hypothesis H19.
+***  Proved C20:  numberlogentries = (fld_length(usedlogfiles) - 1) * 
+          maxlogfileentries + element(logfileentries, [currentlogfile])
+     using hypothesis H1.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_21.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H22 on reading formula in, to give:
+     %%%  H22:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(converttoauditdescription(mk__string([1] := 78, [2] := 
+          111, [3] := 116, [4] := 104, [5] := 105, [6] := 110, [7] := 103, [8] 
+          := 32, [9] := 97, [10] := 114, [11] := 99, [12] := 104, [13] := 105, [
+          14] := 118, [15] := 101, [16] := 100)), [i___1]) and element(
+          converttoauditdescription(mk__string([1] := 78, [2] := 111, [3] := 
+          116, [4] := 104, [5] := 105, [6] := 110, [7] := 103, [8] := 32, [9] 
+          := 97, [10] := 114, [11] := 99, [12] := 104, [13] := 105, [14] := 
+          118, [15] := 101, [16] := 100)), [i___1]) <= character__last)
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as 
+          H18).
+%%%  Simplified H31 on reading formula in, to give:
+     %%%  H31:  ok__1
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified C9 on reading formula in, to give:
+     %%%  C9:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified C10 on reading formula in, to give:
+     %%%  C10:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified C19 on reading formula in, to give:
+     %%%  C19:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+***  Proved C1:  numberlogentries = (fld_length(usedlogfiles) - 1) * 
+          maxlogfileentries + element(logfileentries, [currentlogfile])
+     using hypothesis H1.
+***  Proved C2:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+     using hypothesis H2.
+***  Proved C3:  alarmtypes__statust__first <= auditalarm
+     using hypothesis H3.
+***  Proved C4:  auditalarm <= alarmtypes__statust__last
+     using hypothesis H4.
+***  Proved C5:  numberlogentries >= logentrycountt__first
+     using hypothesis H5.
+***  Proved C6:  numberlogentries <= logentrycountt__last
+     using hypothesis H6.
+***  Proved C7:  true
+***  Proved C8:  true
+***  Proved C9:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+     using hypothesis H9.
+***  Proved C10:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+     using hypothesis H10.
+***  Proved C11:  currentlogfile >= logfileindext__first
+     using hypothesis H11.
+***  Proved C12:  currentlogfile <= logfileindext__last
+     using hypothesis H12.
+***  Proved C13:  fld_length(usedlogfiles) >= logfilecountt__first
+     using hypothesis H13.
+***  Proved C14:  fld_length(usedlogfiles) <= logfilecountt__last
+     using hypothesis H14.
+***  Proved C15:  fld_lasti(usedlogfiles) >= logfileindext__first
+     using hypothesis H15.
+***  Proved C16:  fld_lasti(usedlogfiles) <= logfileindext__last
+     using hypothesis H16.
+***  Proved C17:  fld_head(usedlogfiles) >= logfileindext__first
+     using hypothesis H17.
+***  Proved C18:  fld_head(usedlogfiles) <= logfileindext__last
+     using hypothesis H18.
+***  Proved C19:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+     using hypothesis H19.
+***  Proved C20:  numberlogentries = (fld_length(usedlogfiles) - 1) * 
+          maxlogfileentries + element(logfileentries, [currentlogfile])
+     using hypothesis H1.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_22.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H22 on reading formula in, to give:
+     %%%  H22:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(converttoauditdescription(mk__string([1] := 78, [2] := 
+          111, [3] := 116, [4] := 104, [5] := 105, [6] := 110, [7] := 103, [8] 
+          := 32, [9] := 97, [10] := 114, [11] := 99, [12] := 104, [13] := 105, [
+          14] := 118, [15] := 101, [16] := 100)), [i___1]) and element(
+          converttoauditdescription(mk__string([1] := 78, [2] := 111, [3] := 
+          116, [4] := 104, [5] := 105, [6] := 110, [7] := 103, [8] := 32, [9] 
+          := 97, [10] := 114, [11] := 99, [12] := 104, [13] := 105, [14] := 
+          118, [15] := 101, [16] := 100)), [i___1]) <= character__last)
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as 
+          H17).
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as 
+          H29).
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified C9 on reading formula in, to give:
+     %%%  C9:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified C10 on reading formula in, to give:
+     %%%  C10:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified C19 on reading formula in, to give:
+     %%%  C19:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+***  Proved C1:  numberlogentries = (fld_length(usedlogfiles) - 1) * 
+          maxlogfileentries + element(logfileentries, [currentlogfile])
+     using hypothesis H1.
+***  Proved C2:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+     using hypothesis H2.
+***  Proved C3:  alarmtypes__statust__first <= auditalarm
+     using hypothesis H3.
+***  Proved C4:  auditalarm <= alarmtypes__statust__last
+     using hypothesis H4.
+***  Proved C5:  numberlogentries >= logentrycountt__first
+     using hypothesis H5.
+***  Proved C6:  numberlogentries <= logentrycountt__last
+     using hypothesis H6.
+***  Proved C7:  true
+***  Proved C8:  true
+***  Proved C9:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+     using hypothesis H9.
+***  Proved C10:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+     using hypothesis H10.
+***  Proved C11:  currentlogfile >= logfileindext__first
+     using hypothesis H11.
+***  Proved C12:  currentlogfile <= logfileindext__last
+     using hypothesis H12.
+***  Proved C13:  fld_length(usedlogfiles) >= logfilecountt__first
+     using hypothesis H13.
+***  Proved C14:  fld_length(usedlogfiles) <= logfilecountt__last
+     using hypothesis H14.
+***  Proved C15:  fld_lasti(usedlogfiles) >= logfileindext__first
+     using hypothesis H15.
+***  Proved C16:  fld_lasti(usedlogfiles) <= logfileindext__last
+     using hypothesis H16.
+***  Proved C17:  fld_head(usedlogfiles) >= logfileindext__first
+     using hypothesis H17.
+***  Proved C18:  fld_head(usedlogfiles) <= logfileindext__last
+     using hypothesis H18.
+***  Proved C19:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+     using hypothesis H19.
+***  Proved C20:  numberlogentries = (fld_length(usedlogfiles) - 1) * 
+          maxlogfileentries + element(logfileentries, [currentlogfile])
+     using hypothesis H1.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_23.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H34 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified C9 on reading formula in, to give:
+     %%%  C9:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified C10 on reading formula in, to give:
+     %%%  C10:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified C19 on reading formula in, to give:
+     %%%  C19:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified C20 on reading formula in, to give:
+     %%%  C20:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+***  Proved C1:  numberlogentries = (fld_length(usedlogfiles) - 1) * 
+          maxlogfileentries + element(logfileentries, [currentlogfile])
+     using hypothesis H5.
+***  Proved C2:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+     using hypothesis H6.
+***  Proved C3:  alarmtypes__statust__first <= auditalarm
+     using hypothesis H7.
+***  Proved C4:  auditalarm <= alarmtypes__statust__last
+     using hypothesis H8.
+***  Proved C5:  numberlogentries >= logentrycountt__first
+     using hypothesis H9.
+***  Proved C6:  numberlogentries <= logentrycountt__last
+     using hypothesis H10.
+***  Proved C7:  true
+***  Proved C8:  true
+***  Proved C9:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+     using hypothesis H13.
+***  Proved C10:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+     using hypothesis H14.
+***  Proved C11:  currentlogfile >= logfileindext__first
+     using hypothesis H15.
+***  Proved C12:  currentlogfile <= logfileindext__last
+     using hypothesis H16.
+***  Proved C13:  fld_length(usedlogfiles) >= logfilecountt__first
+     using hypothesis H17.
+***  Proved C14:  fld_length(usedlogfiles) <= logfilecountt__last
+     using hypothesis H18.
+***  Proved C15:  fld_lasti(usedlogfiles) >= logfileindext__first
+     using hypothesis H19.
+***  Proved C16:  fld_lasti(usedlogfiles) <= logfileindext__last
+     using hypothesis H20.
+***  Proved C17:  fld_head(usedlogfiles) >= logfileindext__first
+     using hypothesis H21.
+***  Proved C18:  fld_head(usedlogfiles) <= logfileindext__last
+     using hypothesis H22.
+***  Proved C19:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+     using hypothesis H23.
+***  Proved C20:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+     using hypothesis H24.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_24.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H34 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H36 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H37 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H38 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H39 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified C9 on reading formula in, to give:
+     %%%  C9:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified C10 on reading formula in, to give:
+     %%%  C10:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified C19 on reading formula in, to give:
+     %%%  C19:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified C20 on reading formula in, to give:
+     %%%  C20:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+***  Proved C1:  numberlogentries = (fld_length(usedlogfiles) - 1) * 
+          maxlogfileentries + element(logfileentries, [currentlogfile])
+     using hypothesis H5.
+***  Proved C2:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+     using hypothesis H6.
+***  Proved C3:  alarmtypes__statust__first <= auditalarm
+     using hypothesis H7.
+***  Proved C4:  auditalarm <= alarmtypes__statust__last
+     using hypothesis H8.
+***  Proved C5:  numberlogentries >= logentrycountt__first
+     using hypothesis H9.
+***  Proved C6:  numberlogentries <= logentrycountt__last
+     using hypothesis H10.
+***  Proved C7:  true
+***  Proved C8:  true
+***  Proved C9:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+     using hypothesis H13.
+***  Proved C10:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+     using hypothesis H14.
+***  Proved C11:  currentlogfile >= logfileindext__first
+     using hypothesis H15.
+***  Proved C12:  currentlogfile <= logfileindext__last
+     using hypothesis H16.
+***  Proved C13:  fld_length(usedlogfiles) >= logfilecountt__first
+     using hypothesis H17.
+***  Proved C14:  fld_length(usedlogfiles) <= logfilecountt__last
+     using hypothesis H18.
+***  Proved C15:  fld_lasti(usedlogfiles) >= logfileindext__first
+     using hypothesis H19.
+***  Proved C16:  fld_lasti(usedlogfiles) <= logfileindext__last
+     using hypothesis H20.
+***  Proved C17:  fld_head(usedlogfiles) >= logfileindext__first
+     using hypothesis H21.
+***  Proved C18:  fld_head(usedlogfiles) <= logfileindext__last
+     using hypothesis H22.
+***  Proved C19:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+     using hypothesis H23.
+***  Proved C20:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+     using hypothesis H24.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_25.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H34 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H36 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H37 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H38 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H39 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  ok__4
+%%%  Simplified H46 on reading formula in, to give:
+     %%%  H46:  filestatust__first <= archived
+---  Hypothesis H48 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__5, [i___1]) and element(description__5, [
+          i___1]) <= character__last)
+---  Hypothesis H57 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H58 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H59 has been replaced by "true".  (It is already present, as 
+          H50).
+---  Hypothesis H60 has been replaced by "true".  (It is already present, as 
+          H51).
+---  Hypothesis H63 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H64 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H65 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H66 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H69 has been replaced by "true".  (It is already present, as 
+          H67).
+---  Hypothesis H70 has been replaced by "true".  (It is already present, as 
+          H68).
+---  Hypothesis H71 has been replaced by "true".  (It is already present, as 
+          H61).
+---  Hypothesis H72 has been replaced by "true".  (It is already present, as 
+          H62).
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified C9 on reading formula in, to give:
+     %%%  C9:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(update(
+          logfilesstatus, [element(fld_list(usedlogfiles), [fileindexinusedlist]
+          )], archived), [i___1]) and element(update(logfilesstatus, [element(
+          fld_list(usedlogfiles), [fileindexinusedlist])], archived), [i___1]) 
+          <= filestatust__last)
+%%%  Simplified C10 on reading formula in, to give:
+     %%%  C10:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified C19 on reading formula in, to give:
+     %%%  C19:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified C20 on reading formula in, to give:
+     %%%  C20:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+***  Proved C1:  numberlogentries = (fld_length(usedlogfiles) - 1) * 
+          maxlogfileentries + element(logfileentries, [currentlogfile])
+     using hypothesis H5.
+***  Proved C2:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+     using hypothesis H6.
+***  Proved C3:  alarmtypes__statust__first <= auditalarm
+     using hypothesis H7.
+***  Proved C4:  auditalarm <= alarmtypes__statust__last
+     using hypothesis H8.
+***  Proved C5:  numberlogentries >= logentrycountt__first
+     using hypothesis H9.
+***  Proved C6:  numberlogentries <= logentrycountt__last
+     using hypothesis H10.
+***  Proved C7:  true
+***  Proved C8:  true
+***  Proved C9:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(update(
+          logfilesstatus, [element(fld_list(usedlogfiles), [fileindexinusedlist]
+          )], archived), [i___1]) and element(update(logfilesstatus, [element(
+          fld_list(usedlogfiles), [fileindexinusedlist])], archived), [i___1]) 
+          <= filestatust__last)
+     using hypotheses H13, H27, H28, H46 & H47.
+***  Proved C10:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+     using hypothesis H14.
+***  Proved C11:  currentlogfile >= logfileindext__first
+     using hypothesis H15.
+***  Proved C12:  currentlogfile <= logfileindext__last
+     using hypothesis H16.
+***  Proved C13:  fld_length(usedlogfiles) >= logfilecountt__first
+     using hypothesis H17.
+***  Proved C14:  fld_length(usedlogfiles) <= logfilecountt__last
+     using hypothesis H18.
+***  Proved C15:  fld_lasti(usedlogfiles) >= logfileindext__first
+     using hypothesis H19.
+***  Proved C16:  fld_lasti(usedlogfiles) <= logfileindext__last
+     using hypothesis H20.
+***  Proved C17:  fld_head(usedlogfiles) >= logfileindext__first
+     using hypothesis H21.
+***  Proved C18:  fld_head(usedlogfiles) <= logfileindext__last
+     using hypothesis H22.
+***  Proved C19:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+     using hypothesis H23.
+***  Proved C20:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+     using hypothesis H24.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_26.  @@@@@@@@@@
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H13 on reading formula in, to give:
+     %%%  H13:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H30 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H31 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H32 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H33 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H34 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H36 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H37 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H38 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H39 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  ok__4
+%%%  Simplified H46 on reading formula in, to give:
+     %%%  H46:  filestatust__first <= archived
+---  Hypothesis H48 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description, [i___1]) and element(description, [i___1]) <= 
+          character__last)
+%%%  Simplified H55 on reading formula in, to give:
+     %%%  H55:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description__6, [i___1]) and element(description__6, [
+          i___1]) <= character__last)
+---  Hypothesis H58 has been replaced by "true".  (It is already present, as 
+          H27).
+---  Hypothesis H59 has been replaced by "true".  (It is already present, as 
+          H28).
+---  Hypothesis H60 has been replaced by "true".  (It is already present, as 
+          H50).
+---  Hypothesis H61 has been replaced by "true".  (It is already present, as 
+          H51).
+---  Hypothesis H64 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H65 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H66 has been replaced by "true".  (It is already present, as H1)
+          .
+---  Hypothesis H67 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H70 has been replaced by "true".  (It is already present, as 
+          H68).
+---  Hypothesis H71 has been replaced by "true".  (It is already present, as 
+          H69).
+---  Hypothesis H72 has been replaced by "true".  (It is already present, as 
+          H62).
+---  Hypothesis H73 has been replaced by "true".  (It is already present, as 
+          H63).
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified C9 on reading formula in, to give:
+     %%%  C9:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(update(
+          logfilesstatus, [element(fld_list(usedlogfiles), [fileindexinusedlist]
+          )], archived), [i___1]) and element(update(logfilesstatus, [element(
+          fld_list(usedlogfiles), [fileindexinusedlist])], archived), [i___1]) 
+          <= filestatust__last)
+%%%  Simplified C10 on reading formula in, to give:
+     %%%  C10:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified C19 on reading formula in, to give:
+     %%%  C19:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified C20 on reading formula in, to give:
+     %%%  C20:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+***  Proved C1:  numberlogentries = (fld_length(usedlogfiles) - 1) * 
+          maxlogfileentries + element(logfileentries, [currentlogfile])
+     using hypothesis H5.
+***  Proved C2:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+     using hypothesis H6.
+***  Proved C3:  alarmtypes__statust__first <= auditalarm
+     using hypothesis H7.
+***  Proved C4:  auditalarm <= alarmtypes__statust__last
+     using hypothesis H8.
+***  Proved C5:  numberlogentries >= logentrycountt__first
+     using hypothesis H9.
+***  Proved C6:  numberlogentries <= logentrycountt__last
+     using hypothesis H10.
+***  Proved C7:  true
+***  Proved C8:  true
+***  Proved C9:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(update(
+          logfilesstatus, [element(fld_list(usedlogfiles), [fileindexinusedlist]
+          )], archived), [i___1]) and element(update(logfilesstatus, [element(
+          fld_list(usedlogfiles), [fileindexinusedlist])], archived), [i___1]) 
+          <= filestatust__last)
+     using hypotheses H13, H27, H28, H46 & H47.
+***  Proved C10:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+     using hypothesis H14.
+***  Proved C11:  currentlogfile >= logfileindext__first
+     using hypothesis H15.
+***  Proved C12:  currentlogfile <= logfileindext__last
+     using hypothesis H16.
+***  Proved C13:  fld_length(usedlogfiles) >= logfilecountt__first
+     using hypothesis H17.
+***  Proved C14:  fld_length(usedlogfiles) <= logfilecountt__last
+     using hypothesis H18.
+***  Proved C15:  fld_lasti(usedlogfiles) >= logfileindext__first
+     using hypothesis H19.
+***  Proved C16:  fld_lasti(usedlogfiles) <= logfileindext__last
+     using hypothesis H20.
+***  Proved C17:  fld_head(usedlogfiles) >= logfileindext__first
+     using hypothesis H21.
+***  Proved C18:  fld_head(usedlogfiles) <= logfileindext__last
+     using hypothesis H22.
+***  Proved C19:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+     using hypothesis H23.
+***  Proved C20:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+     using hypothesis H24.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_27.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__systemfault
+***  Proved C5:  numberlogentries = (fld_length(usedlogfiles) - 1) * 
+          maxlogfileentries + element(logfileentries, [currentlogfile])
+     using hypothesis H1.
+-S-  Applied substitution rule archivelog_rules(127).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule archivelog_rules(128).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule archivelog_rules(20).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule archivelog_rules(21).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_28.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified H25 on reading formula in, to give:
+     %%%  H25:  audittypes__elementt__first <= audittypes__systemfault
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as H1)
+          .
+%%%  Simplified H29 on reading formula in, to give:
+     %%%  H29:  alarmtypes__statust__first <= auditalarm__7
+%%%  Simplified H35 on reading formula in, to give:
+     %%%  H35:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus__7, [i___1]) and element(logfilesstatus__7, [i___1]) 
+          <= filestatust__last)
+%%%  Simplified H36 on reading formula in, to give:
+     %%%  H36:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries__7, [i___1]) and element(logfileentries__7, [i___1]) 
+          <= fileentrycountt__last)
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles__7), [i___1]) and element(fld_list(
+          usedlogfiles__7), [i___1]) <= logfileindext__last)
+%%%  Simplified H46 on reading formula in, to give:
+     %%%  H46:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description, [i___1]) and element(description, [i___1]) <= 
+          character__last)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__archivelog
+***  Proved C2:  audittypes__information <= audittypes__severityt__last
+     using hypothesis H24.
+***  Proved C4:  audittypes__archivelog <= audittypes__elementt__last
+     using hypothesis H26.
+***  Proved C5:  numberlogentries__7 = (fld_length(usedlogfiles__7) - 1) * 
+          maxlogfileentries + element(logfileentries__7, [currentlogfile__7])
+     using hypothesis H28.
+-S-  Applied substitution rule archivelog_rules(127).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New H23:  true
+<S>  New C1:  true
+-S-  Applied substitution rule archivelog_rules(20).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New H25:  true
+<S>  New C3:  true
+***  Proved C1:  true
+***  Proved C3:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_29.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description, [i___1]) and element(description, [i___1]) <= 
+          character__last)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__archivelog
+***  Proved C5:  numberlogentries = (fld_length(usedlogfiles) - 1) * 
+          maxlogfileentries + element(logfileentries, [currentlogfile])
+     using hypothesis H1.
+-S-  Applied substitution rule archivelog_rules(127).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule archivelog_rules(128).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule archivelog_rules(20).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule archivelog_rules(21).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_30.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified H25 on reading formula in, to give:
+     %%%  H25:  audittypes__elementt__first <= audittypes__systemfault
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as H1)
+          .
+%%%  Simplified H29 on reading formula in, to give:
+     %%%  H29:  alarmtypes__statust__first <= auditalarm__7
+%%%  Simplified H35 on reading formula in, to give:
+     %%%  H35:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus__7, [i___1]) and element(logfilesstatus__7, [i___1]) 
+          <= filestatust__last)
+%%%  Simplified H36 on reading formula in, to give:
+     %%%  H36:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries__7, [i___1]) and element(logfileentries__7, [i___1]) 
+          <= fileentrycountt__last)
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles__7), [i___1]) and element(fld_list(
+          usedlogfiles__7), [i___1]) <= logfileindext__last)
+%%%  Simplified H46 on reading formula in, to give:
+     %%%  H46:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description, [i___1]) and element(description, [i___1]) <= 
+          character__last)
+%%%  Simplified H47 on reading formula in, to give:
+     %%%  H47:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified H49 on reading formula in, to give:
+     %%%  H49:  audittypes__elementt__first <= audittypes__archivelog
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as 
+          H28).
+%%%  Simplified H53 on reading formula in, to give:
+     %%%  H53:  alarmtypes__statust__first <= auditalarm__8
+%%%  Simplified H59 on reading formula in, to give:
+     %%%  H59:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus__8, [i___1]) and element(logfilesstatus__8, [i___1]) 
+          <= filestatust__last)
+%%%  Simplified H60 on reading formula in, to give:
+     %%%  H60:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries__8, [i___1]) and element(logfileentries__8, [i___1]) 
+          <= fileentrycountt__last)
+%%%  Simplified H69 on reading formula in, to give:
+     %%%  H69:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles__8), [i___1]) and element(fld_list(
+          usedlogfiles__8), [i___1]) <= logfileindext__last)
+***  Proved C1:  numberlogentries__8 = (fld_length(usedlogfiles__8) - 1) * 
+          maxlogfileentries + element(logfileentries__8, [currentlogfile__8])
+     using hypothesis H52.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_31.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___1 : integer, logfileindext__first <= i___1 and i___1 
+          <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  numberlogentries~ = (fld_length(usedlogfiles~) - 1) * 
+          maxlogfileentries + element(logfileentries~, [currentlogfile~])
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  for_all(i___1 : integer, audittypes__descriptioni__first <= 
+          i___1 and i___1 <= audittypes__descriptioni__last -> character__first 
+          <= element(description, [i___1]) and element(description, [i___1]) <= 
+          character__last)
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified H26 on reading formula in, to give:
+     %%%  H26:  audittypes__elementt__first <= audittypes__archivelog
+---  Hypothesis H28 has been replaced by "true".  (It is already present, as H1)
+          .
+%%%  Simplified H30 on reading formula in, to give:
+     %%%  H30:  alarmtypes__statust__first <= auditalarm__8
+%%%  Simplified H36 on reading formula in, to give:
+     %%%  H36:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus__8, [i___1]) and element(logfilesstatus__8, [i___1]) 
+          <= filestatust__last)
+%%%  Simplified H37 on reading formula in, to give:
+     %%%  H37:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries__8, [i___1]) and element(logfileentries__8, [i___1]) 
+          <= fileentrycountt__last)
+%%%  Simplified H46 on reading formula in, to give:
+     %%%  H46:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles__8), [i___1]) and element(fld_list(
+          usedlogfiles__8), [i___1]) <= logfileindext__last)
+***  Proved C1:  numberlogentries__8 = (fld_length(usedlogfiles__8) - 1) * 
+          maxlogfileentries + element(logfileentries__8, [currentlogfile__8])
+     using hypothesis H29.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_archivelog_32.  @@@@@@@@@@
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(user, [i___1]) and element(user, [i___1]) <= character__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  alarmtypes__statust__first <= auditalarm
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> filestatust__first <= element(
+          logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) <= 
+          filestatust__last)
+%%%  Simplified H18 on reading formula in, to give:
+     %%%  H18:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+%%%  Simplified H27 on reading formula in, to give:
+     %%%  H27:  for_all(i___1 : integer, logfileindext__first <= i___1 and 
+          i___1 <= logfileindext__last -> logfileindext__first <= element(
+          fld_list(usedlogfiles), [i___1]) and element(fld_list(usedlogfiles), [
+          i___1]) <= logfileindext__last)
+-S-  Applied substitution rule archivelog_rules(3).
+     This was achieved by replacing all occurrences of maxlogfileentries by:
+          1024.
+<S>  New C1:  numberlogentries = (fld_length(usedlogfiles) - 1) * 1024 + 
+          element(logfileentries, [currentlogfile])
+-S-  Applied substitution rule archivelog_rules(10).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H10:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> 0 <= element(user, [i___1]
+          ) and element(user, [i___1]) <= character__last)
+-S-  Applied substitution rule archivelog_rules(11).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H10:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> 0 <= element(user, [i___1]
+          ) and element(user, [i___1]) <= 255)
+-S-  Applied substitution rule archivelog_rules(157).
+     This was achieved by replacing all occurrences of 
+          audittypes__usertexti__first by:
+          1.
+<S>  New H10:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__usertexti__last -> 0 <= element(user, [i___1]) and 
+          element(user, [i___1]) <= 255)
+-S-  Applied substitution rule archivelog_rules(158).
+     This was achieved by replacing all occurrences of 
+          audittypes__usertexti__last by:
+          50.
+<S>  New H10:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 50 -> 0 <= 
+          element(user, [i___1]) and element(user, [i___1]) <= 255)
+-S-  Applied substitution rule archivelog_rules(162).
+     This was achieved by replacing all occurrences of 
+          alarmtypes__statust__first by:
+          alarmtypes__alarming.
+<S>  New H11:  alarmtypes__alarming <= auditalarm
+-S-  Applied substitution rule archivelog_rules(163).
+     This was achieved by replacing all occurrences of 
+          alarmtypes__statust__last by:
+          alarmtypes__silent.
+<S>  New H12:  auditalarm <= alarmtypes__silent
+-S-  Applied substitution rule archivelog_rules(185).
+     This was achieved by replacing all occurrences of logfilecountt__first by:
+          0.
+<S>  New H21:  fld_length(usedlogfiles) >= 0
+-S-  Applied substitution rule archivelog_rules(186).
+     This was achieved by replacing all occurrences of logfilecountt__last by:
+          17.
+<S>  New H22:  fld_length(usedlogfiles) <= 17
+-S-  Applied substitution rule archivelog_rules(191).
+     This was achieved by replacing all occurrences of logfileindext__first by:
+          1.
+<S>  New H17:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          logfileindext__last -> filestatust__first <= element(logfilesstatus, [
+          i___1]) and element(logfilesstatus, [i___1]) <= filestatust__last)
+<S>  New H18:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          logfileindext__last -> fileentrycountt__first <= element(
+          logfileentries, [i___1]) and element(logfileentries, [i___1]) <= 
+          fileentrycountt__last)
+<S>  New H19:  currentlogfile >= 1
+<S>  New H23:  fld_lasti(usedlogfiles) >= 1
+<S>  New H25:  fld_head(usedlogfiles) >= 1
+<S>  New H27:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          logfileindext__last -> 1 <= element(fld_list(usedlogfiles), [i___1]) 
+          and element(fld_list(usedlogfiles), [i___1]) <= logfileindext__last)
+-S-  Applied substitution rule archivelog_rules(192).
+     This was achieved by replacing all occurrences of logfileindext__last by:
+          17.
+<S>  New H20:  currentlogfile <= 17
+<S>  New H24:  fld_lasti(usedlogfiles) <= 17
+<S>  New H26:  fld_head(usedlogfiles) <= 17
+<S>  New H17:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> 
+          filestatust__first <= element(logfilesstatus, [i___1]) and element(
+          logfilesstatus, [i___1]) <= filestatust__last)
+<S>  New H18:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> 
+          fileentrycountt__first <= element(logfileentries, [i___1]) and 
+          element(logfileentries, [i___1]) <= fileentrycountt__last)
+<S>  New H27:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> 1 <= 
+          element(fld_list(usedlogfiles), [i___1]) and element(fld_list(
+          usedlogfiles), [i___1]) <= 17)
+-S-  Applied substitution rule archivelog_rules(197).
+     This was achieved by replacing all occurrences of filestatust__first by:
+          free.
+<S>  New H17:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> free <= 
+          element(logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) 
+          <= filestatust__last)
+-S-  Applied substitution rule archivelog_rules(198).
+     This was achieved by replacing all occurrences of filestatust__last by:
+          used.
+<S>  New H17:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> free <= 
+          element(logfilesstatus, [i___1]) and element(logfilesstatus, [i___1]) 
+          <= used)
+-S-  Applied substitution rule archivelog_rules(229).
+     This was achieved by replacing all occurrences of logentrycountt__first by:
+          0.
+<S>  New H13:  numberlogentries >= 0
+-S-  Applied substitution rule archivelog_rules(230).
+     This was achieved by replacing all occurrences of logentrycountt__last by:
+          17408.
+<S>  New H14:  numberlogentries <= 17408
+-S-  Applied substitution rule archivelog_rules(235).
+     This was achieved by replacing all occurrences of fileentrycountt__first 
+          by:
+          0.
+<S>  New H18:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> 0 <= 
+          element(logfileentries, [i___1]) and element(logfileentries, [i___1]) 
+          <= fileentrycountt__last)
+-S-  Applied substitution rule archivelog_rules(236).
+     This was achieved by replacing all occurrences of fileentrycountt__last by:
+          1024.
+<S>  New H18:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> 0 <= 
+          element(logfileentries, [i___1]) and element(logfileentries, [i___1]) 
+          <= 1024)
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H15 (true-hypothesis).
+---  Eliminated hypothesis H16 (true-hypothesis).
+-S-  Eliminated hypothesis H2.
+     This was achieved by replacing all occurrences of auditalarm by:
+          fld_auditalarm(state).
+<S>  New H11:  alarmtypes__alarming <= fld_auditalarm(state)
+<S>  New H12:  fld_auditalarm(state) <= alarmtypes__silent
+-S-  Eliminated hypothesis H3.
+     This was achieved by replacing all occurrences of numberlogentries by:
+          fld_numberlogentries(state).
+<S>  New H13:  fld_numberlogentries(state) >= 0
+<S>  New H14:  fld_numberlogentries(state) <= 17408
+<S>  New C1:  fld_numberlogentries(state) = (fld_length(usedlogfiles) - 1) * 
+          1024 + element(logfileentries, [currentlogfile])
+---  Eliminated hypothesis H5, which only specifies a value for logfiles.
+     This is not referred to anywhere else in the VC.
+-S-  Eliminated hypothesis H6.
+     This was achieved by replacing all occurrences of logfilesstatus by:
+          fld_logfilesstatus(state).
+<S>  New H17:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> free <= 
+          element(fld_logfilesstatus(state), [i___1]) and element(
+          fld_logfilesstatus(state), [i___1]) <= used)
+-S-  Eliminated hypothesis H7.
+     This was achieved by replacing all occurrences of logfileentries by:
+          fld_logfileentries(state).
+<S>  New H18:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> 0 <= 
+          element(fld_logfileentries(state), [i___1]) and element(
+          fld_logfileentries(state), [i___1]) <= 1024)
+<S>  New C1:  fld_numberlogentries(state) = (fld_length(usedlogfiles) - 1) * 
+          1024 + element(fld_logfileentries(state), [currentlogfile])
+-S-  Eliminated hypothesis H8.
+     This was achieved by replacing all occurrences of currentlogfile by:
+          fld_currentlogfile(state).
+<S>  New H19:  fld_currentlogfile(state) >= 1
+<S>  New H20:  fld_currentlogfile(state) <= 17
+<S>  New C1:  fld_numberlogentries(state) = (fld_length(usedlogfiles) - 1) * 
+          1024 + element(fld_logfileentries(state), [fld_currentlogfile(state)])
+-S-  Eliminated hypothesis H9.
+     This was achieved by replacing all occurrences of usedlogfiles by:
+          fld_usedlogfiles(state).
+<S>  New H21:  fld_length(fld_usedlogfiles(state)) >= 0
+<S>  New H22:  fld_length(fld_usedlogfiles(state)) <= 17
+<S>  New H23:  fld_lasti(fld_usedlogfiles(state)) >= 1
+<S>  New H25:  fld_head(fld_usedlogfiles(state)) >= 1
+<S>  New H24:  fld_lasti(fld_usedlogfiles(state)) <= 17
+<S>  New H26:  fld_head(fld_usedlogfiles(state)) <= 17
+<S>  New H27:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 17 -> 1 <= 
+          element(fld_list(fld_usedlogfiles(state)), [i___1]) and element(
+          fld_list(fld_usedlogfiles(state)), [i___1]) <= 17)
+<S>  New C1:  fld_numberlogentries(state) = (fld_length(fld_usedlogfiles(state))
+           - 1) * 1024 + element(fld_logfileentries(state), [fld_currentlogfile(
+          state)])
+---  Eliminated hypothesis H4, which only specifies a value for 
+          auditsystemfault.
+     This is not referred to anywhere else in the VC.
+     +++  New H28:  integer__size >= 0
+     +++  New H29:  character__size >= 0
+     +++  New H30:  positive__size >= 0
+     +++  New H31:  audittypes__elementt__size >= 0
+     +++  New H32:  audittypes__severityt__size >= 0
+     +++  New H33:  audittypes__descriptioni__size >= 0
+     +++  New H34:  audittypes__usertexti__size >= 0
+     +++  New H35:  alarmtypes__statust__size >= 0
+     +++  New H36:  logfilecountt__size >= 0
+     +++  New H37:  logfilecountt__base__first <= logfilecountt__base__last
+     +++  New H38:  logfileindext__size >= 0
+     +++  New H39:  logfileindext__base__first <= logfileindext__base__last
+     +++  New H40:  filestatust__size >= 0
+     +++  New H41:  logfilelistt__size >= 0
+     +++  New H42:  archivefilestringi__size >= 0
+     +++  New H43:  logentrycountt__size >= 0
+     +++  New H44:  logentrycountt__base__first <= logentrycountt__base__last
+     +++  New H45:  fileentrycountt__size >= 0
+     +++  New H46:  fileentrycountt__base__first <= fileentrycountt__base__last
+     +++  New H47:  logfilecountt__base__first <= 0
+     +++  New H48:  logfilecountt__base__last >= 17
+     +++  New H49:  logfileindext__base__first <= 1
+     +++  New H50:  logfileindext__base__last >= 17
+     +++  New H51:  logentrycountt__base__first <= 0
+     +++  New H52:  logentrycountt__base__last >= 17408
+     +++  New H53:  fileentrycountt__base__first <= 0
+     +++  New H54:  fileentrycountt__base__last >= 1024
+
+
+@@@@@@@@@@  VC: procedure_archivelog_33.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+

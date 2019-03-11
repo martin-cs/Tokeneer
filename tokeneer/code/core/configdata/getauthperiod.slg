@@ -1,0 +1,121 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:30  SIMPLIFIED 05-SEP-2011, 15:39:45
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure ConfigData.GetAuthPeriod
+
+
+
+
+
+
+@@@@@@@@@@  VC: procedure_getauthperiod_1.  @@@@@@@@@@
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  accesspolicyt__first <= accesspolicy
+***  Proved C2:  maxauthduration - 1 <= clock__durationt__last
+     using hypothesis H7.
+-S-  Applied substitution rule getauthperio_rules(2).
+     This was achieved by replacing all occurrences of clock__durationt__first 
+          by:
+          0.
+<S>  New H2:  workinghoursstart >= 0
+<S>  New H4:  workinghoursend >= 0
+<S>  New H6:  maxauthduration >= 0
+<S>  New C1:  maxauthduration >= 1
+***  Proved C1:  maxauthduration >= 1
+     using hypothesis H11.
+-S-  Applied substitution rule getauthperio_rules(3).
+     This was achieved by replacing all occurrences of clock__durationt__last 
+          by:
+          864000.
+<S>  New H3:  workinghoursstart <= 864000
+<S>  New H5:  workinghoursend <= 864000
+<S>  New H7:  maxauthduration <= 864000
+-S-  Applied substitution rule getauthperio_rules(8).
+     This was achieved by replacing all occurrences of accesspolicyt__first by:
+          workinghours.
+<S>  New H8:  workinghours <= accesspolicy
+-S-  Applied substitution rule getauthperio_rules(9).
+     This was achieved by replacing all occurrences of accesspolicyt__last by:
+          allhours.
+<S>  New H9:  accesspolicy <= allhours
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H6 (redundant, given H11).
+-S-  Eliminated hypothesis H10.
+     This was achieved by replacing all occurrences of accesspolicy by:
+          allhours.
+<S>  New H8:  true
+<S>  New H9:  true
+---  Eliminated hypothesis H8 (true-hypothesis).
+---  Eliminated hypothesis H9 (true-hypothesis).
+     +++  New H12:  clock__durationt__size >= 0
+     +++  New H13:  clock__durationt__base__first <= 
+          clock__durationt__base__last
+     +++  New H14:  accesspolicyt__size >= 0
+     +++  New H15:  clock__durationt__base__first <= 0
+     +++  New H16:  clock__durationt__base__last >= 864000
+***  Proved C3:  maxauthduration - 1 >= clock__durationt__base__first
+     via its standard form, which is:
+     Std.Fm C3:  - clock__durationt__base__first + maxauthduration > 0
+     using hypotheses H11 & H15.
+***  Proved C4:  maxauthduration - 1 <= clock__durationt__base__last
+     using hypotheses H7 & H16.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_getauthperiod_2.  @@@@@@@@@@
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  accesspolicyt__first <= accesspolicy
+***  Proved C1:  workinghoursstart >= clock__durationt__first
+     using hypothesis H2.
+***  Proved C2:  workinghoursstart <= clock__durationt__last
+     using hypothesis H3.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_getauthperiod_3.  @@@@@@@@@@
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  accesspolicyt__first <= accesspolicy
+---  Hypothesis H13 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as H3)
+          .
+***  Proved C1:  workinghoursend >= clock__durationt__first
+     using hypothesis H4.
+***  Proved C2:  workinghoursend <= clock__durationt__last
+     using hypothesis H5.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_getauthperiod_4.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_getauthperiod_5.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_getauthperiod_6.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_getauthperiod_7.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_getauthperiod_8.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+

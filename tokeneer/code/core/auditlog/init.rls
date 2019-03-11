@@ -1,0 +1,168 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:09.14*/
+
+                          /*procedure AuditLog.Init*/
+
+
+rule_family init_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+init_rules(1): logfileindext__first <= element(fld_list(emptylist), [I]) may_be_deduced_from [1 <= I, I <= 17].
+init_rules(2): element(fld_list(emptylist), [I]) <= logfileindext__last may_be_deduced_from [1 <= I, I <= 17].
+init_rules(3): logfileindext__first <= fld_head(emptylist) may_be_deduced.
+init_rules(4): fld_head(emptylist) <= logfileindext__last may_be_deduced.
+init_rules(5): logfileindext__first <= fld_lasti(emptylist) may_be_deduced.
+init_rules(6): fld_lasti(emptylist) <= logfileindext__last may_be_deduced.
+init_rules(7): logfilecountt__first <= fld_length(emptylist) may_be_deduced.
+init_rules(8): fld_length(emptylist) <= logfilecountt__last may_be_deduced.
+init_rules(9): emptylist may_be_replaced_by 
+           mk__logfilelistt(list := mk__logfilelistentriest(
+           logfileindext__first), head := (logfileindext__last), 
+           lasti := (logfileindext__first), length := 0).
+init_rules(10): maxlogfileentries may_be_replaced_by 1024.
+init_rules(11): integer__size >= 0 may_be_deduced.
+init_rules(12): integer__first may_be_replaced_by -2147483648.
+init_rules(13): integer__last may_be_replaced_by 2147483647.
+init_rules(14): integer__base__first may_be_replaced_by -2147483648.
+init_rules(15): integer__base__last may_be_replaced_by 2147483647.
+init_rules(16): character__size >= 0 may_be_deduced.
+init_rules(17): character__first may_be_replaced_by 0.
+init_rules(18): character__last may_be_replaced_by 255.
+init_rules(19): character__base__first may_be_replaced_by 0.
+init_rules(20): character__base__last may_be_replaced_by 255.
+init_rules(21): positive__size >= 0 may_be_deduced.
+init_rules(22): positive__first may_be_replaced_by 1.
+init_rules(23): positive__last may_be_replaced_by 2147483647.
+init_rules(24): positive__base__first may_be_replaced_by -2147483648.
+init_rules(25): positive__base__last may_be_replaced_by 2147483647.
+init_rules(26): clock__timetexti__size >= 0 may_be_deduced.
+init_rules(27): clock__timetexti__first may_be_replaced_by 1.
+init_rules(28): clock__timetexti__last may_be_replaced_by 21.
+init_rules(29): clock__timetexti__base__first may_be_replaced_by -2147483648.
+init_rules(30): clock__timetexti__base__last may_be_replaced_by 2147483647.
+init_rules(31): alarmtypes__statust__size >= 0 may_be_deduced.
+init_rules(32): alarmtypes__statust__first may_be_replaced_by alarmtypes__alarming.
+init_rules(33): alarmtypes__statust__last may_be_replaced_by alarmtypes__silent.
+init_rules(34): alarmtypes__statust__base__first may_be_replaced_by alarmtypes__alarming.
+init_rules(35): alarmtypes__statust__base__last may_be_replaced_by alarmtypes__silent.
+init_rules(36): alarmtypes__statust__pos(alarmtypes__statust__first) may_be_replaced_by 0.
+init_rules(37): alarmtypes__statust__pos(alarmtypes__alarming) may_be_replaced_by 0.
+init_rules(38): alarmtypes__statust__val(0) may_be_replaced_by 
+     alarmtypes__alarming.
+init_rules(39): alarmtypes__statust__pos(alarmtypes__silent) may_be_replaced_by 1.
+init_rules(40): alarmtypes__statust__val(1) may_be_replaced_by 
+     alarmtypes__silent.
+init_rules(41): alarmtypes__statust__pos(alarmtypes__statust__last) may_be_replaced_by 1.
+init_rules(42): alarmtypes__statust__pos(succ(X)) may_be_replaced_by 
+     alarmtypes__statust__pos(X) + 1
+     if [X <=alarmtypes__silent, X <> alarmtypes__silent].
+init_rules(43): alarmtypes__statust__pos(pred(X)) may_be_replaced_by 
+     alarmtypes__statust__pos(X) - 1
+     if [X >=alarmtypes__alarming, X <> alarmtypes__alarming].
+init_rules(44): alarmtypes__statust__pos(X) >= 0 may_be_deduced_from
+     [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+init_rules(45): alarmtypes__statust__pos(X) <= 1 may_be_deduced_from
+     [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+init_rules(46): alarmtypes__statust__val(X) >= 
+     alarmtypes__alarming may_be_deduced_from
+     [0 <= X, X <= 1].
+init_rules(47): alarmtypes__statust__val(X) <= alarmtypes__silent may_be_deduced_from
+     [0 <= X, X <= 1].
+init_rules(48): succ(alarmtypes__statust__val(X)) may_be_replaced_by 
+     alarmtypes__statust__val(X+1)
+     if [0 <= X, X < 1].
+init_rules(49): pred(alarmtypes__statust__val(X)) may_be_replaced_by 
+     alarmtypes__statust__val(X-1)
+     if [0 < X, X <= 1].
+init_rules(50): alarmtypes__statust__pos(alarmtypes__statust__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+init_rules(51): alarmtypes__statust__val(alarmtypes__statust__pos(X)) may_be_replaced_by X
+     if [alarmtypes__alarming <= X, X <= alarmtypes__silent].
+init_rules(52): alarmtypes__statust__pos(X) <= 
+     alarmtypes__statust__pos(Y) & X <= Y are_interchangeable 
+     if [alarmtypes__alarming <= X, X <= alarmtypes__silent, 
+     alarmtypes__alarming <= Y, Y <= alarmtypes__silent].
+init_rules(53): alarmtypes__statust__val(X) <= 
+     alarmtypes__statust__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].
+init_rules(54): logfilecountt__size >= 0 may_be_deduced.
+init_rules(55): logfilecountt__first may_be_replaced_by 0.
+init_rules(56): logfilecountt__last may_be_replaced_by 17.
+init_rules(57): logfilecountt__base__first <= logfilecountt__base__last may_be_deduced.
+init_rules(58): logfilecountt__base__first <= logfilecountt__first may_be_deduced.
+init_rules(59): logfilecountt__base__last >= logfilecountt__last may_be_deduced.
+init_rules(60): logfileindext__size >= 0 may_be_deduced.
+init_rules(61): logfileindext__first may_be_replaced_by 1.
+init_rules(62): logfileindext__last may_be_replaced_by 17.
+init_rules(63): logfileindext__base__first <= logfileindext__base__last may_be_deduced.
+init_rules(64): logfileindext__base__first <= logfileindext__first may_be_deduced.
+init_rules(65): logfileindext__base__last >= logfileindext__last may_be_deduced.
+init_rules(66): filestatust__size >= 0 may_be_deduced.
+init_rules(67): filestatust__first may_be_replaced_by free.
+init_rules(68): filestatust__last may_be_replaced_by used.
+init_rules(69): filestatust__base__first may_be_replaced_by free.
+init_rules(70): filestatust__base__last may_be_replaced_by used.
+init_rules(71): filestatust__pos(filestatust__first) may_be_replaced_by 0.
+init_rules(72): filestatust__pos(free) may_be_replaced_by 0.
+init_rules(73): filestatust__val(0) may_be_replaced_by free.
+init_rules(74): filestatust__pos(archived) may_be_replaced_by 1.
+init_rules(75): filestatust__val(1) may_be_replaced_by archived.
+init_rules(76): filestatust__pos(used) may_be_replaced_by 2.
+init_rules(77): filestatust__val(2) may_be_replaced_by used.
+init_rules(78): filestatust__pos(filestatust__last) may_be_replaced_by 2.
+init_rules(79): filestatust__pos(succ(X)) may_be_replaced_by 
+     filestatust__pos(X) + 1
+     if [X <=used, X <> used].
+init_rules(80): filestatust__pos(pred(X)) may_be_replaced_by 
+     filestatust__pos(X) - 1
+     if [X >=free, X <> free].
+init_rules(81): filestatust__pos(X) >= 0 may_be_deduced_from
+     [free <= X, X <= used].
+init_rules(82): filestatust__pos(X) <= 2 may_be_deduced_from
+     [free <= X, X <= used].
+init_rules(83): filestatust__val(X) >= free may_be_deduced_from
+     [0 <= X, X <= 2].
+init_rules(84): filestatust__val(X) <= used may_be_deduced_from
+     [0 <= X, X <= 2].
+init_rules(85): succ(filestatust__val(X)) may_be_replaced_by 
+     filestatust__val(X+1)
+     if [0 <= X, X < 2].
+init_rules(86): pred(filestatust__val(X)) may_be_replaced_by 
+     filestatust__val(X-1)
+     if [0 < X, X <= 2].
+init_rules(87): filestatust__pos(filestatust__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 2].
+init_rules(88): filestatust__val(filestatust__pos(X)) may_be_replaced_by X
+     if [free <= X, X <= used].
+init_rules(89): filestatust__pos(X) <= filestatust__pos(Y) & X <= Y are_interchangeable 
+     if [free <= X, X <= used, free <= Y, Y <= used].
+init_rules(90): filestatust__val(X) <= filestatust__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 2, 0 <= Y, Y <= 2].
+init_rules(91): logfilelistt__size >= 0 may_be_deduced.
+init_rules(92): A = B may_be_deduced_from
+     [goal(checktype(A,logfilelistt)),
+      goal(checktype(B,logfilelistt)),
+      fld_list(A) = fld_list(B),
+      fld_head(A) = fld_head(B),
+      fld_lasti(A) = fld_lasti(B),
+      fld_length(A) = fld_length(B)].
+init_rules(93): logentrycountt__size >= 0 may_be_deduced.
+init_rules(94): logentrycountt__first may_be_replaced_by 0.
+init_rules(95): logentrycountt__last may_be_replaced_by 17408.
+init_rules(96): logentrycountt__base__first <= logentrycountt__base__last may_be_deduced.
+init_rules(97): logentrycountt__base__first <= logentrycountt__first may_be_deduced.
+init_rules(98): logentrycountt__base__last >= logentrycountt__last may_be_deduced.
+init_rules(99): fileentrycountt__size >= 0 may_be_deduced.
+init_rules(100): fileentrycountt__first may_be_replaced_by 0.
+init_rules(101): fileentrycountt__last may_be_replaced_by 1024.
+init_rules(102): fileentrycountt__base__first <= fileentrycountt__base__last may_be_deduced.
+init_rules(103): fileentrycountt__base__first <= fileentrycountt__first may_be_deduced.
+init_rules(104): fileentrycountt__base__last >= fileentrycountt__last may_be_deduced.

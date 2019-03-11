@@ -1,0 +1,357 @@
+%============================================================================
+\chapter{Commentary on this Design}
+\label{sec:Summary}
+%============================================================================
+
+This design is intended to give a representative formal
+refinement of the Formal Specification \cite{FS}.
+
+%--------------------------------------------------------------------------
+\section{The structure of the Z}
+%--------------------------------------------------------------------------
+The formal design follows the structure of the Formal Specification.
+This is done to aid the refinement process and provide a natural
+refinement step from specification to implementation.
+
+As in the specification every effort has been taken to ensure schemas are
+simple.
+
+The section containing internal operations and checks has been
+expanded. 
+A number of common constraints have been factored out
+as checks that can be performed in the context of one or a small
+number of subsystems. 
+In order to simplify the step from
+design to implementation invariants which define key values, such as
+the door alarm, have been replaced by subsystem operations. The design
+then shows where these operations need to be invoked to ensure that
+the desired invariants are maintained.
+
+%--------------------------------------------------------------------------
+\section{Issues}
+%--------------------------------------------------------------------------
+A few issues arose while writing this design, some of which point to
+shortfalls which would need to be resolved if EAL level 6 or 7 were
+required.
+
+We present the more interesting observations here:
+
+
+\subsection{Peripheral Failures and System Faults}
+
+The design does not address fully the possibility of peripheral
+failures. This would certainly need to be addressed for EAL 6 or 7
+where fully formal proof of the implementation conforming to the
+design is required. 
+
+We do model the possibility of a system fault being raised and this is
+intended to cover peripheral failures; however, we do not elaborate what
+should occur in the event of such a failure. It is likely that
+peripheral failures would, in a full development be categorised in
+terms of their criticality and the desired system behaviour as part of
+the requirements elicitation activity. 
+
+There are a number of points where the modelling of failures could be
+improved. The manner in which these could be improved is discussed
+below. 
+
+The model makes the assumption that any attempt to read a token is
+successful in that the internal representation exactly reflects the
+real world contents of the token. In order to model the possibility of
+failure during the read the model should allow the non-deterministic
+possibility of the internal value of the token becoming $badT$
+representing a corrupt or failed read. This non-determinism would also
+need to be present in the specification to ensure that the design is a
+refinement of the specification. 
+
+A small number of system faults are deemed security
+critical. These are likely to include  
+\begin{itemize}
+\item
+failure to be able to write to the audit log; 
+\item
+any detectable failure in operating the latch
+\item
+any detectable failure to be able to monitor the state of the door.
+\end{itemize}
+These failures will occur non-deterministically and we should specify
+the desired behaviour if each of these occur. 
+
+A failure to write to the audit log is severe since it means that
+activities could proceed un-audited.  
+In the event of a failure to write to the audit log the audit alarm
+should be raised and the system should be shutdown preventing it from
+participating an any further activities. 
+
+In the event of a failure we can assume little about the state of the
+current log file, we assume that nothing old was lost but some
+elements may have been added.
+
+\begin{schema}{AuditLogFailure}
+	\Delta AuditLogC
+\where
+	auditAlarmC' = alarming
+\\      logFilesStatus' = logFilesStatus
+\\      currentLogFile' = currentLogFile
+\\      usedLogFiles' = usedLogFiles
+\\      freeLogFiles' = freeLogFiles
+\\      \{ currentLogFile \} \ndres logFiles' = \{ currentLogFile \}
+\ndres logFiles
+\\      logFiles~ currentLogFile \subseteq logFiles'~currentLogFile	
+\end{schema}
+
+In the event of such a failure the administrator should be logged off
+and the system shutdown. The door should be locked to ensure the
+enclave is left in a secure state.
+
+\begin{schema}{ShutdownAuditFailure}
+	\Delta IDStationC
+\\      RealWorldChangesC
+\also
+        LockDoorC
+\\	\Xi KeyStoreC
+\\	\Xi CertificateStore
+\\	\Xi ConfigC
+\\      \Xi FloppyC
+\\      \Xi KeyboardC
+\\      \Xi AdminTokenC
+\\      \Xi UserTokenC
+\\      AdminLogoutC
+\\      \Xi FingerC
+\\      \Xi StatsC
+\\      AuditLogFailure
+\where
+	enclaveStatusC' = shutdown
+\\	statusC' = quiescent
+\also
+\\	currentDisplayC' = blank
+\\	currentScreenC'.screenMsgC = clearC
+\end{schema}
+
+It is likely that the desired behaviour in the event of a failure of
+the door or latch is to assume that the system is in an insecure state
+and raise an alarm. It may also be desirable to shutdown the system,
+preventing any further action. 
+
+\begin{schema}{DoorLatchFailure}
+	\Delta DoorLatchAlarmC
+\where
+	doorAlarmC' = alarming
+\\	currentTimeC' = currentTimeC
+\\	currentDoorC' = open
+\\	currentLatchC' = locked
+\\	latchTimeoutC' = zeroTime
+\\	alarmTimeoutC' = zeroTime
+\end{schema}
+
+In the event of such a failure, the fault can be logged and the system shutdown.
+
+\begin{schema}{ShutdownDoorLatchFailure}
+	\Delta IDStationC
+\\      RealWorldChangesC
+\also
+        DoorLatchFailure
+\\	\Xi KeyStoreC
+\\	\Xi CertificateStore
+\\	\Xi ConfigC
+\\      \Xi FloppyC
+\\      \Xi KeyboardC
+\\      \Xi AdminTokenC
+\\      \Xi UserTokenC
+\\      AdminLogoutC
+\\      \Xi FingerC
+\\      \Xi StatsC
+\\      AddElementsToLogC
+\\      LogChangeC
+\where
+	enclaveStatusC' = shutdown
+\\	statusC' = quiescent
+\also
+\\	currentDisplayC' = blank
+\\	currentScreenC'.screenMsgC = clearC
+\also
+        \exists_1 element : AuditC @ element \in newElements? 
+\\ \t1  \land element.elementId = systemFaultElement
+\\ \t1  \land element.logTime \in nowC \upto nowC'
+\\ \t1  \land element.user = noUser
+\\ \t1  \land element.severity = critical
+\end{schema}
+
+As faults are not modelled in the specification refinement would not
+be achievable if system faults were modelled in the design. 
+
+\subsection{Unelaborated aspects of the Design}
+Normally all types within the design would be elaborated in terms of
+entities that  
+closely model the implementation type.
+
+There are some aspects of certificates that have not been fully
+ elaborated within this  design. These are $FINGERPRINT$, and
+ $FINGERPRINTTEMPLATE$. All of these would normally be elaborated in
+ terms of a  model of the
+ implementation types. This is unnecessary for these three
+ entities. The core TIS has no reason to use  the $FINGERPRINT$ or
+ $FINGERPRINTTEMPLATE$, it 
+ simply passes the information to the Biometric library.
+
+The components of an issuer $USERID$ and $USERNAME$ are free types 
+within the design. The only property that is utilised within the
+design is equality of  
+$USERID$. For this demonstration implementation the user Id is simplified to a 
+numeric although this is not completely realistic so is not elaborated
+within the  
+design.
+
+\subsection{Enrolment Protocol}
+Enrolment is a simplified model of part of the enrolment protocol. The likely 
+enrolment protocol would involve the following stages.
+\begin{enumerate}
+\item
+ TIS generates a pubic/private key pair at 
+initialisation and uses the public key to create a request for enrolment. 
+\item
+The enrolment request is presented to a CA. The CA would generate an Id certificate 
+for the TIS, this will contain the authorised name of the TIS as its subject and the TIS 
+public key. 
+\item
+An AA constructs the enrolment data. 
+Enrolment data comprises a number of Id certificates, including the Id 
+certificate of the TIS itself and the Id certificate of the CA that issued the TIS Id 
+certificate. 
+\item
+TIS accepts the enrolment data and uses this to establish known issuers.
+\end{enumerate}
+Within the design we only model the final phase of enrolment. 
+
+TIS would only actually participate in the first and last phase of
+this protocol, the other two activities being performed by a CA and
+AA.  
+
+Due to budgetary limitations we have omitted the first phase of this
+protocol from the design model. This is possible since this
+demonstration mimics the keys and the encryption process. There is no
+need for our demonstration to be supplied with the  
+public key that corresponds to an internally held private key as the
+private key is not used in the mimicked encryption. Instead TIS will
+record the presence of the private  
+key once enrolment has supplied its ID Certificate. 
+
+\subsection{Reading Tokens}
+
+The formal design shows all certificates on a token being read when
+anything from the token is required. In actuality the authorisation
+certificate will only ever be read from the administrator token, while
+the reading of certificates from the user token will follow the
+following ordering.
+\begin{itemize}
+\item
+An attempt is made to read the authorisation certificate and ID certificate.
+\item
+If these are present then they are validated.
+\item 
+If they fail to validate or are not present then the remaining 
+certificates are read.
+\end{itemize}
+Due to budgetary limitations this was not progressed within this
+ design although it would be necessary to achieve EAL 6 or above to
+ enable formal proof of the implementation satisfying the design. 
+
+The design as it stands is not invalid, it just presents a slightly
+larger step between design and implementation than might be desirable.
+
+\subsection{Token Representation}
+Within the formal design we represent tokens as containing a number of raw 
+certificates. This is an effective model for the real world view of
+the tokens but it is a  
+less satisfactory model for the internal representation of the token.
+
+Given more resources we would have modelled the internal tokens as
+containing the contents of the certificates that we are interested
+in. 
+So for the administrators token  
+only the contents of the Authorisation Certificate would be preserved,
+while for the user token the contents of the all the certificates may
+be maintained. 
+
+This would have the advantage within the design of removing the need
+to extract the required fields from the various tokens every time they 
+are required.
+
+If this design were to be progressed further it would be worth
+modelling the internal  
+representation of tokens as maintaining the contents of selected
+certificates rather than  
+the raw certificates. This would then result in a smaller step to
+implementation. 
+
+\subsection{Relating enclave entry and Auth Cert generation}
+
+Within the specification independent configuration is used to
+determine the authorisation period applied to authorisation
+certificates and the times at which entry to the enclave should be
+allowed.
+
+It should be noted that if the user obtains an authorisation
+certificate and the system is reconfigured before the authorisation
+certificate expires then it is still possible for the user to possess
+a current authorisation certificate and be denied entry.
+
+\subsection{Comments on the refinement relation}
+There are a number of circumstances where not all the abstract
+entities in the specification can be retrieved from the concrete
+entities in this design. In particular this applies to certificates on
+tokens and the configuration data. In the case of certificates this is
+due to the validity period used in the specification not necessarily
+being 
+contiguous. In the case of the configuration data this is due to the
+enormous freedom in the definition of the abstract $authPeriod$ and
+$entryPeriod$ functions.
+\begin{itemize}
+\item
+The concrete $authPeriod$ and $entryPeriod$ are
+independent of $role$. 
+\item
+There is no relationship between the $authPeriod$ and
+$entryPeriod$. 
+\item
+The concrete $authPeriod$ is always a contiguous range
+of times. 
+\end{itemize}
+
+As the specification has a very abstract view of what the real world
+can do, this is acceptable. 
+
+During TIS operations the real world undergoes change which is
+relatively unconstrained, in both the concrete and abstract model time
+must not decrease but all other real world entities that are not
+controlled by TIS may change arbitrarily. In the specification there
+are more possible states in which the real world can change into, the
+abstract tokens can change to ones that cannot be represented in the
+concrete model, floppy data can change to contain configuration data
+that is not valid configuration data in the concrete model. In all
+these cases the concrete ``bad'' value is a refinement of the abstract values
+that are not attainable in the concrete real world.
+
+This refinement is acceptable as long as our concrete real world still
+allows all values that the requirements consider should be valid
+inputs.
+
+In a real development of a working product there would be a part 
+of requirements elictation in which the exact nature of all the inputs is
+discussed. This discussion may well be postponed until the Formal
+Specification is in place providing a useful context for
+discussion, this would very much depend on the nature of the inputs
+and whether the product development can control the allowable range of values. 
+
+Our design has constrained the validity periods on certificates to
+reflect the contiguous ranges that can be specified reflecting true
+requirements constraints on the nature of X509 certificates.
+
+The new constraints on the configuration data have been introduced to
+limit allowed configurations to those that can be specified with a
+small number of parameters. In a real development these are design
+constraints and would need to be discussed with the customer to ensure
+that sufficient flexibility remains in the allowed configuration values.
+ 
+
+

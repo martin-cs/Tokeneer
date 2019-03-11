@@ -1,0 +1,1640 @@
+           *******************************************************
+                            Listing of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:32.23
+
+Line
+   1  ------------------------------------------------------------------
+   2  -- Tokeneer ID Station Core Software
+   3  --
+   4  -- Copyright (2003) United States Government, as represented
+   5  -- by the Director, National Security Agency. All rights reserved.
+   6  --
+   7  -- This material was originally developed by Praxis High Integrity
+   8  -- Systems Ltd. under contract to the National Security Agency.
+   9  --
+  10  -- Modifications to proof annotations by Phil Thornley, April 2009
+  11  ------------------------------------------------------------------
+  12  
+  13  ------------------------------------------------------------------
+  14  -- TIS main program
+  15  --
+  16  -- Description:
+  17  --    The TIS main program
+  18  --
+  19  -- Implementation Notes:
+  20  --    None.
+  21  ------------------------------------------------------------------
+  22  with Admin;
+  23  with AdminToken;
+  24  with AuditLog;
+  25  with AuditTypes;
+  26  with CertificateStore;
+  27  with Configuration;
+  28  with Door;
+  29  with Display;
+  30  with Enclave;
+  31  with Floppy;
+  32  with Keyboard;
+  33  with KeyStore;
+  34  with Latch;
+  35  with Poll;
+  36  with Screen;
+  37  with Stats;
+  38  with Updates;
+  39  with UserToken;
+  40  with UserEntry;
+  41  
+  42  --# inherit
+  43  --#    Admin,
+  44  --#    AdminToken,
+  45  --#    Alarm,
+  46  --#    AlarmTypes,
+  47  --#    AuditLog,
+  48  --#    AuditTypes,
+  49  --#    Bio,
+  50  --#    CertificateStore,
+  51  --#    Clock,
+  52  --#    Configuration,
+  53  --#    ConfigData,
+  54  --#    Door,
+  55  --#    Display,
+  56  --#    Enclave,
+  57  --#    Floppy,
+  58  --#    Keyboard,
+  59  --#    KeyStore,
+  60  --#    Latch,
+  61  --#    Poll,
+  62  --#    PrivTypes,
+  63  --#    Screen,
+  64  --#    Stats,
+  65  --#    UserEntry,
+  66  --#    UserToken,
+  67  --#    Updates;
+  68  --# main_program;
+  69  procedure TISMain
+  70     --# global in     Keyboard.Input;
+  71     --#        in     Floppy.Input;
+  72     --#        in     Door.Input;
+  73     --#        in     Clock.Now;
+  74     --#        in     AdminToken.Input;
+  75     --#        in     Bio.Input;
+  76     --#        in     UserToken.Input;
+  77     --#        in out AuditLog.FileState;
+  78     --#        in out UserToken.Status;
+  79     --#        in out CertificateStore.FileState;
+  80     --#        in out UserEntry.State;
+  81     --#        in out ConfigData.FileState;
+  82     --#        in out AdminToken.Status;
+  83     --#        in out KeyStore.Store;
+  84     --#           out Door.State;
+  85     --#           out Latch.State;
+  86     --#           out Latch.Output;
+  87     --#           out Alarm.Output;
+  88     --#           out Enclave.State;
+  89     --#           out ConfigData.State;
+  90     --#           out AuditLog.State;
+  91     --#           out Display.Output;
+  92     --#           out Display.State;
+  93     --#           out UserToken.State;
+  94     --#           out CertificateStore.State;
+  95     --#           out Clock.CurrentTime;
+  96     --#           out AdminToken.State;
+  97     --#           out KeyStore.State;
+  98     --#           out UserToken.Output;
+  99     --#           out Screen.State;
+ 100     --#           out Floppy.Output;
+ 101     --#           out Floppy.WrittenState;
+ 102     --#           out Floppy.State;
+ 103     --#           out Screen.Output;
+ 104     --# derives Door.State,
+ 105     --#         AuditLog.FileState,
+ 106     --#         UserToken.Status,
+ 107     --#         CertificateStore.FileState,
+ 108     --#         UserEntry.State,
+ 109     --#         Latch.State,
+ 110     --#         Latch.Output,
+ 111     --#         Alarm.Output,
+ 112     --#         Enclave.State,
+ 113     --#         ConfigData.State,
+ 114     --#         AuditLog.State,
+ 115     --#         Display.Output,
+ 116     --#         Display.State,
+ 117     --#         UserToken.State,
+ 118     --#         CertificateStore.State,
+ 119     --#         Clock.CurrentTime,
+ 120     --#         AdminToken.State,
+ 121     --#         ConfigData.FileState,
+ 122     --#         AdminToken.Status,
+ 123     --#         KeyStore.Store,
+ 124     --#         KeyStore.State,
+ 125     --#         UserToken.Output,
+ 126     --#         Screen.State,
+ 127     --#         Floppy.Output,
+ 128     --#         Floppy.WrittenState,
+ 129     --#         Floppy.State,
+ 130     --#         Screen.Output              from AuditLog.FileState,
+ 131     --#                                         UserToken.Status,
+ 132     --#                                         CertificateStore.FileState,
+ 133     --#                                         UserEntry.State,
+ 134     --#                                         ConfigData.FileState,
+ 135     --#                                         AdminToken.Status,
+ 136     --#                                         KeyStore.Store,
+ 137     --#                                         Keyboard.Input,
+ 138     --#                                         Floppy.Input,
+ 139     --#                                         Door.Input,
+ 140     --#                                         Clock.Now,
+ 141     --#                                         AdminToken.Input,
+ 142     --#                                         Bio.Input,
+ 143     --#                                         UserToken.Input;
+ 144  
+ 145  is
+ 146  
+ 147     SystemFault       : Boolean;
+ 148     ShutdownCompleted : Boolean;
+ 149  
+ 150     TheStats : Stats.T;
+ 151  
+ 152     TheAdmin : Admin.T;
+ 153  
+ 154    --# function prf_preLatchState return Latch.StateType;
+ 155    --# function prf_preLatchOutput return Latch.OutType;
+ 156  
+ 157     ------------------------------------------------------------------
+ 158     -- Init
+ 159     --
+ 160     -- Description:
+ 161     --    Performs the Initialisation Activities.
+ 162     --
+ 163     -- Traceunit: C.TIS.Init
+ 164     -- Traceto: FD.TIS.TISInitIDStation
+ 165     -- Traceto: FD.TIS.TISStartup
+ 166     ------------------------------------------------------------------
+ 167     procedure Init
+ 168       --# global in     KeyStore.Store;
+ 169       --#        in     Keyboard.Input;
+ 170       --#        in     Clock.Now;
+ 171       --#        in out AuditLog.FileState;
+ 172       --#        in out UserToken.Status;
+ 173       --#        in out CertificateStore.FileState;
+ 174       --#        in out ConfigData.FileState;
+ 175       --#        in out AdminToken.Status;
+ 176       --#           out Door.State;
+ 177       --#           out Latch.State;
+ 178       --#           out Enclave.State;
+ 179       --#           out ConfigData.State;
+ 180       --#           out AuditLog.State;
+ 181       --#           out Display.State;
+ 182       --#           out UserToken.State;
+ 183       --#           out CertificateStore.State;
+ 184       --#           out AdminToken.State;
+ 185       --#           out KeyStore.State;
+ 186       --#           out Screen.State;
+ 187       --#           out Floppy.WrittenState;
+ 188       --#           out Floppy.State;
+ 189       --#           out Screen.Output;
+ 190       --#           out TheAdmin;
+ 191       --#           out TheStats;
+ 192       --# derives Door.State,
+ 193       --#         Latch.State,
+ 194       --#         Floppy.WrittenState,
+ 195       --#         Floppy.State,
+ 196       --#         TheAdmin,
+ 197       --#         TheStats                   from  &
+ 198       --#         AuditLog.FileState,
+ 199       --#         AuditLog.State             from AuditLog.FileState,
+ 200       --#                                         UserToken.Status,
+ 201       --#                                         CertificateStore.FileState,
+ 202       --#                                         ConfigData.FileState,
+ 203       --#                                         KeyStore.Store,
+ 204       --#                                         Clock.Now &
+ 205       --#         UserToken.Status,
+ 206       --#         CertificateStore.FileState,
+ 207       --#         ConfigData.FileState,
+ 208       --#         AdminToken.Status          from * &
+ 209       --#         Enclave.State,
+ 210       --#         Display.State,
+ 211       --#         KeyStore.State,
+ 212       --#         Screen.State,
+ 213       --#         Screen.Output              from KeyStore.Store &
+ 214       --#         ConfigData.State           from ConfigData.FileState &
+ 215       --#         UserToken.State            from UserToken.Status &
+ 216       --#         CertificateStore.State     from CertificateStore.FileState &
+ 217       --#         AdminToken.State           from AdminToken.Status &
+ 218       --#         null                       from Keyboard.Input;
+ 219       --# post ( not Enclave.EnrolmentIsInProgress(Enclave.State) <->
+ 220       --#             KeyStore.PrivateKeyPresent(KeyStore.State) ) and
+ 221       --#
+ 222       --#      ( Enclave.EnrolmentIsInProgress(Enclave.State) or
+ 223       --#           Enclave.prf_statusIsEnclaveQuiescent(Enclave.State) ) and
+ 224       --#
+ 225       --#      not Admin.IsPresent(TheAdmin) and
+ 226       --#      not Admin.IsDoingOp(TheAdmin) and
+ 227       --#
+ 228       --#      Admin.prf_rolePresent(TheAdmin) /= PrivTypes.Guard and
+ 229       --#
+ 230       --#      not Enclave.prf_statusIsWaitingStartAdminOp(Enclave.State) and
+ 231       --#      not Enclave.prf_statusIsWaitingFinishAdminOp(Enclave.State) and
+ 232       --#      not Enclave.prf_statusIsShutdown(Enclave.State) and
+ 233       --#
+ 234       --#      not AdminToken.prf_isGood(AdminToken.State) and
+ 235       --#      not AdminToken.prf_authCertValid(AdminToken.State) and
+ 236       --#      AdminToken.TheAuthCertRole(AdminToken.State) /= PrivTypes.Guard;
+ 237     is
+ 238     begin
+ 239        Stats.Init(TheStats);
+ 240        Admin.Init(TheAdmin);
+ 241        Floppy.Init;
+ 242        Configuration.Init;
+ 243        AuditLog.Init;
+ 244        KeyStore.Init;
+ 245        Display.Init(IsEnrolled => KeyStore.PrivateKeyPresent);
+ 246        Screen.Init(IsEnrolled => KeyStore.PrivateKeyPresent);
+ 247        Keyboard.Init;
+ 248        Latch.Init;
+ 249        Door.Init;
+ 250        CertificateStore.Init;
+ 251        UserToken.Init;
+ 252        AdminToken.Init;
+ 253        Enclave.Init;
+ 254  
+ 255        if KeyStore.PrivateKeyPresent then
+ 256           AuditLog.AddElementToLog
+ 257             ( ElementID   => AuditTypes.StartEnrolledTIS,
+ 258               Severity    => AuditTypes.Information,
+ 259               User        => AuditTypes.NoUser,
+ 260               Description => AuditTypes.NoDescription
+ 261               );
+ 262  
+ 263        else
+ 264           AuditLog.AddElementToLog
+ 265             ( ElementID   => AuditTypes.StartUnenrolledTIS,
+ 266               Severity    => AuditTypes.Information,
+ 267               User        => AuditTypes.NoUser,
+ 268               Description => AuditTypes.NoDescription
+ 269               );
+ 270  
+ 271        end if;
+ 272        --# check Admin.prf_rolePresent(TheAdmin) = PrivTypes.UserOnly;
+ 273     end Init;
+
++++        Flow analysis of subprogram Init performed: no 
+           errors found.
+
+ 274  
+ 275     ------------------------------------------------------------------
+ 276     -- Processing
+ 277     --
+ 278     -- Description:
+ 279     --    Performs the TIS processing activity.
+ 280     --
+ 281     -- Traceunit: C.TIS.Processing
+ 282     -- Traceto: FD.TIS.TISMainLoop
+ 283     ------------------------------------------------------------------
+ 284     procedure Processing
+ 285       --# global in     Clock.CurrentTime;
+ 286       --#        in     Keyboard.Input;
+ 287       --#        in     Floppy.Input;
+ 288       --#        in     Clock.Now;
+ 289       --#        in     AdminToken.Input;
+ 290       --#        in     Bio.Input;
+ 291       --#        in     UserToken.Input;
+ 292       --#        in out Door.State;
+ 293       --#        in out AuditLog.FileState;
+ 294       --#        in out UserToken.Status;
+ 295       --#        in out CertificateStore.FileState;
+ 296       --#        in out UserEntry.State;
+ 297       --#        in out Latch.State;
+ 298       --#        in out Enclave.State;
+ 299       --#        in out ConfigData.State;
+ 300       --#        in out AuditLog.State;
+ 301       --#        in out Display.State;
+ 302       --#        in out UserToken.State;
+ 303       --#        in out CertificateStore.State;
+ 304       --#        in out AdminToken.State;
+ 305       --#        in out ConfigData.FileState;
+ 306       --#        in out AdminToken.Status;
+ 307       --#        in out KeyStore.Store;
+ 308       --#        in out KeyStore.State;
+ 309       --#        in out Screen.State;
+ 310       --#        in out Floppy.WrittenState;
+ 311       --#        in out Floppy.State;
+ 312       --#        in out TheAdmin;
+ 313       --#        in out TheStats;
+ 314       --#           out UserToken.Output;
+ 315       --#           out Floppy.Output;
+ 316       --# derives Door.State,
+ 317       --#         Latch.State                from Door.State,
+ 318       --#                                         UserEntry.State,
+ 319       --#                                         Latch.State,
+ 320       --#                                         Enclave.State,
+ 321       --#                                         ConfigData.State,
+ 322       --#                                         UserToken.State,
+ 323       --#                                         Clock.CurrentTime,
+ 324       --#                                         AdminToken.State,
+ 325       --#                                         TheAdmin &
+ 326       --#         AuditLog.FileState,
+ 327       --#         AuditLog.State             from Door.State,
+ 328       --#                                         AuditLog.FileState,
+ 329       --#                                         UserToken.Status,
+ 330       --#                                         CertificateStore.FileState,
+ 331       --#                                         UserEntry.State,
+ 332       --#                                         Latch.State,
+ 333       --#                                         Enclave.State,
+ 334       --#                                         ConfigData.State,
+ 335       --#                                         AuditLog.State,
+ 336       --#                                         Display.State,
+ 337       --#                                         UserToken.State,
+ 338       --#                                         CertificateStore.State,
+ 339       --#                                         Clock.CurrentTime,
+ 340       --#                                         AdminToken.State,
+ 341       --#                                         ConfigData.FileState,
+ 342       --#                                         AdminToken.Status,
+ 343       --#                                         KeyStore.Store,
+ 344       --#                                         KeyStore.State,
+ 345       --#                                         Screen.State,
+ 346       --#                                         Floppy.WrittenState,
+ 347       --#                                         Floppy.State,
+ 348       --#                                         Keyboard.Input,
+ 349       --#                                         Floppy.Input,
+ 350       --#                                         Clock.Now,
+ 351       --#                                         AdminToken.Input,
+ 352       --#                                         Bio.Input,
+ 353       --#                                         UserToken.Input,
+ 354       --#                                         TheAdmin &
+ 355       --#         CertificateStore.FileState,
+ 356       --#         CertificateStore.State     from *,
+ 357       --#                                         UserToken.Status,
+ 358       --#                                         UserEntry.State,
+ 359       --#                                         Enclave.State,
+ 360       --#                                         ConfigData.State,
+ 361       --#                                         UserToken.State,
+ 362       --#                                         CertificateStore.State,
+ 363       --#                                         Clock.CurrentTime,
+ 364       --#                                         AdminToken.State,
+ 365       --#                                         KeyStore.Store,
+ 366       --#                                         KeyStore.State,
+ 367       --#                                         TheAdmin &
+ 368       --#         Enclave.State              from *,
+ 369       --#                                         Door.State,
+ 370       --#                                         UserEntry.State,
+ 371       --#                                         Enclave.State,
+ 372       --#                                         UserToken.State,
+ 373       --#                                         Clock.CurrentTime,
+ 374       --#                                         AdminToken.State,
+ 375       --#                                         AdminToken.Status,
+ 376       --#                                         KeyStore.Store,
+ 377       --#                                         KeyStore.State,
+ 378       --#                                         Floppy.State,
+ 379       --#                                         Keyboard.Input,
+ 380       --#                                         AdminToken.Input,
+ 381       --#                                         TheAdmin &
+ 382       --#         Screen.State               from *,
+ 383       --#                                         Door.State,
+ 384       --#                                         UserEntry.State,
+ 385       --#                                         Enclave.State,
+ 386       --#                                         UserToken.State,
+ 387       --#                                         Clock.CurrentTime,
+ 388       --#                                         ConfigData.State,
+ 389       --#                                         AdminToken.State,
+ 390       --#                                         AdminToken.Status,
+ 391       --#                                         UserToken.Status,
+ 392       --#                                         KeyStore.Store,
+ 393       --#                                         KeyStore.State,
+ 394       --#                                         Floppy.State,
+ 395       --#                                         Floppy.WrittenState,
+ 396       --#                                         Bio.Input,
+ 397       --#                                         Floppy.Input,
+ 398       --#                                         Keyboard.Input,
+ 399       --#                                         AdminToken.Input,
+ 400       --#                                         UserToken.Input,
+ 401       --#                                         TheAdmin &
+ 402       --#         ConfigData.State,
+ 403       --#         ConfigData.FileState       from *,
+ 404       --#                                         UserEntry.State,
+ 405       --#                                         Enclave.State,
+ 406       --#                                         UserToken.State,
+ 407       --#                                         Clock.CurrentTime,
+ 408       --#                                         AdminToken.State,
+ 409       --#                                         Floppy.State,
+ 410       --#                                         TheAdmin &
+ 411       --#         KeyStore.Store,
+ 412       --#         KeyStore.State             from *,
+ 413       --#                                         Enclave.State,
+ 414       --#                                         KeyStore.Store,
+ 415       --#                                         Floppy.State &
+ 416       --#         UserToken.Status           from *,
+ 417       --#                                         UserEntry.State,
+ 418       --#                                         Enclave.State,
+ 419       --#                                         ConfigData.State,
+ 420       --#                                         UserToken.State,
+ 421       --#                                         CertificateStore.State,
+ 422       --#                                         Clock.CurrentTime,
+ 423       --#                                         AdminToken.State,
+ 424       --#                                         KeyStore.Store,
+ 425       --#                                         KeyStore.State,
+ 426       --#                                         UserToken.Input,
+ 427       --#                                         TheAdmin &
+ 428       --#         UserEntry.State            from *,
+ 429       --#                                         UserToken.Status,
+ 430       --#                                         Enclave.State,
+ 431       --#                                         ConfigData.State,
+ 432       --#                                         UserToken.State,
+ 433       --#                                         Clock.CurrentTime,
+ 434       --#                                         AdminToken.State,
+ 435       --#                                         KeyStore.Store,
+ 436       --#                                         KeyStore.State,
+ 437       --#                                         Bio.Input,
+ 438       --#                                         UserToken.Input,
+ 439       --#                                         TheAdmin &
+ 440       --#         Display.State              from *,
+ 441       --#                                         Door.State,
+ 442       --#                                         UserToken.Status,
+ 443       --#                                         UserEntry.State,
+ 444       --#                                         Enclave.State,
+ 445       --#                                         ConfigData.State,
+ 446       --#                                         UserToken.State,
+ 447       --#                                         CertificateStore.State,
+ 448       --#                                         Clock.CurrentTime,
+ 449       --#                                         AdminToken.State,
+ 450       --#                                         KeyStore.Store,
+ 451       --#                                         KeyStore.State,
+ 452       --#                                         Floppy.State,
+ 453       --#                                         Bio.Input,
+ 454       --#                                         UserToken.Input,
+ 455       --#                                         TheAdmin &
+ 456       --#         UserToken.State            from *,
+ 457       --#                                         Door.State,
+ 458       --#                                         UserToken.Status,
+ 459       --#                                         UserEntry.State,
+ 460       --#                                         Enclave.State,
+ 461       --#                                         ConfigData.State,
+ 462       --#                                         CertificateStore.State,
+ 463       --#                                         Clock.CurrentTime,
+ 464       --#                                         AdminToken.State,
+ 465       --#                                         KeyStore.Store,
+ 466       --#                                         KeyStore.State,
+ 467       --#                                         UserToken.Input,
+ 468       --#                                         TheAdmin &
+ 469       --#         AdminToken.State           from *,
+ 470       --#                                         Door.State,
+ 471       --#                                         UserEntry.State,
+ 472       --#                                         Enclave.State,
+ 473       --#                                         UserToken.State,
+ 474       --#                                         Clock.CurrentTime,
+ 475       --#                                         AdminToken.Status,
+ 476       --#                                         KeyStore.Store,
+ 477       --#                                         KeyStore.State,
+ 478       --#                                         AdminToken.Input,
+ 479       --#                                         TheAdmin &
+ 480       --#         AdminToken.Status          from *,
+ 481       --#                                         UserEntry.State,
+ 482       --#                                         Enclave.State,
+ 483       --#                                         UserToken.State,
+ 484       --#                                         Clock.CurrentTime,
+ 485       --#                                         AdminToken.State,
+ 486       --#                                         TheAdmin &
+ 487       --#         UserToken.Output           from UserToken.Status,
+ 488       --#                                         UserEntry.State,
+ 489       --#                                         Enclave.State,
+ 490       --#                                         ConfigData.State,
+ 491       --#                                         UserToken.State,
+ 492       --#                                         CertificateStore.State,
+ 493       --#                                         Clock.CurrentTime,
+ 494       --#                                         AdminToken.State,
+ 495       --#                                         KeyStore.Store,
+ 496       --#                                         KeyStore.State,
+ 497       --#                                         TheAdmin &
+ 498       --#         Floppy.Output              from AuditLog.FileState,
+ 499       --#                                         UserEntry.State,
+ 500       --#                                         Enclave.State,
+ 501       --#                                         AuditLog.State,
+ 502       --#                                         UserToken.State,
+ 503       --#                                         Clock.CurrentTime,
+ 504       --#                                         AdminToken.State,
+ 505       --#                                         Floppy.State,
+ 506       --#                                         TheAdmin &
+ 507       --#         Floppy.WrittenState        from *,
+ 508       --#                                         AuditLog.FileState,
+ 509       --#                                         UserEntry.State,
+ 510       --#                                         Enclave.State,
+ 511       --#                                         AuditLog.State,
+ 512       --#                                         UserToken.State,
+ 513       --#                                         Clock.CurrentTime,
+ 514       --#                                         AdminToken.State,
+ 515       --#                                         Floppy.State,
+ 516       --#                                         TheAdmin &
+ 517       --#         Floppy.State               from *,
+ 518       --#                                         UserEntry.State,
+ 519       --#                                         Enclave.State,
+ 520       --#                                         UserToken.State,
+ 521       --#                                         Clock.CurrentTime,
+ 522       --#                                         AdminToken.State,
+ 523       --#                                         Floppy.Input,
+ 524       --#                                         TheAdmin &
+ 525       --#         TheAdmin                   from *,
+ 526       --#                                         Door.State,
+ 527       --#                                         UserEntry.State,
+ 528       --#                                         Enclave.State,
+ 529       --#                                         UserToken.State,
+ 530       --#                                         Clock.CurrentTime,
+ 531       --#                                         AdminToken.State,
+ 532       --#                                         AdminToken.Status,
+ 533       --#                                         KeyStore.Store,
+ 534       --#                                         KeyStore.State,
+ 535       --#                                         Keyboard.Input,
+ 536       --#                                         AdminToken.Input &
+ 537       --#         TheStats                   from *,
+ 538       --#                                         UserEntry.State,
+ 539       --#                                         Enclave.State,
+ 540       --#                                         ConfigData.State,
+ 541       --#                                         UserToken.State,
+ 542       --#                                         Clock.CurrentTime,
+ 543       --#                                         AdminToken.State,
+ 544       --#                                         Bio.Input,
+ 545       --#                                         TheAdmin;
+ 546       --# pre  (not Enclave.EnrolmentIsInProgress(Enclave.State) <->
+ 547       --#             KeyStore.PrivateKeyPresent(KeyStore.State)) and
+ 548       --#      --------------------------------------------------------
+ 549       --#      -- PROOF ANNOTATIONS FOR SECURITY PROPERTY 3          --
+ 550       --#      --====================================================--
+ 551       --#      -- Before each call to Processing, the security       --
+ 552       --#      -- property holds.                                    --
+ 553       --#      --------------------------------------------------------
+ 554       --#      ( ( Latch.IsLocked(Latch.State) and
+ 555       --#          Door.TheCurrentDoor(Door.State) = Door.Open and
+ 556       --#          Clock.GreaterThanOrEqual(Clock.TheCurrentTime(Clock.CurrentTime),
+ 557       --#                                   Door.prf_alarmTimeout(Door.State)) ) <->
+ 558       --#        Door.TheDoorAlarm(Door.State) = AlarmTypes.Alarming ) and
+ 559       --#
+ 560       --#      ( Admin.prf_rolePresent(TheAdmin) = PrivTypes.Guard ->
+ 561       --#           ( AdminToken.prf_isGood(AdminToken.State) and
+ 562       --#             AdminToken.prf_authCertValid(AdminToken.State) and
+ 563       --#             AdminToken.TheAuthCertRole(AdminToken.State) = PrivTypes.Guard )) and
+ 564       --#
+ 565       --#      ( ( Admin.IsDoingOp(TheAdmin) and
+ 566       --#          Admin.TheCurrentOp(TheAdmin) = Admin.OverrideLock ) ->
+ 567       --#           Admin.prf_rolePresent(TheAdmin) = PrivTypes.Guard ) and
+ 568       --#
+ 569       --#      ( Admin.prf_rolePresent(TheAdmin) = PrivTypes.Guard ->
+ 570       --#           ( ( Admin.IsDoingOp(TheAdmin) and
+ 571       --#               Admin.TheCurrentOp(TheAdmin) = Admin.OverrideLock ) or
+ 572       --#             not Admin.IsDoingOp(TheAdmin) )) and
+ 573       --#
+ 574       --#      ( not Admin.IsPresent(TheAdmin) -> not Admin.IsDoingOp(TheAdmin) ) and
+ 575       --#
+ 576       --#      ( ( Admin.IsDoingOp(TheAdmin) and
+ 577       --#          Admin.TheCurrentOp(TheAdmin) = Admin.ShutdownOp ) ->
+ 578       --#                    Enclave.prf_statusIsWaitingStartAdminOp(Enclave.State) ) and
+ 579       --#
+ 580       --#      ( ( Enclave.prf_statusIsGotAdminToken(Enclave.State) or
+ 581       --#          Enclave.prf_statusIsWaitingRemoveAdminTokenFail(Enclave.State) ) ->
+ 582       --#        not Admin.IsPresent(TheAdmin) ) and
+ 583       --#
+ 584       --#      ( ( Enclave.prf_statusIsWaitingStartAdminOp(Enclave.State) or
+ 585       --#          Enclave.prf_statusIsWaitingFinishAdminOp(Enclave.State) ) ->
+ 586       --#        ( Admin.IsPresent(TheAdmin) and
+ 587       --#          Admin.IsDoingOp(TheAdmin) ) ) and
+ 588       --#
+ 589       --#      ( Enclave.prf_statusIsEnclaveQuiescent(Enclave.State) ->
+ 590       --#        not Admin.IsDoingOp(TheAdmin) ) and
+ 591       --#
+ 592       --#      ( Enclave.prf_statusIsShutdown(Enclave.State) ->
+ 593       --#        ( not Admin.IsDoingOp(TheAdmin) and
+ 594       --#          Admin.prf_rolePresent(TheAdmin) = PrivTypes.UserOnly ) ) and
+ 595       --#
+ 596       --#      ( Enclave.EnrolmentIsInProgress(Enclave.State) ->
+ 597       --#        ( not Admin.IsPresent(TheAdmin) and
+ 598       --#          not Admin.IsDoingOp(TheAdmin) ) );
+ 599       --#
+ 600       --#
+ 601       --# post (not Enclave.EnrolmentIsInProgress(Enclave.State) <->
+ 602       --#             KeyStore.PrivateKeyPresent(KeyStore.State)) and
+ 603       --#
+ 604       --#      --------------------------------------------------------
+ 605       --#      -- PROOF ANNOTATIONS FOR SECURITY PROPERTY 3          --
+ 606       --#      --====================================================--
+ 607       --#      -- After each call to Processing, the security        --
+ 608       --#      -- property holds.                                    --
+ 609       --#      --------------------------------------------------------
+ 610       --#      ( ( Latch.IsLocked(Latch.State) and
+ 611       --#          Door.TheCurrentDoor(Door.State) = Door.Open and
+ 612       --#          Clock.GreaterThanOrEqual(Clock.TheCurrentTime(Clock.CurrentTime),
+ 613       --#                                   Door.prf_alarmTimeout(Door.State)) ) <->
+ 614       --#        Door.TheDoorAlarm(Door.State) = AlarmTypes.Alarming ) and
+ 615       --#
+ 616       --#      ( ( not Latch.IsLocked(Latch.State) and Latch.IsLocked(Latch.State~) )
+ 617       --#        ->
+ 618       --#        ( UserEntry.prf_UserEntryUnlockDoor or
+ 619       --#          ( AdminToken.prf_isGood(AdminToken.State) and
+ 620       --#            AdminToken.prf_authCertValid(AdminToken.State) and
+ 621       --#            AdminToken.TheAuthCertRole(AdminToken.State) = PrivTypes.Guard )
+ 622       --#        )
+ 623       --#      ) and
+ 624       --#
+ 625       --# --     ( ( not Latch.IsLocked(Latch.State) and Latch.IsLocked(Latch.State~) )
+ 626       --# --       -> ( Admin.IsDoingOp(TheAdmin~) and
+ 627       --# --             Admin.TheCurrentOp(TheAdmin~) = Admin.OverrideLock ) ) and
+ 628       --#
+ 629       --#      ( Admin.prf_rolePresent(TheAdmin) = PrivTypes.Guard ->
+ 630       --#           ( AdminToken.prf_isGood(AdminToken.State) and
+ 631       --#             AdminToken.prf_authCertValid(AdminToken.State) and
+ 632       --#             AdminToken.TheAuthCertRole(AdminToken.State) = PrivTypes.Guard )) and
+ 633       --#
+ 634       --#      ( ( Admin.IsDoingOp(TheAdmin) and
+ 635       --#          Admin.TheCurrentOp(TheAdmin) = Admin.OverrideLock ) ->
+ 636       --#           Admin.prf_rolePresent(TheAdmin) = PrivTypes.Guard ) and
+ 637       --#
+ 638       --#      ( Admin.prf_rolePresent(TheAdmin) = PrivTypes.Guard ->
+ 639       --#           ( ( Admin.IsDoingOp(TheAdmin) and
+ 640       --#               Admin.TheCurrentOp(TheAdmin) = Admin.OverrideLock ) or
+ 641       --#             not Admin.IsDoingOp(TheAdmin) )) and
+ 642       --#
+ 643       --#      ( not Admin.IsPresent(TheAdmin) -> not Admin.IsDoingOp(TheAdmin) ) and
+ 644       --#
+ 645       --#      ( ( Admin.IsDoingOp(TheAdmin) and
+ 646       --#          Admin.TheCurrentOp(TheAdmin) = Admin.ShutdownOp ) ->
+ 647       --#                    Enclave.prf_statusIsWaitingStartAdminOp(Enclave.State) ) and
+ 648       --#
+ 649       --#      ( ( Enclave.prf_statusIsGotAdminToken(Enclave.State) or
+ 650       --#          Enclave.prf_statusIsWaitingRemoveAdminTokenFail(Enclave.State) ) ->
+ 651       --#        not Admin.IsPresent(TheAdmin) ) and
+ 652       --#
+ 653       --#      ( ( Enclave.prf_statusIsWaitingStartAdminOp(Enclave.State) or
+ 654       --#          Enclave.prf_statusIsWaitingFinishAdminOp(Enclave.State) ) ->
+ 655       --#        ( Admin.IsDoingOp(TheAdmin) and
+ 656       --#          Admin.IsPresent(TheAdmin) and
+ 657       --#          Admin.prf_rolePresent(TheAdmin) = Admin.prf_rolePresent(TheAdmin~) ) ) and
+ 658       --#
+ 659       --#      ( Enclave.prf_statusIsEnclaveQuiescent(Enclave.State) ->
+ 660       --#        ( not Admin.IsDoingOp(TheAdmin) ) ) and
+ 661       --#
+ 662       --#      ( Enclave.prf_statusIsShutdown(Enclave.State) ->
+ 663       --#        ( not Admin.IsDoingOp(TheAdmin) and
+ 664       --#          Admin.prf_rolePresent(TheAdmin) = PrivTypes.UserOnly ) ) and
+ 665       --#
+ 666       --#      ( Enclave.EnrolmentIsInProgress(Enclave.State) ->
+ 667       --#        ( not Admin.IsPresent(TheAdmin) and
+ 668       --#          not Admin.IsDoingOp(TheAdmin) ) );
+ 669     is
+ 670  
+ 671        ------------------------------------------------------------------
+ 672        -- ResetScreenMessage
+ 673        --
+ 674        -- Description:
+ 675        --    Resets the message on the screen based on the
+ 676        --    User Entry state and the Enclave state.
+ 677        --
+ 678        -- Implementation Notes:
+ 679        --    None
+ 680        --
+ 681        ------------------------------------------------------------------
+ 682        procedure ResetScreenMessage
+ 683          --# global in     Enclave.State;
+ 684          --#        in     UserEntry.State;
+ 685          --#        in     ConfigData.State;
+ 686          --#        in     Clock.Now;
+ 687          --#        in     TheAdmin;
+ 688          --#        in out AuditLog.State;
+ 689          --#        in out AuditLog.FileState;
+ 690          --#        in out Screen.State;
+ 691          --# derives Screen.State       from *,
+ 692          --#                                 UserEntry.State,
+ 693          --#                                 Enclave.State,
+ 694          --#                                 TheAdmin &
+ 695          --#         AuditLog.State,
+ 696          --#         AuditLog.FileState from Enclave.State,
+ 697          --#                                 UserEntry.State,
+ 698          --#                                 Screen.State,
+ 699          --#                                 AuditLog.State,
+ 700          --#                                 AuditLog.FileState,
+ 701          --#                                 ConfigData.State,
+ 702          --#                                 Clock.Now,
+ 703          --#                                 TheAdmin;
+ 704     is
+ 705        begin
+ 706           if UserEntry.InProgress then
+ 707              Screen.SetMessage(Msg => Screen.Busy);
+ 708           else
+ 709              Enclave.ResetScreenMessage(TheAdmin => TheAdmin);
+ 710           end if;
+ 711        end ResetScreenMessage;
+
++++        Flow analysis of subprogram ResetScreenMessage 
+           performed: no errors found.
+
+ 712  
+ 713     begin
+ 714        if Enclave.EnrolmentIsInProgress then
+ 715           Enclave.EnrolOp;
+ 716           --# check not Enclave.prf_statusIsWaitingStartAdminOp(Enclave.State) and
+ 717           --#       not Enclave.prf_statusIsWaitingFinishAdminOp(Enclave.State) and
+ 718           --#       not Enclave.prf_statusIsShutdown(Enclave.State);
+ 719  
+ 720        elsif Enclave.AdminMustLogout( TheAdmin => TheAdmin) then
+ 721           Enclave.AdminLogout( TheAdmin => TheAdmin);
+ 722           ResetScreenMessage;
+ 723           --# check not Admin.IsPresent (TheAdmin);
+ 724  
+ 725        elsif UserEntry.CurrentActivityPossible then
+ 726           UserEntry.Progress( TheStats => TheStats);
+ 727           ResetScreenMessage;
+ 728  
+ 729        elsif Enclave.CurrentAdminActivityPossible then
+ 730           Enclave.ProgressAdminActivity( TheAdmin => TheAdmin);
+ 731  
+ 732        elsif UserEntry.CanStart then
+ 733           UserEntry.StartEntry;
+ 734           ResetScreenMessage;
+ 735  
+ 736        else
+ 737           Enclave.StartAdminActivity( TheAdmin => TheAdmin);
+ 738        end if;
+ 739     end Processing;
+
++++        Flow analysis of subprogram Processing 
+           performed: no errors found.
+
+ 740  
+ 741  
+ 742     ------------------------------------------------------------------
+ 743     -- MainLoopBody
+ 744     --
+ 745     -- Description:
+ 746     --    Performs the TIS Main loop activities.
+ 747     --
+ 748     -- Traceunit: C.TIS.MainLoopBody
+ 749     -- Traceto: FD.TIS.TISMainLoop
+ 750     ------------------------------------------------------------------
+ 751     procedure MainLoopBody
+ 752       --# global in     Keyboard.Input;
+ 753       --#        in     Floppy.Input;
+ 754       --#        in     Door.Input;
+ 755       --#        in     Clock.Now;
+ 756       --#        in     AdminToken.Input;
+ 757       --#        in     Bio.Input;
+ 758       --#        in     UserToken.Input;
+ 759       --#        in out Door.State;
+ 760       --#        in out AuditLog.FileState;
+ 761       --#        in out UserToken.Status;
+ 762       --#        in out CertificateStore.FileState;
+ 763       --#        in out UserEntry.State;
+ 764       --#        in out Latch.State;
+ 765       --#        in out Enclave.State;
+ 766       --#        in out ConfigData.State;
+ 767       --#        in out AuditLog.State;
+ 768       --#        in out Display.State;
+ 769       --#        in out UserToken.State;
+ 770       --#        in out CertificateStore.State;
+ 771       --#        in out AdminToken.State;
+ 772       --#        in out ConfigData.FileState;
+ 773       --#        in out AdminToken.Status;
+ 774       --#        in out KeyStore.Store;
+ 775       --#        in out KeyStore.State;
+ 776       --#        in out Screen.State;
+ 777       --#        in out Floppy.WrittenState;
+ 778       --#        in out Floppy.State;
+ 779       --#        in out TheAdmin;
+ 780       --#        in out TheStats;
+ 781       --#           out Latch.Output;
+ 782       --#           out Alarm.Output;
+ 783       --#           out Display.Output;
+ 784       --#           out Clock.CurrentTime;
+ 785       --#           out UserToken.Output;
+ 786       --#           out Floppy.Output;
+ 787       --#           out Screen.Output;
+ 788       --#           out SystemFault;
+ 789       --# derives Door.State,
+ 790       --#         Latch.State,
+ 791       --#         Latch.Output,
+ 792       --#         SystemFault                from Door.State,
+ 793       --#                                         UserToken.Status,
+ 794       --#                                         UserEntry.State,
+ 795       --#                                         Latch.State,
+ 796       --#                                         Enclave.State,
+ 797       --#                                         ConfigData.State,
+ 798       --#                                         UserToken.State,
+ 799       --#                                         AdminToken.State,
+ 800       --#                                         AdminToken.Status,
+ 801       --#                                         Door.Input,
+ 802       --#                                         Clock.Now,
+ 803       --#                                         AdminToken.Input,
+ 804       --#                                         UserToken.Input,
+ 805       --#                                         TheAdmin &
+ 806       --#         AuditLog.FileState,
+ 807       --#         Alarm.Output,
+ 808       --#         AuditLog.State,
+ 809       --#         Screen.State,
+ 810       --#         Screen.Output              from Door.State,
+ 811       --#                                         AuditLog.FileState,
+ 812       --#                                         UserToken.Status,
+ 813       --#                                         CertificateStore.FileState,
+ 814       --#                                         UserEntry.State,
+ 815       --#                                         Latch.State,
+ 816       --#                                         Enclave.State,
+ 817       --#                                         ConfigData.State,
+ 818       --#                                         AuditLog.State,
+ 819       --#                                         Display.State,
+ 820       --#                                         UserToken.State,
+ 821       --#                                         CertificateStore.State,
+ 822       --#                                         AdminToken.State,
+ 823       --#                                         ConfigData.FileState,
+ 824       --#                                         AdminToken.Status,
+ 825       --#                                         KeyStore.Store,
+ 826       --#                                         KeyStore.State,
+ 827       --#                                         Screen.State,
+ 828       --#                                         Floppy.WrittenState,
+ 829       --#                                         Floppy.State,
+ 830       --#                                         Keyboard.Input,
+ 831       --#                                         Floppy.Input,
+ 832       --#                                         Door.Input,
+ 833       --#                                         Clock.Now,
+ 834       --#                                         AdminToken.Input,
+ 835       --#                                         Bio.Input,
+ 836       --#                                         UserToken.Input,
+ 837       --#                                         TheAdmin,
+ 838       --#                                         TheStats &
+ 839       --#         UserToken.Status,
+ 840       --#         CertificateStore.FileState,
+ 841       --#         CertificateStore.State     from *,
+ 842       --#                                         UserToken.Status,
+ 843       --#                                         UserEntry.State,
+ 844       --#                                         Latch.State,
+ 845       --#                                         Enclave.State,
+ 846       --#                                         ConfigData.State,
+ 847       --#                                         UserToken.State,
+ 848       --#                                         CertificateStore.State,
+ 849       --#                                         AdminToken.State,
+ 850       --#                                         AdminToken.Status,
+ 851       --#                                         KeyStore.Store,
+ 852       --#                                         KeyStore.State,
+ 853       --#                                         Door.Input,
+ 854       --#                                         Clock.Now,
+ 855       --#                                         AdminToken.Input,
+ 856       --#                                         UserToken.Input,
+ 857       --#                                         TheAdmin &
+ 858       --#         ConfigData.State,
+ 859       --#         ConfigData.FileState       from *,
+ 860       --#                                         UserToken.Status,
+ 861       --#                                         UserEntry.State,
+ 862       --#                                         Latch.State,
+ 863       --#                                         Enclave.State,
+ 864       --#                                         UserToken.State,
+ 865       --#                                         AdminToken.State,
+ 866       --#                                         AdminToken.Status,
+ 867       --#                                         Floppy.State,
+ 868       --#                                         Door.Input,
+ 869       --#                                         Clock.Now,
+ 870       --#                                         AdminToken.Input,
+ 871       --#                                         UserToken.Input,
+ 872       --#                                         TheAdmin &
+ 873       --#         Display.Output,
+ 874       --#         Display.State              from Door.State,
+ 875       --#                                         UserToken.Status,
+ 876       --#                                         UserEntry.State,
+ 877       --#                                         Latch.State,
+ 878       --#                                         Enclave.State,
+ 879       --#                                         ConfigData.State,
+ 880       --#                                         Display.State,
+ 881       --#                                         UserToken.State,
+ 882       --#                                         CertificateStore.State,
+ 883       --#                                         AdminToken.State,
+ 884       --#                                         AdminToken.Status,
+ 885       --#                                         KeyStore.Store,
+ 886       --#                                         KeyStore.State,
+ 887       --#                                         Floppy.State,
+ 888       --#                                         Door.Input,
+ 889       --#                                         Clock.Now,
+ 890       --#                                         AdminToken.Input,
+ 891       --#                                         Bio.Input,
+ 892       --#                                         UserToken.Input,
+ 893       --#                                         TheAdmin &
+ 894       --#         KeyStore.Store,
+ 895       --#         KeyStore.State             from *,
+ 896       --#                                         Latch.State,
+ 897       --#                                         Enclave.State,
+ 898       --#                                         KeyStore.Store,
+ 899       --#                                         Floppy.State,
+ 900       --#                                         Door.Input,
+ 901       --#                                         Clock.Now &
+ 902       --#         UserEntry.State            from *,
+ 903       --#                                         UserToken.Status,
+ 904       --#                                         Latch.State,
+ 905       --#                                         Enclave.State,
+ 906       --#                                         ConfigData.State,
+ 907       --#                                         UserToken.State,
+ 908       --#                                         AdminToken.State,
+ 909       --#                                         AdminToken.Status,
+ 910       --#                                         KeyStore.Store,
+ 911       --#                                         KeyStore.State,
+ 912       --#                                         Door.Input,
+ 913       --#                                         Clock.Now,
+ 914       --#                                         AdminToken.Input,
+ 915       --#                                         Bio.Input,
+ 916       --#                                         UserToken.Input,
+ 917       --#                                         TheAdmin &
+ 918       --#         Enclave.State              from *,
+ 919       --#                                         Door.State,
+ 920       --#                                         UserToken.Status,
+ 921       --#                                         UserEntry.State,
+ 922       --#                                         Latch.State,
+ 923       --#                                         UserToken.State,
+ 924       --#                                         AdminToken.State,
+ 925       --#                                         AdminToken.Status,
+ 926       --#                                         KeyStore.Store,
+ 927       --#                                         KeyStore.State,
+ 928       --#                                         Floppy.State,
+ 929       --#                                         Keyboard.Input,
+ 930       --#                                         Door.Input,
+ 931       --#                                         Clock.Now,
+ 932       --#                                         AdminToken.Input,
+ 933       --#                                         UserToken.Input,
+ 934       --#                                         TheAdmin &
+ 935       --#         UserToken.State            from *,
+ 936       --#                                         Door.State,
+ 937       --#                                         UserToken.Status,
+ 938       --#                                         UserEntry.State,
+ 939       --#                                         Latch.State,
+ 940       --#                                         Enclave.State,
+ 941       --#                                         ConfigData.State,
+ 942       --#                                         CertificateStore.State,
+ 943       --#                                         AdminToken.State,
+ 944       --#                                         AdminToken.Status,
+ 945       --#                                         KeyStore.Store,
+ 946       --#                                         KeyStore.State,
+ 947       --#                                         Door.Input,
+ 948       --#                                         Clock.Now,
+ 949       --#                                         AdminToken.Input,
+ 950       --#                                         UserToken.Input,
+ 951       --#                                         TheAdmin &
+ 952       --#         Clock.CurrentTime          from Clock.Now &
+ 953       --#         AdminToken.State           from *,
+ 954       --#                                         Door.State,
+ 955       --#                                         UserToken.Status,
+ 956       --#                                         UserEntry.State,
+ 957       --#                                         Latch.State,
+ 958       --#                                         Enclave.State,
+ 959       --#                                         UserToken.State,
+ 960       --#                                         AdminToken.Status,
+ 961       --#                                         KeyStore.Store,
+ 962       --#                                         KeyStore.State,
+ 963       --#                                         Door.Input,
+ 964       --#                                         Clock.Now,
+ 965       --#                                         AdminToken.Input,
+ 966       --#                                         UserToken.Input,
+ 967       --#                                         TheAdmin &
+ 968       --#         AdminToken.Status          from *,
+ 969       --#                                         UserToken.Status,
+ 970       --#                                         UserEntry.State,
+ 971       --#                                         Latch.State,
+ 972       --#                                         Enclave.State,
+ 973       --#                                         UserToken.State,
+ 974       --#                                         AdminToken.State,
+ 975       --#                                         Door.Input,
+ 976       --#                                         Clock.Now,
+ 977       --#                                         AdminToken.Input,
+ 978       --#                                         UserToken.Input,
+ 979       --#                                         TheAdmin &
+ 980       --#         UserToken.Output           from UserToken.Status,
+ 981       --#                                         UserEntry.State,
+ 982       --#                                         Latch.State,
+ 983       --#                                         Enclave.State,
+ 984       --#                                         ConfigData.State,
+ 985       --#                                         UserToken.State,
+ 986       --#                                         CertificateStore.State,
+ 987       --#                                         AdminToken.State,
+ 988       --#                                         AdminToken.Status,
+ 989       --#                                         KeyStore.Store,
+ 990       --#                                         KeyStore.State,
+ 991       --#                                         Door.Input,
+ 992       --#                                         Clock.Now,
+ 993       --#                                         AdminToken.Input,
+ 994       --#                                         UserToken.Input,
+ 995       --#                                         TheAdmin &
+ 996       --#         Floppy.Output              from Door.State,
+ 997       --#                                         AuditLog.FileState,
+ 998       --#                                         UserToken.Status,
+ 999       --#                                         UserEntry.State,
+1000       --#                                         Latch.State,
+1001       --#                                         Enclave.State,
+1002       --#                                         ConfigData.State,
+1003       --#                                         AuditLog.State,
+1004       --#                                         Display.State,
+1005       --#                                         UserToken.State,
+1006       --#                                         AdminToken.State,
+1007       --#                                         AdminToken.Status,
+1008       --#                                         Floppy.State,
+1009       --#                                         Door.Input,
+1010       --#                                         Clock.Now,
+1011       --#                                         AdminToken.Input,
+1012       --#                                         UserToken.Input,
+1013       --#                                         TheAdmin &
+1014       --#         Floppy.WrittenState        from *,
+1015       --#                                         Door.State,
+1016       --#                                         AuditLog.FileState,
+1017       --#                                         UserToken.Status,
+1018       --#                                         UserEntry.State,
+1019       --#                                         Latch.State,
+1020       --#                                         Enclave.State,
+1021       --#                                         ConfigData.State,
+1022       --#                                         AuditLog.State,
+1023       --#                                         Display.State,
+1024       --#                                         UserToken.State,
+1025       --#                                         AdminToken.State,
+1026       --#                                         AdminToken.Status,
+1027       --#                                         Floppy.State,
+1028       --#                                         Door.Input,
+1029       --#                                         Clock.Now,
+1030       --#                                         AdminToken.Input,
+1031       --#                                         UserToken.Input,
+1032       --#                                         TheAdmin &
+1033       --#         Floppy.State               from *,
+1034       --#                                         UserToken.Status,
+1035       --#                                         UserEntry.State,
+1036       --#                                         Latch.State,
+1037       --#                                         Enclave.State,
+1038       --#                                         UserToken.State,
+1039       --#                                         AdminToken.State,
+1040       --#                                         AdminToken.Status,
+1041       --#                                         Floppy.Input,
+1042       --#                                         Door.Input,
+1043       --#                                         Clock.Now,
+1044       --#                                         AdminToken.Input,
+1045       --#                                         UserToken.Input,
+1046       --#                                         TheAdmin &
+1047       --#         TheAdmin                   from *,
+1048       --#                                         Door.State,
+1049       --#                                         UserToken.Status,
+1050       --#                                         UserEntry.State,
+1051       --#                                         Latch.State,
+1052       --#                                         Enclave.State,
+1053       --#                                         UserToken.State,
+1054       --#                                         AdminToken.State,
+1055       --#                                         AdminToken.Status,
+1056       --#                                         KeyStore.Store,
+1057       --#                                         KeyStore.State,
+1058       --#                                         Keyboard.Input,
+1059       --#                                         Door.Input,
+1060       --#                                         Clock.Now,
+1061       --#                                         AdminToken.Input,
+1062       --#                                         UserToken.Input &
+1063       --#         TheStats                   from *,
+1064       --#                                         UserToken.Status,
+1065       --#                                         UserEntry.State,
+1066       --#                                         Latch.State,
+1067       --#                                         Enclave.State,
+1068       --#                                         ConfigData.State,
+1069       --#                                         UserToken.State,
+1070       --#                                         AdminToken.State,
+1071       --#                                         AdminToken.Status,
+1072       --#                                         Door.Input,
+1073       --#                                         Clock.Now,
+1074       --#                                         AdminToken.Input,
+1075       --#                                         Bio.Input,
+1076       --#                                         UserToken.Input,
+1077       --#                                         TheAdmin;
+1078       --# pre  (not Enclave.EnrolmentIsInProgress(Enclave.State) <->
+1079       --#             KeyStore.PrivateKeyPresent(KeyStore.State)) and
+1080       --#
+1081       --#      Latch.IsLocked(Latch.State) = Latch.prf_isLocked(Latch.Output) and
+1082       --#
+1083       --#
+1084       --#      ( Admin.prf_rolePresent(TheAdmin) = PrivTypes.Guard ->
+1085       --#           ( AdminToken.prf_isGood(AdminToken.State) and
+1086       --#             AdminToken.prf_authCertValid(AdminToken.State) and
+1087       --#             AdminToken.TheAuthCertRole(AdminToken.State) = PrivTypes.Guard )) and
+1088       --#
+1089       --#      ( ( Admin.IsDoingOp(TheAdmin) and
+1090       --#          Admin.TheCurrentOp(TheAdmin) = Admin.OverrideLock ) ->
+1091       --#           Admin.prf_rolePresent(TheAdmin) = PrivTypes.Guard ) and
+1092       --#
+1093       --#      ( Admin.prf_rolePresent(TheAdmin) = PrivTypes.Guard ->
+1094       --#           ( ( Admin.IsDoingOp(TheAdmin) and
+1095       --#               Admin.TheCurrentOp(TheAdmin) = Admin.OverrideLock ) or
+1096       --#             not Admin.IsDoingOp(TheAdmin) )) and
+1097       --#
+1098       --#      ( not Admin.IsPresent(TheAdmin) -> not Admin.IsDoingOp(TheAdmin) ) and
+1099       --#
+1100       --#      ( ( Admin.IsDoingOp(TheAdmin) and
+1101       --#          Admin.TheCurrentOp(TheAdmin) = Admin.ShutdownOp ) ->
+1102       --#                    Enclave.prf_statusIsWaitingStartAdminOp(Enclave.State) ) and
+1103       --#
+1104       --#      ( ( Enclave.prf_statusIsGotAdminToken(Enclave.State) or
+1105       --#          Enclave.prf_statusIsWaitingRemoveAdminTokenFail(Enclave.State) ) ->
+1106       --#        not Admin.IsPresent(TheAdmin) ) and
+1107       --#
+1108       --#      ( ( Enclave.prf_statusIsWaitingStartAdminOp(Enclave.State) or
+1109       --#          Enclave.prf_statusIsWaitingFinishAdminOp(Enclave.State) ) ->
+1110       --#        ( Admin.IsPresent(TheAdmin) and
+1111       --#          Admin.IsDoingOp(TheAdmin) ) ) and
+1112       --#
+1113       --#      ( Enclave.prf_statusIsEnclaveQuiescent(Enclave.State) ->
+1114       --#        not Admin.IsDoingOp(TheAdmin) ) and
+1115       --#
+1116       --#      ( Enclave.prf_statusIsShutdown(Enclave.State) ->
+1117       --#        ( not Admin.IsDoingOp(TheAdmin) and
+1118       --#          Admin.prf_rolePresent(TheAdmin) = PrivTypes.UserOnly ) ) and
+1119       --#
+1120       --#      ( Enclave.EnrolmentIsInProgress(Enclave.State) ->
+1121       --#        ( not Admin.IsPresent(TheAdmin) and
+1122       --#          not Admin.IsDoingOp(TheAdmin) ) );
+1123       --#
+1124       --#
+1125       --# post ( not Enclave.EnrolmentIsInProgress(Enclave.State) <->
+1126       --#             KeyStore.PrivateKeyPresent(KeyStore.State) ) and
+1127       --#
+1128       --#      ( Latch.IsLocked(Latch.State) = Latch.prf_isLocked(Latch.Output)
+1129       --#        or SystemFault
+1130       --#      ) and
+1131       --#
+1132       --#      -------------------------------------------------------
+1133       --#      -- PROOF ANNOTATIONS FOR SECURITY PROPERTY 3         --
+1134       --#      --===================================================--
+1135       --#      -- After each call to MainLoopBody, either the       --
+1136       --#      -- security property holds, or a critical system     --
+1137       --#      -- fault has occurred, in which case the TIS will be --
+1138       --#      -- shutdown                                          --
+1139       --#      -------------------------------------------------------
+1140       --#      ( ( Latch.IsLocked(Latch.State) and
+1141       --#          Door.TheCurrentDoor(Door.State) = Door.Open and
+1142       --#          Clock.GreaterThanOrEqual(Clock.TheCurrentTime(Clock.CurrentTime),
+1143       --#                                   Door.prf_alarmTimeout(Door.State)) ) ->
+1144       --#        ( Alarm.prf_isAlarming(Alarm.Output) or SystemFault ) ) and
+1145       --#
+1146       --#
+1147       --#
+1148       --#      ( ( ( Latch.prf_isLocked(Latch.Output~) and
+1149       --#            not Latch.prf_isLocked(Latch.Output) and
+1150       --#            not Latch.IsLocked(Latch.State) and
+1151       --#            Latch.IsLocked(Latch.State~) = Latch.prf_isLocked(Latch.Output~)
+1152       --#          )
+1153       --#          ->
+1154       --#          ( UserEntry.prf_UserEntryUnlockDoor or
+1155       --#            ( AdminToken.prf_isGood(AdminToken.State) and
+1156       --#              AdminToken.prf_authCertValid(AdminToken.State) and
+1157       --#              AdminToken.TheAuthCertRole(AdminToken.State) = PrivTypes.Guard )
+1158       --#          )
+1159       --#        )
+1160       --#        or SystemFault
+1161       --#      ) and
+1162       --#
+1163       --#      ( Admin.prf_rolePresent(TheAdmin) = PrivTypes.Guard ->
+1164       --#           ( AdminToken.prf_isGood(AdminToken.State) and
+1165       --#             AdminToken.prf_authCertValid(AdminToken.State) and
+1166       --#             AdminToken.TheAuthCertRole(AdminToken.State) = PrivTypes.Guard )) and
+1167       --#
+1168       --#
+1169       --#      ( ( Admin.IsDoingOp(TheAdmin) and
+1170       --#          Admin.TheCurrentOp(TheAdmin) = Admin.OverrideLock ) ->
+1171       --#           Admin.prf_rolePresent(TheAdmin) = PrivTypes.Guard ) and
+1172       --#
+1173       --#      ( Admin.prf_rolePresent(TheAdmin) = PrivTypes.Guard ->
+1174       --#           ( ( Admin.IsDoingOp(TheAdmin) and
+1175       --#               Admin.TheCurrentOp(TheAdmin) = Admin.OverrideLock ) or
+1176       --#             not Admin.IsDoingOp(TheAdmin) )) and
+1177       --#
+1178       --#      ( not Admin.IsPresent(TheAdmin) -> not Admin.IsDoingOp(TheAdmin) ) and
+1179       --#
+1180       --#      ( ( Admin.IsDoingOp(TheAdmin) and
+1181       --#          Admin.TheCurrentOp(TheAdmin) = Admin.ShutdownOp ) ->
+1182       --#                    Enclave.prf_statusIsWaitingStartAdminOp(Enclave.State) ) and
+1183       --#
+1184       --#      ( ( Enclave.prf_statusIsGotAdminToken(Enclave.State) or
+1185       --#          Enclave.prf_statusIsWaitingRemoveAdminTokenFail(Enclave.State) ) ->
+1186       --#        not Admin.IsPresent(TheAdmin) ) and
+1187       --#
+1188       --#      ( ( Enclave.prf_statusIsWaitingStartAdminOp(Enclave.State) or
+1189       --#          Enclave.prf_statusIsWaitingFinishAdminOp(Enclave.State) ) ->
+1190       --#        ( Admin.IsDoingOp(TheAdmin) and
+1191       --#          Admin.IsPresent(TheAdmin) and
+1192       --#          Admin.prf_rolePresent(TheAdmin) = Admin.prf_rolePresent(TheAdmin~) ) ) and
+1193       --#
+1194       --#      ( Enclave.prf_statusIsEnclaveQuiescent(Enclave.State) ->
+1195       --#        ( not Admin.IsDoingOp(TheAdmin) ) ) and
+1196       --#
+1197       --#      ( Enclave.prf_statusIsShutdown(Enclave.State) ->
+1198       --#        ( not Admin.IsDoingOp(TheAdmin) and
+1199       --#          Admin.prf_rolePresent(TheAdmin) = PrivTypes.UserOnly ) ) and
+1200       --#
+1201       --#      ( Enclave.EnrolmentIsInProgress(Enclave.State) ->
+1202       --#        ( not Admin.IsPresent(TheAdmin) and
+1203       --#          not Admin.IsDoingOp(TheAdmin) ) );
+1204     is
+1205  
+1206  
+1207        --------------------------------------------------------------
+1208        -- begin MainLoopBody
+1209        --------------------------------------------------------------
+1210     begin
+1211        Poll.Activity(SystemFault => SystemFault);
+1212  
+1213        if not SystemFault then
+1214           Updates.EarlyActivity(SystemFault => SystemFault);
+1215  
+1216           if not SystemFault then
+1217  
+1218              Processing;
+1219  
+1220              Updates.Activity(SystemFault => SystemFault,
+1221                               TheStats    => TheStats,
+1222                               TheAdmin    => TheAdmin);
+1223  
+1224           end if;
+1225        end if;
+1226     end MainLoopBody;
+
++++        Flow analysis of subprogram MainLoopBody 
+           performed: no errors found.
+
+1227  
+1228  
+1229     ------------------------------------------------------------------
+1230     -- ShutdownDoorLatchFailure
+1231     --
+1232     -- Description:
+1233     --    Puts the system into a safe state and updates the outputs following
+1234     --    a failure in the Door or Latch.
+1235     --
+1236     -- Traceunit: C.TIS.ShutdownDoorLatchFailure
+1237     -- Traceto:
+1238     ------------------------------------------------------------------
+1239     procedure ShutdownDoorLatchFailure
+1240       --# global in     ConfigData.State;
+1241       --#        in     Clock.Now;
+1242       --#        in     TheStats;
+1243       --#        in out AuditLog.FileState;
+1244       --#        in out AuditLog.State;
+1245       --#        in out Display.State;
+1246       --#        in out Screen.State;
+1247       --#           out Door.State;
+1248       --#           out Latch.State;
+1249       --#           out Latch.Output;
+1250       --#           out Alarm.Output;
+1251       --#           out Display.Output;
+1252       --#           out Screen.Output;
+1253       --#           out TheAdmin;
+1254       --# derives Door.State,
+1255       --#         Latch.State,
+1256       --#         Latch.Output,
+1257       --#         TheAdmin           from  &
+1258       --#         AuditLog.FileState,
+1259       --#         Alarm.Output,
+1260       --#         AuditLog.State,
+1261       --#         Screen.State,
+1262       --#         Screen.Output      from AuditLog.FileState,
+1263       --#                                 ConfigData.State,
+1264       --#                                 AuditLog.State,
+1265       --#                                 Display.State,
+1266       --#                                 Screen.State,
+1267       --#                                 Clock.Now,
+1268       --#                                 TheStats &
+1269       --#         Display.State,
+1270       --#         Display.Output     from Display.State;
+1271     is
+1272  
+1273        UnusedFault : Boolean;
+1274  
+1275     begin
+1276        Door.Failure;
+1277        Admin.Logout(TheAdmin => TheAdmin);
+1278  
+1279        --# accept F, 10, UnusedFault, "Ineffective assignment expected here" &
+1280        --#        F, 33, UnusedFault, "Ineffective assignment expected here";
+1281        Updates.Activity(SystemFault => UnusedFault,
+1282                         TheStats    => TheStats,
+1283                         TheAdmin    => TheAdmin);
+1284     end ShutdownDoorLatchFailure;
+
++++        Flow analysis of subprogram 
+           ShutdownDoorLatchFailure performed: no errors found.
+
+1285  
+1286  
+1287     ------------------------------------------------------------------
+1288     -- ShutdownAuditLogFailure
+1289     --
+1290     -- Description:
+1291     --    Puts the system into a safe state and updates the outputs following
+1292     --    a failure to write to the audit log.
+1293     --
+1294     -- Traceunit: C.TIS.ShutdownAuditLogFailure
+1295     -- Traceto:
+1296     ------------------------------------------------------------------
+1297     procedure ShutdownAuditLogFailure
+1298       --# global in     ConfigData.State;
+1299       --#        in     Clock.CurrentTime;
+1300       --#        in     Clock.Now;
+1301       --#        in     TheStats;
+1302       --#        in out Display.State;
+1303       --#        in out Door.State;
+1304       --#        in out AuditLog.FileState;
+1305       --#        in out Latch.State;
+1306       --#        in out AuditLog.State;
+1307       --#        in out Screen.State;
+1308       --#           out Latch.Output;
+1309       --#           out Alarm.Output;
+1310       --#           out Display.Output;
+1311       --#           out Screen.Output;
+1312       --#           out TheAdmin;
+1313       --# derives Door.State,
+1314       --#         Latch.State        from *,
+1315       --#                                 Latch.State,
+1316       --#                                 Clock.CurrentTime &
+1317       --#         AuditLog.FileState,
+1318       --#         Alarm.Output,
+1319       --#         AuditLog.State,
+1320       --#         Screen.State,
+1321       --#         Screen.Output      from Door.State,
+1322       --#                                 AuditLog.FileState,
+1323       --#                                 Latch.State,
+1324       --#                                 ConfigData.State,
+1325       --#                                 AuditLog.State,
+1326       --#                                 Display.State,
+1327       --#                                 Clock.CurrentTime,
+1328       --#                                 Screen.State,
+1329       --#                                 Clock.Now,
+1330       --#                                 TheStats &
+1331       --#         Latch.Output       from Latch.State,
+1332       --#                                 Clock.CurrentTime &
+1333       --#         Display.State,
+1334       --#         Display.Output     from Display.State &
+1335       --#         TheAdmin           from ;
+1336     is
+1337  
+1338        UnusedFault : Boolean;
+1339  
+1340     begin
+1341        Door.LockDoor;
+1342        Admin.Logout(TheAdmin => TheAdmin);
+1343  
+1344        --# accept F, 10, UnusedFault, "Ineffective assignment expected here" &
+1345        --#        F, 33, UnusedFault, "Ineffective assignment expected here";
+1346        Updates.Activity(SystemFault => UnusedFault,
+1347                         TheStats    => TheStats,
+1348                         TheAdmin    => TheAdmin);
+1349     end ShutdownAuditLogFailure;
+
++++        Flow analysis of subprogram 
+           ShutdownAuditLogFailure performed: no errors found.
+
+1350  
+1351  begin
+1352  
+1353     Init;
+1354  
+1355     loop
+1356  
+1357        --# assert ( not Enclave.EnrolmentIsInProgress(Enclave.State) <->
+1358        --#             KeyStore.PrivateKeyPresent(KeyStore.State) ) and
+1359        --#
+1360        --#      Latch.State = prf_preLatchState and
+1361        --#      Latch.Output = prf_preLatchOutput and
+1362        --#      Latch.IsLocked(Latch.State) = Latch.prf_isLocked(Latch.Output) and
+1363        --#
+1364        --#      ( Admin.prf_rolePresent(TheAdmin) = PrivTypes.Guard ->
+1365        --#           ( AdminToken.prf_isGood(AdminToken.State) and
+1366        --#             AdminToken.prf_authCertValid(AdminToken.State) and
+1367        --#             AdminToken.TheAuthCertRole(AdminToken.State) = PrivTypes.Guard )) and
+1368        --#
+1369        --#      ( ( Admin.IsDoingOp(TheAdmin) and
+1370        --#          Admin.TheCurrentOp(TheAdmin) = Admin.OverrideLock ) ->
+1371        --#           Admin.prf_rolePresent(TheAdmin) = PrivTypes.Guard ) and
+1372        --#
+1373        --#      ( Admin.prf_rolePresent(TheAdmin) = PrivTypes.Guard ->
+1374        --#           ( ( Admin.IsDoingOp(TheAdmin) and
+1375        --#               Admin.TheCurrentOp(TheAdmin) = Admin.OverrideLock ) or
+1376        --#             not Admin.IsDoingOp(TheAdmin) )) and
+1377        --#
+1378        --#      ( not Admin.IsPresent(TheAdmin) -> not Admin.IsDoingOp(TheAdmin) ) and
+1379        --#
+1380        --#      ( ( Admin.IsDoingOp(TheAdmin) and
+1381        --#          Admin.TheCurrentOp(TheAdmin) = Admin.ShutdownOp ) ->
+1382        --#                    Enclave.prf_statusIsWaitingStartAdminOp(Enclave.State) ) and
+1383        --#
+1384        --#      ( ( Enclave.prf_statusIsGotAdminToken(Enclave.State) or
+1385        --#          Enclave.prf_statusIsWaitingRemoveAdminTokenFail(Enclave.State) ) ->
+1386        --#        not Admin.IsPresent(TheAdmin) ) and
+1387        --#
+1388        --#      ( ( Enclave.prf_statusIsWaitingStartAdminOp(Enclave.State) or
+1389        --#          Enclave.prf_statusIsWaitingFinishAdminOp(Enclave.State) ) ->
+1390        --#        ( Admin.IsPresent(TheAdmin) and
+1391        --#          Admin.IsDoingOp(TheAdmin) ) ) and
+1392        --#
+1393        --#      ( Enclave.prf_statusIsEnclaveQuiescent(Enclave.State) ->
+1394        --#        not Admin.IsDoingOp(TheAdmin) ) and
+1395        --#
+1396        --#      ( Enclave.prf_statusIsShutdown(Enclave.State) ->
+1397        --#        ( not Admin.IsDoingOp(TheAdmin) and
+1398        --#          Admin.prf_rolePresent(TheAdmin) = PrivTypes.UserOnly ) ) and
+1399        --#
+1400        --#      ( Enclave.EnrolmentIsInProgress(Enclave.State) ->
+1401        --#        ( not Admin.IsPresent(TheAdmin) and
+1402        --#          not Admin.IsDoingOp(TheAdmin) ) );
+1403  
+1404        MainLoopBody;
+1405  
+1406        ShutdownCompleted := Enclave.HasShutdown;
+1407  
+1408        exit when ShutdownCompleted;
+1409  
+1410        --# assert
+1411        --#      not ShutdownCompleted and
+1412        --#      ( not Enclave.EnrolmentIsInProgress(Enclave.State) <->
+1413        --#             KeyStore.PrivateKeyPresent(KeyStore.State) ) and
+1414        --#
+1415        --#      -------------------------------------------------------
+1416        --#      -- PROOF ANNOTATIONS FOR SECURITY PROPERTY 3         --
+1417        --#      --===================================================--
+1418        --#      -- After each cycle of the TIS main loop, either the --
+1419        --#      -- security property holds, or a critical system     --
+1420        --#      -- fault has occurred, in which case the TIS will be --
+1421        --#      -- shutdown                                          --
+1422        --#      -------------------------------------------------------
+1423        --#
+1424        --#      ( ( Latch.IsLocked(Latch.State) and
+1425        --#          Door.TheCurrentDoor(Door.State) = Door.Open and
+1426        --#          Clock.GreaterThanOrEqual(Clock.TheCurrentTime(Clock.CurrentTime),
+1427        --#                                   Door.prf_alarmTimeout(Door.State)) ) ->
+1428        --#        ( Alarm.prf_isAlarming(Alarm.Output) or SystemFault ) ) and
+1429        --#
+1430        --#
+1431        --#      ( ( ( Latch.prf_isLocked(prf_preLatchOutput) and
+1432        --#            not Latch.prf_isLocked(Latch.Output) and
+1433        --#            Latch.IsLocked(prf_preLatchState) = Latch.prf_isLocked(prf_preLatchOutput)
+1434        --#          )
+1435        --#          ->
+1436        --#          ( UserEntry.prf_UserEntryUnlockDoor or
+1437        --#            ( AdminToken.prf_isGood(AdminToken.State) and
+1438        --#              AdminToken.prf_authCertValid(AdminToken.State) and
+1439        --#              AdminToken.TheAuthCertRole(AdminToken.State) = PrivTypes.Guard )
+1440        --#          )
+1441        --#        )
+1442        --#        or SystemFault
+1443        --#      ) and
+1444        --#
+1445        --#      ( Latch.IsLocked(Latch.State) = Latch.prf_isLocked(Latch.Output)
+1446        --#        or SystemFault
+1447        --#      ) and
+1448        --#
+1449        --#      ( Admin.prf_rolePresent(TheAdmin) = PrivTypes.Guard ->
+1450        --#           ( AdminToken.prf_isGood(AdminToken.State) and
+1451        --#             AdminToken.prf_authCertValid(AdminToken.State) and
+1452        --#             AdminToken.TheAuthCertRole(AdminToken.State) = PrivTypes.Guard )) and
+1453        --#
+1454        --#      ( ( Admin.IsDoingOp(TheAdmin) and
+1455        --#          Admin.TheCurrentOp(TheAdmin) = Admin.OverrideLock ) ->
+1456        --#           Admin.prf_rolePresent(TheAdmin) = PrivTypes.Guard ) and
+1457        --#
+1458        --#      ( Admin.prf_rolePresent(TheAdmin) = PrivTypes.Guard ->
+1459        --#           ( ( Admin.IsDoingOp(TheAdmin) and
+1460        --#               Admin.TheCurrentOp(TheAdmin) = Admin.OverrideLock ) or
+1461        --#             not Admin.IsDoingOp(TheAdmin) )) and
+1462        --#
+1463        --#      ( not Admin.IsPresent(TheAdmin) -> not Admin.IsDoingOp(TheAdmin) ) and
+1464        --#
+1465        --#      ( ( Admin.IsDoingOp(TheAdmin) and
+1466        --#          Admin.TheCurrentOp(TheAdmin) = Admin.ShutdownOp ) ->
+1467        --#                    Enclave.prf_statusIsWaitingStartAdminOp(Enclave.State) ) and
+1468        --#
+1469        --#      ( ( Enclave.prf_statusIsGotAdminToken(Enclave.State) or
+1470        --#          Enclave.prf_statusIsWaitingRemoveAdminTokenFail(Enclave.State) ) ->
+1471        --#        not Admin.IsPresent(TheAdmin) ) and
+1472        --#
+1473        --#      ( ( Enclave.prf_statusIsWaitingStartAdminOp(Enclave.State) or
+1474        --#          Enclave.prf_statusIsWaitingFinishAdminOp(Enclave.State) ) ->
+1475        --#        ( Admin.IsDoingOp(TheAdmin) and
+1476        --#          Admin.IsPresent(TheAdmin) ) ) and
+1477        --#
+1478        --#      ( Enclave.prf_statusIsEnclaveQuiescent(Enclave.State) ->
+1479        --#        ( not Admin.IsDoingOp(TheAdmin) ) ) and
+1480        --#
+1481        --#      ( Enclave.prf_statusIsShutdown(Enclave.State) ->
+1482        --#        ( not Admin.IsDoingOp(TheAdmin) and
+1483        --#          Admin.prf_rolePresent(TheAdmin) = PrivTypes.UserOnly ) ) and
+1484        --#
+1485        --#      ( Enclave.EnrolmentIsInProgress(Enclave.State) ->
+1486        --#        ( not Admin.IsPresent(TheAdmin) and
+1487        --#          not Admin.IsDoingOp(TheAdmin) ) );
+1488  
+1489        if SystemFault then
+1490           --# accept F, 10, TheAdmin, "Ineffective assignmente expected here";
+1491           ShutdownDoorLatchFailure;
+1492           --# end accept;
+1493           exit;
+1494        end if;
+1495  
+1496        if AuditLog.SystemFaultOccurred then
+1497           --# accept F, 10, TheAdmin, "Ineffective assignmente expected here";
+1498           ShutdownAuditLogFailure;
+1499           --# end accept;
+1500           exit;
+1501        end if;
+1502  
+1503        --# assert
+1504        --#      not ShutdownCompleted and not SystemFault and
+1505        --#
+1506        --#      ( not Enclave.EnrolmentIsInProgress(Enclave.State) <->
+1507        --#             KeyStore.PrivateKeyPresent(KeyStore.State) ) and
+1508        --#
+1509        --#      -------------------------------------------------------
+1510        --#      -- PROOF ANNOTATIONS FOR SECURITY PROPERTY 3         --
+1511        --#      --===================================================--
+1512        --#      -- After each cycle of the TIS main loop, either the --
+1513        --#      -- security property holds, or a critical system     --
+1514        --#      -- fault has occurred, in which case the TIS will be --
+1515        --#      -- shutdown                                          --
+1516        --#      -------------------------------------------------------
+1517        --#
+1518        --#      ( ( Latch.IsLocked(Latch.State) and
+1519        --#          Door.TheCurrentDoor(Door.State) = Door.Open and
+1520        --#          Clock.GreaterThanOrEqual(Clock.TheCurrentTime(Clock.CurrentTime),
+1521        --#                                   Door.prf_alarmTimeout(Door.State)) ) ->
+1522        --#        ( Alarm.prf_isAlarming(Alarm.Output) or SystemFault ) ) and
+1523        --#
+1524        --#
+1525        --#      ( ( Latch.prf_isLocked(prf_preLatchOutput) and
+1526        --#          not Latch.prf_isLocked(Latch.Output) and
+1527        --#          Latch.IsLocked(prf_preLatchState) = Latch.prf_isLocked(prf_preLatchOutput)
+1528        --#        )
+1529        --#        ->
+1530        --#        ( UserEntry.prf_UserEntryUnlockDoor or
+1531        --#          ( AdminToken.prf_isGood(AdminToken.State) and
+1532        --#            AdminToken.prf_authCertValid(AdminToken.State) and
+1533        --#            AdminToken.TheAuthCertRole(AdminToken.State) = PrivTypes.Guard )
+1534        --#        )
+1535        --#      ) and
+1536        --#
+1537        --#      ( Latch.IsLocked(Latch.State) = Latch.prf_isLocked(Latch.Output)
+1538        --#        or SystemFault
+1539        --#      ) and
+1540        --#
+1541        --#      ( Admin.prf_rolePresent(TheAdmin) = PrivTypes.Guard ->
+1542        --#           ( AdminToken.prf_isGood(AdminToken.State) and
+1543        --#             AdminToken.prf_authCertValid(AdminToken.State) and
+1544        --#             AdminToken.TheAuthCertRole(AdminToken.State) = PrivTypes.Guard )) and
+1545        --#
+1546        --#      ( ( Admin.IsDoingOp(TheAdmin) and
+1547        --#          Admin.TheCurrentOp(TheAdmin) = Admin.OverrideLock ) ->
+1548        --#           Admin.prf_rolePresent(TheAdmin) = PrivTypes.Guard ) and
+1549        --#
+1550        --#      ( Admin.prf_rolePresent(TheAdmin) = PrivTypes.Guard ->
+1551        --#           ( ( Admin.IsDoingOp(TheAdmin) and
+1552        --#               Admin.TheCurrentOp(TheAdmin) = Admin.OverrideLock ) or
+1553        --#             not Admin.IsDoingOp(TheAdmin) )) and
+1554        --#
+1555        --#      ( not Admin.IsPresent(TheAdmin) -> not Admin.IsDoingOp(TheAdmin) ) and
+1556        --#
+1557        --#      ( ( Admin.IsDoingOp(TheAdmin) and
+1558        --#          Admin.TheCurrentOp(TheAdmin) = Admin.ShutdownOp ) ->
+1559        --#                    Enclave.prf_statusIsWaitingStartAdminOp(Enclave.State) ) and
+1560        --#
+1561        --#      ( ( Enclave.prf_statusIsGotAdminToken(Enclave.State) or
+1562        --#          Enclave.prf_statusIsWaitingRemoveAdminTokenFail(Enclave.State) ) ->
+1563        --#        not Admin.IsPresent(TheAdmin) ) and
+1564        --#
+1565        --#      ( ( Enclave.prf_statusIsWaitingStartAdminOp(Enclave.State) or
+1566        --#          Enclave.prf_statusIsWaitingFinishAdminOp(Enclave.State) ) ->
+1567        --#        ( Admin.IsDoingOp(TheAdmin) and
+1568        --#          Admin.IsPresent(TheAdmin) ) ) and
+1569        --#
+1570        --#      ( Enclave.prf_statusIsEnclaveQuiescent(Enclave.State) ->
+1571        --#        ( not Admin.IsDoingOp(TheAdmin) ) ) and
+1572        --#
+1573        --#      ( Enclave.prf_statusIsShutdown(Enclave.State) ->
+1574        --#        ( not Admin.IsDoingOp(TheAdmin) and
+1575        --#          Admin.prf_rolePresent(TheAdmin) = PrivTypes.UserOnly ) ) and
+1576        --#
+1577        --#      ( Enclave.EnrolmentIsInProgress(Enclave.State) ->
+1578        --#        ( not Admin.IsPresent(TheAdmin) and
+1579        --#          not Admin.IsDoingOp(TheAdmin) ) );
+1580  
+1581     end loop;
+1582  
+1583     Keyboard.Finalise;
+1584  
+1585  end TISMain;
+
++++        Flow analysis of subprogram TISMain performed: 
+           no errors found.
+
+
+Expected messages marked with the accept annotation
+Type Msg    Lines              Reason                    Match
+     No.  From    To                                    No.  Line
+Flow  10  1279   end  Ineffective assignment expected     1  1281
+Flow  33  1279   end  Ineffective assignment expected     1  1284
+Flow  10  1344   end  Ineffective assignment expected     1  1346
+Flow  33  1344   end  Ineffective assignment expected     1  1349
+Flow  10  1490  1492  Ineffective assignmente expected    1  1491
+Flow  10  1497  1499  Ineffective assignmente expected    1  1498
+
+
+No summarized warnings
+
+
+
+--End of file--------------------------------------------------

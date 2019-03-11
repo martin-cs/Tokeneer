@@ -1,0 +1,106 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:18.39*/
+
+                     /*function TokenReader.GetCardState*/
+
+
+rule_family getcardstate_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+getcardstate_rules(1): basictypes__unsigned32t__size >= 0 may_be_deduced.
+getcardstate_rules(2): basictypes__unsigned32t__size may_be_replaced_by 32.
+getcardstate_rules(3): basictypes__unsigned32t__first may_be_replaced_by 0.
+getcardstate_rules(4): basictypes__unsigned32t__last may_be_replaced_by 4294967295.
+getcardstate_rules(5): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__base__last may_be_deduced.
+getcardstate_rules(6): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__first may_be_deduced.
+getcardstate_rules(7): basictypes__unsigned32t__base__last >= 
+     basictypes__unsigned32t__last may_be_deduced.
+getcardstate_rules(8): tokenreader__interface__cardstatet__size >= 0 may_be_deduced.
+getcardstate_rules(9): tokenreader__interface__cardstatet__first may_be_replaced_by tokenreader__interface__invalidcardstate.
+getcardstate_rules(10): tokenreader__interface__cardstatet__last may_be_replaced_by tokenreader__interface__specific.
+getcardstate_rules(11): tokenreader__interface__cardstatet__base__first may_be_replaced_by tokenreader__interface__invalidcardstate.
+getcardstate_rules(12): tokenreader__interface__cardstatet__base__last may_be_replaced_by tokenreader__interface__specific.
+getcardstate_rules(13): tokenreader__interface__cardstatet__pos(
+     tokenreader__interface__cardstatet__first) may_be_replaced_by 0.
+getcardstate_rules(14): tokenreader__interface__cardstatet__pos(
+     tokenreader__interface__invalidcardstate) may_be_replaced_by 0.
+getcardstate_rules(15): tokenreader__interface__cardstatet__val(0) may_be_replaced_by 
+     tokenreader__interface__invalidcardstate.
+getcardstate_rules(16): tokenreader__interface__cardstatet__pos(
+     tokenreader__interface__absent) may_be_replaced_by 1.
+getcardstate_rules(17): tokenreader__interface__cardstatet__val(1) may_be_replaced_by 
+     tokenreader__interface__absent.
+getcardstate_rules(18): tokenreader__interface__cardstatet__pos(
+     tokenreader__interface__present) may_be_replaced_by 2.
+getcardstate_rules(19): tokenreader__interface__cardstatet__val(2) may_be_replaced_by 
+     tokenreader__interface__present.
+getcardstate_rules(20): tokenreader__interface__cardstatet__pos(
+     tokenreader__interface__swallowed) may_be_replaced_by 3.
+getcardstate_rules(21): tokenreader__interface__cardstatet__val(3) may_be_replaced_by 
+     tokenreader__interface__swallowed.
+getcardstate_rules(22): tokenreader__interface__cardstatet__pos(
+     tokenreader__interface__powered) may_be_replaced_by 4.
+getcardstate_rules(23): tokenreader__interface__cardstatet__val(4) may_be_replaced_by 
+     tokenreader__interface__powered.
+getcardstate_rules(24): tokenreader__interface__cardstatet__pos(
+     tokenreader__interface__negotiable) may_be_replaced_by 5.
+getcardstate_rules(25): tokenreader__interface__cardstatet__val(5) may_be_replaced_by 
+     tokenreader__interface__negotiable.
+getcardstate_rules(26): tokenreader__interface__cardstatet__pos(
+     tokenreader__interface__specific) may_be_replaced_by 6.
+getcardstate_rules(27): tokenreader__interface__cardstatet__val(6) may_be_replaced_by 
+     tokenreader__interface__specific.
+getcardstate_rules(28): tokenreader__interface__cardstatet__pos(
+     tokenreader__interface__cardstatet__last) may_be_replaced_by 6.
+getcardstate_rules(29): tokenreader__interface__cardstatet__pos(succ(X)) may_be_replaced_by 
+     tokenreader__interface__cardstatet__pos(X) + 1
+     if [X <=tokenreader__interface__specific, X <> 
+     tokenreader__interface__specific].
+getcardstate_rules(30): tokenreader__interface__cardstatet__pos(pred(X)) may_be_replaced_by 
+     tokenreader__interface__cardstatet__pos(X) - 1
+     if [X >=tokenreader__interface__invalidcardstate, X <> 
+     tokenreader__interface__invalidcardstate].
+getcardstate_rules(31): tokenreader__interface__cardstatet__pos(X) >= 0 may_be_deduced_from
+     [tokenreader__interface__invalidcardstate <= X, X <= 
+     tokenreader__interface__specific].
+getcardstate_rules(32): tokenreader__interface__cardstatet__pos(X) <= 6 may_be_deduced_from
+     [tokenreader__interface__invalidcardstate <= X, X <= 
+     tokenreader__interface__specific].
+getcardstate_rules(33): tokenreader__interface__cardstatet__val(X) >= 
+     tokenreader__interface__invalidcardstate may_be_deduced_from
+     [0 <= X, X <= 6].
+getcardstate_rules(34): tokenreader__interface__cardstatet__val(X) <= 
+     tokenreader__interface__specific may_be_deduced_from
+     [0 <= X, X <= 6].
+getcardstate_rules(35): succ(tokenreader__interface__cardstatet__val(X)) may_be_replaced_by 
+     tokenreader__interface__cardstatet__val(X+1)
+     if [0 <= X, X < 6].
+getcardstate_rules(36): pred(tokenreader__interface__cardstatet__val(X)) may_be_replaced_by 
+     tokenreader__interface__cardstatet__val(X-1)
+     if [0 < X, X <= 6].
+getcardstate_rules(37): tokenreader__interface__cardstatet__pos(
+     tokenreader__interface__cardstatet__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 6].
+getcardstate_rules(38): tokenreader__interface__cardstatet__val(
+     tokenreader__interface__cardstatet__pos(X)) may_be_replaced_by X
+     if [tokenreader__interface__invalidcardstate <= X, X <= 
+     tokenreader__interface__specific].
+getcardstate_rules(39): tokenreader__interface__cardstatet__pos(X) <= 
+     tokenreader__interface__cardstatet__pos(Y) & X <= Y are_interchangeable 
+     if [tokenreader__interface__invalidcardstate <= X, X <= 
+     tokenreader__interface__specific, 
+     tokenreader__interface__invalidcardstate <= Y, Y <= 
+     tokenreader__interface__specific].
+getcardstate_rules(40): tokenreader__interface__cardstatet__val(X) <= 
+     tokenreader__interface__cardstatet__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 6, 0 <= Y, Y <= 6].

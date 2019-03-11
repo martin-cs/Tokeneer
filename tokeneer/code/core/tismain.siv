@@ -1,0 +1,128 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:32  SIMPLIFIED 05-SEP-2011, 15:41:58
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure TISMain
+
+
+
+
+For path(s) from start to assertion of line 1357:
+
+procedure_tismain_1.
+H1:    not enclave__enrolmentisinprogress(enclave__state__1) <-> 
+          keystore__privatekeypresent(keystore__state__1) .
+H2:    enclave__enrolmentisinprogress(enclave__state__1) or 
+          enclave__prf_statusisenclavequiescent(enclave__state__1) .
+H3:    not admin__ispresent(theadmin__1) .
+H4:    not admin__isdoingop(theadmin__1) .
+H5:    admin__prf_rolepresent(theadmin__1) <> privtypes__guard .
+H6:    not enclave__prf_statusiswaitingstartadminop(enclave__state__1) .
+H7:    not enclave__prf_statusiswaitingfinishadminop(enclave__state__1) .
+H8:    not enclave__prf_statusisshutdown(enclave__state__1) .
+H9:    not admintoken__prf_isgood(admintoken__state__1) .
+H10:   not admintoken__prf_authcertvalid(admintoken__state__1) .
+H11:   admintoken__theauthcertrole(admintoken__state__1) <> privtypes__guard .
+H12:   privtypes__privileget__size >= 0 .
+H13:   door__t__size >= 0 .
+H14:   admin__opandnullt__size >= 0 .
+       ->
+C1:    latch__state__1 = prf_prelatchstate .
+C2:    latch__output = prf_prelatchoutput .
+C3:    latch__islocked(latch__state__1) <-> latch__prf_islocked(latch__output) .
+
+
+For path(s) from assertion of line 1504 to assertion of line 1357:
+
+procedure_tismain_2.
+H1:    not enclave__enrolmentisinprogress(enclave__state) <-> 
+          keystore__privatekeypresent(keystore__state) .
+H2:    latch__islocked(latch__state) and (door__thecurrentdoor(door__state) = 
+          door__open and clock__greaterthanorequal(clock__thecurrenttime(
+          clock__currenttime), door__prf_alarmtimeout(door__state))) -> 
+          alarm__prf_isalarming(alarm__output) .
+H3:    latch__prf_islocked(prf_prelatchoutput) and (not latch__prf_islocked(
+          latch__output) and (latch__islocked(prf_prelatchstate) <-> 
+          latch__prf_islocked(prf_prelatchoutput))) -> 
+          userentry__prf_userentryunlockdoor or admintoken__prf_isgood(
+          admintoken__state) and (admintoken__prf_authcertvalid(
+          admintoken__state) and admintoken__theauthcertrole(admintoken__state) 
+          = privtypes__guard) .
+H4:    latch__islocked(latch__state) <-> latch__prf_islocked(latch__output) .
+H5:    admin__prf_rolepresent(theadmin) = privtypes__guard -> 
+          admintoken__prf_isgood(admintoken__state) and (
+          admintoken__prf_authcertvalid(admintoken__state) and 
+          admintoken__theauthcertrole(admintoken__state) = privtypes__guard) .
+H6:    admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__overridelock -> admin__prf_rolepresent(theadmin) = 
+          privtypes__guard .
+H7:    admin__prf_rolepresent(theadmin) = privtypes__guard -> admin__isdoingop(
+          theadmin) and admin__thecurrentop(theadmin) = admin__overridelock or 
+          not admin__isdoingop(theadmin) .
+H8:    not admin__ispresent(theadmin) -> not admin__isdoingop(theadmin) .
+H9:    admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__shutdownop -> enclave__prf_statusiswaitingstartadminop(
+          enclave__state) .
+H10:   enclave__prf_statusisgotadmintoken(enclave__state) or 
+          enclave__prf_statusiswaitingremoveadmintokenfail(enclave__state) -> 
+          not admin__ispresent(theadmin) .
+H11:   enclave__prf_statusiswaitingstartadminop(enclave__state) or 
+          enclave__prf_statusiswaitingfinishadminop(enclave__state) -> 
+          admin__isdoingop(theadmin) and admin__ispresent(theadmin) .
+H12:   enclave__prf_statusisenclavequiescent(enclave__state) -> not 
+          admin__isdoingop(theadmin) .
+H13:   enclave__prf_statusisshutdown(enclave__state) -> not admin__isdoingop(
+          theadmin) and admin__prf_rolepresent(theadmin) = privtypes__useronly .
+H14:   enclave__enrolmentisinprogress(enclave__state) -> not admin__ispresent(
+          theadmin) and not admin__isdoingop(theadmin) .
+H15:   privtypes__privileget__size >= 0 .
+H16:   door__t__size >= 0 .
+H17:   admin__opandnullt__size >= 0 .
+       ->
+C1:    latch__state = prf_prelatchstate .
+C2:    latch__output = prf_prelatchoutput .
+
+
+For path(s) from assertion of line 1357 to precondition check associated with 
+          statement of line 1404:
+
+procedure_tismain_3.
+*** true .          /* all conclusions proved */
+
+
+For path(s) from assertion of line 1357 to assertion of line 1411:
+
+procedure_tismain_4.
+*** true .   /* proved using user-defined proof rules. */
+
+
+For path(s) from assertion of line 1411 to assertion of line 1504:
+
+procedure_tismain_5.
+*** true .          /* all conclusions proved */
+
+
+For path(s) from assertion of line 1357 to finish:
+
+procedure_tismain_6.
+*** true .          /* all conclusions proved */
+
+
+For path(s) from assertion of line 1411 to finish:
+
+procedure_tismain_7.
+*** true .          /* all conclusions proved */
+
+
+procedure_tismain_8.
+*** true .          /* all conclusions proved */
+
+

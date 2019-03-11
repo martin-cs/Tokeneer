@@ -1,0 +1,278 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:26.91
+
+                         procedure Enclave.EnrolOp
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 1703:
+
+procedure_enrolop_1.
+H1:    enrolmentisinprogress(status) .
+H2:    not (keystore__privatekeypresent(keystore__state)) .
+H3:    status >= statust__first .
+H4:    status <= statust__last .
+        ->
+C1:    status >= enrolmentstates__first .
+C2:    status <= enrolmentstates__last .
+C3:    status >= enrolmentstates__first .
+C4:    status <= enrolmentstates__last .
+ 
+
+For path(s) from start to precondition check associated with statement of line 1707:
+
+procedure_enrolop_2.
+H1:    enrolmentisinprogress(status) .
+H2:    not (keystore__privatekeypresent(keystore__state)) .
+H3:    status >= statust__first .
+H4:    status <= statust__last .
+H5:    status >= enrolmentstates__first .
+H6:    status <= enrolmentstates__last .
+H7:    status >= enrolmentstates__first .
+H8:    status <= enrolmentstates__last .
+H9:    status >= enrolmentstates__first .
+H10:   status <= enrolmentstates__last .
+H11:   status = notenrolled .
+        ->
+C1:    status >= enrolmentstates__first .
+C2:    status <= enrolmentstates__last .
+ 
+
+For path(s) from start to precondition check associated with statement of line 1710:
+
+procedure_enrolop_3.
+H1:    enrolmentisinprogress(status) .
+H2:    not (keystore__privatekeypresent(keystore__state)) .
+H3:    status >= statust__first .
+H4:    status <= statust__last .
+H5:    status >= enrolmentstates__first .
+H6:    status <= enrolmentstates__last .
+H7:    status >= enrolmentstates__first .
+H8:    status <= enrolmentstates__last .
+H9:    status >= enrolmentstates__first .
+H10:   status <= enrolmentstates__last .
+H11:   status = waitingenrol .
+        ->
+C1:    not (keystore__privatekeypresent(keystore__state)) .
+ 
+
+For path(s) from start to precondition check associated with statement of line 1713:
+
+procedure_enrolop_4.
+H1:    enrolmentisinprogress(status) .
+H2:    not (keystore__privatekeypresent(keystore__state)) .
+H3:    status >= statust__first .
+H4:    status <= statust__last .
+H5:    status >= enrolmentstates__first .
+H6:    status <= enrolmentstates__last .
+H7:    status >= enrolmentstates__first .
+H8:    status <= enrolmentstates__last .
+H9:    status >= enrolmentstates__first .
+H10:   status <= enrolmentstates__last .
+H11:   status = waitingendenrol .
+        ->
+C1:    status = waitingendenrol .
+ 
+
+For path(s) from start to check associated with statement of line 1717:
+
+procedure_enrolop_5.
+H1:    enrolmentisinprogress(status) .
+H2:    not (keystore__privatekeypresent(keystore__state)) .
+H3:    status >= statust__first .
+H4:    status <= statust__last .
+H5:    status >= enrolmentstates__first .
+H6:    status <= enrolmentstates__last .
+H7:    status >= enrolmentstates__first .
+H8:    status <= enrolmentstates__last .
+H9:    status >= enrolmentstates__first .
+H10:   status <= enrolmentstates__last .
+H11:   status = notenrolled .
+H12:   status >= enrolmentstates__first .
+H13:   status <= enrolmentstates__last .
+H14:   status__1 >= enrolmentstates__first .
+H15:   status__1 <= enrolmentstates__last .
+H16:   status__1 >= statust__first .
+H17:   status__1 <= statust__last .
+        ->
+C1:    enrolmentisinprogress(status__1) <-> ((status__1 >= 
+           enrolmentstates__first) and (status__1 <= 
+           enrolmentstates__last)) .
+ 
+
+procedure_enrolop_6.
+H1:    enrolmentisinprogress(status) .
+H2:    not (keystore__privatekeypresent(keystore__state)) .
+H3:    status >= statust__first .
+H4:    status <= statust__last .
+H5:    status >= enrolmentstates__first .
+H6:    status <= enrolmentstates__last .
+H7:    status >= enrolmentstates__first .
+H8:    status <= enrolmentstates__last .
+H9:    status >= enrolmentstates__first .
+H10:   status <= enrolmentstates__last .
+H11:   status = waitingenrol .
+H12:   not (keystore__privatekeypresent(keystore__state)) .
+H13:   ((status__2 = enclavequiescent) and 
+           keystore__privatekeypresent(keystore__state__2)) or ((
+           status__2 = waitingendenrol) and (not (
+           keystore__privatekeypresent(keystore__state__2)))) .
+H14:   status__2 >= statust__first .
+H15:   status__2 <= statust__last .
+        ->
+C1:    enrolmentisinprogress(status__2) <-> ((status__2 >= 
+           enrolmentstates__first) and (status__2 <= 
+           enrolmentstates__last)) .
+ 
+
+procedure_enrolop_7.
+H1:    enrolmentisinprogress(status) .
+H2:    not (keystore__privatekeypresent(keystore__state)) .
+H3:    status >= statust__first .
+H4:    status <= statust__last .
+H5:    status >= enrolmentstates__first .
+H6:    status <= enrolmentstates__last .
+H7:    status >= enrolmentstates__first .
+H8:    status <= enrolmentstates__last .
+H9:    status >= enrolmentstates__first .
+H10:   status <= enrolmentstates__last .
+H11:   status = waitingendenrol .
+H12:   status = waitingendenrol .
+H13:   (status__3 = waitingendenrol) or (status__3 = 
+           notenrolled) .
+H14:   status__3 >= statust__first .
+H15:   status__3 <= statust__last .
+        ->
+C1:    enrolmentisinprogress(status__3) <-> ((status__3 >= 
+           enrolmentstates__first) and (status__3 <= 
+           enrolmentstates__last)) .
+ 
+
+For path(s) from start to finish:
+
+procedure_enrolop_8.
+H1:    enrolmentisinprogress(status) .
+H2:    not (keystore__privatekeypresent(keystore__state)) .
+H3:    status >= statust__first .
+H4:    status <= statust__last .
+H5:    status >= enrolmentstates__first .
+H6:    status <= enrolmentstates__last .
+H7:    status >= enrolmentstates__first .
+H8:    status <= enrolmentstates__last .
+H9:    status >= enrolmentstates__first .
+H10:   status <= enrolmentstates__last .
+H11:   status = notenrolled .
+H12:   status >= enrolmentstates__first .
+H13:   status <= enrolmentstates__last .
+H14:   status__1 >= enrolmentstates__first .
+H15:   status__1 <= enrolmentstates__last .
+H16:   status__1 >= statust__first .
+H17:   status__1 <= statust__last .
+H18:   enrolmentisinprogress(status__1) <-> ((status__1 >= 
+           enrolmentstates__first) and (status__1 <= 
+           enrolmentstates__last)) .
+        ->
+C1:    keystore__privatekeypresent(keystore__state) <-> (not (
+           enrolmentisinprogress(status__1))) .
+C2:    enrolmentisinprogress(status__1) or (status__1 = 
+           enclavequiescent) .
+ 
+
+procedure_enrolop_9.
+H1:    enrolmentisinprogress(status) .
+H2:    not (keystore__privatekeypresent(keystore__state)) .
+H3:    status >= statust__first .
+H4:    status <= statust__last .
+H5:    status >= enrolmentstates__first .
+H6:    status <= enrolmentstates__last .
+H7:    status >= enrolmentstates__first .
+H8:    status <= enrolmentstates__last .
+H9:    status >= enrolmentstates__first .
+H10:   status <= enrolmentstates__last .
+H11:   status = waitingenrol .
+H12:   not (keystore__privatekeypresent(keystore__state)) .
+H13:   ((status__2 = enclavequiescent) and 
+           keystore__privatekeypresent(keystore__state__2)) or ((
+           status__2 = waitingendenrol) and (not (
+           keystore__privatekeypresent(keystore__state__2)))) .
+H14:   status__2 >= statust__first .
+H15:   status__2 <= statust__last .
+H16:   enrolmentisinprogress(status__2) <-> ((status__2 >= 
+           enrolmentstates__first) and (status__2 <= 
+           enrolmentstates__last)) .
+        ->
+C1:    keystore__privatekeypresent(keystore__state__2) <-> (not (
+           enrolmentisinprogress(status__2))) .
+C2:    enrolmentisinprogress(status__2) or (status__2 = 
+           enclavequiescent) .
+ 
+
+procedure_enrolop_10.
+H1:    enrolmentisinprogress(status) .
+H2:    not (keystore__privatekeypresent(keystore__state)) .
+H3:    status >= statust__first .
+H4:    status <= statust__last .
+H5:    status >= enrolmentstates__first .
+H6:    status <= enrolmentstates__last .
+H7:    status >= enrolmentstates__first .
+H8:    status <= enrolmentstates__last .
+H9:    status >= enrolmentstates__first .
+H10:   status <= enrolmentstates__last .
+H11:   status = waitingendenrol .
+H12:   status = waitingendenrol .
+H13:   (status__3 = waitingendenrol) or (status__3 = 
+           notenrolled) .
+H14:   status__3 >= statust__first .
+H15:   status__3 <= statust__last .
+H16:   enrolmentisinprogress(status__3) <-> ((status__3 >= 
+           enrolmentstates__first) and (status__3 <= 
+           enrolmentstates__last)) .
+        ->
+C1:    keystore__privatekeypresent(keystore__state) <-> (not (
+           enrolmentisinprogress(status__3))) .
+C2:    enrolmentisinprogress(status__3) or (status__3 = 
+           enclavequiescent) .
+ 
+
+For checks of refinement integrity: 
+
+procedure_enrolop_11.
+H1:    enclave__enrolmentisinprogress(state) .
+H2:    not (keystore__privatekeypresent(keystore__state)) .
+H3:    status = fld_status(state) .
+H4:    status >= statust__first .
+H5:    status <= statust__last .
+        ->
+C1:    enrolmentisinprogress(status) .
+C2:    not (keystore__privatekeypresent(keystore__state)) .
+ 
+
+procedure_enrolop_12.
+H1:    enclave__enrolmentisinprogress(state~) .
+H2:    not (keystore__privatekeypresent(keystore__state~)) .
+H3:    enrolmentisinprogress(status~) .
+H4:    not (keystore__privatekeypresent(keystore__state~)) .
+H5:    status~ = fld_status(state~) .
+H6:    status = fld_status(state) .
+H7:    status~ >= statust__first .
+H8:    status~ <= statust__last .
+H9:    status >= statust__first .
+H10:   status <= statust__last .
+H11:   keystore__privatekeypresent(keystore__state) <-> (not (
+           enrolmentisinprogress(status))) .
+H12:   enrolmentisinprogress(status) or (status = 
+           enclavequiescent) .
+        ->
+C1:    keystore__privatekeypresent(keystore__state) <-> (not (
+           enclave__enrolmentisinprogress(state))) .
+C2:    enclave__enrolmentisinprogress(state) or 
+           prf_statusisenclavequiescent(state) .
+ 
+

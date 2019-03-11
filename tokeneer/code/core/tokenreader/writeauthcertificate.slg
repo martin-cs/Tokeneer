@@ -1,0 +1,175 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:19  SIMPLIFIED 05-SEP-2011, 15:42:14
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure TokenReader.WriteAuthCertificate
+
+
+
+
+
+
+@@@@@@@@@@  VC: procedure_writeauthcertificate_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(rawcert, [i___1]) and element(rawcert, [
+          i___1]) <= character__last)
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> basictypes__unsigned32t__first <= fld_lastfault(
+          element(readerstatus, [i___1])) and fld_lastfault(element(
+          readerstatus, [i___1])) <= basictypes__unsigned32t__last)
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokenreader__interface__validreaderstatet__first <= 
+          fld_currentstatus(element(readerstatus, [i___1])) and 
+          fld_currentstatus(element(readerstatus, [i___1])) <= 
+          tokenreader__interface__validreaderstatet__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokentypes__tokenidt__first <= fld_tokenid(element(
+          readerstatus, [i___1])) and fld_tokenid(element(readerstatus, [i___1])
+          ) <= tokentypes__tokenidt__last)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokentypes__tryt__first <= fld_tokentry(element(
+          readerstatus, [i___1])) and fld_tokentry(element(readerstatus, [i___1]
+          )) <= tokentypes__tryt__last)
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___2 : integer, 
+          tokenreader__interface__readernamei__first <= i___2 and i___2 <= 
+          tokenreader__interface__readernamei__last -> for_all(i___1 : readert, 
+          readert__first <= i___1 and i___1 <= readert__last -> 
+          character__first <= element(fld_name(element(readerstatus, [i___1])), 
+          [i___2]) and element(fld_name(element(readerstatus, [i___1])), [i___2]
+          ) <= character__last))
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  readert__first <= user
+-S-  Applied substitution rule writeauthcer_rules(60).
+     This was achieved by replacing all occurrences of readert__first by:
+          user.
+<S>  New H3:  for_all(i___1 : readert, user <= i___1 and i___1 <= readert__last 
+          -> basictypes__unsigned32t__first <= fld_lastfault(element(
+          readerstatus, [i___1])) and fld_lastfault(element(readerstatus, [
+          i___1])) <= basictypes__unsigned32t__last)
+<S>  New H4:  for_all(i___1 : readert, user <= i___1 and i___1 <= readert__last 
+          -> tokenreader__interface__validreaderstatet__first <= 
+          fld_currentstatus(element(readerstatus, [i___1])) and 
+          fld_currentstatus(element(readerstatus, [i___1])) <= 
+          tokenreader__interface__validreaderstatet__last)
+<S>  New H7:  for_all(i___1 : readert, user <= i___1 and i___1 <= readert__last 
+          -> tokentypes__tokenidt__first <= fld_tokenid(element(readerstatus, [
+          i___1])) and fld_tokenid(element(readerstatus, [i___1])) <= 
+          tokentypes__tokenidt__last)
+<S>  New H8:  for_all(i___1 : readert, user <= i___1 and i___1 <= readert__last 
+          -> tokentypes__tryt__first <= fld_tokentry(element(readerstatus, [
+          i___1])) and fld_tokentry(element(readerstatus, [i___1])) <= 
+          tokentypes__tryt__last)
+<S>  New H9:  for_all(i___2 : integer, 
+          tokenreader__interface__readernamei__first <= i___2 and i___2 <= 
+          tokenreader__interface__readernamei__last -> for_all(i___1 : readert, 
+          user <= i___1 and i___1 <= readert__last -> character__first <= 
+          element(fld_name(element(readerstatus, [i___1])), [i___2]) and 
+          element(fld_name(element(readerstatus, [i___1])), [i___2]) <= 
+          character__last))
+<S>  New C1:  true
+-S-  Applied substitution rule writeauthcer_rules(61).
+     This was achieved by replacing all occurrences of readert__last by:
+          admin.
+<S>  New H3:  for_all(i___1 : readert, user <= i___1 and i___1 <= admin -> 
+          basictypes__unsigned32t__first <= fld_lastfault(element(readerstatus, 
+          [i___1])) and fld_lastfault(element(readerstatus, [i___1])) <= 
+          basictypes__unsigned32t__last)
+<S>  New H4:  for_all(i___1 : readert, user <= i___1 and i___1 <= admin -> 
+          tokenreader__interface__validreaderstatet__first <= fld_currentstatus(
+          element(readerstatus, [i___1])) and fld_currentstatus(element(
+          readerstatus, [i___1])) <= 
+          tokenreader__interface__validreaderstatet__last)
+<S>  New H7:  for_all(i___1 : readert, user <= i___1 and i___1 <= admin -> 
+          tokentypes__tokenidt__first <= fld_tokenid(element(readerstatus, [
+          i___1])) and fld_tokenid(element(readerstatus, [i___1])) <= 
+          tokentypes__tokenidt__last)
+<S>  New H8:  for_all(i___1 : readert, user <= i___1 and i___1 <= admin -> 
+          tokentypes__tryt__first <= fld_tokentry(element(readerstatus, [i___1])
+          ) and fld_tokentry(element(readerstatus, [i___1])) <= 
+          tokentypes__tryt__last)
+<S>  New H9:  for_all(i___2 : integer, 
+          tokenreader__interface__readernamei__first <= i___2 and i___2 <= 
+          tokenreader__interface__readernamei__last -> for_all(i___1 : readert, 
+          user <= i___1 and i___1 <= admin -> character__first <= element(
+          fld_name(element(readerstatus, [i___1])), [i___2]) and element(
+          fld_name(element(readerstatus, [i___1])), [i___2]) <= character__last)
+          )
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_writeauthcertificate_2.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, certtypes__rawcertificatei__first <= 
+          i___1 and i___1 <= certtypes__rawcertificatei__last -> 
+          character__first <= element(rawcert, [i___1]) and element(rawcert, [
+          i___1]) <= character__last)
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> basictypes__unsigned32t__first <= fld_lastfault(
+          element(readerstatus, [i___1])) and fld_lastfault(element(
+          readerstatus, [i___1])) <= basictypes__unsigned32t__last)
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokenreader__interface__validreaderstatet__first <= 
+          fld_currentstatus(element(readerstatus, [i___1])) and 
+          fld_currentstatus(element(readerstatus, [i___1])) <= 
+          tokenreader__interface__validreaderstatet__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokentypes__tokenidt__first <= fld_tokenid(element(
+          readerstatus, [i___1])) and fld_tokenid(element(readerstatus, [i___1])
+          ) <= tokentypes__tokenidt__last)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokentypes__tryt__first <= fld_tokentry(element(
+          readerstatus, [i___1])) and fld_tokentry(element(readerstatus, [i___1]
+          )) <= tokentypes__tryt__last)
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  for_all(i___2 : integer, 
+          tokenreader__interface__readernamei__first <= i___2 and i___2 <= 
+          tokenreader__interface__readernamei__last -> for_all(i___1 : readert, 
+          readert__first <= i___1 and i___1 <= readert__last -> 
+          character__first <= element(fld_name(element(readerstatus, [i___1])), 
+          [i___2]) and element(fld_name(element(readerstatus, [i___1])), [i___2]
+          ) <= character__last))
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  readert__first <= user
+***  Proved C1:  responsecode__1 >= basictypes__unsigned32t__first
+     using hypothesis H13.
+***  Proved C2:  responsecode__1 <= basictypes__unsigned32t__last
+     using hypothesis H14.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_writeauthcertificate_3.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_writeauthcertificate_4.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_writeauthcertificate_5.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+

@@ -1,0 +1,78 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:08.50*/
+
+/*procedure AuditLog.AddElementToLogFile.AddElementToNextFile.SetCurrentFileToNextFreeFile*/
+
+
+rule_family setcurrentfi_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+setcurrentfi_rules(1): logfilecountt__size >= 0 may_be_deduced.
+setcurrentfi_rules(2): logfilecountt__first may_be_replaced_by 0.
+setcurrentfi_rules(3): logfilecountt__last may_be_replaced_by 17.
+setcurrentfi_rules(4): logfilecountt__base__first <= 
+     logfilecountt__base__last may_be_deduced.
+setcurrentfi_rules(5): logfilecountt__base__first <= 
+     logfilecountt__first may_be_deduced.
+setcurrentfi_rules(6): logfilecountt__base__last >= logfilecountt__last may_be_deduced.
+setcurrentfi_rules(7): logfileindext__size >= 0 may_be_deduced.
+setcurrentfi_rules(8): logfileindext__first may_be_replaced_by 1.
+setcurrentfi_rules(9): logfileindext__last may_be_replaced_by 17.
+setcurrentfi_rules(10): logfileindext__base__first <= 
+     logfileindext__base__last may_be_deduced.
+setcurrentfi_rules(11): logfileindext__base__first <= 
+     logfileindext__first may_be_deduced.
+setcurrentfi_rules(12): logfileindext__base__last >= 
+     logfileindext__last may_be_deduced.
+setcurrentfi_rules(13): filestatust__size >= 0 may_be_deduced.
+setcurrentfi_rules(14): filestatust__first may_be_replaced_by free.
+setcurrentfi_rules(15): filestatust__last may_be_replaced_by used.
+setcurrentfi_rules(16): filestatust__base__first may_be_replaced_by free.
+setcurrentfi_rules(17): filestatust__base__last may_be_replaced_by used.
+setcurrentfi_rules(18): filestatust__pos(filestatust__first) may_be_replaced_by 0.
+setcurrentfi_rules(19): filestatust__pos(free) may_be_replaced_by 0.
+setcurrentfi_rules(20): filestatust__val(0) may_be_replaced_by 
+     free.
+setcurrentfi_rules(21): filestatust__pos(archived) may_be_replaced_by 1.
+setcurrentfi_rules(22): filestatust__val(1) may_be_replaced_by 
+     archived.
+setcurrentfi_rules(23): filestatust__pos(used) may_be_replaced_by 2.
+setcurrentfi_rules(24): filestatust__val(2) may_be_replaced_by 
+     used.
+setcurrentfi_rules(25): filestatust__pos(filestatust__last) may_be_replaced_by 2.
+setcurrentfi_rules(26): filestatust__pos(succ(X)) may_be_replaced_by 
+     filestatust__pos(X) + 1
+     if [X <=used, X <> used].
+setcurrentfi_rules(27): filestatust__pos(pred(X)) may_be_replaced_by 
+     filestatust__pos(X) - 1
+     if [X >=free, X <> free].
+setcurrentfi_rules(28): filestatust__pos(X) >= 0 may_be_deduced_from
+     [free <= X, X <= used].
+setcurrentfi_rules(29): filestatust__pos(X) <= 2 may_be_deduced_from
+     [free <= X, X <= used].
+setcurrentfi_rules(30): filestatust__val(X) >= free may_be_deduced_from
+     [0 <= X, X <= 2].
+setcurrentfi_rules(31): filestatust__val(X) <= used may_be_deduced_from
+     [0 <= X, X <= 2].
+setcurrentfi_rules(32): succ(filestatust__val(X)) may_be_replaced_by 
+     filestatust__val(X+1)
+     if [0 <= X, X < 2].
+setcurrentfi_rules(33): pred(filestatust__val(X)) may_be_replaced_by 
+     filestatust__val(X-1)
+     if [0 < X, X <= 2].
+setcurrentfi_rules(34): filestatust__pos(filestatust__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 2].
+setcurrentfi_rules(35): filestatust__val(filestatust__pos(X)) may_be_replaced_by X
+     if [free <= X, X <= used].
+setcurrentfi_rules(36): filestatust__pos(X) <= filestatust__pos(Y) & X <= Y are_interchangeable 
+     if [free <= X, X <= used, free <= Y, Y <= used].
+setcurrentfi_rules(37): filestatust__val(X) <= filestatust__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 2, 0 <= Y, Y <= 2].

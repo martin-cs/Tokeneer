@@ -1,0 +1,543 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:26.22*/
+
+              /*procedure Enclave.ArchiveLogOp.FinishArchiveLog*/
+
+
+rule_family finisharchiv_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+finisharchiv_rules(1): integer__size >= 0 may_be_deduced.
+finisharchiv_rules(2): integer__first may_be_replaced_by -2147483648.
+finisharchiv_rules(3): integer__last may_be_replaced_by 2147483647.
+finisharchiv_rules(4): integer__base__first may_be_replaced_by -2147483648.
+finisharchiv_rules(5): integer__base__last may_be_replaced_by 2147483647.
+finisharchiv_rules(6): character__size >= 0 may_be_deduced.
+finisharchiv_rules(7): character__first may_be_replaced_by 0.
+finisharchiv_rules(8): character__last may_be_replaced_by 255.
+finisharchiv_rules(9): character__base__first may_be_replaced_by 0.
+finisharchiv_rules(10): character__base__last may_be_replaced_by 255.
+finisharchiv_rules(11): positive__size >= 0 may_be_deduced.
+finisharchiv_rules(12): positive__first may_be_replaced_by 1.
+finisharchiv_rules(13): positive__last may_be_replaced_by 2147483647.
+finisharchiv_rules(14): positive__base__first may_be_replaced_by -2147483648.
+finisharchiv_rules(15): positive__base__last may_be_replaced_by 2147483647.
+finisharchiv_rules(16): audittypes__elementt__size >= 0 may_be_deduced.
+finisharchiv_rules(17): audittypes__elementt__first may_be_replaced_by audittypes__startunenrolledtis.
+finisharchiv_rules(18): audittypes__elementt__last may_be_replaced_by audittypes__systemfault.
+finisharchiv_rules(19): audittypes__elementt__base__first may_be_replaced_by audittypes__startunenrolledtis.
+finisharchiv_rules(20): audittypes__elementt__base__last may_be_replaced_by audittypes__systemfault.
+finisharchiv_rules(21): audittypes__elementt__pos(
+     audittypes__elementt__first) may_be_replaced_by 0.
+finisharchiv_rules(22): audittypes__elementt__pos(
+     audittypes__startunenrolledtis) may_be_replaced_by 0.
+finisharchiv_rules(23): audittypes__elementt__val(0) may_be_replaced_by 
+     audittypes__startunenrolledtis.
+finisharchiv_rules(24): audittypes__elementt__pos(
+     audittypes__startenrolledtis) may_be_replaced_by 1.
+finisharchiv_rules(25): audittypes__elementt__val(1) may_be_replaced_by 
+     audittypes__startenrolledtis.
+finisharchiv_rules(26): audittypes__elementt__pos(
+     audittypes__enrolmentcomplete) may_be_replaced_by 2.
+finisharchiv_rules(27): audittypes__elementt__val(2) may_be_replaced_by 
+     audittypes__enrolmentcomplete.
+finisharchiv_rules(28): audittypes__elementt__pos(
+     audittypes__enrolmentfailed) may_be_replaced_by 3.
+finisharchiv_rules(29): audittypes__elementt__val(3) may_be_replaced_by 
+     audittypes__enrolmentfailed.
+finisharchiv_rules(30): audittypes__elementt__pos(
+     audittypes__displaychanged) may_be_replaced_by 4.
+finisharchiv_rules(31): audittypes__elementt__val(4) may_be_replaced_by 
+     audittypes__displaychanged.
+finisharchiv_rules(32): audittypes__elementt__pos(
+     audittypes__screenchanged) may_be_replaced_by 5.
+finisharchiv_rules(33): audittypes__elementt__val(5) may_be_replaced_by 
+     audittypes__screenchanged.
+finisharchiv_rules(34): audittypes__elementt__pos(
+     audittypes__doorclosed) may_be_replaced_by 6.
+finisharchiv_rules(35): audittypes__elementt__val(6) may_be_replaced_by 
+     audittypes__doorclosed.
+finisharchiv_rules(36): audittypes__elementt__pos(
+     audittypes__dooropened) may_be_replaced_by 7.
+finisharchiv_rules(37): audittypes__elementt__val(7) may_be_replaced_by 
+     audittypes__dooropened.
+finisharchiv_rules(38): audittypes__elementt__pos(
+     audittypes__latchlocked) may_be_replaced_by 8.
+finisharchiv_rules(39): audittypes__elementt__val(8) may_be_replaced_by 
+     audittypes__latchlocked.
+finisharchiv_rules(40): audittypes__elementt__pos(
+     audittypes__latchunlocked) may_be_replaced_by 9.
+finisharchiv_rules(41): audittypes__elementt__val(9) may_be_replaced_by 
+     audittypes__latchunlocked.
+finisharchiv_rules(42): audittypes__elementt__pos(
+     audittypes__alarmraised) may_be_replaced_by 10.
+finisharchiv_rules(43): audittypes__elementt__val(10) may_be_replaced_by 
+     audittypes__alarmraised.
+finisharchiv_rules(44): audittypes__elementt__pos(
+     audittypes__alarmsilenced) may_be_replaced_by 11.
+finisharchiv_rules(45): audittypes__elementt__val(11) may_be_replaced_by 
+     audittypes__alarmsilenced.
+finisharchiv_rules(46): audittypes__elementt__pos(
+     audittypes__truncatelog) may_be_replaced_by 12.
+finisharchiv_rules(47): audittypes__elementt__val(12) may_be_replaced_by 
+     audittypes__truncatelog.
+finisharchiv_rules(48): audittypes__elementt__pos(
+     audittypes__auditalarmraised) may_be_replaced_by 13.
+finisharchiv_rules(49): audittypes__elementt__val(13) may_be_replaced_by 
+     audittypes__auditalarmraised.
+finisharchiv_rules(50): audittypes__elementt__pos(
+     audittypes__auditalarmsilenced) may_be_replaced_by 14.
+finisharchiv_rules(51): audittypes__elementt__val(14) may_be_replaced_by 
+     audittypes__auditalarmsilenced.
+finisharchiv_rules(52): audittypes__elementt__pos(
+     audittypes__usertokenremoved) may_be_replaced_by 15.
+finisharchiv_rules(53): audittypes__elementt__val(15) may_be_replaced_by 
+     audittypes__usertokenremoved.
+finisharchiv_rules(54): audittypes__elementt__pos(
+     audittypes__usertokenpresent) may_be_replaced_by 16.
+finisharchiv_rules(55): audittypes__elementt__val(16) may_be_replaced_by 
+     audittypes__usertokenpresent.
+finisharchiv_rules(56): audittypes__elementt__pos(
+     audittypes__usertokeninvalid) may_be_replaced_by 17.
+finisharchiv_rules(57): audittypes__elementt__val(17) may_be_replaced_by 
+     audittypes__usertokeninvalid.
+finisharchiv_rules(58): audittypes__elementt__pos(
+     audittypes__authcertvalid) may_be_replaced_by 18.
+finisharchiv_rules(59): audittypes__elementt__val(18) may_be_replaced_by 
+     audittypes__authcertvalid.
+finisharchiv_rules(60): audittypes__elementt__pos(
+     audittypes__authcertinvalid) may_be_replaced_by 19.
+finisharchiv_rules(61): audittypes__elementt__val(19) may_be_replaced_by 
+     audittypes__authcertinvalid.
+finisharchiv_rules(62): audittypes__elementt__pos(
+     audittypes__fingerdetected) may_be_replaced_by 20.
+finisharchiv_rules(63): audittypes__elementt__val(20) may_be_replaced_by 
+     audittypes__fingerdetected.
+finisharchiv_rules(64): audittypes__elementt__pos(
+     audittypes__fingertimeout) may_be_replaced_by 21.
+finisharchiv_rules(65): audittypes__elementt__val(21) may_be_replaced_by 
+     audittypes__fingertimeout.
+finisharchiv_rules(66): audittypes__elementt__pos(
+     audittypes__fingermatched) may_be_replaced_by 22.
+finisharchiv_rules(67): audittypes__elementt__val(22) may_be_replaced_by 
+     audittypes__fingermatched.
+finisharchiv_rules(68): audittypes__elementt__pos(
+     audittypes__fingernotmatched) may_be_replaced_by 23.
+finisharchiv_rules(69): audittypes__elementt__val(23) may_be_replaced_by 
+     audittypes__fingernotmatched.
+finisharchiv_rules(70): audittypes__elementt__pos(
+     audittypes__authcertwritten) may_be_replaced_by 24.
+finisharchiv_rules(71): audittypes__elementt__val(24) may_be_replaced_by 
+     audittypes__authcertwritten.
+finisharchiv_rules(72): audittypes__elementt__pos(
+     audittypes__authcertwritefailed) may_be_replaced_by 25.
+finisharchiv_rules(73): audittypes__elementt__val(25) may_be_replaced_by 
+     audittypes__authcertwritefailed.
+finisharchiv_rules(74): audittypes__elementt__pos(
+     audittypes__entrypermitted) may_be_replaced_by 26.
+finisharchiv_rules(75): audittypes__elementt__val(26) may_be_replaced_by 
+     audittypes__entrypermitted.
+finisharchiv_rules(76): audittypes__elementt__pos(
+     audittypes__entrytimeout) may_be_replaced_by 27.
+finisharchiv_rules(77): audittypes__elementt__val(27) may_be_replaced_by 
+     audittypes__entrytimeout.
+finisharchiv_rules(78): audittypes__elementt__pos(
+     audittypes__entrydenied) may_be_replaced_by 28.
+finisharchiv_rules(79): audittypes__elementt__val(28) may_be_replaced_by 
+     audittypes__entrydenied.
+finisharchiv_rules(80): audittypes__elementt__pos(
+     audittypes__admintokenpresent) may_be_replaced_by 29.
+finisharchiv_rules(81): audittypes__elementt__val(29) may_be_replaced_by 
+     audittypes__admintokenpresent.
+finisharchiv_rules(82): audittypes__elementt__pos(
+     audittypes__admintokenvalid) may_be_replaced_by 30.
+finisharchiv_rules(83): audittypes__elementt__val(30) may_be_replaced_by 
+     audittypes__admintokenvalid.
+finisharchiv_rules(84): audittypes__elementt__pos(
+     audittypes__admintokeninvalid) may_be_replaced_by 31.
+finisharchiv_rules(85): audittypes__elementt__val(31) may_be_replaced_by 
+     audittypes__admintokeninvalid.
+finisharchiv_rules(86): audittypes__elementt__pos(
+     audittypes__admintokenexpired) may_be_replaced_by 32.
+finisharchiv_rules(87): audittypes__elementt__val(32) may_be_replaced_by 
+     audittypes__admintokenexpired.
+finisharchiv_rules(88): audittypes__elementt__pos(
+     audittypes__admintokenremoved) may_be_replaced_by 33.
+finisharchiv_rules(89): audittypes__elementt__val(33) may_be_replaced_by 
+     audittypes__admintokenremoved.
+finisharchiv_rules(90): audittypes__elementt__pos(
+     audittypes__invalidoprequest) may_be_replaced_by 34.
+finisharchiv_rules(91): audittypes__elementt__val(34) may_be_replaced_by 
+     audittypes__invalidoprequest.
+finisharchiv_rules(92): audittypes__elementt__pos(
+     audittypes__operationstart) may_be_replaced_by 35.
+finisharchiv_rules(93): audittypes__elementt__val(35) may_be_replaced_by 
+     audittypes__operationstart.
+finisharchiv_rules(94): audittypes__elementt__pos(
+     audittypes__archivelog) may_be_replaced_by 36.
+finisharchiv_rules(95): audittypes__elementt__val(36) may_be_replaced_by 
+     audittypes__archivelog.
+finisharchiv_rules(96): audittypes__elementt__pos(
+     audittypes__archivecomplete) may_be_replaced_by 37.
+finisharchiv_rules(97): audittypes__elementt__val(37) may_be_replaced_by 
+     audittypes__archivecomplete.
+finisharchiv_rules(98): audittypes__elementt__pos(
+     audittypes__archivecheckfailed) may_be_replaced_by 38.
+finisharchiv_rules(99): audittypes__elementt__val(38) may_be_replaced_by 
+     audittypes__archivecheckfailed.
+finisharchiv_rules(100): audittypes__elementt__pos(
+     audittypes__updatedconfigdata) may_be_replaced_by 39.
+finisharchiv_rules(101): audittypes__elementt__val(39) may_be_replaced_by 
+     audittypes__updatedconfigdata.
+finisharchiv_rules(102): audittypes__elementt__pos(
+     audittypes__invalidconfigdata) may_be_replaced_by 40.
+finisharchiv_rules(103): audittypes__elementt__val(40) may_be_replaced_by 
+     audittypes__invalidconfigdata.
+finisharchiv_rules(104): audittypes__elementt__pos(
+     audittypes__shutdown) may_be_replaced_by 41.
+finisharchiv_rules(105): audittypes__elementt__val(41) may_be_replaced_by 
+     audittypes__shutdown.
+finisharchiv_rules(106): audittypes__elementt__pos(
+     audittypes__overridelock) may_be_replaced_by 42.
+finisharchiv_rules(107): audittypes__elementt__val(42) may_be_replaced_by 
+     audittypes__overridelock.
+finisharchiv_rules(108): audittypes__elementt__pos(
+     audittypes__systemfault) may_be_replaced_by 43.
+finisharchiv_rules(109): audittypes__elementt__val(43) may_be_replaced_by 
+     audittypes__systemfault.
+finisharchiv_rules(110): audittypes__elementt__pos(
+     audittypes__elementt__last) may_be_replaced_by 43.
+finisharchiv_rules(111): audittypes__elementt__pos(succ(X)) may_be_replaced_by 
+     audittypes__elementt__pos(X) + 1
+     if [X <=audittypes__systemfault, X <> 
+     audittypes__systemfault].
+finisharchiv_rules(112): audittypes__elementt__pos(pred(X)) may_be_replaced_by 
+     audittypes__elementt__pos(X) - 1
+     if [X >=audittypes__startunenrolledtis, X <> 
+     audittypes__startunenrolledtis].
+finisharchiv_rules(113): audittypes__elementt__pos(X) >= 0 may_be_deduced_from
+     [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+finisharchiv_rules(114): audittypes__elementt__pos(X) <= 43 may_be_deduced_from
+     [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+finisharchiv_rules(115): audittypes__elementt__val(X) >= 
+     audittypes__startunenrolledtis may_be_deduced_from
+     [0 <= X, X <= 43].
+finisharchiv_rules(116): audittypes__elementt__val(X) <= 
+     audittypes__systemfault may_be_deduced_from
+     [0 <= X, X <= 43].
+finisharchiv_rules(117): succ(audittypes__elementt__val(X)) may_be_replaced_by 
+     audittypes__elementt__val(X+1)
+     if [0 <= X, X < 43].
+finisharchiv_rules(118): pred(audittypes__elementt__val(X)) may_be_replaced_by 
+     audittypes__elementt__val(X-1)
+     if [0 < X, X <= 43].
+finisharchiv_rules(119): audittypes__elementt__pos(
+     audittypes__elementt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 43].
+finisharchiv_rules(120): audittypes__elementt__val(
+     audittypes__elementt__pos(X)) may_be_replaced_by X
+     if [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault].
+finisharchiv_rules(121): audittypes__elementt__pos(X) <= 
+     audittypes__elementt__pos(Y) & X <= Y are_interchangeable 
+     if [audittypes__startunenrolledtis <= X, X <= 
+     audittypes__systemfault, audittypes__startunenrolledtis <= Y, Y <= 
+     audittypes__systemfault].
+finisharchiv_rules(122): audittypes__elementt__val(X) <= 
+     audittypes__elementt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 43, 0 <= Y, Y <= 43].
+finisharchiv_rules(123): audittypes__severityt__size >= 0 may_be_deduced.
+finisharchiv_rules(124): audittypes__severityt__first may_be_replaced_by audittypes__information.
+finisharchiv_rules(125): audittypes__severityt__last may_be_replaced_by audittypes__critical.
+finisharchiv_rules(126): audittypes__severityt__base__first may_be_replaced_by audittypes__information.
+finisharchiv_rules(127): audittypes__severityt__base__last may_be_replaced_by audittypes__critical.
+finisharchiv_rules(128): audittypes__severityt__pos(
+     audittypes__severityt__first) may_be_replaced_by 0.
+finisharchiv_rules(129): audittypes__severityt__pos(
+     audittypes__information) may_be_replaced_by 0.
+finisharchiv_rules(130): audittypes__severityt__val(0) may_be_replaced_by 
+     audittypes__information.
+finisharchiv_rules(131): audittypes__severityt__pos(
+     audittypes__warning) may_be_replaced_by 1.
+finisharchiv_rules(132): audittypes__severityt__val(1) may_be_replaced_by 
+     audittypes__warning.
+finisharchiv_rules(133): audittypes__severityt__pos(
+     audittypes__critical) may_be_replaced_by 2.
+finisharchiv_rules(134): audittypes__severityt__val(2) may_be_replaced_by 
+     audittypes__critical.
+finisharchiv_rules(135): audittypes__severityt__pos(
+     audittypes__severityt__last) may_be_replaced_by 2.
+finisharchiv_rules(136): audittypes__severityt__pos(succ(X)) may_be_replaced_by 
+     audittypes__severityt__pos(X) + 1
+     if [X <=audittypes__critical, X <> audittypes__critical].
+finisharchiv_rules(137): audittypes__severityt__pos(pred(X)) may_be_replaced_by 
+     audittypes__severityt__pos(X) - 1
+     if [X >=audittypes__information, X <> 
+     audittypes__information].
+finisharchiv_rules(138): audittypes__severityt__pos(X) >= 0 may_be_deduced_from
+     [audittypes__information <= X, X <= audittypes__critical].
+finisharchiv_rules(139): audittypes__severityt__pos(X) <= 2 may_be_deduced_from
+     [audittypes__information <= X, X <= audittypes__critical].
+finisharchiv_rules(140): audittypes__severityt__val(X) >= 
+     audittypes__information may_be_deduced_from
+     [0 <= X, X <= 2].
+finisharchiv_rules(141): audittypes__severityt__val(X) <= 
+     audittypes__critical may_be_deduced_from
+     [0 <= X, X <= 2].
+finisharchiv_rules(142): succ(audittypes__severityt__val(X)) may_be_replaced_by 
+     audittypes__severityt__val(X+1)
+     if [0 <= X, X < 2].
+finisharchiv_rules(143): pred(audittypes__severityt__val(X)) may_be_replaced_by 
+     audittypes__severityt__val(X-1)
+     if [0 < X, X <= 2].
+finisharchiv_rules(144): audittypes__severityt__pos(
+     audittypes__severityt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 2].
+finisharchiv_rules(145): audittypes__severityt__val(
+     audittypes__severityt__pos(X)) may_be_replaced_by X
+     if [audittypes__information <= X, X <= audittypes__critical].
+finisharchiv_rules(146): audittypes__severityt__pos(X) <= 
+     audittypes__severityt__pos(Y) & X <= Y are_interchangeable 
+     if [audittypes__information <= X, X <= audittypes__critical, 
+     audittypes__information <= Y, Y <= audittypes__critical].
+finisharchiv_rules(147): audittypes__severityt__val(X) <= 
+     audittypes__severityt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 2, 0 <= Y, Y <= 2].
+finisharchiv_rules(148): audittypes__usertexti__size >= 0 may_be_deduced.
+finisharchiv_rules(149): audittypes__usertexti__first may_be_replaced_by 1.
+finisharchiv_rules(150): audittypes__usertexti__last may_be_replaced_by 50.
+finisharchiv_rules(151): audittypes__usertexti__base__first may_be_replaced_by -2147483648.
+finisharchiv_rules(152): audittypes__usertexti__base__last may_be_replaced_by 2147483647.
+finisharchiv_rules(153): privtypes__privileget__size >= 0 may_be_deduced.
+finisharchiv_rules(154): privtypes__privileget__first may_be_replaced_by privtypes__useronly.
+finisharchiv_rules(155): privtypes__privileget__last may_be_replaced_by privtypes__securityofficer.
+finisharchiv_rules(156): privtypes__privileget__base__first may_be_replaced_by privtypes__useronly.
+finisharchiv_rules(157): privtypes__privileget__base__last may_be_replaced_by privtypes__securityofficer.
+finisharchiv_rules(158): privtypes__privileget__pos(
+     privtypes__privileget__first) may_be_replaced_by 0.
+finisharchiv_rules(159): privtypes__privileget__pos(
+     privtypes__useronly) may_be_replaced_by 0.
+finisharchiv_rules(160): privtypes__privileget__val(0) may_be_replaced_by 
+     privtypes__useronly.
+finisharchiv_rules(161): privtypes__privileget__pos(
+     privtypes__guard) may_be_replaced_by 1.
+finisharchiv_rules(162): privtypes__privileget__val(1) may_be_replaced_by 
+     privtypes__guard.
+finisharchiv_rules(163): privtypes__privileget__pos(
+     privtypes__auditmanager) may_be_replaced_by 2.
+finisharchiv_rules(164): privtypes__privileget__val(2) may_be_replaced_by 
+     privtypes__auditmanager.
+finisharchiv_rules(165): privtypes__privileget__pos(
+     privtypes__securityofficer) may_be_replaced_by 3.
+finisharchiv_rules(166): privtypes__privileget__val(3) may_be_replaced_by 
+     privtypes__securityofficer.
+finisharchiv_rules(167): privtypes__privileget__pos(
+     privtypes__privileget__last) may_be_replaced_by 3.
+finisharchiv_rules(168): privtypes__privileget__pos(succ(X)) may_be_replaced_by 
+     privtypes__privileget__pos(X) + 1
+     if [X <=privtypes__securityofficer, X <> 
+     privtypes__securityofficer].
+finisharchiv_rules(169): privtypes__privileget__pos(pred(X)) may_be_replaced_by 
+     privtypes__privileget__pos(X) - 1
+     if [X >=privtypes__useronly, X <> privtypes__useronly].
+finisharchiv_rules(170): privtypes__privileget__pos(X) >= 0 may_be_deduced_from
+     [privtypes__useronly <= X, X <= privtypes__securityofficer].
+finisharchiv_rules(171): privtypes__privileget__pos(X) <= 3 may_be_deduced_from
+     [privtypes__useronly <= X, X <= privtypes__securityofficer].
+finisharchiv_rules(172): privtypes__privileget__val(X) >= 
+     privtypes__useronly may_be_deduced_from
+     [0 <= X, X <= 3].
+finisharchiv_rules(173): privtypes__privileget__val(X) <= 
+     privtypes__securityofficer may_be_deduced_from
+     [0 <= X, X <= 3].
+finisharchiv_rules(174): succ(privtypes__privileget__val(X)) may_be_replaced_by 
+     privtypes__privileget__val(X+1)
+     if [0 <= X, X < 3].
+finisharchiv_rules(175): pred(privtypes__privileget__val(X)) may_be_replaced_by 
+     privtypes__privileget__val(X-1)
+     if [0 < X, X <= 3].
+finisharchiv_rules(176): privtypes__privileget__pos(
+     privtypes__privileget__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 3].
+finisharchiv_rules(177): privtypes__privileget__val(
+     privtypes__privileget__pos(X)) may_be_replaced_by X
+     if [privtypes__useronly <= X, X <= 
+     privtypes__securityofficer].
+finisharchiv_rules(178): privtypes__privileget__pos(X) <= 
+     privtypes__privileget__pos(Y) & X <= Y are_interchangeable 
+     if [privtypes__useronly <= X, X <= 
+     privtypes__securityofficer, privtypes__useronly <= Y, Y <= 
+     privtypes__securityofficer].
+finisharchiv_rules(179): privtypes__privileget__val(X) <= 
+     privtypes__privileget__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 3, 0 <= Y, Y <= 3].
+finisharchiv_rules(180): screen__msgtextt__size >= 0 may_be_deduced.
+finisharchiv_rules(181): screen__msgtextt__first may_be_replaced_by screen__clear.
+finisharchiv_rules(182): screen__msgtextt__last may_be_replaced_by screen__insertconfigdata.
+finisharchiv_rules(183): screen__msgtextt__base__first may_be_replaced_by screen__clear.
+finisharchiv_rules(184): screen__msgtextt__base__last may_be_replaced_by screen__insertconfigdata.
+finisharchiv_rules(185): screen__msgtextt__pos(screen__msgtextt__first) may_be_replaced_by 0.
+finisharchiv_rules(186): screen__msgtextt__pos(screen__clear) may_be_replaced_by 0.
+finisharchiv_rules(187): screen__msgtextt__val(0) may_be_replaced_by 
+     screen__clear.
+finisharchiv_rules(188): screen__msgtextt__pos(
+     screen__welcomeadmin) may_be_replaced_by 1.
+finisharchiv_rules(189): screen__msgtextt__val(1) may_be_replaced_by 
+     screen__welcomeadmin.
+finisharchiv_rules(190): screen__msgtextt__pos(screen__busy) may_be_replaced_by 2.
+finisharchiv_rules(191): screen__msgtextt__val(2) may_be_replaced_by 
+     screen__busy.
+finisharchiv_rules(192): screen__msgtextt__pos(
+     screen__removeadmintoken) may_be_replaced_by 3.
+finisharchiv_rules(193): screen__msgtextt__val(3) may_be_replaced_by 
+     screen__removeadmintoken.
+finisharchiv_rules(194): screen__msgtextt__pos(screen__closedoor) may_be_replaced_by 4.
+finisharchiv_rules(195): screen__msgtextt__val(4) may_be_replaced_by 
+     screen__closedoor.
+finisharchiv_rules(196): screen__msgtextt__pos(
+     screen__requestadminop) may_be_replaced_by 5.
+finisharchiv_rules(197): screen__msgtextt__val(5) may_be_replaced_by 
+     screen__requestadminop.
+finisharchiv_rules(198): screen__msgtextt__pos(screen__doingop) may_be_replaced_by 6.
+finisharchiv_rules(199): screen__msgtextt__val(6) may_be_replaced_by 
+     screen__doingop.
+finisharchiv_rules(200): screen__msgtextt__pos(
+     screen__invalidrequest) may_be_replaced_by 7.
+finisharchiv_rules(201): screen__msgtextt__val(7) may_be_replaced_by 
+     screen__invalidrequest.
+finisharchiv_rules(202): screen__msgtextt__pos(
+     screen__invaliddata) may_be_replaced_by 8.
+finisharchiv_rules(203): screen__msgtextt__val(8) may_be_replaced_by 
+     screen__invaliddata.
+finisharchiv_rules(204): screen__msgtextt__pos(
+     screen__archivefailed) may_be_replaced_by 9.
+finisharchiv_rules(205): screen__msgtextt__val(9) may_be_replaced_by 
+     screen__archivefailed.
+finisharchiv_rules(206): screen__msgtextt__pos(
+     screen__insertenrolmentdata) may_be_replaced_by 10.
+finisharchiv_rules(207): screen__msgtextt__val(10) may_be_replaced_by 
+     screen__insertenrolmentdata.
+finisharchiv_rules(208): screen__msgtextt__pos(
+     screen__validatingenrolmentdata) may_be_replaced_by 11.
+finisharchiv_rules(209): screen__msgtextt__val(11) may_be_replaced_by 
+     screen__validatingenrolmentdata.
+finisharchiv_rules(210): screen__msgtextt__pos(
+     screen__enrolmentfailed) may_be_replaced_by 12.
+finisharchiv_rules(211): screen__msgtextt__val(12) may_be_replaced_by 
+     screen__enrolmentfailed.
+finisharchiv_rules(212): screen__msgtextt__pos(
+     screen__insertblankfloppy) may_be_replaced_by 13.
+finisharchiv_rules(213): screen__msgtextt__val(13) may_be_replaced_by 
+     screen__insertblankfloppy.
+finisharchiv_rules(214): screen__msgtextt__pos(
+     screen__insertconfigdata) may_be_replaced_by 14.
+finisharchiv_rules(215): screen__msgtextt__val(14) may_be_replaced_by 
+     screen__insertconfigdata.
+finisharchiv_rules(216): screen__msgtextt__pos(screen__msgtextt__last) may_be_replaced_by 14.
+finisharchiv_rules(217): screen__msgtextt__pos(succ(X)) may_be_replaced_by 
+     screen__msgtextt__pos(X) + 1
+     if [X <=screen__insertconfigdata, X <> 
+     screen__insertconfigdata].
+finisharchiv_rules(218): screen__msgtextt__pos(pred(X)) may_be_replaced_by 
+     screen__msgtextt__pos(X) - 1
+     if [X >=screen__clear, X <> screen__clear].
+finisharchiv_rules(219): screen__msgtextt__pos(X) >= 0 may_be_deduced_from
+     [screen__clear <= X, X <= screen__insertconfigdata].
+finisharchiv_rules(220): screen__msgtextt__pos(X) <= 14 may_be_deduced_from
+     [screen__clear <= X, X <= screen__insertconfigdata].
+finisharchiv_rules(221): screen__msgtextt__val(X) >= 
+     screen__clear may_be_deduced_from
+     [0 <= X, X <= 14].
+finisharchiv_rules(222): screen__msgtextt__val(X) <= 
+     screen__insertconfigdata may_be_deduced_from
+     [0 <= X, X <= 14].
+finisharchiv_rules(223): succ(screen__msgtextt__val(X)) may_be_replaced_by 
+     screen__msgtextt__val(X+1)
+     if [0 <= X, X < 14].
+finisharchiv_rules(224): pred(screen__msgtextt__val(X)) may_be_replaced_by 
+     screen__msgtextt__val(X-1)
+     if [0 < X, X <= 14].
+finisharchiv_rules(225): screen__msgtextt__pos(screen__msgtextt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 14].
+finisharchiv_rules(226): screen__msgtextt__val(screen__msgtextt__pos(X)) may_be_replaced_by X
+     if [screen__clear <= X, X <= screen__insertconfigdata].
+finisharchiv_rules(227): screen__msgtextt__pos(X) <= 
+     screen__msgtextt__pos(Y) & X <= Y are_interchangeable 
+     if [screen__clear <= X, X <= screen__insertconfigdata, 
+     screen__clear <= Y, Y <= screen__insertconfigdata].
+finisharchiv_rules(228): screen__msgtextt__val(X) <= 
+     screen__msgtextt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 14, 0 <= Y, Y <= 14].
+finisharchiv_rules(229): statust__size >= 0 may_be_deduced.
+finisharchiv_rules(230): statust__first may_be_replaced_by notenrolled.
+finisharchiv_rules(231): statust__last may_be_replaced_by shutdown.
+finisharchiv_rules(232): statust__base__first may_be_replaced_by notenrolled.
+finisharchiv_rules(233): statust__base__last may_be_replaced_by shutdown.
+finisharchiv_rules(234): statust__pos(statust__first) may_be_replaced_by 0.
+finisharchiv_rules(235): statust__pos(notenrolled) may_be_replaced_by 0.
+finisharchiv_rules(236): statust__val(0) may_be_replaced_by 
+     notenrolled.
+finisharchiv_rules(237): statust__pos(waitingenrol) may_be_replaced_by 1.
+finisharchiv_rules(238): statust__val(1) may_be_replaced_by 
+     waitingenrol.
+finisharchiv_rules(239): statust__pos(waitingendenrol) may_be_replaced_by 2.
+finisharchiv_rules(240): statust__val(2) may_be_replaced_by 
+     waitingendenrol.
+finisharchiv_rules(241): statust__pos(enclavequiescent) may_be_replaced_by 3.
+finisharchiv_rules(242): statust__val(3) may_be_replaced_by 
+     enclavequiescent.
+finisharchiv_rules(243): statust__pos(waitingremoveadmintokenfail) may_be_replaced_by 4.
+finisharchiv_rules(244): statust__val(4) may_be_replaced_by 
+     waitingremoveadmintokenfail.
+finisharchiv_rules(245): statust__pos(gotadmintoken) may_be_replaced_by 5.
+finisharchiv_rules(246): statust__val(5) may_be_replaced_by 
+     gotadmintoken.
+finisharchiv_rules(247): statust__pos(waitingstartadminop) may_be_replaced_by 6.
+finisharchiv_rules(248): statust__val(6) may_be_replaced_by 
+     waitingstartadminop.
+finisharchiv_rules(249): statust__pos(waitingfinishadminop) may_be_replaced_by 7.
+finisharchiv_rules(250): statust__val(7) may_be_replaced_by 
+     waitingfinishadminop.
+finisharchiv_rules(251): statust__pos(shutdown) may_be_replaced_by 8.
+finisharchiv_rules(252): statust__val(8) may_be_replaced_by 
+     shutdown.
+finisharchiv_rules(253): statust__pos(statust__last) may_be_replaced_by 8.
+finisharchiv_rules(254): statust__pos(succ(X)) may_be_replaced_by 
+     statust__pos(X) + 1
+     if [X <=shutdown, X <> shutdown].
+finisharchiv_rules(255): statust__pos(pred(X)) may_be_replaced_by 
+     statust__pos(X) - 1
+     if [X >=notenrolled, X <> notenrolled].
+finisharchiv_rules(256): statust__pos(X) >= 0 may_be_deduced_from
+     [notenrolled <= X, X <= shutdown].
+finisharchiv_rules(257): statust__pos(X) <= 8 may_be_deduced_from
+     [notenrolled <= X, X <= shutdown].
+finisharchiv_rules(258): statust__val(X) >= notenrolled may_be_deduced_from
+     [0 <= X, X <= 8].
+finisharchiv_rules(259): statust__val(X) <= shutdown may_be_deduced_from
+     [0 <= X, X <= 8].
+finisharchiv_rules(260): succ(statust__val(X)) may_be_replaced_by 
+     statust__val(X+1)
+     if [0 <= X, X < 8].
+finisharchiv_rules(261): pred(statust__val(X)) may_be_replaced_by 
+     statust__val(X-1)
+     if [0 < X, X <= 8].
+finisharchiv_rules(262): statust__pos(statust__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 8].
+finisharchiv_rules(263): statust__val(statust__pos(X)) may_be_replaced_by X
+     if [notenrolled <= X, X <= shutdown].
+finisharchiv_rules(264): statust__pos(X) <= statust__pos(Y) & X <= Y are_interchangeable 
+     if [notenrolled <= X, X <= shutdown, notenrolled <= Y, Y <= 
+     shutdown].
+finisharchiv_rules(265): statust__val(X) <= statust__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 8, 0 <= Y, Y <= 8].

@@ -1,0 +1,86 @@
+           *******************************************************
+                            Listing of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:10.96
+
+Line
+   1  ------------------------------------------------------------------
+   2  -- Tokeneer ID Station Core Software
+   3  --
+   4  -- Copyright (2003) United States Government, as represented
+   5  -- by the Director, National Security Agency. All rights reserved.
+   6  --
+   7  -- This material was originally developed by Praxis High Integrity
+   8  -- Systems Ltd. under contract to the National Security Agency.
+   9  ------------------------------------------------------------------
+  10  
+  11  ------------------------------------------------------------------
+  12  -- Alarm
+  13  --
+  14  -- Implementation Notes:
+  15  --    None
+  16  --
+  17  ------------------------------------------------------------------
+  18  
+  19  with Alarm.Interface,
+  20       AlarmTypes,
+  21       AuditLog,
+  22       AuditTypes,
+  23       Door;
+  24  use type AlarmTypes.StatusT;
+  25  
+  26  package body Alarm
+  27  --# own Output is out Alarm.Interface.Output;
+  28  is
+  29  
+  30     ------------------------------------------------------------------
+  31     -- UpdateDevice
+  32     --
+  33     -- Implementation Notes:
+  34     --    Makes appropriate call to private child.
+  35     --
+  36     ------------------------------------------------------------------
+  37  
+  38     procedure UpdateDevice
+  39     --# global    out Interface.Output;
+  40     --#        in     Door.State;
+  41     --#        in     AuditLog.State;
+  42     --# derives Interface.Output from Door.State,
+  43     --#                               AuditLog.State;
+  44     --# post
+  45     --#      --------------------------------------------------------
+  46     --#      -- PROOF ANNOTATIONS FOR SECURITY PROPERTY 3          --
+  47     --#      --====================================================--
+  48     --#      -- After each call to UpdateDevice, the Alarm is      --
+  49     --#      -- alarming if the conditions of the security         --
+  50     --#      -- property hold. Note that from the Door package     --
+  51     --#      -- annotation, Door.TheDoorAlarm = Alarming is        --
+  52     --#      -- equivalent to the security property conditions     --
+  53     --#      --------------------------------------------------------
+  54     --#      Door.TheDoorAlarm(Door.State) = AlarmTypes.Alarming ->
+  55     --#      Interface.prf_isAlarming(Interface.Output);
+  56     is
+  57     begin
+  58        if Door.TheDoorAlarm = AlarmTypes.Alarming or
+  59             AuditLog.TheAuditAlarm = AlarmTypes.Alarming then
+  60           Interface.Activate;
+  61        else
+  62           Interface.Deactivate;
+  63        end if;
+  64     end UpdateDevice;
+
++++        Flow analysis of subprogram UpdateDevice 
+           performed: no errors found.
+
+  65  
+  66  end Alarm;
+8 summarized warning(s), comprising:
+     8 use(s) of Ada2005 reserved words
+
+
+
+--End of file--------------------------------------------------

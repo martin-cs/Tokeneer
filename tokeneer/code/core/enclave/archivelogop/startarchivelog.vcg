@@ -1,0 +1,107 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:26.17
+
+               procedure Enclave.ArchiveLogOp.StartArchiveLog
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 815:
+
+procedure_startarchivelog_1.
+H1:    status = waitingstartadminop .
+H2:    status >= statust__first .
+H3:    status <= statust__last .
+H4:    true .
+H5:    floppy__ispresent(floppy__state) .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state), [
+           i___1]) <= character__last))) .
+        ->
+C1:    screen__doingop >= screen__msgtextt__first .
+C2:    screen__doingop <= screen__msgtextt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 816:
+
+procedure_startarchivelog_2.
+H1:    status = waitingstartadminop .
+H2:    status >= statust__first .
+H3:    status <= statust__last .
+H4:    true .
+H5:    floppy__ispresent(floppy__state) .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state), [
+           i___1]) <= character__last))) .
+H7:    screen__doingop >= screen__msgtextt__first .
+H8:    screen__doingop <= screen__msgtextt__last .
+        ->
+C1:    waitingfinishadminop >= statust__first .
+C2:    waitingfinishadminop <= statust__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 822:
+
+procedure_startarchivelog_3.
+H1:    status = waitingstartadminop .
+H2:    status >= statust__first .
+H3:    status <= statust__last .
+H4:    true .
+H5:    not (floppy__ispresent(floppy__state)) .
+        ->
+C1:    screen__insertblankfloppy >= screen__msgtextt__first .
+C2:    screen__insertblankfloppy <= screen__msgtextt__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_startarchivelog_4.
+H1:    status = waitingstartadminop .
+H2:    status >= statust__first .
+H3:    status <= statust__last .
+H4:    true .
+H5:    floppy__ispresent(floppy__state) .
+H6:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state), [
+           i___1]) <= character__last))) .
+H7:    screen__doingop >= screen__msgtextt__first .
+H8:    screen__doingop <= screen__msgtextt__last .
+H9:    waitingfinishadminop >= statust__first .
+H10:   waitingfinishadminop <= statust__last .
+H11:   true .
+        ->
+C1:    (waitingfinishadminop = waitingstartadminop) or (
+           waitingfinishadminop = waitingfinishadminop) .
+ 
+
+procedure_startarchivelog_5.
+H1:    status = waitingstartadminop .
+H2:    status >= statust__first .
+H3:    status <= statust__last .
+H4:    true .
+H5:    not (floppy__ispresent(floppy__state)) .
+H6:    screen__insertblankfloppy >= screen__msgtextt__first .
+H7:    screen__insertblankfloppy <= screen__msgtextt__last .
+        ->
+C1:    (status = waitingstartadminop) or (status = 
+           waitingfinishadminop) .
+ 
+

@@ -1,0 +1,938 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:27  SIMPLIFIED 05-SEP-2011, 15:40:48
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure Enclave.StartAdminActivity
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/enclave/enclave.rlu
+&&&  d:/sparkdev/tis2011/code/core/enclave/startadminactivity.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_startadminactivity_1.  @@@@@@@@@@
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  statust__first <= status
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  statust__first <= gotadmintoken
+-S-  Applied substitution rule startadminac_rules(58).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H11:  notenrolled <= status
+<S>  New C1:  true
+-S-  Applied substitution rule startadminac_rules(59).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H12:  status <= shutdown
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_startadminactivity_2.  @@@@@@@@@@
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  statust__first <= status
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  statust__first <= gotadmintoken
++++  Using "A->B, A |- B" on hypotheses H14 & H15 yields a new hypothesis:
+     +++  H18:  not admin__ispresent(theadmin)
+-S-  Applied substitution rule startadminac_rules(58).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H11:  notenrolled <= status
+<S>  New H16:  true
+-S-  Applied substitution rule startadminac_rules(59).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H12:  status <= shutdown
+<S>  New H17:  true
+***  Proved C1:  not admin__ispresent(theadmin)
+     using hypothesis H18.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_startadminactivity_3.  @@@@@@@@@@
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  statust__first <= status
++++  Using "A->B, A |- B" on hypotheses H17 & H19 yields a new hypothesis:
+     +++  H20:  status = enclavequiescent
++++  Using "A->B, A |- B" on hypotheses H18 & H19 yields a new hypothesis:
+     +++  H21:  admin__ispresent(theadmin)
+-S-  Applied substitution rule startadminac_rules(58).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H11:  notenrolled <= status
+-S-  Applied substitution rule startadminac_rules(59).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H12:  status <= shutdown
+***  Proved C1:  status = enclavequiescent
+     using hypothesis H20.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_startadminactivity_4.  @@@@@@@@@@
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  statust__first <= status
+***  Proved C1:  adminopcanstart(admintoken__state, status, theadmin)
+     using hypothesis H19.
+***  Proved C2:  status = enclavequiescent
+     using hypothesis H20.
+***  Proved C5:  admin__prf_rolepresent(theadmin) = privtypes__guard -> 
+          admintoken__prf_isgood(admintoken__state) and (
+          admintoken__prf_authcertvalid(admintoken__state) and 
+          admintoken__theauthcertrole(admintoken__state) = privtypes__guard)
+     using hypothesis H2.
+***  Proved C6:  admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__overridelock -> admin__prf_rolepresent(theadmin) = 
+          privtypes__guard
+     using hypothesis H8.
+***  Proved C7:  admin__prf_rolepresent(theadmin) = privtypes__guard -> 
+          admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__overridelock or not admin__isdoingop(theadmin)
+     using hypothesis H10.
++++  Using "A->B, A |- B" on hypotheses H6 & H20 yields a new hypothesis:
+     +++  H21:  not admin__isdoingop(theadmin)
+---  Attempted addition of new hypothesis:
+          status = enclavequiescent
+     eliminated: this already exists (as H20).
++++  Using "A->B, A |- B" on hypotheses H17 & H19 yields a new hypothesis:
+     +++  H20:  status = enclavequiescent
++++  Using "A->B, A |- B" on hypotheses H18 & H19 yields a new hypothesis:
+     +++  H22:  admin__ispresent(theadmin)
+-S-  Applied substitution rule startadminac_rules(58).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H11:  notenrolled <= status
+-S-  Applied substitution rule startadminac_rules(59).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H12:  status <= shutdown
+***  Proved C3:  admin__ispresent(theadmin)
+     using hypothesis H22.
+***  Proved C4:  not admin__isdoingop(theadmin)
+     using hypothesis H21.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_startadminactivity_5.  @@@@@@@@@@
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  statust__first <= status
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H22 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H10).
+%%%  Simplified H36 on reading formula in, to give:
+     %%%  H36:  statust__first <= status__1
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  waitingendenrol < status__1
+---  Attempted addition of new hypothesis:
+          not admin__isdoingop(theadmin)
+     eliminated: this already exists (as H24).
++++  Using "A->B, A |- B" on hypotheses H6 & H20 yields a new hypothesis:
+     +++  H24:  not admin__isdoingop(theadmin)
+---  Attempted addition of new hypothesis:
+          status = enclavequiescent
+     eliminated: this already exists (as H20).
++++  Using "A->B, A |- B" on hypotheses H17 & H19 yields a new hypothesis:
+     +++  H20:  status = enclavequiescent
+---  Attempted addition of new hypothesis:
+          admin__ispresent(theadmin)
+     eliminated: this already exists (as H23).
++++  Using "A->B, A |- B" on hypotheses H18 & H19 yields a new hypothesis:
+     +++  H23:  admin__ispresent(theadmin)
+-S-  Applied substitution rule startadminac_rules(58).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H11:  notenrolled <= status
+<S>  New H36:  notenrolled <= status__1
+-S-  Applied substitution rule startadminac_rules(59).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H12:  status <= shutdown
+<S>  New H37:  status__1 <= shutdown
+---  Eliminated hypothesis H13 (true-hypothesis).
+---  Eliminated hypothesis H16 (true-hypothesis).
+---  Eliminated hypothesis H21 (true-hypothesis).
+---  Eliminated hypothesis H22 (true-hypothesis).
+---  Eliminated hypothesis H25 (true-hypothesis).
+---  Eliminated hypothesis H26 (true-hypothesis).
+---  Eliminated hypothesis H27 (true-hypothesis).
+>>>  Using "A->B, A |- B" on H6, given H20, we simplify the former to:
+     >>>  H6:  not admin__isdoingop(theadmin)
+>>>  Using "A->B, A |- B" on H17, given H19, we simplify the former to:
+     >>>  H17:  status = enclavequiescent
+>>>  Using "A->B, A |- B" on H18, given H19, we simplify the former to:
+     >>>  H18:  admin__ispresent(theadmin)
+-S-  Eliminated hypothesis H20.
+     This was achieved by replacing all occurrences of status by:
+          enclavequiescent.
+<S>  New H1:  not enrolmentisinprogress(enclavequiescent)
+<S>  New H4:  true
+<S>  New H5:  true
+<S>  New H7:  true
+<S>  New H9:  not (admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) 
+          = admin__shutdownop)
+<S>  New H14:  adminlogoncanstart(admintoken__state, enclavequiescent, theadmin)
+           -> not admin__ispresent(theadmin)
+<S>  New H15:  not adminlogoncanstart(admintoken__state, enclavequiescent, 
+          theadmin)
+<S>  New H19:  adminopcanstart(admintoken__state, enclavequiescent, theadmin)
+<S>  New H11:  true
+<S>  New H12:  true
+<S>  New H17:  true
+---  Eliminated hypothesis H4 (true-hypothesis).
+---  Eliminated hypothesis H5 (true-hypothesis).
+---  Eliminated hypothesis H7 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H17 (true-hypothesis).
+>>>  Restructured hypothesis H9 into:
+     >>>  H9:  not admin__isdoingop(theadmin) or admin__thecurrentop(theadmin) 
+          <> admin__shutdownop
+     +++  New H38:  privtypes__privileget__size >= 0
+     +++  New H39:  admin__opandnullt__size >= 0
+     +++  New H40:  statust__size >= 0
+***  Proved C1:  waitingendenrol < status__1
+     This was achieved by applying the inference rule startadminactivity_user(1)
+     [from rulefile startadminactivity.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H28, proved: status__1 = enclavequiescent or status__1 = 
+          waitingstartadminop
+     <<<  By simple reasoning, proved: waitingendenrol < enclavequiescent
+     <<<  By simple reasoning, proved: waitingendenrol < waitingstartadminop
+***  PROVED VC.
+
+VCN  5: Summary of user rule application.
+FIL  startadminactivity.rlu
+RUL     startadminactivity_user(1)
+CON        1
+
+
+@@@@@@@@@@  VC: procedure_startadminactivity_6.  @@@@@@@@@@
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  statust__first <= status
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  statust__first <= gotadmintoken
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  not admin__ispresent(theadmin)
+%%%  Simplified C4 on reading formula in, to give:
+     %%%  C4:  true
+%%%  Simplified C5 on reading formula in, to give:
+     %%%  C5:  true
+%%%  Simplified C6 on reading formula in, to give:
+     %%%  C6:  true
+%%%  Simplified C7 on reading formula in, to give:
+     %%%  C7:  not (admin__isdoingop(theadmin) and admin__thecurrentop(theadmin)
+           = admin__shutdownop)
+***  Proved C2:  not admin__ispresent(theadmin) -> not admin__isdoingop(
+          theadmin)
+     using hypothesis H3.
+***  Proved C3:  not admin__ispresent(theadmin)
+     using hypothesis H18.
+***  Proved C4:  true
+***  Proved C5:  true
+***  Proved C6:  true
+***  Proved C8:  admin__prf_rolepresent(theadmin) = privtypes__guard -> 
+          admintoken__prf_isgood(admintoken__state) and (
+          admintoken__prf_authcertvalid(admintoken__state) and 
+          admintoken__theauthcertrole(admintoken__state) = privtypes__guard)
+     using hypothesis H2.
+***  Proved C9:  admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__overridelock -> admin__prf_rolepresent(theadmin) = 
+          privtypes__guard
+     using hypothesis H8.
+***  Proved C10:  admin__prf_rolepresent(theadmin) = privtypes__guard -> 
+          admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__overridelock or not admin__isdoingop(theadmin)
+     using hypothesis H10.
++++  Using "A->B, A |- B" on hypotheses H3 & H18 yields a new hypothesis:
+     +++  H19:  not admin__isdoingop(theadmin)
+---  Attempted addition of new hypothesis:
+          not admin__ispresent(theadmin)
+     eliminated: this already exists (as H18).
++++  Using "A->B, A |- B" on hypotheses H14 & H15 yields a new hypothesis:
+     +++  H18:  not admin__ispresent(theadmin)
+-S-  Applied substitution rule startadminac_rules(58).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H11:  notenrolled <= status
+<S>  New H16:  true
+-S-  Applied substitution rule startadminac_rules(59).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H12:  status <= shutdown
+<S>  New H17:  true
+***  Proved C7:  not (admin__isdoingop(theadmin) and admin__thecurrentop(
+          theadmin) = admin__shutdownop)
+     using hypothesis H19.
+---  Eliminated hypothesis H13 (true-hypothesis).
+---  Eliminated hypothesis H16 (true-hypothesis).
+---  Eliminated hypothesis H17 (true-hypothesis).
+>>>  Using "A->B, A |- B" on H3, given H18, we simplify the former to:
+     >>>  H3:  not admin__isdoingop(theadmin)
+>>>  Using "A->B, A |- B" on H14, given H15, we simplify the former to:
+     >>>  H14:  not admin__ispresent(theadmin)
+     +++  New H20:  privtypes__privileget__size >= 0
+     +++  New H21:  admin__opandnullt__size >= 0
+     +++  New H22:  statust__size >= 0
+***  Proved C1:  not enrolmentisinprogress(gotadmintoken)
+     This was achieved by applying the inference rule enclave_user(6)
+     [from rulefile enclave.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  By simple reasoning, proved: gotadmintoken > waitingendenrol
+***  PROVED VC.
+
+VCN  6: Summary of user rule application.
+FIL  enclave.rlu
+RUL     enclave_user(6)
+CON        1
+
+
+@@@@@@@@@@  VC: procedure_startadminactivity_7.  @@@@@@@@@@
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  statust__first <= status
+---  Hypothesis H21 has been replaced by "true".  (It is already present, as 
+          H19).
+---  Hypothesis H22 has been replaced by "true".  (It is already present, as 
+          H20).
+---  Hypothesis H25 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H26 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H27 has been replaced by "true".  (It is already present, as 
+          H10).
+%%%  Simplified H36 on reading formula in, to give:
+     %%%  H36:  statust__first <= status__1
+%%%  Simplified H38 on reading formula in, to give:
+     %%%  H38:  waitingendenrol < status__1
+***  Proved C4:  status__1 = waitingstartadminop or status__1 = 
+          waitingfinishadminop -> admin__isdoingop(theadmin__1) and (
+          admin__ispresent(theadmin__1) and admin__prf_rolepresent(theadmin__1) 
+          = admin__prf_rolepresent(theadmin))
+     using hypothesis H33.
+***  Proved C5:  status__1 = enclavequiescent -> not admin__isdoingop(
+          theadmin__1) and admin__prf_rolepresent(theadmin__1) = 
+          admin__prf_rolepresent(theadmin)
+     using hypothesis H34.
+***  Proved C6:  status__1 = shutdown -> not admin__isdoingop(theadmin__1) and 
+          admin__prf_rolepresent(theadmin__1) = privtypes__useronly
+     using hypothesis H35.
+***  Proved C7:  admin__isdoingop(theadmin__1) and admin__thecurrentop(
+          theadmin__1) = admin__shutdownop -> status__1 = waitingstartadminop
+     using hypothesis H32.
+***  Proved C8:  admin__prf_rolepresent(theadmin__1) = privtypes__guard -> 
+          admintoken__prf_isgood(admintoken__state) and (
+          admintoken__prf_authcertvalid(admintoken__state) and 
+          admintoken__theauthcertrole(admintoken__state) = privtypes__guard)
+     using hypothesis H29.
+***  Proved C9:  admin__isdoingop(theadmin__1) and admin__thecurrentop(
+          theadmin__1) = admin__overridelock -> admin__prf_rolepresent(
+          theadmin__1) = privtypes__guard
+     using hypothesis H30.
+***  Proved C10:  admin__prf_rolepresent(theadmin__1) = privtypes__guard -> 
+          admin__isdoingop(theadmin__1) and admin__thecurrentop(theadmin__1) = 
+          admin__overridelock or not admin__isdoingop(theadmin__1)
+     using hypothesis H31.
+---  Attempted addition of new hypothesis:
+          not admin__isdoingop(theadmin)
+     eliminated: this already exists (as H24).
++++  Using "A->B, A |- B" on hypotheses H6 & H20 yields a new hypothesis:
+     +++  H24:  not admin__isdoingop(theadmin)
+---  Attempted addition of new hypothesis:
+          status = enclavequiescent
+     eliminated: this already exists (as H20).
++++  Using "A->B, A |- B" on hypotheses H17 & H19 yields a new hypothesis:
+     +++  H20:  status = enclavequiescent
+---  Attempted addition of new hypothesis:
+          admin__ispresent(theadmin)
+     eliminated: this already exists (as H23).
++++  Using "A->B, A |- B" on hypotheses H18 & H19 yields a new hypothesis:
+     +++  H23:  admin__ispresent(theadmin)
+-S-  Applied substitution rule startadminac_rules(58).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H11:  notenrolled <= status
+<S>  New H36:  notenrolled <= status__1
+-S-  Applied substitution rule startadminac_rules(59).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H12:  status <= shutdown
+<S>  New H37:  status__1 <= shutdown
+---  Eliminated hypothesis H13 (true-hypothesis).
+---  Eliminated hypothesis H16 (true-hypothesis).
+---  Eliminated hypothesis H21 (true-hypothesis).
+---  Eliminated hypothesis H22 (true-hypothesis).
+---  Eliminated hypothesis H25 (true-hypothesis).
+---  Eliminated hypothesis H26 (true-hypothesis).
+---  Eliminated hypothesis H27 (true-hypothesis).
+>>>  Using "A->B, A |- B" on H6, given H20, we simplify the former to:
+     >>>  H6:  not admin__isdoingop(theadmin)
+>>>  Using "A->B, A |- B" on H17, given H19, we simplify the former to:
+     >>>  H17:  status = enclavequiescent
+>>>  Using "A->B, A |- B" on H18, given H19, we simplify the former to:
+     >>>  H18:  admin__ispresent(theadmin)
+-S-  Eliminated hypothesis H20.
+     This was achieved by replacing all occurrences of status by:
+          enclavequiescent.
+<S>  New H1:  not enrolmentisinprogress(enclavequiescent)
+<S>  New H4:  true
+<S>  New H5:  true
+<S>  New H7:  true
+<S>  New H9:  not (admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) 
+          = admin__shutdownop)
+<S>  New H14:  adminlogoncanstart(admintoken__state, enclavequiescent, theadmin)
+           -> not admin__ispresent(theadmin)
+<S>  New H15:  not adminlogoncanstart(admintoken__state, enclavequiescent, 
+          theadmin)
+<S>  New H19:  adminopcanstart(admintoken__state, enclavequiescent, theadmin)
+<S>  New H11:  true
+<S>  New H12:  true
+<S>  New H17:  true
+---  Eliminated hypothesis H4 (true-hypothesis).
+---  Eliminated hypothesis H5 (true-hypothesis).
+---  Eliminated hypothesis H7 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H17 (true-hypothesis).
+>>>  Restructured hypothesis H9 into:
+     >>>  H9:  not admin__isdoingop(theadmin) or admin__thecurrentop(theadmin) 
+          <> admin__shutdownop
+     +++  New H39:  privtypes__privileget__size >= 0
+     +++  New H40:  admin__opandnullt__size >= 0
+     +++  New H41:  statust__size >= 0
+***  Proved C1:  not enrolmentisinprogress(status__1)
+     This was achieved by applying the inference rule enclave_user(6)
+     [from rulefile enclave.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H38, proved: status__1 > waitingendenrol
+***  Proved C2:  not admin__ispresent(theadmin__1) -> not admin__isdoingop(
+          theadmin__1)
+     This was achieved by applying the inference rule startadminactivity_user(2)
+     [from rulefile startadminactivity.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H28, proved: status__1 = enclavequiescent or status__1 = 
+          waitingstartadminop
+     <<<  From H34, proved: status__1 = enclavequiescent -> not 
+          admin__isdoingop(theadmin__1) and admin__prf_rolepresent(theadmin__1) 
+          = admin__prf_rolepresent(theadmin)
+     <<<  From H33, proved: status__1 = waitingstartadminop or status__1 = 
+          waitingfinishadminop -> admin__isdoingop(theadmin__1) and (
+          admin__ispresent(theadmin__1) and admin__prf_rolepresent(theadmin__1) 
+          = admin__prf_rolepresent(theadmin))
+***  Proved C3:  status__1 = gotadmintoken or status__1 = 
+          waitingremoveadmintokenfail -> not admin__ispresent(theadmin__1)
+     This was achieved by applying the inference rule startadminactivity_user(3)
+     [from rulefile startadminactivity.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H28, proved: status__1 = enclavequiescent or status__1 = 
+          waitingstartadminop
+     <<<  By simple reasoning, proved: gotadmintoken <> enclavequiescent
+     <<<  By simple reasoning, proved: gotadmintoken <> waitingstartadminop
+     <<<  By simple reasoning, proved: waitingremoveadmintokenfail <> 
+          enclavequiescent
+     <<<  By simple reasoning, proved: waitingremoveadmintokenfail <> 
+          waitingstartadminop
+***  PROVED VC.
+
+VCN  7: Summary of user rule application.
+FIL  enclave.rlu
+RUL     enclave_user(6)
+CON        1
+FIL  startadminactivity.rlu
+RUL     startadminactivity_user(2)
+CON        2
+RUL     startadminactivity_user(3)
+CON        3
+
+
+@@@@@@@@@@  VC: procedure_startadminactivity_8.  @@@@@@@@@@
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  statust__first <= status
+%%%  Simplified C4 on reading formula in, to give:
+     %%%  C4:  status = waitingstartadminop or status = waitingfinishadminop -> 
+          admin__isdoingop(theadmin) and admin__ispresent(theadmin)
+%%%  Simplified C5 on reading formula in, to give:
+     %%%  C5:  status = enclavequiescent -> not admin__isdoingop(theadmin)
+***  Proved C1:  not enrolmentisinprogress(status)
+     using hypothesis H1.
+***  Proved C2:  not admin__ispresent(theadmin) -> not admin__isdoingop(
+          theadmin)
+     using hypothesis H3.
+***  Proved C3:  status = gotadmintoken or status = waitingremoveadmintokenfail 
+          -> not admin__ispresent(theadmin)
+     using hypothesis H4.
+***  Proved C5:  status = enclavequiescent -> not admin__isdoingop(theadmin)
+     using hypothesis H6.
+***  Proved C6:  status = shutdown -> not admin__isdoingop(theadmin) and 
+          admin__prf_rolepresent(theadmin) = privtypes__useronly
+     using hypothesis H7.
+***  Proved C7:  admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__shutdownop -> status = waitingstartadminop
+     using hypothesis H9.
+***  Proved C8:  admin__prf_rolepresent(theadmin) = privtypes__guard -> 
+          admintoken__prf_isgood(admintoken__state) and (
+          admintoken__prf_authcertvalid(admintoken__state) and 
+          admintoken__theauthcertrole(admintoken__state) = privtypes__guard)
+     using hypothesis H2.
+***  Proved C9:  admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__overridelock -> admin__prf_rolepresent(theadmin) = 
+          privtypes__guard
+     using hypothesis H8.
+***  Proved C10:  admin__prf_rolepresent(theadmin) = privtypes__guard -> 
+          admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__overridelock or not admin__isdoingop(theadmin)
+     using hypothesis H10.
+-S-  Applied substitution rule startadminac_rules(58).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H11:  notenrolled <= status
+-S-  Applied substitution rule startadminac_rules(59).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H12:  status <= shutdown
+---  Eliminated hypothesis H13 (true-hypothesis).
+---  Eliminated hypothesis H16 (true-hypothesis).
+***  Proved C4:  status = waitingstartadminop or status = waitingfinishadminop 
+          -> admin__isdoingop(theadmin) and admin__ispresent(theadmin)
+     using hypothesis H5.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_startadminactivity_9.  @@@@@@@@@@
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  statust__first <= status
+***  Proved C2:  admin__prf_rolepresent(theadmin) = privtypes__guard -> 
+          admintoken__prf_isgood(admintoken__state) and (
+          admintoken__prf_authcertvalid(admintoken__state) and 
+          admintoken__theauthcertrole(admintoken__state) = privtypes__guard)
+     using hypothesis H2.
+***  Proved C3:  not admin__ispresent(theadmin) -> not admin__isdoingop(
+          theadmin)
+     using hypothesis H4.
+***  Proved C8:  admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__overridelock -> admin__prf_rolepresent(theadmin) = 
+          privtypes__guard
+     using hypothesis H3.
+***  Proved C10:  admin__prf_rolepresent(theadmin) = privtypes__guard -> 
+          admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__overridelock or not admin__isdoingop(theadmin)
+     using hypothesis H10.
+-S-  Applied substitution rule startadminac_rules(58).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H12:  notenrolled <= status
+-S-  Applied substitution rule startadminac_rules(59).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H13:  status <= shutdown
+-S-  Eliminated hypothesis H11.
+     This was achieved by replacing all occurrences of status by:
+          fld_status(state).
+<S>  New H12:  notenrolled <= fld_status(state)
+<S>  New H13:  fld_status(state) <= shutdown
+<S>  New C1:  not enrolmentisinprogress(fld_status(state))
+<S>  New C4:  fld_status(state) = gotadmintoken or fld_status(state) = 
+          waitingremoveadmintokenfail -> not admin__ispresent(theadmin)
+<S>  New C5:  fld_status(state) = waitingstartadminop or fld_status(state) = 
+          waitingfinishadminop -> admin__ispresent(theadmin) and 
+          admin__isdoingop(theadmin)
+<S>  New C6:  fld_status(state) = enclavequiescent -> not admin__isdoingop(
+          theadmin)
+<S>  New C7:  fld_status(state) = shutdown -> not admin__isdoingop(theadmin) 
+          and admin__prf_rolepresent(theadmin) = privtypes__useronly
+<S>  New C9:  admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__shutdownop -> fld_status(state) = waitingstartadminop
+     +++  New H14:  privtypes__privileget__size >= 0
+     +++  New H15:  admin__opandnullt__size >= 0
+     +++  New H16:  statust__size >= 0
+***  Proved C1:  not enrolmentisinprogress(fld_status(state))
+     This was achieved by applying the rewrite rule enclave_user(13)
+     [from rulefile enclave.rlu] to rewrite this conclusion to:
+<S>  C1:  not enclave__enrolmentisinprogress(state)
+     This rule could be applied because its side-conditions hold, as follows:
+     <<<  From H1, proved: not enclave__enrolmentisinprogress(state)
+     <<<  Immediate condition checktype(state, statetype) evaluated successfully
+***  Proved C6:  fld_status(state) = enclavequiescent -> not admin__isdoingop(
+          theadmin)
+     This was achieved by applying the rewrite rule enclave_user(11)
+     [from rulefile enclave.rlu] to rewrite this conclusion to:
+<S>  C6:  prf_statusisenclavequiescent(state) -> not admin__isdoingop(theadmin)
+     This rule could be applied because its side-conditions hold, as follows:
+     <<<  From H7, proved: prf_statusisenclavequiescent(state) -> not 
+          admin__isdoingop(theadmin)
+     <<<  Immediate condition checktype(state, statetype) evaluated successfully
+***  Proved C7:  fld_status(state) = shutdown -> not admin__isdoingop(theadmin) 
+          and admin__prf_rolepresent(theadmin) = privtypes__useronly
+     This was achieved by applying the rewrite rule enclave_user(12)
+     [from rulefile enclave.rlu] to rewrite this conclusion to:
+<S>  C7:  prf_statusisshutdown(state) -> not admin__isdoingop(theadmin) and 
+          admin__prf_rolepresent(theadmin) = privtypes__useronly
+     This rule could be applied because its side-conditions hold, as follows:
+     <<<  From H8, proved: prf_statusisshutdown(state) -> not admin__isdoingop(
+          theadmin) and admin__prf_rolepresent(theadmin) = privtypes__useronly
+     <<<  Immediate condition checktype(state, statetype) evaluated successfully
+***  Proved C9:  admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__shutdownop -> fld_status(state) = waitingstartadminop
+     This was achieved by applying the rewrite rule enclave_user(9)
+     [from rulefile enclave.rlu] to rewrite this conclusion to:
+<S>  C9:  admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__shutdownop -> prf_statusiswaitingstartadminop(state)
+     This rule could be applied because its side-conditions hold, as follows:
+     <<<  From H9, proved: admin__isdoingop(theadmin) and admin__thecurrentop(
+          theadmin) = admin__shutdownop -> prf_statusiswaitingstartadminop(
+          state)
+     <<<  Immediate condition checktype(state, statetype) evaluated successfully
++++  New H17:  prf_statusisgotadmintoken(state) or fld_status(state) = 
+          waitingremoveadmintokenfail -> not admin__ispresent(theadmin)
+     This was achieved by applying the rewrite rule enclave_user(8)
+     [from rulefile enclave.rlu] to rewrite existing hypothesis H5 to give the 
+          above formula.
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  Immediate condition checktype(state, statetype) evaluated successfully
+***  Proved C4:  fld_status(state) = gotadmintoken or fld_status(state) = 
+          waitingremoveadmintokenfail -> not admin__ispresent(theadmin)
+     This was achieved by applying the rewrite rule enclave_user(7)
+     [from rulefile enclave.rlu] to rewrite this conclusion to:
+<S>  C4:  prf_statusisgotadmintoken(state) or fld_status(state) = 
+          waitingremoveadmintokenfail -> not admin__ispresent(theadmin)
+     This rule could be applied because its side-conditions hold, as follows:
+     <<<  From H17, proved: prf_statusisgotadmintoken(state) or fld_status(
+          state) = waitingremoveadmintokenfail -> not admin__ispresent(theadmin)
+     <<<  Immediate condition checktype(state, statetype) evaluated successfully
++++  New H18:  prf_statusiswaitingstartadminop(state) or fld_status(state) = 
+          waitingfinishadminop -> admin__ispresent(theadmin) and 
+          admin__isdoingop(theadmin)
+     This was achieved by applying the rewrite rule enclave_user(10)
+     [from rulefile enclave.rlu] to rewrite existing hypothesis H6 to give the 
+          above formula.
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  Immediate condition checktype(state, statetype) evaluated successfully
+***  Proved C5:  fld_status(state) = waitingstartadminop or fld_status(state) = 
+          waitingfinishadminop -> admin__ispresent(theadmin) and 
+          admin__isdoingop(theadmin)
+     This was achieved by applying the rewrite rule enclave_user(9)
+     [from rulefile enclave.rlu] to rewrite this conclusion to:
+<S>  C5:  prf_statusiswaitingstartadminop(state) or fld_status(state) = 
+          waitingfinishadminop -> admin__ispresent(theadmin) and 
+          admin__isdoingop(theadmin)
+     This rule could be applied because its side-conditions hold, as follows:
+     <<<  From H18, proved: prf_statusiswaitingstartadminop(state) or 
+          fld_status(state) = waitingfinishadminop -> admin__ispresent(theadmin)
+           and admin__isdoingop(theadmin)
+     <<<  Immediate condition checktype(state, statetype) evaluated successfully
+***  PROVED VC.
+
+VCN  9: Summary of user rule application.
+FIL  enclave.rlu
+RUL     enclave_user(13)
+CON        1
+RUL     enclave_user(11)
+CON        6
+RUL     enclave_user(12)
+CON        7
+RUL     enclave_user(9)
+CON        9, 5
+RUL     enclave_user(8)
+HYP        17
+RUL     enclave_user(7)
+CON        4
+RUL     enclave_user(10)
+HYP        18
+
+
+@@@@@@@@@@  VC: procedure_startadminactivity_10.  @@@@@@@@@@
+%%%  Simplified H1 on reading formula in, to give:
+     %%%  H1:  not enclave__enrolmentisinprogress(state~)
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  admin__prf_rolepresent(theadmin~) = privtypes__guard -> 
+          admintoken__prf_isgood(admintoken__state) and (
+          admintoken__prf_authcertvalid(admintoken__state) and 
+          admintoken__theauthcertrole(admintoken__state) = privtypes__guard)
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  admin__isdoingop(theadmin~) and admin__thecurrentop(theadmin~) = 
+          admin__overridelock -> admin__prf_rolepresent(theadmin~) = 
+          privtypes__guard
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  not admin__ispresent(theadmin~) -> not admin__isdoingop(
+          theadmin~)
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  prf_statusisgotadmintoken(state~) or 
+          prf_statusiswaitingremoveadmintokenfail(state~) -> not 
+          admin__ispresent(theadmin~)
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  prf_statusiswaitingstartadminop(state~) or 
+          prf_statusiswaitingfinishadminop(state~) -> admin__ispresent(
+          theadmin~) and admin__isdoingop(theadmin~)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  prf_statusisenclavequiescent(state~) -> not admin__isdoingop(
+          theadmin~)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  prf_statusisshutdown(state~) -> not admin__isdoingop(theadmin~) 
+          and admin__prf_rolepresent(theadmin~) = privtypes__useronly
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  admin__isdoingop(theadmin~) and admin__thecurrentop(theadmin~) = 
+          admin__shutdownop -> prf_statusiswaitingstartadminop(state~)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  admin__prf_rolepresent(theadmin~) = privtypes__guard -> 
+          admin__isdoingop(theadmin~) and admin__thecurrentop(theadmin~) = 
+          admin__overridelock or not admin__isdoingop(theadmin~)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  not enrolmentisinprogress(status~)
+---  Hypothesis H12 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H13 has been replaced by "true".  (It is already present, as H4)
+          .
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  status~ = gotadmintoken or status~ = 
+          waitingremoveadmintokenfail -> not admin__ispresent(theadmin~)
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  status~ = waitingstartadminop or status~ = waitingfinishadminop 
+          -> admin__ispresent(theadmin~) and admin__isdoingop(theadmin~)
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  status~ = enclavequiescent -> not admin__isdoingop(theadmin~)
+%%%  Simplified H17 on reading formula in, to give:
+     %%%  H17:  status~ = shutdown -> not admin__isdoingop(theadmin~) and 
+          admin__prf_rolepresent(theadmin~) = privtypes__useronly
+---  Hypothesis H18 has been replaced by "true".  (It is already present, as H3)
+          .
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  admin__isdoingop(theadmin~) and admin__thecurrentop(theadmin~) 
+          = admin__shutdownop -> status~ = waitingstartadminop
+---  Hypothesis H20 has been replaced by "true".  (It is already present, as 
+          H10).
+%%%  Simplified H21 on reading formula in, to give:
+     %%%  H21:  status~ = fld_status(state~)
+%%%  Simplified H23 on reading formula in, to give:
+     %%%  H23:  statust__first <= status~
+%%%  Simplified H24 on reading formula in, to give:
+     %%%  H24:  status~ <= statust__last
+%%%  Simplified H25 on reading formula in, to give:
+     %%%  H25:  statust__first <= status
+%%%  Simplified H30 on reading formula in, to give:
+     %%%  H30:  status = waitingstartadminop or status = waitingfinishadminop 
+          -> admin__isdoingop(theadmin) and (admin__ispresent(theadmin) and 
+          admin__prf_rolepresent(theadmin) = admin__prf_rolepresent(theadmin~))
+%%%  Simplified H31 on reading formula in, to give:
+     %%%  H31:  status = enclavequiescent -> not admin__isdoingop(theadmin) and 
+          admin__prf_rolepresent(theadmin) = admin__prf_rolepresent(theadmin~)
+%%%  Simplified C4 on reading formula in, to give:
+     %%%  C4:  prf_statusiswaitingstartadminop(state) or 
+          prf_statusiswaitingfinishadminop(state) -> admin__isdoingop(theadmin) 
+          and (admin__ispresent(theadmin) and admin__prf_rolepresent(theadmin) 
+          = admin__prf_rolepresent(theadmin~))
+%%%  Simplified C5 on reading formula in, to give:
+     %%%  C5:  prf_statusisenclavequiescent(state) -> not admin__isdoingop(
+          theadmin) and admin__prf_rolepresent(theadmin) = 
+          admin__prf_rolepresent(theadmin~)
+***  Proved C2:  not admin__ispresent(theadmin) -> not admin__isdoingop(
+          theadmin)
+     using hypothesis H28.
+***  Proved C8:  admin__prf_rolepresent(theadmin) = privtypes__guard -> 
+          admintoken__prf_isgood(admintoken__state) and (
+          admintoken__prf_authcertvalid(admintoken__state) and 
+          admintoken__theauthcertrole(admintoken__state) = privtypes__guard)
+     using hypothesis H34.
+***  Proved C9:  admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__overridelock -> admin__prf_rolepresent(theadmin) = 
+          privtypes__guard
+     using hypothesis H35.
+***  Proved C10:  admin__prf_rolepresent(theadmin) = privtypes__guard -> 
+          admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__overridelock or not admin__isdoingop(theadmin)
+     using hypothesis H36.
+-S-  Applied substitution rule startadminac_rules(58).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H23:  notenrolled <= status~
+<S>  New H25:  notenrolled <= status
+-S-  Applied substitution rule startadminac_rules(59).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H24:  status~ <= shutdown
+<S>  New H26:  status <= shutdown
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H13 (true-hypothesis).
+---  Eliminated hypothesis H18 (true-hypothesis).
+---  Eliminated hypothesis H20 (true-hypothesis).
+-S-  Eliminated hypothesis H22.
+     This was achieved by replacing all occurrences of status by:
+          fld_status(state).
+<S>  New H27:  not enrolmentisinprogress(fld_status(state))
+<S>  New H29:  fld_status(state) = gotadmintoken or fld_status(state) = 
+          waitingremoveadmintokenfail -> not admin__ispresent(theadmin)
+<S>  New H30:  fld_status(state) = waitingstartadminop or fld_status(state) = 
+          waitingfinishadminop -> admin__isdoingop(theadmin) and (
+          admin__ispresent(theadmin) and admin__prf_rolepresent(theadmin) = 
+          admin__prf_rolepresent(theadmin~))
+<S>  New H31:  fld_status(state) = enclavequiescent -> not admin__isdoingop(
+          theadmin) and admin__prf_rolepresent(theadmin) = 
+          admin__prf_rolepresent(theadmin~)
+<S>  New H32:  fld_status(state) = shutdown -> not admin__isdoingop(theadmin) 
+          and admin__prf_rolepresent(theadmin) = privtypes__useronly
+<S>  New H33:  admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__shutdownop -> fld_status(state) = waitingstartadminop
+<S>  New H25:  notenrolled <= fld_status(state)
+<S>  New H26:  fld_status(state) <= shutdown
+     +++  New H37:  privtypes__privileget__size >= 0
+     +++  New H38:  admin__opandnullt__size >= 0
+     +++  New H39:  statust__size >= 0
+***  Proved C1:  not enclave__enrolmentisinprogress(state)
+     This was achieved by applying the rewrite rule enclave_user(13)
+     [from rulefile enclave.rlu] to rewrite this conclusion to:
+<S>  C1:  not enrolmentisinprogress(fld_status(state))
+     This rule could be applied because its side-conditions hold, as follows:
+     <<<  From H27, proved: not enrolmentisinprogress(fld_status(state))
+     <<<  Immediate condition checktype(state, statetype) evaluated successfully
+***  Proved C5:  prf_statusisenclavequiescent(state) -> not admin__isdoingop(
+          theadmin) and admin__prf_rolepresent(theadmin) = 
+          admin__prf_rolepresent(theadmin~)
+     This was achieved by applying the rewrite rule enclave_user(11)
+     [from rulefile enclave.rlu] to rewrite this conclusion to:
+<S>  C5:  fld_status(state) = enclavequiescent -> not admin__isdoingop(theadmin)
+           and admin__prf_rolepresent(theadmin) = admin__prf_rolepresent(
+          theadmin~)
+     This rule could be applied because its side-conditions hold, as follows:
+     <<<  From H31, proved: fld_status(state) = enclavequiescent -> not 
+          admin__isdoingop(theadmin) and admin__prf_rolepresent(theadmin) = 
+          admin__prf_rolepresent(theadmin~)
+     <<<  Immediate condition checktype(state, statetype) evaluated successfully
+***  Proved C6:  prf_statusisshutdown(state) -> not admin__isdoingop(theadmin) 
+          and admin__prf_rolepresent(theadmin) = privtypes__useronly
+     This was achieved by applying the rewrite rule enclave_user(12)
+     [from rulefile enclave.rlu] to rewrite this conclusion to:
+<S>  C6:  fld_status(state) = shutdown -> not admin__isdoingop(theadmin) and 
+          admin__prf_rolepresent(theadmin) = privtypes__useronly
+     This rule could be applied because its side-conditions hold, as follows:
+     <<<  From H32, proved: fld_status(state) = shutdown -> not 
+          admin__isdoingop(theadmin) and admin__prf_rolepresent(theadmin) = 
+          privtypes__useronly
+     <<<  Immediate condition checktype(state, statetype) evaluated successfully
+***  Proved C7:  admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__shutdownop -> prf_statusiswaitingstartadminop(state)
+     This was achieved by applying the rewrite rule enclave_user(9)
+     [from rulefile enclave.rlu] to rewrite this conclusion to:
+<S>  C7:  admin__isdoingop(theadmin) and admin__thecurrentop(theadmin) = 
+          admin__shutdownop -> fld_status(state) = waitingstartadminop
+     This rule could be applied because its side-conditions hold, as follows:
+     <<<  From H33, proved: admin__isdoingop(theadmin) and admin__thecurrentop(
+          theadmin) = admin__shutdownop -> fld_status(state) = 
+          waitingstartadminop
+     <<<  Immediate condition checktype(state, statetype) evaluated successfully
++++  New H40:  fld_status(state) = gotadmintoken or 
+          prf_statusiswaitingremoveadmintokenfail(state) -> not 
+          admin__ispresent(theadmin)
+     This was achieved by applying the rewrite rule enclave_user(8)
+     [from rulefile enclave.rlu] to rewrite existing hypothesis H29 to give the 
+          above formula.
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  Immediate condition checktype(state, statetype) evaluated successfully
+***  Proved C3:  prf_statusisgotadmintoken(state) or 
+          prf_statusiswaitingremoveadmintokenfail(state) -> not 
+          admin__ispresent(theadmin)
+     This was achieved by applying the rewrite rule enclave_user(7)
+     [from rulefile enclave.rlu] to rewrite this conclusion to:
+<S>  C3:  fld_status(state) = gotadmintoken or 
+          prf_statusiswaitingremoveadmintokenfail(state) -> not 
+          admin__ispresent(theadmin)
+     This rule could be applied because its side-conditions hold, as follows:
+     <<<  From H40, proved: fld_status(state) = gotadmintoken or 
+          prf_statusiswaitingremoveadmintokenfail(state) -> not 
+          admin__ispresent(theadmin)
+     <<<  Immediate condition checktype(state, statetype) evaluated successfully
++++  New H41:  fld_status(state) = waitingstartadminop or 
+          prf_statusiswaitingfinishadminop(state) -> admin__isdoingop(theadmin) 
+          and (admin__ispresent(theadmin) and admin__prf_rolepresent(theadmin) 
+          = admin__prf_rolepresent(theadmin~))
+     This was achieved by applying the rewrite rule enclave_user(10)
+     [from rulefile enclave.rlu] to rewrite existing hypothesis H30 to give the 
+          above formula.
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  Immediate condition checktype(state, statetype) evaluated successfully
+***  Proved C4:  prf_statusiswaitingstartadminop(state) or 
+          prf_statusiswaitingfinishadminop(state) -> admin__isdoingop(theadmin) 
+          and (admin__ispresent(theadmin) and admin__prf_rolepresent(theadmin) 
+          = admin__prf_rolepresent(theadmin~))
+     This was achieved by applying the rewrite rule enclave_user(9)
+     [from rulefile enclave.rlu] to rewrite this conclusion to:
+<S>  C4:  fld_status(state) = waitingstartadminop or 
+          prf_statusiswaitingfinishadminop(state) -> admin__isdoingop(theadmin) 
+          and (admin__ispresent(theadmin) and admin__prf_rolepresent(theadmin) 
+          = admin__prf_rolepresent(theadmin~))
+     This rule could be applied because its side-conditions hold, as follows:
+     <<<  From H41, proved: fld_status(state) = waitingstartadminop or 
+          prf_statusiswaitingfinishadminop(state) -> admin__isdoingop(theadmin) 
+          and (admin__ispresent(theadmin) and admin__prf_rolepresent(theadmin) 
+          = admin__prf_rolepresent(theadmin~))
+     <<<  Immediate condition checktype(state, statetype) evaluated successfully
+***  PROVED VC.
+
+VCN  10: Summary of user rule application.
+FIL  enclave.rlu
+RUL     enclave_user(13)
+CON        1
+RUL     enclave_user(11)
+CON        5
+RUL     enclave_user(12)
+CON        6
+RUL     enclave_user(9)
+CON        7, 4
+RUL     enclave_user(8)
+HYP        40
+RUL     enclave_user(7)
+CON        3
+RUL     enclave_user(10)
+HYP        41
+
+
+OVR  Overall summary of VCs using user rules.
+FIL  startadminactivity.rlu
+RUL     startadminactivity_user(1)
+VCS        5
+RUL     startadminactivity_user(2)
+VCS        7
+RUL     startadminactivity_user(3)
+VCS        7
+FIL  enclave.rlu
+RUL     enclave_user(6)
+VCS        6, 7
+RUL     enclave_user(13)
+VCS        9, 10
+RUL     enclave_user(11)
+VCS        9, 10
+RUL     enclave_user(12)
+VCS        9, 10
+RUL     enclave_user(9)
+VCS        9, 10
+RUL     enclave_user(8)
+VCS        9, 10
+RUL     enclave_user(7)
+VCS        9, 10
+RUL     enclave_user(10)
+VCS        9, 10
+

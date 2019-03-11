@@ -1,0 +1,73 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:25.91
+
+                    procedure Enclave.BadAdminTokenTear
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 417:
+
+procedure_badadmintokentear_1.
+H1:    true .
+H2:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state), [
+           i___1]) <= character__last))) .
+        ->
+C1:    audittypes__warning >= audittypes__severityt__first .
+C2:    audittypes__warning <= audittypes__severityt__last .
+C3:    audittypes__admintokenremoved >= audittypes__elementt__first .
+C4:    audittypes__admintokenremoved <= audittypes__elementt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 424:
+
+procedure_badadmintokentear_2.
+H1:    true .
+H2:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state), [
+           i___1]) <= character__last))) .
+H3:    audittypes__warning >= audittypes__severityt__first .
+H4:    audittypes__warning <= audittypes__severityt__last .
+H5:    audittypes__admintokenremoved >= audittypes__elementt__first .
+H6:    audittypes__admintokenremoved <= audittypes__elementt__last .
+        ->
+C1:    enclavequiescent >= statust__first .
+C2:    enclavequiescent <= statust__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_badadmintokentear_3.
+H1:    true .
+H2:    for_all(i___1: integer, ((i___1 >= 
+           audittypes__usertexti__first) and (i___1 <= 
+           audittypes__usertexti__last)) -> ((element(
+           admintoken__extractuser(admintoken__state), [
+           i___1]) >= character__first) and (element(
+           admintoken__extractuser(admintoken__state), [
+           i___1]) <= character__last))) .
+H3:    audittypes__warning >= audittypes__severityt__first .
+H4:    audittypes__warning <= audittypes__severityt__last .
+H5:    audittypes__admintokenremoved >= audittypes__elementt__first .
+H6:    audittypes__admintokenremoved <= audittypes__elementt__last .
+H7:    enclavequiescent >= statust__first .
+H8:    enclavequiescent <= statust__last .
+        ->
+C1:    enclavequiescent = enclavequiescent .
+ 
+

@@ -1,0 +1,321 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:07  SIMPLIFIED 05-SEP-2011, 15:39:38
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure Clock.SplitTime
+
+
+
+
+
+
+@@@@@@@@@@  VC: procedure_splittime_1.  @@@@@@@@@@
+***  Proved C1:  fld_year(thetime) >= yearst__first
+     using hypothesis H8.
+***  Proved C2:  fld_year(thetime) <= yearst__last
+     using hypothesis H9.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_splittime_2.  @@@@@@@@@@
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H9)
+          .
+***  Proved C1:  fld_month(thetime) >= monthst__first
+     using hypothesis H6.
+***  Proved C2:  fld_month(thetime) <= monthst__last
+     using hypothesis H7.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_splittime_3.  @@@@@@@@@@
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H12 has been replaced by "true".  (It is already present, as H6)
+          .
+---  Hypothesis H13 has been replaced by "true".  (It is already present, as H7)
+          .
+***  Proved C1:  fld_day(thetime) >= dayst__first
+     using hypothesis H4.
+***  Proved C2:  fld_day(thetime) <= dayst__last
+     using hypothesis H5.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_splittime_4.  @@@@@@@@@@
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H12 has been replaced by "true".  (It is already present, as H6)
+          .
+---  Hypothesis H13 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as H4)
+          .
+---  Hypothesis H15 has been replaced by "true".  (It is already present, as H5)
+          .
+-S-  Applied substitution rule splittime_rules(24).
+     This was achieved by replacing all occurrences of hourst__first by:
+          0.
+<S>  New C1:  fld_millisec(thetime) div millisecsinhr >= 0
+<S>  New C3:  fld_millisec(thetime) div millisecsinhr >= 0
+-S-  Applied substitution rule splittime_rules(25).
+     This was achieved by replacing all occurrences of hourst__last by:
+          23.
+<S>  New C2:  fld_millisec(thetime) div millisecsinhr <= 23
+<S>  New C4:  fld_millisec(thetime) div millisecsinhr <= 23
+-S-  Applied substitution rule splittime_rules(2).
+     This was achieved by replacing all occurrences of millisecsinhr by:
+          3600000.
+<S>  New C5:  fld_millisec(thetime) div 3600000 >= millisecst__base__first
+<S>  New C6:  fld_millisec(thetime) div 3600000 <= millisecst__base__last
+<S>  New C7:  true
+<S>  New C1:  fld_millisec(thetime) div 3600000 >= 0
+<S>  New C3:  fld_millisec(thetime) div 3600000 >= 0
+<S>  New C2:  fld_millisec(thetime) div 3600000 <= 23
+<S>  New C4:  fld_millisec(thetime) div 3600000 <= 23
+-S-  Applied substitution rule splittime_rules(6).
+     This was achieved by replacing all occurrences of yearst__first by:
+          1901.
+<S>  New H8:  fld_year(thetime) >= 1901
+-S-  Applied substitution rule splittime_rules(7).
+     This was achieved by replacing all occurrences of yearst__last by:
+          2099.
+<S>  New H9:  fld_year(thetime) <= 2099
+-S-  Applied substitution rule splittime_rules(12).
+     This was achieved by replacing all occurrences of monthst__first by:
+          1.
+<S>  New H6:  fld_month(thetime) >= 1
+-S-  Applied substitution rule splittime_rules(13).
+     This was achieved by replacing all occurrences of monthst__last by:
+          12.
+<S>  New H7:  fld_month(thetime) <= 12
+-S-  Applied substitution rule splittime_rules(18).
+     This was achieved by replacing all occurrences of dayst__first by:
+          1.
+<S>  New H4:  fld_day(thetime) >= 1
+-S-  Applied substitution rule splittime_rules(19).
+     This was achieved by replacing all occurrences of dayst__last by:
+          31.
+<S>  New H5:  fld_day(thetime) <= 31
+-S-  Applied substitution rule splittime_rules(36).
+     This was achieved by replacing all occurrences of millisecst__first by:
+          0.
+<S>  New H2:  fld_millisec(thetime) >= 0
+-S-  Applied substitution rule splittime_rules(37).
+     This was achieved by replacing all occurrences of millisecst__last by:
+          86399999.
+<S>  New H3:  fld_millisec(thetime) <= 86399999
+***  Proved C7:  true
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H10 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H13 (true-hypothesis).
+---  Eliminated hypothesis H14 (true-hypothesis).
+---  Eliminated hypothesis H15 (true-hypothesis).
+---  Eliminated conclusion C3, which is a duplicate of C1.
+---  Eliminated conclusion C4, which is a duplicate of C2.
+***  Proved C5:  fld_millisec(thetime) div 3600000 >= millisecst__base__first
+     using hypothesis H2.
+***  Proved C1:  fld_millisec(thetime) div 3600000 >= 0
+     using hypothesis H2.
+***  Proved C2:  fld_millisec(thetime) div 3600000 <= 23
+     using hypothesis H3.
+     +++  New H16:  timet__size >= 0
+     +++  New H17:  yearst__size >= 0
+     +++  New H18:  yearst__base__first <= yearst__base__last
+     +++  New H19:  monthst__size >= 0
+     +++  New H20:  monthst__base__first <= monthst__base__last
+     +++  New H21:  dayst__size >= 0
+     +++  New H22:  dayst__base__first <= dayst__base__last
+     +++  New H23:  hourst__size >= 0
+     +++  New H24:  hourst__base__first <= hourst__base__last
+     +++  New H25:  minutest__size >= 0
+     +++  New H26:  minutest__base__first <= minutest__base__last
+     +++  New H27:  millisecst__size >= 0
+     +++  New H28:  millisecst__base__first <= millisecst__base__last
+     +++  New H29:  yearst__base__first <= 1901
+     +++  New H30:  yearst__base__last >= 2099
+     +++  New H31:  monthst__base__first <= 1
+     +++  New H32:  monthst__base__last >= 12
+     +++  New H33:  dayst__base__first <= 1
+     +++  New H34:  dayst__base__last >= 31
+     +++  New H35:  hourst__base__first <= 0
+     +++  New H36:  hourst__base__last >= 23
+     +++  New H37:  minutest__base__first <= 0
+     +++  New H38:  minutest__base__last >= 59
+     +++  New H39:  millisecst__base__first <= 0
+     +++  New H40:  millisecst__base__last >= 86399999
+***  Proved C6:  fld_millisec(thetime) div 3600000 <= millisecst__base__last
+     using hypotheses H3 & H40.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_splittime_5.  @@@@@@@@@@
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H12 has been replaced by "true".  (It is already present, as H6)
+          .
+---  Hypothesis H13 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as H4)
+          .
+---  Hypothesis H15 has been replaced by "true".  (It is already present, as H5)
+          .
+---  Hypothesis H18 has been replaced by "true".  (It is already present, as 
+          H16).
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as 
+          H17).
+***  Proved C10:  millisecsinhr <> 0
+     using hypothesis H22.
+-S-  Applied substitution rule splittime_rules(30).
+     This was achieved by replacing all occurrences of minutest__first by:
+          0.
+<S>  New C1:  fld_millisec(thetime) mod millisecsinhr div millisecsinmin >= 0
+<S>  New C3:  fld_millisec(thetime) mod millisecsinhr div millisecsinmin >= 0
+-S-  Applied substitution rule splittime_rules(31).
+     This was achieved by replacing all occurrences of minutest__last by:
+          59.
+<S>  New C2:  fld_millisec(thetime) mod millisecsinhr div millisecsinmin <= 59
+<S>  New C4:  fld_millisec(thetime) mod millisecsinhr div millisecsinmin <= 59
+-S-  Applied substitution rule splittime_rules(1).
+     This was achieved by replacing all occurrences of millisecsinmin by:
+          60000.
+<S>  New C5:  fld_millisec(thetime) mod millisecsinhr div 60000 >= 
+          millisecst__base__first
+<S>  New C6:  fld_millisec(thetime) mod millisecsinhr div 60000 <= 
+          millisecst__base__last
+<S>  New C7:  true
+<S>  New C1:  fld_millisec(thetime) mod millisecsinhr div 60000 >= 0
+<S>  New C3:  fld_millisec(thetime) mod millisecsinhr div 60000 >= 0
+<S>  New C2:  fld_millisec(thetime) mod millisecsinhr div 60000 <= 59
+<S>  New C4:  fld_millisec(thetime) mod millisecsinhr div 60000 <= 59
+-S-  Applied substitution rule splittime_rules(2).
+     This was achieved by replacing all occurrences of millisecsinhr by:
+          3600000.
+<S>  New H16:  fld_millisec(thetime) div 3600000 >= hourst__first
+<S>  New H17:  fld_millisec(thetime) div 3600000 <= hourst__last
+<S>  New H20:  fld_millisec(thetime) div 3600000 >= millisecst__base__first
+<S>  New H21:  fld_millisec(thetime) div 3600000 <= millisecst__base__last
+<S>  New H22:  true
+<S>  New C8:  fld_millisec(thetime) mod 3600000 >= millisecst__base__first
+<S>  New C9:  fld_millisec(thetime) mod 3600000 <= millisecst__base__last
+<S>  New C5:  fld_millisec(thetime) mod 3600000 div 60000 >= 
+          millisecst__base__first
+<S>  New C6:  fld_millisec(thetime) mod 3600000 div 60000 <= 
+          millisecst__base__last
+<S>  New C1:  fld_millisec(thetime) mod 3600000 div 60000 >= 0
+<S>  New C3:  fld_millisec(thetime) mod 3600000 div 60000 >= 0
+<S>  New C2:  fld_millisec(thetime) mod 3600000 div 60000 <= 59
+<S>  New C4:  fld_millisec(thetime) mod 3600000 div 60000 <= 59
+-S-  Applied substitution rule splittime_rules(6).
+     This was achieved by replacing all occurrences of yearst__first by:
+          1901.
+<S>  New H8:  fld_year(thetime) >= 1901
+-S-  Applied substitution rule splittime_rules(7).
+     This was achieved by replacing all occurrences of yearst__last by:
+          2099.
+<S>  New H9:  fld_year(thetime) <= 2099
+-S-  Applied substitution rule splittime_rules(12).
+     This was achieved by replacing all occurrences of monthst__first by:
+          1.
+<S>  New H6:  fld_month(thetime) >= 1
+-S-  Applied substitution rule splittime_rules(13).
+     This was achieved by replacing all occurrences of monthst__last by:
+          12.
+<S>  New H7:  fld_month(thetime) <= 12
+-S-  Applied substitution rule splittime_rules(18).
+     This was achieved by replacing all occurrences of dayst__first by:
+          1.
+<S>  New H4:  fld_day(thetime) >= 1
+-S-  Applied substitution rule splittime_rules(19).
+     This was achieved by replacing all occurrences of dayst__last by:
+          31.
+<S>  New H5:  fld_day(thetime) <= 31
+-S-  Applied substitution rule splittime_rules(24).
+     This was achieved by replacing all occurrences of hourst__first by:
+          0.
+<S>  New H16:  fld_millisec(thetime) div 3600000 >= 0
+-S-  Applied substitution rule splittime_rules(25).
+     This was achieved by replacing all occurrences of hourst__last by:
+          23.
+<S>  New H17:  fld_millisec(thetime) div 3600000 <= 23
+-S-  Applied substitution rule splittime_rules(36).
+     This was achieved by replacing all occurrences of millisecst__first by:
+          0.
+<S>  New H2:  fld_millisec(thetime) >= 0
+-S-  Applied substitution rule splittime_rules(37).
+     This was achieved by replacing all occurrences of millisecst__last by:
+          86399999.
+<S>  New H3:  fld_millisec(thetime) <= 86399999
+***  Proved C7:  true
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H10 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H13 (true-hypothesis).
+---  Eliminated hypothesis H14 (true-hypothesis).
+---  Eliminated hypothesis H15 (true-hypothesis).
+---  Eliminated hypothesis H18 (true-hypothesis).
+---  Eliminated hypothesis H19 (true-hypothesis).
+---  Eliminated hypothesis H22 (true-hypothesis).
+---  Eliminated conclusion C3, which is a duplicate of C1.
+---  Eliminated conclusion C4, which is a duplicate of C2.
+***  Proved C5:  fld_millisec(thetime) mod 3600000 div 60000 >= 
+          millisecst__base__first
+***  Proved C1:  fld_millisec(thetime) mod 3600000 div 60000 >= 0
+***  Proved C2:  fld_millisec(thetime) mod 3600000 div 60000 <= 59
+     +++  New H23:  timet__size >= 0
+     +++  New H24:  yearst__size >= 0
+     +++  New H25:  yearst__base__first <= yearst__base__last
+     +++  New H26:  monthst__size >= 0
+     +++  New H27:  monthst__base__first <= monthst__base__last
+     +++  New H28:  dayst__size >= 0
+     +++  New H29:  dayst__base__first <= dayst__base__last
+     +++  New H30:  hourst__size >= 0
+     +++  New H31:  hourst__base__first <= hourst__base__last
+     +++  New H32:  minutest__size >= 0
+     +++  New H33:  minutest__base__first <= minutest__base__last
+     +++  New H34:  millisecst__size >= 0
+     +++  New H35:  millisecst__base__first <= millisecst__base__last
+     +++  New H36:  yearst__base__first <= 1901
+     +++  New H37:  yearst__base__last >= 2099
+     +++  New H38:  monthst__base__first <= 1
+     +++  New H39:  monthst__base__last >= 12
+     +++  New H40:  dayst__base__first <= 1
+     +++  New H41:  dayst__base__last >= 31
+     +++  New H42:  hourst__base__first <= 0
+     +++  New H43:  hourst__base__last >= 23
+     +++  New H44:  minutest__base__first <= 0
+     +++  New H45:  minutest__base__last >= 59
+     +++  New H46:  millisecst__base__first <= 0
+     +++  New H47:  millisecst__base__last >= 86399999
+***  Proved C8:  fld_millisec(thetime) mod 3600000 >= millisecst__base__first
+     using hypothesis H46.
+***  Proved C9:  fld_millisec(thetime) mod 3600000 <= millisecst__base__last
+     using hypothesis H47.
+***  Proved C6:  fld_millisec(thetime) mod 3600000 div 60000 <= 
+          millisecst__base__last
+     using hypothesis H47.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_splittime_6.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+

@@ -1,0 +1,41 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:27.62}
+
+                    {procedure Enclave.ResetScreenMessage}
+
+
+title procedure resetscreenmessage;
+
+  function round__(real) : integer;
+  type admin__t = pending;
+  type screen__msgtextt = (screen__clear, screen__welcomeadmin, 
+     screen__busy, screen__removeadmintoken, screen__closedoor, 
+     screen__requestadminop, screen__doingop, 
+     screen__invalidrequest, screen__invaliddata, 
+     screen__archivefailed, screen__insertenrolmentdata, 
+     screen__validatingenrolmentdata, screen__enrolmentfailed, 
+     screen__insertblankfloppy, screen__insertconfigdata);
+  type statust = (notenrolled, waitingenrol, waitingendenrol, 
+     enclavequiescent, waitingremoveadmintokenfail, gotadmintoken, 
+     waitingstartadminop, waitingfinishadminop, shutdown);
+  const statust__base__first : statust = pending; 
+  const statust__base__last : statust = pending; 
+  const screen__msgtextt__base__first : screen__msgtextt = pending; 
+  const screen__msgtextt__base__last : screen__msgtextt = pending; 
+  const statust__first : statust = pending; 
+  const statust__last : statust = pending; 
+  const statust__size : integer = pending; 
+  const screen__msgtextt__first : screen__msgtextt = pending; 
+  const screen__msgtextt__last : screen__msgtextt = pending; 
+  const screen__msgtextt__size : integer = pending; 
+  var theadmin : admin__t;
+  var status : statust;
+  function admin__ispresent(admin__t) : boolean;
+
+end;

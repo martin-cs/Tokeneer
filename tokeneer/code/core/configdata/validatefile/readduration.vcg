@@ -1,0 +1,210 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:27.98
+
+               procedure ConfigData.ValidateFile.ReadDuration
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 220:
+
+procedure_readduration_1.
+H1:    true .
+        ->
+C1:    durationt__first >= durationt__first .
+C2:    durationt__first <= durationt__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 221:
+
+procedure_readduration_2.
+H1:    true .
+H2:    durationt__first >= durationt__first .
+H3:    durationt__first <= durationt__last .
+        ->
+C1:    0 >= natural__first .
+C2:    0 <= natural__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 221:
+
+procedure_readduration_3.
+H1:    true .
+H2:    durationt__first >= durationt__first .
+H3:    durationt__first <= durationt__last .
+H4:    0 >= natural__first .
+H5:    0 <= natural__last .
+H6:    rawduration__1 >= integer__first .
+H7:    rawduration__1 <= integer__last .
+H8:    true .
+        ->
+C1:    rawduration__1 >= integer__first .
+C2:    rawduration__1 <= integer__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 233:
+
+procedure_readduration_4.
+H1:    true .
+H2:    durationt__first >= durationt__first .
+H3:    durationt__first <= durationt__last .
+H4:    0 >= natural__first .
+H5:    0 <= natural__last .
+H6:    rawduration__1 >= integer__first .
+H7:    rawduration__1 <= integer__last .
+H8:    true .
+H9:    rawduration__1 >= integer__first .
+H10:   rawduration__1 <= integer__last .
+H11:   rawduration__1 >= integer__first .
+H12:   rawduration__1 <= integer__last .
+        ->
+C1:    success__1 -> ((durationt__first div 10 >= integer__base__first) and (
+           durationt__first div 10 <= integer__base__last)) .
+C2:    success__1 -> (10 <> 0) .
+C3:    success__1 -> ((durationt__first >= integer__first) and (
+           durationt__first <= integer__last)) .
+C4:    success__1 -> ((durationt__last div 10 >= integer__base__first) and (
+           durationt__last div 10 <= integer__base__last)) .
+C5:    success__1 -> (10 <> 0) .
+C6:    success__1 -> ((durationt__last >= integer__first) and (
+           durationt__last <= integer__last)) .
+ 
+
+For path(s) from start to run-time check associated with statement of line 237:
+
+procedure_readduration_5.
+H1:    true .
+H2:    durationt__first >= durationt__first .
+H3:    durationt__first <= durationt__last .
+H4:    0 >= natural__first .
+H5:    0 <= natural__last .
+H6:    rawduration__1 >= integer__first .
+H7:    rawduration__1 <= integer__last .
+H8:    true .
+H9:    rawduration__1 >= integer__first .
+H10:   rawduration__1 <= integer__last .
+H11:   rawduration__1 >= integer__first .
+H12:   rawduration__1 <= integer__last .
+H13:   success__1 -> ((durationt__first div 10 >= integer__base__first) and (
+           durationt__first div 10 <= integer__base__last)) .
+H14:   success__1 -> (10 <> 0) .
+H15:   success__1 -> ((durationt__first >= integer__first) and (
+           durationt__first <= integer__last)) .
+H16:   success__1 -> ((durationt__last div 10 >= integer__base__first) and (
+           durationt__last div 10 <= integer__base__last)) .
+H17:   success__1 -> (10 <> 0) .
+H18:   success__1 -> ((durationt__last >= integer__first) and (
+           durationt__last <= integer__last)) .
+H19:   success__1 .
+H20:   rawduration__1 <= durationt__last div 10 .
+H21:   rawduration__1 >= durationt__first div 10 .
+H22:   rawduration__1 >= integer__first .
+H23:   rawduration__1 <= integer__last .
+        ->
+C1:    rawduration__1 * 10 >= durationt__first .
+C2:    rawduration__1 * 10 <= durationt__last .
+C3:    rawduration__1 * 10 >= durationt__first .
+C4:    rawduration__1 * 10 <= durationt__last .
+C5:    rawduration__1 * 10 >= integer__base__first .
+C6:    rawduration__1 * 10 <= integer__base__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 243:
+
+procedure_readduration_6.
+H1:    true .
+H2:    durationt__first >= durationt__first .
+H3:    durationt__first <= durationt__last .
+H4:    0 >= natural__first .
+H5:    0 <= natural__last .
+H6:    rawduration__1 >= integer__first .
+H7:    rawduration__1 <= integer__last .
+H8:    true .
+H9:    rawduration__1 >= integer__first .
+H10:   rawduration__1 <= integer__last .
+H11:   rawduration__1 >= integer__first .
+H12:   rawduration__1 <= integer__last .
+H13:   success__1 -> ((durationt__first div 10 >= integer__base__first) and (
+           durationt__first div 10 <= integer__base__last)) .
+H14:   success__1 -> (10 <> 0) .
+H15:   success__1 -> ((durationt__first >= integer__first) and (
+           durationt__first <= integer__last)) .
+H16:   success__1 -> ((durationt__last div 10 >= integer__base__first) and (
+           durationt__last div 10 <= integer__base__last)) .
+H17:   success__1 -> (10 <> 0) .
+H18:   success__1 -> ((durationt__last >= integer__first) and (
+           durationt__last <= integer__last)) .
+H19:   success__1 .
+H20:   rawduration__1 <= durationt__last div 10 .
+H21:   rawduration__1 >= durationt__first div 10 .
+H22:   rawduration__1 >= integer__first .
+H23:   rawduration__1 <= integer__last .
+H24:   rawduration__1 * 10 >= durationt__first .
+H25:   rawduration__1 * 10 <= durationt__last .
+H26:   rawduration__1 * 10 >= durationt__first .
+H27:   rawduration__1 * 10 <= durationt__last .
+H28:   rawduration__1 * 10 >= integer__base__first .
+H29:   rawduration__1 * 10 <= integer__base__last .
+H30:   true .
+H31:   file__endofline(thefile__1) .
+        ->
+C1:    1 >= positive__first .
+C2:    1 <= positive__last .
+ 
+
+procedure_readduration_7.
+H1:    true .
+H2:    durationt__first >= durationt__first .
+H3:    durationt__first <= durationt__last .
+H4:    0 >= natural__first .
+H5:    0 <= natural__last .
+H6:    rawduration__1 >= integer__first .
+H7:    rawduration__1 <= integer__last .
+H8:    true .
+H9:    rawduration__1 >= integer__first .
+H10:   rawduration__1 <= integer__last .
+H11:   rawduration__1 >= integer__first .
+H12:   rawduration__1 <= integer__last .
+H13:   success__1 -> ((durationt__first div 10 >= integer__base__first) and (
+           durationt__first div 10 <= integer__base__last)) .
+H14:   success__1 -> (10 <> 0) .
+H15:   success__1 -> ((durationt__first >= integer__first) and (
+           durationt__first <= integer__last)) .
+H16:   success__1 -> ((durationt__last div 10 >= integer__base__first) and (
+           durationt__last div 10 <= integer__base__last)) .
+H17:   success__1 -> (10 <> 0) .
+H18:   success__1 -> ((durationt__last >= integer__first) and (
+           durationt__last <= integer__last)) .
+H19:   not (success__1 and ((rawduration__1 <= durationt__last div 10) and (
+           rawduration__1 >= durationt__first div 10))) .
+H20:   true .
+H21:   file__endofline(thefile__1) .
+        ->
+C1:    1 >= positive__first .
+C2:    1 <= positive__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_readduration_8.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_readduration_9.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_readduration_10.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_readduration_11.
+*** true .          /* trivially true VC removed by Examiner */
+
+

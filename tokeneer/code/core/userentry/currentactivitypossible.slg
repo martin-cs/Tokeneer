@@ -1,0 +1,203 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:24  SIMPLIFIED 05-SEP-2011, 15:42:16
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+function UserEntry.CurrentActivityPossible
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/userentry/userentry.rlu
+&&&  d:/sparkdev/tis2011/code/core/userentry/currentactivitypossible.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: function_currentactivitypossible_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  statust__first <= status
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  inprogress(status) <-> quiescent < status and status < 
+          waitingremovetokenfail
+-S-  Applied substitution rule currentactiv_rules(2).
+     This was achieved by replacing all occurrences of statust__first by:
+          quiescent.
+<S>  New H2:  quiescent <= status
+-S-  Applied substitution rule currentactiv_rules(3).
+     This was achieved by replacing all occurrences of statust__last by:
+          waitingremovetokenfail.
+<S>  New H3:  status <= waitingremovetokenfail
+---  Eliminated hypothesis H1 (true-hypothesis).
+     +++  New H4:  statust__size >= 0
+***  Proved C1:  inprogress(status) <-> quiescent < status and status < 
+          waitingremovetokenfail
+     This was achieved by applying the rewrite rule userentry_user(3)
+     [from rulefile userentry.rlu] to rewrite this conclusion to:
+<S>  C1:  quiescent < status and status < waitingremovetokenfail <-> quiescent 
+          < status and status < waitingremovetokenfail
+     This rule could be applied because its side-conditions hold, as follows:
+     <<<  By simple reasoning, proved: quiescent < status and status < 
+          waitingremovetokenfail <-> quiescent < status and status < 
+          waitingremovetokenfail
+     <<<  From H2, proved: status >= quiescent
+     <<<  From H3, proved: status <= waitingremovetokenfail
+***  PROVED VC.
+
+VCN  1: Summary of user rule application.
+FIL  userentry.rlu
+RUL     userentry_user(3)
+CON        1
+
+
+@@@@@@@@@@  VC: function_currentactivitypossible_2.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  statust__first <= status
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  inprogress(status) <-> quiescent < status and status < 
+          waitingremovetokenfail
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  userhasdeparted(status, usertoken__state) <-> quiescent < status 
+          and not usertoken__ispresent(usertoken__state)
+-S-  Applied substitution rule currentactiv_rules(2).
+     This was achieved by replacing all occurrences of statust__first by:
+          quiescent.
+<S>  New H2:  quiescent <= status
+-S-  Applied substitution rule currentactiv_rules(3).
+     This was achieved by replacing all occurrences of statust__last by:
+          waitingremovetokenfail.
+<S>  New H3:  status <= waitingremovetokenfail
+---  Eliminated hypothesis H1 (true-hypothesis).
+     +++  New H5:  statust__size >= 0
+***  Proved C1:  userhasdeparted(status, usertoken__state) <-> quiescent < 
+          status and not usertoken__ispresent(usertoken__state)
+     This was achieved by applying the rewrite rule userentry_user(4)
+     [from rulefile userentry.rlu] to rewrite this conclusion to:
+<S>  C1:  quiescent < status and not usertoken__ispresent(usertoken__state) <-> 
+          quiescent < status and not usertoken__ispresent(usertoken__state)
+     This rule could be applied because its side-conditions hold, as follows:
+     <<<  By simple reasoning, proved: quiescent < status and not 
+          usertoken__ispresent(usertoken__state) <-> quiescent < status and not 
+          usertoken__ispresent(usertoken__state)
+     <<<  From H2, proved: status >= quiescent
+     <<<  From H3, proved: status <= waitingremovetokenfail
+***  PROVED VC.
+
+VCN  2: Summary of user rule application.
+FIL  userentry.rlu
+RUL     userentry_user(4)
+CON        1
+
+
+@@@@@@@@@@  VC: function_currentactivitypossible_3.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  statust__first <= status
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  inprogress(status) <-> quiescent < status and status < 
+          waitingremovetokenfail
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  userhasdeparted(status, usertoken__state) <-> quiescent < status 
+          and not usertoken__ispresent(usertoken__state)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  inprogress(status) or userhasdeparted(status, usertoken__state) 
+          <-> quiescent < status and status < waitingremovetokenfail or 
+          quiescent < status and not usertoken__ispresent(usertoken__state)
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  inprogress(status) or userhasdeparted(status, usertoken__state) 
+          -> quiescent < status
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  (inprogress(status) or userhasdeparted(status, usertoken__state))
+           and status = waitingremovetokenfail -> not usertoken__ispresent(
+          usertoken__state)
+-S-  Applied substitution rule currentactiv_rules(2).
+     This was achieved by replacing all occurrences of statust__first by:
+          quiescent.
+<S>  New H2:  quiescent <= status
+-S-  Applied substitution rule currentactiv_rules(3).
+     This was achieved by replacing all occurrences of statust__last by:
+          waitingremovetokenfail.
+<S>  New H3:  status <= waitingremovetokenfail
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H6 (true-hypothesis).
+---  Eliminated hypothesis H7 (true-hypothesis).
+     +++  New H8:  statust__size >= 0
+***  Proved C1:  inprogress(status) or userhasdeparted(status, usertoken__state)
+           <-> quiescent < status and status < waitingremovetokenfail or 
+          quiescent < status and not usertoken__ispresent(usertoken__state)
+     This was achieved by applying the inference rule 
+          currentactivitypossible_user(1)
+     [from rulefile currentactivitypossible.rlu] to infer this conclusion from 
+          its side-conditions,
+     which were established as follows:
+     <<<  From H4, proved: inprogress(status) <-> quiescent < status and status 
+          < waitingremovetokenfail
+     <<<  From H5, proved: userhasdeparted(status, usertoken__state) <-> 
+          quiescent < status and not usertoken__ispresent(usertoken__state)
+***  Proved C2:  inprogress(status) or userhasdeparted(status, usertoken__state)
+           -> quiescent < status
+     This was achieved by applying the inference rule 
+          currentactivitypossible_user(2)
+     [from rulefile currentactivitypossible.rlu] to infer this conclusion from 
+          its side-conditions,
+     which were established as follows:
+     <<<  From H4, proved: inprogress(status) <-> quiescent < status and status 
+          < waitingremovetokenfail
+     <<<  From H5, proved: userhasdeparted(status, usertoken__state) <-> 
+          quiescent < status and not usertoken__ispresent(usertoken__state)
+***  Proved C3:  (inprogress(status) or userhasdeparted(status, 
+          usertoken__state)) and status = waitingremovetokenfail -> not 
+          usertoken__ispresent(usertoken__state)
+     This was achieved by applying the inference rule 
+          currentactivitypossible_user(3)
+     [from rulefile currentactivitypossible.rlu] to infer this conclusion from 
+          its side-conditions,
+     which were established as follows:
+     <<<  From H4, proved: inprogress(status) <-> quiescent < status and status 
+          < waitingremovetokenfail
+     <<<  From H5, proved: userhasdeparted(status, usertoken__state) <-> 
+          quiescent < status and not usertoken__ispresent(usertoken__state)
+***  PROVED VC.
+
+VCN  3: Summary of user rule application.
+FIL  currentactivitypossible.rlu
+RUL     currentactivitypossible_user(1)
+CON        1
+RUL     currentactivitypossible_user(2)
+CON        2
+RUL     currentactivitypossible_user(3)
+CON        3
+
+
+@@@@@@@@@@  VC: function_currentactivitypossible_4.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_currentactivitypossible_5.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+OVR  Overall summary of VCs using user rules.
+FIL  userentry.rlu
+RUL     userentry_user(3)
+VCS        1
+RUL     userentry_user(4)
+VCS        2
+FIL  currentactivitypossible.rlu
+RUL     currentactivitypossible_user(1)
+VCS        3
+RUL     currentactivitypossible_user(2)
+VCS        3
+RUL     currentactivitypossible_user(3)
+VCS        3
+

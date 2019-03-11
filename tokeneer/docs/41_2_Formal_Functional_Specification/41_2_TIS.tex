@@ -1,0 +1,500 @@
+%==========================================================================
+\chapter{The Token ID Station}
+\label{sec:TIS}
+%==========================================================================
+TIS maintains various state components, these are described and
+elaborated within this section. 
+
+%----------------------------------------------------------------------
+\section{Configuration Data}
+%----------------------------------------------------------------------
+
+\begin{traceunit}{FS.ConfigData.State}
+\end{traceunit}
+
+
+$Config$ will be a structure with all the configuration data. 
+Configuration data can only be modified by an administrator.
+This data includes:
+\begin{itemize}
+\item 
+Durations for internal timeouts. These effect how long the
+system waits before raising an audible alarm, how long the system
+leaves the door unlocked for, and how long the system waits for a
+successful token removal.
+\item
+The security classification of the enclave.
+\item
+The rules for allocating validity periods to authorisation
+certificates. These rules will depend on the time at which the
+certificate was issued, and may also depend on the role of the user,
+for example some roles may not be given use of the workstations ``out
+of hours''. 
+\item
+The rules for allowing entry to the enclave. These rules will depend
+on the role and security classification of the user, for example some
+roles may not be given
+access to the enclave ``out of hours''. 
+\item
+The minimum size of the audit
+log before truncation may occur, $minPreservedLogSize$, which is configured to be within available file
+store capacity of the TIS. A slightly smaller value, $alarmThresholdSize$,
+sets the size of the audit log at which an alarm is raised, 
+with the intention that the
+audit log will be archived and cleared before the truncation occurs.
+We acknowledge that there will be a system limit which affects the
+largest size of log that can be guaranteed to be preserved.
+\end{itemize}
+
+\begin{axdef}
+        maxSupportedLogSize : \nat
+\end{axdef}
+
+
+\begin{schema}{Config}
+	alarmSilentDuration, latchUnlockDuration : TIME
+\\      tokenRemovalDuration : TIME
+\\      enclaveClearance : Clearance
+\\      authPeriod : PRIVILEGE \fun TIME \fun \power TIME
+\\      entryPeriod : PRIVILEGE \fun CLASS \fun \power TIME
+\\      minPreservedLogSize : \nat
+\\      alarmThresholdSize : \nat
+\where
+        alarmThresholdSize < minPreservedLogSize 
+\\      minPreservedLogSize \leq maxSupportedLogSize     
+\end{schema}
+
+In practice there will be constraints on the authorisation
+periods and entry periods. These constraints will be considered during
+the design. There will also be constraints on the maximum FAR
+permitted by the biometic verification. This will be introduced in
+the design.
+
+
+%--------------------------------------------------------------------------
+\section{Audit Log}
+%--------------------------------------------------------------------------
+
+\begin{traceunit}{FS.AuditLog.State}
+\end{traceunit}
+
+TIS maintains an audit log. This is a log of all auditable events and
+actions performed or monitored by TIS. The audit log will be used to
+analyse the interactions with the TIS.
+
+$Audit$ will be a structure for each audit record, 
+recording at least time of event, type of event, user if known.
+We use title case because we know this is a type we will be elaborating later.
+\begin{zed}
+	[ Audit ]
+\end{zed}
+
+Each audit element has associated with it a size, which may vary
+between audit elements. The size of an audit log can be determined
+from the size of its elements.
+
+\begin{axdef}
+        sizeElement : Audit \fun \nat
+\\      sizeLog : \finset Audit \fun \nat
+\where
+        sizeLog \emptyset = 0
+\\      \forall log : \finset Audit; entry : Audit @
+\\ \t1  entry \in log \implies sizeLog~ log = sizeLog~ (log
+\setminus \{ entry \}) + sizeElement~ entry
+\end{axdef}
+
+The Audit log consists of a number of $Audit$ elements. 
+An audit error alarm will be raised if the audit log becomes full and
+needs to be archived and cleared.
+
+\begin{schema}{AuditLog}
+        auditLog :\finset Audit
+\\      auditAlarm : ALARM
+\end{schema}
+
+All audit elements have associated with them a timestamp so it is
+possible to determine the times of the newest and oldest entries in the
+log.
+
+\begin{axdef}
+        oldestLogTime : \finset Audit \fun TIME 
+\\      newestLogTime : \finset Audit \fun TIME
+\where
+        \forall A, B : \finset Audit @
+\\  \t1 newestLogTime (A \cup B) \geq newestLogTime~ A
+\\  \t1 \land oldestLogTime (A \cup B) \leq oldestLogTime~ A
+\end{axdef}
+\begin{Zcomment}
+\item 
+Both these functions are monotonic. In particular the $newestLogTime~
+\emptyset$ is the earliest time and the 
+$oldestLogTime~ \emptyset$ is the latest
+possible time.
+\end{Zcomment}
+
+%----------------------------------------------------------------------
+\section{Key Store}
+%----------------------------------------------------------------------
+
+\begin{traceunit}{FS.KeyStore.State}
+\end{traceunit}
+
+
+TIS maintains a key store which contains all Issuer keys relevant to
+its function. This will include known CAs, AAs and its own key. 
+Once enrolled, the key store also contains the ID station's name
+and own key.
+
+\begin{schema}{KeyStore}
+        issuerKey : ISSUER \pfun KEYPART
+\\      ownName : \Optional ISSUER
+\where
+        ownName \neq \Nil \implies \The ownName \in \dom issuerKey 
+\end{schema}
+\begin{Zcomment}
+\item
+An ID Station is issued with a name at enrolment. Prior to enrolment
+it will not have a name.
+\item
+This ID Station, once named, will have its key held with the other 
+issuers' keys.
+\end{Zcomment}
+
+%--------------------------------------------------------------------
+\section{System Statistics}
+%--------------------------------------------------------------------
+
+\begin{traceunit}{FS.Stats.State}
+\end{traceunit}
+
+
+TIS keeps track of the number of times that a entry to the
+enclave has been attempted (and denied) and the number of times it has succeeded. It
+also records the number of times that a biometric comparison has been
+made (and failed) and the number of times it succeeded.
+
+By retaining these statistics it is possible for the performance of
+the system to be monitored.
+
+\begin{schema}{Stats} 
+        successEntry : \nat
+\\      failEntry : \nat
+\\      successBio : \nat
+\\      failBio : \nat
+\end{schema}
+
+%--------------------------------------------------------------------
+\section{Administration}
+%--------------------------------------------------------------------
+
+\begin{traceunit}{FS.Admin.State}
+\traceto{SFP\_DAC}
+\traceto{FDP\_ACC.1.1}
+\traceto{FDP\_ACF.1.1}
+\traceto{FDP\_ACF.1.2}
+\traceto{FDP\_ACF.1.3}
+\traceto{FDP\_ACF.1.4}
+\traceto{FMT\_MOF.1.1}
+\traceto{FIA\_USB.1.1}
+\traceto{FMT\_MSA.1.1}
+\traceto{FMT\_MTD.1.1}
+\traceto{FMT\_SMR.2.1}
+\traceto{FMT\_SAE.1.1}
+\end{traceunit}
+
+In addition to its role of authorising entry to the enclave, TIS 
+supports a number of administrative operations. 
+
+\begin{itemize}
+\item ArchiveLog - writes the archive log to floppy and truncates the
+internally held archive log.
+\item UpdateConfiguration - accepts new configuration data from a floppy. 
+\item OverrideDoorLock - unlocks the enclave door. 
+\item Shutdown - stops TIS, leaving the protected entry to the enclave secure.
+\end{itemize}
+
+\begin{syntax}
+        ADMINOP ::=  archiveLog | updateConfigData |
+        overrideLock | shutdownOp 
+\end{syntax}
+
+Other operations that could be supported are 
+{\em DisplayLog}, 
+{\em CancelAlarm}, 
+{\em ClearStats}, 
+{\em Decommission}, 
+{\em AddIssuers}, 
+{\em RemoveIssuers}.
+These additional operations will be considered out of scope of this
+re-development. 
+
+Only users with administrator privileges can make use of the TIS to
+perform administrative functions. There are a number of different
+administrator privileges that may be held.
+
+\begin{zed}
+        ADMINPRIVILEGE == \{ guard, auditManager, securityOfficer \}
+\end{zed}
+
+The role held by the administrator will determine the operations
+available to the administrator. An administrator
+can only hold one role.
+
+\begin{schema}{Admin}
+        rolePresent : \Optional ADMINPRIVILEGE
+\\      availableOps : \power ADMINOP
+\\      currentAdminOp : \Optional ADMINOP
+\where
+        rolePresent = \Nil \implies availableOps = \emptyset 
+\\      (rolePresent \neq \Nil \land \The rolePresent = guard) \implies availableOps = 
+        \{ overrideLock \}
+\\      (rolePresent \neq \Nil \land \The rolePresent = auditManager) \implies availableOps = 
+        \{ archiveLog \}
+\\      (rolePresent \neq \Nil \land \The rolePresent = securityOfficer) \implies availableOps = 
+        \{ updateConfigData, shutdownOp \}
+\\      currentAdminOp \neq \Nil \implies 
+\\ \t1 (\The currentAdminOp \in availableOps \land rolePresent \neq \Nil )
+\end{schema}
+\begin{Zcomment}
+\item
+The $availableOps$ are completely determined by the roles present.
+\end{Zcomment}
+
+In order to perform an administrative operation an administrator must
+be present. Presence will be determined by an appropriate token being
+present in the administrator's card reader.
+
+%-----------------------------------------------------------------------
+\section{Real World Entities}
+%-----------------------------------------------------------------------
+
+\begin{traceunit}{FS.RealWorld.State}
+\traceto{FAU\_ARP.1.1}
+\traceto{FAU\_SAA.1.1}
+\traceto{FAU\_SAA.1.2}
+\traceto{FPT\_RVM.1.1}
+\end{traceunit}
+
+
+The latch is allowed to be in two states:
+$locked$ and $unlocked$.
+When the latch is unlocked,
+$latchTimeout$ will be set to the time at which the lock must again be $locked$.
+
+
+The alarm is similar to the latch, 
+in that it has a $silent$, and $alarming$,
+with an $alarmTimeout$.
+Once the door and latch move into a potentially insecure state
+(door $open$ and latch $locked$)
+then the $alarmTimeout$ is set to the time at which the alarm will sound.
+
+
+The state of $currentLatch$ is entirely derived from whether the $latchTimeout$
+has fired or not.
+The state of $doorAlarm$ is also entirely derived ---
+if the state is potentially insecure and the $alarmTimeout$ has fired,
+the alarm must be $alarming$.
+
+\begin{schema}{DoorLatchAlarm}
+	currentTime: TIME
+\\	currentDoor: DOOR
+\\	currentLatch: LATCH
+\\	doorAlarm: ALARM
+\\	latchTimeout: TIME
+\\	alarmTimeout: TIME
+\where
+	currentLatch = locked \iff currentTime \geq latchTimeout
+\\	doorAlarm = alarming \iff 
+\\ \t1		(currentDoor = open
+\\ \t2			\land currentLatch = locked
+\\ \t2			\land currentTime \geq alarmTimeout
+			)
+\end{schema}
+
+
+The ID Station holds internal representations of all of the Real World,
+plus its own data.
+It holds separate indications of the presence of input in the real world peripherals
+of the User Token, Admin Token, Fingerprint reader, and Floppy disk.
+This is so that once the input has been read,
+and the card, finger or disk removed,
+the ID Station can continue to know what the value was,
+even if it later detects that the real world entity has been removed.
+
+\begin{schema}{UserToken}
+	currentUserToken: TOKENTRY
+\\	userTokenPresence: PRESENCE
+\end{schema}
+
+\begin{schema}{AdminToken}
+	currentAdminToken: TOKENTRY
+\\	adminTokenPresence: PRESENCE
+\end{schema}
+
+\begin{schema}{Finger}
+	currentFinger: FINGERPRINTTRY
+\\	fingerPresence: PRESENCE
+\end{schema}
+
+We need to retain an internal view of the last data written to the
+floppy as well as the current data on the floppy, this is because we
+need to check that writing to floppy works when we archive the log.
+\begin{schema}{Floppy}
+	currentFloppy: FLOPPY
+\\      writtenFloppy: FLOPPY
+\\	floppyPresence: PRESENCE
+\end{schema}
+
+\begin{schema}{Keyboard}
+        currentKeyedData: KEYBOARD
+\\      keyedDataPresence : PRESENCE
+\end{schema}  
+
+%-----------------------------------------------------------------------
+\section{Internal State}
+%-----------------------------------------------------------------------
+
+\begin{traceunit}{FS.Internal.State}
+\traceto{FPT\_RVM.1.1}
+\end{traceunit}
+
+
+$STATUS$ and $ENCLAVESTATUS$ are purely internal records of the progress through 
+processing. $STATUS$ tracks progress through user entry, while
+$ENCLAVESTATUS$ tracks progress through all activities performed
+within the enclave. 
+
+\begin{zed}
+	STATUS ::= quiescent | 
+\also \t2          gotUserToken |  waitingFinger | gotFinger | waitingUpdateToken | waitingEntry |
+\\ \t2          waitingRemoveTokenSuccess | waitingRemoveTokenFail 
+\also
+        ENCLAVESTATUS ::= notEnrolled | waitingEnrol | waitingEndEnrol |
+\also \t2          enclaveQuiescent |
+\also \t2          gotAdminToken | waitingRemoveAdminTokenFail |
+waitingStartAdminOp | waitingFinishAdminOp |
+\also \t2          shutdown 
+\end{zed}
+
+The states $quiescent$ and $enclaveQuiescent$ represent the enclave
+interface and the user entry interface being quiescent.
+
+The states $gotUserToken$, .. 
+$waitingRemoveTokenFail$ are all associated with the process of user
+authentication and entry. These are described futher in Section \ref{sec:userEntry}.
+
+The states $notEnrolled$, .. $waitingEnrolEnd$ reflect
+enrolment activity that must be performed before TIS can offer any of
+its normal operations. Once the TIS is successfully enrolled it
+becomes $quiescent$.
+
+The states $gotAdminToken$, .. $waitingFinishAdminOp$ 
+reflect activity at the TIS console relating to administrator use of TIS. 
+
+The state $shutdown$ models the system when it is shutdown.
+
+Internally the system maintains knowledge of the status of the user
+entry operation and the enclave. It also holds a timeout which is only
+relevant when the status is on $waitingRemoveTokenSuccess$.
+
+\begin{schema}{Internal}
+        status : STATUS
+\\      enclaveStatus : ENCLAVESTATUS
+\\      tokenRemovalTimeout : TIME
+\end{schema}
+
+%-----------------------------------------------------------------------
+\section{The whole Token ID Station}
+%-----------------------------------------------------------------------
+
+\begin{traceunit}{FS.TIS.State}
+\end{traceunit}
+
+
+The whole Token ID Station is constructed from combining the described
+state components. 
+
+In addition there is a display outside the enclave and screen
+within the enclave. The ID Station screen within the enclave may
+display many pieces of 
+information. The majority of this data will be determined by state invariants.
+
+The alarm, door and latch conform to their consistency rules.
+The relationships between available operations and roles present are
+preserved. 
+
+If the authentication protocol has moved on to requesting a fingerprint,
+then the User Token will have passed its validation checks.
+
+Similarly if the system considers there to be an administrator present
+then the Admin Token will have passed its validation checks.
+
+Once the ID station has been enrolled it has a name.
+
+TIS is only ever in the two states $waitingStartAdminOp$ or
+$waitingFinishAdminOp$ when then there is a current admin operation in
+progress. For single phase operations the state
+$waitingFinishAdminOp$ is not used.
+
+TIS will only read the Admin Token to log on an administrator if there
+is not an administrator role currently present.
+ 
+\begin{schema}{IDStation}
+	UserToken
+\\	AdminToken
+\\	Finger
+\\	DoorLatchAlarm
+\\      Floppy
+\\      Keyboard
+\\      Config
+\\      Stats
+\\      KeyStore
+\\      Admin
+\\      AuditLog
+\\      Internal
+\also
+	currentDisplay: DISPLAYMESSAGE
+\\      currentScreen: Screen
+\where
+	status \in \{~ gotFinger, waitingFinger, waitingUpdateToken, waitingEntry~\} \implies
+\\ \t1		 (( \exists ValidToken @ 
+			goodT(\theta ValidToken) = currentUserToken )
+\\ \t2  \lor ( \exists TokenWithValidAuth @ 
+			goodT(\theta TokenWithValidAuth) = currentUserToken))
+\also
+        rolePresent \neq \Nil \implies       
+\\ \t1		 ( \exists TokenWithValidAuth @ 
+			goodT(\theta TokenWithValidAuth) = currentAdminToken )
+\also
+        enclaveStatus \notin \{~notEnrolled, waitingEnrol, waitingEndEnrol ~\} \implies       
+\\ \t1          ( ownName \neq \Nil )
+\also
+        enclaveStatus \in \{~ waitingStartAdminOp, waitingFinishAdminOp ~\} \iff currentAdminOp \neq \Nil
+\also
+       (currentAdminOp \neq \Nil \land \The currentAdminOp \in \{~
+shutdownOp, overrideLock ~\}) 
+\\ \t2          \implies enclaveStatus = waitingStartAdminOp
+\also
+        enclaveStatus = gotAdminToken \implies rolePresent = \Nil
+\also   % invariants that define the screen
+        currentScreen.screenStats = displayStats (\theta
+        Stats)
+\\      currentScreen.screenConfig = displayConfigData (\theta Config)
+\end{schema}
+\begin{Zcomment}
+\item
+Note that the token may not still be current since time will have
+moved on since the checks were performed.
+\item
+Operations that can be performed in a single phase do not result in
+TIS entering the state $waitingFinishAdminOp$ as they are finished
+when they are started. 
+\item
+TIS only enters the state $gotAdminToken$ when there is no
+administrator present.
+\item
+Invariants define many of the screen components.
+\end{Zcomment}
+
+

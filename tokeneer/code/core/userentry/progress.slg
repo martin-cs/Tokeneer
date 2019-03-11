@@ -1,0 +1,681 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:24  SIMPLIFIED 05-SEP-2011, 15:42:20
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure UserEntry.Progress
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/userentry/userentry.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_progress_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  quiescent < status
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  statust__first <= status
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  activestatust__first <= status
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  activestatust__first <= status
+-S-  Applied substitution rule progress_rules(83).
+     This was achieved by replacing all occurrences of activestatust__first by:
+          gotusertoken.
+<S>  New C1:  gotusertoken <= status
+<S>  New C3:  gotusertoken <= status
+-S-  Applied substitution rule progress_rules(84).
+     This was achieved by replacing all occurrences of activestatust__last by:
+          waitingremovetokenfail.
+<S>  New C2:  status <= waitingremovetokenfail
+<S>  New C4:  status <= waitingremovetokenfail
+***  Proved C1:  gotusertoken <= status
+     using hypothesis H2.
+***  Proved C3:  gotusertoken <= status
+     using hypothesis H2.
+-S-  Applied substitution rule progress_rules(48).
+     This was achieved by replacing all occurrences of statust__first by:
+          quiescent.
+<S>  New H5:  quiescent <= status
+-S-  Applied substitution rule progress_rules(49).
+     This was achieved by replacing all occurrences of statust__last by:
+          waitingremovetokenfail.
+<S>  New H6:  status <= waitingremovetokenfail
+***  Proved C2:  status <= waitingremovetokenfail
+     using hypothesis H6.
+***  Proved C4:  status <= waitingremovetokenfail
+     using hypothesis H6.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_progress_2.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  quiescent < status
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  statust__first <= status
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  activestatust__first <= status
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H7).
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H12 has been replaced by "true".  (It is already present, as H8)
+          .
+***  Proved C1:  status = waitingfinger
+     using hypothesis H13.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_progress_3.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  quiescent < status
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  statust__first <= status
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  activestatust__first <= status
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H7).
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H12 has been replaced by "true".  (It is already present, as H8)
+          .
+***  Proved C1:  keystore__privatekeypresent(keystore__state)
+     using hypothesis H1.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_progress_4.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  quiescent < status
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  statust__first <= status
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  activestatust__first <= status
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H7).
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H12 has been replaced by "true".  (It is already present, as H8)
+          .
+***  Proved C1:  status = waitingremovetokensuccess
+     using hypothesis H13.
+***  Proved C2:  latch__islocked(latch__state) and (door__thecurrentdoor(
+          door__state) = door__open and clock__greaterthanorequal(
+          clock__thecurrenttime(clock__currenttime), door__prf_alarmtimeout(
+          door__state))) <-> door__thedooralarm(door__state) = 
+          alarmtypes__alarming
+     using hypothesis H4.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_progress_5.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  quiescent < status
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  statust__first <= status
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  activestatust__first <= status
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H7).
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H12 has been replaced by "true".  (It is already present, as H8)
+          .
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  statust__first <= status__1
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  not prf_userentryunlockdoor
+***  Proved C1:  latch__islocked(latch__state) and (door__thecurrentdoor(
+          door__state) = door__open and clock__greaterthanorequal(
+          clock__thecurrenttime(clock__currenttime), door__prf_alarmtimeout(
+          door__state))) <-> door__thedooralarm(door__state) = 
+          alarmtypes__alarming
+     using hypothesis H4.
+-S-  Applied substitution rule progress_rules(48).
+     This was achieved by replacing all occurrences of statust__first by:
+          quiescent.
+<S>  New H5:  quiescent <= status
+<S>  New H14:  quiescent <= status__1
+-S-  Applied substitution rule progress_rules(49).
+     This was achieved by replacing all occurrences of statust__last by:
+          waitingremovetokenfail.
+<S>  New H6:  status <= waitingremovetokenfail
+<S>  New H15:  status__1 <= waitingremovetokenfail
+-S-  Applied substitution rule progress_rules(83).
+     This was achieved by replacing all occurrences of activestatust__first by:
+          gotusertoken.
+<S>  New H7:  gotusertoken <= status
+-S-  Applied substitution rule progress_rules(84).
+     This was achieved by replacing all occurrences of activestatust__last by:
+          waitingremovetokenfail.
+<S>  New H8:  status <= waitingremovetokenfail
+---  Eliminated hypothesis H9 (true-hypothesis).
+---  Eliminated hypothesis H10 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H8 (duplicate of H6).
+-S-  Eliminated hypothesis H13.
+     This was achieved by replacing all occurrences of status by:
+          gotusertoken.
+<S>  New H2:  true
+<S>  New H3:  true
+<S>  New H5:  true
+<S>  New H6:  true
+<S>  New H7:  true
+---  Eliminated hypothesis H2 (true-hypothesis).
+---  Eliminated hypothesis H3 (true-hypothesis).
+---  Eliminated hypothesis H5 (true-hypothesis).
+---  Eliminated hypothesis H6 (true-hypothesis).
+---  Eliminated hypothesis H7 (true-hypothesis).
+     +++  New H16:  alarmtypes__statust__size >= 0
+     +++  New H17:  door__t__size >= 0
+     +++  New H18:  statust__size >= 0
+     +++  New H19:  activestatust__size >= 0
+
+
+@@@@@@@@@@  VC: procedure_progress_6.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  quiescent < status
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  statust__first <= status
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  activestatust__first <= status
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H7).
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H12 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as 
+          H13).
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  statust__first <= status__2
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  not prf_userentryunlockdoor
+***  Proved C1:  latch__islocked(latch__state) and (door__thecurrentdoor(
+          door__state) = door__open and clock__greaterthanorequal(
+          clock__thecurrenttime(clock__currenttime), door__prf_alarmtimeout(
+          door__state))) <-> door__thedooralarm(door__state) = 
+          alarmtypes__alarming
+     using hypothesis H4.
+-S-  Applied substitution rule progress_rules(48).
+     This was achieved by replacing all occurrences of statust__first by:
+          quiescent.
+<S>  New H5:  quiescent <= status
+<S>  New H15:  quiescent <= status__2
+-S-  Applied substitution rule progress_rules(49).
+     This was achieved by replacing all occurrences of statust__last by:
+          waitingremovetokenfail.
+<S>  New H6:  status <= waitingremovetokenfail
+<S>  New H16:  status__2 <= waitingremovetokenfail
+-S-  Applied substitution rule progress_rules(83).
+     This was achieved by replacing all occurrences of activestatust__first by:
+          gotusertoken.
+<S>  New H7:  gotusertoken <= status
+-S-  Applied substitution rule progress_rules(84).
+     This was achieved by replacing all occurrences of activestatust__last by:
+          waitingremovetokenfail.
+<S>  New H8:  status <= waitingremovetokenfail
+---  Eliminated hypothesis H9 (true-hypothesis).
+---  Eliminated hypothesis H10 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H14 (true-hypothesis).
+---  Eliminated hypothesis H8 (duplicate of H6).
+-S-  Eliminated hypothesis H13.
+     This was achieved by replacing all occurrences of status by:
+          waitingfinger.
+<S>  New H2:  true
+<S>  New H3:  true
+<S>  New H5:  true
+<S>  New H6:  true
+<S>  New H7:  true
+---  Eliminated hypothesis H2 (true-hypothesis).
+---  Eliminated hypothesis H3 (true-hypothesis).
+---  Eliminated hypothesis H5 (true-hypothesis).
+---  Eliminated hypothesis H6 (true-hypothesis).
+---  Eliminated hypothesis H7 (true-hypothesis).
+     +++  New H17:  alarmtypes__statust__size >= 0
+     +++  New H18:  door__t__size >= 0
+     +++  New H19:  statust__size >= 0
+     +++  New H20:  activestatust__size >= 0
+
+
+@@@@@@@@@@  VC: procedure_progress_7.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  quiescent < status
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  statust__first <= status
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  activestatust__first <= status
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H7).
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H12 has been replaced by "true".  (It is already present, as H8)
+          .
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  statust__first <= status__3
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  not prf_userentryunlockdoor
+***  Proved C1:  latch__islocked(latch__state) and (door__thecurrentdoor(
+          door__state) = door__open and clock__greaterthanorequal(
+          clock__thecurrenttime(clock__currenttime), door__prf_alarmtimeout(
+          door__state))) <-> door__thedooralarm(door__state) = 
+          alarmtypes__alarming
+     using hypothesis H4.
+-S-  Applied substitution rule progress_rules(48).
+     This was achieved by replacing all occurrences of statust__first by:
+          quiescent.
+<S>  New H5:  quiescent <= status
+<S>  New H14:  quiescent <= status__3
+-S-  Applied substitution rule progress_rules(49).
+     This was achieved by replacing all occurrences of statust__last by:
+          waitingremovetokenfail.
+<S>  New H6:  status <= waitingremovetokenfail
+<S>  New H15:  status__3 <= waitingremovetokenfail
+-S-  Applied substitution rule progress_rules(83).
+     This was achieved by replacing all occurrences of activestatust__first by:
+          gotusertoken.
+<S>  New H7:  gotusertoken <= status
+-S-  Applied substitution rule progress_rules(84).
+     This was achieved by replacing all occurrences of activestatust__last by:
+          waitingremovetokenfail.
+<S>  New H8:  status <= waitingremovetokenfail
+---  Eliminated hypothesis H9 (true-hypothesis).
+---  Eliminated hypothesis H10 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H8 (duplicate of H6).
+-S-  Eliminated hypothesis H13.
+     This was achieved by replacing all occurrences of status by:
+          gotfinger.
+<S>  New H2:  true
+<S>  New H3:  true
+<S>  New H5:  true
+<S>  New H6:  true
+<S>  New H7:  true
+---  Eliminated hypothesis H2 (true-hypothesis).
+---  Eliminated hypothesis H3 (true-hypothesis).
+---  Eliminated hypothesis H5 (true-hypothesis).
+---  Eliminated hypothesis H6 (true-hypothesis).
+---  Eliminated hypothesis H7 (true-hypothesis).
+     +++  New H16:  alarmtypes__statust__size >= 0
+     +++  New H17:  door__t__size >= 0
+     +++  New H18:  statust__size >= 0
+     +++  New H19:  activestatust__size >= 0
+
+
+@@@@@@@@@@  VC: procedure_progress_8.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  quiescent < status
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  statust__first <= status
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  activestatust__first <= status
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H7).
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H12 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as H1)
+          .
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  statust__first <= status__4
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  not prf_userentryunlockdoor
+***  Proved C1:  latch__islocked(latch__state) and (door__thecurrentdoor(
+          door__state) = door__open and clock__greaterthanorequal(
+          clock__thecurrenttime(clock__currenttime), door__prf_alarmtimeout(
+          door__state))) <-> door__thedooralarm(door__state) = 
+          alarmtypes__alarming
+     using hypothesis H4.
+-S-  Applied substitution rule progress_rules(48).
+     This was achieved by replacing all occurrences of statust__first by:
+          quiescent.
+<S>  New H5:  quiescent <= status
+<S>  New H15:  quiescent <= status__4
+-S-  Applied substitution rule progress_rules(49).
+     This was achieved by replacing all occurrences of statust__last by:
+          waitingremovetokenfail.
+<S>  New H6:  status <= waitingremovetokenfail
+<S>  New H16:  status__4 <= waitingremovetokenfail
+-S-  Applied substitution rule progress_rules(83).
+     This was achieved by replacing all occurrences of activestatust__first by:
+          gotusertoken.
+<S>  New H7:  gotusertoken <= status
+-S-  Applied substitution rule progress_rules(84).
+     This was achieved by replacing all occurrences of activestatust__last by:
+          waitingremovetokenfail.
+<S>  New H8:  status <= waitingremovetokenfail
+---  Eliminated hypothesis H9 (true-hypothesis).
+---  Eliminated hypothesis H10 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H14 (true-hypothesis).
+---  Eliminated hypothesis H8 (duplicate of H6).
+-S-  Eliminated hypothesis H13.
+     This was achieved by replacing all occurrences of status by:
+          waitingupdatetoken.
+<S>  New H2:  true
+<S>  New H3:  true
+<S>  New H5:  true
+<S>  New H6:  true
+<S>  New H7:  true
+---  Eliminated hypothesis H2 (true-hypothesis).
+---  Eliminated hypothesis H3 (true-hypothesis).
+---  Eliminated hypothesis H5 (true-hypothesis).
+---  Eliminated hypothesis H6 (true-hypothesis).
+---  Eliminated hypothesis H7 (true-hypothesis).
+     +++  New H17:  alarmtypes__statust__size >= 0
+     +++  New H18:  door__t__size >= 0
+     +++  New H19:  statust__size >= 0
+     +++  New H20:  activestatust__size >= 0
+
+
+@@@@@@@@@@  VC: procedure_progress_9.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  quiescent < status
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  statust__first <= status
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  activestatust__first <= status
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H7).
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H12 has been replaced by "true".  (It is already present, as H8)
+          .
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  statust__first <= status__5
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  not prf_userentryunlockdoor
+***  Proved C1:  latch__islocked(latch__state) and (door__thecurrentdoor(
+          door__state) = door__open and clock__greaterthanorequal(
+          clock__thecurrenttime(clock__currenttime), door__prf_alarmtimeout(
+          door__state))) <-> door__thedooralarm(door__state) = 
+          alarmtypes__alarming
+     using hypothesis H4.
+-S-  Applied substitution rule progress_rules(48).
+     This was achieved by replacing all occurrences of statust__first by:
+          quiescent.
+<S>  New H5:  quiescent <= status
+<S>  New H14:  quiescent <= status__5
+-S-  Applied substitution rule progress_rules(49).
+     This was achieved by replacing all occurrences of statust__last by:
+          waitingremovetokenfail.
+<S>  New H6:  status <= waitingremovetokenfail
+<S>  New H15:  status__5 <= waitingremovetokenfail
+-S-  Applied substitution rule progress_rules(83).
+     This was achieved by replacing all occurrences of activestatust__first by:
+          gotusertoken.
+<S>  New H7:  gotusertoken <= status
+-S-  Applied substitution rule progress_rules(84).
+     This was achieved by replacing all occurrences of activestatust__last by:
+          waitingremovetokenfail.
+<S>  New H8:  status <= waitingremovetokenfail
+---  Eliminated hypothesis H9 (true-hypothesis).
+---  Eliminated hypothesis H10 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H8 (duplicate of H6).
+-S-  Eliminated hypothesis H13.
+     This was achieved by replacing all occurrences of status by:
+          waitingentry.
+<S>  New H2:  true
+<S>  New H3:  true
+<S>  New H5:  true
+<S>  New H6:  true
+<S>  New H7:  true
+---  Eliminated hypothesis H2 (true-hypothesis).
+---  Eliminated hypothesis H3 (true-hypothesis).
+---  Eliminated hypothesis H5 (true-hypothesis).
+---  Eliminated hypothesis H6 (true-hypothesis).
+---  Eliminated hypothesis H7 (true-hypothesis).
+     +++  New H16:  alarmtypes__statust__size >= 0
+     +++  New H17:  door__t__size >= 0
+     +++  New H18:  statust__size >= 0
+     +++  New H19:  activestatust__size >= 0
+
+
+@@@@@@@@@@  VC: procedure_progress_10.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  quiescent < status
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  statust__first <= status
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  activestatust__first <= status
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H7).
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H12 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as 
+          H13).
+---  Hypothesis H15 has been replaced by "true".  (It is already present, as H4)
+          .
+%%%  Simplified H18 on reading formula in, to give:
+     %%%  H18:  statust__first <= status__6
+***  Proved C1:  latch__islocked(latch__state__6) and (door__thecurrentdoor(
+          door__state__6) = door__open and clock__greaterthanorequal(
+          clock__thecurrenttime(clock__currenttime), door__prf_alarmtimeout(
+          door__state__6))) <-> door__thedooralarm(door__state__6) = 
+          alarmtypes__alarming
+     using hypothesis H16.
+***  Proved C2:  latch__islocked(latch__state) and not latch__islocked(
+          latch__state__6) <-> prf_userentryunlockdoor
+     using hypothesis H17.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_progress_11.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  quiescent < status
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  statust__first <= status
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  activestatust__first <= status
+---  Hypothesis H9 has been replaced by "true".  (It is already present, as H7).
+---  Hypothesis H10 has been replaced by "true".  (It is already present, as H8)
+          .
+---  Hypothesis H11 has been replaced by "true".  (It is already present, as H7)
+          .
+---  Hypothesis H12 has been replaced by "true".  (It is already present, as H8)
+          .
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  statust__first <= status__7
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  not prf_userentryunlockdoor
+***  Proved C1:  latch__islocked(latch__state) and (door__thecurrentdoor(
+          door__state) = door__open and clock__greaterthanorequal(
+          clock__thecurrenttime(clock__currenttime), door__prf_alarmtimeout(
+          door__state))) <-> door__thedooralarm(door__state) = 
+          alarmtypes__alarming
+     using hypothesis H4.
++++  Using "A->B, A |- B" on hypotheses H3 & H13 yields a new hypothesis:
+     +++  H16:  not usertoken__ispresent(usertoken__state)
+-S-  Applied substitution rule progress_rules(48).
+     This was achieved by replacing all occurrences of statust__first by:
+          quiescent.
+<S>  New H5:  quiescent <= status
+<S>  New H14:  quiescent <= status__7
+-S-  Applied substitution rule progress_rules(49).
+     This was achieved by replacing all occurrences of statust__last by:
+          waitingremovetokenfail.
+<S>  New H6:  status <= waitingremovetokenfail
+<S>  New H15:  status__7 <= waitingremovetokenfail
+-S-  Applied substitution rule progress_rules(83).
+     This was achieved by replacing all occurrences of activestatust__first by:
+          gotusertoken.
+<S>  New H7:  gotusertoken <= status
+-S-  Applied substitution rule progress_rules(84).
+     This was achieved by replacing all occurrences of activestatust__last by:
+          waitingremovetokenfail.
+<S>  New H8:  status <= waitingremovetokenfail
+---  Eliminated hypothesis H9 (true-hypothesis).
+---  Eliminated hypothesis H10 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H8 (duplicate of H6).
+>>>  Using "A->B, A |- B" on H3, given H13, we simplify the former to:
+     >>>  H3:  not usertoken__ispresent(usertoken__state)
+-S-  Eliminated hypothesis H13.
+     This was achieved by replacing all occurrences of status by:
+          waitingremovetokenfail.
+<S>  New H2:  true
+<S>  New H5:  true
+<S>  New H6:  true
+<S>  New H7:  true
+---  Eliminated hypothesis H2 (true-hypothesis).
+---  Eliminated hypothesis H5 (true-hypothesis).
+---  Eliminated hypothesis H6 (true-hypothesis).
+---  Eliminated hypothesis H7 (true-hypothesis).
+     +++  New H17:  alarmtypes__statust__size >= 0
+     +++  New H18:  door__t__size >= 0
+     +++  New H19:  statust__size >= 0
+     +++  New H20:  activestatust__size >= 0
+
+
+@@@@@@@@@@  VC: procedure_progress_12.  @@@@@@@@@@
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  statust__first <= status
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  quiescent < status
+***  Proved C1:  keystore__privatekeypresent(keystore__state)
+     using hypothesis H2.
+***  Proved C4:  latch__islocked(latch__state) and (door__thecurrentdoor(
+          door__state) = door__open and clock__greaterthanorequal(
+          clock__thecurrenttime(clock__currenttime), door__prf_alarmtimeout(
+          door__state))) <-> door__thedooralarm(door__state) = 
+          alarmtypes__alarming
+     using hypothesis H3.
+-S-  Applied substitution rule progress_rules(48).
+     This was achieved by replacing all occurrences of statust__first by:
+          quiescent.
+<S>  New H7:  quiescent <= status
+-S-  Applied substitution rule progress_rules(49).
+     This was achieved by replacing all occurrences of statust__last by:
+          waitingremovetokenfail.
+<S>  New H8:  status <= waitingremovetokenfail
+-S-  Eliminated hypothesis H4.
+     This was achieved by replacing all occurrences of status by:
+          fld_status(state).
+<S>  New H7:  quiescent <= fld_status(state)
+<S>  New H8:  fld_status(state) <= waitingremovetokenfail
+<S>  New C2:  quiescent < fld_status(state)
+<S>  New C3:  fld_status(state) = waitingremovetokenfail -> not 
+          usertoken__ispresent(usertoken__state)
+---  Eliminated hypothesis H5, which only specifies a value for fingertimeout.
+     This is not referred to anywhere else in the VC.
+---  Eliminated hypothesis H6, which only specifies a value for 
+          tokenremovaltimeout.
+     This is not referred to anywhere else in the VC.
+     +++  New H9:  alarmtypes__statust__size >= 0
+     +++  New H10:  door__t__size >= 0
+     +++  New H11:  statust__size >= 0
+     +++  New H12:  activestatust__size >= 0
+***  Proved C2:  quiescent < fld_status(state)
+     This was achieved by applying the inference rule userentry_user(1)
+     [from rulefile userentry.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  Immediate condition checktype(state, prf_statet) evaluated 
+          successfully
+     <<<  From H1, proved: userentry__currentactivitypossible(state, 
+          usertoken__state)
+***  Proved C3:  fld_status(state) = waitingremovetokenfail -> not 
+          usertoken__ispresent(usertoken__state)
+     This was achieved by applying the inference rule userentry_user(2)
+     [from rulefile userentry.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H1, proved: userentry__currentactivitypossible(state, 
+          usertoken__state)
+     <<<  Immediate condition checktype(state, prf_statet) evaluated 
+          successfully
+***  PROVED VC.
+
+VCN  12: Summary of user rule application.
+FIL  userentry.rlu
+RUL     userentry_user(1)
+CON        2
+RUL     userentry_user(2)
+CON        3
+
+
+@@@@@@@@@@  VC: procedure_progress_13.  @@@@@@@@@@
+%%%  Simplified H1 on reading formula in, to give:
+     %%%  H1:  userentry__currentactivitypossible(state~, usertoken__state~)
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  latch__islocked(latch__state~) and (door__thecurrentdoor(
+          door__state~) = door__open and clock__greaterthanorequal(
+          clock__thecurrenttime(clock__currenttime), door__prf_alarmtimeout(
+          door__state~))) <-> door__thedooralarm(door__state~) = 
+          alarmtypes__alarming
+---  Hypothesis H4 has been replaced by "true".  (It is already present, as H2).
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  quiescent < status~
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  status~ = waitingremovetokenfail -> not usertoken__ispresent(
+          usertoken__state~)
+---  Hypothesis H7 has been replaced by "true".  (It is already present, as H3).
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  status~ = fld_status(state~)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  fingertimeout~ = fld_fingertimeout(state~)
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  tokenremovaltimeout~ = fld_tokenremovaltimeout(state~)
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  statust__first <= status~
+%%%  Simplified H15 on reading formula in, to give:
+     %%%  H15:  status~ <= statust__last
+%%%  Simplified H16 on reading formula in, to give:
+     %%%  H16:  statust__first <= status
+%%%  Simplified H19 on reading formula in, to give:
+     %%%  H19:  latch__islocked(latch__state~) and not latch__islocked(
+          latch__state) <-> prf_userentryunlockdoor
+%%%  Simplified C2 on reading formula in, to give:
+     %%%  C2:  latch__islocked(latch__state~) and not latch__islocked(
+          latch__state) <-> prf_userentryunlockdoor
+***  Proved C1:  latch__islocked(latch__state) and (door__thecurrentdoor(
+          door__state) = door__open and clock__greaterthanorequal(
+          clock__thecurrenttime(clock__currenttime), door__prf_alarmtimeout(
+          door__state))) <-> door__thedooralarm(door__state) = 
+          alarmtypes__alarming
+     using hypothesis H18.
+***  Proved C2:  latch__islocked(latch__state~) and not latch__islocked(
+          latch__state) <-> prf_userentryunlockdoor
+     using hypothesis H19.
+***  PROVED VC.
+
+
+OVR  Overall summary of VCs using user rules.
+FIL  userentry.rlu
+RUL     userentry_user(1)
+VCS        12
+RUL     userentry_user(2)
+VCS        12
+

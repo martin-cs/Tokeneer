@@ -1,0 +1,146 @@
+           *******************************************************
+                            Listing of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:15.89
+
+Line
+   1  ------------------------------------------------------------------
+   2  -- Tokeneer ID Station Core Software
+   3  --
+   4  -- Copyright (2003) United States Government, as represented
+   5  -- by the Director, National Security Agency. All rights reserved.
+   6  --
+   7  -- This material was originally developed by Praxis High Integrity
+   8  -- Systems Ltd. under contract to the National Security Agency.
+   9  ------------------------------------------------------------------
+  10  
+  11  ------------------------------------------------------------------
+  12  -- PrivCert
+  13  --
+  14  -- Implementation Notes:
+  15  --     None
+  16  --
+  17  ------------------------------------------------------------------
+  18  with CertProcessing,
+  19       Clock;
+  20  
+  21  package body Cert.Attr.Priv is
+  22  
+  23     ------------------------------------------------------------------
+  24     -- TheRole
+  25     --
+  26     -- Implementation Notes:
+  27     --     None
+  28     ------------------------------------------------------------------
+  29  
+  30     function TheRole (Contents : ContentsT) return PrivTypes.PrivilegeT
+  31     is
+  32     begin
+  33        return Contents.Role;
+  34     end TheRole;
+
++++        Flow analysis of subprogram TheRole performed: 
+           no errors found.
+
+  35  
+  36  
+  37     ------------------------------------------------------------------
+  38     -- TheClearance
+  39     --
+  40     -- Implementation Notes:
+  41     --     None
+  42     ------------------------------------------------------------------
+  43  
+  44     function TheClearance (Contents : ContentsT) return PrivTypes.ClearanceT
+  45     is
+  46     begin
+  47        return Contents.Clearance;
+  48     end TheClearance;
+
++++        Flow analysis of subprogram TheClearance 
+           performed: no errors found.
+
+  49  
+  50  
+  51     ------------------------------------------------------------------
+  52     -- Extract
+  53     --
+  54     -- Implementation Notes:
+  55     --    None.
+  56     ------------------------------------------------------------------
+  57     procedure Extract (RawCert  : in     CertTypes.RawCertificateT;
+  58                        Contents :    out ContentsT;
+  59                        Success  :    out Boolean)
+  60     is
+  61        LocalContents : CertProcessing.PrivCertDataT;
+  62        Extracted,
+  63        NotBeforeOk,
+  64        NotAfterOk    : Boolean;
+  65     begin
+  66        CertProcessing.ExtractPrivCertData(RawPrivCert    => RawCert,
+  67                                           PrivCert       => LocalContents,
+  68                                           ExtractSuccess => Extracted);
+  69  
+  70        Contents.ID.Issuer       := LocalContents.Issuer;
+  71        Contents.ID.SerialNumber
+  72          := CertTypes.SerialNumberT(LocalContents.SerialNumber);
+  73        Contents.Mechanism       := LocalContents.SigAlgID;
+  74        Contents.BaseCertID      := LocalContents.Holder;
+  75        Contents.Role            := LocalContents.Privilege.Role;
+  76        Contents.Clearance.Class := LocalContents.Privilege.Class;
+  77  
+  78        -- NotBefore and NotAfter are read as 5 unsigned 32 bit words -
+  79        -- convert to Clock.TimeT
+  80        Clock.ConstructTime(
+  81                 Year    => LocalContents.AttCertValidity.NotBefore.Year,
+  82                 Month   => LocalContents.AttCertValidity.NotBefore.Month,
+  83                 Day     => LocalContents.AttCertValidity.NotBefore.Day,
+  84                 Hour    => LocalContents.AttCertValidity.NotBefore.Hour,
+  85                 Min     => LocalContents.AttCertValidity.NotBefore.Minute,
+  86                 TheTime => Contents.NotBefore,
+  87                 Success => NotBeforeOK);
+  88  
+  89        Clock.ConstructTime(
+  90                 Year    => LocalContents.AttCertValidity.NotAfter.Year,
+  91                 Month   => LocalContents.AttCertValidity.NotAfter.Month,
+  92                 Day     => LocalContents.AttCertValidity.NotAfter.Day,
+  93                 Hour    => LocalContents.AttCertValidity.NotAfter.Hour,
+  94                 Min     => LocalContents.AttCertValidity.NotAfter.Minute,
+  95                 TheTime => Contents.NotAfter,
+  96                 Success => NotAfterOK);
+  97  
+  98        Success := Extracted and NotBeforeOK and NotAfterOK;
+  99     end Extract;
+
++++        Flow analysis of subprogram Extract performed: 
+           no errors found.
+
+ 100  
+ 101  
+ 102     ------------------------------------------------------------------
+ 103     -- Clear
+ 104     --
+ 105     -- Implementation Notes:
+ 106     --     None
+ 107     ------------------------------------------------------------------
+ 108     procedure Clear (Contents :    out ContentsT)
+ 109     is
+ 110     begin
+ 111        Contents := NullContents;
+ 112     end Clear;
+
++++        Flow analysis of subprogram Clear performed: no 
+           errors found.
+
+ 113  
+ 114  
+ 115  end Cert.Attr.Priv;
+No summarized warnings
+
+
+
+--End of file--------------------------------------------------

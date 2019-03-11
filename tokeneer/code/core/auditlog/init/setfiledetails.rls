@@ -1,0 +1,117 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:09.06*/
+
+                   /*procedure AuditLog.Init.SetFileDetails*/
+
+
+rule_family setfiledetai_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+setfiledetai_rules(1): integer__size >= 0 may_be_deduced.
+setfiledetai_rules(2): integer__first may_be_replaced_by -2147483648.
+setfiledetai_rules(3): integer__last may_be_replaced_by 2147483647.
+setfiledetai_rules(4): integer__base__first may_be_replaced_by -2147483648.
+setfiledetai_rules(5): integer__base__last may_be_replaced_by 2147483647.
+setfiledetai_rules(6): character__size >= 0 may_be_deduced.
+setfiledetai_rules(7): character__first may_be_replaced_by 0.
+setfiledetai_rules(8): character__last may_be_replaced_by 255.
+setfiledetai_rules(9): character__base__first may_be_replaced_by 0.
+setfiledetai_rules(10): character__base__last may_be_replaced_by 255.
+setfiledetai_rules(11): positive__size >= 0 may_be_deduced.
+setfiledetai_rules(12): positive__first may_be_replaced_by 1.
+setfiledetai_rules(13): positive__last may_be_replaced_by 2147483647.
+setfiledetai_rules(14): positive__base__first may_be_replaced_by -2147483648.
+setfiledetai_rules(15): positive__base__last may_be_replaced_by 2147483647.
+setfiledetai_rules(16): clock__timetexti__size >= 0 may_be_deduced.
+setfiledetai_rules(17): clock__timetexti__first may_be_replaced_by 1.
+setfiledetai_rules(18): clock__timetexti__last may_be_replaced_by 21.
+setfiledetai_rules(19): clock__timetexti__base__first may_be_replaced_by -2147483648.
+setfiledetai_rules(20): clock__timetexti__base__last may_be_replaced_by 2147483647.
+setfiledetai_rules(21): logfilecountt__size >= 0 may_be_deduced.
+setfiledetai_rules(22): logfilecountt__first may_be_replaced_by 0.
+setfiledetai_rules(23): logfilecountt__last may_be_replaced_by 17.
+setfiledetai_rules(24): logfilecountt__base__first <= 
+     logfilecountt__base__last may_be_deduced.
+setfiledetai_rules(25): logfilecountt__base__first <= 
+     logfilecountt__first may_be_deduced.
+setfiledetai_rules(26): logfilecountt__base__last >= 
+     logfilecountt__last may_be_deduced.
+setfiledetai_rules(27): logfileindext__size >= 0 may_be_deduced.
+setfiledetai_rules(28): logfileindext__first may_be_replaced_by 1.
+setfiledetai_rules(29): logfileindext__last may_be_replaced_by 17.
+setfiledetai_rules(30): logfileindext__base__first <= 
+     logfileindext__base__last may_be_deduced.
+setfiledetai_rules(31): logfileindext__base__first <= 
+     logfileindext__first may_be_deduced.
+setfiledetai_rules(32): logfileindext__base__last >= 
+     logfileindext__last may_be_deduced.
+setfiledetai_rules(33): filestatust__size >= 0 may_be_deduced.
+setfiledetai_rules(34): filestatust__first may_be_replaced_by free.
+setfiledetai_rules(35): filestatust__last may_be_replaced_by used.
+setfiledetai_rules(36): filestatust__base__first may_be_replaced_by free.
+setfiledetai_rules(37): filestatust__base__last may_be_replaced_by used.
+setfiledetai_rules(38): filestatust__pos(filestatust__first) may_be_replaced_by 0.
+setfiledetai_rules(39): filestatust__pos(free) may_be_replaced_by 0.
+setfiledetai_rules(40): filestatust__val(0) may_be_replaced_by 
+     free.
+setfiledetai_rules(41): filestatust__pos(archived) may_be_replaced_by 1.
+setfiledetai_rules(42): filestatust__val(1) may_be_replaced_by 
+     archived.
+setfiledetai_rules(43): filestatust__pos(used) may_be_replaced_by 2.
+setfiledetai_rules(44): filestatust__val(2) may_be_replaced_by 
+     used.
+setfiledetai_rules(45): filestatust__pos(filestatust__last) may_be_replaced_by 2.
+setfiledetai_rules(46): filestatust__pos(succ(X)) may_be_replaced_by 
+     filestatust__pos(X) + 1
+     if [X <=used, X <> used].
+setfiledetai_rules(47): filestatust__pos(pred(X)) may_be_replaced_by 
+     filestatust__pos(X) - 1
+     if [X >=free, X <> free].
+setfiledetai_rules(48): filestatust__pos(X) >= 0 may_be_deduced_from
+     [free <= X, X <= used].
+setfiledetai_rules(49): filestatust__pos(X) <= 2 may_be_deduced_from
+     [free <= X, X <= used].
+setfiledetai_rules(50): filestatust__val(X) >= free may_be_deduced_from
+     [0 <= X, X <= 2].
+setfiledetai_rules(51): filestatust__val(X) <= used may_be_deduced_from
+     [0 <= X, X <= 2].
+setfiledetai_rules(52): succ(filestatust__val(X)) may_be_replaced_by 
+     filestatust__val(X+1)
+     if [0 <= X, X < 2].
+setfiledetai_rules(53): pred(filestatust__val(X)) may_be_replaced_by 
+     filestatust__val(X-1)
+     if [0 < X, X <= 2].
+setfiledetai_rules(54): filestatust__pos(filestatust__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 2].
+setfiledetai_rules(55): filestatust__val(filestatust__pos(X)) may_be_replaced_by X
+     if [free <= X, X <= used].
+setfiledetai_rules(56): filestatust__pos(X) <= filestatust__pos(Y) & X <= Y are_interchangeable 
+     if [free <= X, X <= used, free <= Y, Y <= used].
+setfiledetai_rules(57): filestatust__val(X) <= filestatust__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 2, 0 <= Y, Y <= 2].
+setfiledetai_rules(58): logentrycountt__size >= 0 may_be_deduced.
+setfiledetai_rules(59): logentrycountt__first may_be_replaced_by 0.
+setfiledetai_rules(60): logentrycountt__last may_be_replaced_by 17408.
+setfiledetai_rules(61): logentrycountt__base__first <= 
+     logentrycountt__base__last may_be_deduced.
+setfiledetai_rules(62): logentrycountt__base__first <= 
+     logentrycountt__first may_be_deduced.
+setfiledetai_rules(63): logentrycountt__base__last >= 
+     logentrycountt__last may_be_deduced.
+setfiledetai_rules(64): fileentrycountt__size >= 0 may_be_deduced.
+setfiledetai_rules(65): fileentrycountt__first may_be_replaced_by 0.
+setfiledetai_rules(66): fileentrycountt__last may_be_replaced_by 1024.
+setfiledetai_rules(67): fileentrycountt__base__first <= 
+     fileentrycountt__base__last may_be_deduced.
+setfiledetai_rules(68): fileentrycountt__base__first <= 
+     fileentrycountt__first may_be_deduced.
+setfiledetai_rules(69): fileentrycountt__base__last >= 
+     fileentrycountt__last may_be_deduced.

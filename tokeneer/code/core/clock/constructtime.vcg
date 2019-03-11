@@ -1,0 +1,140 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:07.60
+
+                       procedure Clock.ConstructTime
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 224:
+
+procedure_constructtime_1.
+H1:    true .
+H2:    year >= basictypes__unsigned32t__first .
+H3:    year <= basictypes__unsigned32t__last .
+H4:    month >= basictypes__unsigned32t__first .
+H5:    month <= basictypes__unsigned32t__last .
+H6:    day >= basictypes__unsigned32t__first .
+H7:    day <= basictypes__unsigned32t__last .
+H8:    hour >= basictypes__unsigned32t__first .
+H9:    hour <= basictypes__unsigned32t__last .
+H10:   min >= basictypes__unsigned32t__first .
+H11:   min <= basictypes__unsigned32t__last .
+        ->
+C1:    minutest__last >= basictypes__unsigned32t__first .
+C2:    minutest__last <= basictypes__unsigned32t__last .
+C3:    minutest__first >= basictypes__unsigned32t__first .
+C4:    minutest__first <= basictypes__unsigned32t__last .
+C5:    hourst__last >= basictypes__unsigned32t__first .
+C6:    hourst__last <= basictypes__unsigned32t__last .
+C7:    hourst__first >= basictypes__unsigned32t__first .
+C8:    hourst__first <= basictypes__unsigned32t__last .
+C9:    dayst__last >= basictypes__unsigned32t__first .
+C10:   dayst__last <= basictypes__unsigned32t__last .
+C11:   dayst__first >= basictypes__unsigned32t__first .
+C12:   dayst__first <= basictypes__unsigned32t__last .
+C13:   monthst__last >= basictypes__unsigned32t__first .
+C14:   monthst__last <= basictypes__unsigned32t__last .
+C15:   monthst__first >= basictypes__unsigned32t__first .
+C16:   monthst__first <= basictypes__unsigned32t__last .
+C17:   yearst__last >= basictypes__unsigned32t__first .
+C18:   yearst__last <= basictypes__unsigned32t__last .
+C19:   yearst__first >= basictypes__unsigned32t__first .
+C20:   yearst__first <= basictypes__unsigned32t__last .
+ 
+
+For path(s) from start to run-time check associated with statement of line 236:
+
+procedure_constructtime_2.
+H1:    true .
+H2:    year >= basictypes__unsigned32t__first .
+H3:    year <= basictypes__unsigned32t__last .
+H4:    month >= basictypes__unsigned32t__first .
+H5:    month <= basictypes__unsigned32t__last .
+H6:    day >= basictypes__unsigned32t__first .
+H7:    day <= basictypes__unsigned32t__last .
+H8:    hour >= basictypes__unsigned32t__first .
+H9:    hour <= basictypes__unsigned32t__last .
+H10:   min >= basictypes__unsigned32t__first .
+H11:   min <= basictypes__unsigned32t__last .
+H12:   minutest__last >= basictypes__unsigned32t__first .
+H13:   minutest__last <= basictypes__unsigned32t__last .
+H14:   minutest__first >= basictypes__unsigned32t__first .
+H15:   minutest__first <= basictypes__unsigned32t__last .
+H16:   hourst__last >= basictypes__unsigned32t__first .
+H17:   hourst__last <= basictypes__unsigned32t__last .
+H18:   hourst__first >= basictypes__unsigned32t__first .
+H19:   hourst__first <= basictypes__unsigned32t__last .
+H20:   dayst__last >= basictypes__unsigned32t__first .
+H21:   dayst__last <= basictypes__unsigned32t__last .
+H22:   dayst__first >= basictypes__unsigned32t__first .
+H23:   dayst__first <= basictypes__unsigned32t__last .
+H24:   monthst__last >= basictypes__unsigned32t__first .
+H25:   monthst__last <= basictypes__unsigned32t__last .
+H26:   monthst__first >= basictypes__unsigned32t__first .
+H27:   monthst__first <= basictypes__unsigned32t__last .
+H28:   yearst__last >= basictypes__unsigned32t__first .
+H29:   yearst__last <= basictypes__unsigned32t__last .
+H30:   yearst__first >= basictypes__unsigned32t__first .
+H31:   yearst__first <= basictypes__unsigned32t__last .
+H32:   yearst__first <= year .
+H33:   year <= yearst__last .
+H34:   monthst__first <= month .
+H35:   month <= monthst__last .
+H36:   dayst__first <= day .
+H37:   day <= dayst__last .
+H38:   hourst__first <= hour .
+H39:   hour <= hourst__last .
+H40:   minutest__first <= min .
+H41:   min <= minutest__last .
+        ->
+C1:    hour * millisecsinhr + min * millisecsinmin >= 
+           millisecst__first .
+C2:    hour * millisecsinhr + min * millisecsinmin <= 
+           millisecst__last .
+C3:    hour * millisecsinhr + min * millisecsinmin >= 
+           millisecst__base__first .
+C4:    hour * millisecsinhr + min * millisecsinmin <= 
+           millisecst__base__last .
+C5:    min * millisecsinmin >= millisecst__base__first .
+C6:    min * millisecsinmin <= millisecst__base__last .
+C7:    min >= millisecst__first .
+C8:    min <= millisecst__last .
+C9:    hour * millisecsinhr >= millisecst__base__first .
+C10:   hour * millisecsinhr <= millisecst__base__last .
+C11:   hour >= millisecst__first .
+C12:   hour <= millisecst__last .
+C13:   day >= dayst__first .
+C14:   day <= dayst__last .
+C15:   day >= dayst__first .
+C16:   day <= dayst__last .
+C17:   month >= monthst__first .
+C18:   month <= monthst__last .
+C19:   month >= monthst__first .
+C20:   month <= monthst__last .
+C21:   year >= yearst__first .
+C22:   year <= yearst__last .
+C23:   year >= yearst__first .
+C24:   year <= yearst__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_constructtime_3.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_constructtime_4.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_constructtime_5.
+*** true .          /* trivially true VC removed by Examiner */
+
+

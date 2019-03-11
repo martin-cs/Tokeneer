@@ -1,0 +1,132 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:21.72*/
+
+                     /*procedure Screen.WriteConfigLabels*/
+
+
+rule_family writeconfigl_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+writeconfigl_rules(1): column1 may_be_replaced_by 2.
+writeconfigl_rules(2): column2 may_be_replaced_by 39.
+writeconfigl_rules(3): row1 may_be_replaced_by 9.
+writeconfigl_rules(4): row2 may_be_replaced_by 10.
+writeconfigl_rules(5): row3 may_be_replaced_by 12.
+writeconfigl_rules(6): row4 may_be_replaced_by 13.
+writeconfigl_rules(7): row5 may_be_replaced_by 15.
+writeconfigl_rules(8): row6 may_be_replaced_by 16.
+writeconfigl_rules(9): row7 may_be_replaced_by 18.
+writeconfigl_rules(10): screen__interface__colours__size >= 0 may_be_deduced.
+writeconfigl_rules(11): screen__interface__colours__first may_be_replaced_by screen__interface__brightwhite.
+writeconfigl_rules(12): screen__interface__colours__last may_be_replaced_by screen__interface__black.
+writeconfigl_rules(13): screen__interface__colours__base__first may_be_replaced_by screen__interface__brightwhite.
+writeconfigl_rules(14): screen__interface__colours__base__last may_be_replaced_by screen__interface__black.
+writeconfigl_rules(15): screen__interface__colours__pos(
+     screen__interface__colours__first) may_be_replaced_by 0.
+writeconfigl_rules(16): screen__interface__colours__pos(
+     screen__interface__brightwhite) may_be_replaced_by 0.
+writeconfigl_rules(17): screen__interface__colours__val(0) may_be_replaced_by 
+     screen__interface__brightwhite.
+writeconfigl_rules(18): screen__interface__colours__pos(
+     screen__interface__white) may_be_replaced_by 1.
+writeconfigl_rules(19): screen__interface__colours__val(1) may_be_replaced_by 
+     screen__interface__white.
+writeconfigl_rules(20): screen__interface__colours__pos(
+     screen__interface__red) may_be_replaced_by 2.
+writeconfigl_rules(21): screen__interface__colours__val(2) may_be_replaced_by 
+     screen__interface__red.
+writeconfigl_rules(22): screen__interface__colours__pos(
+     screen__interface__green) may_be_replaced_by 3.
+writeconfigl_rules(23): screen__interface__colours__val(3) may_be_replaced_by 
+     screen__interface__green.
+writeconfigl_rules(24): screen__interface__colours__pos(
+     screen__interface__black) may_be_replaced_by 4.
+writeconfigl_rules(25): screen__interface__colours__val(4) may_be_replaced_by 
+     screen__interface__black.
+writeconfigl_rules(26): screen__interface__colours__pos(
+     screen__interface__colours__last) may_be_replaced_by 4.
+writeconfigl_rules(27): screen__interface__colours__pos(succ(X)) may_be_replaced_by 
+     screen__interface__colours__pos(X) + 1
+     if [X <=screen__interface__black, X <> 
+     screen__interface__black].
+writeconfigl_rules(28): screen__interface__colours__pos(pred(X)) may_be_replaced_by 
+     screen__interface__colours__pos(X) - 1
+     if [X >=screen__interface__brightwhite, X <> 
+     screen__interface__brightwhite].
+writeconfigl_rules(29): screen__interface__colours__pos(X) >= 0 may_be_deduced_from
+     [screen__interface__brightwhite <= X, X <= 
+     screen__interface__black].
+writeconfigl_rules(30): screen__interface__colours__pos(X) <= 4 may_be_deduced_from
+     [screen__interface__brightwhite <= X, X <= 
+     screen__interface__black].
+writeconfigl_rules(31): screen__interface__colours__val(X) >= 
+     screen__interface__brightwhite may_be_deduced_from
+     [0 <= X, X <= 4].
+writeconfigl_rules(32): screen__interface__colours__val(X) <= 
+     screen__interface__black may_be_deduced_from
+     [0 <= X, X <= 4].
+writeconfigl_rules(33): succ(screen__interface__colours__val(X)) may_be_replaced_by 
+     screen__interface__colours__val(X+1)
+     if [0 <= X, X < 4].
+writeconfigl_rules(34): pred(screen__interface__colours__val(X)) may_be_replaced_by 
+     screen__interface__colours__val(X-1)
+     if [0 < X, X <= 4].
+writeconfigl_rules(35): screen__interface__colours__pos(
+     screen__interface__colours__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 4].
+writeconfigl_rules(36): screen__interface__colours__val(
+     screen__interface__colours__pos(X)) may_be_replaced_by X
+     if [screen__interface__brightwhite <= X, X <= 
+     screen__interface__black].
+writeconfigl_rules(37): screen__interface__colours__pos(X) <= 
+     screen__interface__colours__pos(Y) & X <= Y are_interchangeable 
+     if [screen__interface__brightwhite <= X, X <= 
+     screen__interface__black, screen__interface__brightwhite <= Y, Y <= 
+     screen__interface__black].
+writeconfigl_rules(38): screen__interface__colours__val(X) <= 
+     screen__interface__colours__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 4, 0 <= Y, Y <= 4].
+writeconfigl_rules(39): screen__interface__screenwidtht__size >= 0 may_be_deduced.
+writeconfigl_rules(40): screen__interface__screenwidtht__first may_be_replaced_by 0.
+writeconfigl_rules(41): screen__interface__screenwidtht__last may_be_replaced_by 80.
+writeconfigl_rules(42): screen__interface__screenwidtht__base__first <= 
+     screen__interface__screenwidtht__base__last may_be_deduced.
+writeconfigl_rules(43): screen__interface__screenwidtht__base__first <= 
+     screen__interface__screenwidtht__first may_be_deduced.
+writeconfigl_rules(44): screen__interface__screenwidtht__base__last >= 
+     screen__interface__screenwidtht__last may_be_deduced.
+writeconfigl_rules(45): screen__interface__screenheightt__size >= 0 may_be_deduced.
+writeconfigl_rules(46): screen__interface__screenheightt__first may_be_replaced_by 0.
+writeconfigl_rules(47): screen__interface__screenheightt__last may_be_replaced_by 30.
+writeconfigl_rules(48): screen__interface__screenheightt__base__first <= 
+     screen__interface__screenheightt__base__last may_be_deduced.
+writeconfigl_rules(49): screen__interface__screenheightt__base__first <= 
+     screen__interface__screenheightt__first may_be_deduced.
+writeconfigl_rules(50): screen__interface__screenheightt__base__last >= 
+     screen__interface__screenheightt__last may_be_deduced.
+writeconfigl_rules(51): screen__interface__screenxcoordt__size >= 0 may_be_deduced.
+writeconfigl_rules(52): screen__interface__screenxcoordt__first may_be_replaced_by 0.
+writeconfigl_rules(53): screen__interface__screenxcoordt__last may_be_replaced_by 79.
+writeconfigl_rules(54): screen__interface__screenxcoordt__base__first <= 
+     screen__interface__screenxcoordt__base__last may_be_deduced.
+writeconfigl_rules(55): screen__interface__screenxcoordt__base__first <= 
+     screen__interface__screenxcoordt__first may_be_deduced.
+writeconfigl_rules(56): screen__interface__screenxcoordt__base__last >= 
+     screen__interface__screenxcoordt__last may_be_deduced.
+writeconfigl_rules(57): screen__interface__screenycoordt__size >= 0 may_be_deduced.
+writeconfigl_rules(58): screen__interface__screenycoordt__first may_be_replaced_by 0.
+writeconfigl_rules(59): screen__interface__screenycoordt__last may_be_replaced_by 29.
+writeconfigl_rules(60): screen__interface__screenycoordt__base__first <= 
+     screen__interface__screenycoordt__base__last may_be_deduced.
+writeconfigl_rules(61): screen__interface__screenycoordt__base__first <= 
+     screen__interface__screenycoordt__first may_be_deduced.
+writeconfigl_rules(62): screen__interface__screenycoordt__base__last >= 
+     screen__interface__screenycoordt__last may_be_deduced.

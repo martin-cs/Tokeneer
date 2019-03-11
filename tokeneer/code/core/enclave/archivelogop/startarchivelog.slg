@@ -1,0 +1,117 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:26  SIMPLIFIED 05-SEP-2011, 15:40:30
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure Enclave.ArchiveLogOp.StartArchiveLog
+
+
+
+
+
+
+@@@@@@@@@@  VC: procedure_startarchivelog_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  statust__first <= status
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(admintoken__extractuser(admintoken__state), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state), [i___1]) <= 
+          character__last)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  screen__msgtextt__first <= screen__doingop
+-S-  Applied substitution rule startarchive_rules(22).
+     This was achieved by replacing all occurrences of screen__msgtextt__first 
+          by:
+          screen__clear.
+<S>  New C1:  true
+-S-  Applied substitution rule startarchive_rules(23).
+     This was achieved by replacing all occurrences of screen__msgtextt__last 
+          by:
+          screen__insertconfigdata.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_startarchivelog_2.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  statust__first <= status
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(admintoken__extractuser(admintoken__state), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state), [i___1]) <= 
+          character__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  screen__msgtextt__first <= screen__doingop
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  statust__first <= waitingfinishadminop
+***  Proved C1:  statust__first <= waitingfinishadminop
+     using hypotheses H1 & H2.
+-S-  Applied substitution rule startarchive_rules(72).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H3:  status <= shutdown
+<S>  New C2:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_startarchivelog_3.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  statust__first <= status
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  screen__msgtextt__first <= screen__insertblankfloppy
+-S-  Applied substitution rule startarchive_rules(22).
+     This was achieved by replacing all occurrences of screen__msgtextt__first 
+          by:
+          screen__clear.
+<S>  New C1:  true
+-S-  Applied substitution rule startarchive_rules(23).
+     This was achieved by replacing all occurrences of screen__msgtextt__last 
+          by:
+          screen__insertconfigdata.
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_startarchivelog_4.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  statust__first <= status
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(admintoken__extractuser(admintoken__state), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state), [i___1]) <= 
+          character__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  screen__msgtextt__first <= screen__doingop
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  statust__first <= waitingfinishadminop
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  true
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_startarchivelog_5.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  statust__first <= status
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  screen__msgtextt__first <= screen__insertblankfloppy
+***  Proved C1:  status = waitingstartadminop or status = waitingfinishadminop
+     using hypothesis H1.
+***  PROVED VC.
+

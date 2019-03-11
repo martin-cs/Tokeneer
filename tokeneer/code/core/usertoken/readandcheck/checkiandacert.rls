@@ -1,0 +1,158 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:20.52*/
+
+              /*procedure UserToken.ReadAndCheck.CheckIandACert*/
+
+
+rule_family checkiandace_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+checkiandace_rules(1): integer__size >= 0 may_be_deduced.
+checkiandace_rules(2): integer__first may_be_replaced_by -2147483648.
+checkiandace_rules(3): integer__last may_be_replaced_by 2147483647.
+checkiandace_rules(4): integer__base__first may_be_replaced_by -2147483648.
+checkiandace_rules(5): integer__base__last may_be_replaced_by 2147483647.
+checkiandace_rules(6): character__size >= 0 may_be_deduced.
+checkiandace_rules(7): character__first may_be_replaced_by 0.
+checkiandace_rules(8): character__last may_be_replaced_by 255.
+checkiandace_rules(9): character__base__first may_be_replaced_by 0.
+checkiandace_rules(10): character__base__last may_be_replaced_by 255.
+checkiandace_rules(11): positive__size >= 0 may_be_deduced.
+checkiandace_rules(12): positive__first may_be_replaced_by 1.
+checkiandace_rules(13): positive__last may_be_replaced_by 2147483647.
+checkiandace_rules(14): positive__base__first may_be_replaced_by -2147483648.
+checkiandace_rules(15): positive__base__last may_be_replaced_by 2147483647.
+checkiandace_rules(16): audittypes__descriptioni__size >= 0 may_be_deduced.
+checkiandace_rules(17): audittypes__descriptioni__first may_be_replaced_by 1.
+checkiandace_rules(18): audittypes__descriptioni__last may_be_replaced_by 150.
+checkiandace_rules(19): audittypes__descriptioni__base__first may_be_replaced_by -2147483648.
+checkiandace_rules(20): audittypes__descriptioni__base__last may_be_replaced_by 2147483647.
+checkiandace_rules(21): certtypes__certificatet__size >= 0 may_be_deduced.
+checkiandace_rules(22): certtypes__certificatet__first may_be_replaced_by certtypes__idcert.
+checkiandace_rules(23): certtypes__certificatet__last may_be_replaced_by certtypes__iandacert.
+checkiandace_rules(24): certtypes__certificatet__base__first may_be_replaced_by certtypes__idcert.
+checkiandace_rules(25): certtypes__certificatet__base__last may_be_replaced_by certtypes__iandacert.
+checkiandace_rules(26): certtypes__certificatet__pos(
+     certtypes__certificatet__first) may_be_replaced_by 0.
+checkiandace_rules(27): certtypes__certificatet__pos(
+     certtypes__idcert) may_be_replaced_by 0.
+checkiandace_rules(28): certtypes__certificatet__val(0) may_be_replaced_by 
+     certtypes__idcert.
+checkiandace_rules(29): certtypes__certificatet__pos(
+     certtypes__authcert) may_be_replaced_by 1.
+checkiandace_rules(30): certtypes__certificatet__val(1) may_be_replaced_by 
+     certtypes__authcert.
+checkiandace_rules(31): certtypes__certificatet__pos(
+     certtypes__privcert) may_be_replaced_by 2.
+checkiandace_rules(32): certtypes__certificatet__val(2) may_be_replaced_by 
+     certtypes__privcert.
+checkiandace_rules(33): certtypes__certificatet__pos(
+     certtypes__iandacert) may_be_replaced_by 3.
+checkiandace_rules(34): certtypes__certificatet__val(3) may_be_replaced_by 
+     certtypes__iandacert.
+checkiandace_rules(35): certtypes__certificatet__pos(
+     certtypes__certificatet__last) may_be_replaced_by 3.
+checkiandace_rules(36): certtypes__certificatet__pos(succ(X)) may_be_replaced_by 
+     certtypes__certificatet__pos(X) + 1
+     if [X <=certtypes__iandacert, X <> certtypes__iandacert].
+checkiandace_rules(37): certtypes__certificatet__pos(pred(X)) may_be_replaced_by 
+     certtypes__certificatet__pos(X) - 1
+     if [X >=certtypes__idcert, X <> certtypes__idcert].
+checkiandace_rules(38): certtypes__certificatet__pos(X) >= 0 may_be_deduced_from
+     [certtypes__idcert <= X, X <= certtypes__iandacert].
+checkiandace_rules(39): certtypes__certificatet__pos(X) <= 3 may_be_deduced_from
+     [certtypes__idcert <= X, X <= certtypes__iandacert].
+checkiandace_rules(40): certtypes__certificatet__val(X) >= 
+     certtypes__idcert may_be_deduced_from
+     [0 <= X, X <= 3].
+checkiandace_rules(41): certtypes__certificatet__val(X) <= 
+     certtypes__iandacert may_be_deduced_from
+     [0 <= X, X <= 3].
+checkiandace_rules(42): succ(certtypes__certificatet__val(X)) may_be_replaced_by 
+     certtypes__certificatet__val(X+1)
+     if [0 <= X, X < 3].
+checkiandace_rules(43): pred(certtypes__certificatet__val(X)) may_be_replaced_by 
+     certtypes__certificatet__val(X-1)
+     if [0 < X, X <= 3].
+checkiandace_rules(44): certtypes__certificatet__pos(
+     certtypes__certificatet__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 3].
+checkiandace_rules(45): certtypes__certificatet__val(
+     certtypes__certificatet__pos(X)) may_be_replaced_by X
+     if [certtypes__idcert <= X, X <= certtypes__iandacert].
+checkiandace_rules(46): certtypes__certificatet__pos(X) <= 
+     certtypes__certificatet__pos(Y) & X <= Y are_interchangeable 
+     if [certtypes__idcert <= X, X <= certtypes__iandacert, 
+     certtypes__idcert <= Y, Y <= certtypes__iandacert].
+checkiandace_rules(47): certtypes__certificatet__val(X) <= 
+     certtypes__certificatet__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 3, 0 <= Y, Y <= 3].
+checkiandace_rules(48): cert__id__contentst__size >= 0 may_be_deduced.
+checkiandace_rules(49): A = B may_be_deduced_from
+     [goal(checktype(A,cert__id__contentst)),
+      goal(checktype(B,cert__id__contentst)),
+      fld_inherit(A) = fld_inherit(B)].
+checkiandace_rules(50): certificatestatus__size >= 0 may_be_deduced.
+checkiandace_rules(51): certificatestatus__first may_be_replaced_by bad.
+checkiandace_rules(52): certificatestatus__last may_be_replaced_by validcert.
+checkiandace_rules(53): certificatestatus__base__first may_be_replaced_by bad.
+checkiandace_rules(54): certificatestatus__base__last may_be_replaced_by validcert.
+checkiandace_rules(55): certificatestatus__pos(certificatestatus__first) may_be_replaced_by 0.
+checkiandace_rules(56): certificatestatus__pos(bad) may_be_replaced_by 0.
+checkiandace_rules(57): certificatestatus__val(0) may_be_replaced_by 
+     bad.
+checkiandace_rules(58): certificatestatus__pos(notverified) may_be_replaced_by 1.
+checkiandace_rules(59): certificatestatus__val(1) may_be_replaced_by 
+     notverified.
+checkiandace_rules(60): certificatestatus__pos(notcurrent) may_be_replaced_by 2.
+checkiandace_rules(61): certificatestatus__val(2) may_be_replaced_by 
+     notcurrent.
+checkiandace_rules(62): certificatestatus__pos(validcert) may_be_replaced_by 3.
+checkiandace_rules(63): certificatestatus__val(3) may_be_replaced_by 
+     validcert.
+checkiandace_rules(64): certificatestatus__pos(certificatestatus__last) may_be_replaced_by 3.
+checkiandace_rules(65): certificatestatus__pos(succ(X)) may_be_replaced_by 
+     certificatestatus__pos(X) + 1
+     if [X <=validcert, X <> validcert].
+checkiandace_rules(66): certificatestatus__pos(pred(X)) may_be_replaced_by 
+     certificatestatus__pos(X) - 1
+     if [X >=bad, X <> bad].
+checkiandace_rules(67): certificatestatus__pos(X) >= 0 may_be_deduced_from
+     [bad <= X, X <= validcert].
+checkiandace_rules(68): certificatestatus__pos(X) <= 3 may_be_deduced_from
+     [bad <= X, X <= validcert].
+checkiandace_rules(69): certificatestatus__val(X) >= bad may_be_deduced_from
+     [0 <= X, X <= 3].
+checkiandace_rules(70): certificatestatus__val(X) <= validcert may_be_deduced_from
+     [0 <= X, X <= 3].
+checkiandace_rules(71): succ(certificatestatus__val(X)) may_be_replaced_by 
+     certificatestatus__val(X+1)
+     if [0 <= X, X < 3].
+checkiandace_rules(72): pred(certificatestatus__val(X)) may_be_replaced_by 
+     certificatestatus__val(X-1)
+     if [0 < X, X <= 3].
+checkiandace_rules(73): certificatestatus__pos(certificatestatus__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 3].
+checkiandace_rules(74): certificatestatus__val(certificatestatus__pos(X)) may_be_replaced_by X
+     if [bad <= X, X <= validcert].
+checkiandace_rules(75): certificatestatus__pos(X) <= 
+     certificatestatus__pos(Y) & X <= Y are_interchangeable 
+     if [bad <= X, X <= validcert, bad <= Y, Y <= validcert].
+checkiandace_rules(76): certificatestatus__val(X) <= 
+     certificatestatus__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 3, 0 <= Y, Y <= 3].
+checkiandace_rules(77): valididcertt__size >= 0 may_be_deduced.
+checkiandace_rules(78): A = B may_be_deduced_from
+     [goal(checktype(A,valididcertt)),
+      goal(checktype(B,valididcertt)),
+      fld_valid(A) = fld_valid(B),
+      fld_idstatus(A) = fld_idstatus(B),
+      fld_contents(A) = fld_contents(B)].

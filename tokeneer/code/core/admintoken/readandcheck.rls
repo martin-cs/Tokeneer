@@ -1,0 +1,255 @@
+           /*********************************************************/
+                           /*Proof Rule Declarations*/
+                              /*Examiner GPL 2011*/
+             /*Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.*/
+           /*********************************************************/
+
+
+                        /*DATE : 05-SEP-2011 15:33:21.32*/
+
+                     /*procedure AdminToken.ReadAndCheck*/
+
+
+rule_family readandcheck_rules:
+     X      requires [X:any] &
+     X <= Y requires [X:ire, Y:ire] &
+     X >= Y requires [X:ire, Y:ire].
+
+readandcheck_rules(1): integer__size >= 0 may_be_deduced.
+readandcheck_rules(2): integer__first may_be_replaced_by -2147483648.
+readandcheck_rules(3): integer__last may_be_replaced_by 2147483647.
+readandcheck_rules(4): integer__base__first may_be_replaced_by -2147483648.
+readandcheck_rules(5): integer__base__last may_be_replaced_by 2147483647.
+readandcheck_rules(6): character__size >= 0 may_be_deduced.
+readandcheck_rules(7): character__first may_be_replaced_by 0.
+readandcheck_rules(8): character__last may_be_replaced_by 255.
+readandcheck_rules(9): character__base__first may_be_replaced_by 0.
+readandcheck_rules(10): character__base__last may_be_replaced_by 255.
+readandcheck_rules(11): positive__size >= 0 may_be_deduced.
+readandcheck_rules(12): positive__first may_be_replaced_by 1.
+readandcheck_rules(13): positive__last may_be_replaced_by 2147483647.
+readandcheck_rules(14): positive__base__first may_be_replaced_by -2147483648.
+readandcheck_rules(15): positive__base__last may_be_replaced_by 2147483647.
+readandcheck_rules(16): basictypes__unsigned32t__size >= 0 may_be_deduced.
+readandcheck_rules(17): basictypes__unsigned32t__size may_be_replaced_by 32.
+readandcheck_rules(18): basictypes__unsigned32t__first may_be_replaced_by 0.
+readandcheck_rules(19): basictypes__unsigned32t__last may_be_replaced_by 4294967295.
+readandcheck_rules(20): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__base__last may_be_deduced.
+readandcheck_rules(21): basictypes__unsigned32t__base__first <= 
+     basictypes__unsigned32t__first may_be_deduced.
+readandcheck_rules(22): basictypes__unsigned32t__base__last >= 
+     basictypes__unsigned32t__last may_be_deduced.
+readandcheck_rules(23): basictypes__presencet__size >= 0 may_be_deduced.
+readandcheck_rules(24): basictypes__presencet__first may_be_replaced_by basictypes__present.
+readandcheck_rules(25): basictypes__presencet__last may_be_replaced_by basictypes__absent.
+readandcheck_rules(26): basictypes__presencet__base__first may_be_replaced_by basictypes__present.
+readandcheck_rules(27): basictypes__presencet__base__last may_be_replaced_by basictypes__absent.
+readandcheck_rules(28): basictypes__presencet__pos(
+     basictypes__presencet__first) may_be_replaced_by 0.
+readandcheck_rules(29): basictypes__presencet__pos(
+     basictypes__present) may_be_replaced_by 0.
+readandcheck_rules(30): basictypes__presencet__val(0) may_be_replaced_by 
+     basictypes__present.
+readandcheck_rules(31): basictypes__presencet__pos(
+     basictypes__absent) may_be_replaced_by 1.
+readandcheck_rules(32): basictypes__presencet__val(1) may_be_replaced_by 
+     basictypes__absent.
+readandcheck_rules(33): basictypes__presencet__pos(
+     basictypes__presencet__last) may_be_replaced_by 1.
+readandcheck_rules(34): basictypes__presencet__pos(succ(X)) may_be_replaced_by 
+     basictypes__presencet__pos(X) + 1
+     if [X <=basictypes__absent, X <> basictypes__absent].
+readandcheck_rules(35): basictypes__presencet__pos(pred(X)) may_be_replaced_by 
+     basictypes__presencet__pos(X) - 1
+     if [X >=basictypes__present, X <> basictypes__present].
+readandcheck_rules(36): basictypes__presencet__pos(X) >= 0 may_be_deduced_from
+     [basictypes__present <= X, X <= basictypes__absent].
+readandcheck_rules(37): basictypes__presencet__pos(X) <= 1 may_be_deduced_from
+     [basictypes__present <= X, X <= basictypes__absent].
+readandcheck_rules(38): basictypes__presencet__val(X) >= 
+     basictypes__present may_be_deduced_from
+     [0 <= X, X <= 1].
+readandcheck_rules(39): basictypes__presencet__val(X) <= 
+     basictypes__absent may_be_deduced_from
+     [0 <= X, X <= 1].
+readandcheck_rules(40): succ(basictypes__presencet__val(X)) may_be_replaced_by 
+     basictypes__presencet__val(X+1)
+     if [0 <= X, X < 1].
+readandcheck_rules(41): pred(basictypes__presencet__val(X)) may_be_replaced_by 
+     basictypes__presencet__val(X-1)
+     if [0 < X, X <= 1].
+readandcheck_rules(42): basictypes__presencet__pos(
+     basictypes__presencet__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 1].
+readandcheck_rules(43): basictypes__presencet__val(
+     basictypes__presencet__pos(X)) may_be_replaced_by X
+     if [basictypes__present <= X, X <= basictypes__absent].
+readandcheck_rules(44): basictypes__presencet__pos(X) <= 
+     basictypes__presencet__pos(Y) & X <= Y are_interchangeable 
+     if [basictypes__present <= X, X <= basictypes__absent, 
+     basictypes__present <= Y, Y <= basictypes__absent].
+readandcheck_rules(45): basictypes__presencet__val(X) <= 
+     basictypes__presencet__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 1, 0 <= Y, Y <= 1].
+readandcheck_rules(46): audittypes__descriptioni__size >= 0 may_be_deduced.
+readandcheck_rules(47): audittypes__descriptioni__first may_be_replaced_by 1.
+readandcheck_rules(48): audittypes__descriptioni__last may_be_replaced_by 150.
+readandcheck_rules(49): audittypes__descriptioni__base__first may_be_replaced_by -2147483648.
+readandcheck_rules(50): audittypes__descriptioni__base__last may_be_replaced_by 2147483647.
+readandcheck_rules(51): privtypes__privileget__size >= 0 may_be_deduced.
+readandcheck_rules(52): privtypes__privileget__first may_be_replaced_by privtypes__useronly.
+readandcheck_rules(53): privtypes__privileget__last may_be_replaced_by privtypes__securityofficer.
+readandcheck_rules(54): privtypes__privileget__base__first may_be_replaced_by privtypes__useronly.
+readandcheck_rules(55): privtypes__privileget__base__last may_be_replaced_by privtypes__securityofficer.
+readandcheck_rules(56): privtypes__privileget__pos(
+     privtypes__privileget__first) may_be_replaced_by 0.
+readandcheck_rules(57): privtypes__privileget__pos(
+     privtypes__useronly) may_be_replaced_by 0.
+readandcheck_rules(58): privtypes__privileget__val(0) may_be_replaced_by 
+     privtypes__useronly.
+readandcheck_rules(59): privtypes__privileget__pos(
+     privtypes__guard) may_be_replaced_by 1.
+readandcheck_rules(60): privtypes__privileget__val(1) may_be_replaced_by 
+     privtypes__guard.
+readandcheck_rules(61): privtypes__privileget__pos(
+     privtypes__auditmanager) may_be_replaced_by 2.
+readandcheck_rules(62): privtypes__privileget__val(2) may_be_replaced_by 
+     privtypes__auditmanager.
+readandcheck_rules(63): privtypes__privileget__pos(
+     privtypes__securityofficer) may_be_replaced_by 3.
+readandcheck_rules(64): privtypes__privileget__val(3) may_be_replaced_by 
+     privtypes__securityofficer.
+readandcheck_rules(65): privtypes__privileget__pos(
+     privtypes__privileget__last) may_be_replaced_by 3.
+readandcheck_rules(66): privtypes__privileget__pos(succ(X)) may_be_replaced_by 
+     privtypes__privileget__pos(X) + 1
+     if [X <=privtypes__securityofficer, X <> 
+     privtypes__securityofficer].
+readandcheck_rules(67): privtypes__privileget__pos(pred(X)) may_be_replaced_by 
+     privtypes__privileget__pos(X) - 1
+     if [X >=privtypes__useronly, X <> privtypes__useronly].
+readandcheck_rules(68): privtypes__privileget__pos(X) >= 0 may_be_deduced_from
+     [privtypes__useronly <= X, X <= privtypes__securityofficer].
+readandcheck_rules(69): privtypes__privileget__pos(X) <= 3 may_be_deduced_from
+     [privtypes__useronly <= X, X <= privtypes__securityofficer].
+readandcheck_rules(70): privtypes__privileget__val(X) >= 
+     privtypes__useronly may_be_deduced_from
+     [0 <= X, X <= 3].
+readandcheck_rules(71): privtypes__privileget__val(X) <= 
+     privtypes__securityofficer may_be_deduced_from
+     [0 <= X, X <= 3].
+readandcheck_rules(72): succ(privtypes__privileget__val(X)) may_be_replaced_by 
+     privtypes__privileget__val(X+1)
+     if [0 <= X, X < 3].
+readandcheck_rules(73): pred(privtypes__privileget__val(X)) may_be_replaced_by 
+     privtypes__privileget__val(X-1)
+     if [0 < X, X <= 3].
+readandcheck_rules(74): privtypes__privileget__pos(
+     privtypes__privileget__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 3].
+readandcheck_rules(75): privtypes__privileget__val(
+     privtypes__privileget__pos(X)) may_be_replaced_by X
+     if [privtypes__useronly <= X, X <= 
+     privtypes__securityofficer].
+readandcheck_rules(76): privtypes__privileget__pos(X) <= 
+     privtypes__privileget__pos(Y) & X <= Y are_interchangeable 
+     if [privtypes__useronly <= X, X <= 
+     privtypes__securityofficer, privtypes__useronly <= Y, Y <= 
+     privtypes__securityofficer].
+readandcheck_rules(77): privtypes__privileget__val(X) <= 
+     privtypes__privileget__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 3, 0 <= Y, Y <= 3].
+readandcheck_rules(78): privtypes__adminprivileget__size >= 0 may_be_deduced.
+readandcheck_rules(79): privtypes__adminprivileget__first may_be_replaced_by privtypes__guard.
+readandcheck_rules(80): privtypes__adminprivileget__last may_be_replaced_by privtypes__securityofficer.
+readandcheck_rules(81): privtypes__adminprivileget__base__first may_be_replaced_by privtypes__useronly.
+readandcheck_rules(82): privtypes__adminprivileget__base__last may_be_replaced_by privtypes__securityofficer.
+readandcheck_rules(83): cert__attr__contentst__size >= 0 may_be_deduced.
+readandcheck_rules(84): A = B may_be_deduced_from
+     [goal(checktype(A,cert__attr__contentst)),
+      goal(checktype(B,cert__attr__contentst)),
+      fld_inherit(A) = fld_inherit(B)].
+readandcheck_rules(85): cert__attr__auth__contentst__size >= 0 may_be_deduced.
+readandcheck_rules(86): A = B may_be_deduced_from
+     [goal(checktype(A,cert__attr__auth__contentst)),
+      goal(checktype(B,cert__attr__auth__contentst)),
+      fld_inherit(A) = fld_inherit(B)].
+readandcheck_rules(87): cert__id__contentst__size >= 0 may_be_deduced.
+readandcheck_rules(88): A = B may_be_deduced_from
+     [goal(checktype(A,cert__id__contentst)),
+      goal(checktype(B,cert__id__contentst)),
+      fld_inherit(A) = fld_inherit(B)].
+readandcheck_rules(89): tokentypes__tokenidt__size >= 0 may_be_deduced.
+readandcheck_rules(90): tokentypes__tokenidt__first may_be_replaced_by 0.
+readandcheck_rules(91): tokentypes__tokenidt__last may_be_replaced_by 4294967295.
+readandcheck_rules(92): tokentypes__tokenidt__base__first <= 
+     tokentypes__tokenidt__base__last may_be_deduced.
+readandcheck_rules(93): tokentypes__tokenidt__base__first <= 
+     tokentypes__tokenidt__first may_be_deduced.
+readandcheck_rules(94): tokentypes__tokenidt__base__last >= 
+     tokentypes__tokenidt__last may_be_deduced.
+readandcheck_rules(95): tokentypes__tryt__size >= 0 may_be_deduced.
+readandcheck_rules(96): tokentypes__tryt__first may_be_replaced_by tokentypes__notoken.
+readandcheck_rules(97): tokentypes__tryt__last may_be_replaced_by tokentypes__goodtoken.
+readandcheck_rules(98): tokentypes__tryt__base__first may_be_replaced_by tokentypes__notoken.
+readandcheck_rules(99): tokentypes__tryt__base__last may_be_replaced_by tokentypes__goodtoken.
+readandcheck_rules(100): tokentypes__tryt__pos(tokentypes__tryt__first) may_be_replaced_by 0.
+readandcheck_rules(101): tokentypes__tryt__pos(
+     tokentypes__notoken) may_be_replaced_by 0.
+readandcheck_rules(102): tokentypes__tryt__val(0) may_be_replaced_by 
+     tokentypes__notoken.
+readandcheck_rules(103): tokentypes__tryt__pos(
+     tokentypes__badtoken) may_be_replaced_by 1.
+readandcheck_rules(104): tokentypes__tryt__val(1) may_be_replaced_by 
+     tokentypes__badtoken.
+readandcheck_rules(105): tokentypes__tryt__pos(
+     tokentypes__goodtoken) may_be_replaced_by 2.
+readandcheck_rules(106): tokentypes__tryt__val(2) may_be_replaced_by 
+     tokentypes__goodtoken.
+readandcheck_rules(107): tokentypes__tryt__pos(tokentypes__tryt__last) may_be_replaced_by 2.
+readandcheck_rules(108): tokentypes__tryt__pos(succ(X)) may_be_replaced_by 
+     tokentypes__tryt__pos(X) + 1
+     if [X <=tokentypes__goodtoken, X <> tokentypes__goodtoken].
+readandcheck_rules(109): tokentypes__tryt__pos(pred(X)) may_be_replaced_by 
+     tokentypes__tryt__pos(X) - 1
+     if [X >=tokentypes__notoken, X <> tokentypes__notoken].
+readandcheck_rules(110): tokentypes__tryt__pos(X) >= 0 may_be_deduced_from
+     [tokentypes__notoken <= X, X <= tokentypes__goodtoken].
+readandcheck_rules(111): tokentypes__tryt__pos(X) <= 2 may_be_deduced_from
+     [tokentypes__notoken <= X, X <= tokentypes__goodtoken].
+readandcheck_rules(112): tokentypes__tryt__val(X) >= 
+     tokentypes__notoken may_be_deduced_from
+     [0 <= X, X <= 2].
+readandcheck_rules(113): tokentypes__tryt__val(X) <= 
+     tokentypes__goodtoken may_be_deduced_from
+     [0 <= X, X <= 2].
+readandcheck_rules(114): succ(tokentypes__tryt__val(X)) may_be_replaced_by 
+     tokentypes__tryt__val(X+1)
+     if [0 <= X, X < 2].
+readandcheck_rules(115): pred(tokentypes__tryt__val(X)) may_be_replaced_by 
+     tokentypes__tryt__val(X-1)
+     if [0 < X, X <= 2].
+readandcheck_rules(116): tokentypes__tryt__pos(tokentypes__tryt__val(X)) may_be_replaced_by X
+     if [0 <= X, X <= 2].
+readandcheck_rules(117): tokentypes__tryt__val(tokentypes__tryt__pos(X)) may_be_replaced_by X
+     if [tokentypes__notoken <= X, X <= tokentypes__goodtoken].
+readandcheck_rules(118): tokentypes__tryt__pos(X) <= 
+     tokentypes__tryt__pos(Y) & X <= Y are_interchangeable 
+     if [tokentypes__notoken <= X, X <= tokentypes__goodtoken, 
+     tokentypes__notoken <= Y, Y <= tokentypes__goodtoken].
+readandcheck_rules(119): tokentypes__tryt__val(X) <= 
+     tokentypes__tryt__val(Y) & X <= Y are_interchangeable 
+     if [0 <= X, X <= 2, 0 <= Y, Y <= 2].
+readandcheck_rules(120): validauthcertt__size >= 0 may_be_deduced.
+readandcheck_rules(121): A = B may_be_deduced_from
+     [goal(checktype(A,validauthcertt)),
+      goal(checktype(B,validauthcertt)),
+      fld_valid(A) = fld_valid(B),
+      fld_contents(A) = fld_contents(B)].
+readandcheck_rules(122): valididcertt__size >= 0 may_be_deduced.
+readandcheck_rules(123): A = B may_be_deduced_from
+     [goal(checktype(A,valididcertt)),
+      goal(checktype(B,valididcertt)),
+      fld_valid(A) = fld_valid(B),
+      fld_contents(A) = fld_contents(B)].

@@ -1,0 +1,694 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:26  SIMPLIFIED 05-SEP-2011, 15:40:25
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure Enclave.AdminLogout
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/enclave/enclave.rlu
+&&&  d:/sparkdev/tis2011/code/core/enclave/adminlogout.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_adminlogout_1.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  statust__first <= status
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(admintoken__extractuser(admintoken__state), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state), [i___1]) <= 
+          character__last)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__admintokenremoved
+-S-  Applied substitution rule adminlogout_rules(124).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule adminlogout_rules(125).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule adminlogout_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule adminlogout_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_adminlogout_2.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  statust__first <= status
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(admintoken__extractuser(admintoken__state), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state), [i___1]) <= 
+          character__last)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__admintokenexpired
+-S-  Applied substitution rule adminlogout_rules(124).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule adminlogout_rules(125).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule adminlogout_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule adminlogout_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_adminlogout_3.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  statust__first <= status
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(admintoken__extractuser(admintoken__state), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state), [i___1]) <= 
+          character__last)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  audittypes__elementt__first <= audittypes__admintokenexpired
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  statust__first <= waitingremoveadmintokenfail
+-S-  Applied substitution rule adminlogout_rules(181).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H3:  notenrolled <= status
+<S>  New C1:  true
+-S-  Applied substitution rule adminlogout_rules(182).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H4:  status <= shutdown
+<S>  New C2:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_adminlogout_4.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  statust__first <= status
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(admintoken__extractuser(admintoken__state), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state), [i___1]) <= 
+          character__last)
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  audittypes__severityt__first <= audittypes__information
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  audittypes__elementt__first <= audittypes__admintokenremoved
+%%%  Simplified C4 on reading formula in, to give:
+     %%%  C4:  true
+***  Proved C1:  not enrolmentisinprogress(status)
+     using hypothesis H1.
+***  Proved C3:  not admin__isdoingop(theadmin__5)
+     using hypothesis H14.
+***  Proved C4:  true
+***  Proved C5:  not (status = waitingstartadminop or status = 
+          waitingfinishadminop)
+     using hypothesis H7.
+-S-  Applied substitution rule adminlogout_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H8:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> 0 <= element(
+          admintoken__extractuser(admintoken__state), [i___1]) and element(
+          admintoken__extractuser(admintoken__state), [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule adminlogout_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H8:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> 0 <= element(
+          admintoken__extractuser(admintoken__state), [i___1]) and element(
+          admintoken__extractuser(admintoken__state), [i___1]) <= 255)
+-S-  Applied substitution rule adminlogout_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New H11:  true
+-S-  Applied substitution rule adminlogout_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New H12:  true
+-S-  Applied substitution rule adminlogout_rules(124).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New H9:  true
+-S-  Applied substitution rule adminlogout_rules(125).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New H10:  true
+-S-  Applied substitution rule adminlogout_rules(149).
+     This was achieved by replacing all occurrences of 
+          audittypes__usertexti__first by:
+          1.
+<S>  New H8:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__usertexti__last -> 0 <= element(admintoken__extractuser(
+          admintoken__state), [i___1]) and element(admintoken__extractuser(
+          admintoken__state), [i___1]) <= 255)
+-S-  Applied substitution rule adminlogout_rules(150).
+     This was achieved by replacing all occurrences of 
+          audittypes__usertexti__last by:
+          50.
+<S>  New H8:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 50 -> 0 <= 
+          element(admintoken__extractuser(admintoken__state), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state), [i___1]) <= 255)
+-S-  Applied substitution rule adminlogout_rules(181).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H3:  notenrolled <= status
+-S-  Applied substitution rule adminlogout_rules(182).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H4:  status <= shutdown
+---  Eliminated hypothesis H5 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H9 (true-hypothesis).
+---  Eliminated hypothesis H10 (true-hypothesis).
+-S-  Eliminated hypothesis H7.
+     This was achieved by replacing all occurrences of status by:
+          enclavequiescent.
+<S>  New H1:  not enrolmentisinprogress(enclavequiescent)
+<S>  New H2:  true
+<S>  New H3:  true
+<S>  New H4:  true
+---  Eliminated hypothesis H2 (true-hypothesis).
+---  Eliminated hypothesis H3 (true-hypothesis).
+---  Eliminated hypothesis H4 (true-hypothesis).
+     +++  New H15:  integer__size >= 0
+     +++  New H16:  character__size >= 0
+     +++  New H17:  positive__size >= 0
+     +++  New H18:  audittypes__elementt__size >= 0
+     +++  New H19:  audittypes__severityt__size >= 0
+     +++  New H20:  audittypes__usertexti__size >= 0
+     +++  New H21:  privtypes__privileget__size >= 0
+     +++  New H22:  statust__size >= 0
+***  Proved C2:  admin__prf_rolepresent(theadmin__5) = privtypes__useronly
+     This was achieved by applying the inference rule enclave_user(1)
+     [from rulefile enclave.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H13, proved: not admin__ispresent(theadmin__5)
+***  PROVED VC.
+
+VCN  4: Summary of user rule application.
+FIL  enclave.rlu
+RUL     enclave_user(1)
+CON        2
+
+
+@@@@@@@@@@  VC: procedure_adminlogout_5.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  statust__first <= status
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  statust__first <= status__3
+***  Proved C3:  not admin__isdoingop(theadmin__5)
+     using hypothesis H13.
+***  Proved C4:  status__3 = enclavequiescent or (status__3 = 
+          waitingremoveadmintokenfail or status__3 = status)
+     using hypothesis H9.
+***  Proved C5:  not (status__3 = waitingstartadminop or status__3 = 
+          waitingfinishadminop)
+     using hypothesis H9.
+>>>  Restructured hypothesis H7 into:
+     >>>  H7:  status <> enclavequiescent
++++  Using "A->B, A |- B" on hypotheses H2 & H8 yields a new hypothesis:
+     +++  H14:  admin__isdoingop(theadmin) and admin__ispresent(theadmin)
+-S-  Applied substitution rule adminlogout_rules(181).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H3:  notenrolled <= status
+<S>  New H10:  notenrolled <= status__3
+-S-  Applied substitution rule adminlogout_rules(182).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H4:  status <= shutdown
+<S>  New H11:  status__3 <= shutdown
+---  Eliminated hypothesis H5 (true-hypothesis).
+>>>  Using "A->B, A |- B" on H2, given H8, we simplify the former to:
+     >>>  H2:  admin__isdoingop(theadmin) and admin__ispresent(theadmin)
+-S-  Eliminated hypothesis H9.
+     This was achieved by replacing all occurrences of status__3 by:
+          enclavequiescent.
+<S>  New H10:  true
+<S>  New H11:  true
+<S>  New C1:  not enrolmentisinprogress(enclavequiescent)
+---  Eliminated hypothesis H10 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+>>>  Hypothesis H2 has now been split into two, giving:
+     >>>  H15:  admin__isdoingop(theadmin)
+     >>>  H16:  admin__ispresent(theadmin)
+---  Attempted addition of new hypothesis:
+          admin__isdoingop(theadmin)
+     eliminated: this already exists (as H15).
+---  Attempted addition of new hypothesis:
+          admin__ispresent(theadmin)
+     eliminated: this already exists (as H16).
+>>>  Hypothesis H14 has now been split into two, giving:
+     >>>  H15:  admin__isdoingop(theadmin)
+     >>>  H16:  admin__ispresent(theadmin)
+     +++  New H17:  integer__size >= 0
+     +++  New H18:  character__size >= 0
+     +++  New H19:  positive__size >= 0
+     +++  New H20:  audittypes__elementt__size >= 0
+     +++  New H21:  audittypes__severityt__size >= 0
+     +++  New H22:  audittypes__usertexti__size >= 0
+     +++  New H23:  privtypes__privileget__size >= 0
+     +++  New H24:  statust__size >= 0
+***  Proved C2:  admin__prf_rolepresent(theadmin__5) = privtypes__useronly
+     This was achieved by applying the inference rule enclave_user(1)
+     [from rulefile enclave.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H12, proved: not admin__ispresent(theadmin__5)
+***  Proved C1:  not enrolmentisinprogress(enclavequiescent)
+     This was achieved by applying the inference rule enclave_user(6)
+     [from rulefile enclave.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  By simple reasoning, proved: enclavequiescent > waitingendenrol
+***  PROVED VC.
+
+VCN  5: Summary of user rule application.
+FIL  enclave.rlu
+RUL     enclave_user(1)
+CON        2
+RUL     enclave_user(6)
+CON        1
+
+
+@@@@@@@@@@  VC: procedure_adminlogout_6.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  statust__first <= status
+%%%  Simplified C4 on reading formula in, to give:
+     %%%  C4:  true
+***  Proved C1:  not enrolmentisinprogress(status)
+     using hypothesis H1.
+***  Proved C3:  not admin__isdoingop(theadmin__5)
+     using hypothesis H10.
+***  Proved C4:  true
+***  Proved C5:  not (status = waitingstartadminop or status = 
+          waitingfinishadminop)
+     using hypothesis H8.
+>>>  Restructured hypothesis H7 into:
+     >>>  H7:  status <> enclavequiescent
+>>>  Restructured hypothesis H8 into:
+     >>>  H8:  status <> waitingstartadminop and status <> waitingfinishadminop
+>>>  Hypothesis H8 has now been split into two, giving:
+     >>>  H11:  status <> waitingstartadminop
+     >>>  H12:  status <> waitingfinishadminop
+-S-  Applied substitution rule adminlogout_rules(181).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H3:  notenrolled <= status
+-S-  Applied substitution rule adminlogout_rules(182).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H4:  status <= shutdown
+---  Eliminated hypothesis H5 (true-hypothesis).
+     +++  New H13:  integer__size >= 0
+     +++  New H14:  character__size >= 0
+     +++  New H15:  positive__size >= 0
+     +++  New H16:  audittypes__elementt__size >= 0
+     +++  New H17:  audittypes__severityt__size >= 0
+     +++  New H18:  audittypes__usertexti__size >= 0
+     +++  New H19:  privtypes__privileget__size >= 0
+     +++  New H20:  statust__size >= 0
+***  Proved C2:  admin__prf_rolepresent(theadmin__5) = privtypes__useronly
+     This was achieved by applying the inference rule enclave_user(1)
+     [from rulefile enclave.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H9, proved: not admin__ispresent(theadmin__5)
+***  PROVED VC.
+
+VCN  6: Summary of user rule application.
+FIL  enclave.rlu
+RUL     enclave_user(1)
+CON        2
+
+
+@@@@@@@@@@  VC: procedure_adminlogout_7.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  statust__first <= status
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> character__first <= 
+          element(admintoken__extractuser(admintoken__state), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state), [i___1]) <= 
+          character__last)
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  audittypes__elementt__first <= audittypes__admintokenexpired
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  statust__first <= waitingremoveadmintokenfail
+%%%  Simplified C4 on reading formula in, to give:
+     %%%  C4:  true
+%%%  Simplified C5 on reading formula in, to give:
+     %%%  C5:  true
+***  Proved C3:  not admin__isdoingop(theadmin__5)
+     using hypothesis H15.
+***  Proved C4:  true
+***  Proved C5:  true
+-S-  Applied substitution rule adminlogout_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H7:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> 0 <= element(
+          admintoken__extractuser(admintoken__state), [i___1]) and element(
+          admintoken__extractuser(admintoken__state), [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule adminlogout_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H7:  for_all(i___1 : integer, audittypes__usertexti__first <= i___1 
+          and i___1 <= audittypes__usertexti__last -> 0 <= element(
+          admintoken__extractuser(admintoken__state), [i___1]) and element(
+          admintoken__extractuser(admintoken__state), [i___1]) <= 255)
+-S-  Applied substitution rule adminlogout_rules(17).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New H10:  true
+-S-  Applied substitution rule adminlogout_rules(18).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New H11:  true
+-S-  Applied substitution rule adminlogout_rules(124).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New H8:  true
+-S-  Applied substitution rule adminlogout_rules(125).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New H9:  true
+-S-  Applied substitution rule adminlogout_rules(149).
+     This was achieved by replacing all occurrences of 
+          audittypes__usertexti__first by:
+          1.
+<S>  New H7:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          audittypes__usertexti__last -> 0 <= element(admintoken__extractuser(
+          admintoken__state), [i___1]) and element(admintoken__extractuser(
+          admintoken__state), [i___1]) <= 255)
+-S-  Applied substitution rule adminlogout_rules(150).
+     This was achieved by replacing all occurrences of 
+          audittypes__usertexti__last by:
+          50.
+<S>  New H7:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 50 -> 0 <= 
+          element(admintoken__extractuser(admintoken__state), [i___1]) and 
+          element(admintoken__extractuser(admintoken__state), [i___1]) <= 255)
+-S-  Applied substitution rule adminlogout_rules(181).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H3:  notenrolled <= status
+<S>  New H12:  true
+-S-  Applied substitution rule adminlogout_rules(182).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H4:  status <= shutdown
+<S>  New H13:  true
+---  Eliminated hypothesis H5 (true-hypothesis).
+---  Eliminated hypothesis H10 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+---  Eliminated hypothesis H8 (true-hypothesis).
+---  Eliminated hypothesis H9 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H13 (true-hypothesis).
+     +++  New H16:  integer__size >= 0
+     +++  New H17:  character__size >= 0
+     +++  New H18:  positive__size >= 0
+     +++  New H19:  audittypes__elementt__size >= 0
+     +++  New H20:  audittypes__severityt__size >= 0
+     +++  New H21:  audittypes__usertexti__size >= 0
+     +++  New H22:  privtypes__privileget__size >= 0
+     +++  New H23:  statust__size >= 0
+***  Proved C1:  not enrolmentisinprogress(waitingremoveadmintokenfail)
+     This was achieved by applying the inference rule enclave_user(6)
+     [from rulefile enclave.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  By simple reasoning, proved: waitingremoveadmintokenfail > 
+          waitingendenrol
+***  Proved C2:  admin__prf_rolepresent(theadmin__5) = privtypes__useronly
+     This was achieved by applying the inference rule enclave_user(1)
+     [from rulefile enclave.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H14, proved: not admin__ispresent(theadmin__5)
+***  PROVED VC.
+
+VCN  7: Summary of user rule application.
+FIL  enclave.rlu
+RUL     enclave_user(6)
+CON        1
+RUL     enclave_user(1)
+CON        2
+
+
+@@@@@@@@@@  VC: procedure_adminlogout_8.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  statust__first <= status
+-S-  Applied substitution rule adminlogout_rules(181).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H4:  notenrolled <= status
+-S-  Applied substitution rule adminlogout_rules(182).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H5:  status <= shutdown
+-S-  Eliminated hypothesis H3.
+     This was achieved by replacing all occurrences of status by:
+          fld_status(state).
+<S>  New H4:  notenrolled <= fld_status(state)
+<S>  New H5:  fld_status(state) <= shutdown
+<S>  New C1:  not enrolmentisinprogress(fld_status(state))
+<S>  New C2:  fld_status(state) = waitingstartadminop or fld_status(state) = 
+          waitingfinishadminop -> admin__isdoingop(theadmin) and 
+          admin__ispresent(theadmin)
+     +++  New H6:  integer__size >= 0
+     +++  New H7:  character__size >= 0
+     +++  New H8:  positive__size >= 0
+     +++  New H9:  audittypes__elementt__size >= 0
+     +++  New H10:  audittypes__severityt__size >= 0
+     +++  New H11:  audittypes__usertexti__size >= 0
+     +++  New H12:  privtypes__privileget__size >= 0
+     +++  New H13:  statust__size >= 0
+***  Proved C1:  not enrolmentisinprogress(fld_status(state))
+     This was achieved by applying the rewrite rule enclave_user(13)
+     [from rulefile enclave.rlu] to rewrite this conclusion to:
+<S>  C1:  not enclave__enrolmentisinprogress(state)
+     This rule could be applied because its side-conditions hold, as follows:
+     <<<  From H1, proved: not enclave__enrolmentisinprogress(state)
+     <<<  Immediate condition checktype(state, statetype) evaluated successfully
++++  New H14:  prf_statusiswaitingstartadminop(state) or fld_status(state) = 
+          waitingfinishadminop -> admin__isdoingop(theadmin) and 
+          admin__ispresent(theadmin)
+     This was achieved by applying the rewrite rule enclave_user(10)
+     [from rulefile enclave.rlu] to rewrite existing hypothesis H2 to give the 
+          above formula.
+     This rule could be applied because its side-condition holds, as follows:
+     <<<  Immediate condition checktype(state, statetype) evaluated successfully
+***  Proved C2:  fld_status(state) = waitingstartadminop or fld_status(state) = 
+          waitingfinishadminop -> admin__isdoingop(theadmin) and 
+          admin__ispresent(theadmin)
+     This was achieved by applying the rewrite rule enclave_user(9)
+     [from rulefile enclave.rlu] to rewrite this conclusion to:
+<S>  C2:  prf_statusiswaitingstartadminop(state) or fld_status(state) = 
+          waitingfinishadminop -> admin__isdoingop(theadmin) and 
+          admin__ispresent(theadmin)
+     This rule could be applied because its side-conditions hold, as follows:
+     <<<  From H14, proved: prf_statusiswaitingstartadminop(state) or 
+          fld_status(state) = waitingfinishadminop -> admin__isdoingop(theadmin)
+           and admin__ispresent(theadmin)
+     <<<  Immediate condition checktype(state, statetype) evaluated successfully
+***  PROVED VC.
+
+VCN  8: Summary of user rule application.
+FIL  enclave.rlu
+RUL     enclave_user(13)
+CON        1
+RUL     enclave_user(10)
+HYP        14
+RUL     enclave_user(9)
+CON        2
+
+
+@@@@@@@@@@  VC: procedure_adminlogout_9.  @@@@@@@@@@
+%%%  Simplified H1 on reading formula in, to give:
+     %%%  H1:  not enclave__enrolmentisinprogress(state~)
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  prf_statusiswaitingstartadminop(state~) or 
+          prf_statusiswaitingfinishadminop(state~) -> admin__isdoingop(
+          theadmin~) and admin__ispresent(theadmin~)
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  not enrolmentisinprogress(status~)
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  status~ = waitingstartadminop or status~ = waitingfinishadminop 
+          -> admin__isdoingop(theadmin~) and admin__ispresent(theadmin~)
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  status~ = fld_status(state~)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  statust__first <= status~
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  status~ <= statust__last
+%%%  Simplified H9 on reading formula in, to give:
+     %%%  H9:  statust__first <= status
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  status = enclavequiescent or (status = 
+          waitingremoveadmintokenfail or status = status~)
+%%%  Simplified C4 on reading formula in, to give:
+     %%%  C4:  prf_statusisenclavequiescent(state) or (
+          prf_statusiswaitingremoveadmintokenfail(state) or state = state~)
+***  Proved C2:  admin__prf_rolepresent(theadmin) = privtypes__useronly
+     using hypothesis H12.
+***  Proved C3:  not admin__isdoingop(theadmin)
+     using hypothesis H13.
+>>>  Restructured hypothesis H15 into:
+     >>>  H15:  status <> waitingstartadminop and status <> waitingfinishadminop
+>>>  Hypothesis H15 has now been split into two, giving:
+     >>>  H16:  status <> waitingstartadminop
+     >>>  H17:  status <> waitingfinishadminop
+-S-  Applied substitution rule adminlogout_rules(181).
+     This was achieved by replacing all occurrences of statust__first by:
+          notenrolled.
+<S>  New H7:  notenrolled <= status~
+<S>  New H9:  notenrolled <= status
+-S-  Applied substitution rule adminlogout_rules(182).
+     This was achieved by replacing all occurrences of statust__last by:
+          shutdown.
+<S>  New H8:  status~ <= shutdown
+<S>  New H10:  status <= shutdown
+-S-  Eliminated hypothesis H6.
+     This was achieved by replacing all occurrences of status by:
+          fld_status(state).
+<S>  New H11:  not enrolmentisinprogress(fld_status(state))
+<S>  New H14:  fld_status(state) = enclavequiescent or (fld_status(state) = 
+          waitingremoveadmintokenfail or fld_status(state) = status~)
+<S>  New H16:  fld_status(state) <> waitingstartadminop
+<S>  New H17:  fld_status(state) <> waitingfinishadminop
+<S>  New H9:  notenrolled <= fld_status(state)
+<S>  New H10:  fld_status(state) <= shutdown
+     +++  New H18:  integer__size >= 0
+     +++  New H19:  character__size >= 0
+     +++  New H20:  positive__size >= 0
+     +++  New H21:  audittypes__elementt__size >= 0
+     +++  New H22:  audittypes__severityt__size >= 0
+     +++  New H23:  audittypes__usertexti__size >= 0
+     +++  New H24:  privtypes__privileget__size >= 0
+     +++  New H25:  statust__size >= 0
+***  Proved C4:  prf_statusisenclavequiescent(state) or (
+          prf_statusiswaitingremoveadmintokenfail(state) or state = state~)
+     This was achieved by applying the inference rule adminlogout_user(1)
+     [from rulefile adminlogout.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  Immediate condition checktype(state~, statetype) evaluated 
+          successfully
+     <<<  From H14, proved: fld_status(state) = enclavequiescent or (fld_status(
+          state) = waitingremoveadmintokenfail or fld_status(state) = status~)
+     <<<  From H5, proved: status~ = fld_status(state~)
+***  Proved C5:  not (prf_statusiswaitingstartadminop(state) or 
+          prf_statusiswaitingfinishadminop(state))
+     This was achieved by applying the inference rule adminlogout_user(2)
+     [from rulefile adminlogout.rlu] to infer this conclusion from its 
+          side-conditions,
+     which were established as follows:
+     <<<  From H16, proved: fld_status(state) <> waitingstartadminop
+     <<<  From H17, proved: fld_status(state) <> waitingfinishadminop
+     <<<  Immediate condition checktype(state, statetype) evaluated successfully
+***  Proved C1:  not enclave__enrolmentisinprogress(state)
+     This was achieved by applying the rewrite rule enclave_user(13)
+     [from rulefile enclave.rlu] to rewrite this conclusion to:
+<S>  C1:  not enrolmentisinprogress(fld_status(state))
+     This rule could be applied because its side-conditions hold, as follows:
+     <<<  From H11, proved: not enrolmentisinprogress(fld_status(state))
+     <<<  Immediate condition checktype(state, statetype) evaluated successfully
+***  PROVED VC.
+
+VCN  9: Summary of user rule application.
+FIL  adminlogout.rlu
+RUL     adminlogout_user(1)
+CON        4
+RUL     adminlogout_user(2)
+CON        5
+FIL  enclave.rlu
+RUL     enclave_user(13)
+CON        1
+
+
+OVR  Overall summary of VCs using user rules.
+FIL  enclave.rlu
+RUL     enclave_user(1)
+VCS        4, 5, 6, 7
+RUL     enclave_user(6)
+VCS        5, 7
+RUL     enclave_user(13)
+VCS        8, 9
+RUL     enclave_user(10)
+VCS        8
+RUL     enclave_user(9)
+VCS        8
+FIL  adminlogout.rlu
+RUL     adminlogout_user(1)
+VCS        9
+RUL     adminlogout_user(2)
+VCS        9
+

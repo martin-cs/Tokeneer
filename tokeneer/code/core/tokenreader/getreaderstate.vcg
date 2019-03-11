@@ -1,0 +1,118 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:18.37
+
+                    function TokenReader.GetReaderState
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 127:
+
+function_getreaderstate_1.
+H1:    true .
+H2:    readerstate >= basictypes__unsigned32t__first .
+H3:    readerstate <= basictypes__unsigned32t__last .
+H4:    readerstate >= tokenreader__interface__readerstatet__pos(
+           tokenreader__interface__readerstatet__first) .
+H5:    readerstate <= tokenreader__interface__readerstatet__pos(
+           tokenreader__interface__readerstatet__last) .
+        ->
+C1:    tokenreader__interface__readerstatet__val(
+           readerstate) >= 
+           tokenreader__interface__readerstatet__first .
+C2:    tokenreader__interface__readerstatet__val(
+           readerstate) <= 
+           tokenreader__interface__readerstatet__last .
+C3:    readerstate >= tokenreader__interface__readerstatet__pos(
+           tokenreader__interface__readerstatet__first) .
+C4:    readerstate <= tokenreader__interface__readerstatet__pos(
+           tokenreader__interface__readerstatet__last) .
+ 
+
+For path(s) from start to run-time check associated with statement of line 129:
+
+function_getreaderstate_2.
+H1:    true .
+H2:    readerstate >= basictypes__unsigned32t__first .
+H3:    readerstate <= basictypes__unsigned32t__last .
+H4:    not ((readerstate >= 
+           tokenreader__interface__readerstatet__pos(
+           tokenreader__interface__readerstatet__first)) and (
+           readerstate <= 
+           tokenreader__interface__readerstatet__pos(
+           tokenreader__interface__readerstatet__last))) .
+        ->
+C1:    tokenreader__interface__invalidreaderstate >= 
+           tokenreader__interface__readerstatet__first .
+C2:    tokenreader__interface__invalidreaderstate <= 
+           tokenreader__interface__readerstatet__last .
+ 
+
+For path(s) from start to finish:
+
+function_getreaderstate_3.
+H1:    true .
+H2:    readerstate >= basictypes__unsigned32t__first .
+H3:    readerstate <= basictypes__unsigned32t__last .
+H4:    readerstate >= tokenreader__interface__readerstatet__pos(
+           tokenreader__interface__readerstatet__first) .
+H5:    readerstate <= tokenreader__interface__readerstatet__pos(
+           tokenreader__interface__readerstatet__last) .
+H6:    tokenreader__interface__readerstatet__val(
+           readerstate) >= 
+           tokenreader__interface__readerstatet__first .
+H7:    tokenreader__interface__readerstatet__val(
+           readerstate) <= 
+           tokenreader__interface__readerstatet__last .
+H8:    readerstate >= tokenreader__interface__readerstatet__pos(
+           tokenreader__interface__readerstatet__first) .
+H9:    readerstate <= tokenreader__interface__readerstatet__pos(
+           tokenreader__interface__readerstatet__last) .
+H10:   tokenreader__interface__readerstatet__val(
+           readerstate) >= 
+           tokenreader__interface__readerstatet__first .
+H11:   tokenreader__interface__readerstatet__val(
+           readerstate) <= 
+           tokenreader__interface__readerstatet__last .
+        ->
+C1:    true .
+C2:    tokenreader__interface__readerstatet__val(
+           readerstate) >= 
+           tokenreader__interface__readerstatet__first .
+C3:    tokenreader__interface__readerstatet__val(
+           readerstate) <= 
+           tokenreader__interface__readerstatet__last .
+ 
+
+function_getreaderstate_4.
+H1:    true .
+H2:    readerstate >= basictypes__unsigned32t__first .
+H3:    readerstate <= basictypes__unsigned32t__last .
+H4:    not ((readerstate >= 
+           tokenreader__interface__readerstatet__pos(
+           tokenreader__interface__readerstatet__first)) and (
+           readerstate <= 
+           tokenreader__interface__readerstatet__pos(
+           tokenreader__interface__readerstatet__last))) .
+H5:    tokenreader__interface__invalidreaderstate >= 
+           tokenreader__interface__readerstatet__first .
+H6:    tokenreader__interface__invalidreaderstate <= 
+           tokenreader__interface__readerstatet__last .
+H7:    tokenreader__interface__invalidreaderstate >= 
+           tokenreader__interface__readerstatet__first .
+H8:    tokenreader__interface__invalidreaderstate <= 
+           tokenreader__interface__readerstatet__last .
+        ->
+C1:    true .
+C2:    tokenreader__interface__invalidreaderstate >= 
+           tokenreader__interface__readerstatet__first .
+C3:    tokenreader__interface__invalidreaderstate <= 
+           tokenreader__interface__readerstatet__last .
+ 
+

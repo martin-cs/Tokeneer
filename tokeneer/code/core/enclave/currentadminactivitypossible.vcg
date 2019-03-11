@@ -1,0 +1,42 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:26.87
+
+               function Enclave.CurrentAdminActivityPossible
+
+
+
+
+For path(s) from start to finish:
+
+function_currentadminactivitypossible_1.
+H1:    true .
+H2:    status >= statust__first .
+H3:    status <= statust__last .
+H4:    true .
+H5:    adminhasdeparted(admintoken__state, status) -> ((
+           status >= nonquiescentstates__first) and (status <= 
+           nonquiescentstates__last)) .
+H6:    true .
+        ->
+C1:    (adminhasdeparted(admintoken__state, status) or 
+           adminactivityinprogress(status)) -> ((status >= 
+           nonquiescentstates__first) and (status <= 
+           nonquiescentstates__last)) .
+ 
+
+For checks of refinement integrity: 
+
+function_currentadminactivitypossible_2.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+function_currentadminactivitypossible_3.
+*** true .          /* trivially true VC removed by Examiner */
+
+

@@ -1,0 +1,170 @@
+           *******************************************************
+                            Listing of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:18.23
+
+Line
+   1  ------------------------------------------------------------------
+   2  -- Tokeneer ID Station Core Software
+   3  --
+   4  -- Copyright (2003) United States Government, as represented
+   5  -- by the Director, National Security Agency. All rights reserved.
+   6  --
+   7  -- This material was originally developed by Praxis High Integrity
+   8  -- Systems Ltd. under contract to the National Security Agency.
+   9  ------------------------------------------------------------------
+  10  
+  11  ------------------------------------------------------------------
+  12  -- Stats
+  13  --
+  14  -- Implementation Notes:
+  15  --    INFORMED Design states that the TIS will stop incrementing
+  16  --    the stats once their respective maximum value has been reached.
+  17  --
+  18  ------------------------------------------------------------------
+  19  
+  20  package body Stats
+  21  is
+  22  
+  23     ------------------------------------------------------------------
+  24     -- Init
+  25     --
+  26     -- Implementation Notes:
+  27     --    None
+  28     --
+  29     ------------------------------------------------------------------
+  30  
+  31     procedure Init(TheStats :    out T)
+  32     is
+  33     begin
+  34        TheStats := T'(SuccessEntry => StatsCount'First,
+  35                       FailEntry    => StatsCount'First,
+  36                       SuccessBio   => StatsCount'First,
+  37                       FailBio      => StatsCount'First);
+  38     end Init;
+
++++        Flow analysis of subprogram Init performed: no 
+           errors found.
+
+  39  
+  40  
+  41     ------------------------------------------------------------------
+  42     -- AddSuccessfulEntry
+  43     --
+  44     -- Implementation Notes:
+  45     --    None
+  46     --
+  47     ------------------------------------------------------------------
+  48  
+  49     procedure AddSuccessfulEntry(TheStats : in out T)
+  50     is
+  51     begin
+  52        if TheStats.SuccessEntry /= StatsCount'Last then
+  53           TheStats.SuccessEntry := TheStats.SuccessEntry + 1;
+  54        end if;
+  55     end AddSuccessfulEntry;
+
++++        Flow analysis of subprogram AddSuccessfulEntry 
+           performed: no errors found.
+
+  56  
+  57  
+  58     ------------------------------------------------------------------
+  59     -- AddFailedEntry
+  60     --
+  61     -- Implementation Notes:
+  62     --    None
+  63     --
+  64     ------------------------------------------------------------------
+  65  
+  66     procedure AddFailedEntry(TheStats : in out T)
+  67     is
+  68     begin
+  69        if TheStats.FailEntry /= StatsCount'Last then
+  70           TheStats.FailEntry := TheStats.FailEntry + 1;
+  71        end if;
+  72     end AddFailedEntry;
+
++++        Flow analysis of subprogram AddFailedEntry 
+           performed: no errors found.
+
+  73  
+  74  
+  75     ------------------------------------------------------------------
+  76     -- AddSuccessfulBio
+  77     --
+  78     -- Implementation Notes:
+  79     --    None
+  80     --
+  81     ------------------------------------------------------------------
+  82  
+  83     procedure AddSuccessfulBio(TheStats : in out T)
+  84     is
+  85     begin
+  86        if TheStats.SuccessBio /= StatsCount'Last then
+  87           TheStats.SuccessBio := TheStats.SuccessBio + 1;
+  88        end if;
+  89     end AddSuccessfulBio;
+
++++        Flow analysis of subprogram AddSuccessfulBio 
+           performed: no errors found.
+
+  90  
+  91  
+  92     ------------------------------------------------------------------
+  93     -- AddFailedBio
+  94     --
+  95     -- Implementation Notes:
+  96     --    None
+  97     --
+  98     ------------------------------------------------------------------
+  99  
+ 100     procedure AddFailedBio(TheStats : in out T)
+ 101     is
+ 102     begin
+ 103        if TheStats.FailBio /= StatsCount'Last then
+ 104           TheStats.FailBio := TheStats.FailBio + 1;
+ 105        end if;
+ 106     end AddFailedBio;
+
++++        Flow analysis of subprogram AddFailedBio 
+           performed: no errors found.
+
+ 107  
+ 108  
+ 109     ------------------------------------------------------------------
+ 110     -- DisplayStats
+ 111     --
+ 112     -- Implementation Notes:
+ 113     --    None
+ 114     --
+ 115     ------------------------------------------------------------------
+ 116  
+ 117     procedure DisplayStats(TheStats     : in     T;
+ 118                            SuccessEntry :    out StatsCount;
+ 119                            FailEntry    :    out StatsCount;
+ 120                            SuccessBio   :    out StatsCount;
+ 121                            FailBio      :    out StatsCount)
+ 122     is
+ 123     begin
+ 124        SuccessEntry := TheStats.SuccessEntry;
+ 125        FailEntry    := TheStats.FailEntry;
+ 126        SuccessBio   := TheStats.SuccessBio;
+ 127        FailBio      := TheStats.FailBio;
+ 128     end DisplayStats;
+
++++        Flow analysis of subprogram DisplayStats 
+           performed: no errors found.
+
+ 129  
+ 130  
+ 131  end Stats;
+No summarized warnings
+
+
+
+--End of file--------------------------------------------------

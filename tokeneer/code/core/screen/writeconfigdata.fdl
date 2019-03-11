@@ -1,0 +1,201 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:21.88}
+
+                      {procedure Screen.WriteConfigData}
+
+
+title procedure writeconfigdata;
+
+  function round__(real) : integer;
+  type character = integer;
+  type clock__durationt = integer;
+  type audittypes__filesizet = integer;
+  type privtypes__classt = (privtypes__unmarked, 
+     privtypes__unclassified, privtypes__restricted, 
+     privtypes__confidential, privtypes__secret, 
+     privtypes__topsecret);
+  type iandatypes__fart = integer;
+  type configdata__accesspolicyt = (configdata__workinghours, 
+     configdata__allhours);
+  type screen__interface__colours = (
+     screen__interface__brightwhite, screen__interface__white, 
+     screen__interface__red, screen__interface__green, 
+     screen__interface__black);
+  type screen__interface__screenwidtht = integer;
+  type screen__interface__screenheightt = integer;
+  type string = array [integer] of character;
+  const null__string : string = pending;
+  type displayedconfigt = record
+        latchunlock : integer;
+        alarmsilent : integer;
+        fingerwait : integer;
+        tokenremove : integer;
+        workstart : integer;
+        workend : integer;
+        authduration : integer;
+        policy : configdata__accesspolicyt;
+        minpreservedlog : integer;
+        alarmthreshold : integer;
+        minentry : privtypes__classt;
+        clearance : privtypes__classt;
+        maxfar : integer
+     end;
+  type screenconfigt = record
+        isdisplayed : boolean;
+        data : displayedconfigt
+     end;
+  const column1 : integer = pending;
+  const column2 : integer = pending;
+  const row1 : integer = pending;
+  const row2 : integer = pending;
+  const row3 : integer = pending;
+  const row4 : integer = pending;
+  const row5 : integer = pending;
+  const row6 : integer = pending;
+  const row7 : integer = pending;
+  const accesspolicystringi__base__first : integer = pending; 
+  const accesspolicystringi__base__last : integer = pending; 
+  const filesizestringi__base__first : integer = pending; 
+  const filesizestringi__base__last : integer = pending; 
+  const classstringi__base__first : integer = pending; 
+  const classstringi__base__last : integer = pending; 
+  const hrsminsstringi__base__first : integer = pending; 
+  const hrsminsstringi__base__last : integer = pending; 
+  const secondsstringi__base__first : integer = pending; 
+  const secondsstringi__base__last : integer = pending; 
+  const screen__interface__screenycoordt__base__first : integer = pending; 
+  const screen__interface__screenycoordt__base__last : integer = pending; 
+  const screen__interface__screenxcoordt__base__first : integer = pending; 
+  const screen__interface__screenxcoordt__base__last : integer = pending; 
+  const screen__interface__screenheightt__base__first : integer = pending; 
+  const screen__interface__screenheightt__base__last : integer = pending; 
+  const screen__interface__screenwidtht__base__first : integer = pending; 
+  const screen__interface__screenwidtht__base__last : integer = pending; 
+  const screen__interface__colours__base__first : 
+     screen__interface__colours = pending; 
+  const screen__interface__colours__base__last : 
+     screen__interface__colours = pending; 
+  const configdata__accesspolicyt__base__first : 
+     configdata__accesspolicyt = pending; 
+  const configdata__accesspolicyt__base__last : 
+     configdata__accesspolicyt = pending; 
+  const configdata__durationt__base__first : integer = pending; 
+  const configdata__durationt__base__last : integer = pending; 
+  const iandatypes__fart__base__first : integer = pending; 
+  const iandatypes__fart__base__last : integer = pending; 
+  const privtypes__classt__base__first : privtypes__classt = pending; 
+  const privtypes__classt__base__last : privtypes__classt = pending; 
+  const audittypes__filesizet__base__first : integer = pending; 
+  const audittypes__filesizet__base__last : integer = pending; 
+  const clock__durationt__base__first : integer = pending; 
+  const clock__durationt__base__last : integer = pending; 
+  const positive__base__first : integer = pending; 
+  const positive__base__last : integer = pending; 
+  const character__base__first : character = pending; 
+  const character__base__last : character = pending; 
+  const integer__base__first : integer = pending; 
+  const integer__base__last : integer = pending; 
+  const accesspolicystringi__first : integer = pending; 
+  const accesspolicystringi__last : integer = pending; 
+  const accesspolicystringi__size : integer = pending; 
+  const filesizestringi__first : integer = pending; 
+  const filesizestringi__last : integer = pending; 
+  const filesizestringi__size : integer = pending; 
+  const classstringi__first : integer = pending; 
+  const classstringi__last : integer = pending; 
+  const classstringi__size : integer = pending; 
+  const hrsminsstringi__first : integer = pending; 
+  const hrsminsstringi__last : integer = pending; 
+  const hrsminsstringi__size : integer = pending; 
+  const secondsstringi__first : integer = pending; 
+  const secondsstringi__last : integer = pending; 
+  const secondsstringi__size : integer = pending; 
+  const screenconfigt__size : integer = pending; 
+  const displayedconfigt__size : integer = pending; 
+  const screen__interface__screenycoordt__first : integer = pending; 
+  const screen__interface__screenycoordt__last : integer = pending; 
+  const screen__interface__screenycoordt__size : integer = pending; 
+  const screen__interface__screenxcoordt__first : integer = pending; 
+  const screen__interface__screenxcoordt__last : integer = pending; 
+  const screen__interface__screenxcoordt__size : integer = pending; 
+  const screen__interface__screenheightt__first : integer = pending; 
+  const screen__interface__screenheightt__last : integer = pending; 
+  const screen__interface__screenheightt__size : integer = pending; 
+  const screen__interface__screenwidtht__first : integer = pending; 
+  const screen__interface__screenwidtht__last : integer = pending; 
+  const screen__interface__screenwidtht__size : integer = pending; 
+  const screen__interface__colours__first : 
+     screen__interface__colours = pending; 
+  const screen__interface__colours__last : 
+     screen__interface__colours = pending; 
+  const screen__interface__colours__size : integer = pending; 
+  const configdata__accesspolicyt__first : 
+     configdata__accesspolicyt = pending; 
+  const configdata__accesspolicyt__last : 
+     configdata__accesspolicyt = pending; 
+  const configdata__accesspolicyt__size : integer = pending; 
+  const configdata__durationt__first : integer = pending; 
+  const configdata__durationt__last : integer = pending; 
+  const configdata__durationt__size : integer = pending; 
+  const iandatypes__fart__first : integer = pending; 
+  const iandatypes__fart__last : integer = pending; 
+  const iandatypes__fart__size : integer = pending; 
+  const privtypes__classt__first : privtypes__classt = pending; 
+  const privtypes__classt__last : privtypes__classt = pending; 
+  const privtypes__classt__size : integer = pending; 
+  const audittypes__filesizet__first : integer = pending; 
+  const audittypes__filesizet__last : integer = pending; 
+  const audittypes__filesizet__size : integer = pending; 
+  const clock__durationt__first : integer = pending; 
+  const clock__durationt__last : integer = pending; 
+  const clock__durationt__size : integer = pending; 
+  const positive__first : integer = pending; 
+  const positive__last : integer = pending; 
+  const positive__size : integer = pending; 
+  const character__first : character = pending; 
+  const character__last : character = pending; 
+  const character__size : integer = pending; 
+  const integer__first : integer = pending; 
+  const integer__last : integer = pending; 
+  const integer__size : integer = pending; 
+  var currentconfig : screenconfigt;
+  var latchunlock : integer;
+  var alarmsilent : integer;
+  var fingerwait : integer;
+  var tokenremove : integer;
+  var workstart : integer;
+  var workend : integer;
+  var authduration : integer;
+  var policy : configdata__accesspolicyt;
+  var minpreservedlog : integer;
+  var alarmthreshold : integer;
+  var minentry : privtypes__classt;
+  var clearance : privtypes__classt;
+  var maxfar : integer;
+  function secondsstring(integer) : string;
+  function hrsminsstring(integer) : string;
+  function filesizestring(integer) : string;
+  function accesspolicystring(configdata__accesspolicyt) : string;
+  function classstring(privtypes__classt) : string;
+  function farstring(integer) : string;
+  var maxfar__1 : integer;
+  var alarmthreshold__1 : integer;
+  var minpreservedlog__1 : integer;
+  var minentry__1 : privtypes__classt;
+  var policy__1 : configdata__accesspolicyt;
+  var authduration__1 : integer;
+  var workend__1 : integer;
+  var workstart__1 : integer;
+  var clearance__1 : privtypes__classt;
+  var tokenremove__1 : integer;
+  var fingerwait__1 : integer;
+  var alarmsilent__1 : integer;
+  var latchunlock__1 : integer;
+
+end;

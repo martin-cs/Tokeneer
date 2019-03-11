@@ -1,0 +1,63 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:21.42
+
+                        function AdminToken.GetRole
+
+
+
+
+For path(s) from start to finish:
+
+function_getrole_1.
+H1:    cert__attr__auth__therole(fld_contents(authcert)) >= 
+           privtypes__adminprivileget__first .
+H2:    cert__attr__auth__therole(fld_contents(authcert)) <= 
+           privtypes__adminprivileget__last .
+H3:    true .
+H4:    true .
+H5:    cert__attr__auth__therole(fld_contents(authcert)) >= 
+           privtypes__privileget__first .
+H6:    cert__attr__auth__therole(fld_contents(authcert)) <= 
+           privtypes__privileget__last .
+        ->
+C1:    true .
+C2:    cert__attr__auth__therole(fld_contents(authcert)) >= 
+           privtypes__adminprivileget__first .
+C3:    cert__attr__auth__therole(fld_contents(authcert)) <= 
+           privtypes__adminprivileget__last .
+ 
+
+For checks of refinement integrity: 
+
+function_getrole_2.
+H1:    prf_isgood(state) .
+H2:    prf_authcertvalid(state) .
+H3:    theauthcertrole(state) >= privtypes__adminprivileget__first .
+H4:    theauthcertrole(state) <= privtypes__adminprivileget__last .
+H5:    authcert = fld_authcert(state) .
+H6:    admintoken__interface__state = fld_admintoken__interface__state(
+           state) .
+H7:    idcert = fld_idcert(state) .
+H8:    authcert = fld_authcert(state) .
+H9:    tokenid = fld_tokenid(state) .
+H10:   tokentry = fld_tokentry(state) .
+H11:   tokenpresence = fld_tokenpresence(state) .
+H12:   true .
+H13:   true .
+        ->
+C1:    cert__attr__auth__therole(fld_contents(authcert)) >= 
+           privtypes__adminprivileget__first .
+C2:    cert__attr__auth__therole(fld_contents(authcert)) <= 
+           privtypes__adminprivileget__last .
+ 
+
+function_getrole_3.
+*** true .          /* trivially true VC removed by Examiner */
+
+

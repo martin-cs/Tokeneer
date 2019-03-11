@@ -1,0 +1,1240 @@
+           *******************************************************
+                            Listing of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:23.73
+
+Line
+   1  ------------------------------------------------------------------
+   2  -- Tokeneer ID Station Core Software
+   3  --
+   4  -- Copyright (2003) United States Government, as represented
+   5  -- by the Director, National Security Agency. All rights reserved.
+   6  --
+   7  -- This material was originally developed by Praxis High Integrity
+   8  -- Systems Ltd. under contract to the National Security Agency.
+   9  ------------------------------------------------------------------
+  10  
+  11  ------------------------------------------------------------------
+  12  -- Screen
+  13  --
+  14  -- Implementatin Notes:
+  15  --    None.
+  16  --
+  17  ------------------------------------------------------------------
+  18  with Door;
+  19  with Clock;
+  20  use type Clock.DurationT;
+  21  with Stats;
+  22  use type Stats.T;
+  23  
+  24  with AuditTypes;
+  25  use type AuditTypes.FileSizeT;
+  26  with AlarmTypes;
+  27  with Screen.Interface;
+  28  with IandATypes;
+  29  with PrivTypes;
+  30  with ConfigData;
+  31  with AuditLog;
+  32  use type AlarmTypes.StatusT;
+  33  
+  34  package body Screen
+  35  --# own State is TheMsg,
+  36  --#              CurrentMsg,
+  37  --#              CurrentStats,
+  38  --#              CurrentConfig,
+  39  --#              CurrentDoorAlarm,
+  40  --#              CurrentLogAlarm &
+  41  --#
+  42  --#     Output is out Screen.Interface.Output;
+  43  
+  44  is
+  45  
+  46     ------------------------------------------------------------------
+  47     -- Types
+  48     --
+  49     ------------------------------------------------------------------
+  50     subtype MsgStringI is Positive range 1 .. 43;
+  51     subtype MsgStringT is String(MsgStringI);
+  52  
+  53     type MsgStringLookupT is array (MsgTextT) of MsgStringT;
+  54  
+  55     type ScreenStatsT is
+  56        record
+  57           IsDisplayed : Boolean;
+  58           Data : Stats.T;
+  59        end record;
+  60  
+  61     type DisplayedConfigT is
+  62        record
+  63           LatchUnlock     : Clock.DurationT;
+  64           AlarmSilent     : Clock.DurationT;
+  65           FingerWait      : Clock.DurationT;
+  66           TokenRemove     : Clock.DurationT;
+  67           WorkStart       : Clock.DurationT;
+  68           WorkEnd         : Clock.DurationT;
+  69           AuthDuration    : Clock.DurationT;
+  70           Policy          : ConfigData.AccessPolicyT;
+  71           MinPreservedLog : AuditTypes.FileSizeT;
+  72           AlarmThreshold  : AuditTypes.FileSizeT;
+  73           MinEntry        : PrivTypes.ClassT;
+  74           Clearance       : PrivTypes.ClassT;
+  75           MaxFAR          : IandATypes.FarT;
+  76        end record;
+  77  
+  78     NullConfigData : constant DisplayedConfigT :=
+  79       DisplayedConfigT'(
+  80           LatchUnlock     => Clock.DurationT'First,
+  81           AlarmSilent     => Clock.DurationT'First,
+  82           FingerWait      => Clock.DurationT'First,
+  83           TokenRemove     => Clock.DurationT'First,
+  84           WorkStart       => Clock.DurationT'First,
+  85           WorkEnd         => Clock.DurationT'First,
+  86           AuthDuration    => Clock.DurationT'First,
+  87           Policy          => ConfigData.AccessPolicyT'First,
+  88           MinPreservedLog => AuditTypes.FileSizeT'First,
+  89           AlarmThreshold  => AuditTypes.FileSizeT'First,
+  90           MinEntry        => PrivTypes.ClassT'First,
+  91           Clearance       => PrivTypes.ClassT'First,
+  92           MaxFAR          => IandATypes.FarT'First);
+  93  
+  94     type ScreenConfigT is
+  95        record
+  96           IsDisplayed : Boolean;
+  97           Data : DisplayedConfigT;
+  98        end record;
+  99  
+ 100     subtype SecondsStringI is Positive range 1..7;
+ 101     subtype SecondsStringT is String(SecondsStringI);
+ 102  
+ 103     subtype HrsMinsStringI is Positive range 1..5;
+ 104     subtype HrsMinsStringT is String(HrsMinsStringI);
+ 105  
+ 106     subtype ClassStringI is Positive range 1..12;
+ 107     subtype ClassStringT is String(ClassStringI);
+ 108  
+ 109     subtype FileSizeStringI is Positive range 1..15;
+ 110     subtype FileSizeStringT is String(FileSizeStringI);
+ 111  
+ 112     subtype FARStringI is Positive range 1..12;
+ 113     subtype FARStringT is String(ClassStringI);
+ 114  
+ 115     subtype AccessPolicyStringI is Positive range 1..12;
+ 116     subtype AccessPolicyStringT is String(AccessPolicyStringI);
+ 117  
+ 118     subtype StatsCountStringI is Positive range 1..10;
+ 119     subtype StatsCountStringT is String(StatsCountStringI);
+ 120  
+ 121     MsgString : constant MsgStringLookupT := MsgStringLookupT'
+ 122       ("                                           ",
+ 123        "WELCOME TO TIS                             ",
+ 124        "SYSTEM BUSY PLEASE WAIT                    ",
+ 125        "REMOVE TOKEN                               ",
+ 126        "CLOSE ENCLAVE DOOR                         ",
+ 127        "ENTER REQUIRED OPERATION                   ",
+ 128        "PERFORMING OPERATION PLEASE WAIT           ",
+ 129        "INVALID REQUEST: PLEASE ENTER NEW OPERATION",
+ 130        "INVALID DATA: PLEASE ENTER NEW OPERATION   ",
+ 131        "ARCHIVE FAILED: PLEASE ENTER NEW OPERATION ",
+ 132        "PLEASE INSERT ENROLMENT DATA FLOPPY        ",
+ 133        "VALIDATING ENROLMENT DATA PLEASE WAIT      ",
+ 134        "INVALID ENROLMENT DATA                     ",
+ 135        "INSERT BLANK FLOPPY                        ",
+ 136        "INSERT CONFIGURATION DATA FLOPPY           ");
+ 137  
+ 138     ------------------------------------------------------------------
+ 139     -- State
+ 140     --
+ 141     ------------------------------------------------------------------
+ 142  
+ 143     TheMsg              : MsgTextT;
+ 144     CurrentMsg          : MsgTextT;
+ 145     CurrentStats        : ScreenStatsT;
+ 146     CurrentConfig       : ScreenConfigT;
+ 147     CurrentDoorAlarm    : AlarmTypes.StatusT;
+ 148     CurrentLogAlarm     : AlarmTypes.StatusT;
+ 149  
+ 150  
+ 151     ------------------------------------------------------------------
+ 152     -- Local Operations
+ 153     ------------------------------------------------------------------
+ 154  
+ 155     ------------------------------------------------------------------
+ 156     -- WriteMessage
+ 157     --
+ 158     -- Description:
+ 159     --    Writes the message string to console.
+ 160     --
+ 161     -- Implementation Notes:
+ 162     --    None.
+ 163     --
+ 164     ------------------------------------------------------------------
+ 165     procedure WriteMessage (OK :  out Boolean)
+ 166     --# global in     TheMsg;
+ 167     --#        in out CurrentMsg;
+ 168     --#           out Interface.Output;
+ 169     --# derives CurrentMsg,
+ 170     --#         OK,
+ 171     --#         Interface.Output from CurrentMsg,
+ 172     --#                               TheMsg;
+ 173     is
+ 174     begin
+ 175  
+ 176        if CurrentMsg /= TheMsg then
+ 177           Interface.Write(Buffer => MsgString(TheMsg),
+ 178                           Colour => Interface.BrightWhite,
+ 179                           Coord  => Interface.XYCoordT'(0, 3),
+ 180                           OK     => OK);
+ 181  
+ 182           CurrentMsg := TheMsg;
+ 183        else
+ 184           OK := True;
+ 185        end if;
+ 186  
+ 187     end WriteMessage;
+
++++        Flow analysis of subprogram WriteMessage 
+           performed: no errors found.
+
+ 188  
+ 189  
+ 190     ------------------------------------------------------------------
+ 191     -- WriteAlarms
+ 192     --
+ 193     -- Description:
+ 194     --    Writes the alarm states to console.
+ 195     --
+ 196     -- Implementation Notes:
+ 197     --    None.
+ 198     --
+ 199     ------------------------------------------------------------------
+ 200     procedure WriteAlarms
+ 201       (NewDoorAlarm  : in     AlarmTypes.StatusT;
+ 202        NewAuditAlarm : in     AlarmTypes.StatusT;
+ 203        OK            :    out Boolean )
+ 204     --# global in out CurrentDoorAlarm;
+ 205     --#        in out CurrentLogAlarm;
+ 206     --#           out Interface.Output;
+ 207     --# derives OK,
+ 208     --#         Interface.Output  from CurrentDoorAlarm,
+ 209     --#                                NewDoorAlarm,
+ 210     --#                                CurrentLogAlarm,
+ 211     --#                                NewAuditAlarm &
+ 212     --#         CurrentDoorAlarm  from *,
+ 213     --#                                NewDoorAlarm &
+ 214     --#         CurrentLogAlarm   from *,
+ 215     --#                                NewAuditAlarm;
+ 216     is
+ 217        ConsoleOK : Boolean;
+ 218     begin
+ 219        OK := True;
+ 220  
+ 221        if NewDoorAlarm /= CurrentDoorAlarm then
+ 222           if NewDoorAlarm = AlarmTypes.Alarming then
+ 223              Interface.Write(Buffer => "FAIL",
+ 224                              Colour => Interface.Red,
+ 225                              Coord  => Interface.XYCoordT'(15, 24),
+ 226                              OK     => ConsoleOK);
+ 227           else
+ 228              Interface.Write(Buffer => "OK  ",
+ 229                              Colour => Interface.Green,
+ 230                              Coord  => Interface.XYCoordT'(15, 24),
+ 231                              OK     => ConsoleOK);
+ 232           end if;
+ 233           OK := ConsoleOK;
+ 234           CurrentDoorAlarm := NewDoorAlarm;
+ 235        end if;
+ 236  
+ 237  
+ 238        if NewAuditAlarm /= CurrentLogAlarm then
+ 239           if NewAuditAlarm = AlarmTypes.Alarming then
+ 240              Interface.Write(Buffer => "FAIL",
+ 241                              Colour => Interface.Red,
+ 242                              Coord  => Interface.XYCoordT'(15, 26),
+ 243                              OK     => ConsoleOK);
+ 244           else
+ 245              Interface.Write(Buffer => "OK  ",
+ 246                              Colour => Interface.Green,
+ 247                              Coord  => Interface.XYCoordT'(15, 26),
+ 248                              OK     => ConsoleOK);
+ 249           end if;
+ 250           CurrentLogAlarm := NewAuditAlarm;
+ 251           OK := OK or ConsoleOK;
+ 252        end if;
+ 253  
+ 254     end WriteAlarms;
+
++++        Flow analysis of subprogram WriteAlarms 
+           performed: no errors found.
+
+ 255  
+ 256     ------------------------------------------------------------------
+ 257     -- ClearConfigData
+ 258     --
+ 259     -- Description:
+ 260     --    Clears the Config Data display.
+ 261     --
+ 262     -- Implementation Notes:
+ 263     --    None.
+ 264     --
+ 265     ------------------------------------------------------------------
+ 266     procedure ClearConfigData(OK : out Boolean)
+ 267     --# global out Interface.Output;
+ 268     --# derives OK,
+ 269     --#         Interface.Output from ;
+ 270     is
+ 271     begin
+ 272  
+ 273        Interface.ClearRegion(Left   => 2,
+ 274                              Top    => 9,
+ 275                              Right  => 79,
+ 276                              Bottom => 18,
+ 277                              OK     => OK);
+ 278  
+ 279     end ClearConfigData;
+
++++        Flow analysis of subprogram ClearConfigData 
+           performed: no errors found.
+
+ 280  
+ 281  
+ 282     ------------------------------------------------------------------
+ 283     -- WriteConfigLabels
+ 284     --
+ 285     -- Description:
+ 286     --    Writes the labels for the Config data display to console.
+ 287     --
+ 288     -- Implementation Notes:
+ 289     --    None.
+ 290     --
+ 291     ------------------------------------------------------------------
+ 292     procedure WriteConfigLabels(OK : out Boolean)
+ 293     --# global out Interface.Output;
+ 294     --# derives OK,
+ 295     --#         Interface.Output from ;
+ 296     is
+ 297        ConsoleOK : Boolean;
+ 298        Column1 : constant Interface.ScreenXCoordT := 2;
+ 299        Column2 : constant Interface.ScreenXCoordT := 39;
+ 300  
+ 301        Row1 : constant Interface.ScreenYCoordT := 9;
+ 302        Row2 : constant Interface.ScreenYCoordT := 10;
+ 303        Row3 : constant Interface.ScreenYCoordT := 12;
+ 304        Row4 : constant Interface.ScreenYCoordT := 13;
+ 305        Row5 : constant Interface.ScreenYCoordT := 15;
+ 306        Row6 : constant Interface.ScreenYCoordT := 16;
+ 307        Row7 : constant Interface.ScreenYCoordT := 18;
+ 308  
+ 309     begin
+ 310  
+ 311        Interface.Write(Buffer => "Latch Unlock Duration:",
+ 312                        Colour => Interface.White,
+ 313                        Coord  => Interface.XYCoordT'(Column1, Row1),
+ 314                        OK     => OK);
+ 315  
+ 316        Interface.Write(Buffer => "Alarm Silent Duration:",
+ 317                        Colour => Interface.White,
+ 318                        Coord  => Interface.XYCoordT'(Column1, Row2),
+ 319                        OK     => ConsoleOK);
+ 320        OK := OK and ConsoleOK;
+ 321  
+ 322        Interface.Write(Buffer => "Finger Wait Duration:",
+ 323                        Colour => Interface.White,
+ 324                        Coord  => Interface.XYCoordT'(Column2, Row1),
+ 325                        OK     => ConsoleOK);
+ 326        OK := OK and ConsoleOK;
+ 327  
+ 328        Interface.Write(Buffer => "Token Removal Duration:",
+ 329                        Colour => Interface.White,
+ 330                        Coord  => Interface.XYCoordT'(Column2, Row2),
+ 331                        OK     => ConsoleOK);
+ 332        OK := OK and ConsoleOK;
+ 333  
+ 334        Interface.Write(Buffer => "Access Policy:",
+ 335                        Colour => Interface.White,
+ 336                        Coord  => Interface.XYCoordT'(Column1, Row3),
+ 337                        OK     => ConsoleOK);
+ 338        OK := OK and ConsoleOK;
+ 339  
+ 340        Interface.Write(Buffer => "Working Hours Start:",
+ 341                        Colour => Interface.White,
+ 342                        Coord  => Interface.XYCoordT'(Column2, Row3),
+ 343                        OK     => ConsoleOK);
+ 344        OK := OK and ConsoleOK;
+ 345  
+ 346        Interface.Write(Buffer => "Working Hours End:",
+ 347                        Colour => Interface.White,
+ 348                        Coord  => Interface.XYCoordT'(Column2, Row4),
+ 349                        OK     => ConsoleOK);
+ 350        OK := OK and ConsoleOK;
+ 351  
+ 352        Interface.Write(Buffer => "Authorisation Period:",
+ 353                        Colour => Interface.White,
+ 354                        Coord  => Interface.XYCoordT'(Column1, Row4),
+ 355                        OK     => ConsoleOK);
+ 356        OK := OK and ConsoleOK;
+ 357  
+ 358        Interface.Write(Buffer => "Enclave Clearance:",
+ 359                        Colour => Interface.White,
+ 360                        Coord  => Interface.XYCoordT'(Column1, Row5),
+ 361                        OK     => ConsoleOK);
+ 362        OK := OK and ConsoleOK;
+ 363  
+ 364        Interface.Write(Buffer => "Minimum Entry Class:",
+ 365                        Colour => Interface.White,
+ 366                        Coord  => Interface.XYCoordT'(Column1, Row6),
+ 367                        OK     => ConsoleOK);
+ 368        OK := OK and ConsoleOK;
+ 369  
+ 370        Interface.Write(Buffer => "Min Preserved Log Size:",
+ 371                        Colour => Interface.White,
+ 372                        Coord  => Interface.XYCoordT'(Column2, Row5),
+ 373                        OK     => ConsoleOK);
+ 374        OK := OK and ConsoleOK;
+ 375  
+ 376        Interface.Write(Buffer => "Alarm Threshold Size:",
+ 377                        Colour => Interface.White,
+ 378                        Coord  => Interface.XYCoordT'(Column2, Row6),
+ 379                        OK     => ConsoleOK);
+ 380        OK := OK and ConsoleOK;
+ 381  
+ 382        Interface.Write(Buffer => "System Maximum FAR:",
+ 383                        Colour => Interface.White,
+ 384                        Coord  => Interface.XYCoordT'(Column1, Row7),
+ 385                        OK     => ConsoleOK);
+ 386        OK := OK and ConsoleOK;
+ 387  
+ 388     end WriteConfigLabels;
+
++++        Flow analysis of subprogram WriteConfigLabels 
+           performed: no errors found.
+
+ 389  
+ 390     ------------------------------------------------------------------
+ 391     -- WriteConfigData
+ 392     --
+ 393     -- Description:
+ 394     --    Writes the configuration data for the display to console.
+ 395     --    Only updates if there have been changed values.
+ 396     --
+ 397     -- Implementation Notes:
+ 398     --    None.
+ 399     --
+ 400     ------------------------------------------------------------------
+ 401     procedure WriteConfigData( OK       :    out Boolean)
+ 402     --# global in     ConfigData.State;
+ 403     --#        in out CurrentConfig;
+ 404     --#           out Interface.Output;
+ 405     --# derives OK,
+ 406     --#         Interface.Output,
+ 407     --#         CurrentConfig    from CurrentConfig,
+ 408     --#                               ConfigData.State;
+ 409     is
+ 410        ConsoleOK : Boolean;
+ 411  
+ 412        LatchUnlock,
+ 413          AlarmSilent,
+ 414          FingerWait,
+ 415          TokenRemove,
+ 416          WorkStart,
+ 417          WorkEnd,
+ 418          AuthDuration : Clock.DurationT;
+ 419  
+ 420        Policy : ConfigData.AccessPolicyT;
+ 421        MinPreservedLog, AlarmThreshold : AuditTypes.FileSizeT;
+ 422        MinEntry, Clearance : PrivTypes.ClassT;
+ 423        MaxFAR : IandATypes.FarT;
+ 424  
+ 425        NewConfig : DisplayedConfigT;
+ 426  
+ 427        Column1 : constant Interface.ScreenXCoordT := 25;
+ 428        Column2 : constant Interface.ScreenXCoordT := 63;
+ 429  
+ 430        Row1 : constant Interface.ScreenYCoordT := 9;
+ 431        Row2 : constant Interface.ScreenYCoordT := 10;
+ 432        Row3 : constant Interface.ScreenYCoordT := 12;
+ 433        Row4 : constant Interface.ScreenYCoordT := 13;
+ 434        Row5 : constant Interface.ScreenYCoordT := 15;
+ 435        Row6 : constant Interface.ScreenYCoordT := 16;
+ 436        Row7 : constant Interface.ScreenYCoordT := 18;
+ 437  
+ 438  
+ 439        ------------------------------------------------------------------
+ 440        -- SecondsString
+ 441        --
+ 442        -- Description:
+ 443        --    Converts a Duration to String in seconds,
+ 444        --    only applicable to ConfigData.DurationT which is <= 200 s.
+ 445        --
+ 446        -- Implementation Notes:
+ 447        --    Hidden due to use of Slicing.
+ 448        --
+ 449        ------------------------------------------------------------------
+ 450        function SecondsString (Value : ConfigData.DurationT)
+ 451                                return SecondsStringT
+ 452        is
+ 453           --# hide SecondsString;
+ 454           Str : SecondsStringT := "  0.0 s";
+ 455           ValueStr : String := ConfigData.DurationT'Image(Value);
+ 456        begin
+ 457           Str(5) := ValueStr(ValueStr'Last);
+ 458           if Value >= 10 then
+ 459              -- Know ValueStr is at least 3 characters.
+ 460              Str(6 - ValueStr'Last .. 3)
+ 461                := ValueStr(2 .. ValueStr'Last - 1);
+ 462           end if;
+ 463           return Str;
+ 464        end SecondsString;
+ 465  
+ 466        ------------------------------------------------------------------
+ 467        -- HrsMinsString
+ 468        --
+ 469        -- Description:
+ 470        --    Converts a Duration to String containing the hours and
+ 471        --    minutes component.
+ 472        --
+ 473        -- Implementation Notes:
+ 474        --    Hidden due to use of Slicing.
+ 475        --
+ 476        ------------------------------------------------------------------
+ 477        function HrsMinsString (Value : Clock.DurationT) return HrsMinsStringT
+ 478        is
+ 479        --# hide HrsMinsString;
+ 480        begin
+ 481           return Clock.PrintDuration(Value)(1..5);
+ 482        end HrsMinsString;
+ 483  
+ 484        ------------------------------------------------------------------
+ 485        -- FileSizeString
+ 486        --
+ 487        -- Description:
+ 488        --    Converts a File Size in kBytes to String.
+ 489        --
+ 490        -- Implementation Notes:
+ 491        --    Hidden due to use of 'Image.
+ 492        --
+ 493        ------------------------------------------------------------------
+ 494        function FileSizeString (Value : AuditTypes.FileSizeT)
+ 495                                 return FileSizeStringT
+ 496        is
+ 497        --# hide FileSizeString;
+ 498           Data : String := AuditTypes.FileSizeT'Image(Value/2**10) & " kBytes";
+ 499           Result : FileSizeStringT := (others => ' ');
+ 500        begin
+ 501           Result(1 .. Data'Last - 1) := Data(2 .. Data'Last);
+ 502           return Result;
+ 503        end FileSizeString;
+ 504  
+ 505        ------------------------------------------------------------------
+ 506        -- AccessPolicyString
+ 507        --
+ 508        -- Description:
+ 509        --    Converts an access policy to String.
+ 510        --
+ 511        -- Implementation Notes:
+ 512        --    Hidden due to use of 'Image.
+ 513        --
+ 514        ------------------------------------------------------------------
+ 515        function AccessPolicyString (Value : ConfigData.AccessPolicyT)
+ 516                                     return AccessPolicyStringT
+ 517        is
+ 518        --# hide AccessPolicyString;
+ 519           Data : String := ConfigData.AccessPolicyT'Image(Value);
+ 520           Result : AccessPolicyStringT := (others => ' ');
+ 521        begin
+ 522           Result(1 .. Data'Last) := Data;
+ 523           return Result;
+ 524        end AccessPolicyString;
+ 525  
+ 526        ------------------------------------------------------------------
+ 527        -- ClassString
+ 528        --
+ 529        -- Description:
+ 530        --    Converts a class to String.
+ 531        --
+ 532        -- Implementation Notes:
+ 533        --    Hidden due to use of 'Image.
+ 534        --
+ 535        ------------------------------------------------------------------
+ 536        function ClassString (Value : PrivTypes.ClassT)
+ 537                              return ClassStringT
+ 538        is
+ 539        --# hide ClassString;
+ 540           Data : String := PrivTypes.ClassT'Image(Value);
+ 541           Result : ClassStringT := (others => ' ');
+ 542        begin
+ 543           Result(1 .. Data'Last) := Data;
+ 544           return Result;
+ 545        end ClassString;
+ 546  
+ 547        ------------------------------------------------------------------
+ 548        -- FARString
+ 549        --
+ 550        -- Description:
+ 551        --    Converts a FAR to String.
+ 552        --
+ 553        -- Implementation Notes:
+ 554        --    Hidden due to use of 'Image.
+ 555        --
+ 556        ------------------------------------------------------------------
+ 557        function FARString (Value : IandATypes.FarT)
+ 558                            return FARStringT
+ 559        is
+ 560        --# hide FARString;
+ 561           Data : String := IandATypes.FarT'Image(Value);
+ 562           Result : FARStringT := (others => ' ');
+ 563        begin
+ 564           Result(1 .. Data'Last - 1) := Data(2 .. Data'Last);
+ 565           return Result;
+ 566        end FARString;
+ 567  
+ 568        -------------------------------------------------------------------
+ 569        -- begin WriteConfigData
+ 570        -------------------------------------------------------------------
+ 571     begin
+ 572  
+ 573        ConfigData.TheDisplayFields
+ 574          (TheLatchUnlockDuration  => LatchUnlock,
+ 575           TheAlarmSilentDuration  => AlarmSilent,
+ 576           TheFingerWaitDuration   => FingerWait,
+ 577           TheTokenRemovalDuration => TokenRemove,
+ 578           TheEnclaveClearance     => Clearance,
+ 579           TheWorkingHoursStart    => WorkStart,
+ 580           TheWorkingHoursEnd      => WorkEnd,
+ 581           TheMaxAuthDuration      => AuthDuration,
+ 582           TheAccessPolicy         => Policy,
+ 583           TheMinEntryClass        => MinEntry,
+ 584           TheMinPreservedLogSize  => MinPreservedLog,
+ 585           TheAlarmThresholdSize   => AlarmThreshold,
+ 586           TheSystemMaxFar         => MaxFAR);
+ 587  
+ 588        NewConfig := DisplayedConfigT'
+ 589          (LatchUnlock     => LatchUnlock,
+ 590           AlarmSilent     => AlarmSilent,
+ 591           FingerWait      => FingerWait,
+ 592           TokenRemove     => TokenRemove,
+ 593           WorkStart       => WorkStart,
+ 594           WorkEnd         => WorkEnd,
+ 595           AuthDuration    => AuthDuration,
+ 596           Policy          => Policy,
+ 597           MinPreservedLog => MinPreservedLog,
+ 598           AlarmThreshold  => AlarmThreshold,
+ 599           MinEntry        => MinEntry,
+ 600           Clearance       => Clearance,
+ 601           MaxFAR          => MaxFAR);
+ 602  
+ 603        if not CurrentConfig.IsDisplayed or CurrentConfig.Data /= NewConfig then
+ 604  
+ 605           Interface.ClearRegion(Left   => Column1,
+ 606                                 Top    => Row1,
+ 607                                 Right  => 38,
+ 608                                 Bottom => Row7,
+ 609                                 OK     => OK);
+ 610  
+ 611           Interface.ClearRegion(Left   => Column2,
+ 612                                 Top    => Row1,
+ 613                                 Right  => 79,
+ 614                                 Bottom => Row7,
+ 615                                 OK     => ConsoleOK);
+ 616           OK := OK and ConsoleOK;
+ 617  
+ 618           Interface.Write(Buffer => SecondsString(LatchUnlock),
+ 619                           Colour => Interface.White,
+ 620                           Coord  => Interface.XYCoordT'(Column1, Row1),
+ 621                           OK     => ConsoleOK);
+ 622           OK := OK and ConsoleOK;
+ 623  
+ 624           Interface.Write(Buffer => SecondsString(AlarmSilent),
+ 625                           Colour => Interface.White,
+ 626                           Coord  => Interface.XYCoordT'(Column1, Row2),
+ 627                           OK     => ConsoleOK);
+ 628           OK := OK and ConsoleOK;
+ 629  
+ 630           Interface.Write(Buffer => SecondsString(FingerWait),
+ 631                           Colour => Interface.White,
+ 632                           Coord  => Interface.XYCoordT'(Column2, Row1),
+ 633                           OK     => ConsoleOK);
+ 634           OK := OK and ConsoleOK;
+ 635  
+ 636           Interface.Write(Buffer => SecondsString(TokenRemove),
+ 637                           Colour => Interface.White,
+ 638                           Coord  => Interface.XYCoordT'(Column2, Row2),
+ 639                           OK     => ConsoleOK);
+ 640           OK := OK and ConsoleOK;
+ 641  
+ 642           Interface.Write(Buffer => AccessPolicyString(Policy),
+ 643                           Colour => Interface.White,
+ 644                           Coord  => Interface.XYCoordT'(Column1, Row3),
+ 645                           OK     => ConsoleOK);
+ 646           OK := OK and ConsoleOK;
+ 647  
+ 648           Interface.Write(Buffer => HrsMinsString(WorkStart),
+ 649                           Colour => Interface.White,
+ 650                           Coord  => Interface.XYCoordT'(Column2, Row3),
+ 651                           OK     => ConsoleOK);
+ 652           OK := OK and ConsoleOK;
+ 653  
+ 654           Interface.Write(Buffer => HrsMinsString(WorkEnd),
+ 655                           Colour => Interface.White,
+ 656                           Coord  => Interface.XYCoordT'(Column2, Row4),
+ 657                           OK     => ConsoleOK);
+ 658           OK := OK and ConsoleOK;
+ 659  
+ 660           Interface.Write(Buffer => HrsMinsString(AuthDuration),
+ 661                           Colour => Interface.White,
+ 662                           Coord  => Interface.XYCoordT'(Column1, Row4),
+ 663                           OK     => ConsoleOK);
+ 664           OK := OK and ConsoleOK;
+ 665  
+ 666           Interface.Write(Buffer => ClassString(Clearance),
+ 667                           Colour => Interface.White,
+ 668                           Coord  => Interface.XYCoordT'(Column1, Row5),
+ 669                           OK     => ConsoleOK);
+ 670           OK := OK and ConsoleOK;
+ 671  
+ 672           Interface.Write(Buffer => ClassString(MinEntry),
+ 673                           Colour => Interface.White,
+ 674                           Coord  => Interface.XYCoordT'(Column1, Row6),
+ 675                           OK     => ConsoleOK);
+ 676           OK := OK and ConsoleOK;
+ 677  
+ 678           Interface.Write(Buffer => FileSizeString(MinPreservedLog),
+ 679                           Colour => Interface.White,
+ 680                           Coord  => Interface.XYCoordT'(Column2, Row5),
+ 681                           OK     => ConsoleOK);
+ 682           OK := OK and ConsoleOK;
+ 683  
+ 684           Interface.Write(Buffer => FileSizeString(AlarmThreshold),
+ 685                           Colour => Interface.White,
+ 686                           Coord  => Interface.XYCoordT'(Column2, Row6),
+ 687                           OK     => ConsoleOK);
+ 688           OK := OK and ConsoleOK;
+ 689  
+ 690           Interface.Write(Buffer => FARString(MaxFAR),
+ 691                           Colour => Interface.White,
+ 692                           Coord  => Interface.XYCoordT'(Column1, Row7),
+ 693                           OK     => ConsoleOK);
+ 694           OK := OK and ConsoleOK;
+ 695  
+ 696           CurrentConfig.Data := NewConfig;
+ 697  
+ 698        else
+ 699  
+ 700           OK := True;
+ 701  
+ 702        end if;
+ 703  
+ 704     end WriteConfigData;
+
++++        Flow analysis of subprogram WriteConfigData 
+           performed: no errors found.
+
+ 705  
+ 706     ------------------------------------------------------------------
+ 707     -- ClearStats
+ 708     --
+ 709     -- Description:
+ 710     --    Clears the Stats display.
+ 711     --
+ 712     -- Implementation Notes:
+ 713     --    None.
+ 714     --
+ 715     ------------------------------------------------------------------
+ 716     procedure ClearStats(OK : out Boolean)
+ 717     --# global out Interface.Output;
+ 718     --# derives OK,
+ 719     --#         Interface.Output from ;
+ 720     is
+ 721     begin
+ 722  
+ 723        Interface.ClearRegion(Left   => 35,
+ 724                              Top    => 23,
+ 725                              Right  => 79,
+ 726                              Bottom => 26,
+ 727                              OK     => OK);
+ 728  
+ 729     end ClearStats;
+
++++        Flow analysis of subprogram ClearStats 
+           performed: no errors found.
+
+ 730  
+ 731     ------------------------------------------------------------------
+ 732     -- WriteStatsLabels
+ 733     --
+ 734     -- Description:
+ 735     --    Writes the labels for the Stats display to console.
+ 736     --
+ 737     -- Implementation Notes:
+ 738     --    None.
+ 739     --
+ 740     ------------------------------------------------------------------
+ 741     procedure WriteStatsLabels(OK : out Boolean)
+ 742     --# global out Interface.Output;
+ 743     --# derives OK,
+ 744     --#         Interface.Output from ;
+ 745     is
+ 746        ConsoleOK : Boolean;
+ 747     begin
+ 748  
+ 749        Interface.Write(Buffer => "BioChecks:",
+ 750                        Colour => Interface.White,
+ 751                        Coord  => Interface.XYCoordT'(35, 25),
+ 752                        OK     => OK);
+ 753  
+ 754        Interface.Write(Buffer => "Entries:",
+ 755                        Colour => Interface.White,
+ 756                        Coord  => Interface.XYCoordT'(35, 26),
+ 757                        OK     => ConsoleOK);
+ 758        OK := OK and ConsoleOK;
+ 759  
+ 760        Interface.Write(Buffer => "OK",
+ 761                        Colour => Interface.White,
+ 762                        Coord  => Interface.XYCoordT'(50, 23),
+ 763                        OK     => ConsoleOK);
+ 764        OK := OK and ConsoleOK;
+ 765  
+ 766        Interface.Write(Buffer => "Fail",
+ 767                        Colour => Interface.White,
+ 768                        Coord  => Interface.XYCoordT'(65, 23),
+ 769                        OK     => ConsoleOK);
+ 770        OK := OK and ConsoleOK;
+ 771  
+ 772     end WriteStatsLabels;
+
++++        Flow analysis of subprogram WriteStatsLabels 
+           performed: no errors found.
+
+ 773  
+ 774     ------------------------------------------------------------------
+ 775     -- WriteStatsData
+ 776     --
+ 777     -- Description:
+ 778     --    Writes the data for the Stats display to console.
+ 779     --    Only updates changed values.
+ 780     --
+ 781     -- Implementation Notes:
+ 782     --    None.
+ 783     --
+ 784     ------------------------------------------------------------------
+ 785     procedure WriteStatsData(TheStats : in     Stats.T;
+ 786                              OK       :    out Boolean)
+ 787     --# global in     CurrentStats;
+ 788     --#           out Interface.Output;
+ 789     --# derives OK,
+ 790     --#         Interface.Output from TheStats,
+ 791     --#                               CurrentStats;
+ 792     is
+ 793        ConsoleOK : Boolean;
+ 794        SuccessEntry,
+ 795          FailEntry,
+ 796          SuccessBio,
+ 797          FailBio    : Stats.StatsCount;
+ 798  
+ 799        ------------------------------------------------------------------
+ 800        -- StatsCountString
+ 801        --
+ 802        -- Description:
+ 803        --    Converts a Stats Count to String.
+ 804        --
+ 805        -- Implementation Notes:
+ 806        --    Hidden due to use of 'Image.
+ 807        --
+ 808        ------------------------------------------------------------------
+ 809        function StatsCountString (Value : Stats.StatsCount)
+ 810                                   return StatsCountStringT
+ 811        is
+ 812        --# hide StatsCountString;
+ 813           Data : String := Stats.StatsCount'Image(Value);
+ 814           Result : StatsCountStringT := (others => ' ');
+ 815        begin
+ 816           Result(1 .. Data'Last - 1) := Data(2 .. Data'Last);
+ 817           return Result;
+ 818        end StatsCountString;
+ 819  
+ 820     -----------------------------------------------------------
+ 821     -- begin WriteStatsData
+ 822     -----------------------------------------------------------
+ 823     begin
+ 824  
+ 825        if not CurrentStats.IsDisplayed or CurrentStats.Data /= TheStats then
+ 826  
+ 827           Stats.DisplayStats(TheStats     => TheStats,
+ 828                              SuccessEntry => SuccessEntry,
+ 829                              FailEntry    => FailEntry,
+ 830                              SuccessBio   => SuccessBio,
+ 831                              FailBio      => FailBio);
+ 832  
+ 833           Interface.ClearRegion(Left   => 50,
+ 834                                 Top    => 25,
+ 835                                 Right  => 79,
+ 836                                 Bottom => 26,
+ 837                                 OK     => OK);
+ 838  
+ 839           Interface.Write(Buffer => StatsCountString(SuccessEntry),
+ 840                           Colour => Interface.White,
+ 841                           Coord  => Interface.XYCoordT'(50, 26),
+ 842                           OK     => ConsoleOK);
+ 843           OK := OK and ConsoleOK;
+ 844  
+ 845           Interface.Write(Buffer => StatsCountString(FailEntry),
+ 846                           Colour => Interface.White,
+ 847                           Coord  => Interface.XYCoordT'(65, 26),
+ 848                           OK     => ConsoleOK);
+ 849           OK := OK and ConsoleOK;
+ 850  
+ 851           Interface.Write(Buffer => StatsCountString(SuccessBio),
+ 852                           Colour => Interface.White,
+ 853                           Coord  => Interface.XYCoordT'(50, 25),
+ 854                           OK     => ConsoleOK);
+ 855           OK := OK and ConsoleOK;
+ 856  
+ 857           Interface.Write(Buffer => StatsCountString(FailBio),
+ 858                           Colour => Interface.White,
+ 859                           Coord  => Interface.XYCoordT'(65, 25),
+ 860                           OK     => ConsoleOK);
+ 861           OK := OK and ConsoleOK;
+ 862  
+ 863        else
+ 864           OK := True;
+ 865        end if;
+ 866  
+ 867     end WriteStatsData;
+
++++        Flow analysis of subprogram WriteStatsData 
+           performed: no errors found.
+
+ 868  
+ 869     ------------------------------------------------------------------
+ 870     -- WriteCurrentTime
+ 871     --
+ 872     -- Description:
+ 873     --    Writes the current time to the top right corner of the screen.
+ 874     --
+ 875     -- Implementation Notes:
+ 876     --    None.
+ 877     --
+ 878     ------------------------------------------------------------------
+ 879     procedure WriteCurrentTime(OK : out Boolean)
+ 880     --# global in     Clock.Now;
+ 881     --#           out Interface.Output;
+ 882     --# derives OK,
+ 883     --#         Interface.Output from Clock.Now;
+ 884     is
+ 885  
+ 886        TheTime : Clock.TimeT;
+ 887     begin
+ 888  
+ 889        TheTime := Clock.GetNow;
+ 890        Interface.Write(Buffer => Clock.PrintTime(TheTime),
+ 891                        Colour => Interface.White,
+ 892                        Coord  => Interface.XYCoordT'(58, 0),
+ 893                        OK     => OK);
+ 894  
+ 895     end WriteCurrentTime;
+
++++        Flow analysis of subprogram WriteCurrentTime 
+           performed: no errors found.
+
+ 896  
+ 897     ------------------------------------------------------------------
+ 898     -- Public Operations
+ 899     ------------------------------------------------------------------
+ 900  
+ 901     ------------------------------------------------------------------
+ 902     -- SetMessage
+ 903     --
+ 904     -- Implementation Notes:
+ 905     --    None.
+ 906     --
+ 907     ------------------------------------------------------------------
+ 908  
+ 909     procedure SetMessage (Msg : in     MsgTextT)
+ 910     --# global in     ConfigData.State;
+ 911     --#        in     Clock.Now;
+ 912     --#        in out TheMsg;
+ 913     --#        in out AuditLog.State;
+ 914     --#        in out AuditLog.FileState;
+ 915     --# derives AuditLog.State,
+ 916     --#         AuditLog.FileState from TheMsg,
+ 917     --#                                 ConfigData.State,
+ 918     --#                                 Clock.Now,
+ 919     --#                                 Msg,
+ 920     --#                                 AuditLog.State,
+ 921     --#                                 AuditLog.FileState &
+ 922     --#         TheMsg             from Msg;
+ 923     is
+ 924     begin
+ 925        if Msg /= TheMsg then
+ 926           AuditLog.AddElementToLog(
+ 927                  ElementID   => AuditTypes.ScreenChanged,
+ 928                  Severity    => AuditTypes.Information,
+ 929                  User        => AuditTypes.NoUser,
+ 930                  Description => MsgString(Msg)
+ 931                  );
+ 932        end if;
+ 933        TheMsg := Msg;
+ 934  
+ 935     end SetMessage;
+
++++        Flow analysis of subprogram SetMessage 
+           performed: no errors found.
+
+ 936  
+ 937     ------------------------------------------------------------------
+ 938     -- UpdateScreen
+ 939     --
+ 940     -- Implementation Notes:
+ 941     --    The update is lazy to avoid adverse screen flicker.
+ 942     --
+ 943     ------------------------------------------------------------------
+ 944  
+ 945     procedure UpdateScreen
+ 946       (TheStats : in    Stats.T;
+ 947        TheAdmin : in    Admin.T)
+ 948     --# global in     TheMsg;
+ 949     --#        in     ConfigData.State;
+ 950     --#        in     Clock.Now;
+ 951     --#        in     Door.State;
+ 952     --#        in out CurrentMsg;
+ 953     --#        in out CurrentDoorAlarm;
+ 954     --#        in out CurrentLogAlarm;
+ 955     --#        in out CurrentConfig;
+ 956     --#        in out CurrentStats;
+ 957     --#        in out AuditLog.State;
+ 958     --#        in out AuditLog.FileState;
+ 959     --#           out Interface.Output;
+ 960     --# derives AuditLog.State,
+ 961     --#         AuditLog.FileState from CurrentMsg,
+ 962     --#                                 TheMsg,
+ 963     --#                                 CurrentDoorAlarm,
+ 964     --#                                 CurrentLogAlarm,
+ 965     --#                                 CurrentConfig,
+ 966     --#                                 ConfigData.State,
+ 967     --#                                 TheStats,
+ 968     --#                                 CurrentStats,
+ 969     --#                                 Clock.Now,
+ 970     --#                                 AuditLog.State,
+ 971     --#                                 AuditLog.FileState,
+ 972     --#                                 Door.State,
+ 973     --#                                 TheAdmin &
+ 974     --#         CurrentMsg         from *,
+ 975     --#                                 TheMsg &
+ 976     --#         Interface.Output   from CurrentMsg,
+ 977     --#                                 TheMsg,
+ 978     --#                                 CurrentDoorAlarm,
+ 979     --#                                 CurrentLogAlarm,
+ 980     --#                                 CurrentConfig,
+ 981     --#                                 ConfigData.State,
+ 982     --#                                 TheStats,
+ 983     --#                                 CurrentStats,
+ 984     --#                                 Clock.Now,
+ 985     --#                                 AuditLog.State,
+ 986     --#                                 Door.State,
+ 987     --#                                 TheAdmin &
+ 988     --#         CurrentDoorAlarm   from *,
+ 989     --#                                 Door.State &
+ 990     --#         CurrentLogAlarm  from *,
+ 991     --#                                 AuditLog.State &
+ 992     --#         CurrentConfig      from *,
+ 993     --#                                 TheAdmin,
+ 994     --#                                 ConfigData.State &
+ 995     --#         CurrentStats       from TheStats,
+ 996     --#                                 TheAdmin;
+ 997     is
+ 998        Unused   : Boolean;
+ 999        ScreenOK : Boolean;
+1000        WriteOK  : Boolean;
+1001  
+1002        ShouldDisplayStats : Boolean;
+1003        ShouldDisplayConfig : Boolean;
+1004  
+1005     begin
+1006        WriteCurrentTime(OK => ScreenOK);
+1007  
+1008        WriteMessage(OK => WriteOK);
+1009        ScreenOK := WriteOK and ScreenOK;
+1010  
+1011        WriteAlarms(NewDoorAlarm  => Door.TheDoorAlarm,
+1012                    NewAuditAlarm => AuditLog.TheAuditAlarm,
+1013                    OK            => WriteOK);
+1014  
+1015        ScreenOK := WriteOK and ScreenOK;
+1016  
+1017        -- Stats are only displayed if an administrator is present
+1018  
+1019        ShouldDisplayStats := Admin.IsPresent(TheAdmin => TheAdmin);
+1020  
+1021        if ShouldDisplayStats then
+1022           if not CurrentStats.IsDisplayed then
+1023              WriteStatsLabels(OK => WriteOK);
+1024              ScreenOK := WriteOK and ScreenOK;
+1025  
+1026           end if;
+1027           WriteStatsData(TheStats => TheStats,
+1028                          OK       => WriteOK);
+1029           ScreenOK := WriteOK and ScreenOK;
+1030  
+1031        else
+1032           if CurrentStats.IsDisplayed then
+1033              ClearStats(OK => WriteOK);
+1034              ScreenOK := WriteOK and ScreenOK;
+1035  
+1036           end if;
+1037        end if;
+1038  
+1039        CurrentStats := ScreenStatsT'(IsDisplayed => ShouldDisplayStats,
+1040                                      Data        => TheStats);
+1041  
+1042        -- Config Data is only displayed if a security officer is present
+1043        ShouldDisplayConfig := Admin.SecurityOfficerIsPresent(TheAdmin);
+1044  
+1045        if ShouldDisplayConfig then
+1046           if not CurrentConfig.IsDisplayed then
+1047              WriteConfigLabels(OK => WriteOK);
+1048              ScreenOK := WriteOK and ScreenOK;
+1049  
+1050           end if;
+1051           WriteConfigData(OK       => WriteOK);
+1052           ScreenOK := WriteOK and ScreenOK;
+1053  
+1054        else
+1055           if CurrentConfig.IsDisplayed then
+1056              ClearConfigData(OK => WriteOK);
+1057              ScreenOK := WriteOK and ScreenOK;
+1058  
+1059           end if;
+1060        end if;
+1061        CurrentConfig.IsDisplayed := ShouldDisplayConfig;
+1062  
+1063        if not ScreenOK then
+1064  
+1065           AuditLog.AddElementToLog
+1066             ( ElementID   => AuditTypes.SystemFault,
+1067               Severity    => AuditTypes.Warning,
+1068               User        => AuditTypes.NoUser,
+1069               Description => "Screen Update Failure"
+1070               );
+1071  
+1072           --# accept F, 10, Unused, "Ineffective assignment expected here" &
+1073           --#        F, 33, Unused, "Ineffective assignment expected here";
+1074           ClearConfigData(OK => Unused);
+1075           ClearStats(OK => Unused);
+1076  
+1077        end if;
+1078  
+1079     end UpdateScreen; -- flow error from Unused variable
+
++++        Flow analysis of subprogram UpdateScreen 
+           performed: no errors found.
+
+1080  
+1081     ------------------------------------------------------------------
+1082     -- Init
+1083     --
+1084     -- Implementation Notes:
+1085     --    None.
+1086     --
+1087     ------------------------------------------------------------------
+1088  
+1089     procedure Init
+1090       (IsEnrolled : in    Boolean)
+1091     --# global in     ConfigData.State;
+1092     --#        in     Clock.Now;
+1093     --#        in out AuditLog.State;
+1094     --#        in out AuditLog.FileState;
+1095     --#           out CurrentMsg;
+1096     --#           out TheMsg;
+1097     --#           out Interface.Output;
+1098     --#           out CurrentDoorAlarm;
+1099     --#           out CurrentLogAlarm;
+1100     --#           out CurrentConfig;
+1101     --#           out CurrentStats;
+1102     --# derives CurrentMsg,
+1103     --#         TheMsg,
+1104     --#         Interface.Output   from IsEnrolled &
+1105     --#         CurrentDoorAlarm,
+1106     --#         CurrentLogAlarm,
+1107     --#         CurrentConfig,
+1108     --#         CurrentStats       from  &
+1109     --#         AuditLog.State,
+1110     --#         AuditLog.FileState from ConfigData.State,
+1111     --#                                 Clock.Now,
+1112     --#                                 AuditLog.State,
+1113     --#                                 AuditLog.FileState,
+1114     --#                                 IsEnrolled;
+1115     is
+1116  
+1117        ScreenOK,
+1118        WriteOK : Boolean;
+1119        LocalStats : Stats.T;
+1120  
+1121     begin
+1122        Interface.Init(ScreenOK);
+1123  
+1124        Stats.Init(LocalStats);
+1125  
+1126        CurrentStats := ScreenStatsT'(IsDisplayed => False,
+1127                                      Data        => LocalStats);
+1128  
+1129        CurrentConfig := ScreenConfigT'(IsDisplayed => False,
+1130                                        Data        => NullConfigData);
+1131        -- No need to display the Stats;
+1132  
+1133        -- This is a fiddle to ensure that the alarms are printed.
+1134        CurrentDoorAlarm  := AlarmTypes.Alarming;
+1135        CurrentLogAlarm := AlarmTypes.Alarming;
+1136  
+1137        WriteAlarms(NewDoorAlarm  => AlarmTypes.Silent,
+1138                    NewAuditAlarm => AlarmTypes.Silent,
+1139                    OK            => WriteOK);
+1140        ScreenOK := ScreenOK and WriteOK;
+1141  
+1142  
+1143        CurrentMsg := Clear;
+1144  
+1145        if IsEnrolled then
+1146           TheMsg := WelcomeAdmin;
+1147        else
+1148           TheMsg := Clear;
+1149        end if;
+1150        WriteMessage(OK => WriteOK);
+1151        ScreenOK := ScreenOK and WriteOK;
+1152  
+1153        if not ScreenOK then
+1154  
+1155           AuditLog.AddElementToLog
+1156             ( ElementID   => AuditTypes.SystemFault,
+1157               Severity    => AuditTypes.Warning,
+1158               User        => AuditTypes.NoUser,
+1159               Description => "Screen Initialisation Failure"
+1160               );
+1161  
+1162        end if;
+1163  
+1164     end Init;
+
++++        Flow analysis of subprogram Init performed: no 
+           errors found.
+
+1165  
+1166  end Screen;
+
+Expected messages marked with the accept annotation
+Type Msg    Lines              Reason                    Match
+     No.  From    To                                    No.  Line
+Flow  10  1072   end  Ineffective assignment expected     2  1075
+Flow  33  1072   end  Ineffective assignment expected     1  1079
+
+
+175 summarized warning(s), comprising:
+     7 hidden part(s)*
+   168 use(s) of Ada2005 reserved words
+(*Note: the above warnings may affect the validity of the analysis.)
+
+
+
+--End of file--------------------------------------------------

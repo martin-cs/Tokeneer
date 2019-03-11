@@ -1,0 +1,152 @@
+           *******************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+           *******************************************************
+
+
+                        DATE : 05-SEP-2011 15:33:10.40
+
+                        procedure Latch.UpdateDevice
+
+
+
+
+For path(s) from start to run-time check associated with statement of line 164:
+
+procedure_updatedevice_1.
+H1:    true .
+H2:    currentlatch >= t__first .
+H3:    currentlatch <= t__last .
+H4:    currentlatch = locked .
+H5:    latch__interface__prf_islocked(latch__interface__output__1) or 
+           systemfault__1 .
+H6:    true .
+H7:    true .
+H8:    systemfault__1 .
+        ->
+C1:    audittypes__critical >= audittypes__severityt__first .
+C2:    audittypes__critical <= audittypes__severityt__last .
+C3:    audittypes__systemfault >= audittypes__elementt__first .
+C4:    audittypes__systemfault <= audittypes__elementt__last .
+ 
+
+procedure_updatedevice_2.
+H1:    true .
+H2:    currentlatch >= t__first .
+H3:    currentlatch <= t__last .
+H4:    not (currentlatch = locked) .
+H5:    (not (latch__interface__prf_islocked(latch__interface__output__2))) or 
+           systemfault__2 .
+H6:    true .
+H7:    true .
+H8:    systemfault__2 .
+        ->
+C1:    audittypes__critical >= audittypes__severityt__first .
+C2:    audittypes__critical <= audittypes__severityt__last .
+C3:    audittypes__systemfault >= audittypes__elementt__first .
+C4:    audittypes__systemfault <= audittypes__elementt__last .
+ 
+
+For path(s) from start to finish:
+
+procedure_updatedevice_3.
+H1:    true .
+H2:    currentlatch >= t__first .
+H3:    currentlatch <= t__last .
+H4:    currentlatch = locked .
+H5:    latch__interface__prf_islocked(latch__interface__output__1) or 
+           systemfault__1 .
+H6:    true .
+H7:    true .
+H8:    systemfault__1 .
+H9:    audittypes__critical >= audittypes__severityt__first .
+H10:   audittypes__critical <= audittypes__severityt__last .
+H11:   audittypes__systemfault >= audittypes__elementt__first .
+H12:   audittypes__systemfault <= audittypes__elementt__last .
+        ->
+C1:    (islocked(currentlatch) <-> 
+           latch__interface__prf_islocked(latch__interface__output__1)) or 
+           systemfault__1 .
+ 
+
+procedure_updatedevice_4.
+H1:    true .
+H2:    currentlatch >= t__first .
+H3:    currentlatch <= t__last .
+H4:    not (currentlatch = locked) .
+H5:    (not (latch__interface__prf_islocked(latch__interface__output__2))) or 
+           systemfault__2 .
+H6:    true .
+H7:    true .
+H8:    systemfault__2 .
+H9:    audittypes__critical >= audittypes__severityt__first .
+H10:   audittypes__critical <= audittypes__severityt__last .
+H11:   audittypes__systemfault >= audittypes__elementt__first .
+H12:   audittypes__systemfault <= audittypes__elementt__last .
+        ->
+C1:    (islocked(currentlatch) <-> 
+           latch__interface__prf_islocked(latch__interface__output__2)) or 
+           systemfault__2 .
+ 
+
+procedure_updatedevice_5.
+H1:    true .
+H2:    currentlatch >= t__first .
+H3:    currentlatch <= t__last .
+H4:    currentlatch = locked .
+H5:    latch__interface__prf_islocked(latch__interface__output__1) or 
+           systemfault__1 .
+H6:    true .
+H7:    true .
+H8:    not systemfault__1 .
+        ->
+C1:    (islocked(currentlatch) <-> 
+           latch__interface__prf_islocked(latch__interface__output__1)) or 
+           systemfault__1 .
+ 
+
+procedure_updatedevice_6.
+H1:    true .
+H2:    currentlatch >= t__first .
+H3:    currentlatch <= t__last .
+H4:    not (currentlatch = locked) .
+H5:    (not (latch__interface__prf_islocked(latch__interface__output__2))) or 
+           systemfault__2 .
+H6:    true .
+H7:    true .
+H8:    not systemfault__2 .
+        ->
+C1:    (islocked(currentlatch) <-> 
+           latch__interface__prf_islocked(latch__interface__output__2)) or 
+           systemfault__2 .
+ 
+
+For checks of refinement integrity: 
+
+procedure_updatedevice_7.
+*** true .          /* trivially true VC removed by Examiner */
+
+
+procedure_updatedevice_8.
+H1:    true .
+H2:    true .
+H3:    currentlatch = fld_currentlatch(state~) .
+H4:    currentlatch = fld_currentlatch(state) .
+H5:    latch__interface__output~ = fld_latch__interface__output(
+           output~) .
+H6:    latch__interface__output = fld_latch__interface__output(
+           output) .
+H7:    latchtimeout = fld_latchtimeout(state~) .
+H8:    latchtimeout = fld_latchtimeout(state) .
+H9:    currentlatch >= t__first .
+H10:   currentlatch <= t__last .
+H11:   true .
+H12:   (islocked(currentlatch) <-> 
+           latch__interface__prf_islocked(
+           latch__interface__output)) or systemfault .
+        ->
+C1:    (latch__islocked(state) <-> prf_islocked(output)) or 
+           systemfault .
+ 
+

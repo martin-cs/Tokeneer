@@ -1,0 +1,187 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:19  SIMPLIFIED 05-SEP-2011, 15:42:09
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure TokenReader.Poll.ProcessReaderStateChange
+
+
+
+
+
+
+@@@@@@@@@@  VC: procedure_processreaderstatechange_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  readert__first <= reader
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  tokenreader__interface__readerstatet__first <= newstate
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> basictypes__unsigned32t__first <= fld_lastfault(
+          element(readerstatus, [i___1])) and fld_lastfault(element(
+          readerstatus, [i___1])) <= basictypes__unsigned32t__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokenreader__interface__validreaderstatet__first <= 
+          fld_currentstatus(element(readerstatus, [i___1])) and 
+          fld_currentstatus(element(readerstatus, [i___1])) <= 
+          tokenreader__interface__validreaderstatet__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokentypes__tokenidt__first <= fld_tokenid(element(
+          readerstatus, [i___1])) and fld_tokenid(element(readerstatus, [i___1])
+          ) <= tokentypes__tokenidt__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokentypes__tryt__first <= fld_tokentry(element(
+          readerstatus, [i___1])) and fld_tokentry(element(readerstatus, [i___1]
+          )) <= tokentypes__tryt__last)
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  for_all(i___2 : integer, 
+          tokenreader__interface__readernamei__first <= i___2 and i___2 <= 
+          tokenreader__interface__readernamei__last -> for_all(i___1 : readert, 
+          readert__first <= i___1 and i___1 <= readert__last -> 
+          character__first <= element(fld_name(element(readerstatus, [i___1])), 
+          [i___2]) and element(fld_name(element(readerstatus, [i___1])), [i___2]
+          ) <= character__last))
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  readert__first <= reader
+***  Proved C1:  readert__first <= reader
+     using hypothesis H2.
+***  Proved C2:  reader <= readert__last
+     using hypothesis H3.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_processreaderstatechange_2.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  readert__first <= reader
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  tokenreader__interface__readerstatet__first <= newstate
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> basictypes__unsigned32t__first <= fld_lastfault(
+          element(readerstatus, [i___1])) and fld_lastfault(element(
+          readerstatus, [i___1])) <= basictypes__unsigned32t__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokenreader__interface__validreaderstatet__first <= 
+          fld_currentstatus(element(readerstatus, [i___1])) and 
+          fld_currentstatus(element(readerstatus, [i___1])) <= 
+          tokenreader__interface__validreaderstatet__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokentypes__tokenidt__first <= fld_tokenid(element(
+          readerstatus, [i___1])) and fld_tokenid(element(readerstatus, [i___1])
+          ) <= tokentypes__tokenidt__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokentypes__tryt__first <= fld_tokentry(element(
+          readerstatus, [i___1])) and fld_tokentry(element(readerstatus, [i___1]
+          )) <= tokentypes__tryt__last)
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  for_all(i___2 : integer, 
+          tokenreader__interface__readernamei__first <= i___2 and i___2 <= 
+          tokenreader__interface__readernamei__last -> for_all(i___1 : readert, 
+          readert__first <= i___1 and i___1 <= readert__last -> 
+          character__first <= element(fld_name(element(readerstatus, [i___1])), 
+          [i___2]) and element(fld_name(element(readerstatus, [i___1])), [i___2]
+          ) <= character__last))
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H15 has been replaced by "true".  (It is already present, as H3)
+          .
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  readert__first <= reader
+***  Proved C1:  readert__first <= reader
+     using hypothesis H2.
+***  Proved C2:  reader <= readert__last
+     using hypothesis H3.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_processreaderstatechange_3.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  readert__first <= reader
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  tokenreader__interface__readerstatet__first <= newstate
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> basictypes__unsigned32t__first <= fld_lastfault(
+          element(readerstatus, [i___1])) and fld_lastfault(element(
+          readerstatus, [i___1])) <= basictypes__unsigned32t__last)
+%%%  Simplified H7 on reading formula in, to give:
+     %%%  H7:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokenreader__interface__validreaderstatet__first <= 
+          fld_currentstatus(element(readerstatus, [i___1])) and 
+          fld_currentstatus(element(readerstatus, [i___1])) <= 
+          tokenreader__interface__validreaderstatet__last)
+%%%  Simplified H10 on reading formula in, to give:
+     %%%  H10:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokentypes__tokenidt__first <= fld_tokenid(element(
+          readerstatus, [i___1])) and fld_tokenid(element(readerstatus, [i___1])
+          ) <= tokentypes__tokenidt__last)
+%%%  Simplified H11 on reading formula in, to give:
+     %%%  H11:  for_all(i___1 : readert, readert__first <= i___1 and i___1 <= 
+          readert__last -> tokentypes__tryt__first <= fld_tokentry(element(
+          readerstatus, [i___1])) and fld_tokentry(element(readerstatus, [i___1]
+          )) <= tokentypes__tryt__last)
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  for_all(i___2 : integer, 
+          tokenreader__interface__readernamei__first <= i___2 and i___2 <= 
+          tokenreader__interface__readernamei__last -> for_all(i___1 : readert, 
+          readert__first <= i___1 and i___1 <= readert__last -> 
+          character__first <= element(fld_name(element(readerstatus, [i___1])), 
+          [i___2]) and element(fld_name(element(readerstatus, [i___1])), [i___2]
+          ) <= character__last))
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H15 has been replaced by "true".  (It is already present, as H3)
+          .
+---  Hypothesis H17 has been replaced by "true".  (It is already present, as H2)
+          .
+---  Hypothesis H18 has been replaced by "true".  (It is already present, as H3)
+          .
+***  Proved C1:  responsecode__2 >= basictypes__unsigned32t__first
+     using hypothesis H19.
+***  Proved C2:  responsecode__2 <= basictypes__unsigned32t__last
+     using hypothesis H20.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_processreaderstatechange_4.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_processreaderstatechange_5.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_processreaderstatechange_6.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_processreaderstatechange_7.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_processreaderstatechange_8.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_processreaderstatechange_9.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+

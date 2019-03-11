@@ -1,0 +1,214 @@
+
+%=========================================================================
+\chapter{The Initial System and Startup}
+\label{sec:Start}
+%=========================================================================
+\section{The Initial System}
+%----------------------------------
+
+\begin{traceunit}{FS.TIS.InitIDStation}
+\traceto{FMT\_MSA.3.1}
+\end{traceunit}
+
+After initial installation the system has the following properties
+\begin{itemize}
+\item
+an empty key store, which means it is unable to authorise entry to anyone;
+\item
+default configuration data, which does not permit entry to anyone;
+\item
+the door latched;
+\item
+an empty audit log;
+\item
+the internal times all set to zero (a time before the current time).
+\end{itemize}
+
+The door is assumed closed at initialisation, this ensures that the alarm
+will not sound before the first time that data is polled.
+
+\begin{schema}{InitDoorLatchAlarm}
+        DoorLatchAlarm
+\where
+	currentTime = zeroTime
+\\	currentDoor = closed
+\\	latchTimeout = zeroTime
+\\	alarmTimeout = zeroTime
+\end{schema}
+
+There are no keys held by the system and the TIS does not know its
+name, this is supplied as part of enrolment.
+
+\begin{schema}{InitKeyStore}
+        KeyStore
+\where
+        issuerKey = \emptyset
+\\      ownName = \Nil
+\end{schema}
+
+This default configuration assumes the lowest classification possible
+for the enclave. This ensures that it does not give inadvertently
+high clearance to the authorisation certificate. The $authPeriod$
+and $entryPeriod$ functions are set to enable a $securityOfficer$ to
+enter the enclave and re-configure the TIS. This configuration will
+allow Auth Certificates to be generated with a validity of 2 hours
+fron the point of issue (assuming that the unit of time is 1/10 sec).
+\begin{schema}{InitConfig}
+        Config
+\where
+	alarmSilentDuration = 10
+\\      latchUnlockDuration = 150
+\\      tokenRemovalDuration = 100
+\\      enclaveClearance.class = unmarked
+\\      authPeriod = PRIVILEGE \cross \{ \{ t: TIME @ t \mapsto t \upto t
++ 72000 \} \}
+\\      entryPeriod = PRIVILEGE \cross \{ CLASS \cross \{ TIME \} \}
+\end{schema}
+
+Initially no administrator is logged on and no administator operations
+are taking place.
+\begin{schema}{InitAdmin}
+        Admin
+\where
+        rolePresent = \Nil
+\\      currentAdminOp = \Nil
+\end{schema}
+
+Initially the statistics are set to zero, indicating no use of the
+system to date.
+\begin{schema}{InitStats}
+        Stats
+\where
+        successEntry = 0
+\\      failEntry = 0
+\\      successBio = 0
+\\      failBio = 0
+\end{schema}        
+
+The initial audit Log is empty and there is no audit alarm.
+
+\begin{schema}{InitAuditLog}
+        AuditLog
+\where
+        auditLog = \emptyset
+\\      auditAlarm = silent
+\end{schema}        
+
+Entities that model the real world and are polled and have no security
+implications are not set 
+at initialisation, these will be updated at the first poll of the real
+world entities.
+
+Initially the screen and the display are clear and the internal state
+is $notEnrolled$.
+
+\begin{schema}{InitIDStation}
+        IDStation
+\also
+	InitDoorLatchAlarm
+\\	InitConfig
+\\      InitKeyStore
+\\      InitStats
+\\      InitAuditLog
+\\      InitAdmin
+\where
+        currentScreen.screenMsg = clear
+\also
+	currentDisplay = blank
+\\	enclaveStatus = notEnrolled
+\\      status = quiescent
+\end{schema}
+
+%-------------------------------------------------------------------------
+\section{Starting the ID Station}
+%-------------------------------------------------------------------------
+\begin{traceunit}{FS.TIS.TISStartup}
+\traceto{FPT\_FLS.1.1}
+\end{traceunit}
+
+
+We assume that some of the state within TIS is persistent through
+shutdown and some is not. 
+The persistent items are $Config$, $KeyStore$ and $AuditLog$ all other state
+components are set at startup. Those values that are polled can take
+any valid value, we assume for simplicity that they remain unchanged.
+
+\begin{schema}{StartContext}
+        \Delta IDStation
+\\      RealWorldChanges
+\also
+\\      \Xi Config
+\\      \Xi KeyStore
+\also
+	InitDoorLatchAlarm'
+\\      InitStats'
+\\      InitAdmin'
+\also
+        \Xi UserToken  
+\\      \Xi AdminToken 
+\\      \Xi Finger 
+\\      \Xi Floppy 
+\\      \Xi Keyboard 
+\end{schema}
+
+In the case that TIS does not have an allocated name the ID station is
+assumed to require enrolment.
+
+\begin{schema}{StartNonEnrolledStation}
+        StartContext
+\where 
+        ownName = \Nil
+\also
+        currentScreen'.screenMsg = insertEnrolmentData
+\also
+	currentDisplay' = blank
+\\	enclaveStatus' = notEnrolled
+\\      status' = quiescent
+\also
+        (\exists newElements : \finset Audit;
+        startUnenrolledTISElement : Audit @ AddElementsToLog 
+\\ \t1  \land startUnenrolledTISElement \in newElements )
+\end{schema}
+\begin{Zcomment}
+\item
+The $startUnenrolledTISElement$ is the audit entry recording that the
+TIS has been started and requires enrolment. 
+\end{Zcomment}
+
+In the case that TIS does have an allocated name the ID station is
+assumed to have been previously enrolled.
+
+\begin{schema}{StartEnrolledStation}
+        StartContext
+\where 
+        ownName \neq \Nil
+\also
+        currentScreen'.screenMsg = welcomeAdmin
+\also
+	currentDisplay' = welcome
+\\	enclaveStatus' = enclaveQuiescent
+\\      status' = quiescent
+\also
+        (\exists newElements : \finset Audit;
+        startEnrolledTISElement : Audit @ AddElementsToLog 
+\\ \t1  \land startEnrolledTISElement \in newElements )
+\end{schema}
+\begin{Zcomment}
+\item
+The $startEnrolledTISElement$ is the audit entry recording that an enrolled
+TIS has been started. 
+\end{Zcomment}
+
+The complete startup operation is given by:
+
+\begin{zed}
+        TISStartup \defs StartEnrolledStation \lor
+        StartNonEnrolledStation
+\end{zed}
+
+
+
+
+
+
+

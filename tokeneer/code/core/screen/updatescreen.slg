@@ -1,0 +1,1407 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:23  SIMPLIFIED 05-SEP-2011, 15:41:44
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure Screen.UpdateScreen
+
+
+
+
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  msgtextt__first <= themsg
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  msgtextt__first <= currentmsg
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  alarmtypes__statust__first <= currentdooralarm
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  alarmtypes__statust__first <= currentlogalarm
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  privtypes__classt__first <= fld_clearance(fld_data(
+          currentconfig))
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  privtypes__classt__first <= fld_minentry(fld_data(currentconfig)
+          )
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  configdata__accesspolicyt__first <= fld_policy(fld_data(
+          currentconfig))
+%%%  Simplified H41 on reading formula in, to give:
+     %%%  H41:  msgtextt__first <= currentmsg__2
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  alarmtypes__statust__first <= door__thedooralarm(door__state)
+%%%  Simplified H47 on reading formula in, to give:
+     %%%  H47:  alarmtypes__statust__first <= auditlog__theauditalarm(
+          auditlog__state)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  alarmtypes__statust__first <= auditlog__theauditalarm(
+          auditlog__state)
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  alarmtypes__statust__first <= door__thedooralarm(door__state)
+***  Proved C1:  alarmtypes__statust__first <= auditlog__theauditalarm(
+          auditlog__state)
+     using hypothesis H47.
+***  Proved C2:  auditlog__theauditalarm(auditlog__state) <= 
+          alarmtypes__statust__last
+     using hypothesis H48.
+***  Proved C3:  alarmtypes__statust__first <= door__thedooralarm(door__state)
+     using hypothesis H45.
+***  Proved C4:  door__thedooralarm(door__state) <= alarmtypes__statust__last
+     using hypothesis H46.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_2.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  msgtextt__first <= themsg
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  msgtextt__first <= currentmsg
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  alarmtypes__statust__first <= currentdooralarm
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  alarmtypes__statust__first <= currentlogalarm
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  privtypes__classt__first <= fld_clearance(fld_data(
+          currentconfig))
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  privtypes__classt__first <= fld_minentry(fld_data(currentconfig)
+          )
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  configdata__accesspolicyt__first <= fld_policy(fld_data(
+          currentconfig))
+%%%  Simplified H41 on reading formula in, to give:
+     %%%  H41:  msgtextt__first <= currentmsg__2
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  alarmtypes__statust__first <= door__thedooralarm(door__state)
+%%%  Simplified H47 on reading formula in, to give:
+     %%%  H47:  alarmtypes__statust__first <= auditlog__theauditalarm(
+          auditlog__state)
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H47).
+---  Hypothesis H50 has been replaced by "true".  (It is already present, as 
+          H48).
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as 
+          H45).
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as 
+          H46).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  alarmtypes__statust__first <= currentdooralarm__3
+%%%  Simplified H56 on reading formula in, to give:
+     %%%  H56:  alarmtypes__statust__first <= currentlogalarm__3
+%%%  Simplified H81 on reading formula in, to give:
+     %%%  H81:  privtypes__classt__first <= fld_clearance(fld_data(
+          currentconfig__8))
+%%%  Simplified H83 on reading formula in, to give:
+     %%%  H83:  privtypes__classt__first <= fld_minentry(fld_data(
+          currentconfig__8))
+%%%  Simplified H89 on reading formula in, to give:
+     %%%  H89:  configdata__accesspolicyt__first <= fld_policy(fld_data(
+          currentconfig__8))
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__systemfault
+-S-  Applied substitution rule updatescreen_rules(115).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule updatescreen_rules(116).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule updatescreen_rules(8).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule updatescreen_rules(9).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_3.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  msgtextt__first <= themsg
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  msgtextt__first <= currentmsg
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  alarmtypes__statust__first <= currentdooralarm
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  alarmtypes__statust__first <= currentlogalarm
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  privtypes__classt__first <= fld_clearance(fld_data(
+          currentconfig))
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  privtypes__classt__first <= fld_minentry(fld_data(currentconfig)
+          )
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  configdata__accesspolicyt__first <= fld_policy(fld_data(
+          currentconfig))
+%%%  Simplified H41 on reading formula in, to give:
+     %%%  H41:  msgtextt__first <= currentmsg__2
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  alarmtypes__statust__first <= door__thedooralarm(door__state)
+%%%  Simplified H47 on reading formula in, to give:
+     %%%  H47:  alarmtypes__statust__first <= auditlog__theauditalarm(
+          auditlog__state)
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H47).
+---  Hypothesis H50 has been replaced by "true".  (It is already present, as 
+          H48).
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as 
+          H45).
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as 
+          H46).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  alarmtypes__statust__first <= currentdooralarm__3
+%%%  Simplified H56 on reading formula in, to give:
+     %%%  H56:  alarmtypes__statust__first <= currentlogalarm__3
+%%%  Simplified H63 on reading formula in, to give:
+     %%%  H63:  fld_isdisplayed(currentstats)
+%%%  Simplified H78 on reading formula in, to give:
+     %%%  H78:  privtypes__classt__first <= fld_clearance(fld_data(
+          currentconfig__8))
+%%%  Simplified H80 on reading formula in, to give:
+     %%%  H80:  privtypes__classt__first <= fld_minentry(fld_data(
+          currentconfig__8))
+%%%  Simplified H86 on reading formula in, to give:
+     %%%  H86:  configdata__accesspolicyt__first <= fld_policy(fld_data(
+          currentconfig__8))
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__systemfault
+-S-  Applied substitution rule updatescreen_rules(115).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule updatescreen_rules(116).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule updatescreen_rules(8).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule updatescreen_rules(9).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_4.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  msgtextt__first <= themsg
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  msgtextt__first <= currentmsg
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  alarmtypes__statust__first <= currentdooralarm
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  alarmtypes__statust__first <= currentlogalarm
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  privtypes__classt__first <= fld_clearance(fld_data(
+          currentconfig))
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  privtypes__classt__first <= fld_minentry(fld_data(currentconfig)
+          )
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  configdata__accesspolicyt__first <= fld_policy(fld_data(
+          currentconfig))
+%%%  Simplified H41 on reading formula in, to give:
+     %%%  H41:  msgtextt__first <= currentmsg__2
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  alarmtypes__statust__first <= door__thedooralarm(door__state)
+%%%  Simplified H47 on reading formula in, to give:
+     %%%  H47:  alarmtypes__statust__first <= auditlog__theauditalarm(
+          auditlog__state)
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H47).
+---  Hypothesis H50 has been replaced by "true".  (It is already present, as 
+          H48).
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as 
+          H45).
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as 
+          H46).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  alarmtypes__statust__first <= currentdooralarm__3
+%%%  Simplified H56 on reading formula in, to give:
+     %%%  H56:  alarmtypes__statust__first <= currentlogalarm__3
+%%%  Simplified H78 on reading formula in, to give:
+     %%%  H78:  privtypes__classt__first <= fld_clearance(fld_data(
+          currentconfig__8))
+%%%  Simplified H80 on reading formula in, to give:
+     %%%  H80:  privtypes__classt__first <= fld_minentry(fld_data(
+          currentconfig__8))
+%%%  Simplified H86 on reading formula in, to give:
+     %%%  H86:  configdata__accesspolicyt__first <= fld_policy(fld_data(
+          currentconfig__8))
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__systemfault
+-S-  Applied substitution rule updatescreen_rules(115).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule updatescreen_rules(116).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule updatescreen_rules(8).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule updatescreen_rules(9).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_5.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  msgtextt__first <= themsg
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  msgtextt__first <= currentmsg
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  alarmtypes__statust__first <= currentdooralarm
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  alarmtypes__statust__first <= currentlogalarm
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  privtypes__classt__first <= fld_clearance(fld_data(
+          currentconfig))
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  privtypes__classt__first <= fld_minentry(fld_data(currentconfig)
+          )
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  configdata__accesspolicyt__first <= fld_policy(fld_data(
+          currentconfig))
+%%%  Simplified H41 on reading formula in, to give:
+     %%%  H41:  msgtextt__first <= currentmsg__2
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  alarmtypes__statust__first <= door__thedooralarm(door__state)
+%%%  Simplified H47 on reading formula in, to give:
+     %%%  H47:  alarmtypes__statust__first <= auditlog__theauditalarm(
+          auditlog__state)
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H47).
+---  Hypothesis H50 has been replaced by "true".  (It is already present, as 
+          H48).
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as 
+          H45).
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as 
+          H46).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  alarmtypes__statust__first <= currentdooralarm__3
+%%%  Simplified H56 on reading formula in, to give:
+     %%%  H56:  alarmtypes__statust__first <= currentlogalarm__3
+%%%  Simplified H75 on reading formula in, to give:
+     %%%  H75:  privtypes__classt__first <= fld_clearance(fld_data(
+          currentconfig__8))
+%%%  Simplified H77 on reading formula in, to give:
+     %%%  H77:  privtypes__classt__first <= fld_minentry(fld_data(
+          currentconfig__8))
+%%%  Simplified H83 on reading formula in, to give:
+     %%%  H83:  configdata__accesspolicyt__first <= fld_policy(fld_data(
+          currentconfig__8))
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__systemfault
+-S-  Applied substitution rule updatescreen_rules(115).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule updatescreen_rules(116).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule updatescreen_rules(8).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule updatescreen_rules(9).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_6.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  msgtextt__first <= themsg
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  msgtextt__first <= currentmsg
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  alarmtypes__statust__first <= currentdooralarm
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  alarmtypes__statust__first <= currentlogalarm
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  privtypes__classt__first <= fld_clearance(fld_data(
+          currentconfig))
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  privtypes__classt__first <= fld_minentry(fld_data(currentconfig)
+          )
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  configdata__accesspolicyt__first <= fld_policy(fld_data(
+          currentconfig))
+%%%  Simplified H41 on reading formula in, to give:
+     %%%  H41:  msgtextt__first <= currentmsg__2
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  alarmtypes__statust__first <= door__thedooralarm(door__state)
+%%%  Simplified H47 on reading formula in, to give:
+     %%%  H47:  alarmtypes__statust__first <= auditlog__theauditalarm(
+          auditlog__state)
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H47).
+---  Hypothesis H50 has been replaced by "true".  (It is already present, as 
+          H48).
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as 
+          H45).
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as 
+          H46).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  alarmtypes__statust__first <= currentdooralarm__3
+%%%  Simplified H56 on reading formula in, to give:
+     %%%  H56:  alarmtypes__statust__first <= currentlogalarm__3
+%%%  Simplified H74 on reading formula in, to give:
+     %%%  H74:  fld_isdisplayed(currentconfig)
+%%%  Simplified H78 on reading formula in, to give:
+     %%%  H78:  privtypes__classt__first <= fld_clearance(fld_data(
+          currentconfig__8))
+%%%  Simplified H80 on reading formula in, to give:
+     %%%  H80:  privtypes__classt__first <= fld_minentry(fld_data(
+          currentconfig__8))
+%%%  Simplified H86 on reading formula in, to give:
+     %%%  H86:  configdata__accesspolicyt__first <= fld_policy(fld_data(
+          currentconfig__8))
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__systemfault
+-S-  Applied substitution rule updatescreen_rules(115).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule updatescreen_rules(116).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule updatescreen_rules(8).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule updatescreen_rules(9).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_7.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  msgtextt__first <= themsg
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  msgtextt__first <= currentmsg
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  alarmtypes__statust__first <= currentdooralarm
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  alarmtypes__statust__first <= currentlogalarm
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  privtypes__classt__first <= fld_clearance(fld_data(
+          currentconfig))
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  privtypes__classt__first <= fld_minentry(fld_data(currentconfig)
+          )
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  configdata__accesspolicyt__first <= fld_policy(fld_data(
+          currentconfig))
+%%%  Simplified H41 on reading formula in, to give:
+     %%%  H41:  msgtextt__first <= currentmsg__2
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  alarmtypes__statust__first <= door__thedooralarm(door__state)
+%%%  Simplified H47 on reading formula in, to give:
+     %%%  H47:  alarmtypes__statust__first <= auditlog__theauditalarm(
+          auditlog__state)
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H47).
+---  Hypothesis H50 has been replaced by "true".  (It is already present, as 
+          H48).
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as 
+          H45).
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as 
+          H46).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  alarmtypes__statust__first <= currentdooralarm__3
+%%%  Simplified H56 on reading formula in, to give:
+     %%%  H56:  alarmtypes__statust__first <= currentlogalarm__3
+%%%  Simplified H63 on reading formula in, to give:
+     %%%  H63:  fld_isdisplayed(currentstats)
+%%%  Simplified H71 on reading formula in, to give:
+     %%%  H71:  fld_isdisplayed(currentconfig)
+%%%  Simplified H75 on reading formula in, to give:
+     %%%  H75:  privtypes__classt__first <= fld_clearance(fld_data(
+          currentconfig__8))
+%%%  Simplified H77 on reading formula in, to give:
+     %%%  H77:  privtypes__classt__first <= fld_minentry(fld_data(
+          currentconfig__8))
+%%%  Simplified H83 on reading formula in, to give:
+     %%%  H83:  configdata__accesspolicyt__first <= fld_policy(fld_data(
+          currentconfig__8))
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__systemfault
+-S-  Applied substitution rule updatescreen_rules(115).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule updatescreen_rules(116).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule updatescreen_rules(8).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule updatescreen_rules(9).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_8.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  msgtextt__first <= themsg
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  msgtextt__first <= currentmsg
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  alarmtypes__statust__first <= currentdooralarm
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  alarmtypes__statust__first <= currentlogalarm
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  privtypes__classt__first <= fld_clearance(fld_data(
+          currentconfig))
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  privtypes__classt__first <= fld_minentry(fld_data(currentconfig)
+          )
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  configdata__accesspolicyt__first <= fld_policy(fld_data(
+          currentconfig))
+%%%  Simplified H41 on reading formula in, to give:
+     %%%  H41:  msgtextt__first <= currentmsg__2
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  alarmtypes__statust__first <= door__thedooralarm(door__state)
+%%%  Simplified H47 on reading formula in, to give:
+     %%%  H47:  alarmtypes__statust__first <= auditlog__theauditalarm(
+          auditlog__state)
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H47).
+---  Hypothesis H50 has been replaced by "true".  (It is already present, as 
+          H48).
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as 
+          H45).
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as 
+          H46).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  alarmtypes__statust__first <= currentdooralarm__3
+%%%  Simplified H56 on reading formula in, to give:
+     %%%  H56:  alarmtypes__statust__first <= currentlogalarm__3
+%%%  Simplified H71 on reading formula in, to give:
+     %%%  H71:  fld_isdisplayed(currentconfig)
+%%%  Simplified H75 on reading formula in, to give:
+     %%%  H75:  privtypes__classt__first <= fld_clearance(fld_data(
+          currentconfig__8))
+%%%  Simplified H77 on reading formula in, to give:
+     %%%  H77:  privtypes__classt__first <= fld_minentry(fld_data(
+          currentconfig__8))
+%%%  Simplified H83 on reading formula in, to give:
+     %%%  H83:  configdata__accesspolicyt__first <= fld_policy(fld_data(
+          currentconfig__8))
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__systemfault
+-S-  Applied substitution rule updatescreen_rules(115).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule updatescreen_rules(116).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule updatescreen_rules(8).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule updatescreen_rules(9).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_9.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  msgtextt__first <= themsg
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  msgtextt__first <= currentmsg
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  alarmtypes__statust__first <= currentdooralarm
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  alarmtypes__statust__first <= currentlogalarm
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  privtypes__classt__first <= fld_clearance(fld_data(
+          currentconfig))
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  privtypes__classt__first <= fld_minentry(fld_data(currentconfig)
+          )
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  configdata__accesspolicyt__first <= fld_policy(fld_data(
+          currentconfig))
+%%%  Simplified H41 on reading formula in, to give:
+     %%%  H41:  msgtextt__first <= currentmsg__2
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  alarmtypes__statust__first <= door__thedooralarm(door__state)
+%%%  Simplified H47 on reading formula in, to give:
+     %%%  H47:  alarmtypes__statust__first <= auditlog__theauditalarm(
+          auditlog__state)
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H47).
+---  Hypothesis H50 has been replaced by "true".  (It is already present, as 
+          H48).
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as 
+          H45).
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as 
+          H46).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  alarmtypes__statust__first <= currentdooralarm__3
+%%%  Simplified H56 on reading formula in, to give:
+     %%%  H56:  alarmtypes__statust__first <= currentlogalarm__3
+%%%  Simplified H68 on reading formula in, to give:
+     %%%  H68:  fld_isdisplayed(currentconfig)
+%%%  Simplified H72 on reading formula in, to give:
+     %%%  H72:  privtypes__classt__first <= fld_clearance(fld_data(
+          currentconfig__8))
+%%%  Simplified H74 on reading formula in, to give:
+     %%%  H74:  privtypes__classt__first <= fld_minentry(fld_data(
+          currentconfig__8))
+%%%  Simplified H80 on reading formula in, to give:
+     %%%  H80:  configdata__accesspolicyt__first <= fld_policy(fld_data(
+          currentconfig__8))
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__systemfault
+-S-  Applied substitution rule updatescreen_rules(115).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule updatescreen_rules(116).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule updatescreen_rules(8).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule updatescreen_rules(9).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_10.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  msgtextt__first <= themsg
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  msgtextt__first <= currentmsg
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  alarmtypes__statust__first <= currentdooralarm
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  alarmtypes__statust__first <= currentlogalarm
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  privtypes__classt__first <= fld_clearance(fld_data(
+          currentconfig))
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  privtypes__classt__first <= fld_minentry(fld_data(currentconfig)
+          )
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  configdata__accesspolicyt__first <= fld_policy(fld_data(
+          currentconfig))
+%%%  Simplified H41 on reading formula in, to give:
+     %%%  H41:  msgtextt__first <= currentmsg__2
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  alarmtypes__statust__first <= door__thedooralarm(door__state)
+%%%  Simplified H47 on reading formula in, to give:
+     %%%  H47:  alarmtypes__statust__first <= auditlog__theauditalarm(
+          auditlog__state)
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H47).
+---  Hypothesis H50 has been replaced by "true".  (It is already present, as 
+          H48).
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as 
+          H45).
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as 
+          H46).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  alarmtypes__statust__first <= currentdooralarm__3
+%%%  Simplified H56 on reading formula in, to give:
+     %%%  H56:  alarmtypes__statust__first <= currentlogalarm__3
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__systemfault
+-S-  Applied substitution rule updatescreen_rules(115).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule updatescreen_rules(116).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule updatescreen_rules(8).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule updatescreen_rules(9).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_11.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  msgtextt__first <= themsg
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  msgtextt__first <= currentmsg
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  alarmtypes__statust__first <= currentdooralarm
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  alarmtypes__statust__first <= currentlogalarm
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  privtypes__classt__first <= fld_clearance(fld_data(
+          currentconfig))
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  privtypes__classt__first <= fld_minentry(fld_data(currentconfig)
+          )
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  configdata__accesspolicyt__first <= fld_policy(fld_data(
+          currentconfig))
+%%%  Simplified H41 on reading formula in, to give:
+     %%%  H41:  msgtextt__first <= currentmsg__2
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  alarmtypes__statust__first <= door__thedooralarm(door__state)
+%%%  Simplified H47 on reading formula in, to give:
+     %%%  H47:  alarmtypes__statust__first <= auditlog__theauditalarm(
+          auditlog__state)
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H47).
+---  Hypothesis H50 has been replaced by "true".  (It is already present, as 
+          H48).
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as 
+          H45).
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as 
+          H46).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  alarmtypes__statust__first <= currentdooralarm__3
+%%%  Simplified H56 on reading formula in, to give:
+     %%%  H56:  alarmtypes__statust__first <= currentlogalarm__3
+%%%  Simplified H63 on reading formula in, to give:
+     %%%  H63:  fld_isdisplayed(currentstats)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__systemfault
+-S-  Applied substitution rule updatescreen_rules(115).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule updatescreen_rules(116).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule updatescreen_rules(8).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule updatescreen_rules(9).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_12.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  msgtextt__first <= themsg
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  msgtextt__first <= currentmsg
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  alarmtypes__statust__first <= currentdooralarm
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  alarmtypes__statust__first <= currentlogalarm
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  privtypes__classt__first <= fld_clearance(fld_data(
+          currentconfig))
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  privtypes__classt__first <= fld_minentry(fld_data(currentconfig)
+          )
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  configdata__accesspolicyt__first <= fld_policy(fld_data(
+          currentconfig))
+%%%  Simplified H41 on reading formula in, to give:
+     %%%  H41:  msgtextt__first <= currentmsg__2
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  alarmtypes__statust__first <= door__thedooralarm(door__state)
+%%%  Simplified H47 on reading formula in, to give:
+     %%%  H47:  alarmtypes__statust__first <= auditlog__theauditalarm(
+          auditlog__state)
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H47).
+---  Hypothesis H50 has been replaced by "true".  (It is already present, as 
+          H48).
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as 
+          H45).
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as 
+          H46).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  alarmtypes__statust__first <= currentdooralarm__3
+%%%  Simplified H56 on reading formula in, to give:
+     %%%  H56:  alarmtypes__statust__first <= currentlogalarm__3
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__systemfault
+-S-  Applied substitution rule updatescreen_rules(115).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule updatescreen_rules(116).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule updatescreen_rules(8).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule updatescreen_rules(9).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_13.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  msgtextt__first <= themsg
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  msgtextt__first <= currentmsg
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  alarmtypes__statust__first <= currentdooralarm
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  alarmtypes__statust__first <= currentlogalarm
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  privtypes__classt__first <= fld_clearance(fld_data(
+          currentconfig))
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  privtypes__classt__first <= fld_minentry(fld_data(currentconfig)
+          )
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  configdata__accesspolicyt__first <= fld_policy(fld_data(
+          currentconfig))
+%%%  Simplified H41 on reading formula in, to give:
+     %%%  H41:  msgtextt__first <= currentmsg__2
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  alarmtypes__statust__first <= door__thedooralarm(door__state)
+%%%  Simplified H47 on reading formula in, to give:
+     %%%  H47:  alarmtypes__statust__first <= auditlog__theauditalarm(
+          auditlog__state)
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H47).
+---  Hypothesis H50 has been replaced by "true".  (It is already present, as 
+          H48).
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as 
+          H45).
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as 
+          H46).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  alarmtypes__statust__first <= currentdooralarm__3
+%%%  Simplified H56 on reading formula in, to give:
+     %%%  H56:  alarmtypes__statust__first <= currentlogalarm__3
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__systemfault
+-S-  Applied substitution rule updatescreen_rules(115).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule updatescreen_rules(116).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule updatescreen_rules(8).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule updatescreen_rules(9).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_14.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  msgtextt__first <= themsg
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  msgtextt__first <= currentmsg
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  alarmtypes__statust__first <= currentdooralarm
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  alarmtypes__statust__first <= currentlogalarm
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  privtypes__classt__first <= fld_clearance(fld_data(
+          currentconfig))
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  privtypes__classt__first <= fld_minentry(fld_data(currentconfig)
+          )
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  configdata__accesspolicyt__first <= fld_policy(fld_data(
+          currentconfig))
+%%%  Simplified H41 on reading formula in, to give:
+     %%%  H41:  msgtextt__first <= currentmsg__2
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  alarmtypes__statust__first <= door__thedooralarm(door__state)
+%%%  Simplified H47 on reading formula in, to give:
+     %%%  H47:  alarmtypes__statust__first <= auditlog__theauditalarm(
+          auditlog__state)
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H47).
+---  Hypothesis H50 has been replaced by "true".  (It is already present, as 
+          H48).
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as 
+          H45).
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as 
+          H46).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  alarmtypes__statust__first <= currentdooralarm__3
+%%%  Simplified H56 on reading formula in, to give:
+     %%%  H56:  alarmtypes__statust__first <= currentlogalarm__3
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__systemfault
+-S-  Applied substitution rule updatescreen_rules(115).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule updatescreen_rules(116).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule updatescreen_rules(8).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule updatescreen_rules(9).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_15.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  msgtextt__first <= themsg
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  msgtextt__first <= currentmsg
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  alarmtypes__statust__first <= currentdooralarm
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  alarmtypes__statust__first <= currentlogalarm
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  privtypes__classt__first <= fld_clearance(fld_data(
+          currentconfig))
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  privtypes__classt__first <= fld_minentry(fld_data(currentconfig)
+          )
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  configdata__accesspolicyt__first <= fld_policy(fld_data(
+          currentconfig))
+%%%  Simplified H41 on reading formula in, to give:
+     %%%  H41:  msgtextt__first <= currentmsg__2
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  alarmtypes__statust__first <= door__thedooralarm(door__state)
+%%%  Simplified H47 on reading formula in, to give:
+     %%%  H47:  alarmtypes__statust__first <= auditlog__theauditalarm(
+          auditlog__state)
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H47).
+---  Hypothesis H50 has been replaced by "true".  (It is already present, as 
+          H48).
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as 
+          H45).
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as 
+          H46).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  alarmtypes__statust__first <= currentdooralarm__3
+%%%  Simplified H56 on reading formula in, to give:
+     %%%  H56:  alarmtypes__statust__first <= currentlogalarm__3
+%%%  Simplified H63 on reading formula in, to give:
+     %%%  H63:  fld_isdisplayed(currentstats)
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__systemfault
+-S-  Applied substitution rule updatescreen_rules(115).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule updatescreen_rules(116).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule updatescreen_rules(8).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule updatescreen_rules(9).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_16.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  msgtextt__first <= themsg
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  msgtextt__first <= currentmsg
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  alarmtypes__statust__first <= currentdooralarm
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  alarmtypes__statust__first <= currentlogalarm
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  privtypes__classt__first <= fld_clearance(fld_data(
+          currentconfig))
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  privtypes__classt__first <= fld_minentry(fld_data(currentconfig)
+          )
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  configdata__accesspolicyt__first <= fld_policy(fld_data(
+          currentconfig))
+%%%  Simplified H41 on reading formula in, to give:
+     %%%  H41:  msgtextt__first <= currentmsg__2
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  alarmtypes__statust__first <= door__thedooralarm(door__state)
+%%%  Simplified H47 on reading formula in, to give:
+     %%%  H47:  alarmtypes__statust__first <= auditlog__theauditalarm(
+          auditlog__state)
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H47).
+---  Hypothesis H50 has been replaced by "true".  (It is already present, as 
+          H48).
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as 
+          H45).
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as 
+          H46).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  alarmtypes__statust__first <= currentdooralarm__3
+%%%  Simplified H56 on reading formula in, to give:
+     %%%  H56:  alarmtypes__statust__first <= currentlogalarm__3
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__systemfault
+-S-  Applied substitution rule updatescreen_rules(115).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule updatescreen_rules(116).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule updatescreen_rules(8).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule updatescreen_rules(9).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_17.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  msgtextt__first <= themsg
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  msgtextt__first <= currentmsg
+%%%  Simplified H6 on reading formula in, to give:
+     %%%  H6:  alarmtypes__statust__first <= currentdooralarm
+%%%  Simplified H8 on reading formula in, to give:
+     %%%  H8:  alarmtypes__statust__first <= currentlogalarm
+%%%  Simplified H12 on reading formula in, to give:
+     %%%  H12:  privtypes__classt__first <= fld_clearance(fld_data(
+          currentconfig))
+%%%  Simplified H14 on reading formula in, to give:
+     %%%  H14:  privtypes__classt__first <= fld_minentry(fld_data(currentconfig)
+          )
+%%%  Simplified H20 on reading formula in, to give:
+     %%%  H20:  configdata__accesspolicyt__first <= fld_policy(fld_data(
+          currentconfig))
+%%%  Simplified H41 on reading formula in, to give:
+     %%%  H41:  msgtextt__first <= currentmsg__2
+%%%  Simplified H45 on reading formula in, to give:
+     %%%  H45:  alarmtypes__statust__first <= door__thedooralarm(door__state)
+%%%  Simplified H47 on reading formula in, to give:
+     %%%  H47:  alarmtypes__statust__first <= auditlog__theauditalarm(
+          auditlog__state)
+---  Hypothesis H49 has been replaced by "true".  (It is already present, as 
+          H47).
+---  Hypothesis H50 has been replaced by "true".  (It is already present, as 
+          H48).
+---  Hypothesis H51 has been replaced by "true".  (It is already present, as 
+          H45).
+---  Hypothesis H52 has been replaced by "true".  (It is already present, as 
+          H46).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  alarmtypes__statust__first <= currentdooralarm__3
+%%%  Simplified H56 on reading formula in, to give:
+     %%%  H56:  alarmtypes__statust__first <= currentlogalarm__3
+%%%  Simplified C1 on reading formula in, to give:
+     %%%  C1:  audittypes__severityt__first <= audittypes__warning
+%%%  Simplified C3 on reading formula in, to give:
+     %%%  C3:  audittypes__elementt__first <= audittypes__systemfault
+-S-  Applied substitution rule updatescreen_rules(115).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__first by:
+          audittypes__information.
+<S>  New C1:  true
+-S-  Applied substitution rule updatescreen_rules(116).
+     This was achieved by replacing all occurrences of 
+          audittypes__severityt__last by:
+          audittypes__critical.
+<S>  New C2:  true
+-S-  Applied substitution rule updatescreen_rules(8).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__first by:
+          audittypes__startunenrolledtis.
+<S>  New C3:  true
+-S-  Applied substitution rule updatescreen_rules(9).
+     This was achieved by replacing all occurrences of 
+          audittypes__elementt__last by:
+          audittypes__systemfault.
+<S>  New C4:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_18.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_19.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_20.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_21.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_22.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_23.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_24.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_25.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_26.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_27.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_28.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_29.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_30.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_31.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_32.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_33.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_34.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_35.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_36.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_37.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_38.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_39.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_40.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_41.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_42.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_43.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_44.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_45.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_46.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_47.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_48.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_49.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_50.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_updatescreen_51.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+

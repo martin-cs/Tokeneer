@@ -1,0 +1,114 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:16.36}
+
+                        {function Admin.OpIsAvailable}
+
+
+title function opisavailable;
+
+  function round__(real) : integer;
+  type character = integer;
+  type privtypes__privileget = (privtypes__useronly, 
+     privtypes__guard, privtypes__auditmanager, 
+     privtypes__securityofficer);
+  type opandnullt = (nullop, archivelog, updateconfigdata, 
+     overridelock, shutdownop);
+  type string = array [integer] of character;
+  const null__string : string = pending;
+  type t = record
+        rolepresent : privtypes__privileget;
+        currentop : opandnullt
+     end;
+  type availopst = array [opandnullt] of boolean;
+  type keyboard__datat = record
+        length : integer;
+        text : string
+     end;
+  type privtoavailopst = array [privtypes__privileget] of 
+     availopst;
+  type datat = record
+        length : integer;
+        minmatchlength : integer;
+        text : string
+     end;
+  type optokeyedt = array [opandnullt] of datat;
+  const isavailable : privtoavailopst = pending;
+  const optokeyed : optokeyedt = pending;
+  const datai__base__first : integer = pending; 
+  const datai__base__last : integer = pending; 
+  const datalengtht__base__first : integer = pending; 
+  const datalengtht__base__last : integer = pending; 
+  const opt__base__first : opandnullt = pending; 
+  const opt__base__last : opandnullt = pending; 
+  const opandnullt__base__first : opandnullt = pending; 
+  const opandnullt__base__last : opandnullt = pending; 
+  const keyboard__datai__base__first : integer = pending; 
+  const keyboard__datai__base__last : integer = pending; 
+  const keyboard__datalengtht__base__first : integer = pending; 
+  const keyboard__datalengtht__base__last : integer = pending; 
+  const privtypes__adminprivileget__base__first : 
+     privtypes__privileget = pending; 
+  const privtypes__adminprivileget__base__last : 
+     privtypes__privileget = pending; 
+  const privtypes__privileget__base__first : 
+     privtypes__privileget = pending; 
+  const privtypes__privileget__base__last : privtypes__privileget = pending; 
+  const positive__base__first : integer = pending; 
+  const positive__base__last : integer = pending; 
+  const character__base__first : character = pending; 
+  const character__base__last : character = pending; 
+  const integer__base__first : integer = pending; 
+  const integer__base__last : integer = pending; 
+  const datat__size : integer = pending; 
+  const datai__first : integer = pending; 
+  const datai__last : integer = pending; 
+  const datai__size : integer = pending; 
+  const datalengtht__first : integer = pending; 
+  const datalengtht__last : integer = pending; 
+  const datalengtht__size : integer = pending; 
+  const t__size : integer = pending; 
+  const opt__first : opandnullt = pending; 
+  const opt__last : opandnullt = pending; 
+  const opt__size : integer = pending; 
+  const opandnullt__first : opandnullt = pending; 
+  const opandnullt__last : opandnullt = pending; 
+  const opandnullt__size : integer = pending; 
+  const keyboard__datat__size : integer = pending; 
+  const keyboard__datai__first : integer = pending; 
+  const keyboard__datai__last : integer = pending; 
+  const keyboard__datai__size : integer = pending; 
+  const keyboard__datalengtht__first : integer = pending; 
+  const keyboard__datalengtht__last : integer = pending; 
+  const keyboard__datalengtht__size : integer = pending; 
+  const privtypes__adminprivileget__first : privtypes__privileget = pending; 
+  const privtypes__adminprivileget__last : privtypes__privileget = pending; 
+  const privtypes__adminprivileget__size : integer = pending; 
+  const privtypes__privileget__first : privtypes__privileget = pending; 
+  const privtypes__privileget__last : privtypes__privileget = pending; 
+  const privtypes__privileget__size : integer = pending; 
+  const positive__first : integer = pending; 
+  const positive__last : integer = pending; 
+  const positive__size : integer = pending; 
+  const character__first : character = pending; 
+  const character__last : character = pending; 
+  const character__size : integer = pending; 
+  const integer__first : integer = pending; 
+  const integer__last : integer = pending; 
+  const integer__size : integer = pending; 
+  var theadmin : t;
+  var keyedop : keyboard__datat;
+  var theop : opandnullt;
+  var matched : boolean;
+  var loop__1__op : opandnullt;
+  var loop__2__i : integer;
+  var keyedop__entry__loop__2 : keyboard__datat;
+  function prf_rolepresent(t) : privtypes__privileget;
+  function ispresent(t) : boolean;
+
+end;

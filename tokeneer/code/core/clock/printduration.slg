@@ -1,0 +1,938 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:07  SIMPLIFIED 05-SEP-2011, 15:39:26
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+function Clock.PrintDuration
+
+
+
+
+
+
+@@@@@@@@@@  VC: function_printduration_1.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  for_all(i___1 : integer, durationtexti__first <= i___1 and i___1 
+          <= durationtexti__last -> character__first <= element(mk__string([1] 
+          := 104, [2] := 104, [3] := 58, [4] := 109, [5] := 109, [6] := 58, [7] 
+          := 115, [8] := 115, [9] := 46, [10] := 115), [i___1]) and element(
+          mk__string([1] := 104, [2] := 104, [3] := 58, [4] := 109, [5] := 109, 
+          [6] := 58, [7] := 115, [8] := 115, [9] := 46, [10] := 115), [i___1]) 
+          <= character__last)
+-S-  Applied substitution rule printduratio_rules(2).
+     This was achieved by replacing all occurrences of lasthourindex by:
+          2.
+<S>  New C1:  2 >= positive__first
+<S>  New C2:  2 <= positive__last
+<S>  New C7:  durationtexti__last >= 2
+-S-  Applied substitution rule printduratio_rules(27).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New C3:  firsthourindex >= 1
+<S>  New C1:  true
+-S-  Applied substitution rule printduratio_rules(28).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New C4:  firsthourindex <= 2147483647
+<S>  New C2:  true
+-S-  Applied substitution rule printduratio_rules(1).
+     This was achieved by replacing all occurrences of firsthourindex by:
+          1.
+<S>  New C8:  durationtexti__first <= 1
+<S>  New C3:  true
+<S>  New C4:  true
+-S-  Applied substitution rule printduratio_rules(22).
+     This was achieved by replacing all occurrences of natural__first by:
+          0.
+<S>  New C5:  theduration div tenthsecsinhr >= 0
+<S>  New C9:  theduration div tenthsecsinhr >= 0
+-S-  Applied substitution rule printduratio_rules(23).
+     This was achieved by replacing all occurrences of natural__last by:
+          2147483647.
+<S>  New C6:  theduration div tenthsecsinhr <= 2147483647
+<S>  New C10:  theduration div tenthsecsinhr <= 2147483647
+-S-  Applied substitution rule printduratio_rules(39).
+     This was achieved by replacing all occurrences of durationtexti__last by:
+          10.
+<S>  New H4:  for_all(i___1 : integer, durationtexti__first <= i___1 and i___1 
+          <= 10 -> character__first <= element(mk__string([1] := 104, [2] := 
+          104, [3] := 58, [4] := 109, [5] := 109, [6] := 58, [7] := 115, [8] := 
+          115, [9] := 46, [10] := 115), [i___1]) and element(mk__string([1] := 
+          104, [2] := 104, [3] := 58, [4] := 109, [5] := 109, [6] := 58, [7] := 
+          115, [8] := 115, [9] := 46, [10] := 115), [i___1]) <= character__last)
+<S>  New C7:  true
+-S-  Applied substitution rule printduratio_rules(38).
+     This was achieved by replacing all occurrences of durationtexti__first by:
+          1.
+<S>  New H4:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 
+          character__first <= element(mk__string([1] := 104, [2] := 104, [3] := 
+          58, [4] := 109, [5] := 109, [6] := 58, [7] := 115, [8] := 115, [9] := 
+          46, [10] := 115), [i___1]) and element(mk__string([1] := 104, [2] := 
+          104, [3] := 58, [4] := 109, [5] := 109, [6] := 58, [7] := 115, [8] := 
+          115, [9] := 46, [10] := 115), [i___1]) <= character__last)
+<S>  New C8:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  Proved C7:  true
+***  Proved C8:  true
+-S-  Applied substitution rule printduratio_rules(10).
+     This was achieved by replacing all occurrences of tenthsecsinhr by:
+          36000.
+<S>  New C11:  theduration div 36000 >= durationt__base__first
+<S>  New C12:  theduration div 36000 <= durationt__base__last
+<S>  New C13:  true
+<S>  New C5:  theduration div 36000 >= 0
+<S>  New C9:  theduration div 36000 >= 0
+<S>  New C6:  theduration div 36000 <= 2147483647
+<S>  New C10:  theduration div 36000 <= 2147483647
+-S-  Applied substitution rule printduratio_rules(17).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H4:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 0 <= 
+          element(mk__string([1] := 104, [2] := 104, [3] := 58, [4] := 109, [5] 
+          := 109, [6] := 58, [7] := 115, [8] := 115, [9] := 46, [10] := 115), [
+          i___1]) and element(mk__string([1] := 104, [2] := 104, [3] := 58, [4] 
+          := 109, [5] := 109, [6] := 58, [7] := 115, [8] := 115, [9] := 46, [10]
+           := 115), [i___1]) <= character__last)
+-S-  Applied substitution rule printduratio_rules(18).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H4:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 0 <= 
+          element(mk__string([1] := 104, [2] := 104, [3] := 58, [4] := 109, [5] 
+          := 109, [6] := 58, [7] := 115, [8] := 115, [9] := 46, [10] := 115), [
+          i___1]) and element(mk__string([1] := 104, [2] := 104, [3] := 58, [4] 
+          := 109, [5] := 109, [6] := 58, [7] := 115, [8] := 115, [9] := 46, [10]
+           := 115), [i___1]) <= 255)
+-S-  Applied substitution rule printduratio_rules(32).
+     This was achieved by replacing all occurrences of durationt__first by:
+          0.
+<S>  New H2:  theduration >= 0
+-S-  Applied substitution rule printduratio_rules(33).
+     This was achieved by replacing all occurrences of durationt__last by:
+          864000.
+<S>  New H3:  theduration <= 864000
+***  Proved C13:  true
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated conclusion C9, which is a duplicate of C5.
+---  Eliminated conclusion C10, which is a duplicate of C6.
+***  Proved C11:  theduration div 36000 >= durationt__base__first
+     using hypothesis H2.
+***  Proved C5:  theduration div 36000 >= 0
+     using hypothesis H2.
+***  Proved C6:  theduration div 36000 <= 2147483647
+     using hypothesis H3.
+     +++  New H5:  integer__size >= 0
+     +++  New H6:  character__size >= 0
+     +++  New H7:  natural__size >= 0
+     +++  New H8:  positive__size >= 0
+     +++  New H9:  durationt__size >= 0
+     +++  New H10:  durationt__base__first <= durationt__base__last
+     +++  New H11:  durationtexti__size >= 0
+     +++  New H12:  durationt__base__first <= 0
+     +++  New H13:  durationt__base__last >= 864000
+***  Proved C12:  theduration div 36000 <= durationt__base__last
+     using hypotheses H3 & H13.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_printduration_2.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  for_all(i___1 : integer, durationtexti__first <= i___1 and i___1 
+          <= durationtexti__last -> character__first <= element(mk__string([1] 
+          := 104, [2] := 104, [3] := 58, [4] := 109, [5] := 109, [6] := 58, [7] 
+          := 115, [8] := 115, [9] := 46, [10] := 115), [i___1]) and element(
+          mk__string([1] := 104, [2] := 104, [3] := 58, [4] := 109, [5] := 109, 
+          [6] := 58, [7] := 115, [8] := 115, [9] := 46, [10] := 115), [i___1]) 
+          <= character__last)
+---  Hypothesis H13 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as 
+          H10).
+%%%  Simplified H18 on reading formula in, to give:
+     %%%  H18:  for_all(i___1 : integer, durationtexti__first <= i___1 and 
+          i___1 <= durationtexti__last -> character__first <= element(
+          localtext__1, [i___1]) and element(localtext__1, [i___1]) <= 
+          character__last)
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as 
+          H18).
+***  Proved C16:  tenthsecsinhr <> 0
+     using hypothesis H17.
+-S-  Applied substitution rule printduratio_rules(4).
+     This was achieved by replacing all occurrences of lastminindex by:
+          5.
+<S>  New C1:  5 >= positive__first
+<S>  New C2:  5 <= positive__last
+<S>  New C7:  durationtexti__last >= 5
+-S-  Applied substitution rule printduratio_rules(27).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New H5:  lasthourindex >= 1
+<S>  New H7:  firsthourindex >= 1
+<S>  New C3:  firstminindex >= 1
+<S>  New C1:  true
+-S-  Applied substitution rule printduratio_rules(28).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New H6:  lasthourindex <= 2147483647
+<S>  New H8:  firsthourindex <= 2147483647
+<S>  New C4:  firstminindex <= 2147483647
+<S>  New C2:  true
+-S-  Applied substitution rule printduratio_rules(3).
+     This was achieved by replacing all occurrences of firstminindex by:
+          4.
+<S>  New C8:  durationtexti__first <= 4
+<S>  New C3:  true
+<S>  New C4:  true
+-S-  Applied substitution rule printduratio_rules(22).
+     This was achieved by replacing all occurrences of natural__first by:
+          0.
+<S>  New H9:  theduration div tenthsecsinhr >= 0
+<S>  New C5:  theduration mod tenthsecsinhr div tenthsecsinmin >= 0
+<S>  New C9:  theduration mod tenthsecsinhr div tenthsecsinmin >= 0
+-S-  Applied substitution rule printduratio_rules(23).
+     This was achieved by replacing all occurrences of natural__last by:
+          2147483647.
+<S>  New H10:  theduration div tenthsecsinhr <= 2147483647
+<S>  New C6:  theduration mod tenthsecsinhr div tenthsecsinmin <= 2147483647
+<S>  New C10:  theduration mod tenthsecsinhr div tenthsecsinmin <= 2147483647
+-S-  Applied substitution rule printduratio_rules(39).
+     This was achieved by replacing all occurrences of durationtexti__last by:
+          10.
+<S>  New H4:  for_all(i___1 : integer, durationtexti__first <= i___1 and i___1 
+          <= 10 -> character__first <= element(mk__string([1] := 104, [2] := 
+          104, [3] := 58, [4] := 109, [5] := 109, [6] := 58, [7] := 115, [8] := 
+          115, [9] := 46, [10] := 115), [i___1]) and element(mk__string([1] := 
+          104, [2] := 104, [3] := 58, [4] := 109, [5] := 109, [6] := 58, [7] := 
+          115, [8] := 115, [9] := 46, [10] := 115), [i___1]) <= character__last)
+<S>  New H11:  10 >= lasthourindex
+<S>  New H18:  for_all(i___1 : integer, durationtexti__first <= i___1 and i___1 
+          <= 10 -> character__first <= element(localtext__1, [i___1]) and 
+          element(localtext__1, [i___1]) <= character__last)
+<S>  New C7:  true
+-S-  Applied substitution rule printduratio_rules(38).
+     This was achieved by replacing all occurrences of durationtexti__first by:
+          1.
+<S>  New H12:  1 <= firsthourindex
+<S>  New H4:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 
+          character__first <= element(mk__string([1] := 104, [2] := 104, [3] := 
+          58, [4] := 109, [5] := 109, [6] := 58, [7] := 115, [8] := 115, [9] := 
+          46, [10] := 115), [i___1]) and element(mk__string([1] := 104, [2] := 
+          104, [3] := 58, [4] := 109, [5] := 109, [6] := 58, [7] := 115, [8] := 
+          115, [9] := 46, [10] := 115), [i___1]) <= character__last)
+<S>  New H18:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 
+          character__first <= element(localtext__1, [i___1]) and element(
+          localtext__1, [i___1]) <= character__last)
+<S>  New C8:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  Proved C7:  true
+***  Proved C8:  true
+-S-  Applied substitution rule printduratio_rules(1).
+     This was achieved by replacing all occurrences of firsthourindex by:
+          1.
+<S>  New H7:  true
+<S>  New H8:  true
+<S>  New H12:  true
+-S-  Applied substitution rule printduratio_rules(2).
+     This was achieved by replacing all occurrences of lasthourindex by:
+          2.
+<S>  New H5:  true
+<S>  New H6:  true
+<S>  New H11:  true
+-S-  Applied substitution rule printduratio_rules(9).
+     This was achieved by replacing all occurrences of tenthsecsinmin by:
+          600.
+<S>  New C11:  theduration mod tenthsecsinhr div 600 >= durationt__base__first
+<S>  New C12:  theduration mod tenthsecsinhr div 600 <= durationt__base__last
+<S>  New C13:  true
+<S>  New C5:  theduration mod tenthsecsinhr div 600 >= 0
+<S>  New C9:  theduration mod tenthsecsinhr div 600 >= 0
+<S>  New C6:  theduration mod tenthsecsinhr div 600 <= 2147483647
+<S>  New C10:  theduration mod tenthsecsinhr div 600 <= 2147483647
+-S-  Applied substitution rule printduratio_rules(10).
+     This was achieved by replacing all occurrences of tenthsecsinhr by:
+          36000.
+<S>  New H9:  theduration div 36000 >= 0
+<S>  New H10:  theduration div 36000 <= 2147483647
+<S>  New H15:  theduration div 36000 >= durationt__base__first
+<S>  New H16:  theduration div 36000 <= durationt__base__last
+<S>  New H17:  true
+<S>  New C14:  theduration mod 36000 >= durationt__base__first
+<S>  New C15:  theduration mod 36000 <= durationt__base__last
+<S>  New C11:  theduration mod 36000 div 600 >= durationt__base__first
+<S>  New C12:  theduration mod 36000 div 600 <= durationt__base__last
+<S>  New C5:  theduration mod 36000 div 600 >= 0
+<S>  New C9:  theduration mod 36000 div 600 >= 0
+<S>  New C6:  theduration mod 36000 div 600 <= 2147483647
+<S>  New C10:  theduration mod 36000 div 600 <= 2147483647
+-S-  Applied substitution rule printduratio_rules(17).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H4:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 0 <= 
+          element(mk__string([1] := 104, [2] := 104, [3] := 58, [4] := 109, [5] 
+          := 109, [6] := 58, [7] := 115, [8] := 115, [9] := 46, [10] := 115), [
+          i___1]) and element(mk__string([1] := 104, [2] := 104, [3] := 58, [4] 
+          := 109, [5] := 109, [6] := 58, [7] := 115, [8] := 115, [9] := 46, [10]
+           := 115), [i___1]) <= character__last)
+<S>  New H18:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 0 <= 
+          element(localtext__1, [i___1]) and element(localtext__1, [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule printduratio_rules(18).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H4:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 0 <= 
+          element(mk__string([1] := 104, [2] := 104, [3] := 58, [4] := 109, [5] 
+          := 109, [6] := 58, [7] := 115, [8] := 115, [9] := 46, [10] := 115), [
+          i___1]) and element(mk__string([1] := 104, [2] := 104, [3] := 58, [4] 
+          := 109, [5] := 109, [6] := 58, [7] := 115, [8] := 115, [9] := 46, [10]
+           := 115), [i___1]) <= 255)
+<S>  New H18:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 0 <= 
+          element(localtext__1, [i___1]) and element(localtext__1, [i___1]) <= 
+          255)
+-S-  Applied substitution rule printduratio_rules(32).
+     This was achieved by replacing all occurrences of durationt__first by:
+          0.
+<S>  New H2:  theduration >= 0
+-S-  Applied substitution rule printduratio_rules(33).
+     This was achieved by replacing all occurrences of durationt__last by:
+          864000.
+<S>  New H3:  theduration <= 864000
+***  Proved C13:  true
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H13 (true-hypothesis).
+---  Eliminated hypothesis H14 (true-hypothesis).
+---  Eliminated hypothesis H19 (true-hypothesis).
+---  Eliminated hypothesis H7 (true-hypothesis).
+---  Eliminated hypothesis H8 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H5 (true-hypothesis).
+---  Eliminated hypothesis H6 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+---  Eliminated hypothesis H17 (true-hypothesis).
+---  Eliminated conclusion C9, which is a duplicate of C5.
+---  Eliminated conclusion C10, which is a duplicate of C6.
+***  Proved C11:  theduration mod 36000 div 600 >= durationt__base__first
+***  Proved C5:  theduration mod 36000 div 600 >= 0
+***  Proved C6:  theduration mod 36000 div 600 <= 2147483647
+     +++  New H20:  integer__size >= 0
+     +++  New H21:  character__size >= 0
+     +++  New H22:  natural__size >= 0
+     +++  New H23:  positive__size >= 0
+     +++  New H24:  durationt__size >= 0
+     +++  New H25:  durationt__base__first <= durationt__base__last
+     +++  New H26:  durationtexti__size >= 0
+     +++  New H27:  durationt__base__first <= 0
+     +++  New H28:  durationt__base__last >= 864000
+***  Proved C14:  theduration mod 36000 >= durationt__base__first
+     using hypothesis H27.
+***  Proved C15:  theduration mod 36000 <= durationt__base__last
+     using hypothesis H28.
+***  Proved C12:  theduration mod 36000 div 600 <= durationt__base__last
+     using hypothesis H28.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_printduration_3.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  for_all(i___1 : integer, durationtexti__first <= i___1 and i___1 
+          <= durationtexti__last -> character__first <= element(mk__string([1] 
+          := 104, [2] := 104, [3] := 58, [4] := 109, [5] := 109, [6] := 58, [7] 
+          := 115, [8] := 115, [9] := 46, [10] := 115), [i___1]) and element(
+          mk__string([1] := 104, [2] := 104, [3] := 58, [4] := 109, [5] := 109, 
+          [6] := 58, [7] := 115, [8] := 115, [9] := 46, [10] := 115), [i___1]) 
+          <= character__last)
+---  Hypothesis H13 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as 
+          H10).
+%%%  Simplified H18 on reading formula in, to give:
+     %%%  H18:  for_all(i___1 : integer, durationtexti__first <= i___1 and 
+          i___1 <= durationtexti__last -> character__first <= element(
+          localtext__1, [i___1]) and element(localtext__1, [i___1]) <= 
+          character__last)
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H28 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H35 has been replaced by "true".  (It is already present, as 
+          H17).
+%%%  Simplified H36 on reading formula in, to give:
+     %%%  H36:  for_all(i___1 : integer, durationtexti__first <= i___1 and 
+          i___1 <= durationtexti__last -> character__first <= element(
+          localtext__2, [i___1]) and element(localtext__2, [i___1]) <= 
+          character__last)
+---  Hypothesis H37 has been replaced by "true".  (It is already present, as 
+          H36).
+***  Proved C16:  tenthsecsinmin <> 0
+     using hypothesis H32.
+-S-  Applied substitution rule printduratio_rules(6).
+     This was achieved by replacing all occurrences of lastsecindex by:
+          8.
+<S>  New C1:  8 >= positive__first
+<S>  New C2:  8 <= positive__last
+<S>  New C7:  durationtexti__last >= 8
+-S-  Applied substitution rule printduratio_rules(27).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New H5:  lasthourindex >= 1
+<S>  New H7:  firsthourindex >= 1
+<S>  New H20:  lastminindex >= 1
+<S>  New H22:  firstminindex >= 1
+<S>  New C3:  firstsecindex >= 1
+<S>  New C1:  true
+-S-  Applied substitution rule printduratio_rules(28).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New H6:  lasthourindex <= 2147483647
+<S>  New H8:  firsthourindex <= 2147483647
+<S>  New H21:  lastminindex <= 2147483647
+<S>  New H23:  firstminindex <= 2147483647
+<S>  New C4:  firstsecindex <= 2147483647
+<S>  New C2:  true
+-S-  Applied substitution rule printduratio_rules(5).
+     This was achieved by replacing all occurrences of firstsecindex by:
+          7.
+<S>  New C8:  durationtexti__first <= 7
+<S>  New C3:  true
+<S>  New C4:  true
+-S-  Applied substitution rule printduratio_rules(22).
+     This was achieved by replacing all occurrences of natural__first by:
+          0.
+<S>  New H9:  theduration div tenthsecsinhr >= 0
+<S>  New H24:  theduration mod tenthsecsinhr div tenthsecsinmin >= 0
+<S>  New C5:  theduration mod tenthsecsinmin div tenthsecsinsec >= 0
+<S>  New C9:  theduration mod tenthsecsinmin div tenthsecsinsec >= 0
+-S-  Applied substitution rule printduratio_rules(23).
+     This was achieved by replacing all occurrences of natural__last by:
+          2147483647.
+<S>  New H10:  theduration div tenthsecsinhr <= 2147483647
+<S>  New H25:  theduration mod tenthsecsinhr div tenthsecsinmin <= 2147483647
+<S>  New C6:  theduration mod tenthsecsinmin div tenthsecsinsec <= 2147483647
+<S>  New C10:  theduration mod tenthsecsinmin div tenthsecsinsec <= 2147483647
+-S-  Applied substitution rule printduratio_rules(39).
+     This was achieved by replacing all occurrences of durationtexti__last by:
+          10.
+<S>  New H4:  for_all(i___1 : integer, durationtexti__first <= i___1 and i___1 
+          <= 10 -> character__first <= element(mk__string([1] := 104, [2] := 
+          104, [3] := 58, [4] := 109, [5] := 109, [6] := 58, [7] := 115, [8] := 
+          115, [9] := 46, [10] := 115), [i___1]) and element(mk__string([1] := 
+          104, [2] := 104, [3] := 58, [4] := 109, [5] := 109, [6] := 58, [7] := 
+          115, [8] := 115, [9] := 46, [10] := 115), [i___1]) <= character__last)
+<S>  New H11:  10 >= lasthourindex
+<S>  New H18:  for_all(i___1 : integer, durationtexti__first <= i___1 and i___1 
+          <= 10 -> character__first <= element(localtext__1, [i___1]) and 
+          element(localtext__1, [i___1]) <= character__last)
+<S>  New H26:  10 >= lastminindex
+<S>  New H36:  for_all(i___1 : integer, durationtexti__first <= i___1 and i___1 
+          <= 10 -> character__first <= element(localtext__2, [i___1]) and 
+          element(localtext__2, [i___1]) <= character__last)
+<S>  New C7:  true
+-S-  Applied substitution rule printduratio_rules(38).
+     This was achieved by replacing all occurrences of durationtexti__first by:
+          1.
+<S>  New H12:  1 <= firsthourindex
+<S>  New H27:  1 <= firstminindex
+<S>  New H4:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 
+          character__first <= element(mk__string([1] := 104, [2] := 104, [3] := 
+          58, [4] := 109, [5] := 109, [6] := 58, [7] := 115, [8] := 115, [9] := 
+          46, [10] := 115), [i___1]) and element(mk__string([1] := 104, [2] := 
+          104, [3] := 58, [4] := 109, [5] := 109, [6] := 58, [7] := 115, [8] := 
+          115, [9] := 46, [10] := 115), [i___1]) <= character__last)
+<S>  New H18:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 
+          character__first <= element(localtext__1, [i___1]) and element(
+          localtext__1, [i___1]) <= character__last)
+<S>  New H36:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 
+          character__first <= element(localtext__2, [i___1]) and element(
+          localtext__2, [i___1]) <= character__last)
+<S>  New C8:  true
+***  Proved C1:  true
+***  Proved C2:  true
+***  Proved C3:  true
+***  Proved C4:  true
+***  Proved C7:  true
+***  Proved C8:  true
+-S-  Applied substitution rule printduratio_rules(1).
+     This was achieved by replacing all occurrences of firsthourindex by:
+          1.
+<S>  New H7:  true
+<S>  New H8:  true
+<S>  New H12:  true
+-S-  Applied substitution rule printduratio_rules(2).
+     This was achieved by replacing all occurrences of lasthourindex by:
+          2.
+<S>  New H5:  true
+<S>  New H6:  true
+<S>  New H11:  true
+-S-  Applied substitution rule printduratio_rules(3).
+     This was achieved by replacing all occurrences of firstminindex by:
+          4.
+<S>  New H22:  true
+<S>  New H23:  true
+<S>  New H27:  true
+-S-  Applied substitution rule printduratio_rules(4).
+     This was achieved by replacing all occurrences of lastminindex by:
+          5.
+<S>  New H20:  true
+<S>  New H21:  true
+<S>  New H26:  true
+-S-  Applied substitution rule printduratio_rules(8).
+     This was achieved by replacing all occurrences of tenthsecsinsec by:
+          10.
+<S>  New C11:  theduration mod tenthsecsinmin div 10 >= durationt__base__first
+<S>  New C12:  theduration mod tenthsecsinmin div 10 <= durationt__base__last
+<S>  New C13:  true
+<S>  New C5:  theduration mod tenthsecsinmin div 10 >= 0
+<S>  New C9:  theduration mod tenthsecsinmin div 10 >= 0
+<S>  New C6:  theduration mod tenthsecsinmin div 10 <= 2147483647
+<S>  New C10:  theduration mod tenthsecsinmin div 10 <= 2147483647
+-S-  Applied substitution rule printduratio_rules(9).
+     This was achieved by replacing all occurrences of tenthsecsinmin by:
+          600.
+<S>  New H24:  theduration mod tenthsecsinhr div 600 >= 0
+<S>  New H25:  theduration mod tenthsecsinhr div 600 <= 2147483647
+<S>  New H30:  theduration mod tenthsecsinhr div 600 >= durationt__base__first
+<S>  New H31:  theduration mod tenthsecsinhr div 600 <= durationt__base__last
+<S>  New H32:  true
+<S>  New C14:  theduration mod 600 >= durationt__base__first
+<S>  New C15:  theduration mod 600 <= durationt__base__last
+<S>  New C11:  theduration mod 600 div 10 >= durationt__base__first
+<S>  New C12:  theduration mod 600 div 10 <= durationt__base__last
+<S>  New C5:  theduration mod 600 div 10 >= 0
+<S>  New C9:  theduration mod 600 div 10 >= 0
+<S>  New C6:  theduration mod 600 div 10 <= 2147483647
+<S>  New C10:  theduration mod 600 div 10 <= 2147483647
+-S-  Applied substitution rule printduratio_rules(10).
+     This was achieved by replacing all occurrences of tenthsecsinhr by:
+          36000.
+<S>  New H9:  theduration div 36000 >= 0
+<S>  New H10:  theduration div 36000 <= 2147483647
+<S>  New H15:  theduration div 36000 >= durationt__base__first
+<S>  New H16:  theduration div 36000 <= durationt__base__last
+<S>  New H17:  true
+<S>  New H33:  theduration mod 36000 >= durationt__base__first
+<S>  New H34:  theduration mod 36000 <= durationt__base__last
+<S>  New H24:  theduration mod 36000 div 600 >= 0
+<S>  New H25:  theduration mod 36000 div 600 <= 2147483647
+<S>  New H30:  theduration mod 36000 div 600 >= durationt__base__first
+<S>  New H31:  theduration mod 36000 div 600 <= durationt__base__last
+-S-  Applied substitution rule printduratio_rules(17).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H4:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 0 <= 
+          element(mk__string([1] := 104, [2] := 104, [3] := 58, [4] := 109, [5] 
+          := 109, [6] := 58, [7] := 115, [8] := 115, [9] := 46, [10] := 115), [
+          i___1]) and element(mk__string([1] := 104, [2] := 104, [3] := 58, [4] 
+          := 109, [5] := 109, [6] := 58, [7] := 115, [8] := 115, [9] := 46, [10]
+           := 115), [i___1]) <= character__last)
+<S>  New H18:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 0 <= 
+          element(localtext__1, [i___1]) and element(localtext__1, [i___1]) <= 
+          character__last)
+<S>  New H36:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 0 <= 
+          element(localtext__2, [i___1]) and element(localtext__2, [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule printduratio_rules(18).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H4:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 0 <= 
+          element(mk__string([1] := 104, [2] := 104, [3] := 58, [4] := 109, [5] 
+          := 109, [6] := 58, [7] := 115, [8] := 115, [9] := 46, [10] := 115), [
+          i___1]) and element(mk__string([1] := 104, [2] := 104, [3] := 58, [4] 
+          := 109, [5] := 109, [6] := 58, [7] := 115, [8] := 115, [9] := 46, [10]
+           := 115), [i___1]) <= 255)
+<S>  New H18:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 0 <= 
+          element(localtext__1, [i___1]) and element(localtext__1, [i___1]) <= 
+          255)
+<S>  New H36:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 0 <= 
+          element(localtext__2, [i___1]) and element(localtext__2, [i___1]) <= 
+          255)
+-S-  Applied substitution rule printduratio_rules(32).
+     This was achieved by replacing all occurrences of durationt__first by:
+          0.
+<S>  New H2:  theduration >= 0
+-S-  Applied substitution rule printduratio_rules(33).
+     This was achieved by replacing all occurrences of durationt__last by:
+          864000.
+<S>  New H3:  theduration <= 864000
+***  Proved C13:  true
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H13 (true-hypothesis).
+---  Eliminated hypothesis H14 (true-hypothesis).
+---  Eliminated hypothesis H19 (true-hypothesis).
+---  Eliminated hypothesis H28 (true-hypothesis).
+---  Eliminated hypothesis H29 (true-hypothesis).
+---  Eliminated hypothesis H35 (true-hypothesis).
+---  Eliminated hypothesis H37 (true-hypothesis).
+---  Eliminated hypothesis H7 (true-hypothesis).
+---  Eliminated hypothesis H8 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H5 (true-hypothesis).
+---  Eliminated hypothesis H6 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+---  Eliminated hypothesis H22 (true-hypothesis).
+---  Eliminated hypothesis H23 (true-hypothesis).
+---  Eliminated hypothesis H27 (true-hypothesis).
+---  Eliminated hypothesis H20 (true-hypothesis).
+---  Eliminated hypothesis H21 (true-hypothesis).
+---  Eliminated hypothesis H26 (true-hypothesis).
+---  Eliminated hypothesis H32 (true-hypothesis).
+---  Eliminated hypothesis H17 (true-hypothesis).
+---  Eliminated conclusion C9, which is a duplicate of C5.
+---  Eliminated conclusion C10, which is a duplicate of C6.
+***  Proved C11:  theduration mod 600 div 10 >= durationt__base__first
+***  Proved C5:  theduration mod 600 div 10 >= 0
+***  Proved C6:  theduration mod 600 div 10 <= 2147483647
+     +++  New H38:  integer__size >= 0
+     +++  New H39:  character__size >= 0
+     +++  New H40:  natural__size >= 0
+     +++  New H41:  positive__size >= 0
+     +++  New H42:  durationt__size >= 0
+     +++  New H43:  durationt__base__first <= durationt__base__last
+     +++  New H44:  durationtexti__size >= 0
+     +++  New H45:  durationt__base__first <= 0
+     +++  New H46:  durationt__base__last >= 864000
+***  Proved C14:  theduration mod 600 >= durationt__base__first
+     using hypothesis H45.
+***  Proved C15:  theduration mod 600 <= durationt__base__last
+     using hypothesis H46.
+***  Proved C12:  theduration mod 600 div 10 <= durationt__base__last
+     using hypothesis H46.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_printduration_4.  @@@@@@@@@@
+%%%  Simplified H4 on reading formula in, to give:
+     %%%  H4:  for_all(i___1 : integer, durationtexti__first <= i___1 and i___1 
+          <= durationtexti__last -> character__first <= element(mk__string([1] 
+          := 104, [2] := 104, [3] := 58, [4] := 109, [5] := 109, [6] := 58, [7] 
+          := 115, [8] := 115, [9] := 46, [10] := 115), [i___1]) and element(
+          mk__string([1] := 104, [2] := 104, [3] := 58, [4] := 109, [5] := 109, 
+          [6] := 58, [7] := 115, [8] := 115, [9] := 46, [10] := 115), [i___1]) 
+          <= character__last)
+---  Hypothesis H13 has been replaced by "true".  (It is already present, as H9)
+          .
+---  Hypothesis H14 has been replaced by "true".  (It is already present, as 
+          H10).
+%%%  Simplified H18 on reading formula in, to give:
+     %%%  H18:  for_all(i___1 : integer, durationtexti__first <= i___1 and 
+          i___1 <= durationtexti__last -> character__first <= element(
+          localtext__1, [i___1]) and element(localtext__1, [i___1]) <= 
+          character__last)
+---  Hypothesis H19 has been replaced by "true".  (It is already present, as 
+          H18).
+---  Hypothesis H28 has been replaced by "true".  (It is already present, as 
+          H24).
+---  Hypothesis H29 has been replaced by "true".  (It is already present, as 
+          H25).
+---  Hypothesis H35 has been replaced by "true".  (It is already present, as 
+          H17).
+%%%  Simplified H36 on reading formula in, to give:
+     %%%  H36:  for_all(i___1 : integer, durationtexti__first <= i___1 and 
+          i___1 <= durationtexti__last -> character__first <= element(
+          localtext__2, [i___1]) and element(localtext__2, [i___1]) <= 
+          character__last)
+---  Hypothesis H37 has been replaced by "true".  (It is already present, as 
+          H36).
+---  Hypothesis H46 has been replaced by "true".  (It is already present, as 
+          H42).
+---  Hypothesis H47 has been replaced by "true".  (It is already present, as 
+          H43).
+---  Hypothesis H53 has been replaced by "true".  (It is already present, as 
+          H32).
+%%%  Simplified H54 on reading formula in, to give:
+     %%%  H54:  for_all(i___1 : integer, durationtexti__first <= i___1 and 
+          i___1 <= durationtexti__last -> character__first <= element(
+          localtext__3, [i___1]) and element(localtext__3, [i___1]) <= 
+          character__last)
+---  Hypothesis H55 has been replaced by "true".  (It is already present, as 
+          H54).
+***  Proved C13:  tenthsecsinsec <> 0
+     using hypothesis H50.
+-S-  Applied substitution rule printduratio_rules(7).
+     This was achieved by replacing all occurrences of tenthsecindex by:
+          10.
+<S>  New C1:  10 >= positive__first
+<S>  New C2:  10 <= positive__last
+<S>  New C3:  10 >= positive__first
+<S>  New C4:  10 <= positive__last
+<S>  New C7:  durationtexti__last >= 10
+<S>  New C8:  durationtexti__first <= 10
+-S-  Applied substitution rule printduratio_rules(27).
+     This was achieved by replacing all occurrences of positive__first by:
+          1.
+<S>  New H5:  lasthourindex >= 1
+<S>  New H7:  firsthourindex >= 1
+<S>  New H20:  lastminindex >= 1
+<S>  New H22:  firstminindex >= 1
+<S>  New H38:  lastsecindex >= 1
+<S>  New H40:  firstsecindex >= 1
+<S>  New C1:  true
+<S>  New C3:  true
+-S-  Applied substitution rule printduratio_rules(28).
+     This was achieved by replacing all occurrences of positive__last by:
+          2147483647.
+<S>  New H6:  lasthourindex <= 2147483647
+<S>  New H8:  firsthourindex <= 2147483647
+<S>  New H21:  lastminindex <= 2147483647
+<S>  New H23:  firstminindex <= 2147483647
+<S>  New H39:  lastsecindex <= 2147483647
+<S>  New H41:  firstsecindex <= 2147483647
+<S>  New C2:  true
+<S>  New C4:  true
+-S-  Applied substitution rule printduratio_rules(22).
+     This was achieved by replacing all occurrences of natural__first by:
+          0.
+<S>  New H9:  theduration div tenthsecsinhr >= 0
+<S>  New H24:  theduration mod tenthsecsinhr div tenthsecsinmin >= 0
+<S>  New H42:  theduration mod tenthsecsinmin div tenthsecsinsec >= 0
+<S>  New C5:  theduration mod tenthsecsinsec >= 0
+<S>  New C9:  theduration mod tenthsecsinsec >= 0
+-S-  Applied substitution rule printduratio_rules(23).
+     This was achieved by replacing all occurrences of natural__last by:
+          2147483647.
+<S>  New H10:  theduration div tenthsecsinhr <= 2147483647
+<S>  New H25:  theduration mod tenthsecsinhr div tenthsecsinmin <= 2147483647
+<S>  New H43:  theduration mod tenthsecsinmin div tenthsecsinsec <= 2147483647
+<S>  New C6:  theduration mod tenthsecsinsec <= 2147483647
+<S>  New C10:  theduration mod tenthsecsinsec <= 2147483647
+-S-  Applied substitution rule printduratio_rules(39).
+     This was achieved by replacing all occurrences of durationtexti__last by:
+          10.
+<S>  New H4:  for_all(i___1 : integer, durationtexti__first <= i___1 and i___1 
+          <= 10 -> character__first <= element(mk__string([1] := 104, [2] := 
+          104, [3] := 58, [4] := 109, [5] := 109, [6] := 58, [7] := 115, [8] := 
+          115, [9] := 46, [10] := 115), [i___1]) and element(mk__string([1] := 
+          104, [2] := 104, [3] := 58, [4] := 109, [5] := 109, [6] := 58, [7] := 
+          115, [8] := 115, [9] := 46, [10] := 115), [i___1]) <= character__last)
+<S>  New H11:  10 >= lasthourindex
+<S>  New H18:  for_all(i___1 : integer, durationtexti__first <= i___1 and i___1 
+          <= 10 -> character__first <= element(localtext__1, [i___1]) and 
+          element(localtext__1, [i___1]) <= character__last)
+<S>  New H26:  10 >= lastminindex
+<S>  New H36:  for_all(i___1 : integer, durationtexti__first <= i___1 and i___1 
+          <= 10 -> character__first <= element(localtext__2, [i___1]) and 
+          element(localtext__2, [i___1]) <= character__last)
+<S>  New H44:  10 >= lastsecindex
+<S>  New H54:  for_all(i___1 : integer, durationtexti__first <= i___1 and i___1 
+          <= 10 -> character__first <= element(localtext__3, [i___1]) and 
+          element(localtext__3, [i___1]) <= character__last)
+<S>  New C7:  true
+-S-  Applied substitution rule printduratio_rules(38).
+     This was achieved by replacing all occurrences of durationtexti__first by:
+          1.
+<S>  New H12:  1 <= firsthourindex
+<S>  New H27:  1 <= firstminindex
+<S>  New H45:  1 <= firstsecindex
+<S>  New H4:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 
+          character__first <= element(mk__string([1] := 104, [2] := 104, [3] := 
+          58, [4] := 109, [5] := 109, [6] := 58, [7] := 115, [8] := 115, [9] := 
+          46, [10] := 115), [i___1]) and element(mk__string([1] := 104, [2] := 
+          104, [3] := 58, [4] := 109, [5] := 109, [6] := 58, [7] := 115, [8] := 
+          115, [9] := 46, [10] := 115), [i___1]) <= character__last)
+<S>  New H18:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 
+          character__first <= element(localtext__1, [i___1]) and element(
+          localtext__1, [i___1]) <= character__last)
+<S>  New H36:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 
+          character__first <= element(localtext__2, [i___1]) and element(
+          localtext__2, [i___1]) <= character__last)
+<S>  New H54:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 
+          character__first <= element(localtext__3, [i___1]) and element(
+          localtext__3, [i___1]) <= character__last)
+<S>  New C8:  true
+***  Proved C1:  true
+***  Proved C3:  true
+***  Proved C2:  true
+***  Proved C4:  true
+***  Proved C7:  true
+***  Proved C8:  true
+-S-  Applied substitution rule printduratio_rules(1).
+     This was achieved by replacing all occurrences of firsthourindex by:
+          1.
+<S>  New H7:  true
+<S>  New H8:  true
+<S>  New H12:  true
+-S-  Applied substitution rule printduratio_rules(2).
+     This was achieved by replacing all occurrences of lasthourindex by:
+          2.
+<S>  New H5:  true
+<S>  New H6:  true
+<S>  New H11:  true
+-S-  Applied substitution rule printduratio_rules(3).
+     This was achieved by replacing all occurrences of firstminindex by:
+          4.
+<S>  New H22:  true
+<S>  New H23:  true
+<S>  New H27:  true
+-S-  Applied substitution rule printduratio_rules(4).
+     This was achieved by replacing all occurrences of lastminindex by:
+          5.
+<S>  New H20:  true
+<S>  New H21:  true
+<S>  New H26:  true
+-S-  Applied substitution rule printduratio_rules(5).
+     This was achieved by replacing all occurrences of firstsecindex by:
+          7.
+<S>  New H40:  true
+<S>  New H41:  true
+<S>  New H45:  true
+-S-  Applied substitution rule printduratio_rules(6).
+     This was achieved by replacing all occurrences of lastsecindex by:
+          8.
+<S>  New H38:  true
+<S>  New H39:  true
+<S>  New H44:  true
+-S-  Applied substitution rule printduratio_rules(8).
+     This was achieved by replacing all occurrences of tenthsecsinsec by:
+          10.
+<S>  New H42:  theduration mod tenthsecsinmin div 10 >= 0
+<S>  New H43:  theduration mod tenthsecsinmin div 10 <= 2147483647
+<S>  New H48:  theduration mod tenthsecsinmin div 10 >= durationt__base__first
+<S>  New H49:  theduration mod tenthsecsinmin div 10 <= durationt__base__last
+<S>  New H50:  true
+<S>  New C11:  theduration mod 10 >= durationt__base__first
+<S>  New C12:  theduration mod 10 <= durationt__base__last
+<S>  New C5:  theduration mod 10 >= 0
+<S>  New C9:  theduration mod 10 >= 0
+<S>  New C6:  theduration mod 10 <= 2147483647
+<S>  New C10:  theduration mod 10 <= 2147483647
+-S-  Applied substitution rule printduratio_rules(9).
+     This was achieved by replacing all occurrences of tenthsecsinmin by:
+          600.
+<S>  New H24:  theduration mod tenthsecsinhr div 600 >= 0
+<S>  New H25:  theduration mod tenthsecsinhr div 600 <= 2147483647
+<S>  New H30:  theduration mod tenthsecsinhr div 600 >= durationt__base__first
+<S>  New H31:  theduration mod tenthsecsinhr div 600 <= durationt__base__last
+<S>  New H32:  true
+<S>  New H51:  theduration mod 600 >= durationt__base__first
+<S>  New H52:  theduration mod 600 <= durationt__base__last
+<S>  New H42:  theduration mod 600 div 10 >= 0
+<S>  New H43:  theduration mod 600 div 10 <= 2147483647
+<S>  New H48:  theduration mod 600 div 10 >= durationt__base__first
+<S>  New H49:  theduration mod 600 div 10 <= durationt__base__last
+-S-  Applied substitution rule printduratio_rules(10).
+     This was achieved by replacing all occurrences of tenthsecsinhr by:
+          36000.
+<S>  New H9:  theduration div 36000 >= 0
+<S>  New H10:  theduration div 36000 <= 2147483647
+<S>  New H15:  theduration div 36000 >= durationt__base__first
+<S>  New H16:  theduration div 36000 <= durationt__base__last
+<S>  New H17:  true
+<S>  New H33:  theduration mod 36000 >= durationt__base__first
+<S>  New H34:  theduration mod 36000 <= durationt__base__last
+<S>  New H24:  theduration mod 36000 div 600 >= 0
+<S>  New H25:  theduration mod 36000 div 600 <= 2147483647
+<S>  New H30:  theduration mod 36000 div 600 >= durationt__base__first
+<S>  New H31:  theduration mod 36000 div 600 <= durationt__base__last
+-S-  Applied substitution rule printduratio_rules(17).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H4:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 0 <= 
+          element(mk__string([1] := 104, [2] := 104, [3] := 58, [4] := 109, [5] 
+          := 109, [6] := 58, [7] := 115, [8] := 115, [9] := 46, [10] := 115), [
+          i___1]) and element(mk__string([1] := 104, [2] := 104, [3] := 58, [4] 
+          := 109, [5] := 109, [6] := 58, [7] := 115, [8] := 115, [9] := 46, [10]
+           := 115), [i___1]) <= character__last)
+<S>  New H18:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 0 <= 
+          element(localtext__1, [i___1]) and element(localtext__1, [i___1]) <= 
+          character__last)
+<S>  New H36:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 0 <= 
+          element(localtext__2, [i___1]) and element(localtext__2, [i___1]) <= 
+          character__last)
+<S>  New H54:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 0 <= 
+          element(localtext__3, [i___1]) and element(localtext__3, [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule printduratio_rules(18).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H4:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 0 <= 
+          element(mk__string([1] := 104, [2] := 104, [3] := 58, [4] := 109, [5] 
+          := 109, [6] := 58, [7] := 115, [8] := 115, [9] := 46, [10] := 115), [
+          i___1]) and element(mk__string([1] := 104, [2] := 104, [3] := 58, [4] 
+          := 109, [5] := 109, [6] := 58, [7] := 115, [8] := 115, [9] := 46, [10]
+           := 115), [i___1]) <= 255)
+<S>  New H18:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 0 <= 
+          element(localtext__1, [i___1]) and element(localtext__1, [i___1]) <= 
+          255)
+<S>  New H36:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 0 <= 
+          element(localtext__2, [i___1]) and element(localtext__2, [i___1]) <= 
+          255)
+<S>  New H54:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 10 -> 0 <= 
+          element(localtext__3, [i___1]) and element(localtext__3, [i___1]) <= 
+          255)
+-S-  Applied substitution rule printduratio_rules(32).
+     This was achieved by replacing all occurrences of durationt__first by:
+          0.
+<S>  New H2:  theduration >= 0
+-S-  Applied substitution rule printduratio_rules(33).
+     This was achieved by replacing all occurrences of durationt__last by:
+          864000.
+<S>  New H3:  theduration <= 864000
+***  Proved C5:  theduration mod 10 >= 0
+***  Proved C9:  theduration mod 10 >= 0
+***  Proved C6:  theduration mod 10 <= 2147483647
+***  Proved C10:  theduration mod 10 <= 2147483647
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H13 (true-hypothesis).
+---  Eliminated hypothesis H14 (true-hypothesis).
+---  Eliminated hypothesis H19 (true-hypothesis).
+---  Eliminated hypothesis H28 (true-hypothesis).
+---  Eliminated hypothesis H29 (true-hypothesis).
+---  Eliminated hypothesis H35 (true-hypothesis).
+---  Eliminated hypothesis H37 (true-hypothesis).
+---  Eliminated hypothesis H46 (true-hypothesis).
+---  Eliminated hypothesis H47 (true-hypothesis).
+---  Eliminated hypothesis H53 (true-hypothesis).
+---  Eliminated hypothesis H55 (true-hypothesis).
+---  Eliminated hypothesis H7 (true-hypothesis).
+---  Eliminated hypothesis H8 (true-hypothesis).
+---  Eliminated hypothesis H12 (true-hypothesis).
+---  Eliminated hypothesis H5 (true-hypothesis).
+---  Eliminated hypothesis H6 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+---  Eliminated hypothesis H22 (true-hypothesis).
+---  Eliminated hypothesis H23 (true-hypothesis).
+---  Eliminated hypothesis H27 (true-hypothesis).
+---  Eliminated hypothesis H20 (true-hypothesis).
+---  Eliminated hypothesis H21 (true-hypothesis).
+---  Eliminated hypothesis H26 (true-hypothesis).
+---  Eliminated hypothesis H40 (true-hypothesis).
+---  Eliminated hypothesis H41 (true-hypothesis).
+---  Eliminated hypothesis H45 (true-hypothesis).
+---  Eliminated hypothesis H38 (true-hypothesis).
+---  Eliminated hypothesis H39 (true-hypothesis).
+---  Eliminated hypothesis H44 (true-hypothesis).
+---  Eliminated hypothesis H50 (true-hypothesis).
+---  Eliminated hypothesis H32 (true-hypothesis).
+---  Eliminated hypothesis H17 (true-hypothesis).
+     +++  New H56:  integer__size >= 0
+     +++  New H57:  character__size >= 0
+     +++  New H58:  natural__size >= 0
+     +++  New H59:  positive__size >= 0
+     +++  New H60:  durationt__size >= 0
+     +++  New H61:  durationt__base__first <= durationt__base__last
+     +++  New H62:  durationtexti__size >= 0
+     +++  New H63:  durationt__base__first <= 0
+     +++  New H64:  durationt__base__last >= 864000
+***  Proved C11:  theduration mod 10 >= durationt__base__first
+     using hypothesis H63.
+***  Proved C12:  theduration mod 10 <= durationt__base__last
+     using hypothesis H64.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: function_printduration_5.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+

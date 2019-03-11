@@ -1,0 +1,128 @@
+*****************************************************************************
+                       Semantic Analysis of SPARK Text
+                              Examiner GPL 2011
+             Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+*****************************************************************************
+
+
+CREATED 05-SEP-2011, 15:33:12  SIMPLIFIED 05-SEP-2011, 15:41:24
+
+SPARK Simplifier GPL 2011
+Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.
+
+procedure KeyStore.KeyMatchingIssuerPresent
+
+
+
+
+
+
+RRS  The following user defined rule files have been read:
+&&&  d:/sparkdev/tis2011/code/core/keystore/keystore.rlu
+SEM  No semantic checks are performed on the rules.
+
+
+@@@@@@@@@@  VC: procedure_keymatchingissuerpresent_1.  @@@@@@@@@@
+%%%  Simplified H2 on reading formula in, to give:
+     %%%  H2:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(issuer), [i___1]) and element(fld_name(issuer), [i___1]) <= 
+          character__last)
+***  Proved C1:  theissuerkey__1 >= basictypes__unsigned32t__first
+     using hypothesis H7.
+***  Proved C2:  theissuerkey__1 <= basictypes__unsigned32t__last
+     using hypothesis H8.
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_keymatchingissuerpresent_2.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_keymatchingissuerpresent_3.  @@@@@@@@@@
+***  Proved C1:  true
+***  PROVED VC.
+
+
+@@@@@@@@@@  VC: procedure_keymatchingissuerpresent_4.  @@@@@@@@@@
+%%%  Simplified H3 on reading formula in, to give:
+     %%%  H3:  keystore__interface__store = fld_keystore__interface__store(
+          store~)
+%%%  Simplified H5 on reading formula in, to give:
+     %%%  H5:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> character__first <= element(
+          fld_name(issuer), [i___1]) and element(fld_name(issuer), [i___1]) <= 
+          character__last)
+-S-  Applied substitution rule keymatchingi_rules(7).
+     This was achieved by replacing all occurrences of character__first by:
+          0.
+<S>  New H5:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(issuer), [
+          i___1]) and element(fld_name(issuer), [i___1]) <= character__last)
+-S-  Applied substitution rule keymatchingi_rules(8).
+     This was achieved by replacing all occurrences of character__last by:
+          255.
+<S>  New H5:  for_all(i___1 : integer, cryptotypes__namei__first <= i___1 and 
+          i___1 <= cryptotypes__namei__last -> 0 <= element(fld_name(issuer), [
+          i___1]) and element(fld_name(issuer), [i___1]) <= 255)
+-S-  Applied substitution rule keymatchingi_rules(24).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namecountt__first by:
+          0.
+<S>  New H6:  fld_namelength(issuer) >= 0
+-S-  Applied substitution rule keymatchingi_rules(25).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namecountt__last by:
+          40.
+<S>  New H7:  fld_namelength(issuer) <= 40
+-S-  Applied substitution rule keymatchingi_rules(29).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__namei__first by:
+          1.
+<S>  New H5:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 
+          cryptotypes__namei__last -> 0 <= element(fld_name(issuer), [i___1]) 
+          and element(fld_name(issuer), [i___1]) <= 255)
+-S-  Applied substitution rule keymatchingi_rules(30).
+     This was achieved by replacing all occurrences of cryptotypes__namei__last 
+          by:
+          40.
+<S>  New H5:  for_all(i___1 : integer, 1 <= i___1 and i___1 <= 40 -> 0 <= 
+          element(fld_name(issuer), [i___1]) and element(fld_name(issuer), [
+          i___1]) <= 255)
+-S-  Applied substitution rule keymatchingi_rules(34).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__issueridt__first by:
+          0.
+<S>  New H8:  fld_id(issuer) >= 0
+-S-  Applied substitution rule keymatchingi_rules(35).
+     This was achieved by replacing all occurrences of 
+          cryptotypes__issueridt__last by:
+          4294967295.
+<S>  New H9:  fld_id(issuer) <= 4294967295
+---  Eliminated hypothesis H1 (true-hypothesis).
+---  Eliminated hypothesis H2 (true-hypothesis).
+---  Eliminated hypothesis H10 (true-hypothesis).
+---  Eliminated hypothesis H11 (true-hypothesis).
+-S-  Eliminated hypothesis H3.
+     This was achieved by replacing all occurrences of 
+          keystore__interface__store by:
+          fld_keystore__interface__store(store~).
+<S>  New H4:  fld_keystore__interface__store(store~) = 
+          fld_keystore__interface__store(store)
+     +++  New H12:  integer__size >= 0
+     +++  New H13:  character__size >= 0
+     +++  New H14:  positive__size >= 0
+     +++  New H15:  basictypes__unsigned32t__base__first <= 
+          basictypes__unsigned32t__base__last
+     +++  New H16:  cryptotypes__namecountt__size >= 0
+     +++  New H17:  cryptotypes__namei__size >= 0
+     +++  New H18:  cryptotypes__issueridt__size >= 0
+     +++  New H19:  cryptotypes__issueridt__base__first <= 
+          cryptotypes__issueridt__base__last
+     +++  New H20:  cryptotypes__issuert__size >= 0
+     +++  New H21:  basictypes__unsigned32t__base__first <= 0
+     +++  New H22:  basictypes__unsigned32t__base__last >= 4294967295
+     +++  New H23:  cryptotypes__issueridt__base__first <= 0
+     +++  New H24:  cryptotypes__issueridt__base__last >= 4294967295
+

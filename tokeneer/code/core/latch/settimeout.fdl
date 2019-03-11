@@ -1,0 +1,33 @@
+           {*******************************************************}
+                               {FDL Declarations}
+                              {Examiner GPL 2011}
+             {Copyright (C) 2011 Altran Praxis Limited, Bath, U.K.}
+           {*******************************************************}
+
+
+                        {DATE : 05-SEP-2011 15:33:10.43}
+
+                         {procedure Latch.SetTimeout}
+
+
+title procedure settimeout;
+
+  function round__(real) : integer;
+  type clock__timet = pending;
+  type t = (locked, unlocked);
+  type statetype = record
+        latchtimeout : clock__timet;
+        currentlatch : t
+     end;
+  const t__base__first : t = pending; 
+  const t__base__last : t = pending; 
+  const t__first : t = pending; 
+  const t__last : t = pending; 
+  const t__size : integer = pending; 
+  var state : statetype;
+  var time : clock__timet;
+  var currentlatch : t;
+  var latchtimeout : clock__timet;
+  function prf_latchtimeout(statetype) : clock__timet;
+
+end;
